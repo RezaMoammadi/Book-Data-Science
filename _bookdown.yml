@@ -5,3 +5,19 @@ delete_merged_file: true
 language:
   ui:
     chapter_name: "Chapter "
+rmd_files: [
+    "index.Rmd", 
+    "Introduction.Rmd",
+    "Intro-R.Rmd", 
+    "data-preparation.Rmd",
+    "EDA.Rmd",
+    "hypothesis.Rmd",
+    "modeling.Rmd",
+    "regression.Rmd",
+    "evaluation.Rmd",
+    "tree.Rmd",
+    "knn.Rmd",
+    "bayes.Rmd",
+    "clustering.Rmd",
+    "nn.Rmd"
+]

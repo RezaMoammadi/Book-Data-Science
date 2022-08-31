@@ -1,0 +1,4 @@
+# The Basics for R
+
+*R* is a cross-platform, zero-cost statistical programming environment that offers a powerful and easy-to-learn set of statistical/machine learning tools to assist you with finding the insights in your own data. Here we cover the fundamental skills for the statistical programming language *R*.
+
