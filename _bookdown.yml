@@ -9,15 +9,15 @@ rmd_files: [
     "index.Rmd", 
     "Introduction.Rmd",
     "Intro-R.Rmd", 
-    "data-preparation.Rmd",
+    "data-cleaning.Rmd",
     "EDA.Rmd",
     "hypothesis.Rmd",
     "modeling.Rmd",
-    "regression.Rmd",
-    "evaluation.Rmd",
-    "tree.Rmd",
     "knn.Rmd",
+    "evaluation.Rmd",
     "bayes.Rmd",
-    "clustering.Rmd",
-    "nn.Rmd"
+    "regression.Rmd",
+    "tree.Rmd",
+    "nn.Rmd",
+    "clustering.Rmd"
 ]

@@ -1,0 +1,43 @@
+\contentsline {chapter}{Welcome}{5}{chapter*.2}%
+\contentsline {section}{What you will learn}{5}{section*.3}%
+\contentsline {section}{How the book is structured}{6}{section*.4}%
+\contentsline {section}{Prerequisites}{6}{section*.5}%
+\contentsline {chapter}{\numberline {1}Introduction to Data Science}{7}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Data science methodology}{7}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Business Understanding}{7}{subsection.1.1.1}%
+\contentsline {subsection}{\numberline {1.1.2}Data Preparation}{8}{subsection.1.1.2}%
+\contentsline {subsection}{\numberline {1.1.3}Exploratory Data Analysis}{9}{subsection.1.1.3}%
+\contentsline {subsection}{\numberline {1.1.4}Data Preparation}{9}{subsection.1.1.4}%
+\contentsline {subsection}{\numberline {1.1.5}Modeling}{9}{subsection.1.1.5}%
+\contentsline {subsection}{\numberline {1.1.6}Evaluation}{9}{subsection.1.1.6}%
+\contentsline {subsection}{\numberline {1.1.7}Deployment}{10}{subsection.1.1.7}%
+\contentsline {chapter}{\numberline {2}The Basics for R}{11}{chapter.2}%
+\contentsline {section}{\numberline {2.1}R}{11}{section.2.1}%
+\contentsline {section}{\numberline {2.2}RStudio}{11}{section.2.2}%
+\contentsline {section}{\numberline {2.3}The liver package}{12}{section.2.3}%
+\contentsline {chapter}{\numberline {3}Data Cleaning}{13}{chapter.3}%
+\contentsline {section}{\numberline {3.1}\texttt {diamonds} dataset for data cleaning}{13}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Outliers}{15}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Identify outliers by boxplot}{15}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Identify outliers by histogram}{16}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Identify outliers by scator plot}{18}{subsection.3.2.3}%
+\contentsline {section}{\numberline {3.3}Handling Outliers}{19}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Missing Values}{20}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Data Transformation}{21}{section.3.5}%
+\contentsline {section}{\numberline {3.6}How to Reexpress Categorical Field Values}{21}{section.3.6}%
+\contentsline {chapter}{\numberline {4}Exploratory Data Analysis}{23}{chapter.4}%
+\contentsline {chapter}{\numberline {5}Hypothesis Testing}{25}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Preparing to Model the Data}{27}{chapter.6}%
+\contentsline {chapter}{\numberline {7}Regression Modelling}{29}{chapter.7}%
+\contentsline {chapter}{\numberline {8}Model Evaluation}{31}{chapter.8}%
+\contentsline {chapter}{\numberline {9}Decision Trees and Random Forests}{33}{chapter.9}%
+\contentsline {chapter}{\numberline {10}K-Nearest Neighbors}{35}{chapter.10}%
+\contentsline {chapter}{\numberline {11}Naive Bayes Classifier}{37}{chapter.11}%
+\contentsline {section}{\numberline {11.1}Bayes Theorem}{38}{section.11.1}%
+\contentsline {section}{\numberline {11.2}Why Naive?}{39}{section.11.2}%
+\contentsline {section}{\numberline {11.3}The Laplace Estimator}{39}{section.11.3}%
+\contentsline {section}{\numberline {11.4}Naive Bayes with Numeric features}{39}{section.11.4}%
+\contentsline {section}{\numberline {11.5}Case study}{39}{section.11.5}%
+\contentsline {section}{\numberline {11.6}Exercises}{39}{section.11.6}%
+\contentsline {chapter}{\numberline {12}Cluster Analysis}{41}{chapter.12}%
+\contentsline {chapter}{\numberline {13}Neural Networks}{43}{chapter.13}%

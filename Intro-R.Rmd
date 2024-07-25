@@ -1,4 +1,54 @@
 # The Basics for R
 
+Before you can ask your computer to save some numbers, you’ll need to know how to talk to it. That’s where R and RStudio come in. RStudio gives you a way to talk to your computer. R gives you a language to speak in. 
+
 *R* is a cross-platform, zero-cost statistical programming environment that offers a powerful and easy-to-learn set of statistical/machine learning tools to assist you with finding the insights in your own data. Here we cover the fundamental skills for the statistical programming language *R*.
+
+## R
+
+To download R, go to CRAN, the comprehensive R archive network. CRAN is composed of a set of mirror servers distributed around the world and is used to distribute R and R packages. Don’t try and pick a mirror that’s close to you: instead use the cloud mirror, <https://cloud.r-project.org>, which automatically figures it out for you.
+
+A new major version of R comes out once a year, and there are 2-3 minor releases each year. It’s a good idea to update regularly. Upgrading can be a bit of a hassle, especially for major versions, which require you to re-install all your packages, but putting it off only makes it worse.
+
+## RStudio
+
+RStudio is an integrated development environment, or IDE, for R programming. Download and install it from <http://www.rstudio.com/download>. RStudio is updated a couple of times a year. When a new version is available, RStudio will let you know. It’s a good idea to upgrade regularly so you can take advantage of the latest and greatest features. For this book, make sure you have at least RStudio 1.0.0.
+
+When you start RStudio, you’ll see two key regions in the interface:
+
+
+For now, all you need to know is that you type R code in the console pane, and press enter to run it. You’ll learn more as we go along!
+
+## The liver package
+
+You'll also need to install some R packages.
+An R **package** is a collection of functions, data, and documentation that extends the capabilities of base R.
+Using packages is key to the successful use of R.
+The majority of the packages that you will learn in this book are part of the so-called tidyverse.
+All packages in the tidyverse share a common philosophy of data and R programming, and are designed to work together naturally.
+
+You can install the complete tidyverse with a single line of code:
+
+```{r eval = FALSE}
+install.packages( "liver" )
+```
+
+On your own computer, type that line of code in the console, and then press enter to run it.
+R will download the packages from CRAN and install them on to your computer.
+If you have problems installing, make sure that you are connected to the internet, and that <https://cloud.r-project.org/> isn't blocked by your firewall or proxy.
+
+You will not be able to use the functions, objects, or help files in a package until you load it with `library()`.
+Once you have installed a package, you can load it using the `library()` function:
+
+```{r message=FALSE}
+library( liver )
+```
+
+This tells you that tidyverse is loading eight packages: ggplot2, tibble, tidyr, readr, purrr, dplyr, stringr, and forcats packages.
+These are considered to be the **core** of the tidyverse because you'll use them in almost every analysis.
+
+
+
+
+
 

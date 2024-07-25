@@ -1,3 +1,0 @@
-# Data Preparation
-
-About data understanding and data preparation. ....

@@ -1,3 +1,64 @@
-# Naive Bayes
+# Naive Bayes Classifier
 
-About Naive Bayes algorithm ... 
+Naive Bayes classifiers constitute a set of probabilistic classifiers that apply Bayes' theorem with a naive presumption of feature independence. These classifiers are exceptionally swift during both training and prediction phases, offering scalability and interpretability. Despite their simplified assumptions, they often perform admirably on intricate real-world problems. They particularly excel in text classification tasks like spam filtering and sentiment analysis, where their naive assumptions generally apply. Naive Bayes also represents one of the earliest generative models, predating ChatGPT, which learn the distribution of inputs in each class. The Naive Bayes Algorithm is leveraged to solve various practical problems such as:
+
+* Text classification: The Naive Bayes Algorithm serves as a probabilistic learning method in text classification, being one of the most reputable algorithms for classifying documents into one or multiple categories.
+
+* Sentiment analysis: This algorithm is utilized for sentiment analysis, to decipher whether the sentiment is positive, neutral, or negative.
+
+* Recommendation system: By employing the Naive Bayes Algorithm, one can construct hybrid recommendation systems through collaborative filtering, predicting if a user will appreciate a certain resource.
+
+* Spam filtering: The process closely resembles text classification, with its primary purpose being to assist in identifying whether an incoming email is spam.
+
+* Medical diagnosis: The algorithm is also employed in medical diagnosis, aiding in determining a patient's risk factors for specific illnesses.
+
+* Weather prediction: The Naive Bayes Algorithm can be used to anticipate weather conditions.
+
+* Face recognition: This algorithm can facilitate face identification.
+
+The Naive Bayes algorithm, also recognized as a probabilistic classifier, utilizes Bayes Theorem [^1] to discern the probability of an object, its characteristics, and its classification. This theorem was conceived by the 18th-century mathematician Thomas Bayes, who set forth fundamental principles for defining the probability of events and how these probabilities should be revised upon receiving new data. Bayes Theorem refines our understanding of data and its parameters by integrating our pre-existing knowledge (termed as the prior distribution) with fresh information derived from observed data. This fusion results in an updated understanding of the parameters (termed as the posterior distribution). These principles serve as the bedrock for what is presently referred to as **Bayesian methods**.
+
+## Bayes Theorem
+
+Bayes’ theorem (or Bayes’ rule) is a probabilistic principle with the capability of computing the conditional probability of an event, based on prior knowledge of conditions that are related to that event. Mathematically, the theorem states that for any events A and B:
+\[
+P(A|B) = P(A) \times \frac{P(B|A)}{P(B)}
+\]
+
+Where:
+
+* $P(A|B)$ is the *posterior* probability of event A given that event B has occurred; Also refers to the conditional probability of event A given event B.
+
+* $P(B|A)$ is the *likelihood*, the probability of event B given that event A has occurred; Also refers to the conditional probability of event B given event A.
+
+* $P(A)$ is the *prior* probability of event A occurring and refers to the probability of event A.
+
+* $P(B)$ is the *prior* probability of event B occurring and refers to the probability of event B. 
+
+Probability provides a structured and rigorous mathematical approach to reason about events whose outcomes are uncertain. Conditional probability serves as a conduit to comprehend the relationship between various uncertain events. It offers a means to understand how the probability of a certain event can fluctuate under diverse conditions. 
+
+
+
+## Why Naive?
+
+To do ..
+
+## The Laplace Estimator
+
+To do ...
+
+## Naive Bayes with Numeric features
+
+To do ...
+
+## Case study
+
+To do ...
+
+## Exercises
+
+To do ..
+
+
+[^1]: Thomas Bayes, *Essay Toward Solving a Problem in the Doctrine of Changes*, Philosophical Transactions of the Royal Society of London, 1793
+
