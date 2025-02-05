@@ -1,4 +1,4 @@
---- 
+---
 title: "Uncovering Data Science with R"
 authors: "Reza Mohammadi and Kevin Burke"
 date: "`r Sys.Date()`"
@@ -9,49 +9,142 @@ url: https://uncovering-data-science.netlify.app
 cover-image: "images/cover.jpg"
 biblio-style: apalike
 csl: chicago-fullnote-bibliography.csl
+editor_options: 
+  markdown: 
+    wrap: sentence
 ---
 
-# Welcome {-}
+```{r, echo = F}
+# Possible name for book:
+#    Mastering Machine Learning: A Hands-On Approach with R
+#.   From Data to Decisions: A Guide to Machine Learning with R
+#    Data Science Foundations and Machine Learning Using R
+#    Data Science and Machine Learning with R
+# link for book: https://uncovering-data-science.netlify.app
 
-This is the online home of *Uncovering Data Science with R*, a book for beginners and non-beginners alike, with no previous analytics or programming experience. 
+#<a href="https://CRAN.R-project.org/package=liver"><img src="images/logo.png" alt="Book cover" width="250" height="250" align="right" style="margin: 0 1em 0 1em"/></a>
 
-<a href="https://uncovering-data-science.netlify.app"><img src="images/cover.jpg" width="250" height="375" alt="The geocompr book cover" align="right" style="margin: 0 1em 0 1em" /></a>
 
-Inspired by the Free and Open Source Software movement, the code and prose underlying this book are open, ensuring that the content is reproducible, transparent, and accessible. Hosting the source code on [CRAN](https://cran.r-project.org/web/packages/liver/index.html) allows anyone to interact with the project by opening issues or contributing new content and typo fixes for the benefit of everyone. The code and R codes are available in **R** package named **liver** at https://cran.r-project.org/web/packages/liver/index.html.
-
-Following an ancient Persian idiom, the title of this book is “Eating the Liver of Data Science” which could be interpreted as “getting intimately close with data science”. The purpose of the book is to introduce non-experts (business analysts etc.) to the world of data science. The aim is therefore that the content is easily accessible to individuals who may not necessarily have a strong background in either mathematics or programming. We will largely avoid deep technical development, focusing primarily on key concepts and applications. However, we will include references to more advanced material for the interested reader, and some short “starred” sections which will include a small amount of mathematical detail which can be skipped by less advanced readers.
-
-## What you will learn {-}
-
-The main goals of this book is to introduce the reader to the Data Science domain by using **R** as a tool for performing data mining/analytics. **R** is a freely downloadable ^[Download it from <http://www.R-project.org>.] language and environment for statistical computing and graphics. Its capabilities and the large set of available packages make this tool an excellent alternative to the existing (and expensive!) data mining tools.
-
-Data Science uses tools and techniques to turn data into meaningful business insights.
-In this regards the Data Science Methodology is a phased, adaptive, iterative, approach within a scientific framework. 
-This is a cyclic process that undergoes a critic behaviour guiding data scientists to act accordingly. 
-
-* Business Understanding.
-* Data Preparation.
-* Exploratory Data Analysis.
-* Preparing Data to Model.
-* Modeling.
-* Evaluation.
-* Deployment.
-
-## How the book is structured {-}
-
-This book is structured around the Data Science methodology by a hands-on approach to learning using **R** software. The main spirit behind the book is "*Learning by doing it!*"
-
-## Prerequisites {-}
-
-We write this book for the general reader, with no previous analytics or programming experience. 
-In order to get the most out of this book, you should be generally numerically literate, and it’s helpful if you have some programming experience already. 
-If you’ve never programmed before and interested to learn R, you might find [Hands on Programming with R](https://rstudio-education.github.io/hopr/) by Garrett to be a useful.
-
-There are four things you need to run the code in this book: R, RStudio, and a handful of other packages. Packages are the fundamental units of reproducible R code. They include reusable functions, the documentation that describes how to use them, and sample data.
-
-```{r include=FALSE}
-# automatically create a bib database for R packages
-knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown'
-), 'packages.bib')
 ```
+
+# Preface {.unnumbered}  
+
+**Data science is transforming the way we solve problems, make decisions, and uncover insights from data.** Whether you're a beginner or an experienced professional, *Uncovering Data Science with R* provides an intuitive and practical introduction to this exciting field—no prior analytics or programming experience required.  
+
+This book is a work in progress, and we welcome feedback from readers. If you have any comments, suggestions, or corrections, please feel free to contact us at [Contact Us](mailto:a.mohammadi@uva.nl).  
+
+## Why This Book? {.unnumbered}  
+
+Data science is a rapidly evolving field that leverages computational tools and techniques to transform raw data into actionable insights. In this book, we introduce the fundamental skills needed to work with **R**, a powerful and freely available statistical programming language widely used for data analysis, visualization, and machine learning.  
+
+Unlike many other books on data science, our focus is on accessibility. We aim to provide an intuitive and practical introduction, making **R** and data science concepts understandable for those with little or no technical background. Our hands-on approach ensures that you will not only learn theoretical concepts but also gain experience applying them to real-world datasets.  
+
+Compared to commercial software like SAS or SPSS, **R** provides a free, open-source, and highly extensible platform for statistical computing and machine learning. Its rich ecosystem of packages makes it an excellent alternative to proprietary data mining tools.  
+
+Inspired by the Free and Open Source Software (FOSS) movement, the content of this book is open and transparent, ensuring reproducibility. The code, datasets, and materials are hosted on [CRAN](https://cran.r-project.org/web/packages/liver/index.html) and are accessible via the **liver** package (<https://CRAN.R-project.org/package=liver>), allowing readers to engage with the book interactively.  
+
+## Who Should Read This Book? {.unnumbered}  
+
+This book is for anyone interested in learning about data science, particularly those new to the field. It is designed for:  
+
+- Business professionals who want to leverage data for decision-making,  
+- Students and researchers looking to apply data analysis in their work,  
+- Beginners with no prior programming experience,  
+- Anyone interested in data science and machine learning using **R**.  
+
+## What You Will Learn {.unnumbered}  
+
+The primary goal of this book is to introduce data science concepts using **R** as a tool for data analysis and machine learning. **R** is an open-source language and environment for statistical computing and graphics, offering a vast collection of packages for data mining, visualization, and modeling.  
+
+Through hands-on examples and real-world datasets, you will learn:  
+
+- The basics of **R** and how to set up your environment,  
+- The core principles of data science and the Data Science Methodology,  
+- How to clean, transform, and explore data,  
+- The fundamentals of statistical analysis, machine learning, and data visualization,  
+- How to build and evaluate machine learning models, including classification, regression, clustering, and neural networks,  
+- How to apply these techniques to real-world datasets.  
+
+## The Data Science Process {.unnumbered}  
+
+Data science follows an iterative and structured methodology for analyzing and extracting insights from data. This book follows this framework:  
+
+1. **Problem Understanding** – Defining the objective and understanding the data.  
+2. **Data Cleaning** – Preparing raw data for analysis.  
+3. **Exploratory Data Analysis (EDA)** – Identifying patterns and relationships in data.  
+4. **Preparing Data for Modeling** – Transforming data for machine learning models.  
+5. **Modeling** – Building predictive models using machine learning algorithms.  
+6. **Evaluation** – Assessing model performance using various metrics.  
+7. **Deployment** – Applying the trained model to real-world scenarios.  
+
+By the end of this book, you will have a solid understanding of these phases and be able to apply them effectively.  
+
+## How This Book Is Structured {.unnumbered}  
+
+This book is structured as a **hands-on guide**, designed to take you from beginner to practitioner in **R** and data science. The chapters follow a logical progression, starting with foundational concepts and gradually introducing more advanced techniques.  
+
+We use **real-world datasets** (see Table \@ref(tab:data-table)) throughout the book to illustrate key concepts. These datasets are available in the **liver** package and can be accessed easily. Below is a brief overview of the book’s chapters:  
+
+- **Chapter \@ref(chapter-into-R)** – Introduction to **R**, including installation and basic operations.  
+- **Chapter \@ref(chapter-intro-DS)** – Introduction to Data Science and its methodology.  
+- **Chapter \@ref(chapter-data-prep)** – Data cleaning and preprocessing techniques.  
+- **Chapter \@ref(chapter-EDA)** – Exploratory Data Analysis (EDA) using visualization and summary statistics.  
+- **Chapter \@ref(chapter-statistics)** – Basics of statistical analysis, including descriptive statistics and hypothesis testing.  
+- **Chapter \@ref(chapter-modeling)** – Overview of machine learning models.  
+- **Chapter \@ref(chapter-knn)** – k-Nearest Neighbors (k-NN) algorithm.  
+- **Chapter \@ref(chapter-evaluation)** – Model evaluation metrics and techniques.  
+- **Chapter \@ref(chapter-bayes)** – Naïve Bayes classifier for probabilistic modeling.  
+- **Chapter \@ref(chapter-regression)** – Linear regression for predictive modeling.  
+- **Chapter \@ref(chapter-tree)** – Decision trees and Random Forests.  
+- **Chapter \@ref(chapter-nn)** – Neural networks and deep learning basics.  
+- **Chapter \@ref(chapter-cluster)** – Clustering techniques, including k-means.  
+
+At the end of each chapter, you will find **practical exercises and labs** to reinforce your learning. These exercises use real-world datasets and provide step-by-step guidance to ensure hands-on experience.  
+
+## How to Use This Book {.unnumbered}  
+
+This book is designed for **both self-study and classroom use**. You can read it cover to cover or jump to the chapters that interest you most. Each chapter builds on the previous ones, so beginners are encouraged to follow the sequence for a smooth learning experience.  
+
+To get the most out of this book:  
+
+- **Run the code examples** – All code snippets are designed to be executed interactively in **R**.  
+- **Complete the exercises** – Practical exercises reinforce key concepts and improve problem-solving skills.  
+- **Modify and experiment** – Try changing the code to explore different scenarios.  
+- **Use it as a reference** – Once you're familiar with the basics, use this book as a guide for working with real-world data.  
+
+This book has also been used in **data science courses** at the University of Amsterdam. It can serve as a textbook for similar courses or as a supplementary resource for more advanced analytics training.  
+
+## Datasets Used in This Book {.unnumbered}  
+
+Table \@ref(tab:data-table) lists the datasets used in this book. These real-world datasets are used to illustrate key concepts and are available in the **liver** package, which can be downloaded from CRAN.  
+
+```{r data-table, echo = FALSE, fig.align = 'center', fig.cap = "List of datasets used in this book."}
+datasets = data.frame( 
+  Name = c("churn", "bank", "adult", "risk", "marketing", "house", "diamonds", "cereal"),
+  Description = c(
+    "Customer churn dataset.", 
+    "Direct marketing data from a Portuguese bank.", 
+    "US Census data for income prediction.", 
+    "Credit risk dataset.", 
+    "Marketing campaign performance data.", 
+    "House price prediction dataset.", 
+    "Diamond pricing dataset.", 
+    "Nutritional information for 77 breakfast cereals."
+  ),
+  Chapter = c("Chapters 4, 6, 8, 10", "Chapter 7, 12", "Chapter 11", "Chapter 9", "Chapter 10", "Chapter 10", "Chapter 3", "Chapter 13")
+)
+kbl(datasets, booktabs = T, caption = "List of datasets used for case studies in different chapters. Available in the R package liver.") %>%
+kable_styling(full_width = F) %>%
+column_spec(1, bold = T, color = "black") %>%
+column_spec(2, width = "20em")
+```
+
+## Prerequisites {.unnumbered}  
+
+No prior programming experience is required, but a basic understanding of numbers and logic will be helpful. To run the code in this book, you need to install **R**, **RStudio**, and several **R** packages.  
+
+
+
+
+
+

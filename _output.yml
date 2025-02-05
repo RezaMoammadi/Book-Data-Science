@@ -4,6 +4,7 @@ bookdown::bs4_book:
     primary: "#880D1E"
   repo: https://github.com/RezaMoammadi/Book-Data-Science
 bookdown::pdf_book:
+  pandoc_args: --listings
   includes:
     in_header: preamble.tex
   latex_engine: xelatex

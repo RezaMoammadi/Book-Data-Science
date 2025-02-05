@@ -7,11 +7,11 @@ language:
     chapter_name: "Chapter "
 rmd_files: [
     "index.Rmd", 
-    "Introduction.Rmd",
     "Intro-R.Rmd", 
-    "data-cleaning.Rmd",
+    "Introduction.Rmd",
+    "data-preparation.Rmd",
     "EDA.Rmd",
-    "hypothesis.Rmd",
+    "statistics.Rmd",
     "modeling.Rmd",
     "knn.Rmd",
     "evaluation.Rmd",
