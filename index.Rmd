@@ -1,6 +1,6 @@
 ---
 title: "Uncovering Data Science with R"
-authors: "Reza Mohammadi and Kevin Burke"
+authors: "Reza Mohammadi"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book

@@ -1,6 +1,6 @@
 ---
 title: "Uncovering Data Science with R"
-authors: "Reza Mohammadi and Kevin Burke"
+authors: "Reza Mohammadi"
 date: "2025-02-06"
 site: bookdown::bookdown_site
 documentclass: book
