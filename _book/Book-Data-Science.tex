@@ -101,7 +101,7 @@
 
 \title{Uncovering Data Science with R}
 \author{}
-\date{\vspace{-2.5em}2025-02-05}
+\date{\vspace{-2.5em}2025-02-06}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -196,7 +196,7 @@ Data science follows an iterative and structured methodology for analyzing and e
 \item
   \textbf{Problem Understanding} -- Defining the objective and understanding the data.\\
 \item
-  \textbf{Data Cleaning} -- Preparing raw data for analysis.\\
+  \textbf{Data Preparation} -- Preparing raw data for analysis.\\
 \item
   \textbf{Exploratory Data Analysis (EDA)} -- Identifying patterns and relationships in data.\\
 \item
@@ -225,7 +225,7 @@ We use \textbf{real-world datasets} (see Table \ref{tab:data-table}) throughout 
 \item
   \textbf{Chapter \ref{chapter-intro-DS}} -- Introduction to Data Science and its methodology.\\
 \item
-  \textbf{Chapter \ref{chapter-data-prep}} -- Data cleaning and preprocessing techniques.\\
+  \textbf{Chapter \ref{chapter-data-prep}} -- Data preparation techniques.\\
 \item
   \textbf{Chapter \ref{chapter-EDA}} -- Exploratory Data Analysis (EDA) using visualization and summary statistics.\\
 \item
@@ -1650,7 +1650,7 @@ A \emph{data science workflow} follows a phased, adaptive approach within a scie
 \caption{The DIKW Pyramid illustrates the transformation of raw data into actionable insights, progressing from data to information, knowledge, and ultimately wisdom.}\label{fig:DIKW-Pyramid}
 \end{figure}
 
-While the specifics may vary across projects, most data science workflows follow a common structure. In this book, we adopt the \emph{Data Science Workflow} as a guiding framework for structuring data science projects. This workflow is inspired by the \emph{Cross-Industry Standard Process for Data Mining (CRISP-DM)} model, a widely recognized methodology for data-driven projects. It is a \emph{cyclic} framework that guides data scientists through the following key stages (see Figure \ref{fig:DSW}):
+While the specifics may vary across projects, most data science workflows follow a common structure. In this book, we adopt the \emph{Data Science Workflow} as a guiding framework for structuring data science projects. This workflow is inspired by the \emph{Cross-Industry Standard Process for Data Mining (CRISP-DM)} model, a widely recognized methodology for data-driven projects. It is a \emph{cyclic} framework that guides data scientists through the following key stages (see Figure \ref{fig:CRISP-DM}):
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1677,7 +1677,7 @@ While the specifics may vary across projects, most data science workflows follow
 
 }
 
-\caption{The Data Science Workflow is an iterative framework for structuring data science and machine learning projects. Inspired by the CRISP-DM model, it ensures systematic problem-solving and continuous refinement.}\label{fig:DSW}
+\caption{The Data Science Workflow is an iterative framework for structuring data science and machine learning projects. Inspired by the CRISP-DM model, it ensures systematic problem-solving and continuous refinement.}\label{fig:CRISP-DM}
 \end{figure}
 
 Because data science is inherently \emph{iterative}, these steps are often revisited multiple times within a single project. The \emph{feedback loops} between stages allow for continuous refinement---adjusting data preprocessing, modifying features, or retraining models as new insights emerge. By following a structured workflow, data scientists can ensure rigor, accuracy, and efficiency in transforming data into valuable insights.
@@ -3283,15 +3283,6 @@ Additionally, the insights from EDA can be translated into actionable recommenda
 By identifying and understanding these patterns, the company can take proactive steps to reduce churn and improve customer satisfaction, ultimately leading to a more loyal customer base.
 
 \chapter{Statistical Inference and Hypothesis Testing}\label{chapter-statistics}
-
-\begin{lstlisting}[language=R]
-library(liver)
-library(ggplot2)   
-
-data(churn) 
-data(bank)
-data(diamonds)
-\end{lstlisting}
 
 Statistical inference bridges the gap between \textbf{what we observe in a sample} and \textbf{what we want to understand about the population}. It allows us to assess whether the patterns we observed during EDA reflect true relationships in the broader population---or whether they're just the result of chance. In this chapter, we'll focus on the \textbf{practical side of statistical inference}: how to ask the right questions, apply the appropriate techniques, and use results to guide meaningful decisions.
 
