@@ -8,6 +8,7 @@ The book is written in R Markdown and built using the [bookdown](https://bookdow
 
 [Book web page](https://uncovering-data-science.netlify.app)
 
+[Book PDF version](https://github.com/RezaMoammadi/Book-Data-Science/blob/main/_book/Book-Data-Science.pdf)
 
 ### 🚀 Work in Progress  
 
