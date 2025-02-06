@@ -53,7 +53,7 @@ A *data science workflow* follows a phased, adaptive approach within a scientifi
 knitr::include_graphics("images/DIKW-Pyramid.png")  
 ```  
 
-While the specifics may vary across projects, most data science workflows follow a common structure. In this book, we adopt the *Data Science Workflow* as a guiding framework for structuring data science projects. This workflow is inspired by the *Cross-Industry Standard Process for Data Mining (CRISP-DM)* model, a widely recognized methodology for data-driven projects. It is a *cyclic* framework that guides data scientists through the following key stages (see Figure \@ref(fig:DSW)):  
+While the specifics may vary across projects, most data science workflows follow a common structure. In this book, we adopt the *Data Science Workflow* as a guiding framework for structuring data science projects. This workflow is inspired by the *Cross-Industry Standard Process for Data Mining (CRISP-DM)* model, a widely recognized methodology for data-driven projects. It is a *cyclic* framework that guides data scientists through the following key stages (see Figure \@ref(fig:CRISP-DM)):  
 
 1. **Problem Understanding** – Defining the business or research question and outlining objectives.  
 2. **Data Preparation** – Collecting, cleaning, transforming, and organizing data to ensure it is suitable for analysis. This step includes handling missing values, addressing inconsistencies, detecting outliers, and preparing features through scaling, encoding, and transformation.  
@@ -63,7 +63,7 @@ While the specifics may vary across projects, most data science workflows follow
 6. **Evaluation** – Assessing model performance using appropriate metrics and validation techniques.  
 7. **Deployment** – Integrating the model into a production environment and monitoring its performance over time.  
 
-```{r DSW, echo = FALSE, fig.show='hold', out.width="60%", fig.align = 'center', fig.cap = "The Data Science Workflow is an iterative framework for structuring data science and machine learning projects. Inspired by the CRISP-DM model, it ensures systematic problem-solving and continuous refinement."}  
+```{r CRISP-DM, echo = FALSE, fig.show='hold', out.width="60%", fig.align = 'center', fig.cap = "The Data Science Workflow is an iterative framework for structuring data science and machine learning projects. Inspired by the CRISP-DM model, it ensures systematic problem-solving and continuous refinement."}  
 knitr::include_graphics("images/DSW.png")  
 ```  
 
