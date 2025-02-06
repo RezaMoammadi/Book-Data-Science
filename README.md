@@ -6,7 +6,7 @@ Welcome to the *Uncovering Data Science with R* repository! This repository cont
 
 The book is written in R Markdown and built using the [bookdown](https://bookdown.org) package. It is hosted on GitHub Pages and can be accessed here: [GitHub Repository](https://github.com/RezaMoammadi/Book-Data-Science).  
 
-[Book web page](https://uncovering-data-science.netlify.app/)
+[Book web page](https://uncovering-data-science.netlify.app)
 
 
 ### 🚀 Work in Progress  

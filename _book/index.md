@@ -59,7 +59,7 @@ Through hands-on examples and real-world datasets, you will learn:
 Data science follows an iterative and structured methodology for analyzing and extracting insights from data. This book follows this framework:  
 
 1. **Problem Understanding** – Defining the objective and understanding the data.  
-2. **Data Cleaning** – Preparing raw data for analysis.  
+2. **Data Preparation** – Preparing raw data for analysis.  
 3. **Exploratory Data Analysis (EDA)** – Identifying patterns and relationships in data.  
 4. **Preparing Data for Modeling** – Transforming data for machine learning models.  
 5. **Modeling** – Building predictive models using machine learning algorithms.  
@@ -76,7 +76,7 @@ We use **real-world datasets** (see Table \@ref(tab:data-table)) throughout the 
 
 - **Chapter \@ref(chapter-into-R)** – Introduction to **R**, including installation and basic operations.  
 - **Chapter \@ref(chapter-intro-DS)** – Introduction to Data Science and its methodology.  
-- **Chapter \@ref(chapter-data-prep)** – Data cleaning and preprocessing techniques.  
+- **Chapter \@ref(chapter-data-prep)** – Data preparation techniques.  
 - **Chapter \@ref(chapter-EDA)** – Exploratory Data Analysis (EDA) using visualization and summary statistics.  
 - **Chapter \@ref(chapter-statistics)** – Basics of statistical analysis, including descriptive statistics and hypothesis testing.  
 - **Chapter \@ref(chapter-modeling)** – Overview of machine learning models.  
