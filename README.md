@@ -1,28 +1,18 @@
-# Book-Data-Science
+## Uncovering Data Science with R  
 
-First open "Book-Data-Science.Rproj" to start. 
-In the top-right tool-bar choose "Build" the "Build Book" with option "bookdown::bs4_book" to create HTML format. 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/8efdea24-88be-4551-883b-edef5b9dd329/deploy-status)](https://app.netlify.com/sites/uncovering-data-science/deploys)  
 
-useful links:
+Welcome to the *Uncovering Data Science with R* repository! This repository contains the source code for the book [Data Science with R](https://uncovering-data-science.netlify.app/), a collection of notes, tutorials, and practical examples for learning *data science using R*.  
 
-https://bookdown.org/yihui/bookdown/
+The book is written in R Markdown and built using the [bookdown](https://bookdown.org) package. It is hosted on GitHub Pages and can be accessed here: [GitHub Repository](https://github.com/RezaMoammadi/Book-Data-Science).  
 
-citation: https://bookdown.org/yihui/bookdown/citations.html
+### 🚀 Work in Progress  
 
-- in the file book.bib, add the citation key and the reference and use [@key], @key, or [a note, @key]
-- For cross references, use \@ref(label) for sub/section don't use e.g ":" in labels
+This book is continuously evolving! If you find any errors, typos, or areas for improvement, please consider:  
 
-More info:
+- Opening an issue on GitHub  
+- Submitting a pull request with suggested changes  
+- Contacting me directly at [a.mohammadi@uva.nl](mailto:a.mohammadi@uva.nl)  
 
-- "_common.R" is a file that contains the common functions used in the book. 
-- Order of the chapters in the book are in "_bookdown.yml" file.
-- "_output.yml" e.g. primary color, font, size, etc. are in this file.
+Your feedback and contributions are greatly appreciated!  
 
- - - - 
- 
- For reference to examples use \@ref(exm:label)
-
-
-----
-
-To check the below link: https://github.com/daviddalpiaz/appliedstats/blob/master/README.md
