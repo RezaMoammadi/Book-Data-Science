@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 7 Classification using k-Nearest Neighbors | Uncovering Data Science with R</title>
+<meta name="generator" content="bookdown 0.37 with bs4_book()">
+<meta property="og:title" content="Chapter 7 Classification using k-Nearest Neighbors | Uncovering Data Science with R">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://uncovering-data-science.netlify.app/chapter-knn.html">
+<meta property="og:image" content="https://uncovering-data-science.netlify.app/images/cover.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 7 Classification using k-Nearest Neighbors | Uncovering Data Science with R">
+<meta name="twitter:image" content="https://uncovering-data-science.netlify.app/images/cover.jpg">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+          margin-bottom: 0em;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="The k-Nearest Neighbors (kNN) algorithm is a simple yet effective machine learning technique, widely used for solving classification problems. Its intuitive approach and ease of implementation...">
+<meta property="og:description" content="The k-Nearest Neighbors (kNN) algorithm is a simple yet effective machine learning technique, widely used for solving classification problems. Its intuitive approach and ease of implementation...">
+<meta name="twitter:description" content="The k-Nearest Neighbors (kNN) algorithm is a simple yet effective machine learning technique, widely used for solving classification problems. Its intuitive approach and ease of implementation...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Uncovering Data Science with R</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li><a class="" href="chapter-into-R.html"><span class="header-section-number">1</span> The Basics for R</a></li>
+<li><a class="" href="chapter-intro-DS.html"><span class="header-section-number">2</span> Introduction to Data Science</a></li>
+<li><a class="" href="chapter-data-prep.html"><span class="header-section-number">3</span> Data Preparation</a></li>
+<li><a class="" href="chapter-EDA.html"><span class="header-section-number">4</span> Exploratory Data Analysis</a></li>
+<li><a class="" href="chapter-statistics.html"><span class="header-section-number">5</span> Statistical Inference and Hypothesis Testing</a></li>
+<li><a class="" href="chapter-modeling.html"><span class="header-section-number">6</span> Preparing Data for Modeling</a></li>
+<li><a class="active" href="chapter-knn.html"><span class="header-section-number">7</span> Classification using k-Nearest Neighbors</a></li>
+<li><a class="" href="chapter-evaluation.html"><span class="header-section-number">8</span> Model Evaluation</a></li>
+<li><a class="" href="chapter-bayes.html"><span class="header-section-number">9</span> Naive Bayes Classifier</a></li>
+<li><a class="" href="chapter-regression.html"><span class="header-section-number">10</span> Regression Modeling: From Basics to Advanced Techniques</a></li>
+<li><a class="" href="chapter-tree.html"><span class="header-section-number">11</span> Decision Trees and Random Forests</a></li>
+<li><a class="" href="chapter-nn.html"><span class="header-section-number">12</span> Neural Networks: The Building Blocks of Artificial Intelligence</a></li>
+<li><a class="" href="chapter-cluster.html"><span class="header-section-number">13</span> Clustering</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/RezaMoammadi/Book-Data-Science">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="chapter-knn" class="section level1" number="7">
+<h1>
+<span class="header-section-number">7</span> Classification using k-Nearest Neighbors<a class="anchor" aria-label="anchor" href="#chapter-knn"><i class="fas fa-link"></i></a>
+</h1>
+<p>The k-Nearest Neighbors (kNN) algorithm is a simple yet effective machine learning technique, widely used for solving classification problems. Its intuitive approach and ease of implementation make it a go-to choice for beginners and a reliable tool for experienced practitioners. In this chapter, we will delve into the details of the kNN algorithm, demonstrate its implementation in R, and discuss its practical applications. But before we focus on kNN, it’s essential to revisit the fundamental concept of classification, one of the cornerstone tasks in machine learning.</p>
+<div id="classification" class="section level2" number="7.1">
+<h2>
+<span class="header-section-number">7.1</span> Classification<a class="anchor" aria-label="anchor" href="#classification"><i class="fas fa-link"></i></a>
+</h2>
+<p>Have you ever wondered how your email app effortlessly filters spam, how your streaming service seems to know exactly what you want to watch next, or how banks detect fraudulent credit card transactions in real-time? These seemingly magical predictions are made possible by <strong>classification</strong>, a fundamental task in machine learning.</p>
+<p>At its core, classification involves assigning a label or category to an observation based on its features. For example, given customer data, classification can predict whether they are likely to churn or stay loyal. Unlike regression, which predicts continuous numerical values (e.g., house prices), classification deals with discrete outcomes. The target variable, often called the <strong>class</strong> or <strong>label</strong>, can either be:</p>
+<ul>
+<li>
+<strong>Binary</strong>: Two possible categories (e.g., spam vs. not spam).<br>
+</li>
+<li>
+<strong>Multi-class</strong>: More than two categories (e.g., car, bicycle, or pedestrian in image recognition).</li>
+</ul>
+<p>From diagnosing diseases to identifying fraudulent activities, classification is a versatile tool used across countless domains to solve practical problems.</p>
+<div id="where-is-classification-used" class="section level3 unnumbered">
+<h3>Where Is Classification Used?<a class="anchor" aria-label="anchor" href="#where-is-classification-used"><i class="fas fa-link"></i></a>
+</h3>
+<p>Classification algorithms power many everyday applications and cutting-edge technologies. Here are some examples:<br>
+- <strong>Email filtering</strong>: Sorting spam from non-spam messages.<br>
+- <strong>Fraud detection</strong>: Identifying suspicious credit card transactions.<br>
+- <strong>Customer retention</strong>: Predicting whether a customer will churn.<br>
+- <strong>Medical diagnosis</strong>: Diagnosing diseases based on patient records.<br>
+- <strong>Object recognition</strong>: Detecting pedestrians and vehicles in self-driving cars.<br>
+- <strong>Recommendation systems</strong>: Suggesting movies, songs, or products based on user preferences.</p>
+<p>Every time you interact with technology that “predicts” something for you, chances are, a classification model is working behind the scenes.</p>
+</div>
+<div id="how-does-classification-work" class="section level3 unnumbered">
+<h3>How Does Classification Work?<a class="anchor" aria-label="anchor" href="#how-does-classification-work"><i class="fas fa-link"></i></a>
+</h3>
+<p>Classification involves two critical phases:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Training Phase</strong>: The algorithm learns patterns from a labeled dataset, which contains both predictor variables (features) and target class labels. For instance, in a fraud detection system, the algorithm might learn that transactions involving unusually high amounts and originating from foreign locations are more likely to be fraudulent.<br>
+</li>
+<li>
+<strong>Prediction Phase</strong>: Once the model is trained, it applies these learned patterns to classify new, unseen data. For example, given a new transaction, the model predicts whether it is fraudulent or legitimate.</li>
+</ol>
+<p>A good classification model does more than just memorize the training data—it <strong>generalizes</strong> well, meaning it performs accurately on new, unseen data. For example, a model trained on historical medical data should be able to correctly diagnose a new patient it has never seen before.</p>
+</div>
+<div id="which-classification-algorithm-should-you-use" class="section level3 unnumbered">
+<h3>Which Classification Algorithm Should You Use?<a class="anchor" aria-label="anchor" href="#which-classification-algorithm-should-you-use"><i class="fas fa-link"></i></a>
+</h3>
+<p>Different classification algorithms are designed for different kinds of problems and datasets. Some commonly used algorithms include:<br>
+- <strong>k-Nearest Neighbors (kNN)</strong>: A simple, distance-based algorithm (covered in this chapter).<br>
+- <strong>Logistic Regression</strong>: Popular for binary classification tasks, such as predicting customer churn.<br>
+- <strong>Decision Trees and Random Forests</strong>: Versatile, interpretable methods for complex problems.<br>
+- <strong>Naive Bayes</strong>: Particularly useful for text classification, like spam filtering.<br>
+- <strong>Neural Networks</strong>: Effective for handling high-dimensional and complex data, such as images or natural language.</p>
+<p>The choice of algorithm depends on factors like the dataset size, feature relationships, and the desired trade-off between interpretability and performance. For example, if you’re working with a small dataset and need an easy-to-interpret solution, kNN or Decision Trees might be ideal. On the other hand, if you’re analyzing high-dimensional data like images, Neural Networks could be more suitable.</p>
+<p>To see classification in action, imagine a <strong>bank dataset</strong> where the goal is to predict whether a customer will make a deposit (<code>deposit = yes</code>) or not (<code>deposit = no</code>). The features might include customer details like <code>age</code>, <code>education</code>, <code>job</code>, and <code>marital status</code>. By training a classification model on this data, the bank can identify and target potential customers who are likely to invest, improving their marketing strategy.</p>
+</div>
+<div id="why-is-classification-important" class="section level3 unnumbered">
+<h3>Why Is Classification Important?<a class="anchor" aria-label="anchor" href="#why-is-classification-important"><i class="fas fa-link"></i></a>
+</h3>
+<p>Classification forms the backbone of countless machine learning applications that drive smarter decisions and actionable insights in industries like finance, healthcare, retail, and technology. Understanding how it works is a critical step in mastering machine learning and applying it to solve real-world problems.</p>
+<p>In the rest of this chapter, we’ll explore the <strong>k-Nearest Neighbors (kNN)</strong> algorithm, a straightforward yet powerful method for classification. Its simplicity and intuitive nature make it an excellent choice for beginners and a foundational building block for more advanced algorithms. Let’s dive in!</p>
+</div>
+</div>
+<div id="how-k-nearest-neighbors-works" class="section level2" number="7.2">
+<h2>
+<span class="header-section-number">7.2</span> How k-Nearest Neighbors Works<a class="anchor" aria-label="anchor" href="#how-k-nearest-neighbors-works"><i class="fas fa-link"></i></a>
+</h2>
+<p>Have you ever tried to make a decision by asking a few trusted friends for their advice? The <strong>k-Nearest Neighbors (kNN)</strong> algorithm works in a similar way—it “asks” the nearest data points in its neighborhood to determine the category of a new observation. This simple yet powerful idea makes kNN one of the most intuitive methods in machine learning.</p>
+<p>Unlike many algorithms that require a complex training phase, kNN is a <strong>lazy learning</strong> or <strong>instance-based</strong> method. It doesn’t build an explicit model during training; instead, it stores the entire training dataset and makes predictions on-the-fly by finding the nearest neighbors of a given observation. The parameter <span class="math inline">\(k\)</span> determines how many neighbors to consider, and the majority class among these neighbors becomes the prediction.</p>
+<div id="how-does-knn-classify-a-new-observation" class="section level3 unnumbered">
+<h3>How Does kNN Classify a New Observation?<a class="anchor" aria-label="anchor" href="#how-does-knn-classify-a-new-observation"><i class="fas fa-link"></i></a>
+</h3>
+<p>When a new observation needs to be classified, kNN calculates its <strong>distance</strong> to every data point in the training set using a specified distance metric, such as Euclidean distance. The algorithm identifies the <span class="math inline">\(k\)</span>-nearest neighbors and predicts the class based on a <strong>majority vote</strong> among these neighbors.</p>
+<p>To better understand how this works, let’s look at Figure <a href="chapter-knn.html#fig:knn-image">7.1</a>, which illustrates a simple example with two classes: <span style="color: red;">Class A (red circles)</span> and <span style="color: blue;">Class B (blue squares)</span>.</p>
+<p>A new data point, represented by a <strong>dark star</strong>, needs to be classified. The figure demonstrates the predictions for two different values of <span class="math inline">\(k\)</span>:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>When <span class="math inline">\(k = 3\)</span></strong>: The algorithm looks at the 3 closest neighbors to the dark star—two blue squares and one red circle. Since the majority of these neighbors belong to <strong>Class B (blue squares)</strong>, the new point is classified as Class B.<br>
+</li>
+<li>
+<strong>When <span class="math inline">\(k = 6\)</span></strong>: The algorithm now considers a larger neighborhood of 6 neighbors. In this case, four red circles and two blue squares are the nearest neighbors. With the majority vote shifting to <strong>Class A (red circles)</strong>, the new point is classified as Class A.</li>
+</ol>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:knn-image"></span>
+<img src="images/knn.png" alt="A two-dimensional toy dataset with two classes (Class A and Class B) and a new data point (dark star), illustrating the k-Nearest Neighbors algorithm with k = 3 and k = 6." width="75%"><p class="caption">
+Figure 7.1: A two-dimensional toy dataset with two classes (Class A and Class B) and a new data point (dark star), illustrating the k-Nearest Neighbors algorithm with k = 3 and k = 6.
+</p>
+</div>
+<p><strong>Key Takeaway from the Figure:</strong></p>
+<ul>
+<li>Increasing <span class="math inline">\(k\)</span> smooths predictions by incorporating more neighbors into the decision-making process. However, this may lead to less sensitivity to local patterns.<br>
+</li>
+<li>In this example, when <span class="math inline">\(k = 6\)</span>, the larger neighborhood includes more red circles, shifting the majority class to Class A. This demonstrates how majority voting in larger neighborhoods can significantly affect the outcome.</li>
+</ul>
+</div>
+<div id="strengths-and-limitations-of-knn" class="section level3 unnumbered">
+<h3>Strengths and Limitations of kNN<a class="anchor" aria-label="anchor" href="#strengths-and-limitations-of-knn"><i class="fas fa-link"></i></a>
+</h3>
+<p>The simplicity of kNN makes it an excellent starting point for understanding classification. By relying only on distance metrics and majority voting, it avoids the complexity of training explicit models. However, this simplicity comes with trade-offs:</p>
+<ul>
+<li>
+<strong>Strengths</strong>:
+<ul>
+<li>Easy to understand and implement.<br>
+</li>
+<li>Effective for small datasets with clear patterns.</li>
+</ul>
+</li>
+<li>
+<strong>Limitations</strong>:
+<ul>
+<li>Sensitive to irrelevant or noisy features, as distance calculations may become less meaningful.<br>
+</li>
+<li>Computationally expensive for large datasets, since the algorithm must compute distances for all training points during prediction.<br>
+</li>
+<li>Requires careful choice of <span class="math inline">\(k\)</span> to balance sensitivity to local patterns and robustness to noise.</li>
+</ul>
+</li>
+</ul>
+</div>
+<div id="a-practical-example-of-knn-in-action" class="section level3 unnumbered">
+<h3>A Practical Example of kNN in Action<a class="anchor" aria-label="anchor" href="#a-practical-example-of-knn-in-action"><i class="fas fa-link"></i></a>
+</h3>
+<p>To further illustrate kNN, consider a toy simulated example from a real-world scenario involving drug prescription classification. A dataset of 200 patients includes their <strong>age</strong>, <strong>sodium-to-potassium (Na/K) ratio</strong>, and the drug type they were prescribed. Figure <a href="chapter-knn.html#fig:scatter-plot-ex-drug">7.2</a> shows a scatter plot of this data, where the drug types are represented by:</p>
+<ul>
+<li>
+<strong>Red circles</strong> for Drug A,<br>
+</li>
+<li>
+<strong>Green triangles</strong> for Drug B, and<br>
+</li>
+<li>
+<strong>Blue squares</strong> for Drug C.</li>
+</ul>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:scatter-plot-ex-drug"></span>
+<img src="knn_files/figure-html/scatter-plot-ex-drug-1.png" alt="Scatter plot of Age vs. Sodium/Potassium Ratio for 200 patients, with drug type indicated by color and shape." width="85%"><p class="caption">
+Figure 7.2: Scatter plot of Age vs. Sodium/Potassium Ratio for 200 patients, with drug type indicated by color and shape.
+</p>
+</div>
+<p>Suppose we now have three new patients whose drug classifications are unknown. Their details are as follows:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Patient 1</strong>: 40 years old with a Na/K ratio of 30.5,<br>
+</li>
+<li>
+<strong>Patient 2</strong>: 28 years old with a Na/K ratio of 9.6, and<br>
+</li>
+<li>
+<strong>Patient 3</strong>: 61 years old with a Na/K ratio of 10.5.</li>
+</ol>
+<p>These patients are represented as <strong>orange circles</strong> in Figure <a href="chapter-knn.html#fig:scatter-plot-ex-drug-2">7.3</a>. Using kNN, we will classify the drug type for each patient.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:scatter-plot-ex-drug-2"></span>
+<img src="knn_files/figure-html/scatter-plot-ex-drug-2-1.png" alt="Scatter plot of Age vs. Sodium/Potassium Ratio for 200 patients, with drug type indicated by color and shape. The three new patients are represented by large orange circles." width="85%"><p class="caption">
+Figure 7.3: Scatter plot of Age vs. Sodium/Potassium Ratio for 200 patients, with drug type indicated by color and shape. The three new patients are represented by large orange circles.
+</p>
+</div>
+<p>For <strong>Patient 1</strong>, who is located deep within a cluster of red-circle points (Drug A), the classification is straightforward: <strong>Drug A</strong>. All the nearest neighbors belong to Drug A, making it an easy decision.</p>
+<p>For <strong>Patient 2</strong>, the situation is more nuanced.</p>
+<ul>
+<li>
+<strong>With <span class="math inline">\(k = 1\)</span></strong>: The nearest neighbor is a blue square, so the classification is <strong>Drug C</strong>.<br>
+</li>
+<li>
+<strong>With <span class="math inline">\(k = 2\)</span></strong>: There is a tie between Drug B and Drug C, leaving no clear majority.<br>
+</li>
+<li>
+<strong>With <span class="math inline">\(k = 3\)</span></strong>: Two out of the three nearest neighbors are blue squares, resulting in a majority vote for <strong>Drug C</strong>.</li>
+</ul>
+<p>For <strong>Patient 3</strong>, the scenario becomes even more ambiguous:</p>
+<ul>
+<li>
+<strong>With <span class="math inline">\(k = 1\)</span></strong>: The closest neighbor is a blue square, so the classification is <strong>Drug C</strong>.<br>
+</li>
+<li>
+<strong>With <span class="math inline">\(k = 2 or 3\)</span></strong>: The neighbors belong to multiple classes, resulting in ties or uncertainty.</li>
+</ul>
+<div class="figure">
+<span style="display:block;" id="fig:scatter-plot-ex-drug-3"></span>
+<img src="knn_files/figure-html/scatter-plot-ex-drug-3-1.png" alt="Zoom-in plots for the three new patients and their nearest neighbors. The left plot is for Patient 1, the middle plot is for Patient 2, and the right plot is for Patient 3." width="33%"><img src="knn_files/figure-html/scatter-plot-ex-drug-3-2.png" alt="Zoom-in plots for the three new patients and their nearest neighbors. The left plot is for Patient 1, the middle plot is for Patient 2, and the right plot is for Patient 3." width="33%"><img src="knn_files/figure-html/scatter-plot-ex-drug-3-3.png" alt="Zoom-in plots for the three new patients and their nearest neighbors. The left plot is for Patient 1, the middle plot is for Patient 2, and the right plot is for Patient 3." width="33%"><p class="caption">
+Figure 7.4: Zoom-in plots for the three new patients and their nearest neighbors. The left plot is for Patient 1, the middle plot is for Patient 2, and the right plot is for Patient 3.
+</p>
+</div>
+<p>These examples illustrate several key considerations for kNN:</p>
+<ul>
+<li>The value of <span class="math inline">\(k\)</span> determines how sensitive the algorithm is to local patterns or noise.<br>
+</li>
+<li>Distance metrics, such as Euclidean distance, affect how neighbors are selected.<br>
+</li>
+<li>Proper feature scaling is essential to ensure that all variables contribute fairly to the distance calculation.</li>
+</ul>
+<p>To classify a new observation, kNN relies on measuring the similarity between data points. This brings us to the question: <em>how do we define and calculate this similarity?</em></p>
+</div>
+</div>
+<div id="distance-metrics" class="section level2" number="7.3">
+<h2>
+<span class="header-section-number">7.3</span> Distance Metrics<a class="anchor" aria-label="anchor" href="#distance-metrics"><i class="fas fa-link"></i></a>
+</h2>
+<p>In the k-Nearest Neighbors (kNN) algorithm, the classification of a new data point is determined by identifying the most <em>similar</em> records from the training dataset. But how do we define and measure <em>similarity</em>? While similarity might seem intuitive, applying it in machine learning requires precise <strong>distance metrics</strong>. These metrics quantify the “closeness” or “distance” between two data points in a multidimensional space, directly influencing how neighbors are selected for classification.</p>
+<p>Imagine you’re shopping online and looking for recommendations. You’re a 50-year-old married female—who’s more “similar” to you: a 40-year-old single female or a 30-year-old married male? The answer depends on how we measure the distance between you and each person. In kNN, this distance is calculated based on features such as age and marital status. The smaller the distance, the more “similar” the two individuals are, and the more influence they have in determining the recommendation or classification.</p>
+<p>The most widely used distance metric in kNN is <strong>Euclidean distance</strong>, which measures the straight-line distance between two points. Think of it as the “as-the-crow-flies” distance, similar to the shortest path between two locations on a map. This metric is intuitive and aligns with how we often perceive distance in the real world.</p>
+<p>In mathematical terms, the Euclidean distance between two points, <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, in <span class="math inline">\(n\)</span>-dimensional space is given by:</p>
+<p><span class="math display">\[
+\text{dist}(x, y) = \sqrt{(x_1 - y_1)^2 + (x_2 - y_2)^2 + \ldots + (x_n - y_n)^2}
+\]</span></p>
+<p>Where:</p>
+<ul>
+<li>
+<span class="math inline">\(x = (x_1, x_2, \ldots, x_n)\)</span> and <span class="math inline">\(y = (y_1, y_2, \ldots, y_n)\)</span> represent the feature vectors of the two points.<br>
+</li>
+<li>The differences between corresponding features (<span class="math inline">\(x_i - y_i\)</span>) are squared, summed, and then square-rooted to calculate the distance.</li>
+</ul>
+<div id="example-calculating-euclidean-distance" class="section level3" number="7.3.1">
+<h3>
+<span class="header-section-number">7.3.1</span> Example: Calculating Euclidean Distance<a class="anchor" aria-label="anchor" href="#example-calculating-euclidean-distance"><i class="fas fa-link"></i></a>
+</h3>
+<p>Let’s calculate the Euclidean distance between two patients based on their <strong>age</strong> and <strong>sodium/potassium (Na/K) ratio</strong>:</p>
+<ul>
+<li>Patient 1: <span class="math inline">\(x = (40, 30.5)\)</span><br>
+</li>
+<li>Patient 2: <span class="math inline">\(y = (28, 9.6)\)</span>
+</li>
+</ul>
+<p>Using the formula:<br><span class="math display">\[
+\text{dist}(x, y) = \sqrt{(40 - 28)^2 + (30.5 - 9.6)^2} = \sqrt{(12)^2 + (20.9)^2} = 24.11
+\]</span></p>
+<p>This result quantifies the dissimilarity between the two patients. In kNN, this distance will help determine how similar Patient 1 is to Patient 2 and whether Patient 1 should be classified into the same drug class as Patient 2.</p>
+</div>
+<div id="a-note-on-choosing-distance-metrics" class="section level3 unnumbered">
+<h3>A Note on Choosing Distance Metrics<a class="anchor" aria-label="anchor" href="#a-note-on-choosing-distance-metrics"><i class="fas fa-link"></i></a>
+</h3>
+<p>While there are many distance metrics, such as Manhattan Distance, Hamming Distance, and Cosine Similarity, by default, <strong>Euclidean distance</strong> is commonly used in kNN. It works well in many scenarios, particularly when features are continuous and have been properly scaled. Choosing the right distance measure is somewhat beyond the scope of this book, but for most general purposes, Euclidean distance is a reliable choice. If your dataset has unique characteristics or categorical features, you might need to explore alternative metrics; For more details, refer to the <code><a href="https://rdrr.io/r/stats/dist.html">dist()</a></code> function in R.</p>
+</div>
+</div>
+<div id="how-to-choose-an-optimal-k" class="section level2" number="7.4">
+<h2>
+<span class="header-section-number">7.4</span> How to Choose an Optimal <span class="math inline">\(k\)</span><a class="anchor" aria-label="anchor" href="#how-to-choose-an-optimal-k"><i class="fas fa-link"></i></a>
+</h2>
+<p>How many opinions do you seek before making an important decision? Too few might lead to a biased perspective, while too many might dilute the relevance of the advice. Similarly, in the k-Nearest Neighbors (kNN) algorithm, the choice of <span class="math inline">\(k\)</span>—the number of neighbors considered for classification—directly impacts the model’s performance. But how do we find the right <span class="math inline">\(k\)</span>?</p>
+<p>There is no universally “correct” value for <span class="math inline">\(k\)</span>. The optimal choice depends on the specific dataset and problem at hand, requiring careful consideration of the trade-offs involved.</p>
+<div id="balancing-overfitting-and-underfitting" class="section level3 unnumbered">
+<h3>Balancing Overfitting and Underfitting<a class="anchor" aria-label="anchor" href="#balancing-overfitting-and-underfitting"><i class="fas fa-link"></i></a>
+</h3>
+<p>When <span class="math inline">\(k\)</span> is set to a very small value, such as <span class="math inline">\(k = 1\)</span>, the algorithm becomes highly sensitive to outliers in the training data. Each new observation is classified solely based on its single closest neighbor. This can lead to <strong>overfitting</strong>, where the model memorizes the training data but struggles to generalize to unseen data. For example, a small cluster of mislabeled data points could disproportionately influence predictions, reducing the model’s reliability.</p>
+<p>Conversely, as <span class="math inline">\(k\)</span> increases, the algorithm incorporates more neighbors into the classification decision. Larger <span class="math inline">\(k\)</span> values smooth the decision boundary, making the model less sensitive to noise and outliers. However, if <span class="math inline">\(k\)</span> becomes too large, the model may over-simplify, averaging out meaningful patterns in the data. For instance, when <span class="math inline">\(k\)</span> is comparable to the size of the training set, the majority class will dominate predictions, leading to <strong>underfitting</strong>.</p>
+<p>Finding the right <span class="math inline">\(k\)</span> involves striking a balance between these extremes. Smaller <span class="math inline">\(k\)</span> values capture local patterns more effectively, while larger <span class="math inline">\(k\)</span> values provide robustness at the expense of detail.</p>
+</div>
+<div id="choosing-k-through-validation" class="section level3 unnumbered">
+<h3>Choosing <span class="math inline">\(k\)</span> Through Validation<a class="anchor" aria-label="anchor" href="#choosing-k-through-validation"><i class="fas fa-link"></i></a>
+</h3>
+<p>In practice, selecting <span class="math inline">\(k\)</span> is an iterative process. A common approach is to evaluate the algorithm’s performance for multiple <span class="math inline">\(k\)</span> values using a <strong>validation set</strong> or <strong>cross-validation</strong>. Performance metrics like accuracy, precision, recall, or F1-score guide the selection of the <span class="math inline">\(k\)</span> that works best for the dataset.</p>
+<p>To illustrate, let’s use the <strong>churn</strong> dataset and evaluate the accuracy of the kNN algorithm across <span class="math inline">\(k\)</span> values ranging from 1 to 30. Figure <a href="chapter-knn.html#fig:kNN-plot">7.5</a> shows how accuracy fluctuates as <span class="math inline">\(k\)</span> increases. This plot is generated using the <code><a href="https://rdrr.io/pkg/liver/man/kNN.plot.html">kNN.plot()</a></code> function from the <strong>liver</strong> package in R.</p>
+<pre><code>   Setting levels: reference = "yes", case = "no"
+   Setting levels: reference = "yes", case = "no"</code></pre>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:kNN-plot"></span>
+<img src="knn_files/figure-html/kNN-plot-1.png" alt="Accuracy of the k-Nearest Neighbors algorithm for different values of k in the range from 1 to 30." width="85%"><p class="caption">
+Figure 7.5: Accuracy of the k-Nearest Neighbors algorithm for different values of k in the range from 1 to 30.
+</p>
+</div>
+<p>From the plot, we observe that the accuracy of the kNN algorithm fluctuates as <span class="math inline">\(k\)</span> increases. In this example, the highest accuracy is achieved when <span class="math inline">\(k = 5\)</span>. At this value, the kNN algorithm balances sensitivity to local patterns with robustness to noise, delivering an accuracy of 0.932 and an error rate of 0.068.</p>
+<p>Choosing the optimal <span class="math inline">\(k\)</span> is as much an art as it is a science. While there’s no universal rule for selecting <span class="math inline">\(k\)</span>, experimentation and validation are key. Start with a range of plausible <span class="math inline">\(k\)</span> values, test the model’s performance, and select the one that provides the best results based on your chosen metric.</p>
+<p>Keep in mind that the optimal <span class="math inline">\(k\)</span> may vary across datasets, so it’s essential to repeat this process whenever applying kNN to a new problem. By carefully tuning <span class="math inline">\(k\)</span>, you can ensure that your kNN model is both accurate and generalizable, striking the perfect balance between overfitting and underfitting.</p>
+</div>
+</div>
+<div id="preparing-data-for-knn" class="section level2" number="7.5">
+<h2>
+<span class="header-section-number">7.5</span> Preparing Data for kNN<a class="anchor" aria-label="anchor" href="#preparing-data-for-knn"><i class="fas fa-link"></i></a>
+</h2>
+<p>The effectiveness of the k-Nearest Neighbors (kNN) algorithm relies heavily on how the dataset is prepared. Since kNN uses distance metrics to evaluate similarity between data points, proper preprocessing is crucial to ensure accurate and meaningful results. Two essential steps in this process are <strong>feature scaling</strong> and <strong>one-hot encoding</strong>, which enable the algorithm to handle numerical and categorical features effectively.</p>
+<div id="feature-scaling-1" class="section level3" number="7.5.1">
+<h3>
+<span class="header-section-number">7.5.1</span> Feature Scaling<a class="anchor" aria-label="anchor" href="#feature-scaling-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>In most datasets, numerical features often have vastly different ranges. For instance, <strong>age</strong> may range from 20 to 70, while <strong>income</strong> could range from 20,000 to 150,000. Without proper scaling, features with larger ranges (like income) dominate distance calculations, leading to biased predictions. To address this, all numerical features must be transformed to comparable scales.</p>
+<p>A widely used scaling method is <strong>min-max scaling</strong>, which transforms each feature to a specified range, typically [0, 1], using the formula:</p>
+<p><span class="math display">\[
+x_{\text{scaled}} = \frac{x - \min(x)}{\max(x) - \min(x)}
+\]</span></p>
+<p>Here, <span class="math inline">\(x\)</span> represents the original feature value, and <span class="math inline">\(\min(x)\)</span> and <span class="math inline">\(\max(x)\)</span> are the feature’s minimum and maximum values. This ensures that all features contribute equally to the distance metric. Another commonly used method is <strong>z-score standardization</strong>, which scales features to have a mean of 0 and a standard deviation of 1:</p>
+<p><span class="math display">\[
+x_{\text{scaled}} = \frac{x - \text{mean}(x)}{\text{sd}(x)}
+\]</span></p>
+<p>This method is particularly useful when features follow different distributions or have varying units. Both methods prevent any single feature from dominating distance calculations, ensuring fair treatment of all numerical variables.</p>
+<blockquote>
+<p><strong>Important:</strong> Scaling must always be performed <strong>after partitioning</strong> the dataset into training and test sets. Scaling parameters (e.g., minimum, maximum, mean, standard deviation) must be calculated using only the training set and applied consistently to both training and test sets. This ensures that test data remains independent, avoiding information leakage that could bias the results.</p>
+</blockquote>
+</div>
+<div id="scaling-training-and-test-data-the-same-way" class="section level3" number="7.5.2">
+<h3>
+<span class="header-section-number">7.5.2</span> Scaling Training and Test Data the Same Way<a class="anchor" aria-label="anchor" href="#scaling-training-and-test-data-the-same-way"><i class="fas fa-link"></i></a>
+</h3>
+<p>To illustrate the importance of consistent scaling, consider the <strong>patient drug classification problem</strong>, which involves two features: <code>age</code> and <code>sodium/potassium (Na/K) ratio</code>. Figure <a href="chapter-knn.html#fig:scatter-plot-ex-drug-2">7.3</a> shows a dataset of 200 patients as the training set, with three additional patients in the test set. Using the <code><a href="https://rdrr.io/pkg/liver/man/minmax.html">minmax()</a></code> function from the <strong>liver</strong> package, we demonstrate both correct and incorrect ways to scale the data:</p>
+<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># A proper way to scale the data</span></span>
+<span><span class="va">train_scaled</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/liver/man/minmax.html">minmax</a></span><span class="op">(</span><span class="va">train_data</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Age"</span>, <span class="st">"Ratio"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">test_scaled</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/liver/man/minmax.html">minmax</a></span><span class="op">(</span><span class="va">test_data</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Age"</span>, <span class="st">"Ratio"</span><span class="op">)</span>, </span>
+<span>                     min <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">train_data</span><span class="op">$</span><span class="va">Age</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">train_data</span><span class="op">$</span><span class="va">Ratio</span><span class="op">)</span><span class="op">)</span>, </span>
+<span>                     max <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">train_data</span><span class="op">$</span><span class="va">Age</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">train_data</span><span class="op">$</span><span class="va">Ratio</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># An incorrect way to scale the data</span></span>
+<span><span class="va">train_scaled_wrongly</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/liver/man/minmax.html">minmax</a></span><span class="op">(</span><span class="va">train_data</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Age"</span>, <span class="st">"Ratio"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">test_scaled_wrongly</span>  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/liver/man/minmax.html">minmax</a></span><span class="op">(</span><span class="va">test_data</span> , col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Age"</span>, <span class="st">"Ratio"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>The difference is illustrated in Figure <a href="#fig:ex-proper-scaling"><strong>??</strong></a>. The middle panel shows the results of proper scaling, where the test set is scaled using the same parameters derived from the training set. This ensures consistency in distance calculations across both datasets. In contrast, the right panel shows improper scaling, where the test set is scaled independently. This leads to distorted relationships between the training and test data, which can cause unreliable predictions.</p>
+<blockquote>
+<p><strong>Key Insight:</strong> Proper scaling ensures that distance metrics remain valid, while improper scaling creates inconsistencies that undermine the kNN algorithm’s performance. <strong>Always derive scaling parameters from the training set and apply them consistently to the test set</strong>.</p>
+</blockquote>
+</div>
+<div id="one-hot-encoding-1" class="section level3" number="7.5.3">
+<h3>
+<span class="header-section-number">7.5.3</span> One-Hot Encoding<a class="anchor" aria-label="anchor" href="#one-hot-encoding-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>Categorical features, such as <strong>marital status</strong> or <strong>subscription type</strong>, cannot be directly used in distance calculations because distance metrics like Euclidean distance only work with numerical data. To overcome this, we use <strong>one-hot encoding</strong>, which converts categorical variables into binary (dummy) variables. For example, the categorical variable <strong>voice.plan</strong>, with levels <code>yes</code> and <code>no</code>, can be encoded as:</p>
+<p><span class="math display">\[
+\text{voice.plan-yes} =
+\bigg\{
+\begin{matrix}
+1 \quad \text{if voice plan = yes}  \\
+0 \quad \text{if voice plan = no}
+\end{matrix}
+\]</span></p>
+<p>Similarly, a variable like <strong>marital status</strong> with three levels (<code>single</code>, <code>married</code>, <code>divorced</code>) can be encoded into two binary features:</p>
+<p><span class="math display">\[
+\text{marital-single} =
+\bigg\{
+\begin{matrix}
+1 \quad \text{if marital status = single}  \\
+0 \quad \text{otherwise}
+\end{matrix}
+\]</span></p>
+<p><span class="math display">\[
+\text{marital-married} =
+\bigg\{
+\begin{matrix}
+1 \quad \text{if marital status = married}  \\
+0 \quad \text{otherwise}
+\end{matrix}
+\]</span></p>
+<p>The absence of both <code>marital_single</code> and <code>marital_married</code> implies the third category (<code>divorced</code>). This approach ensures that the categorical variable is fully represented, while maintaining the same scale as numerical features. For a categorical variable with <span class="math inline">\(k\)</span> levels, <span class="math inline">\(k-1\)</span> binary features are created to avoid redundancy.</p>
+<p>The <strong>liver</strong> package in R provides the <code><a href="https://rdrr.io/pkg/liver/man/one.hot.html">one.hot()</a></code> function to perform one-hot encoding automatically. It identifies categorical variables and encodes them into binary columns, leaving numerical features unchanged. For example, applying one-hot encoding to the <strong>marital</strong> variable in the <em>bank</em> dataset adds binary columns for the encoded categories:</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="chapter-knn.html#cb108-1" tabindex="-1"></a><span class="co"># To perform one-hot encoding on the "marital" variable</span></span>
+<span id="cb108-2"><a href="chapter-knn.html#cb108-2" tabindex="-1"></a>bank_encoded <span class="ot">&lt;-</span> <span class="fu">one.hot</span>(bank, <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">"marital"</span>), <span class="at">dropCols =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb108-3"><a href="chapter-knn.html#cb108-3" tabindex="-1"></a></span>
+<span id="cb108-4"><a href="chapter-knn.html#cb108-4" tabindex="-1"></a><span class="fu">str</span>(bank_encoded)</span>
+<span id="cb108-5"><a href="chapter-knn.html#cb108-5" tabindex="-1"></a>   <span class="st">'data.frame'</span><span class="sc">:</span>    <span class="dv">4521</span> obs. of  <span class="dv">20</span> variables<span class="sc">:</span></span>
+<span id="cb108-6"><a href="chapter-knn.html#cb108-6" tabindex="-1"></a>    <span class="er">$</span> age             <span class="sc">:</span> int  <span class="dv">30</span> <span class="dv">33</span> <span class="dv">35</span> <span class="dv">30</span> <span class="dv">59</span> <span class="dv">35</span> <span class="dv">36</span> <span class="dv">39</span> <span class="dv">41</span> <span class="dv">43</span> ...</span>
+<span id="cb108-7"><a href="chapter-knn.html#cb108-7" tabindex="-1"></a>    <span class="sc">$</span> job             <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">12</span> levels <span class="st">"admin."</span>,<span class="st">"blue-collar"</span>,..<span class="sc">:</span> <span class="dv">11</span> <span class="dv">8</span> <span class="dv">5</span> <span class="dv">5</span> <span class="dv">2</span> <span class="dv">5</span> <span class="dv">7</span> <span class="dv">10</span> <span class="dv">3</span> <span class="dv">8</span> ...</span>
+<span id="cb108-8"><a href="chapter-knn.html#cb108-8" tabindex="-1"></a>    <span class="sc">$</span> marital         <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">3</span> levels <span class="st">"divorced"</span>,<span class="st">"married"</span>,..<span class="sc">:</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> ...</span>
+<span id="cb108-9"><a href="chapter-knn.html#cb108-9" tabindex="-1"></a>    <span class="sc">$</span> marital_divorced<span class="sc">:</span> int  <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> ...</span>
+<span id="cb108-10"><a href="chapter-knn.html#cb108-10" tabindex="-1"></a>    <span class="sc">$</span> marital_married <span class="sc">:</span> int  <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> ...</span>
+<span id="cb108-11"><a href="chapter-knn.html#cb108-11" tabindex="-1"></a>    <span class="sc">$</span> marital_single  <span class="sc">:</span> int  <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> ...</span>
+<span id="cb108-12"><a href="chapter-knn.html#cb108-12" tabindex="-1"></a>    <span class="sc">$</span> education       <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">4</span> levels <span class="st">"primary"</span>,<span class="st">"secondary"</span>,..<span class="sc">:</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">1</span> ...</span>
+<span id="cb108-13"><a href="chapter-knn.html#cb108-13" tabindex="-1"></a>    <span class="sc">$</span> default         <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"no"</span>,<span class="st">"yes"</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> ...</span>
+<span id="cb108-14"><a href="chapter-knn.html#cb108-14" tabindex="-1"></a>    <span class="sc">$</span> balance         <span class="sc">:</span> int  <span class="dv">1787</span> <span class="dv">4789</span> <span class="dv">1350</span> <span class="dv">1476</span> <span class="dv">0</span> <span class="dv">747</span> <span class="dv">307</span> <span class="dv">147</span> <span class="dv">221</span> <span class="sc">-</span><span class="dv">88</span> ...</span>
+<span id="cb108-15"><a href="chapter-knn.html#cb108-15" tabindex="-1"></a>    <span class="sc">$</span> housing         <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"no"</span>,<span class="st">"yes"</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> ...</span>
+<span id="cb108-16"><a href="chapter-knn.html#cb108-16" tabindex="-1"></a>    <span class="sc">$</span> loan            <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"no"</span>,<span class="st">"yes"</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> ...</span>
+<span id="cb108-17"><a href="chapter-knn.html#cb108-17" tabindex="-1"></a>    <span class="sc">$</span> contact         <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">3</span> levels <span class="st">"cellular"</span>,<span class="st">"telephone"</span>,..<span class="sc">:</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">1</span> ...</span>
+<span id="cb108-18"><a href="chapter-knn.html#cb108-18" tabindex="-1"></a>    <span class="sc">$</span> day             <span class="sc">:</span> int  <span class="dv">19</span> <span class="dv">11</span> <span class="dv">16</span> <span class="dv">3</span> <span class="dv">5</span> <span class="dv">23</span> <span class="dv">14</span> <span class="dv">6</span> <span class="dv">14</span> <span class="dv">17</span> ...</span>
+<span id="cb108-19"><a href="chapter-knn.html#cb108-19" tabindex="-1"></a>    <span class="sc">$</span> month           <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">12</span> levels <span class="st">"apr"</span>,<span class="st">"aug"</span>,<span class="st">"dec"</span>,..<span class="sc">:</span> <span class="dv">11</span> <span class="dv">9</span> <span class="dv">1</span> <span class="dv">7</span> <span class="dv">9</span> <span class="dv">4</span> <span class="dv">9</span> <span class="dv">9</span> <span class="dv">9</span> <span class="dv">1</span> ...</span>
+<span id="cb108-20"><a href="chapter-knn.html#cb108-20" tabindex="-1"></a>    <span class="sc">$</span> duration        <span class="sc">:</span> int  <span class="dv">79</span> <span class="dv">220</span> <span class="dv">185</span> <span class="dv">199</span> <span class="dv">226</span> <span class="dv">141</span> <span class="dv">341</span> <span class="dv">151</span> <span class="dv">57</span> <span class="dv">313</span> ...</span>
+<span id="cb108-21"><a href="chapter-knn.html#cb108-21" tabindex="-1"></a>    <span class="sc">$</span> campaign        <span class="sc">:</span> int  <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">4</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> ...</span>
+<span id="cb108-22"><a href="chapter-knn.html#cb108-22" tabindex="-1"></a>    <span class="sc">$</span> pdays           <span class="sc">:</span> int  <span class="sc">-</span><span class="dv">1</span> <span class="dv">339</span> <span class="dv">330</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">-</span><span class="dv">1</span> <span class="dv">176</span> <span class="dv">330</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">-</span><span class="dv">1</span> <span class="dv">147</span> ...</span>
+<span id="cb108-23"><a href="chapter-knn.html#cb108-23" tabindex="-1"></a>    <span class="sc">$</span> previous        <span class="sc">:</span> int  <span class="dv">0</span> <span class="dv">4</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">2</span> ...</span>
+<span id="cb108-24"><a href="chapter-knn.html#cb108-24" tabindex="-1"></a>    <span class="sc">$</span> poutcome        <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">4</span> levels <span class="st">"failure"</span>,<span class="st">"other"</span>,..<span class="sc">:</span> <span class="dv">4</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">4</span> <span class="dv">4</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">4</span> <span class="dv">4</span> <span class="dv">1</span> ...</span>
+<span id="cb108-25"><a href="chapter-knn.html#cb108-25" tabindex="-1"></a>    <span class="sc">$</span> deposit         <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"no"</span>,<span class="st">"yes"</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> ...</span></code></pre></div>
+<blockquote>
+<p><strong>Note:</strong> One-hot encoding is unnecessary for ordinal features, where the categories have a natural order (e.g., <code>low</code>, <code>medium</code>, <code>high</code>). Ordinal variables should instead be assigned numerical values that preserve their order (e.g., <code>low = 1</code>, <code>medium = 2</code>, <code>high = 3</code>), enabling the kNN algorithm to treat them as numerical features.</p>
+</blockquote>
+</div>
+</div>
+<div id="sec-kNN-churn" class="section level2" number="7.6">
+<h2>
+<span class="header-section-number">7.6</span> Applying kNN Algorithm in Practice<a class="anchor" aria-label="anchor" href="#sec-kNN-churn"><i class="fas fa-link"></i></a>
+</h2>
+<p>Applying the kNN algorithm involves several key steps, from preparing the data to training the model, making predictions, and evaluating its performance. In this section, we demonstrate the entire workflow using the <strong>churn</strong> dataset from the <strong>liver</strong> package in R. The target variable, <code>churn</code>, indicates whether a customer has churned (<code>yes</code>) or not (<code>no</code>), while the predictors include customer characteristics like account length, international plan status, and call details. Here is the strcure of the dataset:</p>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="chapter-knn.html#cb109-1" tabindex="-1"></a><span class="fu">str</span>(churn)</span>
+<span id="cb109-2"><a href="chapter-knn.html#cb109-2" tabindex="-1"></a>   <span class="st">'data.frame'</span><span class="sc">:</span>    <span class="dv">5000</span> obs. of  <span class="dv">20</span> variables<span class="sc">:</span></span>
+<span id="cb109-3"><a href="chapter-knn.html#cb109-3" tabindex="-1"></a>    <span class="er">$</span> state         <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">51</span> levels <span class="st">"AK"</span>,<span class="st">"AL"</span>,<span class="st">"AR"</span>,..<span class="sc">:</span> <span class="dv">17</span> <span class="dv">36</span> <span class="dv">32</span> <span class="dv">36</span> <span class="dv">37</span> <span class="dv">2</span> <span class="dv">20</span> <span class="dv">25</span> <span class="dv">19</span> <span class="dv">50</span> ...</span>
+<span id="cb109-4"><a href="chapter-knn.html#cb109-4" tabindex="-1"></a>    <span class="sc">$</span> area.code     <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">3</span> levels <span class="st">"area_code_408"</span>,..<span class="sc">:</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> ...</span>
+<span id="cb109-5"><a href="chapter-knn.html#cb109-5" tabindex="-1"></a>    <span class="sc">$</span> account.length<span class="sc">:</span> int  <span class="dv">128</span> <span class="dv">107</span> <span class="dv">137</span> <span class="dv">84</span> <span class="dv">75</span> <span class="dv">118</span> <span class="dv">121</span> <span class="dv">147</span> <span class="dv">117</span> <span class="dv">141</span> ...</span>
+<span id="cb109-6"><a href="chapter-knn.html#cb109-6" tabindex="-1"></a>    <span class="sc">$</span> voice.plan    <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"yes"</span>,<span class="st">"no"</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> ...</span>
+<span id="cb109-7"><a href="chapter-knn.html#cb109-7" tabindex="-1"></a>    <span class="sc">$</span> voice.messages<span class="sc">:</span> int  <span class="dv">25</span> <span class="dv">26</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">24</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">37</span> ...</span>
+<span id="cb109-8"><a href="chapter-knn.html#cb109-8" tabindex="-1"></a>    <span class="sc">$</span> intl.plan     <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"yes"</span>,<span class="st">"no"</span><span class="sc">:</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> ...</span>
+<span id="cb109-9"><a href="chapter-knn.html#cb109-9" tabindex="-1"></a>    <span class="sc">$</span> intl.mins     <span class="sc">:</span> num  <span class="dv">10</span> <span class="fl">13.7</span> <span class="fl">12.2</span> <span class="fl">6.6</span> <span class="fl">10.1</span> <span class="fl">6.3</span> <span class="fl">7.5</span> <span class="fl">7.1</span> <span class="fl">8.7</span> <span class="fl">11.2</span> ...</span>
+<span id="cb109-10"><a href="chapter-knn.html#cb109-10" tabindex="-1"></a>    <span class="sc">$</span> intl.calls    <span class="sc">:</span> int  <span class="dv">3</span> <span class="dv">3</span> <span class="dv">5</span> <span class="dv">7</span> <span class="dv">3</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">6</span> <span class="dv">4</span> <span class="dv">5</span> ...</span>
+<span id="cb109-11"><a href="chapter-knn.html#cb109-11" tabindex="-1"></a>    <span class="sc">$</span> intl.charge   <span class="sc">:</span> num  <span class="fl">2.7</span> <span class="fl">3.7</span> <span class="fl">3.29</span> <span class="fl">1.78</span> <span class="fl">2.73</span> <span class="fl">1.7</span> <span class="fl">2.03</span> <span class="fl">1.92</span> <span class="fl">2.35</span> <span class="fl">3.02</span> ...</span>
+<span id="cb109-12"><a href="chapter-knn.html#cb109-12" tabindex="-1"></a>    <span class="sc">$</span> day.mins      <span class="sc">:</span> num  <span class="dv">265</span> <span class="dv">162</span> <span class="dv">243</span> <span class="dv">299</span> <span class="dv">167</span> ...</span>
+<span id="cb109-13"><a href="chapter-knn.html#cb109-13" tabindex="-1"></a>    <span class="sc">$</span> day.calls     <span class="sc">:</span> int  <span class="dv">110</span> <span class="dv">123</span> <span class="dv">114</span> <span class="dv">71</span> <span class="dv">113</span> <span class="dv">98</span> <span class="dv">88</span> <span class="dv">79</span> <span class="dv">97</span> <span class="dv">84</span> ...</span>
+<span id="cb109-14"><a href="chapter-knn.html#cb109-14" tabindex="-1"></a>    <span class="sc">$</span> day.charge    <span class="sc">:</span> num  <span class="fl">45.1</span> <span class="fl">27.5</span> <span class="fl">41.4</span> <span class="fl">50.9</span> <span class="fl">28.3</span> ...</span>
+<span id="cb109-15"><a href="chapter-knn.html#cb109-15" tabindex="-1"></a>    <span class="sc">$</span> eve.mins      <span class="sc">:</span> num  <span class="fl">197.4</span> <span class="fl">195.5</span> <span class="fl">121.2</span> <span class="fl">61.9</span> <span class="fl">148.3</span> ...</span>
+<span id="cb109-16"><a href="chapter-knn.html#cb109-16" tabindex="-1"></a>    <span class="sc">$</span> eve.calls     <span class="sc">:</span> int  <span class="dv">99</span> <span class="dv">103</span> <span class="dv">110</span> <span class="dv">88</span> <span class="dv">122</span> <span class="dv">101</span> <span class="dv">108</span> <span class="dv">94</span> <span class="dv">80</span> <span class="dv">111</span> ...</span>
+<span id="cb109-17"><a href="chapter-knn.html#cb109-17" tabindex="-1"></a>    <span class="sc">$</span> eve.charge    <span class="sc">:</span> num  <span class="fl">16.78</span> <span class="fl">16.62</span> <span class="fl">10.3</span> <span class="fl">5.26</span> <span class="fl">12.61</span> ...</span>
+<span id="cb109-18"><a href="chapter-knn.html#cb109-18" tabindex="-1"></a>    <span class="sc">$</span> night.mins    <span class="sc">:</span> num  <span class="dv">245</span> <span class="dv">254</span> <span class="dv">163</span> <span class="dv">197</span> <span class="dv">187</span> ...</span>
+<span id="cb109-19"><a href="chapter-knn.html#cb109-19" tabindex="-1"></a>    <span class="sc">$</span> night.calls   <span class="sc">:</span> int  <span class="dv">91</span> <span class="dv">103</span> <span class="dv">104</span> <span class="dv">89</span> <span class="dv">121</span> <span class="dv">118</span> <span class="dv">118</span> <span class="dv">96</span> <span class="dv">90</span> <span class="dv">97</span> ...</span>
+<span id="cb109-20"><a href="chapter-knn.html#cb109-20" tabindex="-1"></a>    <span class="sc">$</span> night.charge  <span class="sc">:</span> num  <span class="fl">11.01</span> <span class="fl">11.45</span> <span class="fl">7.32</span> <span class="fl">8.86</span> <span class="fl">8.41</span> ...</span>
+<span id="cb109-21"><a href="chapter-knn.html#cb109-21" tabindex="-1"></a>    <span class="sc">$</span> customer.calls<span class="sc">:</span> int  <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">0</span> ...</span>
+<span id="cb109-22"><a href="chapter-knn.html#cb109-22" tabindex="-1"></a>    <span class="sc">$</span> churn         <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"yes"</span>,<span class="st">"no"</span><span class="sc">:</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> ...</span></code></pre></div>
+<p>It shows that data are as a <em>data.frame</em> object in <strong>R</strong> with 5000 observations and 19 features along with the target binary variable (the last column) with name <em>churn</em> that indicates whether customers churned (left the company) or not. Our goal is to build a kNN model that accurately predicts customer churn based on these features.</p>
+<p>In Chapter <a href="chapter-EDA.html#chapter-EDA">4</a>, we explored the <strong>churn</strong> dataset and identified key features that influence customer churn. Based on that results we will use the following features to build the kNN model:</p>
+<p><code>account.length</code>, <code>voice.plan</code>, <code>voice.messages</code>, <code>intl.plan</code>, <code>intl.mins</code>, <code>day.mins</code>, <code>eve.mins</code>, <code>night.mins</code>, and <code>customer.calls</code>.</p>
+<p>Let’s start by preparing the data for the kNN algorithm by performing feature scaling and one-hot encoding. We will then proceed with selecting an optimal <span class="math inline">\(k\)</span>, training the kNN model, and evaluating its performance.</p>
+<div id="step-1-preparing-the-data" class="section level3" number="7.6.1">
+<h3>
+<span class="header-section-number">7.6.1</span> Step 1: Preparing the Data<a class="anchor" aria-label="anchor" href="#step-1-preparing-the-data"><i class="fas fa-link"></i></a>
+</h3>
+<p>The first step in applying kNN is to partition the data into training and test sets, followed by preprocessing tasks like feature scaling and one-hot encoding. Since the dataset is already clean and contains no missing values, we can proceed directly to these steps.</p>
+<p>We split the dataset into an 80% training set and a 20% test set using the <code><a href="https://rdrr.io/pkg/liver/man/partition.html">partition()</a></code> function from the <strong>liver</strong> package:</p>
+<div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">43</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">data_sets</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/liver/man/partition.html">partition</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span>, ratio <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.8</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">train_set</span> <span class="op">=</span> <span class="va">data_sets</span><span class="op">$</span><span class="va">part1</span></span>
+<span><span class="va">test_set</span>  <span class="op">=</span> <span class="va">data_sets</span><span class="op">$</span><span class="va">part2</span></span>
+<span></span>
+<span><span class="va">actual_test</span>  <span class="op">=</span> <span class="va">test_set</span><span class="op">$</span><span class="va">churn</span></span></code></pre></div>
+<p>The <code><a href="https://rdrr.io/pkg/liver/man/partition.html">partition()</a></code> function ensures a randomized split, preserving the overall distribution of the target variable between the training and test sets. Note that before proceeding, we should validate the partitions. We skip this step here as we did it in Section <a href="chapter-modeling.html#sec-validate-partition">6.4</a>.</p>
+<div id="one-hot-encoding-2" class="section level4 unnumbered">
+<h4>One-Hot Encoding<a class="anchor" aria-label="anchor" href="#one-hot-encoding-2"><i class="fas fa-link"></i></a>
+</h4>
+<p>Categorical variables, such as <code>voice.plan</code> and <code>intl.plan</code>, are converted into binary (dummy) variables using the <code><a href="https://rdrr.io/pkg/liver/man/one.hot.html">one.hot()</a></code> function. This ensures that the kNN algorithm can handle categorical data effectively:</p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="chapter-knn.html#cb111-1" tabindex="-1"></a>categorical_vars <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"voice.plan"</span>, <span class="st">"intl.plan"</span>)</span>
+<span id="cb111-2"><a href="chapter-knn.html#cb111-2" tabindex="-1"></a></span>
+<span id="cb111-3"><a href="chapter-knn.html#cb111-3" tabindex="-1"></a>train_onehot <span class="ot">=</span> <span class="fu">one.hot</span>(train_set, <span class="at">cols =</span> categorical_vars)</span>
+<span id="cb111-4"><a href="chapter-knn.html#cb111-4" tabindex="-1"></a>test_onehot  <span class="ot">=</span> <span class="fu">one.hot</span>(test_set,  <span class="at">cols =</span> categorical_vars)</span>
+<span id="cb111-5"><a href="chapter-knn.html#cb111-5" tabindex="-1"></a></span>
+<span id="cb111-6"><a href="chapter-knn.html#cb111-6" tabindex="-1"></a><span class="fu">str</span>(test_onehot)</span>
+<span id="cb111-7"><a href="chapter-knn.html#cb111-7" tabindex="-1"></a>   <span class="st">'data.frame'</span><span class="sc">:</span>    <span class="dv">1000</span> obs. of  <span class="dv">22</span> variables<span class="sc">:</span></span>
+<span id="cb111-8"><a href="chapter-knn.html#cb111-8" tabindex="-1"></a>    <span class="er">$</span> state         <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">51</span> levels <span class="st">"AK"</span>,<span class="st">"AL"</span>,<span class="st">"AR"</span>,..<span class="sc">:</span> <span class="dv">2</span> <span class="dv">50</span> <span class="dv">14</span> <span class="dv">46</span> <span class="dv">10</span> <span class="dv">4</span> <span class="dv">25</span> <span class="dv">15</span> <span class="dv">11</span> <span class="dv">32</span> ...</span>
+<span id="cb111-9"><a href="chapter-knn.html#cb111-9" tabindex="-1"></a>    <span class="sc">$</span> area.code     <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">3</span> levels <span class="st">"area_code_408"</span>,..<span class="sc">:</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> ...</span>
+<span id="cb111-10"><a href="chapter-knn.html#cb111-10" tabindex="-1"></a>    <span class="sc">$</span> account.length<span class="sc">:</span> int  <span class="dv">118</span> <span class="dv">141</span> <span class="dv">85</span> <span class="dv">76</span> <span class="dv">147</span> <span class="dv">130</span> <span class="dv">20</span> <span class="dv">142</span> <span class="dv">72</span> <span class="dv">149</span> ...</span>
+<span id="cb111-11"><a href="chapter-knn.html#cb111-11" tabindex="-1"></a>    <span class="sc">$</span> voice.plan_yes<span class="sc">:</span> int  <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">0</span> ...</span>
+<span id="cb111-12"><a href="chapter-knn.html#cb111-12" tabindex="-1"></a>    <span class="sc">$</span> voice.plan_no <span class="sc">:</span> int  <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">1</span> ...</span>
+<span id="cb111-13"><a href="chapter-knn.html#cb111-13" tabindex="-1"></a>    <span class="sc">$</span> voice.messages<span class="sc">:</span> int  <span class="dv">0</span> <span class="dv">37</span> <span class="dv">27</span> <span class="dv">33</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">37</span> <span class="dv">0</span> ...</span>
+<span id="cb111-14"><a href="chapter-knn.html#cb111-14" tabindex="-1"></a>    <span class="sc">$</span> intl.plan_yes <span class="sc">:</span> int  <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> ...</span>
+<span id="cb111-15"><a href="chapter-knn.html#cb111-15" tabindex="-1"></a>    <span class="sc">$</span> intl.plan_no  <span class="sc">:</span> int  <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> ...</span>
+<span id="cb111-16"><a href="chapter-knn.html#cb111-16" tabindex="-1"></a>    <span class="sc">$</span> intl.mins     <span class="sc">:</span> num  <span class="fl">6.3</span> <span class="fl">11.2</span> <span class="fl">13.8</span> <span class="dv">10</span> <span class="fl">10.6</span> <span class="fl">9.5</span> <span class="fl">6.3</span> <span class="fl">14.2</span> <span class="fl">14.7</span> <span class="fl">11.1</span> ...</span>
+<span id="cb111-17"><a href="chapter-knn.html#cb111-17" tabindex="-1"></a>    <span class="sc">$</span> intl.calls    <span class="sc">:</span> int  <span class="dv">6</span> <span class="dv">5</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">4</span> <span class="dv">19</span> <span class="dv">6</span> <span class="dv">6</span> <span class="dv">6</span> <span class="dv">9</span> ...</span>
+<span id="cb111-18"><a href="chapter-knn.html#cb111-18" tabindex="-1"></a>    <span class="sc">$</span> intl.charge   <span class="sc">:</span> num  <span class="fl">1.7</span> <span class="fl">3.02</span> <span class="fl">3.73</span> <span class="fl">2.7</span> <span class="fl">2.86</span> <span class="fl">2.57</span> <span class="fl">1.7</span> <span class="fl">3.83</span> <span class="fl">3.97</span> <span class="dv">3</span> ...</span>
+<span id="cb111-19"><a href="chapter-knn.html#cb111-19" tabindex="-1"></a>    <span class="sc">$</span> day.mins      <span class="sc">:</span> num  <span class="dv">223</span> <span class="dv">259</span> <span class="dv">196</span> <span class="dv">190</span> <span class="dv">155</span> ...</span>
+<span id="cb111-20"><a href="chapter-knn.html#cb111-20" tabindex="-1"></a>    <span class="sc">$</span> day.calls     <span class="sc">:</span> int  <span class="dv">98</span> <span class="dv">84</span> <span class="dv">139</span> <span class="dv">66</span> <span class="dv">117</span> <span class="dv">112</span> <span class="dv">109</span> <span class="dv">95</span> <span class="dv">80</span> <span class="dv">94</span> ...</span>
+<span id="cb111-21"><a href="chapter-knn.html#cb111-21" tabindex="-1"></a>    <span class="sc">$</span> day.charge    <span class="sc">:</span> num  <span class="dv">38</span> <span class="dv">44</span> <span class="fl">33.4</span> <span class="fl">32.2</span> <span class="fl">26.4</span> ...</span>
+<span id="cb111-22"><a href="chapter-knn.html#cb111-22" tabindex="-1"></a>    <span class="sc">$</span> eve.mins      <span class="sc">:</span> num  <span class="dv">221</span> <span class="dv">222</span> <span class="dv">281</span> <span class="dv">213</span> <span class="dv">240</span> ...</span>
+<span id="cb111-23"><a href="chapter-knn.html#cb111-23" tabindex="-1"></a>    <span class="sc">$</span> eve.calls     <span class="sc">:</span> int  <span class="dv">101</span> <span class="dv">111</span> <span class="dv">90</span> <span class="dv">65</span> <span class="dv">93</span> <span class="dv">99</span> <span class="dv">84</span> <span class="dv">63</span> <span class="dv">102</span> <span class="dv">92</span> ...</span>
+<span id="cb111-24"><a href="chapter-knn.html#cb111-24" tabindex="-1"></a>    <span class="sc">$</span> eve.charge    <span class="sc">:</span> num  <span class="fl">18.8</span> <span class="fl">18.9</span> <span class="fl">23.9</span> <span class="fl">18.1</span> <span class="fl">20.4</span> ...</span>
+<span id="cb111-25"><a href="chapter-knn.html#cb111-25" tabindex="-1"></a>    <span class="sc">$</span> night.mins    <span class="sc">:</span> num  <span class="fl">203.9</span> <span class="fl">326.4</span> <span class="fl">89.3</span> <span class="fl">165.7</span> <span class="fl">208.8</span> ...</span>
+<span id="cb111-26"><a href="chapter-knn.html#cb111-26" tabindex="-1"></a>    <span class="sc">$</span> night.calls   <span class="sc">:</span> int  <span class="dv">118</span> <span class="dv">97</span> <span class="dv">75</span> <span class="dv">108</span> <span class="dv">133</span> <span class="dv">78</span> <span class="dv">102</span> <span class="dv">148</span> <span class="dv">71</span> <span class="dv">108</span> ...</span>
+<span id="cb111-27"><a href="chapter-knn.html#cb111-27" tabindex="-1"></a>    <span class="sc">$</span> night.charge  <span class="sc">:</span> num  <span class="fl">9.18</span> <span class="fl">14.69</span> <span class="fl">4.02</span> <span class="fl">7.46</span> <span class="fl">9.4</span> ...</span>
+<span id="cb111-28"><a href="chapter-knn.html#cb111-28" tabindex="-1"></a>    <span class="sc">$</span> customer.calls<span class="sc">:</span> int  <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">1</span> ...</span>
+<span id="cb111-29"><a href="chapter-knn.html#cb111-29" tabindex="-1"></a>    <span class="sc">$</span> churn         <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"yes"</span>,<span class="st">"no"</span><span class="sc">:</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> ...</span></code></pre></div>
+<p>For instance, the <code>voice.plan</code> variable is transformed into <code>voice.plan_yes</code> and <code>voice.plan_no</code>. However, since the presence of one category implies the absence of the other, we retain only one dummy variable (e.g., <code>voice.plan_yes</code>) for simplicity.</p>
+</div>
+<div id="feature-scaling-2" class="section level4 unnumbered">
+<h4>Feature Scaling<a class="anchor" aria-label="anchor" href="#feature-scaling-2"><i class="fas fa-link"></i></a>
+</h4>
+<p>kNN relies on distance metrics, which are sensitive to the scale of the features. To ensure fair contributions from all features, we scale the numerical variables using min-max scaling. The <code><a href="https://rdrr.io/pkg/liver/man/minmax.html">minmax()</a></code> function from the <strong>liver</strong> package is applied to both training and test sets, using scaling parameters derived from the training set:</p>
+<div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">numeric_vars</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"account.length"</span>, <span class="st">"voice.messages"</span>, <span class="st">"intl.mins"</span>, <span class="st">"intl.calls"</span>, </span>
+<span>                 <span class="st">"day.mins"</span>, <span class="st">"day.calls"</span>, <span class="st">"eve.mins"</span>, <span class="st">"eve.calls"</span>, </span>
+<span>                 <span class="st">"night.mins"</span>, <span class="st">"night.calls"</span>, <span class="st">"customer.calls"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">min_train</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="va">train_set</span><span class="op">[</span>, <span class="va">numeric_vars</span><span class="op">]</span>, <span class="va">min</span><span class="op">)</span></span>
+<span><span class="va">max_train</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="va">train_set</span><span class="op">[</span>, <span class="va">numeric_vars</span><span class="op">]</span>, <span class="va">max</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">train_scaled</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/liver/man/minmax.html">minmax</a></span><span class="op">(</span><span class="va">train_onehot</span>, col <span class="op">=</span> <span class="va">numeric_vars</span>, min <span class="op">=</span> <span class="va">min_train</span>, max <span class="op">=</span> <span class="va">max_train</span><span class="op">)</span></span>
+<span><span class="va">test_scaled</span>  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/liver/man/minmax.html">minmax</a></span><span class="op">(</span><span class="va">test_onehot</span>,  col <span class="op">=</span> <span class="va">numeric_vars</span>, min <span class="op">=</span> <span class="va">min_train</span>, max <span class="op">=</span> <span class="va">max_train</span><span class="op">)</span></span></code></pre></div>
+<p>The <code><a href="https://rdrr.io/pkg/liver/man/minmax.html">minmax()</a></code> function scales the features to the range [0, 1]. By deriving the scaling parameters (minimum and maximum) from the training set, we ensure consistency and avoid data leakage.</p>
+</div>
+</div>
+<div id="step-2-choosing-an-optimal-k" class="section level3" number="7.6.2">
+<h3>
+<span class="header-section-number">7.6.2</span> Step 2: Choosing an Optimal <span class="math inline">\(k\)</span><a class="anchor" aria-label="anchor" href="#step-2-choosing-an-optimal-k"><i class="fas fa-link"></i></a>
+</h3>
+<p>The choice of <span class="math inline">\(k\)</span>, the number of neighbors, significantly affects the performance of the kNN algorithm. To identify the optimal <span class="math inline">\(k\)</span>, we evaluate the model’s accuracy for different values of <span class="math inline">\(k\)</span> using the <code><a href="https://rdrr.io/pkg/liver/man/kNN.plot.html">kNN.plot()</a></code> function:</p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="chapter-knn.html#cb113-1" tabindex="-1"></a>formula <span class="ot">=</span> churn <span class="sc">~</span> account.length <span class="sc">+</span> voice.plan_yes <span class="sc">+</span> voice.messages <span class="sc">+</span> </span>
+<span id="cb113-2"><a href="chapter-knn.html#cb113-2" tabindex="-1"></a>                  intl.plan_yes <span class="sc">+</span> intl.mins <span class="sc">+</span> intl.calls <span class="sc">+</span> </span>
+<span id="cb113-3"><a href="chapter-knn.html#cb113-3" tabindex="-1"></a>                  day.mins <span class="sc">+</span> day.calls <span class="sc">+</span> eve.mins <span class="sc">+</span> eve.calls <span class="sc">+</span> </span>
+<span id="cb113-4"><a href="chapter-knn.html#cb113-4" tabindex="-1"></a>                  night.mins <span class="sc">+</span> night.calls <span class="sc">+</span> customer.calls</span>
+<span id="cb113-5"><a href="chapter-knn.html#cb113-5" tabindex="-1"></a></span>
+<span id="cb113-6"><a href="chapter-knn.html#cb113-6" tabindex="-1"></a><span class="fu">kNN.plot</span>(<span class="at">formula =</span> formula, <span class="at">train =</span> train_scaled, <span class="at">test =</span> test_scaled, </span>
+<span id="cb113-7"><a href="chapter-knn.html#cb113-7" tabindex="-1"></a>         <span class="at">k.max =</span> <span class="dv">30</span>, <span class="at">set.seed =</span> <span class="dv">43</span>)</span>
+<span id="cb113-8"><a href="chapter-knn.html#cb113-8" tabindex="-1"></a>   Setting levels<span class="sc">:</span> reference <span class="ot">=</span> <span class="st">"yes"</span>, case <span class="ot">=</span> <span class="st">"no"</span></span></code></pre></div>
+<div class="inline-figure"><img src="knn_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;"></div>
+<p>The <code><a href="https://rdrr.io/pkg/liver/man/kNN.plot.html">kNN.plot()</a></code> function generates a plot of accuracy versus <span class="math inline">\(k\)</span> values, allowing us to visually identify the optimal <span class="math inline">\(k\)</span>. In this case, the highest accuracy is achieved at <span class="math inline">\(k = 5\)</span>, striking a balance between sensitivity to local patterns (small <span class="math inline">\(k\)</span>) and robustness to noise (large <span class="math inline">\(k\)</span>).</p>
+</div>
+<div id="step-3-training-the-model-and-making-predictions" class="section level3" number="7.6.3">
+<h3>
+<span class="header-section-number">7.6.3</span> Step 3: Training the Model and Making Predictions<a class="anchor" aria-label="anchor" href="#step-3-training-the-model-and-making-predictions"><i class="fas fa-link"></i></a>
+</h3>
+<p>Using the optimal <span class="math inline">\(k = 5\)</span>, we train the kNN model and make predictions on the test set with the <code><a href="https://rdrr.io/pkg/liver/man/kNN.html">kNN()</a></code> function:</p>
+<div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">kNN_predict</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/liver/man/kNN.html">kNN</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="va">formula</span>, train <span class="op">=</span> <span class="va">train_scaled</span>, test <span class="op">=</span> <span class="va">test_scaled</span>, k <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
+<p>The <code><a href="https://rdrr.io/pkg/liver/man/kNN.html">kNN()</a></code> function computes the distances between each test point and all training points, identifies the 5 nearest neighbors, and assigns the majority class among those neighbors as the predicted class for each test point.</p>
+</div>
+<div id="step-4-evaluating-the-model" class="section level3" number="7.6.4">
+<h3>
+<span class="header-section-number">7.6.4</span> Step 4: Evaluating the Model<a class="anchor" aria-label="anchor" href="#step-4-evaluating-the-model"><i class="fas fa-link"></i></a>
+</h3>
+<p>Model evaluation is essential to assess how well the kNN algorithm performs on unseen data. Here, we display the confusion matrix for the test set predictions using the <code><a href="https://rdrr.io/pkg/liver/man/conf.mat.html">conf.mat()</a></code> function:</p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="chapter-knn.html#cb115-1" tabindex="-1"></a><span class="fu">conf.mat</span>(kNN_predict, actual_test)</span>
+<span id="cb115-2"><a href="chapter-knn.html#cb115-2" tabindex="-1"></a>   Setting levels<span class="sc">:</span> reference <span class="ot">=</span> <span class="st">"yes"</span>, case <span class="ot">=</span> <span class="st">"no"</span></span>
+<span id="cb115-3"><a href="chapter-knn.html#cb115-3" tabindex="-1"></a>          Actual</span>
+<span id="cb115-4"><a href="chapter-knn.html#cb115-4" tabindex="-1"></a>   Predict yes  no</span>
+<span id="cb115-5"><a href="chapter-knn.html#cb115-5" tabindex="-1"></a>       yes  <span class="dv">54</span>   <span class="dv">7</span></span>
+<span id="cb115-6"><a href="chapter-knn.html#cb115-6" tabindex="-1"></a>       no   <span class="dv">83</span> <span class="dv">856</span></span></code></pre></div>
+<pre><code>   Setting levels: reference = "yes", case = "no"</code></pre>
+<p>The confusion matrix summarizes the number of correct and incorrect predictions. In this case, the model achieves “54 + 856” correct predictions and “7 + 83” incorrect predictions. This provides insights into the model’s performance and highlights areas for improvement.</p>
+</div>
+<div id="final-remarks" class="section level3 unnumbered">
+<h3>Final Remarks<a class="anchor" aria-label="anchor" href="#final-remarks"><i class="fas fa-link"></i></a>
+</h3>
+<p>Through this step-by-step implementation of the kNN algorithm, we demonstrated the importance of data preprocessing, parameter tuning, and proper evaluation. While kNN is simple and intuitive, its effectiveness relies heavily on these steps. For further evaluation metrics and performance analysis, we will explore these topics in the next chapter (Chapter <a href="chapter-evaluation.html#chapter-evaluation">8</a>).</p>
+</div>
+</div>
+<div id="summary" class="section level2" number="7.7">
+<h2>
+<span class="header-section-number">7.7</span> Summary<a class="anchor" aria-label="anchor" href="#summary"><i class="fas fa-link"></i></a>
+</h2>
+<p>In this chapter, we explored the k-Nearest Neighbors (kNN) algorithm, a simple yet effective method for solving classification problems. We began by revisiting the concept of classification and its real-world applications, highlighting the difference between binary and multi-class problems. We then delved into the mechanics of kNN, emphasizing its reliance on distance metrics to identify the most similar data points. Critical preprocessing steps, such as feature scaling and one-hot encoding, were discussed to ensure accurate and meaningful distance calculations. We also covered how to select an optimal <span class="math inline">\(k\)</span> value and demonstrated the implementation of kNN using the <strong>liver</strong> package in R with the <strong>churn</strong> dataset. Through practical examples, we highlighted the importance of proper data preparation and parameter tuning for reliable and effective classification performance.</p>
+<p>The simplicity and interpretability of kNN make it an excellent starting point for understanding classification and exploring dataset structure. However, the algorithm has notable limitations, including sensitivity to noise, computational inefficiency with large datasets, and the requirement for proper scaling and feature selection. These challenges make kNN less practical for large-scale applications, but it remains a valuable tool for small to medium-sized datasets and serves as a benchmark for evaluating more advanced algorithms.</p>
+<p>While kNN is easy to understand and implement, its prediction speed and scalability constraints often make it unsuitable for modern, large-scale datasets. Nonetheless, it is a helpful baseline method and a stepping stone to more sophisticated techniques. In the upcoming chapters, we will explore advanced classification algorithms, such as Decision Trees, Random Forests, and Logistic Regression, which address the limitations of kNN and provide enhanced performance and scalability for a wide range of applications.</p>
+</div>
+<div id="exercises-3" class="section level2" number="7.8">
+<h2>
+<span class="header-section-number">7.8</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-3"><i class="fas fa-link"></i></a>
+</h2>
+<p>To do …</p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="chapter-modeling.html"><span class="header-section-number">6</span> Preparing Data for Modeling</a></div>
+<div class="next"><a href="chapter-evaluation.html"><span class="header-section-number">8</span> Model Evaluation</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#chapter-knn"><span class="header-section-number">7</span> Classification using k-Nearest Neighbors</a></li>
+<li>
+<a class="nav-link" href="#classification"><span class="header-section-number">7.1</span> Classification</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#where-is-classification-used">Where Is Classification Used?</a></li>
+<li><a class="nav-link" href="#how-does-classification-work">How Does Classification Work?</a></li>
+<li><a class="nav-link" href="#which-classification-algorithm-should-you-use">Which Classification Algorithm Should You Use?</a></li>
+<li><a class="nav-link" href="#why-is-classification-important">Why Is Classification Important?</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#how-k-nearest-neighbors-works"><span class="header-section-number">7.2</span> How k-Nearest Neighbors Works</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#how-does-knn-classify-a-new-observation">How Does kNN Classify a New Observation?</a></li>
+<li><a class="nav-link" href="#strengths-and-limitations-of-knn">Strengths and Limitations of kNN</a></li>
+<li><a class="nav-link" href="#a-practical-example-of-knn-in-action">A Practical Example of kNN in Action</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#distance-metrics"><span class="header-section-number">7.3</span> Distance Metrics</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#example-calculating-euclidean-distance"><span class="header-section-number">7.3.1</span> Example: Calculating Euclidean Distance</a></li>
+<li><a class="nav-link" href="#a-note-on-choosing-distance-metrics">A Note on Choosing Distance Metrics</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#how-to-choose-an-optimal-k"><span class="header-section-number">7.4</span> How to Choose an Optimal \(k\)</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#balancing-overfitting-and-underfitting">Balancing Overfitting and Underfitting</a></li>
+<li><a class="nav-link" href="#choosing-k-through-validation">Choosing \(k\) Through Validation</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#preparing-data-for-knn"><span class="header-section-number">7.5</span> Preparing Data for kNN</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#feature-scaling-1"><span class="header-section-number">7.5.1</span> Feature Scaling</a></li>
+<li><a class="nav-link" href="#scaling-training-and-test-data-the-same-way"><span class="header-section-number">7.5.2</span> Scaling Training and Test Data the Same Way</a></li>
+<li><a class="nav-link" href="#one-hot-encoding-1"><span class="header-section-number">7.5.3</span> One-Hot Encoding</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#sec-kNN-churn"><span class="header-section-number">7.6</span> Applying kNN Algorithm in Practice</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#step-1-preparing-the-data"><span class="header-section-number">7.6.1</span> Step 1: Preparing the Data</a></li>
+<li><a class="nav-link" href="#step-2-choosing-an-optimal-k"><span class="header-section-number">7.6.2</span> Step 2: Choosing an Optimal \(k\)</a></li>
+<li><a class="nav-link" href="#step-3-training-the-model-and-making-predictions"><span class="header-section-number">7.6.3</span> Step 3: Training the Model and Making Predictions</a></li>
+<li><a class="nav-link" href="#step-4-evaluating-the-model"><span class="header-section-number">7.6.4</span> Step 4: Evaluating the Model</a></li>
+<li><a class="nav-link" href="#final-remarks">Final Remarks</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#summary"><span class="header-section-number">7.7</span> Summary</a></li>
+<li><a class="nav-link" href="#exercises-3"><span class="header-section-number">7.8</span> Exercises</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/RezaMoammadi/Book-Data-Science/blob/master/knn.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/RezaMoammadi/Book-Data-Science/edit/master/knn.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Uncovering Data Science with R</strong>" was written by . It was last built on 2025-02-06.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

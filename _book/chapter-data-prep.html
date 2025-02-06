@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 3 Data Preparation | Uncovering Data Science with R</title>
+<meta name="generator" content="bookdown 0.37 with bs4_book()">
+<meta property="og:title" content="Chapter 3 Data Preparation | Uncovering Data Science with R">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://uncovering-data-science.netlify.app/chapter-data-prep.html">
+<meta property="og:image" content="https://uncovering-data-science.netlify.app/images/cover.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 3 Data Preparation | Uncovering Data Science with R">
+<meta name="twitter:image" content="https://uncovering-data-science.netlify.app/images/cover.jpg">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+          margin-bottom: 0em;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="Data preparation is a foundational step in any data science project, ensuring that raw data is transformed into a clean and structured format suitable for analysis. This process is often the most...">
+<meta property="og:description" content="Data preparation is a foundational step in any data science project, ensuring that raw data is transformed into a clean and structured format suitable for analysis. This process is often the most...">
+<meta name="twitter:description" content="Data preparation is a foundational step in any data science project, ensuring that raw data is transformed into a clean and structured format suitable for analysis. This process is often the most...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Uncovering Data Science with R</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li><a class="" href="chapter-into-R.html"><span class="header-section-number">1</span> The Basics for R</a></li>
+<li><a class="" href="chapter-intro-DS.html"><span class="header-section-number">2</span> Introduction to Data Science</a></li>
+<li><a class="active" href="chapter-data-prep.html"><span class="header-section-number">3</span> Data Preparation</a></li>
+<li><a class="" href="chapter-EDA.html"><span class="header-section-number">4</span> Exploratory Data Analysis</a></li>
+<li><a class="" href="chapter-statistics.html"><span class="header-section-number">5</span> Statistical Inference and Hypothesis Testing</a></li>
+<li><a class="" href="chapter-modeling.html"><span class="header-section-number">6</span> Preparing Data for Modeling</a></li>
+<li><a class="" href="chapter-knn.html"><span class="header-section-number">7</span> Classification using k-Nearest Neighbors</a></li>
+<li><a class="" href="chapter-evaluation.html"><span class="header-section-number">8</span> Model Evaluation</a></li>
+<li><a class="" href="chapter-bayes.html"><span class="header-section-number">9</span> Naive Bayes Classifier</a></li>
+<li><a class="" href="chapter-regression.html"><span class="header-section-number">10</span> Regression Modeling: From Basics to Advanced Techniques</a></li>
+<li><a class="" href="chapter-tree.html"><span class="header-section-number">11</span> Decision Trees and Random Forests</a></li>
+<li><a class="" href="chapter-nn.html"><span class="header-section-number">12</span> Neural Networks: The Building Blocks of Artificial Intelligence</a></li>
+<li><a class="" href="chapter-cluster.html"><span class="header-section-number">13</span> Clustering</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/RezaMoammadi/Book-Data-Science">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="chapter-data-prep" class="section level1" number="3">
+<h1>
+<span class="header-section-number">3</span> Data Preparation<a class="anchor" aria-label="anchor" href="#chapter-data-prep"><i class="fas fa-link"></i></a>
+</h1>
+<p>Data preparation is a foundational step in any data science project, ensuring that raw data is transformed into a clean and structured format suitable for analysis. This process is often the most time-consuming yet crucial stage, as the quality of data directly influences the accuracy of insights and the effectiveness of predictive models.</p>
+<p>This chapter explores key data preparation techniques, including <em>handling missing values</em>, <em>detecting outliers</em>, <em>transforming data</em>, and <em>feature engineering</em>. By the end of this chapter, you will have a clear understanding of how to preprocess raw data, enabling robust statistical modeling and machine learning applications.</p>
+<p>To illustrate these concepts, we will use the <em>diamonds</em> dataset from the <strong>ggplot2</strong> package. This dataset contains detailed attributes of diamonds, such as carat, cut, color, clarity, and price, making it an excellent case study for data preprocessing. In this chapter, we focus on the first two steps of the Data Science Workflow—data cleaning and transformation—laying the groundwork for further analysis in subsequent chapters.</p>
+<div id="problem-understanding" class="section level2" number="3.1">
+<h2>
+<span class="header-section-number">3.1</span> Problem Understanding<a class="anchor" aria-label="anchor" href="#problem-understanding"><i class="fas fa-link"></i></a>
+</h2>
+<p>Before preparing data for analysis, it is essential to define the problem and establish clear objectives. In this case, we aim to analyze the <em>diamonds</em> dataset to gain insights into <em>diamond pricing</em>, a critical factor in industries such as <em>jewelry retail, gemology, and e-commerce</em>. The dataset includes attributes that influence diamond value, allowing us to explore the key factors affecting pricing.</p>
+<div id="objectives-and-key-questions" class="section level3 unnumbered">
+<h3>Objectives and Key Questions<a class="anchor" aria-label="anchor" href="#objectives-and-key-questions"><i class="fas fa-link"></i></a>
+</h3>
+<p>Our primary objectives with the <em>diamonds</em> dataset are to:</p>
+<ol style="list-style-type: decimal">
+<li>
+<em>Examine relationships</em> between diamond attributes (e.g., carat, cut, color, clarity) and price.<br>
+</li>
+<li>
+<em>Identify patterns</em> that could improve price estimation.<br>
+</li>
+<li>
+<em>Assess data quality</em>, ensuring consistency and detecting missing values or outliers that may affect analysis.</li>
+</ol>
+<p>To achieve these objectives, we will address key questions such as:</p>
+<ul>
+<li>Which attributes have the most significant influence on price?<br>
+</li>
+<li>Are there pricing trends based on characteristics such as <em>carat weight</em> or <em>cut quality</em>?<br>
+</li>
+<li>Are there inconsistencies, errors, or missing values that need to be corrected?</li>
+</ul>
+</div>
+<div id="framing-the-problem-as-a-data-science-task" class="section level3 unnumbered">
+<h3>Framing the Problem as a Data Science Task<a class="anchor" aria-label="anchor" href="#framing-the-problem-as-a-data-science-task"><i class="fas fa-link"></i></a>
+</h3>
+<p>From a business perspective, understanding diamond pricing can provide valuable insights for <em>jewelers, e-commerce platforms, and gemologists</em>. From a <em>data science</em> perspective, this problem can be approached in two ways:</p>
+<ol style="list-style-type: decimal">
+<li>
+<em>Predictive modeling</em>: Developing a model that estimates <em>diamond price</em> based on its attributes.<br>
+</li>
+<li>
+<em>Exploratory data analysis (EDA)</em>: Identifying trends and relationships without building a predictive model.</li>
+</ol>
+<p>Clearly defining these objectives ensures that our data preparation efforts align with the intended analytical approach. This structured problem framing will guide decisions during data cleaning, transformation, and feature engineering, ensuring that our analysis remains focused and actionable.</p>
+</div>
+</div>
+<div id="diamonds-dataset-overview" class="section level2" number="3.2">
+<h2>
+<span class="header-section-number">3.2</span> diamonds Dataset Overview<a class="anchor" aria-label="anchor" href="#diamonds-dataset-overview"><i class="fas fa-link"></i></a>
+</h2>
+<p>The <em>diamonds</em> dataset, included in the <strong>ggplot2</strong> package, provides structured information on various characteristics of diamonds. Each row represents a unique diamond, with 54,940 entries in total, and contains 10 descriptive variables, including <em>price</em>, <em>carat</em>, <em>cut</em>, <em>clarity</em>, and <em>color</em>. The goal of our analysis is to gain deeper insights into the factors that influence diamond pricing, understand the distribution of data across these attributes, and explore both quantitative and qualitative relationships between variables.</p>
+<p>To use the <em>diamonds</em> dataset in <strong>R</strong>, first ensure that the <strong>ggplot2</strong> package is installed. If not, install it using:</p>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"ggplot2"</span><span class="op">)</span> </span></code></pre></div>
+<p>Then, load the package and dataset:</p>
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>  <span class="co"># Load ggplot2 package</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">diamonds</span><span class="op">)</span>    <span class="co"># Load diamonds dataset</span></span></code></pre></div>
+<p>To inspect the dataset structure, use:</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="chapter-data-prep.html#cb57-1" tabindex="-1"></a><span class="fu">str</span>(diamonds)   </span>
+<span id="cb57-2"><a href="chapter-data-prep.html#cb57-2" tabindex="-1"></a>   tibble [<span class="dv">53</span>,<span class="dv">940</span> × <span class="dv">10</span>] (S3<span class="sc">:</span> tbl_df<span class="sc">/</span>tbl<span class="sc">/</span>data.frame)</span>
+<span id="cb57-3"><a href="chapter-data-prep.html#cb57-3" tabindex="-1"></a>    <span class="sc">$</span> carat  <span class="sc">:</span> num [<span class="dv">1</span><span class="sc">:</span><span class="dv">53940</span>] <span class="fl">0.23</span> <span class="fl">0.21</span> <span class="fl">0.23</span> <span class="fl">0.29</span> <span class="fl">0.31</span> <span class="fl">0.24</span> <span class="fl">0.24</span> <span class="fl">0.26</span> <span class="fl">0.22</span> <span class="fl">0.23</span> ...</span>
+<span id="cb57-4"><a href="chapter-data-prep.html#cb57-4" tabindex="-1"></a>    <span class="sc">$</span> cut    <span class="sc">:</span> Ord.factor w<span class="sc">/</span> <span class="dv">5</span> levels <span class="st">"Fair"</span><span class="sc">&lt;</span><span class="st">"Good"</span><span class="sc">&lt;</span>..<span class="sc">:</span> <span class="dv">5</span> <span class="dv">4</span> <span class="dv">2</span> <span class="dv">4</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">1</span> <span class="dv">3</span> ...</span>
+<span id="cb57-5"><a href="chapter-data-prep.html#cb57-5" tabindex="-1"></a>    <span class="sc">$</span> color  <span class="sc">:</span> Ord.factor w<span class="sc">/</span> <span class="dv">7</span> levels <span class="st">"D"</span><span class="sc">&lt;</span><span class="st">"E"</span><span class="sc">&lt;</span><span class="st">"F"</span><span class="sc">&lt;</span><span class="st">"G"</span><span class="sc">&lt;</span>..<span class="sc">:</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">7</span> <span class="dv">6</span> <span class="dv">5</span> <span class="dv">2</span> <span class="dv">5</span> ...</span>
+<span id="cb57-6"><a href="chapter-data-prep.html#cb57-6" tabindex="-1"></a>    <span class="sc">$</span> clarity<span class="sc">:</span> Ord.factor w<span class="sc">/</span> <span class="dv">8</span> levels <span class="st">"I1"</span><span class="sc">&lt;</span><span class="st">"SI2"</span><span class="sc">&lt;</span><span class="st">"SI1"</span><span class="sc">&lt;</span>..<span class="sc">:</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">5</span> <span class="dv">4</span> <span class="dv">2</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> ...</span>
+<span id="cb57-7"><a href="chapter-data-prep.html#cb57-7" tabindex="-1"></a>    <span class="sc">$</span> depth  <span class="sc">:</span> num [<span class="dv">1</span><span class="sc">:</span><span class="dv">53940</span>] <span class="fl">61.5</span> <span class="fl">59.8</span> <span class="fl">56.9</span> <span class="fl">62.4</span> <span class="fl">63.3</span> <span class="fl">62.8</span> <span class="fl">62.3</span> <span class="fl">61.9</span> <span class="fl">65.1</span> <span class="fl">59.4</span> ...</span>
+<span id="cb57-8"><a href="chapter-data-prep.html#cb57-8" tabindex="-1"></a>    <span class="sc">$</span> table  <span class="sc">:</span> num [<span class="dv">1</span><span class="sc">:</span><span class="dv">53940</span>] <span class="dv">55</span> <span class="dv">61</span> <span class="dv">65</span> <span class="dv">58</span> <span class="dv">58</span> <span class="dv">57</span> <span class="dv">57</span> <span class="dv">55</span> <span class="dv">61</span> <span class="dv">61</span> ...</span>
+<span id="cb57-9"><a href="chapter-data-prep.html#cb57-9" tabindex="-1"></a>    <span class="sc">$</span> price  <span class="sc">:</span> int [<span class="dv">1</span><span class="sc">:</span><span class="dv">53940</span>] <span class="dv">326</span> <span class="dv">326</span> <span class="dv">327</span> <span class="dv">334</span> <span class="dv">335</span> <span class="dv">336</span> <span class="dv">336</span> <span class="dv">337</span> <span class="dv">337</span> <span class="dv">338</span> ...</span>
+<span id="cb57-10"><a href="chapter-data-prep.html#cb57-10" tabindex="-1"></a>    <span class="sc">$</span> x      <span class="sc">:</span> num [<span class="dv">1</span><span class="sc">:</span><span class="dv">53940</span>] <span class="fl">3.95</span> <span class="fl">3.89</span> <span class="fl">4.05</span> <span class="fl">4.2</span> <span class="fl">4.34</span> <span class="fl">3.94</span> <span class="fl">3.95</span> <span class="fl">4.07</span> <span class="fl">3.87</span> <span class="dv">4</span> ...</span>
+<span id="cb57-11"><a href="chapter-data-prep.html#cb57-11" tabindex="-1"></a>    <span class="sc">$</span> y      <span class="sc">:</span> num [<span class="dv">1</span><span class="sc">:</span><span class="dv">53940</span>] <span class="fl">3.98</span> <span class="fl">3.84</span> <span class="fl">4.07</span> <span class="fl">4.23</span> <span class="fl">4.35</span> <span class="fl">3.96</span> <span class="fl">3.98</span> <span class="fl">4.11</span> <span class="fl">3.78</span> <span class="fl">4.05</span> ...</span>
+<span id="cb57-12"><a href="chapter-data-prep.html#cb57-12" tabindex="-1"></a>    <span class="sc">$</span> z      <span class="sc">:</span> num [<span class="dv">1</span><span class="sc">:</span><span class="dv">53940</span>] <span class="fl">2.43</span> <span class="fl">2.31</span> <span class="fl">2.31</span> <span class="fl">2.63</span> <span class="fl">2.75</span> <span class="fl">2.48</span> <span class="fl">2.47</span> <span class="fl">2.53</span> <span class="fl">2.49</span> <span class="fl">2.39</span> ...</span></code></pre></div>
+<p>This function reveals that the dataset has 53940 observations and 10 variables. Below is a summary of the key attributes:</p>
+<ul>
+<li>
+<code>price</code>: price in US dollars ($326–$18,823).</li>
+<li>
+<code>carat</code>: weight of the diamond (0.2–5.01).</li>
+<li>
+<code>cut</code>: quality of the cut (Fair, Good, Very Good, Premium, Ideal).</li>
+<li>
+<code>color</code>: diamond color, from D (best) to J (worst).</li>
+<li>
+<code>clarity</code>: a measurement of how clear the diamond is (I1 (worst), SI2, SI1, VS2, VS1, VVS2, VVS1, IF (best)).</li>
+<li>
+<code>x</code>: length in mm (0–10.74).</li>
+<li>
+<code>y</code>: width in mm (0–58.9).</li>
+<li>
+<code>z</code>: depth in mm (0–31.8).</li>
+<li>
+<code>depth</code>: total depth percentage = <code>2 * z / (x + y)</code>.</li>
+<li>
+<code>table</code>: width of the top of the diamond relative to its widest point.</li>
+</ul>
+<div id="types-of-features-in-the-diamonds-dataset" class="section level3 unnumbered">
+<h3>Types of Features in the <code>diamonds</code> Dataset<a class="anchor" aria-label="anchor" href="#types-of-features-in-the-diamonds-dataset"><i class="fas fa-link"></i></a>
+</h3>
+<p>Understanding the types of features in the dataset is essential for determining the appropriate data preparation steps:</p>
+<ol style="list-style-type: decimal">
+<li>
+<em>Quantitative (or Numerical) Variables</em>: These are represented by numbers and can be continuous or discrete.
+<ul>
+<li>
+<em>Continuous Variables</em>: These variables can take any value within a range. In this dataset, <code>carat</code>, <code>price</code>, <code>x</code>, <code>y</code>, <code>z</code>, and <code>depth</code> are continuous.</li>
+<li>
+<em>Discrete Variables</em>: These variables take countable values, often integers. For example, a count of customers or the number of purchases would be discrete, though this dataset doesn’t include such a variable.</li>
+</ul>
+</li>
+<li>
+<em>Categorical (or Qualitative) Variables</em>: These describe data that fits into categories rather than having a numerical value. They are divided into three types:
+<ul>
+<li>
+<em>Ordinal Variables</em>: Categorical variables with a meaningful order, but where the intervals between categories are not equal. For instance, <code>cut</code>, <code>color</code>, and <code>clarity</code> are ordinal variables in this dataset. The ordering of levels in these variables (e.g., from “Fair” to “Ideal” in <code>cut</code>) has meaning.</li>
+<li>
+<em>Nominal Variables</em>: Categorical variables without any intrinsic ordering among categories. In other datasets, examples might include “gender” or “product type,” but the <em>diamonds</em> dataset does not contain any nominal variables.</li>
+<li>
+<em>Binary Variables</em>: Variables with only two levels, often coded as 0 and 1. While the <em>diamonds</em> dataset doesn’t contain binary variables, an example could be a feature like “has_certificate” with values “yes” or “no.”</li>
+</ul>
+</li>
+</ol>
+<p>Knowing the type of each feature guides decisions about data preparation. For instance:
+- <em>Numerical variables</em> can be normalized or standardized using techniques like Min-Max Scaling or Z-score Scaling.
+- <em>Ordinal variables</em> may be encoded using ordinal encoding or one-hot encoding, depending on whether the model should recognize the order.
+- <em>Categorical variables</em> without a meaningful order are typically one-hot encoded.</p>
+<p>By understanding the types of variables in the <em>diamonds</em> dataset, we can select appropriate transformations and encoding methods to prepare the data effectively for analysis and modeling.</p>
+</div>
+<div id="key-considerations-for-data-preparation" class="section level3 unnumbered">
+<h3>Key Considerations for Data Preparation<a class="anchor" aria-label="anchor" href="#key-considerations-for-data-preparation"><i class="fas fa-link"></i></a>
+</h3>
+<p>With our objectives in mind, here are the main priorities for preparing this dataset:</p>
+<ul>
+<li>
+<em>Data Quality</em>: Ensure that the data is accurate, consistent, and free from major issues. This involves checking for missing values, outliers, and inconsistencies that could bias our analysis.</li>
+<li>
+<em>Feature Engineering</em>: Explore the possibility of creating new features to improve predictive accuracy. For instance, calculating <em>volume</em> (using the product of <em>x</em>, <em>y</em>, and <em>z</em> dimensions) could provide an additional measure of a diamond’s size.</li>
+<li>
+<em>Data Transformation</em>: Ensure that all features are in appropriate formats. Categorical variables like <em>cut</em> and <em>color</em> may need to be converted into numeric codes or dummy variables to work with machine learning algorithms effectively.</li>
+</ul>
+</div>
+</div>
+<div id="outliers" class="section level2" number="3.3">
+<h2>
+<span class="header-section-number">3.3</span> Outliers<a class="anchor" aria-label="anchor" href="#outliers"><i class="fas fa-link"></i></a>
+</h2>
+<p>Outliers are data points that significantly deviate from the general distribution of a dataset. They can arise due to measurement variability, data entry errors, or genuinely unique observations. Identifying and handling outliers is crucial, as they can skew statistical analyses, affect model performance, and lead to misleading insights.</p>
+<p>Outliers play a critical role in multiple industries:</p>
+<ul>
+<li>
+<em>Finance</em>: Outliers in transaction data can indicate fraud. Detecting unusually high spending patterns is key to fraud detection models.</li>
+<li>
+<em>Healthcare</em>: Medical records often contain anomalous lab results, which may indicate rare diseases or measurement errors.</li>
+<li>
+<em>Manufacturing</em>: Sensors in factories may detect equipment failures through unusual temperature spikes.</li>
+</ul>
+<p>In many cases, outliers are not errors but signals of important events. Understanding their role in data analysis ensures that we don’t remove valuable insights unintentionally.</p>
+<div id="identifying-outliers-using-visualization-techniques" class="section level3 unnumbered">
+<h3>Identifying Outliers Using Visualization Techniques<a class="anchor" aria-label="anchor" href="#identifying-outliers-using-visualization-techniques"><i class="fas fa-link"></i></a>
+</h3>
+<div id="boxplots-detecting-extreme-values" class="section level4 unnumbered">
+<h4>Boxplots: Detecting Extreme Values<a class="anchor" aria-label="anchor" href="#boxplots-detecting-extreme-values"><i class="fas fa-link"></i></a>
+</h4>
+<p>Boxplots are a visual tool for detecting extreme values. Below is a boxplot of the <code>y</code> variable (diamond width) by using the <strong>ggplot()</strong> and <code><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot()</a></code> functions from the <strong>ggplot2</strong> package:</p>
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="data-preparation_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Here, boxplots highlight values beyond the whiskers, which may indicate potential outliers. Since diamonds cannot have a width of 0 mm, values like 32 mm or 59 mm likely result from data entry errors.</p>
+</div>
+<div id="histograms-understanding-outlier-distribution" class="section level4 unnumbered">
+<h4>Histograms: Understanding Outlier Distribution<a class="anchor" aria-label="anchor" href="#histograms-understanding-outlier-distribution"><i class="fas fa-link"></i></a>
+</h4>
+<p>Histograms provide another visual approach to detecting outliers by displaying the frequency distribution of values. Below is a histogram of the <code>y</code> variable by using the <em>ggplot()</em> and <em>geom_histogram()</em> functions:</p>
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">y</span><span class="op">)</span>, binwidth <span class="op">=</span> <span class="fl">0.5</span>, color <span class="op">=</span> <span class="st">'blue'</span>, fill <span class="op">=</span> <span class="st">"lightblue"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="data-preparation_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>To enhance visibility, we can zoom in on smaller frequencies by using the <em>coord_cartesian()</em> function from the <strong>ggplot2</strong> package:</p>
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">y</span><span class="op">)</span>, binwidth <span class="op">=</span> <span class="fl">0.5</span>, color <span class="op">=</span> <span class="st">'blue'</span>, fill <span class="op">=</span> <span class="st">"lightblue"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">30</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="data-preparation_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Other useful visualization techniques include:</p>
+<ul>
+<li>Violin plots – Show both outliers and density distributions.</li>
+<li>Density plots – Provide smoother insights into rare values and multimodal distributions.</li>
+</ul>
+</div>
+</div>
+<div id="handling-outliers-best-practices" class="section level3 unnumbered">
+<h3>Handling Outliers: Best Practices<a class="anchor" aria-label="anchor" href="#handling-outliers-best-practices"><i class="fas fa-link"></i></a>
+</h3>
+<p>Once outliers are identified, there are several strategies for handling them:</p>
+<ol style="list-style-type: decimal">
+<li>
+<em>Removing outliers</em>: This is appropriate when an outlier is clearly an error (e.g., negative height, duplicate data entry).</li>
+<li>
+<em>Transforming values</em>: Techniques such as log transformation or square root scaling can reduce the influence of extreme values while preserving trends.</li>
+<li>
+<em>Winsorization</em>: Instead of removing outliers, replace them with the nearest percentile-based value (e.g., capping extreme values at the 95th percentile).</li>
+<li>
+<em>Using robust statistical methods</em>: Some algorithms, like median-based regression or random forests, are less sensitive to outliers.</li>
+<li>
+<em>Treating outliers as a separate category</em>: In fraud detection or rare event prediction, outliers may contain valuable insights and should not be removed.</li>
+</ol>
+<p>Choosing the right strategy depends on the context of the analysis and the potential impact of the outlier.</p>
+</div>
+<div id="expanded-code-example-handling-outliers-in-r" class="section level3 unnumbered">
+<h3>Expanded Code Example: Handling Outliers in R<a class="anchor" aria-label="anchor" href="#expanded-code-example-handling-outliers-in-r"><i class="fas fa-link"></i></a>
+</h3>
+<p>After detecting outliers, we can choose to either replace them with <code>NA</code> values or remove them. For this, we could consider using the <code>mutate()</code> function from the <strong>dplyr</strong> package. Here’s an example of treating outliers as missing values using <code>mutate()</code> and <code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code>:</p>
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">diamonds_2</span> <span class="op">&lt;-</span> <span class="fu">mutate</span><span class="op">(</span><span class="va">diamonds</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">y</span> <span class="op">==</span> <span class="fl">0</span> <span class="op">|</span> <span class="va">y</span> <span class="op">&gt;</span> <span class="fl">30</span>, <span class="cn">NA</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Here’s how to verify the update:</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="chapter-data-prep.html#cb62-1" tabindex="-1"></a><span class="fu">summary</span>(diamonds_2<span class="sc">$</span>y)</span>
+<span id="cb62-2"><a href="chapter-data-prep.html#cb62-2" tabindex="-1"></a>      Min. <span class="dv">1</span>st Qu.  Median    Mean <span class="dv">3</span>rd Qu.    Max.    NA<span class="st">'s </span></span>
+<span id="cb62-3"><a href="chapter-data-prep.html#cb62-3" tabindex="-1"></a><span class="st">     3.680   4.720   5.710   5.734   6.540  10.540       9</span></span></code></pre></div>
+<p>This method ensures that outliers do not distort the dataset while allowing for further imputation or analysis.</p>
+</div>
+</div>
+<div id="missing-values" class="section level2" number="3.4">
+<h2>
+<span class="header-section-number">3.4</span> Missing Values<a class="anchor" aria-label="anchor" href="#missing-values"><i class="fas fa-link"></i></a>
+</h2>
+<p>Missing values pose significant challenges in data analysis, as they can lead to biased results, reduce statistical power, and impact the performance of machine learning models. When handling missing data, we typically consider two approaches:</p>
+<ol style="list-style-type: decimal">
+<li>Imputation: Replacing missing values with estimated values to retain data integrity.<br>
+</li>
+<li>Removal: Deleting records with missing values, though this may lead to data loss and potential bias.</li>
+</ol>
+<div id="imputation-techniques" class="section level3 unnumbered">
+<h3>Imputation Techniques<a class="anchor" aria-label="anchor" href="#imputation-techniques"><i class="fas fa-link"></i></a>
+</h3>
+<p>There are several strategies for imputing missing values, each with different use cases:</p>
+<ul>
+<li>Mean, median, or mode imputation: Replaces missing values with the mean, median, or mode of the corresponding column.<br>
+</li>
+<li>Random sampling: Fills missing values with random observations drawn from the existing data distribution.<br>
+</li>
+<li>Predictive imputation: Uses machine learning models such as regression or k-nearest neighbors to estimate missing values.<br>
+</li>
+<li>Multiple imputation: Generates several possible values for missing entries and averages the results to reduce uncertainty.<br>
+### Example: Random Sampling Imputation in R {-}</li>
+</ul>
+<p>To impute missing values in <code>y</code> using random sampling, we use the <code>impute()</code> function from the <strong>Hmisc</strong> package:</p>
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">diamonds_2</span><span class="op">$</span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">impute</span><span class="op">(</span><span class="va">diamonds_2</span><span class="op">$</span><span class="va">y</span>, <span class="st">"random"</span><span class="op">)</span></span></code></pre></div>
+<p>The <code>impute()</code> function replaces missing values with randomly sampled values from the existing distribution of <code>y</code>, maintaining the overall statistical properties of the dataset.</p>
+</div>
+<div id="best-practices" class="section level3 unnumbered">
+<h3>Best Practices<a class="anchor" aria-label="anchor" href="#best-practices"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>Use mean or median imputation for numerical variables when the missing values are missing at random (MAR).<br>
+</li>
+<li>Use mode imputation for categorical variables.<br>
+</li>
+<li>Consider predictive models when the dataset is large and missing values are not completely random.<br>
+</li>
+<li>Always assess the proportion of missing data—if too many values are missing, removing the variable may be a better approach than imputation.</li>
+</ul>
+</div>
+</div>
+<div id="feature-scaling" class="section level2" number="3.5">
+<h2>
+<span class="header-section-number">3.5</span> Feature Scaling<a class="anchor" aria-label="anchor" href="#feature-scaling"><i class="fas fa-link"></i></a>
+</h2>
+<p>Feature scaling, also known as normalization or standardization, is a crucial step in data preprocessing. It adjusts the range and distribution of numerical features so they are on a similar scale. Many machine learning algorithms, especially those based on distance metrics such as k-nearest neighbors, benefit significantly from scaled input features, as this prevents variables with larger ranges from disproportionately influencing the model’s outcome.</p>
+<p>For instance, in the <em>diamonds</em> dataset, the <code>carat</code> variable ranges from 0.2 to 5, while <code>price</code> ranges from 326 to 18823. Without scaling, variables like <code>price</code> with a wider range can dominate the model’s predictions, potentially leading to suboptimal results. To address this, we apply feature scaling techniques to bring all numeric variables onto a comparable scale. In this section, we explore two common scaling methods:</p>
+<ol style="list-style-type: decimal">
+<li>
+<em>Min-Max Scaling</em>: Also known as min-max normalization or min-max transformation.</li>
+<li>
+<em>Z-score Scaling</em>: Also known as standardization or Z-score normalization.</li>
+</ol>
+<p>Feature scaling provides several benefits:</p>
+<ul>
+<li>
+<em>Improved Model Performance</em>: Ensures that features contribute equally to the model, preventing features with larger numerical ranges from dominating learning algorithms.</li>
+<li>
+<em>Better Model Convergence</em>: Particularly useful for gradient-based optimization methods such as logistic regression and neural networks.</li>
+<li>
+<em>More Effective Distance-Based Learning</em>: Algorithms such as k-means clustering and support vector machines rely on distance calculations, making feature scaling essential.</li>
+<li>
+<em>Consistent Feature Interpretation</em>: By standardizing numerical values, models become easier to compare and interpret.</li>
+</ul>
+<p>However, feature scaling also has some drawbacks:</p>
+<ul>
+<li>
+<em>Potential Loss of Information</em>: In some cases, scaling can obscure meaningful differences between data points.</li>
+<li>
+<em>Impact on Outliers</em>: Min-max scaling, in particular, is sensitive to extreme values, which can distort the scaled representation.</li>
+<li>
+<em>Additional Computation</em>: Scaling adds preprocessing overhead, particularly when working with large datasets.</li>
+<li>
+<em>Reduced Interpretability</em>: The original units of measurement are lost, making it harder to relate scaled values to real-world meanings.</li>
+</ul>
+<p>Selecting the right scaling method depends on the characteristics of the data and the requirements of the model. In the next sections, we will explore these methods in more detail and apply them to the <em>diamonds</em> dataset.</p>
+</div>
+<div id="min-max-scaling" class="section level2" number="3.6">
+<h2>
+<span class="header-section-number">3.6</span> Min-Max Scaling<a class="anchor" aria-label="anchor" href="#min-max-scaling"><i class="fas fa-link"></i></a>
+</h2>
+<p>Min-Max Scaling transforms the values of a feature to a fixed range, typically <span class="math inline">\([0, 1]\)</span>. This transformation ensures that the minimum value of each feature becomes 0 and the maximum value becomes 1. It is especially useful for algorithms that rely on distance metrics, as it equalizes the contributions of all features, making comparisons more balanced.</p>
+<p>The formula for Min-Max Scaling is:</p>
+<p><span class="math display">\[
+x_{\text{scaled}} = \frac{x - x_{\text{min}}}{x_{\text{max}} - x_{\text{min}}},
+\]</span>
+where <span class="math inline">\(x\)</span> is the original feature value, <span class="math inline">\(x_{\text{min}}\)</span> and <span class="math inline">\(x_{\text{max}}\)</span> are the minimum and maximum values of the feature, and <span class="math inline">\(x_{\text{scaled}}\)</span> is the scaled value, ranging between 0 and 1.</p>
+<p>Min-Max Scaling is particularly useful for models that require bounded input values, such as neural networks and algorithms relying on gradient-based optimization. However, this method is sensitive to outliers, as extreme values significantly affect the scaled distribution.</p>
+<div class="example">
+<p><span id="exm:ex-min-max" class="example"><strong>Example 3.1  </strong></span>To demonstrate Min-Max Scaling, we’ll apply it to the <code>carat</code> variable in the <em>diamonds</em> dataset, where <code>carat</code> values range from approximately 0.2 to 5. Using the <code><a href="https://rdrr.io/pkg/liver/man/minmax.html">minmax()</a></code> function from the <strong>liver</strong> package, we can scale <code>carat</code> values to fit within the range [0, 1].</p>
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">carat</span><span class="op">)</span>, bins <span class="op">=</span> <span class="fl">30</span>,</span>
+<span>                 color <span class="op">=</span> <span class="st">'blue'</span>, fill <span class="op">=</span> <span class="st">"lightblue"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Histogram for `carat` without scaling"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"Values for variable `carat`"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/liver/man/minmax.html">minmax</a></span><span class="op">(</span><span class="va">carat</span><span class="op">)</span><span class="op">)</span>, bins <span class="op">=</span> <span class="fl">30</span>,</span>
+<span>                 color <span class="op">=</span> <span class="st">'blue'</span>, fill <span class="op">=</span> <span class="st">"lightblue"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Histogram for `carat` with Min-Max Scaling"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"Values for variable `carat`"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="data-preparation_files/figure-html/unnamed-chunk-11-1.png" width="50%"><img src="data-preparation_files/figure-html/unnamed-chunk-11-2.png" width="50%"></p>
+<p>The first histogram (left) shows the distribution of <code>carat</code> without scaling, while the second histogram (right) shows it after Min-Max Scaling. After scaling, the <code>carat</code> values are compressed to a range between 0 and 1, allowing it to be more comparable to other features that may have different original scales. This scaling method is particularly beneficial for distance-based algorithms, as it prevents features with wider ranges from having undue influence.</p>
+</div>
+</div>
+<div id="z-score-scaling" class="section level2" number="3.7">
+<h2>
+<span class="header-section-number">3.7</span> Z-score Scaling<a class="anchor" aria-label="anchor" href="#z-score-scaling"><i class="fas fa-link"></i></a>
+</h2>
+<p>Z-score Scaling, also known as standardization, transforms feature values so they have a mean of 0 and a standard deviation of 1. This method is particularly useful for algorithms that assume normally distributed data, such as linear regression and logistic regression, because it centers the data around 0 and normalizes the spread of values.</p>
+<p>The formula for Z-score Scaling is:</p>
+<p><span class="math display">\[
+x_{\text{scaled}} = \frac{x - \text{mean}(x)}{\text{sd}(x)}
+\]</span></p>
+<p>where <span class="math inline">\(x\)</span> is the original feature value, <span class="math inline">\(\text{mean}(x)\)</span> is the mean of the feature, <span class="math inline">\(\text{sd}(x)\)</span> is the standard deviation of the feature, and <span class="math inline">\(x_{\text{scaled}}\)</span> is the standardized value, now having a mean of 0 and a standard deviation of 1.</p>
+<p>Z-score Scaling is particularly beneficial for models that assume normality or use gradient-based optimization, ensuring that all numerical features contribute equally. However, since it relies on mean and standard deviation, it is <strong>sensitive to outliers</strong>, which can distort the transformation.</p>
+<div class="example">
+<p><span id="exm:ex-zscore" class="example"><strong>Example 3.2  </strong></span>Applying Z-score Scaling to the <code>carat</code> variable in the <em>diamonds</em> dataset, where the mean and standard deviation of <code>carat</code> are approximately 0.8 and 0.47, respectively. We use the <code><a href="https://rdrr.io/pkg/liver/man/zscore.html">zscore()</a></code> function from the <strong>liver</strong> package to standardize these values.</p>
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">carat</span><span class="op">)</span>, bins <span class="op">=</span> <span class="fl">30</span>,</span>
+<span>                 color <span class="op">=</span> <span class="st">'blue'</span>, fill <span class="op">=</span> <span class="st">"lightblue"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Histogram for `carat` without scaling"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"Values for variable `carat`"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/liver/man/zscore.html">zscore</a></span><span class="op">(</span><span class="va">carat</span><span class="op">)</span><span class="op">)</span>, bins <span class="op">=</span> <span class="fl">30</span>,</span>
+<span>                 color <span class="op">=</span> <span class="st">'blue'</span>, fill <span class="op">=</span> <span class="st">"lightblue"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Histogram for `carat` with Z-score Scaling"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"Values for variable `carat`"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="data-preparation_files/figure-html/unnamed-chunk-12-1.png" width="50%"><img src="data-preparation_files/figure-html/unnamed-chunk-12-2.png" width="50%"></p>
+<p>The first histogram (left) displays the distribution of <code>carat</code> without scaling, while the second histogram (right) shows the distribution after Z-score Scaling. This transformation makes feature values comparable across different scales and ensures that each feature contributes equally to distance-based computations and model training.</p>
+</div>
+<blockquote>
+<p>Note: A common misconception is that after Z-score Scaling, the data follows a standard normal distribution. While Z-score Scaling centers the data to a mean of 0 and scales it to a standard deviation of 1, it does not alter the shape of the distribution. If the original distribution is skewed, it will remain skewed after scaling, as seen in the histograms above.</p>
+</blockquote>
+<p>The choice between Min-Max Scaling and Z-score Scaling depends on the requirements of the model and the characteristics of the data. Min-Max Scaling is preferable for algorithms that require a fixed input range, while Z-score Scaling is better suited for models that assume normally distributed features. By selecting the appropriate scaling method, we ensure balanced feature contributions and improved model performance.</p>
+</div>
+<div id="how-to-reexpress-categorical-field-values" class="section level2" number="3.8">
+<h2>
+<span class="header-section-number">3.8</span> How to Reexpress Categorical Field Values<a class="anchor" aria-label="anchor" href="#how-to-reexpress-categorical-field-values"><i class="fas fa-link"></i></a>
+</h2>
+<p>In data science, categorical features often need to be transformed into a numeric format before they can be used in machine learning models. Algorithms like decision trees, neural networks, and linear regression require numeric inputs to process the data effectively. Converting categorical variables into numerical representations ensures that all features contribute appropriately to the model, rather than being ignored or treated incorrectly.</p>
+<p>This process of reexpressing categorical values is a crucial part of data preparation, as it enables us to leverage the full range of features in our dataset. In this section, we explore several methods to convert categorical fields into numeric representations, with a focus on techniques like one-hot encoding and ordinal encoding. We demonstrate these techniques using the <em>diamonds</em> dataset, which includes several categorical features such as <code>cut</code>, <code>color</code>, and <code>clarity</code>.</p>
+<div id="why-reexpress-categorical-fields" class="section level3" number="3.8.1">
+<h3>
+<span class="header-section-number">3.8.1</span> Why Reexpress Categorical Fields?<a class="anchor" aria-label="anchor" href="#why-reexpress-categorical-fields"><i class="fas fa-link"></i></a>
+</h3>
+<p>Categorical fields, also known as nominal or ordinal variables, often represent qualitative aspects of data, such as product types, user locations, or levels of satisfaction. In the <em>diamonds</em> dataset, for example:</p>
+<ul>
+<li>
+<code>cut</code> indicates the quality of the diamond’s cut (e.g., “Fair,” “Good,” “Very Good,” “Premium,” “Ideal”).</li>
+<li>
+<code>color</code> represents the diamond’s color grade (e.g., “D,” “E,” “F,” with “D” being the most colorless and thus most valuable).</li>
+<li>
+<code>clarity</code> describes the diamond’s clarity, reflecting the absence of internal or external flaws.</li>
+</ul>
+<p>These fields are essential for understanding and predicting diamond pricing, but in their raw form as text labels, they are not suitable for most machine learning algorithms. Transforming them into numeric form allows us to include these valuable insights in our analysis.</p>
+</div>
+<div id="techniques-for-reexpressing-categorical-variables" class="section level3" number="3.8.2">
+<h3>
+<span class="header-section-number">3.8.2</span> Techniques for Reexpressing Categorical Variables<a class="anchor" aria-label="anchor" href="#techniques-for-reexpressing-categorical-variables"><i class="fas fa-link"></i></a>
+</h3>
+<p>There are several approaches to converting categorical variables into numeric representations. The method we choose depends on the type of categorical variable and the nature of the data.</p>
+<div id="ordinal-encoding" class="section level4 unnumbered">
+<h4>Ordinal Encoding<a class="anchor" aria-label="anchor" href="#ordinal-encoding"><i class="fas fa-link"></i></a>
+</h4>
+<p>Ordinal encoding is suitable when the categorical variable has a meaningful order. For example, the <code>cut</code> feature in the <em>diamonds</em> dataset is ordinal, as there is a natural hierarchy from “Fair” to “Ideal.” In ordinal encoding, each category is assigned a unique integer based on its rank or level of importance.</p>
+<p>In this example, we might assign values as follows:</p>
+<ul>
+<li>“Fair” → 1</li>
+<li>“Good” → 2</li>
+<li>“Very Good” → 3</li>
+<li>“Premium” → 4</li>
+<li>“Ideal” → 5</li>
+</ul>
+<p>This approach preserves the order of the categories, which can be useful in models that interpret numeric values in a relative way, such as linear regression. However, it is important to apply ordinal encoding only when the order is meaningful. For non-ordinal variables, other methods like one-hot encoding are more appropriate.</p>
+</div>
+<div id="one-hot-encoding" class="section level4 unnumbered">
+<h4>One-Hot Encoding<a class="anchor" aria-label="anchor" href="#one-hot-encoding"><i class="fas fa-link"></i></a>
+</h4>
+<p>One-hot encoding is the preferred technique for nominal variables—categorical fields without an intrinsic order. In this approach, each unique category in a field is transformed into a new binary (0 or 1) feature. This method is particularly useful for variables like <code>color</code> and <code>clarity</code> in the <em>diamonds</em> dataset, where the categories do not follow a clear sequence.</p>
+<p>For example, if we one-hot encode the <code>color</code> feature, we create a set of binary columns, one for each color grade:</p>
+<ul>
+<li>
+<code>color_D</code>: 1 if the diamond color is “D,” 0 otherwise.</li>
+<li>
+<code>color_E</code>: 1 if the diamond color is “E,” 0 otherwise.</li>
+<li>
+<code>color_F</code>: 1 if the diamond color is “F,” 0 otherwise.</li>
+</ul>
+<p>One-hot encoding avoids introducing false ordinal relationships, ensuring that the model treats each category as an independent entity. However, one downside is that it can significantly increase the dimensionality of the dataset if the categorical field has many unique values.</p>
+<blockquote>
+<p>Note: Many machine learning libraries automatically drop one of the binary columns to avoid multicollinearity (perfect correlation among features). For instance, if we have seven color categories, only six binary columns are created, and the missing category is implied when all columns are zero. This approach, known as dummy encoding, helps avoid redundancy and keeps the model simpler.</p>
+</blockquote>
+</div>
+<div id="frequency-encoding" class="section level4 unnumbered">
+<h4>Frequency Encoding<a class="anchor" aria-label="anchor" href="#frequency-encoding"><i class="fas fa-link"></i></a>
+</h4>
+<p>Another useful approach, especially for high-cardinality categorical variables (those with many unique values), is frequency encoding. This technique replaces each category with its frequency in the dataset, allowing the model to capture information about how common each category is. Frequency encoding can be particularly helpful for fields like <code>clarity</code> if you want to give the model an indication of how prevalent each level is.</p>
+<p>For example:</p>
+<ul>
+<li>If “VS2” appears 10,000 times in the dataset, it would be encoded as 10,000.</li>
+<li>If “IF” appears only 500 times, it would be encoded as 500.</li>
+</ul>
+<p>Frequency encoding is less commonly used in basic machine learning workflows but can be valuable when dealing with very large datasets, or when one-hot encoding would introduce too many columns. However, be cautious with this approach, as it may inadvertently add an implicit weight to more common categories.</p>
+</div>
+</div>
+<div id="choosing-the-right-encoding-technique" class="section level3" number="3.8.3">
+<h3>
+<span class="header-section-number">3.8.3</span> Choosing the Right Encoding Technique<a class="anchor" aria-label="anchor" href="#choosing-the-right-encoding-technique"><i class="fas fa-link"></i></a>
+</h3>
+<p>Selecting the appropriate encoding technique depends on the nature of your categorical variable and the requirements of your analysis:</p>
+<ul>
+<li>Ordinal variables (like <code>cut</code>): Use ordinal encoding to preserve the natural order.</li>
+<li>Nominal variables with few unique values (like <code>color</code> and <code>clarity</code>): Use one-hot encoding to represent each category as a binary column.</li>
+<li>High-cardinality categorical variables: Consider frequency encoding if one-hot encoding would introduce too many features.</li>
+</ul>
+<div class="example">
+<p><span id="exm:ex-encoding" class="example"><strong>Example 3.3  </strong></span>Applying these techniques to the <em>diamonds</em> dataset:</p>
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Example: Ordinal encoding for `cut`</span></span>
+<span><span class="va">diamonds</span> <span class="op">&lt;-</span> <span class="va">diamonds</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>cut_encoded <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">cut</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Fair"</span>, <span class="st">"Good"</span>, <span class="st">"Very Good"</span>, <span class="st">"Premium"</span>, <span class="st">"Ideal"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Example: One-hot encoding for `color`</span></span>
+<span><span class="va">diamonds</span> <span class="op">&lt;-</span> <span class="va">diamonds</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span></span>
+<span>    color_D <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">color</span> <span class="op">==</span> <span class="st">"D"</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>    color_E <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">color</span> <span class="op">==</span> <span class="st">"E"</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>    color_F <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">color</span> <span class="op">==</span> <span class="st">"F"</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>    color_G <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">color</span> <span class="op">==</span> <span class="st">"G"</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>    color_H <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">color</span> <span class="op">==</span> <span class="st">"H"</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>    color_I <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">color</span> <span class="op">==</span> <span class="st">"I"</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>    color_J <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">color</span> <span class="op">==</span> <span class="st">"J"</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p>In this example:</p>
+<ul>
+<li>Ordinal Encoding: We have encoded the <code>cut</code> variable based on its quality hierarchy.</li>
+<li>One-Hot Encoding: We have applied one-hot encoding to <code>color</code>, creating binary columns for each color grade.</li>
+</ul>
+</div>
+<p>By encoding the categorical fields in this way, we transform the dataset into a format compatible with most machine learning algorithms while preserving the essential information about each categorical feature.</p>
+<p>With our dataset now cleaned, scaled, and encoded, we are ready to move into the next stage of data analysis. In the upcoming chapter, we will explore Exploratory Data Analysis (EDA), where we will use visualizations and summary statistics to gain insights into the structure and relationships within the data. By combining the prepared data with EDA techniques, we can better understand which features may hold predictive value for our model and set the stage for successful machine learning outcomes.</p>
+</div>
+</div>
+<div id="exercises-2" class="section level2" number="3.9">
+<h2>
+<span class="header-section-number">3.9</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-2"><i class="fas fa-link"></i></a>
+</h2>
+<p>To reinforce your understanding of data preparation concepts, answer the following questions:</p>
+<ol style="list-style-type: decimal">
+<li>What is the primary goal of data preparation in a data science workflow?</li>
+<li>Why is it important to understand the problem context before preparing data?</li>
+<li>What are the key attributes in the <em>diamonds</em> dataset, and why are they relevant for analysis?</li>
+<li>How can we inspect the structure of a dataset in <strong>R</strong>?</li>
+<li>What is the difference between continuous and discrete numerical variables?</li>
+<li>How do ordinal categorical variables differ from nominal categorical variables?</li>
+<li>Why is handling missing values crucial in data analysis?</li>
+<li>What are two common strategies for dealing with missing values?</li>
+<li>How does the <code>impute()</code> function from <strong>Hmisc</strong> help in handling missing values?</li>
+<li>What are outliers, and how can they impact a dataset?</li>
+<li>How can we detect outliers using a boxplot for the <code>y</code> variable in <strong>ggplot2</strong>?</li>
+<li>How can we detect outliers using a boxplot for the <code>z</code> variable in <strong>ggplot2</strong>?</li>
+<li>How can we detect outliers using a histogram for the <code>x</code> variable in <strong>ggplot2</strong>?</li>
+<li>What are some alternative visualization methods for identifying outliers?</li>
+<li>Why is it sometimes necessary to transform outliers rather than remove them?</li>
+<li>What are the advantages and disadvantages of Min-Max Scaling?</li>
+<li>When should Min-Max Scaling be preferred over Z-score Scaling?</li>
+<li>What is the main purpose of Z-score Scaling, and how does it work?</li>
+<li>How does the presence of outliers impact Z-score Scaling?</li>
+<li>Which machine learning models are most sensitive to unscaled features?</li>
+<li>What are the differences between one-hot encoding and ordinal encoding?</li>
+<li>When is it appropriate to use frequency encoding for categorical variables?</li>
+<li>How does one-hot encoding increase the dimensionality of a dataset?</li>
+<li>How can we encode the <code>cut</code> variable in the <em>diamonds</em> dataset using ordinal encoding?</li>
+<li>How can we encode the <code>color</code> variable in the <em>diamonds</em> dataset using one-hot encoding?</li>
+</ol>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="chapter-intro-DS.html"><span class="header-section-number">2</span> Introduction to Data Science</a></div>
+<div class="next"><a href="chapter-EDA.html"><span class="header-section-number">4</span> Exploratory Data Analysis</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#chapter-data-prep"><span class="header-section-number">3</span> Data Preparation</a></li>
+<li>
+<a class="nav-link" href="#problem-understanding"><span class="header-section-number">3.1</span> Problem Understanding</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#objectives-and-key-questions">Objectives and Key Questions</a></li>
+<li><a class="nav-link" href="#framing-the-problem-as-a-data-science-task">Framing the Problem as a Data Science Task</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#diamonds-dataset-overview"><span class="header-section-number">3.2</span> diamonds Dataset Overview</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#types-of-features-in-the-diamonds-dataset">Types of Features in the diamonds Dataset</a></li>
+<li><a class="nav-link" href="#key-considerations-for-data-preparation">Key Considerations for Data Preparation</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#outliers"><span class="header-section-number">3.3</span> Outliers</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#identifying-outliers-using-visualization-techniques">Identifying Outliers Using Visualization Techniques</a></li>
+<li><a class="nav-link" href="#handling-outliers-best-practices">Handling Outliers: Best Practices</a></li>
+<li><a class="nav-link" href="#expanded-code-example-handling-outliers-in-r">Expanded Code Example: Handling Outliers in R</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#missing-values"><span class="header-section-number">3.4</span> Missing Values</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#imputation-techniques">Imputation Techniques</a></li>
+<li><a class="nav-link" href="#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#feature-scaling"><span class="header-section-number">3.5</span> Feature Scaling</a></li>
+<li><a class="nav-link" href="#min-max-scaling"><span class="header-section-number">3.6</span> Min-Max Scaling</a></li>
+<li><a class="nav-link" href="#z-score-scaling"><span class="header-section-number">3.7</span> Z-score Scaling</a></li>
+<li>
+<a class="nav-link" href="#how-to-reexpress-categorical-field-values"><span class="header-section-number">3.8</span> How to Reexpress Categorical Field Values</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#why-reexpress-categorical-fields"><span class="header-section-number">3.8.1</span> Why Reexpress Categorical Fields?</a></li>
+<li><a class="nav-link" href="#techniques-for-reexpressing-categorical-variables"><span class="header-section-number">3.8.2</span> Techniques for Reexpressing Categorical Variables</a></li>
+<li><a class="nav-link" href="#choosing-the-right-encoding-technique"><span class="header-section-number">3.8.3</span> Choosing the Right Encoding Technique</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#exercises-2"><span class="header-section-number">3.9</span> Exercises</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/RezaMoammadi/Book-Data-Science/blob/master/data-preparation.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/RezaMoammadi/Book-Data-Science/edit/master/data-preparation.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Uncovering Data Science with R</strong>" was written by . It was last built on 2025-02-06.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 2 Introduction to Data Science | Uncovering Data Science with R</title>
+<meta name="generator" content="bookdown 0.37 with bs4_book()">
+<meta property="og:title" content="Chapter 2 Introduction to Data Science | Uncovering Data Science with R">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://uncovering-data-science.netlify.app/intro-DS.html">
+<meta property="og:image" content="https://uncovering-data-science.netlify.app/images/cover.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 2 Introduction to Data Science | Uncovering Data Science with R">
+<meta name="twitter:image" content="https://uncovering-data-science.netlify.app/images/cover.jpg">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+          margin-bottom: 0em;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="Data Science uses tools and techniques to turn data into meaningful business insights. In this regards, data scientists combine data analysis, statistics, machine learning, and related methodology...">
+<meta property="og:description" content="Data Science uses tools and techniques to turn data into meaningful business insights. In this regards, data scientists combine data analysis, statistics, machine learning, and related methodology...">
+<meta name="twitter:description" content="Data Science uses tools and techniques to turn data into meaningful business insights. In this regards, data scientists combine data analysis, statistics, machine learning, and related methodology...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Uncovering Data Science with R</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li><a class="" href="into-R.html"><span class="header-section-number">1</span> The Basics for R</a></li>
+<li><a class="active" href="intro-DS.html"><span class="header-section-number">2</span> Introduction to Data Science</a></li>
+<li><a class="" href="data-prep.html"><span class="header-section-number">3</span> Data Preparation</a></li>
+<li><a class="" href="EDA.html"><span class="header-section-number">4</span> Exploratory Data Analysis</a></li>
+<li><a class="" href="statistics.html"><span class="header-section-number">5</span> Statistical Inference and Hypothesis Testing</a></li>
+<li><a class="" href="modeling-process.html"><span class="header-section-number">6</span> Modeling Process</a></li>
+<li><a class="" href="knn.html"><span class="header-section-number">7</span> K-Nearest Neighbors</a></li>
+<li><a class="" href="chapter:evaluation.html"><span class="header-section-number">8</span> Model Evaluation</a></li>
+<li><a class="" href="bayes.html"><span class="header-section-number">9</span> Naive Bayes Classifier</a></li>
+<li><a class="" href="regression.html"><span class="header-section-number">10</span> Regression Modelling</a></li>
+<li><a class="" href="decision-trees-and-random-forests.html"><span class="header-section-number">11</span> Decision Trees and Random Forests</a></li>
+<li><a class="" href="neural-networks.html"><span class="header-section-number">12</span> Neural Networks</a></li>
+<li><a class="" href="cluster-analysis.html"><span class="header-section-number">13</span> Cluster Analysis</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/RezaMoammadi/Book-Data-Science">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="intro-DS" class="section level1" number="2">
+<h1>
+<span class="header-section-number">2</span> Introduction to Data Science<a class="anchor" aria-label="anchor" href="#intro-DS"><i class="fas fa-link"></i></a>
+</h1>
+<p><em>Data Science</em> uses tools and techniques to turn data into meaningful business insights. In this regards, data scientists combine data analysis, statistics, machine learning, and related methodology in order to manage and understand the data deluge associated with the emergence of information technology.</p>
+<div id="data-science-methodology" class="section level2" number="2.1">
+<h2>
+<span class="header-section-number">2.1</span> Data science methodology<a class="anchor" aria-label="anchor" href="#data-science-methodology"><i class="fas fa-link"></i></a>
+</h2>
+<p>Data Science Methodology is a phased, adaptive, iterative, approach within a scientific framework to turn data to Information, Knowledge, and Wisdom. See Figure <a href="intro-DS.html#fig:DIKW-Pyramid">2.1</a>.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:DIKW-Pyramid"></span>
+<img src="images/DIKW-Pyramid.png" alt="Each step up the pyramid answers questions about and adds value to the initial data." width="50%"><p class="caption">
+Figure 2.1: Each step up the pyramid answers questions about and adds value to the initial data.
+</p>
+</div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:CRISP-DM"></span>
+<img src="images/CRISP-DM.png" alt="CRISP-DM: This is a cyclic process that undergoes a critic behaviour guiding data scientists to act accordingly." width="50%"><p class="caption">
+Figure 2.2: CRISP-DM: This is a cyclic process that undergoes a critic behaviour guiding data scientists to act accordingly.
+</p>
+</div>
+<p>This is <a href="intro-DS.html#fig:CRISP-DM">2.2</a> a cyclic process that undergoes a critic behaviour guiding data scientists to act accordingly.</p>
+<ul>
+<li>Business Understanding.</li>
+<li>Data Preparation.</li>
+<li>Exploratory Data Analysis.</li>
+<li>Preparing Data to Model.</li>
+<li>Modeling.</li>
+<li>Evaluation.</li>
+<li>Deployment.</li>
+</ul>
+<div id="business-understanding" class="section level3" number="2.1.1">
+<h3>
+<span class="header-section-number">2.1.1</span> Business Understanding<a class="anchor" aria-label="anchor" href="#business-understanding"><i class="fas fa-link"></i></a>
+</h3>
+<p>For data-driven business-making, it is vital to understand the problem to be solved. This may seem obvious, but business projects seldom come pre-packaged as clear and unambiguous data mining problems.</p>
+<p>The Business Understanding stage represents a key part of the craft where the analysts’ creativity plays a large role. Data Science has some things to say, as we will describe, but often the key to a great success is a creative problem formulation by some analyst regarding how to cast the business problem as one or more data science problems. High-level knowledge of the fundamentals helps creative business analysts see novel formulations. The Business Understanding stage can be done by following steps:</p>
+<ol style="list-style-type: decimal">
+<li>First, clearly enunciate the project objectives and requirements in terms of the business or research unit as a whole.</li>
+<li>Then, translate these goals and restrictions into the formulation of a problem that can be solved using data science.</li>
+<li>Finally, prepare a preliminary strategy for achieving these objectives.</li>
+</ol>
+</div>
+<div id="data-preparation" class="section level3" number="2.1.2">
+<h3>
+<span class="header-section-number">2.1.2</span> Data Preparation<a class="anchor" aria-label="anchor" href="#data-preparation"><i class="fas fa-link"></i></a>
+</h3>
+<p>Raw data from data repositories are seldom ready for the algorithms straight out of the box. Instead, it needs to be cleaned or “prepared for analysis”.</p>
+<ul>
+<li>Check for the type of variables in the dataset.</li>
+<li>Check for missing values and determine what to do about them.</li>
+<li>Identifying outliers and determining what to do about them.</li>
+</ul>
+<p>For the data understanding part:</p>
+<ul>
+<li>Report some important information about the dataset. For example, how and where the dataset is collected.</li>
+<li>Report a summary of the dataset.</li>
+</ul>
+</div>
+<div id="exploratory-data-analysis" class="section level3" number="2.1.3">
+<h3>
+<span class="header-section-number">2.1.3</span> Exploratory Data Analysis<a class="anchor" aria-label="anchor" href="#exploratory-data-analysis"><i class="fas fa-link"></i></a>
+</h3>
+<p>Now that your data are nice and clean, you can begin to explore the data, and learn some basic information. Graphical exploration is the focus here. Here is not the time for complex algorithms. Rather, we can use simple exploratory methods to help us gain some preliminary insights. You might find that you can learn quite a bit just by using these simple methods. Here are some of the ways we can do this.</p>
+<ul>
+<li>Exploring the univariate relationships between predictors and the target variable.</li>
+<li>Explore multivariate relationships among the variables.</li>
+</ul>
+</div>
+<div id="data-preparation-1" class="section level3" number="2.1.4">
+<h3>
+<span class="header-section-number">2.1.4</span> Data Preparation<a class="anchor" aria-label="anchor" href="#data-preparation-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>At this point, we are nearly ready to begin modeling the data. In this stage, we want to prepare the dataset for modeling.</p>
+<ul>
+<li>Partition the dataset to <em>train set</em> and <em>test set</em>.</li>
+<li>Validate the partition.</li>
+</ul>
+</div>
+<div id="modeling" class="section level3" number="2.1.5">
+<h3>
+<span class="header-section-number">2.1.5</span> Modeling<a class="anchor" aria-label="anchor" href="#modeling"><i class="fas fa-link"></i></a>
+</h3>
+<p>The modeling phase represents the opportunity to apply state-of-the-art algorithms to uncover some seriously profitable relationships lying hidden in the data. The modeling phase is the heart of your data scientific investigation and includes the following:</p>
+<ul>
+<li>Select and apply appropriate modeling techniques.</li>
+<li>Calibrate model settings to optimize results.</li>
+<li>Often, several different techniques may be applied for the same data analytics problem.</li>
+<li>May require looping back to the data preparation phase, in order to bring the form of the data into line with the specific requirements of a particular data analytics technique.</li>
+</ul>
+</div>
+<div id="evaluation" class="section level3" number="2.1.6">
+<h3>
+<span class="header-section-number">2.1.6</span> Evaluation<a class="anchor" aria-label="anchor" href="#evaluation"><i class="fas fa-link"></i></a>
+</h3>
+<p>they are making any money, or whether we need to go back and try to improve our prediction models.</p>
+<ul>
+<li>The modeling stage has delivered one or more models. These models must be evaluated for quality and effectiveness before we deploy them for use in the field.</li>
+<li>Also, determine whether the model, in fact, achieves the objectives set for it in stage 1.</li>
+<li>Establish whether some important facet of the business or research problem has not been sufficiently accounted for.</li>
+<li>Finally, come to a decision regarding the use of the data mining results.</li>
+</ul>
+</div>
+<div id="deployment" class="section level3" number="2.1.7">
+<h3>
+<span class="header-section-number">2.1.7</span> Deployment<a class="anchor" aria-label="anchor" href="#deployment"><i class="fas fa-link"></i></a>
+</h3>
+<p>As the model is effectively evaluated it is made ready for deployment in the business market. Deployment phase checks how much the model can withstand in the external environment and perform superiority as compared to others.</p>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="into-R.html"><span class="header-section-number">1</span> The Basics for R</a></div>
+<div class="next"><a href="data-prep.html"><span class="header-section-number">3</span> Data Preparation</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#intro-DS"><span class="header-section-number">2</span> Introduction to Data Science</a></li>
+<li>
+<a class="nav-link" href="#data-science-methodology"><span class="header-section-number">2.1</span> Data science methodology</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#business-understanding"><span class="header-section-number">2.1.1</span> Business Understanding</a></li>
+<li><a class="nav-link" href="#data-preparation"><span class="header-section-number">2.1.2</span> Data Preparation</a></li>
+<li><a class="nav-link" href="#exploratory-data-analysis"><span class="header-section-number">2.1.3</span> Exploratory Data Analysis</a></li>
+<li><a class="nav-link" href="#data-preparation-1"><span class="header-section-number">2.1.4</span> Data Preparation</a></li>
+<li><a class="nav-link" href="#modeling"><span class="header-section-number">2.1.5</span> Modeling</a></li>
+<li><a class="nav-link" href="#evaluation"><span class="header-section-number">2.1.6</span> Evaluation</a></li>
+<li><a class="nav-link" href="#deployment"><span class="header-section-number">2.1.7</span> Deployment</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/RezaMoammadi/Book-Data-Science/blob/master/Introduction.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/RezaMoammadi/Book-Data-Science/edit/master/Introduction.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Uncovering Data Science with R</strong>" was written by . It was last built on 2024-08-07.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

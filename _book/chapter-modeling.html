@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 6 Preparing Data for Modeling | Uncovering Data Science with R</title>
+<meta name="generator" content="bookdown 0.37 with bs4_book()">
+<meta property="og:title" content="Chapter 6 Preparing Data for Modeling | Uncovering Data Science with R">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://uncovering-data-science.netlify.app/chapter-modeling.html">
+<meta property="og:image" content="https://uncovering-data-science.netlify.app/images/cover.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 6 Preparing Data for Modeling | Uncovering Data Science with R">
+<meta name="twitter:image" content="https://uncovering-data-science.netlify.app/images/cover.jpg">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+          margin-bottom: 0em;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="As we advance through the Data Science Process, illustrated in Chapter 2, Figure 2.3, we’ve completed the foundational steps that pave the way for effective modeling: Problem Understanding:...">
+<meta property="og:description" content="As we advance through the Data Science Process, illustrated in Chapter 2, Figure 2.3, we’ve completed the foundational steps that pave the way for effective modeling: Problem Understanding:...">
+<meta name="twitter:description" content="As we advance through the Data Science Process, illustrated in Chapter 2, Figure 2.3, we’ve completed the foundational steps that pave the way for effective modeling: Problem Understanding:...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Uncovering Data Science with R</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li><a class="" href="chapter-into-R.html"><span class="header-section-number">1</span> The Basics for R</a></li>
+<li><a class="" href="chapter-intro-DS.html"><span class="header-section-number">2</span> Introduction to Data Science</a></li>
+<li><a class="" href="chapter-data-prep.html"><span class="header-section-number">3</span> Data Preparation</a></li>
+<li><a class="" href="chapter-EDA.html"><span class="header-section-number">4</span> Exploratory Data Analysis</a></li>
+<li><a class="" href="chapter-statistics.html"><span class="header-section-number">5</span> Statistical Inference and Hypothesis Testing</a></li>
+<li><a class="active" href="chapter-modeling.html"><span class="header-section-number">6</span> Preparing Data for Modeling</a></li>
+<li><a class="" href="chapter-knn.html"><span class="header-section-number">7</span> Classification using k-Nearest Neighbors</a></li>
+<li><a class="" href="chapter-evaluation.html"><span class="header-section-number">8</span> Model Evaluation</a></li>
+<li><a class="" href="chapter-bayes.html"><span class="header-section-number">9</span> Naive Bayes Classifier</a></li>
+<li><a class="" href="chapter-regression.html"><span class="header-section-number">10</span> Regression Modeling: From Basics to Advanced Techniques</a></li>
+<li><a class="" href="chapter-tree.html"><span class="header-section-number">11</span> Decision Trees and Random Forests</a></li>
+<li><a class="" href="chapter-nn.html"><span class="header-section-number">12</span> Neural Networks: The Building Blocks of Artificial Intelligence</a></li>
+<li><a class="" href="chapter-cluster.html"><span class="header-section-number">13</span> Clustering</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/RezaMoammadi/Book-Data-Science">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="chapter-modeling" class="section level1" number="6">
+<h1>
+<span class="header-section-number">6</span> Preparing Data for Modeling<a class="anchor" aria-label="anchor" href="#chapter-modeling"><i class="fas fa-link"></i></a>
+</h1>
+<p>As we advance through the Data Science Process, illustrated in Chapter <a href="chapter-intro-DS.html#chapter-intro-DS">2</a>, Figure <a href="chapter-intro-DS.html#fig:CRISP-DM">2.3</a>, we’ve completed the foundational steps that pave the way for effective modeling:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Problem Understanding</strong>: Chapter <a href="chapter-intro-DS.html#problem-understanding">2.4</a> highlighted the importance of clearly defining the problem and aligning objectives with data-driven strategies.<br>
+</li>
+<li>
+<strong>Data Preparation</strong>: In Chapter <a href="chapter-data-prep.html#chapter-data-prep">3</a>, we addressed challenges such as missing values, outliers, and data transformation to ensure our dataset is clean and ready for analysis.<br>
+</li>
+<li>
+<strong>Exploratory Data Analysis</strong>: Chapter <a href="chapter-EDA.html#chapter-EDA">4</a> guided us through visualizing and summarizing data to uncover patterns and generate meaningful insights.<br>
+</li>
+<li>
+<strong>Statistical Inference</strong>: In Chapter <a href="chapter-statistics.html#chapter-statistics">5</a>, we explored hypothesis testing and feature selection, tools we’ll leverage in this chapter to validate our data partitioning.</li>
+</ol>
+<p>Before diving into building machine learning models, it’s essential to establish a robust foundation during what we’ll refer to as the <strong>Setup Phase</strong>. This phase includes three critical tasks that must be completed before modeling begins:</p>
+<ul>
+<li>
+<strong>Partitioning the Data</strong>: Dividing the dataset into training and testing subsets to create a clear separation for model building and evaluation.<br>
+</li>
+<li>
+<strong>Validating the Partition</strong>: Ensuring the partition is appropriate and representative, allowing reliable insights to emerge from the training and testing process.<br>
+</li>
+<li>
+<strong>Balancing the Training Dataset</strong>: Addressing any imbalances in the training data (e.g., class imbalances in categorical targets) to ensure fair and accurate model training.</li>
+</ul>
+<p>These tasks are often overlooked but play a crucial role in ensuring that the modeling process is both rigorous and effective.</p>
+<p>When introducing this topic, students often ask, “<em>Why is it necessary to partition the data?</em>” or “<em>Why do we need to follow these specific steps?</em>”. These are insightful questions—and ones we’ll address in depth throughout this chapter. However, before diving into the details of partitioning and validating datasets, it’s worth stepping back to examine how the Data Science Process aligns with and diverges from Statistical Inference. By understanding their similarities and differences, we can better appreciate the importance of these steps and how they bridge the principles of traditional statistics with the practical demands of modern machine learning.</p>
+<div id="statistical-inference-in-the-context-of-data-science" class="section level2" number="6.1">
+<h2>
+<span class="header-section-number">6.1</span> Statistical Inference in the Context of Data Science<a class="anchor" aria-label="anchor" href="#statistical-inference-in-the-context-of-data-science"><i class="fas fa-link"></i></a>
+</h2>
+<p>In Chapter <a href="chapter-statistics.html#chapter-statistics">5</a>, we explored how statistical inference helps us make conclusions about populations based on sample data. While this foundation remains valuable in the data science process, the goals and applications differ when preparing data for modeling.</p>
+<p>Statistical inference and data science diverge in two key ways when applied to modeling tasks:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>From Significance to Practicality</strong>: In data science, where datasets often contain thousands or even millions of observations, nearly any difference or relationship becomes statistically significant. However, statistical significance does not necessarily equate to practical significance. For example, a machine learning model might identify a tiny effect size (e.g., a minor improvement in predictions) that is statistically significant but has no meaningful impact on decision-making. Thus, in modeling, the focus shifts to practical relevance and predictive power over mere statistical significance.</p></li>
+<li><p><strong>Exploration vs. Hypothesis Testing</strong>: Traditional statistical inference begins with a specific hypothesis in mind, such as testing whether a new treatment improves outcomes compared to a control. In contrast, data science often takes an exploratory approach, using the data to uncover patterns, relationships, or actionable insights without a predefined hypothesis. For instance, in preparing data for modeling, we might investigate which features are most predictive of the target variable or assess relationships between variables to refine the dataset.</p></li>
+</ol>
+<p>That said, statistical inference still plays a critical role in the data science process, particularly in validating key steps during data preparation. For example:</p>
+<ul>
+<li>
+<strong>Partition Validation</strong>: When splitting the data into training and testing sets, statistical tests can confirm whether the two subsets are representative of the original dataset.</li>
+<li>
+<strong>Feature Selection</strong>: Hypothesis tests can help identify which features have strong relationships with the target variable, aiding in selecting predictors for modeling.</li>
+</ul>
+<p>By understanding these differences and leveraging statistical inference strategically, we can ensure that the data preparation process supports building robust, reliable, and interpretable models. As we proceed through this chapter, we’ll see how inference and data science methods work together to create datasets that are both meaningful and ready for modeling.</p>
+</div>
+<div id="why-is-it-necessary-to-partition-the-data" class="section level2" number="6.2">
+<h2>
+<span class="header-section-number">6.2</span> Why Is It Necessary to Partition the Data?<a class="anchor" aria-label="anchor" href="#why-is-it-necessary-to-partition-the-data"><i class="fas fa-link"></i></a>
+</h2>
+<p>Partitioning the dataset is a critical step in preparing data for modeling. A common question students ask when learning this topic is, “<em>Why do we need to partition the data?</em>”. The answer lies in the principle of <strong>generalization</strong>—the ability of a model to perform well on unseen data. Without proper partitioning, we risk building models that excel on the training data but fail to make accurate predictions in real-world scenarios. Partitioning ensures that a model’s performance is evaluated on data it hasn’t seen during training, providing an unbiased measure of its ability to generalize effectively.</p>
+<p>The goal of partitioning is to divide the data into two distinct subsets: the <strong>training set</strong>, used to build the model, and the <strong>testing set</strong>, used to evaluate its performance. This separation simulates real-world conditions, where the model must make predictions on new, unseen data. Partitioning helps us detect and address common modeling pitfalls like <strong>overfitting</strong> and <strong>underfitting</strong>. These trade-offs are illustrated in Figure <a href="chapter-modeling.html#fig:model-complexity">6.1</a>, which highlights the balance between model complexity and performance on training and testing datasets.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:model-complexity"></span>
+<img src="images/model_complexity.png" alt="The trade-off between model complexity and accuracy on the training and test sets. It highlights the optimal model complexity (sweet spot), where the test set accuracy reaches its highest value for unseen data." width="65%"><p class="caption">
+Figure 6.1: The trade-off between model complexity and accuracy on the training and test sets. It highlights the optimal model complexity (sweet spot), where the test set accuracy reaches its highest value for unseen data.
+</p>
+</div>
+<p><strong>Overfitting</strong> occurs when a model learns the training data too well, including its noise and random fluctuations, instead of capturing the general patterns. Overfitted models achieve high accuracy on the training set but fail miserably on unseen data. For example, a churn prediction model might memorize customer IDs or irrelevant details instead of identifying meaningful behavioral trends. Such a model would struggle to predict churn for new customers and have little practical value.</p>
+<p><strong>Underfitting</strong>, on the other hand, arises when a model is too simplistic to capture the underlying patterns in the data. This might happen if the model lacks complexity or if preprocessing removes too much useful information. Underfitted models perform poorly on both the training and testing sets, failing to capture the signal within the data. For instance, a churn model that predicts the overall churn rate for all customers, without considering individual characteristics, would lack predictive power.</p>
+<p>Partitioning addresses these issues by enabling us to evaluate the model’s performance on unseen data (the testing set). By comparing accuracy on the training and testing sets, we can identify whether the model is overfitting (high training accuracy but low testing accuracy) or underfitting (low accuracy on both datasets). This evaluation helps us iteratively refine the model and strike the right balance between complexity and generalization.</p>
+<p>Partitioning also protects against <strong>data leakage</strong>, a critical issue where information from the testing set inadvertently influences the training process. Data leakage inflates performance metrics, leading to a false sense of confidence in the model’s abilities. By strictly separating the testing set from the training process, we can obtain a more realistic and reliable assessment of the model’s generalization performance.</p>
+<p>Beyond simple train-test splits, <strong>cross-validation</strong> is a powerful technique that improves the robustness of partitioning. In cross-validation, the dataset is divided into multiple subsets, or “folds.” The model is trained on a subset of the data and tested on a different fold, with this process repeated across all folds. The results are averaged to provide a more reliable estimate of model performance. Cross-validation is particularly useful when working with smaller datasets or when tuning hyperparameters, as it minimizes bias and variance introduced by a single train-test split.</p>
+<p>Partitioning the data isn’t just a procedural step—it’s a cornerstone of building models that perform well in real-world applications. By systematically addressing overfitting, underfitting, and data leakage, and by incorporating techniques like cross-validation, we ensure that the model is not only well-suited to the training data but also capable of making accurate predictions on unseen data.</p>
+<p>To summarize, the general strategy for supervised machine learning models consists of three key steps, illustrated in Figure <a href="chapter-modeling.html#fig:modeling">6.2</a>:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Partitioning</strong> the dataset into training and testing sets, followed by validating the partition.<br>
+</li>
+<li>
+<strong>Building</strong> machine learning models on the training data.<br>
+</li>
+<li>
+<strong>Evaluating</strong> the performance of the models on the testing data to identify the most effective approach.</li>
+</ol>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:modeling"></span>
+<img src="images/partitioning.png" alt="A general predictive machine learning process for building and evaluating models. The 80-20 split ratio is an example and may vary based on the dataset and task." width="80%"><p class="caption">
+Figure 6.2: A general predictive machine learning process for building and evaluating models. The 80-20 split ratio is an example and may vary based on the dataset and task.
+</p>
+</div>
+<p>By following this process, we create models that are both reliable and capable of generalizing to unseen data. In this chapter, we will focus on the crucial first step: partitioning the data effectively, validating the partition, and preparing a balanced training dataset. These steps form the foundation for robust model building and evaluation, paving the way for impactful, data-driven decision-making.</p>
+</div>
+<div id="sec-partitioning" class="section level2" number="6.3">
+<h2>
+<span class="header-section-number">6.3</span> Partitioning the Data<a class="anchor" aria-label="anchor" href="#sec-partitioning"><i class="fas fa-link"></i></a>
+</h2>
+<p>Partitioning data is a crucial step in preparing it for machine learning. The most common method is the <strong>train-test split</strong>, also known as the holdout method, where the dataset is divided into two subsets: the training set and the testing set (Figure <a href="chapter-modeling.html#fig:modeling">6.2</a>). The training set is used to build the model, while the testing set is reserved for evaluating its performance. The split ratio is typically 70-30, 80-20, or 90-10, depending on the dataset size and the specific modeling task.</p>
+<p>In this process, the training set includes all records with complete information, including the target variable. The testing set, however, has the target variable temporarily hidden to simulate unseen data. Machine learning models are trained exclusively on the training set, learning patterns and trends. These models are then applied to the test set to predict the hidden target values. Finally, the predictions are compared to the actual (restored) target values in the test set to evaluate the model’s performance. This approach ensures the model is evaluated on unseen data, providing an unbiased measure of its generalization ability. Cross-validation further safeguards against overfitting by minimizing the chance of random variations being present in both sets.</p>
+<p>For example, consider the <em>churn</em> dataset, where the goal is to predict customer churn based on various features, as we’ll explore in Chapter <a href="chapter-knn.html#chapter-knn">7</a>. In this case, the train-test split divides the data into two subsets:
+- The <strong>training set</strong>, which includes customer features and their known churn status.<br>
+- The <strong>testing set</strong>, which includes customer features but omits the churn status (temporarily treated as unknown).</p>
+<p>In R, the <strong>liver</strong> package offers the <code><a href="https://rdrr.io/pkg/liver/man/partition.html">partition()</a></code> function for creating a train-test split. Here’s how the <em>churn</em> dataset can be split into training and testing sets:</p>
+<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">43</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">data_sets</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/liver/man/partition.html">partition</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span>, ratio <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.8</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">train_set</span> <span class="op">=</span> <span class="va">data_sets</span><span class="op">$</span><span class="va">part1</span></span>
+<span><span class="va">test_set</span>  <span class="op">=</span> <span class="va">data_sets</span><span class="op">$</span><span class="va">part2</span></span>
+<span></span>
+<span><span class="va">actual_test</span>  <span class="op">=</span> <span class="va">test_set</span><span class="op">$</span><span class="va">deposit</span></span></code></pre></div>
+<p>In this example:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong><code>set.seed(43)</code></strong>: Sets a seed to ensure reproducibility, so the split remains consistent across runs.<br>
+</li>
+<li>
+<strong><code><a href="https://rdrr.io/pkg/liver/man/partition.html">partition()</a></code></strong>: Splits the dataset into 80% training data (<code>train_set</code>) and 20% testing data (<code>test_set</code>).<br>
+</li>
+<li>
+<strong><code>actual_test</code></strong>: Stores the true target values from the testing set for later evaluation.</li>
+</ol>
+<p>Reproducibility is essential in data science. By setting a seed, you ensure that the random split can be recreated exactly, allowing others to replicate your results or grade assignments reliably. Any integer can be used as the seed value—it doesn’t need to match the one used here. Setting a seed is a best practice, particularly when sharing code or collaborating with others, as it eliminates inconsistencies and ensures precise reproducibility.</p>
+<p>By applying a train-test split, we establish a reliable framework for evaluating model performance and ensure the robustness of our results. In the next steps, this foundation will allow us to validate partitions, balance training datasets, and build effective machine learning models.</p>
+</div>
+<div id="sec-validate-partition" class="section level2" number="6.4">
+<h2>
+<span class="header-section-number">6.4</span> Validating the Partition<a class="anchor" aria-label="anchor" href="#sec-validate-partition"><i class="fas fa-link"></i></a>
+</h2>
+<p>The success of the entire modeling process depends on the quality of the data partition. Validating the partition ensures that both the training and testing sets are representative of the original dataset, enabling the model to learn from diverse examples and generalize effectively to unseen data. Without validation, the modeling process risks bias—either the model fails to generalize because the training set isn’t representative, or the testing set doesn’t provide an accurate evaluation of real-world performance.</p>
+<p>Validation involves comparing the training and testing sets to confirm that their distributions are statistically similar, particularly for key variables. Since datasets often include many variables, this step typically focuses on a small set of randomly selected features or features of particular importance, such as the target variable. The choice of statistical test depends on the type of variable being compared, as shown in Table <a href="chapter-modeling.html#tab:partition-test">6.1</a>.</p>
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:partition-test">Table 6.1: </span> Suggested hypothesis tests for validating partitions, based on the type of target variable.</caption>
+<colgroup>
+<col width="43%">
+<col width="56%">
+</colgroup>
+<thead><tr>
+<th>Type of Variable</th>
+<th>Suggested Test (from Chapter <a href="chapter-statistics.html#chapter-statistics">5</a>)</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Numerical variable</td>
+<td>Two-sample t-test</td>
+</tr>
+<tr>
+<td>Binary/Flag variable</td>
+<td>Two-sample Z-test</td>
+</tr>
+<tr>
+<td>Categorical variable (with &gt; 2 categories)</td>
+<td>Chi-square test</td>
+</tr>
+</tbody>
+</table></div>
+<p>Validating the partition is more than a procedural step—it is a safeguard against biased modeling. If the training and testing sets differ significantly, the model’s performance could be compromised. For example, if the training set isn’t representative of the original dataset, the model may fail to generalize. Conversely, if the testing set isn’t representative, the evaluation results may be overly optimistic. Ensuring that the split reflects the original dataset’s characteristics allows for fair and reliable model evaluation.</p>
+<div class="example">
+<p><span id="exm:ex-test-partition" class="example"><strong>Example 6.1  </strong></span>Let’s consider the <em>churn</em> dataset introduced in the previous section. The target variable, <em>churn</em> (whether a customer has churned or not), is binary. According to Table <a href="chapter-modeling.html#tab:partition-test">6.1</a>, the appropriate statistical test to validate the partition for this variable is a <strong>Two-Sample Z-Test</strong>, which compares the proportion of churned customers in the training and testing sets. Here’s how it can be implemented in R:</p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="chapter-modeling.html#cb103-1" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">sum</span>(train_set<span class="sc">$</span>churn <span class="sc">==</span> <span class="st">"yes"</span>)</span>
+<span id="cb103-2"><a href="chapter-modeling.html#cb103-2" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">sum</span>(test_set<span class="sc">$</span>churn <span class="sc">==</span> <span class="st">"yes"</span>)</span>
+<span id="cb103-3"><a href="chapter-modeling.html#cb103-3" tabindex="-1"></a></span>
+<span id="cb103-4"><a href="chapter-modeling.html#cb103-4" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> <span class="fu">nrow</span>(train_set)</span>
+<span id="cb103-5"><a href="chapter-modeling.html#cb103-5" tabindex="-1"></a>n2 <span class="ot">&lt;-</span> <span class="fu">nrow</span>(test_set)</span>
+<span id="cb103-6"><a href="chapter-modeling.html#cb103-6" tabindex="-1"></a></span>
+<span id="cb103-7"><a href="chapter-modeling.html#cb103-7" tabindex="-1"></a>test_churn <span class="ot">&lt;-</span> <span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(x1, x2), <span class="at">n =</span> <span class="fu">c</span>(n1, n2))</span>
+<span id="cb103-8"><a href="chapter-modeling.html#cb103-8" tabindex="-1"></a>test_churn</span>
+<span id="cb103-9"><a href="chapter-modeling.html#cb103-9" tabindex="-1"></a>   </span>
+<span id="cb103-10"><a href="chapter-modeling.html#cb103-10" tabindex="-1"></a>    <span class="dv">2</span><span class="sc">-</span>sample test <span class="cf">for</span> equality of proportions with continuity correction</span>
+<span id="cb103-11"><a href="chapter-modeling.html#cb103-11" tabindex="-1"></a>   </span>
+<span id="cb103-12"><a href="chapter-modeling.html#cb103-12" tabindex="-1"></a>   data<span class="sc">:</span>  <span class="fu">c</span>(x1, x2) out of <span class="fu">c</span>(n1, n2)</span>
+<span id="cb103-13"><a href="chapter-modeling.html#cb103-13" tabindex="-1"></a>   X<span class="sc">-</span>squared <span class="ot">=</span> <span class="fl">0.1566</span>, df <span class="ot">=</span> <span class="dv">1</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.6923</span></span>
+<span id="cb103-14"><a href="chapter-modeling.html#cb103-14" tabindex="-1"></a>   alternative hypothesis<span class="sc">:</span> two.sided</span>
+<span id="cb103-15"><a href="chapter-modeling.html#cb103-15" tabindex="-1"></a>   <span class="dv">95</span> percent confidence interval<span class="sc">:</span></span>
+<span id="cb103-16"><a href="chapter-modeling.html#cb103-16" tabindex="-1"></a>    <span class="sc">-</span><span class="fl">0.0190317</span>  <span class="fl">0.0300317</span></span>
+<span id="cb103-17"><a href="chapter-modeling.html#cb103-17" tabindex="-1"></a>   sample estimates<span class="sc">:</span></span>
+<span id="cb103-18"><a href="chapter-modeling.html#cb103-18" tabindex="-1"></a>   prop <span class="dv">1</span> prop <span class="dv">2</span> </span>
+<span id="cb103-19"><a href="chapter-modeling.html#cb103-19" tabindex="-1"></a>   <span class="fl">0.1425</span> <span class="fl">0.1370</span></span></code></pre></div>
+<p>In this example:</p>
+<ul>
+<li>
+<span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> represent the number of churned customers in the training and testing sets, respectively.<br>
+</li>
+<li>
+<span class="math inline">\(n_1\)</span> and <span class="math inline">\(n_2\)</span> represent the total number of observations in the training and testing sets, respectively.<br>
+</li>
+<li>The <code><a href="https://rdrr.io/r/stats/prop.test.html">prop.test()</a></code> function compares the proportions of churned customers between the two subsets.</li>
+</ul>
+<p>The hypotheses for the test are:<br><span class="math display">\[
+\bigg\{
+\begin{matrix}
+H_0:  \pi_{\text{churn, train}} = \pi_{\text{churn, test}} \quad \text{(Proportions are equal)} \\
+H_a:  \pi_{\text{churn, train}} \neq \pi_{\text{churn, test}} \quad \text{(Proportions are not equal)}
+\end{matrix}
+\]</span></p>
+<p>The test result provides a <em>p</em>-value = 0.69. Since the <em>p</em>-value is greater than the significance level (<span class="math inline">\(\alpha = 0.05\)</span>), we fail to reject the null hypothesis (<span class="math inline">\(H_0\)</span>). This indicates no statistically significant difference in the proportions of churned customers between the training and testing sets. By failing to reject <span class="math inline">\(H_0\)</span>, we confirm that the partition is valid with respect to the target variable <em>churn</em>. The proportions of churned customers are consistent across both subsets, ensuring that the model will be trained and tested on representative data.</p>
+</div>
+<p>Beyond validating the target variable, you can extend this process to other key features in the dataset. For example, you might compare numerical features like <code>customer.calls</code> or <code>day.mins</code> using a two-sample t-test or validate categorical features with more than two categories using a Chi-square test. This broader validation ensures that the partition is representative across all relevant variables.</p>
+<p><em>What If the Partition Is Invalid?</em> For example, if significant differences are found between the training and testing sets—several corrective actions can be taken. You could revisit the partitioning process by changing the random seed, adjusting the split ratio, or using stratified sampling to ensure that key features are proportionally represented in both subsets. Alternatively, techniques like k-fold cross-validation can provide a more robust approach by using all observations for both training and testing across multiple iterations.</p>
+<p>Validating the partition is a critical step in the data preparation process. It ensures that the modeling process is fair, reliable, and capable of producing generalizable results. By addressing potential discrepancies early, we set the stage for robust machine learning models that perform effectively on real-world, unseen data.</p>
+</div>
+<div id="balancing-the-training-dataset" class="section level2" number="6.5">
+<h2>
+<span class="header-section-number">6.5</span> Balancing the Training Dataset<a class="anchor" aria-label="anchor" href="#balancing-the-training-dataset"><i class="fas fa-link"></i></a>
+</h2>
+<p>In some real-world classification problems, one class of the target variable is often significantly underrepresented compared to the other(s). This imbalance can lead to biased models that perform well for the majority class but poorly for the minority class. For example, in a fraud detection dataset, fraudulent transactions may account for only a tiny fraction of the data, while legitimate transactions dominate. Similarly, in a churn prediction dataset, the majority of customers might not churn, while only a small percentage do. If left unaddressed, this imbalance can result in models that fail to accurately predict the minority class, despite appearing to perform well overall.</p>
+<p>Imbalanced datasets are problematic because most machine learning algorithms optimize for overall accuracy, which can favor the majority class. A model trained on an imbalanced churn dataset, for example, might predict “no churn” for almost all customers, resulting in high accuracy but completely missing the minority class of customers likely to churn. This failure can have significant implications, particularly in cases where the minority class—such as fraud cases, churners, or patients with a rare disease—is of critical importance.</p>
+<p>To address this issue, balancing the training dataset ensures that both classes are adequately represented during model training. By exposing the model to sufficient examples from the minority class, balancing helps the model learn patterns and trends from both classes, improving its ability to generalize and make accurate predictions for the minority class. Common techniques for balancing include:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Oversampling</strong>: Increasing the number of minority class examples by duplicating existing observations or generating synthetic samples (e.g., using SMOTE).<br>
+</li>
+<li>
+<strong>Undersampling</strong>: Reducing the number of majority class examples by randomly removing observations.<br>
+</li>
+<li>
+<strong>Hybrid Methods</strong>: Combining oversampling and undersampling to achieve a balanced dataset.<br>
+</li>
+<li>
+<strong>Class Weights</strong>: Modifying the algorithm to penalize misclassifications of the minority class more heavily during training.</li>
+</ol>
+<p>The choice of technique depends on factors such as the dataset size, the degree of imbalance, and the specific machine learning algorithm being used. Let’s demonstrate balancing the training dataset with an example using the churn dataset.</p>
+<p>First, we examine the distribution of the target variable, <em>churn</em>, in the training dataset to determine whether balancing is necessary. This can be done in R as follows:</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="chapter-modeling.html#cb104-1" tabindex="-1"></a><span class="co"># Check the class distribution</span></span>
+<span id="cb104-2"><a href="chapter-modeling.html#cb104-2" tabindex="-1"></a><span class="fu">table</span>(train_set<span class="sc">$</span>churn)</span>
+<span id="cb104-3"><a href="chapter-modeling.html#cb104-3" tabindex="-1"></a>   </span>
+<span id="cb104-4"><a href="chapter-modeling.html#cb104-4" tabindex="-1"></a>    yes   no </span>
+<span id="cb104-5"><a href="chapter-modeling.html#cb104-5" tabindex="-1"></a>    <span class="dv">570</span> <span class="dv">3430</span></span>
+<span id="cb104-6"><a href="chapter-modeling.html#cb104-6" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(train_set<span class="sc">$</span>churn))</span>
+<span id="cb104-7"><a href="chapter-modeling.html#cb104-7" tabindex="-1"></a>   </span>
+<span id="cb104-8"><a href="chapter-modeling.html#cb104-8" tabindex="-1"></a>      yes     no </span>
+<span id="cb104-9"><a href="chapter-modeling.html#cb104-9" tabindex="-1"></a>   <span class="fl">0.1425</span> <span class="fl">0.8575</span></span></code></pre></div>
+<p>Suppose the output reveals that the proportion of customers who churn (<code>churn = "yes"</code>) is only 0.14 while the proportion of non-churners (<code>churn = "no"</code>) is 0.86. This significant imbalance suggests that balancing may be beneficial, particularly if predicting churners is a priority.</p>
+<p>To balance the training dataset, we use the <strong>ROSE</strong> package in R to oversample the minority class (<code>churn = "yes"</code>) so that it constitutes 30% of the training dataset. Here’s how this can be implemented:</p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="chapter-modeling.html#cb105-1" tabindex="-1"></a><span class="co"># Load the ROSE package</span></span>
+<span id="cb105-2"><a href="chapter-modeling.html#cb105-2" tabindex="-1"></a><span class="fu">library</span>(ROSE)</span>
+<span id="cb105-3"><a href="chapter-modeling.html#cb105-3" tabindex="-1"></a></span>
+<span id="cb105-4"><a href="chapter-modeling.html#cb105-4" tabindex="-1"></a><span class="co"># Oversample the training set to balance the classes with 30% churners</span></span>
+<span id="cb105-5"><a href="chapter-modeling.html#cb105-5" tabindex="-1"></a>balanced_train_set <span class="ot">&lt;-</span> <span class="fu">ovun.sample</span>(churn <span class="sc">~</span> ., <span class="at">data =</span> train_set, <span class="at">method =</span> <span class="st">"over"</span>, </span>
+<span id="cb105-6"><a href="chapter-modeling.html#cb105-6" tabindex="-1"></a>                                  <span class="at">p =</span> <span class="fl">0.3</span>)<span class="sc">$</span>data</span>
+<span id="cb105-7"><a href="chapter-modeling.html#cb105-7" tabindex="-1"></a></span>
+<span id="cb105-8"><a href="chapter-modeling.html#cb105-8" tabindex="-1"></a><span class="co"># Check the new class distribution</span></span>
+<span id="cb105-9"><a href="chapter-modeling.html#cb105-9" tabindex="-1"></a><span class="fu">table</span>(balanced_train_set<span class="sc">$</span>churn)</span>
+<span id="cb105-10"><a href="chapter-modeling.html#cb105-10" tabindex="-1"></a>   </span>
+<span id="cb105-11"><a href="chapter-modeling.html#cb105-11" tabindex="-1"></a>     no  yes </span>
+<span id="cb105-12"><a href="chapter-modeling.html#cb105-12" tabindex="-1"></a>   <span class="dv">3430</span> <span class="dv">1444</span></span>
+<span id="cb105-13"><a href="chapter-modeling.html#cb105-13" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(balanced_train_set<span class="sc">$</span>churn))</span>
+<span id="cb105-14"><a href="chapter-modeling.html#cb105-14" tabindex="-1"></a>   </span>
+<span id="cb105-15"><a href="chapter-modeling.html#cb105-15" tabindex="-1"></a>          no       yes </span>
+<span id="cb105-16"><a href="chapter-modeling.html#cb105-16" tabindex="-1"></a>   <span class="fl">0.7037341</span> <span class="fl">0.2962659</span></span></code></pre></div>
+<p>In this example, the <code>ovun.sample()</code> function is used to oversample the minority class, achieving the desired class distribution. The parameter <code>p = 0.3</code> specifies that churners should comprise 30% of the balanced training dataset. Notably, the formula notation <code>churn ~ .</code> indicates that the balancing is performed based on the target variable <code>churn</code> (refer to Section <a href="chapter-into-R.html#sec-formula-in-R">1.14</a> for details on formula notation). After oversampling, the new class distribution is examined to ensure that the dataset reflects the specified proportions.</p>
+<p>Balancing ensures that the model is exposed to a sufficient number of examples from both churners and non-churners during training. For instance, a decision tree trained on this balanced dataset would give equal importance to features predictive of churn, rather than being dominated by the majority class.</p>
+<p>It’s important to note that balancing should be applied only to the <strong>training dataset</strong>, not the test dataset. The test dataset should remain representative of the original data distribution to provide an unbiased evaluation of the model’s generalization performance. Balancing the test set can introduce bias and lead to overly optimistic performance metrics, which do not reflect real-world conditions.</p>
+<p>Moreover, balancing must be performed <strong>after partitioning</strong> the dataset into training and testing sets. Balancing before partitioning can lead to <strong>data leakage</strong>, where information from the test set influences the training process. This compromises the integrity of the modeling process and inflates performance metrics, creating a false sense of confidence in the model’s ability to generalize.</p>
+<p>That said, balancing is not always necessary. Many modern machine learning algorithms, such as random forests and gradient boosting machines, are robust to class imbalances and incorporate techniques like class weighting to handle minority classes effectively. Additionally, evaluation metrics such as precision, recall, F1-score, and AUC-ROC are designed to account for class imbalance, providing a fairer assessment of model performance even when the dataset remains imbalanced.</p>
+<p>In summary, balancing the training dataset can address class imbalance, especially when the minority class is critical to the analysis. However, it is not always required and should be used judiciously. If balancing is deemed necessary, it must be performed on the training dataset <strong>after partitioning</strong> to maintain the validity and reliability of the modeling process. By carefully balancing the training data, we ensure that models are better equipped to handle the minority class, resulting in fairer and more effective predictions.</p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="chapter-statistics.html"><span class="header-section-number">5</span> Statistical Inference and Hypothesis Testing</a></div>
+<div class="next"><a href="chapter-knn.html"><span class="header-section-number">7</span> Classification using k-Nearest Neighbors</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#chapter-modeling"><span class="header-section-number">6</span> Preparing Data for Modeling</a></li>
+<li><a class="nav-link" href="#statistical-inference-in-the-context-of-data-science"><span class="header-section-number">6.1</span> Statistical Inference in the Context of Data Science</a></li>
+<li><a class="nav-link" href="#why-is-it-necessary-to-partition-the-data"><span class="header-section-number">6.2</span> Why Is It Necessary to Partition the Data?</a></li>
+<li><a class="nav-link" href="#sec-partitioning"><span class="header-section-number">6.3</span> Partitioning the Data</a></li>
+<li><a class="nav-link" href="#sec-validate-partition"><span class="header-section-number">6.4</span> Validating the Partition</a></li>
+<li><a class="nav-link" href="#balancing-the-training-dataset"><span class="header-section-number">6.5</span> Balancing the Training Dataset</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/RezaMoammadi/Book-Data-Science/blob/master/modeling.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/RezaMoammadi/Book-Data-Science/edit/master/modeling.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Uncovering Data Science with R</strong>" was written by . It was last built on 2025-02-06.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 2 Introduction to Data Science | Uncovering Data Science with R</title>
+<meta name="generator" content="bookdown 0.37 with bs4_book()">
+<meta property="og:title" content="Chapter 2 Introduction to Data Science | Uncovering Data Science with R">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://uncovering-data-science.netlify.app/chapter-intro-DS.html">
+<meta property="og:image" content="https://uncovering-data-science.netlify.app/images/cover.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 2 Introduction to Data Science | Uncovering Data Science with R">
+<meta name="twitter:image" content="https://uncovering-data-science.netlify.app/images/cover.jpg">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+          margin-bottom: 0em;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="Data Science is a rapidly evolving field that is transforming industries by leveraging computational, statistical, and analytical techniques. In the 21st century, data has become one of the most...">
+<meta property="og:description" content="Data Science is a rapidly evolving field that is transforming industries by leveraging computational, statistical, and analytical techniques. In the 21st century, data has become one of the most...">
+<meta name="twitter:description" content="Data Science is a rapidly evolving field that is transforming industries by leveraging computational, statistical, and analytical techniques. In the 21st century, data has become one of the most...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Uncovering Data Science with R</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li><a class="" href="chapter-into-R.html"><span class="header-section-number">1</span> The Basics for R</a></li>
+<li><a class="active" href="chapter-intro-DS.html"><span class="header-section-number">2</span> Introduction to Data Science</a></li>
+<li><a class="" href="chapter-data-prep.html"><span class="header-section-number">3</span> Data Preparation</a></li>
+<li><a class="" href="chapter-EDA.html"><span class="header-section-number">4</span> Exploratory Data Analysis</a></li>
+<li><a class="" href="chapter-statistics.html"><span class="header-section-number">5</span> Statistical Inference and Hypothesis Testing</a></li>
+<li><a class="" href="chapter-modeling.html"><span class="header-section-number">6</span> Preparing Data for Modeling</a></li>
+<li><a class="" href="chapter-knn.html"><span class="header-section-number">7</span> Classification using k-Nearest Neighbors</a></li>
+<li><a class="" href="chapter-evaluation.html"><span class="header-section-number">8</span> Model Evaluation</a></li>
+<li><a class="" href="chapter-bayes.html"><span class="header-section-number">9</span> Naive Bayes Classifier</a></li>
+<li><a class="" href="chapter-regression.html"><span class="header-section-number">10</span> Regression Modeling: From Basics to Advanced Techniques</a></li>
+<li><a class="" href="chapter-tree.html"><span class="header-section-number">11</span> Decision Trees and Random Forests</a></li>
+<li><a class="" href="chapter-nn.html"><span class="header-section-number">12</span> Neural Networks: The Building Blocks of Artificial Intelligence</a></li>
+<li><a class="" href="chapter-cluster.html"><span class="header-section-number">13</span> Clustering</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/RezaMoammadi/Book-Data-Science">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="chapter-intro-DS" class="section level1" number="2">
+<h1>
+<span class="header-section-number">2</span> Introduction to Data Science<a class="anchor" aria-label="anchor" href="#chapter-intro-DS"><i class="fas fa-link"></i></a>
+</h1>
+<p><em>Data Science</em> is a rapidly evolving field that is transforming industries by leveraging computational, statistical, and analytical techniques. In the 21st century, data has become one of the most valuable resources, often called the <em>“new oil”</em> due to its potential to drive innovation and reshape the future.</p>
+<p>Data science is the key to unlocking this potential. By applying computational, statistical, and analytical techniques, data scientists extract insights from vast amounts of data, enabling organizations to make informed decisions, optimize processes, predict trends, and develop intelligent systems. This has led to groundbreaking advancements in fields such as healthcare, finance, marketing, artificial intelligence (AI), and beyond.</p>
+<p>Given its rapid growth and increasing demand, data science is more critical than ever. In this chapter, we’ll explore the fundamentals of data science, discuss its significance in modern society, and introduce the Data Science Workflow—a structured approach that data scientists use to transform raw data into actionable insights.</p>
+<p>This section is well-structured and provides a clear introduction to data science. It effectively conveys the interdisciplinary nature of the field and highlights its core components. However, there are some areas where clarity, consistency, and flow can be improved. Below are my suggestions:</p>
+<div id="what-is-data-science" class="section level2" number="2.1">
+<h2>
+<span class="header-section-number">2.1</span> What is Data Science?<a class="anchor" aria-label="anchor" href="#what-is-data-science"><i class="fas fa-link"></i></a>
+</h2>
+<p>Data science is an interdisciplinary field that integrates computer science, statistics, and domain expertise to extract insights from data. It involves using analytical and computational techniques to process vast amounts of raw data, transforming them into meaningful information that supports decision-making and strategic planning.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:Data-Science"></span>
+<img src="images/data_science.png" alt="Data science is a multidisciplinary field that applies computational and statistical methods to extract insights from data." width="50%"><p class="caption">
+Figure 2.1: Data science is a multidisciplinary field that applies computational and statistical methods to extract insights from data.
+</p>
+</div>
+<p>Although the term “data science” is relatively new, its foundations lie in well-established disciplines such as statistics, data analysis, and machine learning. With the exponential growth of digital data, advancements in computational power, and the increasing demand for data-driven decision-making, data science has emerged as a distinct and essential field.</p>
+<p>At its core, data science is concerned with extracting knowledge from data using a combination of statistical techniques, machine learning algorithms, and domain-specific methodologies. It helps organizations manage and understand the vast amounts of information generated in the digital age.</p>
+<div id="key-components-of-data-science" class="section level3 unnumbered">
+<h3>Key Components of Data Science<a class="anchor" aria-label="anchor" href="#key-components-of-data-science"><i class="fas fa-link"></i></a>
+</h3>
+<p>The field of data science encompasses three main components:</p>
+<ul>
+<li>
+<strong>Data Engineering</strong>: The foundation of data science, responsible for collecting, storing, and structuring large datasets. This includes the development of data pipelines and infrastructure to enable efficient analysis. While crucial, data engineering is beyond the scope of this book.<br>
+</li>
+<li>
+<strong>Data Analysis and Statistics</strong>: The application of statistical methods to explore and analyze data. This includes data visualization, hypothesis testing, and predictive modeling. More details on this topic are covered in the <a href="chapter-statistics.html#chapter-statistics">Statistical Inference and Hypothesis Testing</a> and <a href="chapter-EDA.html#chapter-EDA">Exploratory Data Analysis</a> chapters.<br>
+</li>
+<li>
+<strong>Machine Learning and Artificial Intelligence</strong>: The use of algorithms to identify patterns, make predictions, and extract deeper insights. This includes supervised and unsupervised learning, deep learning, and natural language processing. These concepts are discussed in the <a href="chapter-modeling.html#chapter-modeling">Modeling Process</a> chapter.</li>
+</ul>
+</div>
+</div>
+<div id="why-data-science-matters" class="section level2" number="2.2">
+<h2>
+<span class="header-section-number">2.2</span> Why Data Science Matters<a class="anchor" aria-label="anchor" href="#why-data-science-matters"><i class="fas fa-link"></i></a>
+</h2>
+<p>In the digital age, data has become one of the most valuable resources and is often referred to as the “new oil” of the 21st century. This comparison makes sense, as some of the world’s most valuable companies today—including OpenAI, Google, and Apple—are driven by artificial intelligence and data science. Just as the wealthiest companies of the 20th century were those that controlled oil and energy, today’s leading enterprises leverage data as a key asset for innovation and competitive advantage.</p>
+<p>Across industries, data-driven decision-making has become essential. Organizations generate vast amounts of data every day, and without the right tools and techniques, much of this data would remain untapped. Data science helps organizations uncover patterns, detect trends, and make informed decisions that enhance efficiency, reduce costs, and improve customer experiences.</p>
+<p>Data science plays a crucial role in a wide range of sectors, including:</p>
+<ul>
+<li>
+<em>Finance</em>: Financial institutions leverage data science for risk assessment, fraud detection, and algorithmic trading. Machine learning models identify anomalies in transaction patterns, improving fraud detection and regulatory compliance.<br>
+</li>
+<li>
+<em>Marketing</em>: Businesses use data science to analyze customer behavior, segment audiences, and create targeted marketing campaigns. Platforms such as Facebook and Google Ads leverage sophisticated algorithms to match advertisements with the most relevant audiences, improving engagement and conversion rates.<br>
+</li>
+<li>
+<em>Retail and E-commerce</em>: Companies like Amazon and Walmart use data science to optimize inventory management, predict demand, and personalize recommendations. By analyzing purchase history and browsing behavior, retailers can offer tailored promotions and enhance customer satisfaction.<br>
+</li>
+<li>
+<em>Healthcare</em>: Hospitals and medical researchers use data science for disease diagnosis, patient risk prediction, and personalized treatment plans. By analyzing large datasets of medical records, institutions can identify high-risk patients and take preventative measures to improve health outcomes.</li>
+</ul>
+<p>For example, Netflix applies data science to analyze viewing patterns and recommend personalized content to users, while supply chain optimization at Amazon ensures faster deliveries by leveraging predictive analytics.</p>
+</div>
+<div id="the-data-science-workflow" class="section level2" number="2.3">
+<h2>
+<span class="header-section-number">2.3</span> The Data Science Workflow<a class="anchor" aria-label="anchor" href="#the-data-science-workflow"><i class="fas fa-link"></i></a>
+</h2>
+<p>The <em>data science workflow</em> follows an <em>iterative</em> and <em>cyclical</em> approach, where insights gained at each stage inform and refine subsequent steps. Unlike a strictly linear process, data science involves continuous refinement to enhance accuracy and efficiency. This structured approach ensures that data-driven projects are conducted systematically, balancing exploratory analysis, model building, and evaluation to derive meaningful conclusions.</p>
+<p>A <em>data science workflow</em> follows a phased, adaptive approach within a scientific framework, transforming raw data into actionable knowledge. This transformation is often conceptualized using the <em>DIKW Pyramid</em> (Data → Information → Knowledge → Wisdom), as illustrated in Figure <a href="chapter-intro-DS.html#fig:DIKW-Pyramid">2.2</a>.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:DIKW-Pyramid"></span>
+<img src="images/DIKW-Pyramid.png" alt="The DIKW Pyramid illustrates the transformation of raw data into actionable insights, progressing from data to information, knowledge, and ultimately wisdom." width="40%"><p class="caption">
+Figure 2.2: The DIKW Pyramid illustrates the transformation of raw data into actionable insights, progressing from data to information, knowledge, and ultimately wisdom.
+</p>
+</div>
+<p>While the specifics may vary across projects, most data science workflows follow a common structure. In this book, we adopt the <em>Data Science Workflow</em> as a guiding framework for structuring data science projects. This workflow is inspired by the <em>Cross-Industry Standard Process for Data Mining (CRISP-DM)</em> model, a widely recognized methodology for data-driven projects. It is a <em>cyclic</em> framework that guides data scientists through the following key stages (see Figure <a href="chapter-intro-DS.html#fig:CRISP-DM">2.3</a>):</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Problem Understanding</strong> – Defining the business or research question and outlining objectives.<br>
+</li>
+<li>
+<strong>Data Preparation</strong> – Collecting, cleaning, transforming, and organizing data to ensure it is suitable for analysis. This step includes handling missing values, addressing inconsistencies, detecting outliers, and preparing features through scaling, encoding, and transformation.<br>
+</li>
+<li>
+<strong>Exploratory Data Analysis (EDA)</strong> – Identifying patterns, distributions, and relationships within the data.<br>
+</li>
+<li>
+<strong>Preparing Data for Modeling</strong> – Engineering relevant features, normalizing data, and selecting meaningful variables.<br>
+</li>
+<li>
+<strong>Modeling</strong> – Applying machine learning or statistical techniques to develop predictive or descriptive models.<br>
+</li>
+<li>
+<strong>Evaluation</strong> – Assessing model performance using appropriate metrics and validation techniques.<br>
+</li>
+<li>
+<strong>Deployment</strong> – Integrating the model into a production environment and monitoring its performance over time.</li>
+</ol>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:CRISP-DM"></span>
+<img src="images/DSW.png" alt="The Data Science Workflow is an iterative framework for structuring data science and machine learning projects. Inspired by the CRISP-DM model, it ensures systematic problem-solving and continuous refinement." width="60%"><p class="caption">
+Figure 2.3: The Data Science Workflow is an iterative framework for structuring data science and machine learning projects. Inspired by the CRISP-DM model, it ensures systematic problem-solving and continuous refinement.
+</p>
+</div>
+<p>Because data science is inherently <em>iterative</em>, these steps are often revisited multiple times within a single project. The <em>feedback loops</em> between stages allow for continuous refinement—adjusting data preprocessing, modifying features, or retraining models as new insights emerge. By following a structured workflow, data scientists can ensure rigor, accuracy, and efficiency in transforming data into valuable insights.</p>
+</div>
+<div id="problem-understanding" class="section level2" number="2.4">
+<h2>
+<span class="header-section-number">2.4</span> Problem Understanding<a class="anchor" aria-label="anchor" href="#problem-understanding"><i class="fas fa-link"></i></a>
+</h2>
+<p>The first step in any data science project is to clearly define the problem—whether it is a business challenge or a research question. This phase is crucial because data science is not just about building models; it is about solving real-world problems using data-driven approaches. A well-defined problem ensures that efforts are aligned with meaningful objectives, improving the likelihood of delivering actionable insights.</p>
+<p>At this stage, data scientists work closely with stakeholders to understand the goals, clarify expectations, and define success criteria. The following questions help frame the problem:</p>
+<ul>
+<li>
+<strong>Why</strong> is this research or business question important?<br>
+</li>
+<li>
+<strong>What</strong> is the desired outcome or impact?<br>
+</li>
+<li>
+<strong>How</strong> can data science techniques contribute to addressing this question?</li>
+</ul>
+<p>Focusing on the <em>why</em> and <em>what</em> before diving into the <em>how</em> is essential. As Simon Sinek emphasizes in his TED talk <a href="https://www.ted.com/talks/simon_sinek_how_great_leaders_inspire_action?utm_campaign=tedspread&amp;utm_medium=referral&amp;utm_source=tedcomshare">“How Great Leaders Inspire Action”</a>, “People don’t buy what you do; they buy why you do it.” This concept applies to data science as well—understanding the deeper motivation behind a project provides clarity and direction.</p>
+<p>For example, a data science team in a business analytics department may be approached by a client who wants a predictive model but lacks clarity on the specific problem they are trying to solve. Without a clear <em>why</em>, it becomes difficult to develop a solution that delivers real value. Similarly, students working on research projects often focus on <em>what</em> they want to build rather than <em>why</em> it is needed.</p>
+<p>Suppose a company aims to reduce customer churn. A well-defined objective might be to develop a predictive model that identifies customers at risk of leaving so that targeted retention strategies can be implemented. This initial understanding helps frame the problem and guides the selection of relevant data, modeling techniques, and evaluation metrics.</p>
+<p>Problem understanding is both an analytical and creative process. While data science provides tools and methodologies, defining the right problem requires domain expertise and critical thinking. The following steps help ensure a structured approach:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Clearly articulate the project objectives</strong> and requirements in terms of the overall goals of the business or research entity.</li>
+<li>
+<strong>Break down the objectives</strong> to outline specific expectations and desired outcomes.</li>
+<li>
+<strong>Translate these objectives into a data science problem</strong> that can be addressed using analytical techniques.</li>
+<li>
+<strong>Draft a preliminary strategy</strong> for how to achieve these objectives, considering potential approaches and methodologies.</li>
+</ol>
+<p>By thoroughly defining the problem, data scientists set the stage for an effective workflow, ensuring that subsequent analysis and modeling efforts remain aligned with meaningful outcomes.</p>
+</div>
+<div id="data-preparation" class="section level2" number="2.5">
+<h2>
+<span class="header-section-number">2.5</span> Data Preparation<a class="anchor" aria-label="anchor" href="#data-preparation"><i class="fas fa-link"></i></a>
+</h2>
+<p>Once the problem is well-defined, the next step is <em>data preparation</em>, ensuring the data is accurate, complete, and well-structured. Raw data often contains <em>missing values, inconsistencies, and outliers</em>, making this phase critical for reliable analysis. Poorly prepared data can lead to misleading insights, even with sophisticated models.</p>
+<p>Data can originate from various sources, including databases, spreadsheets, APIs, and web scraping. It may be <em>structured</em> (e.g., numerical data in databases) or <em>unstructured</em> (e.g., text, images). Preprocessing is essential before analysis.</p>
+<p>Key steps in data preparation include:</p>
+<ul>
+<li>
+<em>Data Collection and Integration</em>: Merging data from multiple sources while ensuring consistency.<br>
+</li>
+<li>
+<em>Handling Missing Values</em>: Removing, imputing, or flagging incomplete data.<br>
+</li>
+<li>
+<em>Outlier Detection</em>: Identifying and managing extreme values using visualization.<br>
+</li>
+<li>
+<em>Resolving Inconsistencies</em>: Standardizing formats, correcting errors, and aligning categorical values.<br>
+</li>
+<li>
+<em>Feature Engineering</em>: Transforming data through encoding, scaling, and normalization for model compatibility.<br>
+</li>
+<li>
+<em>Data Summarization</em>: Checking variable types, computing summary statistics, and detecting duplicates.</li>
+</ul>
+<p>Though time-consuming, data preparation is essential for accurate modeling and meaningful analysis. In Chapter <a href="chapter-data-prep.html#chapter-data-prep">3</a>, we explore these techniques further with real-world examples.</p>
+</div>
+<div id="exploratory-data-analysis-eda" class="section level2" number="2.6">
+<h2>
+<span class="header-section-number">2.6</span> Exploratory Data Analysis (EDA)<a class="anchor" aria-label="anchor" href="#exploratory-data-analysis-eda"><i class="fas fa-link"></i></a>
+</h2>
+<p>Exploratory Data Analysis (EDA) is a fundamental step in the data science workflow, providing an initial understanding of the dataset before formal modeling. The primary objective of EDA is to uncover patterns, relationships, and anomalies in the data, helping data scientists refine hypotheses and validate assumptions. By systematically examining the data, EDA ensures that the subsequent modeling process is informed by a solid understanding of the dataset’s structure and characteristics.</p>
+<p>Several key techniques are commonly used in EDA:</p>
+<ul>
+<li>
+<em>Summary statistics</em> – Measures such as the mean, median, standard deviation, and interquartile range provide insights into the distribution and central tendencies of numerical variables.<br>
+</li>
+<li>
+<em>Data visualization</em> – Graphical techniques, including histograms, scatter plots, and box plots, reveal data distributions, trends, and potential outliers.<br>
+</li>
+<li>
+<em>Correlation analysis</em> – Examining relationships between numerical features using correlation coefficients helps identify dependencies that may influence modeling decisions.</li>
+</ul>
+<p>EDA serves both diagnostic and exploratory functions. It helps detect data quality issues, such as missing values or inconsistencies, while also guiding feature selection and engineering. For instance, if a strong correlation exists between certain features and the target variable, these features may be prioritized in the modeling phase.</p>
+<p>A thorough EDA process not only improves the quality of the dataset but also enhances the interpretability and reliability of analytical results. In Chapter <a href="chapter-EDA.html#chapter-EDA">4</a>, we will explore EDA techniques in greater detail, applying them to real-world datasets to illustrate practical applications.</p>
+</div>
+<div id="preparing-data-for-modeling" class="section level2" number="2.7">
+<h2>
+<span class="header-section-number">2.7</span> Preparing Data for Modeling<a class="anchor" aria-label="anchor" href="#preparing-data-for-modeling"><i class="fas fa-link"></i></a>
+</h2>
+<p>With insights from EDA, the next step is to <em>prepare the data for modeling</em>. This stage involves <em>feature engineering</em>, <em>feature selection</em>, and <em>data splitting</em>—all of which are crucial for building effective models.</p>
+<ul>
+<li>
+<em>Feature Engineering</em>: Creating new features or transforming existing ones to enhance model performance. For example, deriving new variables by combining existing ones or applying transformations can provide additional predictive power.<br>
+</li>
+<li>
+<em>Feature Selection</em>: Identifying and selecting the most relevant features to improve model efficiency and prevent overfitting. Removing irrelevant or redundant features simplifies the model and enhances interpretability.<br>
+</li>
+<li>
+<em>Data Splitting</em>: Dividing the dataset into training, validation, and testing sets. The training set is used to develop the model, the validation set helps fine-tune parameters, and the test set assesses final model performance.</li>
+</ul>
+<p>By the end of this stage, the data should be in a structured and well-prepared format, ensuring that models can learn effectively. In Chapter <a href="chapter-modeling.html#chapter-modeling">6</a>, we will explore these techniques in more detail and apply them to real-world datasets.</p>
+</div>
+<div id="modeling" class="section level2" number="2.8">
+<h2>
+<span class="header-section-number">2.8</span> Modeling<a class="anchor" aria-label="anchor" href="#modeling"><i class="fas fa-link"></i></a>
+</h2>
+<p>Modeling is the stage where data scientists apply machine learning or statistical techniques to the prepared data to create a predictive or descriptive model. The goal is to build a model that effectively captures relationships within the data and generalizes well to new, unseen data.</p>
+<p>The modeling process typically involves:</p>
+<ul>
+<li>
+<em>Choosing a Model</em>: Selecting an appropriate model based on the problem type (e.g., regression, classification, clustering) and the characteristics of the dataset.<br>
+</li>
+<li>
+<em>Training the Model</em>: Fitting the model to the training data to learn patterns and relationships.<br>
+</li>
+<li>
+<em>Tuning Hyperparameters</em>: Adjusting model parameters to optimize performance on the validation set.</li>
+</ul>
+<p>Common algorithms include linear regression (Chapter <a href="chapter-regression.html#chapter-regression">10</a>), decision trees (Chapter <a href="chapter-tree.html#chapter-tree">11</a>), Naïve Bayes classifier (Chapter <a href="chapter-bayes.html#chapter-bayes">9</a>), k-Nearest Neighbors (k-NN) algorithm (Chapter <a href="chapter-knn.html#chapter-knn">7</a>), and neural networks (Chapter <a href="chapter-nn.html#chapter-nn">12</a>). Each method has its strengths and limitations, and selecting the most suitable model depends on the nature of the problem, data quality, and computational constraints. Often, multiple models are tested and compared to determine the best-performing approach.</p>
+</div>
+<div id="evaluation" class="section level2" number="2.9">
+<h2>
+<span class="header-section-number">2.9</span> Evaluation<a class="anchor" aria-label="anchor" href="#evaluation"><i class="fas fa-link"></i></a>
+</h2>
+<p>Once a model is built, it must be rigorously evaluated to ensure its accuracy, generalizability, and robustness before deployment. The evaluation process relies on well-defined performance metrics, which vary depending on the type of problem. For classification models, commonly used metrics include accuracy, precision, recall, F1-score, and the area under the receiver operating characteristic curve (ROC-AUC). In regression tasks, measures such as mean squared error (MSE), mean absolute error (MAE), and the coefficient of determination (<span class="math inline">\(R^2\)</span>) assess model effectiveness.</p>
+<p>To ensure the model is not overfitting to the training data, cross-validation techniques, such as k-fold cross-validation, are employed. These methods provide a more reliable estimate of a model’s performance by partitioning the data into multiple subsets for training and validation. Beyond numerical evaluation, error analysis plays a crucial role in diagnosing weaknesses, particularly through confusion matrix interpretation for classification problems and residual analysis for regression. A careful examination of errors often reveals underlying biases, data inconsistencies, or model limitations that require refinement.</p>
+<p>If the model fails to meet expectations, adjustments may be necessary, such as feature selection, hyperparameter tuning, or exploring alternative modeling approaches. In Chapter <a href="chapter-evaluation.html#chapter-evaluation">8</a>, we will explore these techniques in detail and apply them to real-world datasets.</p>
+</div>
+<div id="deployment" class="section level2" number="2.10">
+<h2>
+<span class="header-section-number">2.10</span> Deployment<a class="anchor" aria-label="anchor" href="#deployment"><i class="fas fa-link"></i></a>
+</h2>
+<p>Once the model has been evaluated and meets the project goals, the final step is deployment, where it is integrated into a production environment to generate real-time insights or predictions. This phase is crucial for ensuring that the model contributes tangible value, whether by supporting decision-making processes or by automating tasks within operational systems. Models can be deployed in various ways, such as embedding them in web applications, integrating them into enterprise software, or automating processes in large-scale data pipelines.</p>
+<p>Beyond initial integration, continuous monitoring is essential to track the model’s performance and detect potential issues. As real-world data evolves, models may experience <em>concept drift</em>, where their predictive accuracy deteriorates due to changes in underlying patterns. To mitigate this, periodic model updates and retraining are necessary to maintain reliability. Additionally, implementing robust logging and performance tracking mechanisms helps ensure that discrepancies between predicted and actual outcomes are quickly identified and addressed.</p>
+<p>Deployment is not a one-time event but an ongoing process. Effective deployment strategies account for scalability, interpretability, and maintainability, allowing models to remain useful in dynamic environments. As the field of data science advances, the ability to manage deployed models effectively will continue to be a critical factor in transforming analytical insights into real-world impact.</p>
+</div>
+<div id="machine-learning" class="section level2" number="2.11">
+<h2>
+<span class="header-section-number">2.11</span> Machine Learning<a class="anchor" aria-label="anchor" href="#machine-learning"><i class="fas fa-link"></i></a>
+</h2>
+<p>Data science relies on machine learning techniques to extract insights from data, make predictions, and uncover patterns. These methods enable data scientists to move beyond descriptive analysis and explore predictive and prescriptive approaches, which are essential for real-world applications. In this section, we provide an overview of machine learning, including its main types—<em>supervised learning</em> and <em>unsupervised learning</em>—and discuss how machine learning differs from statistical learning.</p>
+<p>Machine learning is a branch of artificial intelligence that focuses on developing algorithms that learn from data and make predictions. Rather than being explicitly programmed for each task, machine learning models identify patterns within data and use them to make informed decisions. This approach is particularly useful for complex problems where rule-based programming would be impractical.</p>
+<p>For instance, rather than defining a fixed set of rules to detect spam emails, a machine learning model can be trained on a labeled dataset of emails classified as “spam” or “not spam.” The model learns distinguishing patterns and can classify new emails with high accuracy. This ability to generalize from data makes machine learning invaluable in fields such as finance, healthcare, and marketing.</p>
+<div id="machine-learning-tasks-supervised-vs.-unsupervised-learning" class="section level3 unnumbered">
+<h3>Machine Learning Tasks: Supervised vs. Unsupervised Learning<a class="anchor" aria-label="anchor" href="#machine-learning-tasks-supervised-vs.-unsupervised-learning"><i class="fas fa-link"></i></a>
+</h3>
+<p>Machine learning tasks can be broadly categorized into <em>supervised learning</em> and <em>unsupervised learning</em>, which differ in terms of how models learn from data and the objectives of the analysis.</p>
+<p><strong>Supervised learning</strong> involves training a model on a labeled dataset, where each data point is associated with a known output. The goal is for the model to learn the relationship between input features and the corresponding output, enabling it to make accurate predictions on new data. Common supervised learning tasks include classification and numeric prediction. In classification, the model assigns data points to predefined categories, such as detecting whether an email is spam or identifying whether a patient has a particular disease. This book covers classification techniques such as decision trees (Chapter <a href="chapter-tree.html#chapter-tree">11</a>), the Naïve Bayes classifier (Chapter <a href="chapter-bayes.html#chapter-bayes">9</a>), and the k-Nearest Neighbors (k-NN) algorithm (Chapter <a href="chapter-knn.html#chapter-knn">7</a>). Numeric prediction, also known as regression, focuses on estimating continuous values, such as forecasting house prices based on location and size. A detailed discussion of regression techniques is provided in Chapter <a href="chapter-regression.html#chapter-regression">10</a>.</p>
+<p><strong>Unsupervised learning</strong>, on the other hand, is applied to datasets that lack labeled outputs. The objective is to uncover hidden patterns, relationships, or structures within the data. Clustering, a common unsupervised learning technique, groups data points based on similarity, such as segmenting customers according to purchasing behavior. Another important unsupervised learning method is pattern discovery, also known as association rule learning, which identifies relationships between variables. This technique is widely used in market basket analysis to detect frequently co-purchased items. These concepts are explored in further detail in Chapter <a href="chapter-cluster.html#chapter-cluster">13</a>.</p>
+<p>In summary, supervised learning is used when labeled data is available and a specific predictive outcome is required, while unsupervised learning is beneficial for exploratory data analysis, where the goal is to identify underlying structures in unlabeled data. The distinction between these two approaches is fundamental to selecting appropriate machine learning techniques for a given data science problem.</p>
+</div>
+</div>
+<div id="exercises-1" class="section level2" number="2.12">
+<h2>
+<span class="header-section-number">2.12</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-1"><i class="fas fa-link"></i></a>
+</h2>
+<p>The following exercises will help reinforce the key concepts covered in this chapter. The questions range from fundamental definitions to applied problem-solving related to data science, the data science workflow, and machine learning.</p>
+<ol style="list-style-type: decimal">
+<li><p>Define <em>data science</em> and explain its interdisciplinary nature.<br></p></li>
+<li><p>Why is data often referred to as the <em>“new oil”</em>? Provide examples of industries that benefit from data science.<br></p></li>
+<li><p>What are the three key components of data science? Briefly describe their roles.<br></p></li>
+<li><p>How does data-driven decision-making impact businesses? Give an example of a real-world application.<br></p></li>
+<li><p>Explain the significance of the <em>DIKW Pyramid</em> in data science.</p></li>
+<li><p>What are the main stages of the data science workflow? Why is it considered an <em>iterative</em> process?<br></p></li>
+<li><p>Describe the importance of <em>problem understanding</em> in a data science project. Provide an example.<br></p></li>
+<li><p>Why is <em>data cleaning</em> a critical step before analysis? What are some common data quality issues?<br></p></li>
+<li><p>How does <em>exploratory data analysis (EDA)</em> help in data science? Name two EDA techniques.<br></p></li>
+<li><p>Explain the difference between <em>descriptive analytics</em>, <em>predictive analytics</em>, and <em>prescriptive analytics</em>.</p></li>
+<li><p>Define <em>machine learning</em> and explain how it differs from traditional programming.<br></p></li>
+<li><p>What is the key difference between <em>supervised learning</em> and <em>unsupervised learning</em>? Provide an example of each.<br></p></li>
+<li><p>In the context of machine learning, what is a <em>training dataset</em> and a <em>test dataset</em>? Why are they important?<br></p></li>
+<li><p>What is <em>classification</em>, and how does it differ from <em>regression</em> in supervised learning?<br></p></li>
+<li><p>Explain what <em>clustering</em> is and provide a real-world scenario where it is useful.</p></li>
+<li><p>What is <em>model evaluation</em>, and why is it important before deploying a model?<br></p></li>
+<li><p>Name and describe two common metrics for evaluating classification models.<br></p></li>
+<li><p>What is <em>cross-validation</em>, and how does it help assess a model’s performance?<br></p></li>
+<li><p>Why is <em>concept drift</em> a concern in deployed machine learning models? How can it be addressed?<br></p></li>
+<li><p>Why is deployment considered an <em>ongoing process</em> rather than a one-time step in data science?</p></li>
+</ol>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="chapter-into-R.html"><span class="header-section-number">1</span> The Basics for R</a></div>
+<div class="next"><a href="chapter-data-prep.html"><span class="header-section-number">3</span> Data Preparation</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#chapter-intro-DS"><span class="header-section-number">2</span> Introduction to Data Science</a></li>
+<li>
+<a class="nav-link" href="#what-is-data-science"><span class="header-section-number">2.1</span> What is Data Science?</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#key-components-of-data-science">Key Components of Data Science</a></li></ul>
+</li>
+<li><a class="nav-link" href="#why-data-science-matters"><span class="header-section-number">2.2</span> Why Data Science Matters</a></li>
+<li><a class="nav-link" href="#the-data-science-workflow"><span class="header-section-number">2.3</span> The Data Science Workflow</a></li>
+<li><a class="nav-link" href="#problem-understanding"><span class="header-section-number">2.4</span> Problem Understanding</a></li>
+<li><a class="nav-link" href="#data-preparation"><span class="header-section-number">2.5</span> Data Preparation</a></li>
+<li><a class="nav-link" href="#exploratory-data-analysis-eda"><span class="header-section-number">2.6</span> Exploratory Data Analysis (EDA)</a></li>
+<li><a class="nav-link" href="#preparing-data-for-modeling"><span class="header-section-number">2.7</span> Preparing Data for Modeling</a></li>
+<li><a class="nav-link" href="#modeling"><span class="header-section-number">2.8</span> Modeling</a></li>
+<li><a class="nav-link" href="#evaluation"><span class="header-section-number">2.9</span> Evaluation</a></li>
+<li><a class="nav-link" href="#deployment"><span class="header-section-number">2.10</span> Deployment</a></li>
+<li>
+<a class="nav-link" href="#machine-learning"><span class="header-section-number">2.11</span> Machine Learning</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#machine-learning-tasks-supervised-vs.-unsupervised-learning">Machine Learning Tasks: Supervised vs. Unsupervised Learning</a></li></ul>
+</li>
+<li><a class="nav-link" href="#exercises-1"><span class="header-section-number">2.12</span> Exercises</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/RezaMoammadi/Book-Data-Science/blob/master/Introduction.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/RezaMoammadi/Book-Data-Science/edit/master/Introduction.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Uncovering Data Science with R</strong>" was written by . It was last built on 2025-02-06.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

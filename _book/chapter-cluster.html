@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 13 Clustering | Uncovering Data Science with R</title>
+<meta name="generator" content="bookdown 0.37 with bs4_book()">
+<meta property="og:title" content="Chapter 13 Clustering | Uncovering Data Science with R">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://uncovering-data-science.netlify.app/chapter-cluster.html">
+<meta property="og:image" content="https://uncovering-data-science.netlify.app/images/cover.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 13 Clustering | Uncovering Data Science with R">
+<meta name="twitter:image" content="https://uncovering-data-science.netlify.app/images/cover.jpg">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+          margin-bottom: 0em;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="Every day, we interact with systems that organize vast amounts of data without explicit instructions. How does Netflix recommend movies tailored to your taste? How does Amazon categorize millions...">
+<meta property="og:description" content="Every day, we interact with systems that organize vast amounts of data without explicit instructions. How does Netflix recommend movies tailored to your taste? How does Amazon categorize millions...">
+<meta name="twitter:description" content="Every day, we interact with systems that organize vast amounts of data without explicit instructions. How does Netflix recommend movies tailored to your taste? How does Amazon categorize millions...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Uncovering Data Science with R</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li><a class="" href="chapter-into-R.html"><span class="header-section-number">1</span> The Basics for R</a></li>
+<li><a class="" href="chapter-intro-DS.html"><span class="header-section-number">2</span> Introduction to Data Science</a></li>
+<li><a class="" href="chapter-data-prep.html"><span class="header-section-number">3</span> Data Preparation</a></li>
+<li><a class="" href="chapter-EDA.html"><span class="header-section-number">4</span> Exploratory Data Analysis</a></li>
+<li><a class="" href="chapter-statistics.html"><span class="header-section-number">5</span> Statistical Inference and Hypothesis Testing</a></li>
+<li><a class="" href="chapter-modeling.html"><span class="header-section-number">6</span> Preparing Data for Modeling</a></li>
+<li><a class="" href="chapter-knn.html"><span class="header-section-number">7</span> Classification using k-Nearest Neighbors</a></li>
+<li><a class="" href="chapter-evaluation.html"><span class="header-section-number">8</span> Model Evaluation</a></li>
+<li><a class="" href="chapter-bayes.html"><span class="header-section-number">9</span> Naive Bayes Classifier</a></li>
+<li><a class="" href="chapter-regression.html"><span class="header-section-number">10</span> Regression Modeling: From Basics to Advanced Techniques</a></li>
+<li><a class="" href="chapter-tree.html"><span class="header-section-number">11</span> Decision Trees and Random Forests</a></li>
+<li><a class="" href="chapter-nn.html"><span class="header-section-number">12</span> Neural Networks: The Building Blocks of Artificial Intelligence</a></li>
+<li><a class="active" href="chapter-cluster.html"><span class="header-section-number">13</span> Clustering</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/RezaMoammadi/Book-Data-Science">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="chapter-cluster" class="section level1" number="13">
+<h1>
+<span class="header-section-number">13</span> Clustering<a class="anchor" aria-label="anchor" href="#chapter-cluster"><i class="fas fa-link"></i></a>
+</h1>
+<p>Every day, we interact with systems that organize vast amounts of data without explicit instructions. How does Netflix recommend movies tailored to your taste? How does Amazon categorize millions of products? These are real-world examples of <em>clustering</em>, a machine learning technique that groups similar items based on shared characteristics—without any predefined labels.</p>
+<p>In many real-world scenarios, we deal with large datasets where the structure is unknown. Unlike classification, which assigns predefined labels to data points (e.g., distinguishing between spam and non-spam emails), clustering is <em>exploratory</em>—it helps uncover hidden patterns, making it a powerful tool for <em>knowledge discovery</em>. By identifying <em>meaningful groups</em>, clustering allows us to make sense of complex data and extract valuable insights.</p>
+<p>Clustering is widely used across multiple domains, including:</p>
+<ul>
+<li>
+<em>Customer segmentation</em> – Identifying distinct customer groups to personalize marketing campaigns.<br>
+</li>
+<li>
+<em>Market research</em> – Understanding consumer behavior to enhance product recommendations.<br>
+</li>
+<li>
+<em>Fraud detection</em> – Detecting suspicious financial transactions that may indicate fraudulent activity.<br>
+</li>
+<li>
+<em>Document organization</em> – Automatically grouping large collections of text into meaningful categories.<br>
+</li>
+<li>
+<em>Bioinformatics</em> – Clustering genes with similar expression patterns to uncover biological insights.</li>
+</ul>
+<p>This chapter provides a comprehensive introduction to clustering, covering:</p>
+<ul>
+<li>The fundamental principles of clustering and how it differs from classification.<br>
+</li>
+<li>The mechanics of clustering algorithms and how they define similarity.<br>
+</li>
+<li>
+<em>K-means clustering</em>, one of the most widely used clustering techniques.<br>
+</li>
+<li>A practical case study: segmenting cereal brands based on their nutritional content.</li>
+</ul>
+<p>By the end of this chapter, you will understand how clustering works, when to apply it, and how to implement it in real-world scenarios. Let’s dive in!
+## What is Cluster Analysis? {#cluster-what}</p>
+<p>Clustering is an unsupervised machine learning technique that groups data points into <em>clusters</em> based on their similarity. Unlike supervised learning, where models learn from labeled examples, clustering is <em>exploratory</em>—it uncovers <em>hidden structures</em> in data without predefined labels. The goal is to form groups where data points within the same cluster are highly similar, while those in different clusters are distinct.</p>
+<p>But how does a computer determine which data points belong together? Clustering relies on <em>similarity measures</em> that quantify how close or distant two points are. One of the most commonly used approaches is <em>distance metrics</em>, such as <em>Euclidean distance</em>, defined as:</p>
+<p><span class="math display">\[
+\text{dist}(x, y) = \sqrt{ \sum_{i=1}^n (x_i - y_i)^2}
+\]</span></p>
+<p>where <span class="math inline">\(x = (x_1, x_2, \ldots, x_n)\)</span> and <span class="math inline">\(y = (y_1, y_2, \ldots, y_n)\)</span> represent two data points with <span class="math inline">\(n\)</span> features. The closer the two points, the more similar they are.</p>
+<p>However, Euclidean distance is not always appropriate. For <em>categorical variables</em>, alternative strategies such as <em>one-hot encoding</em> transform categories into numerical values, enabling distance-based clustering. Additionally, features often require <em>scaling</em> (e.g., min-max normalization) to ensure that no single variable dominates the clustering process.</p>
+<p>Clustering is often compared to classification, but they serve different purposes. <em>Classification assigns predefined labels to new data points based on past examples, whereas clustering discovers groupings from raw data.</em> Classification is typically used for prediction, while clustering is primarily for <em>exploration and pattern discovery</em>. Because clustering generates labels rather than predicting existing ones, it is sometimes referred to as <em>unsupervised classification</em>. These cluster assignments can then be used as inputs for further analysis, such as refining predictions in a neural network or decision tree model.</p>
+<p>All clustering algorithms aim to achieve <em>high intra-cluster similarity</em> (data points within a cluster are close together) and <em>low inter-cluster similarity</em> (clusters are well separated). This concept is visually illustrated in Figure <a href="chapter-cluster.html#fig:cluster-1">13.1</a>, where effective clusters minimize internal variation while maximizing separation between groups.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:cluster-1"></span>
+<img src="images/cluster_1.png" alt="Clustering algorithms aim to minimize intra-cluster variation while maximizing inter-cluster separation." width="75%"><p class="caption">
+Figure 13.1: Clustering algorithms aim to minimize intra-cluster variation while maximizing inter-cluster separation.
+</p>
+</div>
+<p>Beyond its role in data exploration, clustering is widely used as a <em>preprocessing step</em> in machine learning. Given the massive scale of modern datasets, clustering helps reduce complexity by identifying <em>a smaller number of representative groups</em>, leading to several benefits:</p>
+<ul>
+<li>
+<em>Reduced computation time</em> for downstream models.<br>
+</li>
+<li>
+<em>Improved interpretability</em> by summarizing large datasets.<br>
+</li>
+<li>
+<em>Enhanced predictive performance</em> by structuring inputs for supervised learning.</li>
+</ul>
+<p>In the following sections, we will explore <em>K-means clustering</em>, one of the most widely used clustering algorithms. We will also discuss methods for selecting the optimal number of clusters and apply clustering to a real-world dataset.</p>
+<div id="kmeans" class="section level2" number="13.1">
+<h2>
+<span class="header-section-number">13.1</span> K-means Clustering<a class="anchor" aria-label="anchor" href="#kmeans"><i class="fas fa-link"></i></a>
+</h2>
+<p>K-means clustering is one of the simplest and most widely used clustering algorithms. It aims to partition a dataset into <em><span class="math inline">\(k\)</span></em> clusters by iteratively refining cluster centers, ensuring that data points within each cluster are as similar as possible. The algorithm operates through an iterative process of assigning points to clusters and updating cluster centers based on those assignments. The process stops when the assignments stabilize, meaning no data points switch clusters.</p>
+<p>The K-means algorithm requires the user to specify the number of clusters, <em><span class="math inline">\(k\)</span></em>, in advance. It follows these steps:</p>
+<ol style="list-style-type: decimal">
+<li>
+<em>Initialize:</em> Randomly select <em><span class="math inline">\(k\)</span></em> data points as the initial cluster centers.<br>
+</li>
+<li>
+<em>Assignment:</em> Assign each data point to the nearest cluster center. This creates <em><span class="math inline">\(k\)</span></em> groups.<br>
+</li>
+<li>
+<em>Update:</em> Compute the centroid (mean) of each cluster and move the cluster centers to these new locations.<br>
+</li>
+<li>
+<em>Repeat:</em> Iterate steps 2 and 3 until convergence—when cluster assignments no longer change.</li>
+</ol>
+<p>Although K-means is simple and efficient, it has some limitations. The final clusters depend heavily on the <em>initial choice of cluster centers</em>, meaning different runs of the algorithm may produce different results. Additionally, K-means is sensitive to outliers and assumes clusters are <em>spherical and of similar size</em>, which may not always be the case in real-world data.</p>
+<p>To illustrate how K-means works, consider a dataset with 50 records and two features, <em><span class="math inline">\(x_1\)</span></em> and <em><span class="math inline">\(x_2\)</span></em>, as shown in Figure <a href="chapter-cluster.html#fig:cluster-ex-1">13.2</a>. Our goal is to partition the data into <em>three</em> clusters.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:cluster-ex-1"></span>
+<img src="images/cluster_ex_1.png" alt="A simple dataset with 50 records and two features, ready for clustering." width="70%"><p class="caption">
+Figure 13.2: A simple dataset with 50 records and two features, ready for clustering.
+</p>
+</div>
+<p>The first step is to randomly select three initial cluster centers (red stars), as shown in the left panel of Figure <a href="chapter-cluster.html#fig:cluster-ex-2">13.3</a>. Each data point is then assigned to the nearest cluster, forming three groups labeled in <em>blue (Cluster A), green (Cluster B), and orange (Cluster C)</em>. The right panel of Figure <a href="chapter-cluster.html#fig:cluster-ex-2">13.3</a> displays these initial assignments. The dashed lines represent the <em>Voronoi diagram</em>, which divides space into regions associated with each cluster center.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:cluster-ex-2"></span>
+<img src="images/cluster_ex_2.png" alt="Initial random cluster centers (left) and first cluster assignments (right)." width="45%"><img src="images/cluster_ex_3.png" alt="Initial random cluster centers (left) and first cluster assignments (right)." width="45%"><p class="caption">
+Figure 13.3: Initial random cluster centers (left) and first cluster assignments (right).
+</p>
+</div>
+<p>Since K-means is sensitive to <em>initialization</em>, poor placement of initial cluster centers can lead to suboptimal clustering. To mitigate this issue, <em>K-means++</em><span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;David Arthur and Sergei Vassilvitskii, &lt;span&gt;“K-Means++: The Advantages of Careful Seeding,”&lt;/span&gt; 2006.&lt;/p&gt;"><sup>9</sup></a></span> was introduced in 2007. This method strategically selects initial centers to improve convergence and reduce randomness.</p>
+<p>Once the initial cluster assignments are made, K-means enters the <em>update phase</em>. The first step is to recompute the centroid of each cluster, which is the <em>mean position of all points assigned to that cluster</em>. The cluster centers are then moved to these new centroid locations, as shown in the left panel of Figure <a href="chapter-cluster.html#fig:cluster-ex-3">13.4</a>. The right panel illustrates how the <em>Voronoi boundaries shift</em>, causing some data points to be reassigned to a different cluster.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:cluster-ex-3"></span>
+<img src="images/cluster_ex_4.png" alt="Updated cluster centers (left) and new assignments after centroid adjustment (right)." width="45%"><img src="images/cluster_ex_5.png" alt="Updated cluster centers (left) and new assignments after centroid adjustment (right)." width="45%"><p class="caption">
+Figure 13.4: Updated cluster centers (left) and new assignments after centroid adjustment (right).
+</p>
+</div>
+<p>This process—<em>reassigning points and updating centroids</em>—continues iteratively. After another update, some points switch clusters again, leading to a refined Voronoi partition, as shown in Figure <a href="chapter-cluster.html#fig:cluster-ex-6">13.5</a>.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:cluster-ex-6"></span>
+<img src="images/cluster_ex_6.png" alt="Updated cluster centers and assignments after another iteration." width="45%"><img src="images/cluster_ex_7.png" alt="Updated cluster centers and assignments after another iteration." width="45%"><p class="caption">
+Figure 13.5: Updated cluster centers and assignments after another iteration.
+</p>
+</div>
+<p>The algorithm continues iterating until the cluster assignments stabilize—when <em>no more points switch clusters</em>, as shown in Figure <a href="chapter-cluster.html#fig:cluster-ex-8">13.6</a>. At this point, the algorithm <em>converges</em>, and the final clusters are established.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:cluster-ex-8"></span>
+<img src="images/cluster_ex_8.png" alt="Final cluster assignments after K-means convergence." width="45%"><p class="caption">
+Figure 13.6: Final cluster assignments after K-means convergence.
+</p>
+</div>
+<p>Once clustering is complete, the results can be presented in two ways:</p>
+<ul>
+<li>
+<em>Cluster Assignments:</em> Each data point is labeled as belonging to Cluster A, B, or C.<br>
+</li>
+<li>
+<em>Centroid Coordinates:</em> The final positions of the cluster centers can be reported.</li>
+</ul>
+<p>These final cluster centroids act as <em>representative points</em>, summarizing the dataset and enabling further analysis. K-means clustering is widely used in applications such as customer segmentation, image compression, and document clustering. In the next section, we will explore methods for selecting the <em>optimal number of clusters</em> to ensure meaningful partitions in real-world datasets.</p>
+</div>
+<div id="kmeans-choose" class="section level2" number="13.2">
+<h2>
+<span class="header-section-number">13.2</span> Choosing the Number of Clusters<a class="anchor" aria-label="anchor" href="#kmeans-choose"><i class="fas fa-link"></i></a>
+</h2>
+<p>One of the key challenges in <em>K-means clustering</em> is selecting the appropriate number of clusters, <em><span class="math inline">\(k\)</span></em>. The choice of <span class="math inline">\(k\)</span> significantly impacts the results—too few clusters may fail to capture meaningful structures, while too many clusters risk overfitting by creating overly fragmented groups. Unlike supervised learning, where evaluation metrics like accuracy guide model selection, clustering does not have an absolute ground truth, making the selection of <span class="math inline">\(k\)</span> more subjective.</p>
+<p>In some cases, domain knowledge can provide useful guidance. For example, when clustering movies, a reasonable starting point might be the number of well-known genres. In a business setting, marketing teams may set <span class="math inline">\(k = 3\)</span> if they plan to design three distinct advertising campaigns. Similarly, seating arrangements at a conference might determine the number of groups based on the available tables. However, when no clear intuition exists, data-driven methods are needed to determine an optimal <span class="math inline">\(k\)</span>.</p>
+<p>One widely used technique for choosing <span class="math inline">\(k\)</span> is the <em>elbow method</em>, which evaluates how the within-cluster variation changes as the number of clusters increases. As more clusters are added, the clusters become more <em>homogeneous</em> (internal similarity increases), and overall <em>heterogeneity</em> (difference between clusters) decreases. However, this improvement follows a diminishing returns pattern. The idea is to find the point at which adding another cluster <em>no longer significantly reduces the within-cluster variance</em>.</p>
+<p>This critical point, known as the <em>elbow point</em>, represents the most natural number of clusters. The concept is illustrated in Figure <a href="chapter-cluster.html#fig:cluster-elbow">13.7</a>, where the curve shows the total within-cluster sum of squares (WCSS) as a function of <span class="math inline">\(k\)</span>. The “elbow” in the curve—where the rate of improvement slows—is a strong candidate for <span class="math inline">\(k\)</span>.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:cluster-elbow"></span>
+<img src="images/cluster_elbow.png" alt="The elbow method helps determine the optimal number of clusters in K-means clustering." width="60%"><p class="caption">
+Figure 13.7: The elbow method helps determine the optimal number of clusters in K-means clustering.
+</p>
+</div>
+<p>While the elbow method provides a useful heuristic, it has limitations. In some datasets, the curve may not exhibit a clear elbow, making the choice of <span class="math inline">\(k\)</span> more ambiguous. Additionally, evaluating many different values of <span class="math inline">\(k\)</span> can be computationally expensive, especially for large datasets.</p>
+<p>Other techniques can supplement or refine the selection of <span class="math inline">\(k\)</span>:</p>
+<ul>
+<li>
+<em>Silhouette Score:</em> Measures how well each point fits within its assigned cluster compared to others. A higher silhouette score suggests a well-defined clustering structure.<br>
+</li>
+<li>
+<em>Gap Statistic:</em> Compares the clustering result with a reference distribution to assess whether the structure is significant.<br>
+</li>
+<li>
+<em>Cross-validation with clustering tasks:</em> In applications where clustering feeds into a downstream task (e.g., classification), the impact of different <span class="math inline">\(k\)</span> values can be evaluated in that context.</li>
+</ul>
+<p>Ultimately, the choice of <span class="math inline">\(k\)</span> should be driven by both <em>data characteristics</em> and <em>practical considerations</em>. Clustering is often used for <em>exploratory analysis</em>, meaning that the most useful <span class="math inline">\(k\)</span> is not necessarily the mathematically “optimal” one but rather the one that yields meaningful, interpretable insights.</p>
+<p>Observing how cluster characteristics evolve as <span class="math inline">\(k\)</span> varies can itself be informative. Some groups may remain stable across different <span class="math inline">\(k\)</span> values, indicating strong natural boundaries, while others may appear and disappear, suggesting more fluid structures in the data.</p>
+<p>Rather than aiming for a perfect cluster count, it is often sufficient to find a <em>reasonable and interpretable</em> clustering solution. In the next section, we will apply clustering to a real-world dataset, demonstrating how practical knowledge can guide the choice of <span class="math inline">\(k\)</span> for actionable insights.</p>
+<p>Now that we have explored K-means clustering and methods for selecting the optimal number of clusters, we apply these concepts to a real-world dataset.</p>
+</div>
+<div id="kmeans-cereal" class="section level2" number="13.3">
+<h2>
+<span class="header-section-number">13.3</span> Case Study: Clustering Cereal Data<a class="anchor" aria-label="anchor" href="#kmeans-cereal"><i class="fas fa-link"></i></a>
+</h2>
+<p>In this case study, we apply <em>K-means clustering</em> to the <em>cereal</em> dataset from the <strong>liver</strong> package. This dataset contains nutritional information for 77 cereal brands, including calories, protein, fat, sodium, fiber, and sugar content. Understanding these nutritional profiles is valuable for marketing strategies, consumer targeting, and product positioning. Our goal is to segment cereals into distinct groups based on their nutritional similarities.</p>
+<div id="dataset-overview" class="section level3" number="13.3.1">
+<h3>
+<span class="header-section-number">13.3.1</span> Dataset Overview<a class="anchor" aria-label="anchor" href="#dataset-overview"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <em>cereal</em> dataset includes 77 observations and 16 variables, covering various nutritional attributes. It can be accessed through the <strong>liver</strong> package, as shown below:</p>
+<div class="sourceCode" id="cb181"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.uva.nl/profile/a.mohammadi">liver</a></span><span class="op">)</span>  <span class="co"># Load the liver package</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">cereal</span><span class="op">)</span>    <span class="co"># Load the cereal dataset</span></span></code></pre></div>
+<p>We can examine its structure using:</p>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="chapter-cluster.html#cb182-1" tabindex="-1"></a><span class="fu">str</span>(cereal)</span>
+<span id="cb182-2"><a href="chapter-cluster.html#cb182-2" tabindex="-1"></a>   <span class="st">'data.frame'</span><span class="sc">:</span>    <span class="dv">77</span> obs. of  <span class="dv">16</span> variables<span class="sc">:</span></span>
+<span id="cb182-3"><a href="chapter-cluster.html#cb182-3" tabindex="-1"></a>    <span class="er">$</span> name    <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">77</span> levels <span class="st">"100% Bran"</span>,<span class="st">"100% Natural Bran"</span>,..<span class="sc">:</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">10</span> ...</span>
+<span id="cb182-4"><a href="chapter-cluster.html#cb182-4" tabindex="-1"></a>    <span class="sc">$</span> manuf   <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">7</span> levels <span class="st">"A"</span>,<span class="st">"G"</span>,<span class="st">"K"</span>,<span class="st">"N"</span>,..<span class="sc">:</span> <span class="dv">4</span> <span class="dv">6</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">7</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">7</span> <span class="dv">5</span> ...</span>
+<span id="cb182-5"><a href="chapter-cluster.html#cb182-5" tabindex="-1"></a>    <span class="sc">$</span> type    <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"cold"</span>,<span class="st">"hot"</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> ...</span>
+<span id="cb182-6"><a href="chapter-cluster.html#cb182-6" tabindex="-1"></a>    <span class="sc">$</span> calories<span class="sc">:</span> int  <span class="dv">70</span> <span class="dv">120</span> <span class="dv">70</span> <span class="dv">50</span> <span class="dv">110</span> <span class="dv">110</span> <span class="dv">110</span> <span class="dv">130</span> <span class="dv">90</span> <span class="dv">90</span> ...</span>
+<span id="cb182-7"><a href="chapter-cluster.html#cb182-7" tabindex="-1"></a>    <span class="sc">$</span> protein <span class="sc">:</span> int  <span class="dv">4</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">4</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">3</span> ...</span>
+<span id="cb182-8"><a href="chapter-cluster.html#cb182-8" tabindex="-1"></a>    <span class="sc">$</span> fat     <span class="sc">:</span> int  <span class="dv">1</span> <span class="dv">5</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">0</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">0</span> ...</span>
+<span id="cb182-9"><a href="chapter-cluster.html#cb182-9" tabindex="-1"></a>    <span class="sc">$</span> sodium  <span class="sc">:</span> int  <span class="dv">130</span> <span class="dv">15</span> <span class="dv">260</span> <span class="dv">140</span> <span class="dv">200</span> <span class="dv">180</span> <span class="dv">125</span> <span class="dv">210</span> <span class="dv">200</span> <span class="dv">210</span> ...</span>
+<span id="cb182-10"><a href="chapter-cluster.html#cb182-10" tabindex="-1"></a>    <span class="sc">$</span> fiber   <span class="sc">:</span> num  <span class="dv">10</span> <span class="dv">2</span> <span class="dv">9</span> <span class="dv">14</span> <span class="dv">1</span> <span class="fl">1.5</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">4</span> <span class="dv">5</span> ...</span>
+<span id="cb182-11"><a href="chapter-cluster.html#cb182-11" tabindex="-1"></a>    <span class="sc">$</span> carbo   <span class="sc">:</span> num  <span class="dv">5</span> <span class="dv">8</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">14</span> <span class="fl">10.5</span> <span class="dv">11</span> <span class="dv">18</span> <span class="dv">15</span> <span class="dv">13</span> ...</span>
+<span id="cb182-12"><a href="chapter-cluster.html#cb182-12" tabindex="-1"></a>    <span class="sc">$</span> sugars  <span class="sc">:</span> int  <span class="dv">6</span> <span class="dv">8</span> <span class="dv">5</span> <span class="dv">0</span> <span class="dv">8</span> <span class="dv">10</span> <span class="dv">14</span> <span class="dv">8</span> <span class="dv">6</span> <span class="dv">5</span> ...</span>
+<span id="cb182-13"><a href="chapter-cluster.html#cb182-13" tabindex="-1"></a>    <span class="sc">$</span> potass  <span class="sc">:</span> int  <span class="dv">280</span> <span class="dv">135</span> <span class="dv">320</span> <span class="dv">330</span> <span class="sc">-</span><span class="dv">1</span> <span class="dv">70</span> <span class="dv">30</span> <span class="dv">100</span> <span class="dv">125</span> <span class="dv">190</span> ...</span>
+<span id="cb182-14"><a href="chapter-cluster.html#cb182-14" tabindex="-1"></a>    <span class="sc">$</span> vitamins<span class="sc">:</span> int  <span class="dv">25</span> <span class="dv">0</span> <span class="dv">25</span> <span class="dv">25</span> <span class="dv">25</span> <span class="dv">25</span> <span class="dv">25</span> <span class="dv">25</span> <span class="dv">25</span> <span class="dv">25</span> ...</span>
+<span id="cb182-15"><a href="chapter-cluster.html#cb182-15" tabindex="-1"></a>    <span class="sc">$</span> shelf   <span class="sc">:</span> int  <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">1</span> <span class="dv">3</span> ...</span>
+<span id="cb182-16"><a href="chapter-cluster.html#cb182-16" tabindex="-1"></a>    <span class="sc">$</span> weight  <span class="sc">:</span> num  <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="fl">1.33</span> <span class="dv">1</span> <span class="dv">1</span> ...</span>
+<span id="cb182-17"><a href="chapter-cluster.html#cb182-17" tabindex="-1"></a>    <span class="sc">$</span> cups    <span class="sc">:</span> num  <span class="fl">0.33</span> <span class="dv">1</span> <span class="fl">0.33</span> <span class="fl">0.5</span> <span class="fl">0.75</span> <span class="fl">0.75</span> <span class="dv">1</span> <span class="fl">0.75</span> <span class="fl">0.67</span> <span class="fl">0.67</span> ...</span>
+<span id="cb182-18"><a href="chapter-cluster.html#cb182-18" tabindex="-1"></a>    <span class="sc">$</span> rating  <span class="sc">:</span> num  <span class="fl">68.4</span> <span class="dv">34</span> <span class="fl">59.4</span> <span class="fl">93.7</span> <span class="fl">34.4</span> ...</span></code></pre></div>
+<p>The dataset contains the following variables:</p>
+<ul>
+<li>
+<code>name</code>: Name of the cereal (categorical).<br>
+</li>
+<li>
+<code>manuf</code>: Manufacturer of the cereal (categorical).<br>
+</li>
+<li>
+<code>type</code>: Cereal type (hot or cold, categorical).<br>
+</li>
+<li>
+<code>calories</code>: Calories per serving (numerical).<br>
+</li>
+<li>
+<code>protein</code>: Grams of protein per serving (numerical).<br>
+</li>
+<li>
+<code>fat</code>: Grams of fat per serving (numerical).<br>
+</li>
+<li>
+<code>sodium</code>: Milligrams of sodium per serving (numerical).<br>
+</li>
+<li>
+<code>fiber</code>: Grams of dietary fiber per serving (numerical).<br>
+</li>
+<li>
+<code>carbo</code>: Grams of carbohydrates per serving (numerical).<br>
+</li>
+<li>
+<code>sugars</code>: Grams of sugar per serving (numerical).<br>
+</li>
+<li>
+<code>potass</code>: Milligrams of potassium per serving (numerical).<br>
+</li>
+<li>
+<code>vitamins</code>: Percentage of FDA-recommended vitamins (categorical: 0, 25, or 100).<br>
+</li>
+<li>
+<code>shelf</code>: Display shelf position (categorical: 1, 2, or 3).<br>
+</li>
+<li>
+<code>weight</code>: Weight of one serving in ounces (numerical).<br>
+</li>
+<li>
+<code>cups</code>: Number of cups per serving (numerical).<br>
+</li>
+<li>
+<code>rating</code>: Cereal rating score (numerical).</li>
+</ul>
+</div>
+<div id="data-preprocessing" class="section level3" number="13.3.2">
+<h3>
+<span class="header-section-number">13.3.2</span> Data Preprocessing<a class="anchor" aria-label="anchor" href="#data-preprocessing"><i class="fas fa-link"></i></a>
+</h3>
+<p>Before applying K-means clustering, we need to <em>clean and preprocess</em> the data. We start by summarizing the dataset:</p>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="chapter-cluster.html#cb183-1" tabindex="-1"></a><span class="fu">summary</span>(cereal)</span>
+<span id="cb183-2"><a href="chapter-cluster.html#cb183-2" tabindex="-1"></a>                           name    manuf    type       calories    </span>
+<span id="cb183-3"><a href="chapter-cluster.html#cb183-3" tabindex="-1"></a>    <span class="dv">100</span>% Bran                <span class="sc">:</span> <span class="dv">1</span>   A<span class="sc">:</span> <span class="dv">1</span>   cold<span class="sc">:</span><span class="dv">74</span>   Min.   <span class="sc">:</span> <span class="fl">50.0</span>  </span>
+<span id="cb183-4"><a href="chapter-cluster.html#cb183-4" tabindex="-1"></a>    <span class="dv">100</span>% Natural Bran        <span class="sc">:</span> <span class="dv">1</span>   G<span class="sc">:</span><span class="dv">22</span>   hot <span class="sc">:</span> <span class="dv">3</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">100.0</span>  </span>
+<span id="cb183-5"><a href="chapter-cluster.html#cb183-5" tabindex="-1"></a>    All<span class="sc">-</span>Bran                 <span class="sc">:</span> <span class="dv">1</span>   K<span class="sc">:</span><span class="dv">23</span>             Median <span class="sc">:</span><span class="fl">110.0</span>  </span>
+<span id="cb183-6"><a href="chapter-cluster.html#cb183-6" tabindex="-1"></a>    All<span class="sc">-</span>Bran with Extra Fiber<span class="sc">:</span> <span class="dv">1</span>   N<span class="sc">:</span> <span class="dv">6</span>             Mean   <span class="sc">:</span><span class="fl">106.9</span>  </span>
+<span id="cb183-7"><a href="chapter-cluster.html#cb183-7" tabindex="-1"></a>    Almond Delight           <span class="sc">:</span> <span class="dv">1</span>   P<span class="sc">:</span> <span class="dv">9</span>             <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">110.0</span>  </span>
+<span id="cb183-8"><a href="chapter-cluster.html#cb183-8" tabindex="-1"></a>    Apple Cinnamon Cheerios  <span class="sc">:</span> <span class="dv">1</span>   Q<span class="sc">:</span> <span class="dv">8</span>             Max.   <span class="sc">:</span><span class="fl">160.0</span>  </span>
+<span id="cb183-9"><a href="chapter-cluster.html#cb183-9" tabindex="-1"></a>    (Other)                  <span class="sc">:</span><span class="dv">71</span>   R<span class="sc">:</span> <span class="dv">8</span>                            </span>
+<span id="cb183-10"><a href="chapter-cluster.html#cb183-10" tabindex="-1"></a>       protein           fat            sodium          fiber       </span>
+<span id="cb183-11"><a href="chapter-cluster.html#cb183-11" tabindex="-1"></a>    Min.   <span class="sc">:</span><span class="fl">1.000</span>   Min.   <span class="sc">:</span><span class="fl">0.000</span>   Min.   <span class="sc">:</span>  <span class="fl">0.0</span>   Min.   <span class="sc">:</span> <span class="fl">0.000</span>  </span>
+<span id="cb183-12"><a href="chapter-cluster.html#cb183-12" tabindex="-1"></a>    <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">2.000</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">0.000</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">130.0</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span> <span class="fl">1.000</span>  </span>
+<span id="cb183-13"><a href="chapter-cluster.html#cb183-13" tabindex="-1"></a>    Median <span class="sc">:</span><span class="fl">3.000</span>   Median <span class="sc">:</span><span class="fl">1.000</span>   Median <span class="sc">:</span><span class="fl">180.0</span>   Median <span class="sc">:</span> <span class="fl">2.000</span>  </span>
+<span id="cb183-14"><a href="chapter-cluster.html#cb183-14" tabindex="-1"></a>    Mean   <span class="sc">:</span><span class="fl">2.545</span>   Mean   <span class="sc">:</span><span class="fl">1.013</span>   Mean   <span class="sc">:</span><span class="fl">159.7</span>   Mean   <span class="sc">:</span> <span class="fl">2.152</span>  </span>
+<span id="cb183-15"><a href="chapter-cluster.html#cb183-15" tabindex="-1"></a>    <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">3.000</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">2.000</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">210.0</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span> <span class="fl">3.000</span>  </span>
+<span id="cb183-16"><a href="chapter-cluster.html#cb183-16" tabindex="-1"></a>    Max.   <span class="sc">:</span><span class="fl">6.000</span>   Max.   <span class="sc">:</span><span class="fl">5.000</span>   Max.   <span class="sc">:</span><span class="fl">320.0</span>   Max.   <span class="sc">:</span><span class="fl">14.000</span>  </span>
+<span id="cb183-17"><a href="chapter-cluster.html#cb183-17" tabindex="-1"></a>                                                                    </span>
+<span id="cb183-18"><a href="chapter-cluster.html#cb183-18" tabindex="-1"></a>        carbo          sugars           potass          vitamins     </span>
+<span id="cb183-19"><a href="chapter-cluster.html#cb183-19" tabindex="-1"></a>    Min.   <span class="sc">:-</span><span class="fl">1.0</span>   Min.   <span class="sc">:-</span><span class="fl">1.000</span>   Min.   <span class="sc">:</span> <span class="sc">-</span><span class="fl">1.00</span>   Min.   <span class="sc">:</span>  <span class="fl">0.00</span>  </span>
+<span id="cb183-20"><a href="chapter-cluster.html#cb183-20" tabindex="-1"></a>    <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">12.0</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span> <span class="fl">3.000</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span> <span class="fl">40.00</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span> <span class="fl">25.00</span>  </span>
+<span id="cb183-21"><a href="chapter-cluster.html#cb183-21" tabindex="-1"></a>    Median <span class="sc">:</span><span class="fl">14.0</span>   Median <span class="sc">:</span> <span class="fl">7.000</span>   Median <span class="sc">:</span> <span class="fl">90.00</span>   Median <span class="sc">:</span> <span class="fl">25.00</span>  </span>
+<span id="cb183-22"><a href="chapter-cluster.html#cb183-22" tabindex="-1"></a>    Mean   <span class="sc">:</span><span class="fl">14.6</span>   Mean   <span class="sc">:</span> <span class="fl">6.922</span>   Mean   <span class="sc">:</span> <span class="fl">96.08</span>   Mean   <span class="sc">:</span> <span class="fl">28.25</span>  </span>
+<span id="cb183-23"><a href="chapter-cluster.html#cb183-23" tabindex="-1"></a>    <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">17.0</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">11.000</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">120.00</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span> <span class="fl">25.00</span>  </span>
+<span id="cb183-24"><a href="chapter-cluster.html#cb183-24" tabindex="-1"></a>    Max.   <span class="sc">:</span><span class="fl">23.0</span>   Max.   <span class="sc">:</span><span class="fl">15.000</span>   Max.   <span class="sc">:</span><span class="fl">330.00</span>   Max.   <span class="sc">:</span><span class="fl">100.00</span>  </span>
+<span id="cb183-25"><a href="chapter-cluster.html#cb183-25" tabindex="-1"></a>                                                                     </span>
+<span id="cb183-26"><a href="chapter-cluster.html#cb183-26" tabindex="-1"></a>        shelf           weight          cups           rating     </span>
+<span id="cb183-27"><a href="chapter-cluster.html#cb183-27" tabindex="-1"></a>    Min.   <span class="sc">:</span><span class="fl">1.000</span>   Min.   <span class="sc">:</span><span class="fl">0.50</span>   Min.   <span class="sc">:</span><span class="fl">0.250</span>   Min.   <span class="sc">:</span><span class="fl">18.04</span>  </span>
+<span id="cb183-28"><a href="chapter-cluster.html#cb183-28" tabindex="-1"></a>    <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">1.000</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">1.00</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">0.670</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">33.17</span>  </span>
+<span id="cb183-29"><a href="chapter-cluster.html#cb183-29" tabindex="-1"></a>    Median <span class="sc">:</span><span class="fl">2.000</span>   Median <span class="sc">:</span><span class="fl">1.00</span>   Median <span class="sc">:</span><span class="fl">0.750</span>   Median <span class="sc">:</span><span class="fl">40.40</span>  </span>
+<span id="cb183-30"><a href="chapter-cluster.html#cb183-30" tabindex="-1"></a>    Mean   <span class="sc">:</span><span class="fl">2.208</span>   Mean   <span class="sc">:</span><span class="fl">1.03</span>   Mean   <span class="sc">:</span><span class="fl">0.821</span>   Mean   <span class="sc">:</span><span class="fl">42.67</span>  </span>
+<span id="cb183-31"><a href="chapter-cluster.html#cb183-31" tabindex="-1"></a>    <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">3.000</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">1.00</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">1.000</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">50.83</span>  </span>
+<span id="cb183-32"><a href="chapter-cluster.html#cb183-32" tabindex="-1"></a>    Max.   <span class="sc">:</span><span class="fl">3.000</span>   Max.   <span class="sc">:</span><span class="fl">1.50</span>   Max.   <span class="sc">:</span><span class="fl">1.500</span>   Max.   <span class="sc">:</span><span class="fl">93.70</span>  </span>
+<span id="cb183-33"><a href="chapter-cluster.html#cb183-33" tabindex="-1"></a>   </span></code></pre></div>
+<p>Upon inspection, we notice <em>unusual values</em> in the variables <code>sugars</code>, <code>carbo</code>, and <code>potass</code>, where some entries are set to <code>-1</code>. Since negative values are invalid for these nutritional attributes, we replace them with <code>NA</code>:</p>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="chapter-cluster.html#cb184-1" tabindex="-1"></a>cereal[cereal <span class="sc">==</span> <span class="sc">-</span><span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb184-2"><a href="chapter-cluster.html#cb184-2" tabindex="-1"></a><span class="fu">find.na</span>(cereal)  <span class="co"># Check missing values</span></span>
+<span id="cb184-3"><a href="chapter-cluster.html#cb184-3" tabindex="-1"></a>        row col</span>
+<span id="cb184-4"><a href="chapter-cluster.html#cb184-4" tabindex="-1"></a>   [<span class="dv">1</span>,]  <span class="dv">58</span>   <span class="dv">9</span></span>
+<span id="cb184-5"><a href="chapter-cluster.html#cb184-5" tabindex="-1"></a>   [<span class="dv">2</span>,]  <span class="dv">58</span>  <span class="dv">10</span></span>
+<span id="cb184-6"><a href="chapter-cluster.html#cb184-6" tabindex="-1"></a>   [<span class="dv">3</span>,]   <span class="dv">5</span>  <span class="dv">11</span></span>
+<span id="cb184-7"><a href="chapter-cluster.html#cb184-7" tabindex="-1"></a>   [<span class="dv">4</span>,]  <span class="dv">21</span>  <span class="dv">11</span></span></code></pre></div>
+<p>Next, we handle missing values using <em>K-nearest neighbors (KNN) imputation</em> with the <code>knnImputation()</code> function from the <strong>DMwR2</strong> package:</p>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="chapter-cluster.html#cb185-1" tabindex="-1"></a><span class="fu">library</span>(DMwR2)</span>
+<span id="cb185-2"><a href="chapter-cluster.html#cb185-2" tabindex="-1"></a>cereal <span class="ot">&lt;-</span> <span class="fu">knnImputation</span>(cereal, <span class="at">k =</span> <span class="dv">3</span>, <span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb185-3"><a href="chapter-cluster.html#cb185-3" tabindex="-1"></a><span class="fu">find.na</span>(cereal)  <span class="co"># Verify missing values are filled</span></span>
+<span id="cb185-4"><a href="chapter-cluster.html#cb185-4" tabindex="-1"></a>   [<span class="dv">1</span>] <span class="st">" No missing values (NA) in the dataset."</span></span></code></pre></div>
+<p>For clustering, we exclude categorical and identifier variables (<code>name</code>, <code>manuf</code>, and <code>rating</code>), retaining only <em>numerical features</em>:</p>
+<div class="sourceCode" id="cb186"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">selected_variables</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">cereal</span><span class="op">)</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">16</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">cereal_subset</span> <span class="op">&lt;-</span> <span class="va">cereal</span><span class="op">[</span>, <span class="va">selected_variables</span><span class="op">]</span></span></code></pre></div>
+<p>Since the dataset includes features on <em>different scales</em>, we apply <em>min-max scaling</em> using the <code><a href="https://rdrr.io/pkg/liver/man/minmax.html">minmax()</a></code> function from the <strong>liver</strong> package to ensure all variables contribute equally to the clustering process:</p>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="chapter-cluster.html#cb187-1" tabindex="-1"></a>cereal_mm <span class="ot">&lt;-</span> <span class="fu">minmax</span>(cereal_subset, <span class="at">col =</span> <span class="st">"all"</span>)</span>
+<span id="cb187-2"><a href="chapter-cluster.html#cb187-2" tabindex="-1"></a><span class="fu">str</span>(cereal_mm)  <span class="co"># Check the transformed dataset</span></span>
+<span id="cb187-3"><a href="chapter-cluster.html#cb187-3" tabindex="-1"></a>   <span class="st">'data.frame'</span><span class="sc">:</span>    <span class="dv">77</span> obs. of  <span class="dv">13</span> variables<span class="sc">:</span></span>
+<span id="cb187-4"><a href="chapter-cluster.html#cb187-4" tabindex="-1"></a>    <span class="er">$</span> type    <span class="sc">:</span> num  <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> ...</span>
+<span id="cb187-5"><a href="chapter-cluster.html#cb187-5" tabindex="-1"></a>    <span class="sc">$</span> calories<span class="sc">:</span> num  <span class="fl">0.182</span> <span class="fl">0.636</span> <span class="fl">0.182</span> <span class="dv">0</span> <span class="fl">0.545</span> ...</span>
+<span id="cb187-6"><a href="chapter-cluster.html#cb187-6" tabindex="-1"></a>    <span class="sc">$</span> protein <span class="sc">:</span> num  <span class="fl">0.6</span> <span class="fl">0.4</span> <span class="fl">0.6</span> <span class="fl">0.6</span> <span class="fl">0.2</span> <span class="fl">0.2</span> <span class="fl">0.2</span> <span class="fl">0.4</span> <span class="fl">0.2</span> <span class="fl">0.4</span> ...</span>
+<span id="cb187-7"><a href="chapter-cluster.html#cb187-7" tabindex="-1"></a>    <span class="sc">$</span> fat     <span class="sc">:</span> num  <span class="fl">0.2</span> <span class="dv">1</span> <span class="fl">0.2</span> <span class="dv">0</span> <span class="fl">0.4</span> <span class="fl">0.4</span> <span class="dv">0</span> <span class="fl">0.4</span> <span class="fl">0.2</span> <span class="dv">0</span> ...</span>
+<span id="cb187-8"><a href="chapter-cluster.html#cb187-8" tabindex="-1"></a>    <span class="sc">$</span> sodium  <span class="sc">:</span> num  <span class="fl">0.4062</span> <span class="fl">0.0469</span> <span class="fl">0.8125</span> <span class="fl">0.4375</span> <span class="fl">0.625</span> ...</span>
+<span id="cb187-9"><a href="chapter-cluster.html#cb187-9" tabindex="-1"></a>    <span class="sc">$</span> fiber   <span class="sc">:</span> num  <span class="fl">0.7143</span> <span class="fl">0.1429</span> <span class="fl">0.6429</span> <span class="dv">1</span> <span class="fl">0.0714</span> ...</span>
+<span id="cb187-10"><a href="chapter-cluster.html#cb187-10" tabindex="-1"></a>    <span class="sc">$</span> carbo   <span class="sc">:</span> num  <span class="dv">0</span> <span class="fl">0.167</span> <span class="fl">0.111</span> <span class="fl">0.167</span> <span class="fl">0.5</span> ...</span>
+<span id="cb187-11"><a href="chapter-cluster.html#cb187-11" tabindex="-1"></a>    <span class="sc">$</span> sugars  <span class="sc">:</span> num  <span class="fl">0.4</span> <span class="fl">0.533</span> <span class="fl">0.333</span> <span class="dv">0</span> <span class="fl">0.533</span> ...</span>
+<span id="cb187-12"><a href="chapter-cluster.html#cb187-12" tabindex="-1"></a>    <span class="sc">$</span> potass  <span class="sc">:</span> num  <span class="fl">0.841</span> <span class="fl">0.381</span> <span class="fl">0.968</span> <span class="dv">1</span> <span class="fl">0.122</span> ...</span>
+<span id="cb187-13"><a href="chapter-cluster.html#cb187-13" tabindex="-1"></a>    <span class="sc">$</span> vitamins<span class="sc">:</span> num  <span class="fl">0.25</span> <span class="dv">0</span> <span class="fl">0.25</span> <span class="fl">0.25</span> <span class="fl">0.25</span> <span class="fl">0.25</span> <span class="fl">0.25</span> <span class="fl">0.25</span> <span class="fl">0.25</span> <span class="fl">0.25</span> ...</span>
+<span id="cb187-14"><a href="chapter-cluster.html#cb187-14" tabindex="-1"></a>    <span class="sc">$</span> shelf   <span class="sc">:</span> num  <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> <span class="fl">0.5</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">1</span> ...</span>
+<span id="cb187-15"><a href="chapter-cluster.html#cb187-15" tabindex="-1"></a>    <span class="sc">$</span> weight  <span class="sc">:</span> num  <span class="fl">0.5</span> <span class="fl">0.5</span> <span class="fl">0.5</span> <span class="fl">0.5</span> <span class="fl">0.5</span> <span class="fl">0.5</span> <span class="fl">0.5</span> <span class="fl">0.83</span> <span class="fl">0.5</span> <span class="fl">0.5</span> ...</span>
+<span id="cb187-16"><a href="chapter-cluster.html#cb187-16" tabindex="-1"></a>    <span class="sc">$</span> cups    <span class="sc">:</span> num  <span class="fl">0.064</span> <span class="fl">0.6</span> <span class="fl">0.064</span> <span class="fl">0.2</span> <span class="fl">0.4</span> <span class="fl">0.4</span> <span class="fl">0.6</span> <span class="fl">0.4</span> <span class="fl">0.336</span> <span class="fl">0.336</span> ...</span></code></pre></div>
+<p>To visualize the effect of normalization, we plot the <em>sodium</em> distribution before and after scaling:</p>
+<div class="sourceCode" id="cb188"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">cereal</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">sodium</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"blue"</span>, fill <span class="op">=</span> <span class="st">"lightblue"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Before min-max normalization"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">cereal_mm</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">sodium</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"blue"</span>, fill <span class="op">=</span> <span class="st">"lightblue"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"After min-max normalization"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="clustering_files/figure-html/unnamed-chunk-10-1.png" width="50%"><img src="clustering_files/figure-html/unnamed-chunk-10-2.png" width="50%"></p>
+<p>After scaling, all values fall within the <em>0–1 range</em>, making distance-based clustering more reliable.</p>
+</div>
+<div id="applying-k-means-clustering" class="section level3" number="13.3.3">
+<h3>
+<span class="header-section-number">13.3.3</span> Applying K-means Clustering<a class="anchor" aria-label="anchor" href="#applying-k-means-clustering"><i class="fas fa-link"></i></a>
+</h3>
+<div id="choosing-the-optimal-number-of-clusters" class="section level4 unnumbered">
+<h4>Choosing the Optimal Number of Clusters<a class="anchor" aria-label="anchor" href="#choosing-the-optimal-number-of-clusters"><i class="fas fa-link"></i></a>
+</h4>
+<p>Before clustering, we need to determine the <em>optimal number of clusters</em>. We use the <em>elbow method</em>, which plots the within-cluster sum of squares (WCSS) for different values of <span class="math inline">\(k\)</span>. The elbow point—where the improvement in WCSS slows—suggests an ideal <span class="math inline">\(k\)</span>:</p>
+<div class="sourceCode" id="cb189"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.sthda.com/english/rpkgs/factoextra">factoextra</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_nbclust.html">fviz_nbclust</a></span><span class="op">(</span><span class="va">cereal_mm</span>, <span class="va">kmeans</span>, method <span class="op">=</span> <span class="st">"wss"</span>, k.max <span class="op">=</span> <span class="fl">15</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fl">4</span>, linetype <span class="op">=</span> <span class="fl">2</span>, color <span class="op">=</span> <span class="st">"gray"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="clustering_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;"></div>
+<p>From the plot, we observe that <em><span class="math inline">\(k = 4\)</span> clusters</em> is a reasonable choice, as adding more clusters beyond this point yields diminishing improvements in WCSS.</p>
+</div>
+<div id="performing-k-means-clustering" class="section level4 unnumbered">
+<h4>Performing K-means Clustering<a class="anchor" aria-label="anchor" href="#performing-k-means-clustering"><i class="fas fa-link"></i></a>
+</h4>
+<p>We now apply the <em>K-means algorithm</em> with <span class="math inline">\(k = 4\)</span> clusters:</p>
+<div class="sourceCode" id="cb190"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>  <span class="co"># Ensure reproducibility</span></span>
+<span><span class="va">cereal_kmeans</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/kmeans.html">kmeans</a></span><span class="op">(</span><span class="va">cereal_mm</span>, centers <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre></div>
+<p>To check cluster sizes:</p>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="chapter-cluster.html#cb191-1" tabindex="-1"></a>cereal_kmeans<span class="sc">$</span>size</span>
+<span id="cb191-2"><a href="chapter-cluster.html#cb191-2" tabindex="-1"></a>   [<span class="dv">1</span>] <span class="dv">36</span> <span class="dv">10</span> <span class="dv">13</span> <span class="dv">18</span></span></code></pre></div>
+</div>
+<div id="visualizing-the-clusters" class="section level4 unnumbered">
+<h4>Visualizing the Clusters<a class="anchor" aria-label="anchor" href="#visualizing-the-clusters"><i class="fas fa-link"></i></a>
+</h4>
+<p>To better understand the clustering results, we visualize the clusters using the <code><a href="https://rdrr.io/pkg/factoextra/man/fviz_cluster.html">fviz_cluster()</a></code> function from the <strong>factoextra</strong> package:</p>
+<div class="sourceCode" id="cb192"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/factoextra/man/fviz_cluster.html">fviz_cluster</a></span><span class="op">(</span><span class="va">cereal_kmeans</span>, <span class="va">cereal_mm</span>, geom <span class="op">=</span> <span class="st">"point"</span>, ellipse.type <span class="op">=</span> <span class="st">"norm"</span>, palette <span class="op">=</span> <span class="st">"custom_palette"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="clustering_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;"></div>
+<p>The scatter plot displays the <em>four clusters</em>, with each point representing a cereal brand. Different colors indicate distinct clusters, and the ellipses represent the <em>spread of each cluster</em> based on its standard deviation.</p>
+</div>
+<div id="interpreting-the-results" class="section level4 unnumbered">
+<h4>Interpreting the Results<a class="anchor" aria-label="anchor" href="#interpreting-the-results"><i class="fas fa-link"></i></a>
+</h4>
+<p>The clusters reveal natural groupings among cereals based on <em>nutritional content</em>. For example:<br>
+- Some clusters may contain <em>low-sugar, high-fiber cereals</em>, appealing to health-conscious consumers.<br>
+- Others may group <em>high-calorie, high-sugar cereals</em>, often marketed to children.<br>
+- Another group may include <em>balanced cereals</em>, offering a mix of moderate calories and nutrients.</p>
+<p>To examine which cereals belong to a specific cluster (e.g., Cluster 1), we can use:</p>
+<div class="sourceCode" id="cb193"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cereal</span><span class="op">$</span><span class="va">name</span><span class="op">[</span><span class="va">cereal_kmeans</span><span class="op">$</span><span class="va">cluster</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span></span></code></pre></div>
+<p>This command lists the names of cereals assigned to <em>Cluster 1</em>, helping us interpret the characteristics of that group.</p>
+<p>This case study demonstrated how <em>K-means clustering</em> can segment cereals into meaningful groups based on <em>nutritional content</em>. Through <em>data preprocessing, feature scaling, and cluster visualization</em>, we successfully grouped cereals with similar characteristics. Such clustering techniques are widely applicable in <em>marketing, consumer analytics, and product positioning</em>, providing actionable insights for businesses and researchers alike.</p>
+<p>In this chapter, we explored the fundamentals of clustering, the mechanics of the K-means algorithm, and methods for choosing the optimal number of clusters. We then applied these concepts to a real-world dataset, demonstrating how K-means can extract meaningful insights. Clustering remains a powerful tool across various domains, from marketing to bioinformatics, making it an essential technique in the modern data science toolkit.</p>
+</div>
+</div>
+</div>
+<div id="exercises-8" class="section level2" number="13.4">
+<h2>
+<span class="header-section-number">13.4</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-8"><i class="fas fa-link"></i></a>
+</h2>
+<p>To do …</p>
+
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-arthur2006k" class="csl-entry">
+Arthur, David, and Sergei Vassilvitskii. <span>“K-Means++: The Advantages of Careful Seeding,”</span> 2006.
+</div>
+<div id="ref-breiman2001random" class="csl-entry">
+Breiman, Leo. <span>“Random Forests.”</span> <em>Machine Learning</em> 45 (2001): 5–32.
+</div>
+<div id="ref-breiman1984classification" class="csl-entry">
+Breiman, L, JH Friedman, R Olshen, and CJ Stone. <span>“Classification and Regression Trees,”</span> 1984.
+</div>
+<div id="ref-grolemund2014hands" class="csl-entry">
+Grolemund, Garrett. <em>Hands-on Programming with r: Write Your Own Functions and Simulations</em>. " O’Reilly Media, Inc.", 2014. <a href="https://rstudio-education.github.io/hopr/">https://rstudio-education.github.io/hopr/</a>.
+</div>
+<div id="ref-neukom2019consistent" class="csl-entry">
+Neukom, Raphael, Luis A Barboza, Michael P Erb, Feng Shi, Julien Emile-Geay, Michael N Evans, Jörg Franke, et al. <span>“Consistent Multi-Decadal Variability in Global Temperature Reconstructions and Simulations over the Common Era.”</span> <em>Nature Geoscience</em> 12, no. 8 (2019): 643.
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="chapter-nav">
+<div class="prev"><a href="chapter-nn.html"><span class="header-section-number">12</span> Neural Networks: The Building Blocks of Artificial Intelligence</a></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#chapter-cluster"><span class="header-section-number">13</span> Clustering</a></li>
+<li><a class="nav-link" href="#kmeans"><span class="header-section-number">13.1</span> K-means Clustering</a></li>
+<li><a class="nav-link" href="#kmeans-choose"><span class="header-section-number">13.2</span> Choosing the Number of Clusters</a></li>
+<li>
+<a class="nav-link" href="#kmeans-cereal"><span class="header-section-number">13.3</span> Case Study: Clustering Cereal Data</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#dataset-overview"><span class="header-section-number">13.3.1</span> Dataset Overview</a></li>
+<li><a class="nav-link" href="#data-preprocessing"><span class="header-section-number">13.3.2</span> Data Preprocessing</a></li>
+<li><a class="nav-link" href="#applying-k-means-clustering"><span class="header-section-number">13.3.3</span> Applying K-means Clustering</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#exercises-8"><span class="header-section-number">13.4</span> Exercises</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/RezaMoammadi/Book-Data-Science/blob/master/clustering.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/RezaMoammadi/Book-Data-Science/edit/master/clustering.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Uncovering Data Science with R</strong>" was written by . It was last built on 2025-02-06.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

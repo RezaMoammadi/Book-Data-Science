@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 12 Neural Networks: The Building Blocks of Artificial Intelligence | Uncovering Data Science with R</title>
+<meta name="generator" content="bookdown 0.37 with bs4_book()">
+<meta property="og:title" content="Chapter 12 Neural Networks: The Building Blocks of Artificial Intelligence | Uncovering Data Science with R">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://uncovering-data-science.netlify.app/chapter-nn.html">
+<meta property="og:image" content="https://uncovering-data-science.netlify.app/images/cover.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 12 Neural Networks: The Building Blocks of Artificial Intelligence | Uncovering Data Science with R">
+<meta name="twitter:image" content="https://uncovering-data-science.netlify.app/images/cover.jpg">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+          margin-bottom: 0em;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="For centuries, humans have dreamed of creating machines capable of mimicking human intelligence. Philosophers, scientists, and storytellers have long grappled with the possibilities and...">
+<meta property="og:description" content="For centuries, humans have dreamed of creating machines capable of mimicking human intelligence. Philosophers, scientists, and storytellers have long grappled with the possibilities and...">
+<meta name="twitter:description" content="For centuries, humans have dreamed of creating machines capable of mimicking human intelligence. Philosophers, scientists, and storytellers have long grappled with the possibilities and...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Uncovering Data Science with R</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li><a class="" href="chapter-into-R.html"><span class="header-section-number">1</span> The Basics for R</a></li>
+<li><a class="" href="chapter-intro-DS.html"><span class="header-section-number">2</span> Introduction to Data Science</a></li>
+<li><a class="" href="chapter-data-prep.html"><span class="header-section-number">3</span> Data Preparation</a></li>
+<li><a class="" href="chapter-EDA.html"><span class="header-section-number">4</span> Exploratory Data Analysis</a></li>
+<li><a class="" href="chapter-statistics.html"><span class="header-section-number">5</span> Statistical Inference and Hypothesis Testing</a></li>
+<li><a class="" href="chapter-modeling.html"><span class="header-section-number">6</span> Preparing Data for Modeling</a></li>
+<li><a class="" href="chapter-knn.html"><span class="header-section-number">7</span> Classification using k-Nearest Neighbors</a></li>
+<li><a class="" href="chapter-evaluation.html"><span class="header-section-number">8</span> Model Evaluation</a></li>
+<li><a class="" href="chapter-bayes.html"><span class="header-section-number">9</span> Naive Bayes Classifier</a></li>
+<li><a class="" href="chapter-regression.html"><span class="header-section-number">10</span> Regression Modeling: From Basics to Advanced Techniques</a></li>
+<li><a class="" href="chapter-tree.html"><span class="header-section-number">11</span> Decision Trees and Random Forests</a></li>
+<li><a class="active" href="chapter-nn.html"><span class="header-section-number">12</span> Neural Networks: The Building Blocks of Artificial Intelligence</a></li>
+<li><a class="" href="chapter-cluster.html"><span class="header-section-number">13</span> Clustering</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/RezaMoammadi/Book-Data-Science">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="chapter-nn" class="section level1" number="12">
+<h1>
+<span class="header-section-number">12</span> Neural Networks: The Building Blocks of Artificial Intelligence<a class="anchor" aria-label="anchor" href="#chapter-nn"><i class="fas fa-link"></i></a>
+</h1>
+<p>For centuries, humans have dreamed of creating machines capable of mimicking human intelligence. Philosophers, scientists, and storytellers have long grappled with the possibilities and consequences of such creations, weaving them into myths, fiction, and philosophical discourse. The roots of this fascination can be traced as far back as ancient Greece, where inventors like Daedalus and Hero of Alexandria were said to have constructed mechanical devices that could write, generate sounds, and even play music. Today, in the 21st century, these age-old dreams are no longer confined to the realm of imagination. They have become reality in the form of <strong>Artificial Intelligence (AI)</strong>, a transformative force now deeply integrated into our daily lives. From <strong>ChatGPT</strong> and <strong>generative AI (GenAI)</strong> to self-driving cars and digital assistants like Siri or Alexa, AI has revolutionized the way we work, interact, and make decisions. This unprecedented progress has been driven by advancements in computational power, the availability of vast datasets, and breakthroughs in algorithm design.</p>
+<p>At the heart of many cutting-edge AI systems lies a class of algorithms known as <strong>neural networks</strong>. Over the past decade, neural networks have undergone a dramatic resurgence under the umbrella of <strong>deep learning</strong>, ushering in revolutionary advancements across diverse fields like computer vision, natural language processing, and generative modeling. While deep learning now represents the forefront of machine learning, its foundation rests on simpler neural network architectures. In this chapter, we focus on <strong>feed-forward neural networks</strong>, also known as <strong>multilayer perceptrons (MLPs)</strong>. These foundational models form the building blocks for more sophisticated deep learning systems.</p>
+<p>Neural networks are <strong>computational models inspired by the human brain</strong>. Just as the brain is composed of billions of interconnected neurons that work together to enable complex tasks like reasoning, learning, and perception, artificial neural networks replicate this structure using layers of interconnected nodes (artificial neurons). This architecture allows neural networks to process and learn from data by identifying patterns, making them uniquely suited for solving problems that involve <strong>complex, high-dimensional, and unstructured data</strong>—such as images, text, and sound. Unlike traditional machine learning models like Decision Trees or k-Nearest Neighbors, neural networks excel in their ability to automatically discover features and representations within the data, often surpassing human-engineered solutions.</p>
+<div id="why-neural-networks-are-powerful" class="section level3 unnumbered">
+<h3>Why Neural Networks Are Powerful<a class="anchor" aria-label="anchor" href="#why-neural-networks-are-powerful"><i class="fas fa-link"></i></a>
+</h3>
+<p>Neural networks are particularly adept at solving <strong>complex and nonlinear problems</strong>, making them indispensable for tasks that involve large, diverse, and intricate datasets. Their unique design and capabilities provide several key advantages:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Pattern Recognition in Complex Data:</strong> Neural networks shine when it comes to detecting patterns in unstructured data, such as recognizing objects in images, understanding spoken language, or generating coherent text. These are tasks where traditional algorithms struggle.<br>
+</li>
+<li>
+<strong>Robustness to Noise:</strong> Thanks to their dense networks of neurons and adaptable weights, neural networks can identify meaningful patterns even in noisy or incomplete datasets, effectively filtering out irrelevant or erroneous data.<br>
+</li>
+<li>
+<strong>Scalability:</strong> Neural networks can handle vast amounts of data and adapt to increasing complexity by adding layers and nodes, enabling them to model highly nonlinear relationships and solve challenging problems.</li>
+</ol>
+<p>Despite their strengths, neural networks are not without challenges. Unlike interpretable models such as decision trees, neural networks are often referred to as <strong>“black boxes”</strong> due to their distributed and opaque decision-making processes. It can be difficult to understand why a neural network makes a specific prediction, as the reasoning is embedded across countless weights and activations. Additionally, training neural networks can be computationally intensive, often requiring specialized hardware like GPUs or TPUs to handle the enormous volume of calculations efficiently.</p>
+<p>The power of neural networks lies in their biological inspiration. Just as interconnected neurons in the brain collaborate to perform complex tasks, artificial neurons in a network combine their outputs to solve problems that simpler algorithms cannot. This ability to emulate the nonlinear, adaptive learning of the brain has positioned neural networks at the forefront of both academic research and industry applications.</p>
+</div>
+<div id="whats-ahead" class="section level3 unnumbered">
+<h3>What’s Ahead<a class="anchor" aria-label="anchor" href="#whats-ahead"><i class="fas fa-link"></i></a>
+</h3>
+<p>In this chapter, we will explore the key concepts behind neural networks and examine their transformative applications through the following topics:</p>
+<ul>
+<li>
+<strong>Biological Inspiration</strong>: Understanding how the structure and function of the human brain inspired artificial neural networks.<br>
+</li>
+<li>
+<strong>Core Algorithmic Principles</strong>: Exploring the foundational mechanics of neural networks, including layers, nodes, and weights.<br>
+</li>
+<li>
+<strong>Activation Functions</strong>: Unpacking the importance of introducing non-linearity to enable neural networks to model complex patterns.<br>
+</li>
+<li>
+<strong>Training Neural Networks</strong>: Learning how neural networks adjust their parameters through iterative optimization to minimize errors.<br>
+</li>
+<li>
+<strong>Case Study</strong>: Applying neural networks to solve a real-world problem—predicting whether a customer will subscribe to a term deposit using the <strong>bank marketing dataset</strong>.</li>
+</ul>
+<p>Neural networks represent a paradigm shift in modern computing, enabling machines to tackle problems that were once considered insurmountable. From powering recommendation systems to driving autonomous vehicles, these models are transforming industries and shaping the future of AI. In this chapter, we will uncover the fundamentals of neural networks, demonstrating their extraordinary capabilities and laying the groundwork for understanding how they operate. Let’s begin by exploring the inspiration behind neural networks and their connection to the biology of the human brain.</p>
+</div>
+<div id="neural-networks-inspired-by-biological-neurons" class="section level2" number="12.1">
+<h2>
+<span class="header-section-number">12.1</span> Neural Networks: Inspired by Biological Neurons<a class="anchor" aria-label="anchor" href="#neural-networks-inspired-by-biological-neurons"><i class="fas fa-link"></i></a>
+</h2>
+<p>The foundation of neural networks is deeply rooted in the structure and function of biological neurons, which form the basis of learning and decision-making in animal brains. While individual neurons are relatively simple in structure, their true power lies in their dense and intricate connectivity. These networks of interconnected neurons enable the brain to perform highly complex tasks, such as pattern recognition, classification, reasoning, and decision-making. For example, the human brain contains approximately <span class="math inline">\(10^{11}\)</span> neurons, with each neuron forming connections to an average of 10,000 others. This creates an astonishing <span class="math inline">\(10^{15}\)</span> synaptic connections—a vast, dynamic network capable of extraordinary learning and adaptation.</p>
+<p>Artificial Neural Networks (ANNs) are computational abstractions of this biological system. While they are far simpler than their biological counterparts, ANNs replicate the fundamental principle of learning through interconnected units. By leveraging dense networks of artificial neurons, ANNs can model nonlinear and dynamic processes, enabling them to tackle complex problems in domains such as image recognition, speech processing, and decision-making. They are particularly adept at uncovering patterns and relationships in data, even in cases where traditional algorithms struggle.</p>
+<p>As shown in Figure <a href="chapter-nn.html#fig:net-brain">12.1</a>, a <strong>biological neuron</strong> is designed to process and transmit information. <strong>Dendrites</strong> act as the input channels, collecting signals from other neurons. These signals are processed and integrated in the <strong>cell body</strong>, where a decision is made: if the combined input surpasses a certain threshold, the neuron “fires” and sends an output signal through its <strong>axon</strong> to other connected neurons. This nonlinear behavior—firing only when a certain input threshold is exceeded—plays a critical role in the brain’s ability to process information efficiently.</p>
+<p>Similarly, an <strong>artificial neuron</strong> (illustrated in Figure <a href="chapter-nn.html#fig:net-1">12.2</a>) emulates this process using a mathematical model. It receives inputs (<span class="math inline">\(x_i\)</span>) from either other artificial neurons or directly from a dataset. These inputs are combined using a weighted summation (<span class="math inline">\(\sum w_i x_i\)</span>), where the weights (<span class="math inline">\(w_i\)</span>) represent the strength of each input’s influence. The combined signal is then passed through an <strong>activation function</strong> (<span class="math inline">\(f(.)\)</span>) to introduce non-linearity, determining the final output (<span class="math inline">\(\hat{y}\)</span>). This output is then either passed downstream to other artificial neurons or used as the final result of the model. The activation function is crucial, as it enables neural networks to learn and model complex, nonlinear relationships in data.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:net-brain"></span>
+<img src="images/net_brain.png" alt="Visualization of a biological neuron, which processes input signals through dendrites and sends outputs through the axon." width="75%"><p class="caption">
+Figure 12.1: Visualization of a biological neuron, which processes input signals through dendrites and sends outputs through the axon.
+</p>
+</div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:net-1"></span>
+<img src="images/net_1.png" alt="Illustration of an artificial neuron, designed to emulate the structure and function of a biological neuron in a simplified way." width="90%"><p class="caption">
+Figure 12.2: Illustration of an artificial neuron, designed to emulate the structure and function of a biological neuron in a simplified way.
+</p>
+</div>
+<p>One of the key advantages of artificial neural networks is their robustness. Unlike traditional algorithms, neural networks can handle noisy or incomplete data effectively. This is because the network’s many interconnected neurons and weighted connections allow it to adapt and “learn around” noise, focusing on the underlying patterns. However, this flexibility comes at a cost. Neural networks often require large amounts of data and computational power to train effectively, and their decision-making process is less interpretable than traditional models like decision trees.</p>
+<p>In the following sections, we will delve deeper into the mechanics of neural networks, starting with their core structure and the algorithms that enable them to learn from data.</p>
+</div>
+<div id="how-neural-networks-work" class="section level2" number="12.2">
+<h2>
+<span class="header-section-number">12.2</span> How Neural Networks Work<a class="anchor" aria-label="anchor" href="#how-neural-networks-work"><i class="fas fa-link"></i></a>
+</h2>
+<p>Neural networks can be understood as an extension of linear models that incorporate multiple layers of processing to produce predictions or decisions. At their core, they build upon the fundamental concepts of linear regression. Recall that a linear regression model makes predictions using the following equation:</p>
+<p><span class="math display">\[
+\hat{y} = b_0 + b_1 x_1 + b_2 x_2 + \dots + b_p x_p
+\]</span>
+where <span class="math inline">\(p\)</span> represents the number of predictors, <span class="math inline">\(b_0\)</span> is the intercept, and <span class="math inline">\(b_1\)</span> to <span class="math inline">\(b_p\)</span> are the learned coefficients. In this setup, <span class="math inline">\(\hat{y}\)</span> is a weighted sum of the input features (<span class="math inline">\(x_1\)</span> to <span class="math inline">\(x_p\)</span>), where the weights (<span class="math inline">\(b_1\)</span> to <span class="math inline">\(b_p\)</span>) determine the relative influence of each feature on the prediction. This simple linear relationship can be visualized as shown in Figure <a href="chapter-nn.html#fig:net-reg">12.3</a>, where the input features and the prediction are represented as nodes, and the coefficients are visualized as the connecting weights.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:net-reg"></span>
+<img src="images/net_reg.png" alt="A graphical representation of a regression model: input features and predictions are shown as nodes, with the coefficients represented as connections between the nodes." width="40%"><p class="caption">
+Figure 12.3: A graphical representation of a regression model: input features and predictions are shown as nodes, with the coefficients represented as connections between the nodes.
+</p>
+</div>
+<p>In Figure <a href="chapter-nn.html#fig:net-reg">12.3</a>, the nodes on the left represent the input features, the lines connecting them represent the coefficients (<span class="math inline">\(w_i\)</span>), and the single node on the right represents the output (<span class="math inline">\(\hat{y}\)</span>), which is the weighted sum of the inputs. A <strong>neural network</strong> generalizes this idea by introducing additional layers of nodes between the input and output, allowing the model to capture complex, nonlinear patterns in the data. This structure is illustrated in Figure <a href="chapter-nn.html#fig:net-large">12.4</a>.</p>
+<p>The structure of a neural network includes the following key components:</p>
+<ul>
+<li>
+<strong>Input Layer</strong>: The input layer is the entry point for the data. Each node in this layer corresponds to an input feature (e.g., age, income, or image pixels).<br>
+</li>
+<li>
+<strong>Hidden Layers</strong>: These are the intermediate layers that process the data and extract patterns. Each hidden layer contains multiple nodes (artificial neurons), and each node is connected to every node in the preceding and succeeding layers. The nodes in hidden layers perform mathematical transformations on the data, enabling the network to learn complex relationships.<br>
+</li>
+<li>
+<strong>Output Layer</strong>: The final layer produces the model’s prediction. For example, in a classification task, the output might be the predicted probability of a specific class, while in regression tasks, it might be a continuous numerical value.</li>
+</ul>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:net-large"></span>
+<img src="images/net_large.png" alt="Visualization of a multilayer neural network model with two hidden layers." width="80%"><p class="caption">
+Figure 12.4: Visualization of a multilayer neural network model with two hidden layers.
+</p>
+</div>
+<p>In Figure <a href="chapter-nn.html#fig:net-large">12.4</a>, the input layer passes the features into the network, where each hidden layer transforms the information and passes it to the next layer. The output layer aggregates all this information to generate the final prediction. Every connection in the network has an associated <strong>weight</strong> (<span class="math inline">\(w_i\)</span>), which determines the strength of the relationship between two nodes. These weights are adjusted during training to optimize the model’s accuracy.</p>
+<p>The behavior of an artificial neuron can be mathematically expressed as:</p>
+<p><span class="math display">\[
+\hat{y} = f\left( \sum_{i=1}^{p} w_i x_i + b \right)
+\]</span></p>
+<p>Here:<br>
+- <span class="math inline">\(x_i\)</span> represents the input features,<br>
+- <span class="math inline">\(w_i\)</span> represents the corresponding weights,<br>
+- <span class="math inline">\(b\)</span> is a bias term that helps shift the activation threshold,<br>
+- <span class="math inline">\(\sum\)</span> represents the summation of the weighted inputs,<br>
+- <span class="math inline">\(f(.)\)</span> is the <strong>activation function</strong>, and<br>
+- <span class="math inline">\(\hat{y}\)</span> is the output of the neuron.</p>
+<p>The <strong>activation function</strong> plays a vital role in introducing non-linearity to the model. Without it, the neural network would simply be a linear model, regardless of its complexity or the number of layers. By applying a non-linear transformation to the combined input signals, activation functions enable neural networks to approximate highly complex patterns in data.</p>
+<div id="key-characteristics-of-neural-networks" class="section level3 unnumbered">
+<h3>Key Characteristics of Neural Networks<a class="anchor" aria-label="anchor" href="#key-characteristics-of-neural-networks"><i class="fas fa-link"></i></a>
+</h3>
+<p>Despite the diversity of neural network architectures, all neural networks share three key characteristics that define their functionality (see Figure <a href="chapter-nn.html#fig:net-1">12.2</a>):</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Activation Functions</strong>:<br>
+The activation function transforms a neuron’s net input into an output signal that is passed to the next layer. Activation functions introduce non-linearity, which is critical for modeling complex relationships in data. Examples include the sigmoid function, ReLU (Rectified Linear Unit), and hyperbolic tangent (tanh).</p></li>
+<li><p><strong>Network Architecture</strong>:<br>
+The architecture defines the overall structure of the neural network, including the number of layers, the number of nodes in each layer, and the way the nodes are connected. For instance, a <strong>deep neural network</strong> has many hidden layers, enabling it to learn hierarchical and abstract representations from data.</p></li>
+<li><p><strong>Training Algorithm</strong>:<br>
+Training a neural network involves adjusting the weights (<span class="math inline">\(w_i\)</span>) and biases (<span class="math inline">\(b\)</span>) in the model to minimize the error between the predicted and actual outputs. This is achieved through iterative optimization algorithms such as <strong>gradient descent</strong>, which uses the gradient of a loss function to update the weights.</p></li>
+</ol>
+<p>In the following sections, we’ll explore these components in greater detail, starting with activation functions and their role in enabling neural networks to learn complex, non-linear patterns.</p>
+</div>
+</div>
+<div id="activation-functions" class="section level2" number="12.3">
+<h2>
+<span class="header-section-number">12.3</span> Activation Functions<a class="anchor" aria-label="anchor" href="#activation-functions"><i class="fas fa-link"></i></a>
+</h2>
+<p>The <strong>activation function</strong> is a critical component of a neural network, defining how an artificial neuron processes incoming signals and passes information through the network. Much like its biological counterpart, an artificial neuron aggregates its input signals, applies a transformation, and determines the output signal to send forward. In biological neurons, this transformation is akin to summing input signals from dendrites and deciding whether the neuron “fires” based on whether the cumulative signal exceeds a certain threshold.</p>
+<p>In artificial neurons, this process is implemented mathematically. The <strong>activation function</strong> determines whether, and to what extent, a neuron “activates” in response to the inputs. Early models of neural networks often used the <strong>threshold activation function</strong>, which mirrors this biological concept. The threshold function activates only when the input signal surpasses a certain threshold value. Mathematically, it is defined as:</p>
+<p><span class="math display">\[
+f(x) =
+\begin{cases}
+1 &amp; \text{if } x \geq 0 \\
+0 &amp; \text{if } x &lt; 0
+\end{cases}
+\]</span></p>
+<p>Figure <a href="chapter-nn.html#fig:active-fun-unit">12.5</a> visualizes the <strong>threshold activation function</strong>. Here, the neuron outputs a value of 1 when the input is at least zero, and 0 otherwise. Due to its step-like shape, it is sometimes referred to as a <strong>unit step function</strong>.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:active-fun-unit"></span>
+<img src="nn_files/figure-html/active-fun-unit-1.png" alt="Visualization of the threshold activation function (unit step)." width="50%"><p class="caption">
+Figure 12.5: Visualization of the threshold activation function (unit step).
+</p>
+</div>
+<p>While biologically intuitive, the threshold activation function is rarely used in modern neural networks because it cannot handle nuanced relationships between input and output. It is too rigid, providing only binary outputs (0 or 1), and is not differentiable, which prevents its use in optimization algorithms like gradient descent.</p>
+<div id="the-sigmoid-activation-function" class="section level3 unnumbered">
+<h3>The Sigmoid Activation Function<a class="anchor" aria-label="anchor" href="#the-sigmoid-activation-function"><i class="fas fa-link"></i></a>
+</h3>
+<p>A widely used alternative is the <strong>sigmoid activation function</strong>, also known as the <strong>logistic sigmoid</strong>. The sigmoid function provides a smoother, non-binary output that maps any input to a value between 0 and 1. It is defined mathematically as:</p>
+<p><span class="math display">\[
+f(x) = \frac{1}{1 + e^{-x}}
+\]</span></p>
+<p>Here, <span class="math inline">\(e\)</span> is the base of the natural logarithm (approximately 2.72). The sigmoid function has an “S-shaped” curve, as shown in Figure <a href="chapter-nn.html#fig:active-fun-sigmoid">12.6</a>, which makes it particularly useful for modeling probabilities and continuous values. Unlike the threshold function, the sigmoid is differentiable, which makes it compatible with modern training algorithms.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:active-fun-sigmoid"></span>
+<img src="nn_files/figure-html/active-fun-sigmoid-1.png" alt="Visualization of the sigmoid activation function." width="50%"><p class="caption">
+Figure 12.6: Visualization of the sigmoid activation function.
+</p>
+</div>
+<p>The sigmoid function is effective in producing smooth outputs but has certain limitations. For example, it suffers from the <strong>vanishing gradient problem</strong>, where very large or very small input values cause the gradient to approach zero, slowing down the learning process.</p>
+</div>
+<div id="other-common-activation-functions" class="section level3 unnumbered">
+<h3>Other Common Activation Functions<a class="anchor" aria-label="anchor" href="#other-common-activation-functions"><i class="fas fa-link"></i></a>
+</h3>
+<p>In addition to the sigmoid function, several other activation functions are commonly used, depending on the specific needs of the task. Figure <a href="chapter-nn.html#fig:active-fun-comparison">12.7</a> provides an overview of three widely used activation functions:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Hyperbolic Tangent (tanh):</strong> Similar to the sigmoid function but with an output range of <span class="math inline">\((-1, 1)\)</span>. This symmetry around zero often leads to faster learning in practice.<br>
+</li>
+<li>
+<strong>Gaussian:</strong> Produces a bell-shaped curve centered at zero. It is less common but useful for specific applications like radial basis function networks.<br>
+</li>
+<li>
+<strong>Linear Activation:</strong> Outputs the input as is, often used in the final layer for regression tasks.</li>
+</ol>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:active-fun-comparison"></span>
+<img src="nn_files/figure-html/active-fun-comparison-1.png" alt="Comparison of common activation functions: Sigmoid, tanh, and Gaussian." width="80%"><p class="caption">
+Figure 12.7: Comparison of common activation functions: Sigmoid, tanh, and Gaussian.
+</p>
+</div>
+</div>
+<div id="choosing-the-right-activation-function" class="section level3 unnumbered">
+<h3>Choosing the Right Activation Function<a class="anchor" aria-label="anchor" href="#choosing-the-right-activation-function"><i class="fas fa-link"></i></a>
+</h3>
+<p>The choice of an activation function significantly impacts the performance and behavior of a neural network:</p>
+<ul>
+<li>
+<strong>Sigmoid</strong> is commonly used in the output layer for binary classification problems, where the output represents a probability.<br>
+</li>
+<li>
+<strong>Tanh</strong> is often used in hidden layers as it is zero-centered, leading to faster convergence in optimization.<br>
+</li>
+<li>
+<strong>ReLU (Rectified Linear Unit):</strong> While not discussed above, ReLU is one of the most popular activation functions in modern neural networks. It outputs <span class="math inline">\(f(x) = \max(0, x)\)</span>, which helps address the vanishing gradient problem and accelerates training.<br>
+</li>
+<li>
+<strong>Gaussian</strong> and linear functions are more specialized and are chosen for specific tasks, such as regression or radial basis function networks.</li>
+</ul>
+<p>Activation functions like sigmoid and tanh compress input values into a narrow output range (e.g., 0 to 1 for sigmoid, or <span class="math inline">\(-1\)</span> to <span class="math inline">\(1\)</span> for tanh). This compression leads to the <strong>saturation problem</strong>, where input values far from zero produce near-constant outputs. For instance:<br>
+- Sigmoid outputs are very close to 0 for inputs below <span class="math inline">\(-5\)</span> and very close to 1 for inputs above <span class="math inline">\(+5\)</span>.<br>
+- This results in gradients near zero, slowing learning (the vanishing gradient problem).</p>
+<p>One solution to this issue is to preprocess data by <strong>normalizing or standardizing input features</strong> so they fall within a small range centered around zero. This ensures that most inputs are in the sensitive (non-saturated) range of the activation function, leading to faster convergence and better learning.</p>
+</div>
+</div>
+<div id="network-architecture" class="section level2" number="12.4">
+<h2>
+<span class="header-section-number">12.4</span> Network Architecture<a class="anchor" aria-label="anchor" href="#network-architecture"><i class="fas fa-link"></i></a>
+</h2>
+<p>The capacity of a neural network to learn and make predictions is deeply tied to its <strong>architecture</strong>, or topology. This refers to the arrangement of neurons and the connections between them, which define how data flows through the network. While neural networks can take on countless forms, their architecture is primarily characterized by three elements:</p>
+<ul>
+<li>The <strong>number of layers</strong> in the network,<br>
+</li>
+<li>The <strong>number of neurons (or nodes)</strong> in each layer, and<br>
+</li>
+<li>The <strong>connections</strong> between neurons across layers.</li>
+</ul>
+<p>The architecture of a neural network determines its ability to model complexity. Larger networks with more layers and neurons can capture more intricate patterns and decision boundaries. However, the power of a network is not just a matter of size but also how its components are organized and interconnected.</p>
+<p>To understand network architecture, let us consider a simple example illustrated in Figure <a href="chapter-nn.html#fig:net-reg">12.3</a>. This basic network consists of:</p>
+<ul>
+<li>
+<strong>Input nodes</strong>, which receive the raw feature values from the dataset. Each input node corresponds to one feature and passes its value to the network.<br>
+</li>
+<li>
+<strong>Output nodes</strong>, which provide the network’s final prediction (denoted as <span class="math inline">\(p\)</span>).</li>
+</ul>
+<p>In this single-layer network, input nodes are connected directly to the output node through a set of weights (<span class="math inline">\(w_1, w_2, \dots, w_p\)</span>), representing the influence of each input feature on the prediction. This simple architecture works well for basic classification or regression tasks but struggles with more complex patterns.</p>
+<p>To handle more sophisticated tasks, we can add <strong>hidden layers</strong>, as shown in Figure <a href="chapter-nn.html#fig:net-large">12.4</a>. These intermediate layers introduce additional processing steps, enabling the network to model nonlinear relationships and discover more complex patterns in the data.</p>
+<p>A multilayer network typically consists of three types of layers:</p>
+<ol style="list-style-type: decimal">
+<li>The <strong>input layer</strong>, where raw features enter the network,<br>
+</li>
+<li>One or more <strong>hidden layers</strong>, which extract and refine patterns, and<br>
+</li>
+<li>The <strong>output layer</strong>, which combines the processed information to generate the network’s final prediction.</li>
+</ol>
+<p>In a <strong>fully connected network</strong>, every neuron in one layer is connected to every neuron in the next layer, with each connection assigned a weight. These weights determine how much influence one neuron has on another, and they are adjusted during training to optimize the network’s performance.</p>
+<p>The addition of hidden layers allows the network to process input data hierarchically. Early layers may learn basic features, such as edges in an image or simple word patterns in text, while deeper layers capture more abstract representations, such as shapes or semantic meaning. When a network contains multiple hidden layers, it is referred to as a <strong>deep neural network (DNN)</strong>. The practice of training such networks is known as <strong>deep learning</strong>, and it has enabled breakthroughs in fields such as computer vision, speech recognition, and natural language processing.</p>
+<p>The number of <strong>input and output nodes</strong> in a network is determined by the problem:<br>
+- The <strong>input nodes</strong> match the number of features in the dataset. For example, a dataset with 20 features would have 20 input nodes.<br>
+- The <strong>output nodes</strong> depend on the task. For regression, there is typically one output node for the predicted value. For classification, the number of output nodes corresponds to the number of classes.</p>
+<p>The number of <strong>hidden nodes</strong> in each layer is not predefined and must be decided by the user. A larger number of hidden nodes increases the network’s capacity to learn complex patterns, but it also increases the risk of <strong>overfitting</strong>—a situation where the model performs well on the training data but poorly on unseen data. Overly large networks can also be computationally expensive and slow to train.</p>
+<p>While a more complex network may appear to be more powerful, it is crucial to strike a balance between complexity and simplicity. This is often guided by the principle of <strong>Occam’s Razor</strong>, which suggests that the simplest model that adequately explains the data is usually the best choice. The optimal network architecture often requires trial and error, combined with domain knowledge and validation techniques to evaluate performance on unseen data.</p>
+<p>In summary, the architecture of a neural network defines its capacity to solve problems. From the simple single-layer network to sophisticated deep neural networks, these architectures offer flexibility to model a wide variety of tasks, ranging from basic regression to highly complex problems like image recognition and text generation. As we move forward, we will explore how these architectures are trained to optimize their performance and learn from data.</p>
+</div>
+<div id="how-neural-networks-learn" class="section level2" number="12.5">
+<h2>
+<span class="header-section-number">12.5</span> How Neural Networks Learn<a class="anchor" aria-label="anchor" href="#how-neural-networks-learn"><i class="fas fa-link"></i></a>
+</h2>
+<p>A neural network begins as an untrained structure—a blank slate. Similar to a newborn child learning through experience, a neural network must be trained with data to adjust its internal connections. These connections, represented as weights, are strengthened or weakened as the network processes data, enabling it to learn patterns and relationships over time. Just as a baby’s brain develops by interacting with its environment, a neural network refines itself by iteratively improving its predictions based on the data it encounters.</p>
+<p>Training a neural network involves a computationally intensive process of adjusting the weights that connect the neurons. While neural networks had been studied since the mid-20th century, they remained impractical for real-world applications until the 1980s, when a major breakthrough—the <strong>backpropagation algorithm</strong>—made it feasible to train multilayer networks efficiently. Backpropagation, a technique for “back-propagating” errors through the network, revolutionized neural networks by enabling them to learn complex tasks. Despite being computationally expensive relative to simpler algorithms, backpropagation has become a cornerstone of modern neural network training, powering applications from computer vision to natural language processing.</p>
+<p>At its core, backpropagation works by iteratively refining the network’s weights through a process that cycles between two phases: the forward phase and the backward phase. Each cycle, referred to as an <strong>epoch</strong>, begins with random initialization of the weights, as the network starts with no prior knowledge. Over successive epochs, the network learns by adjusting the weights to minimize prediction errors.</p>
+<p>In the <strong>forward phase</strong>, input data is passed through the network, layer by layer, starting at the input layer and propagating through any hidden layers before reaching the output layer. Each neuron processes its input by applying its weights, summing the weighted inputs, and transforming the result using an activation function. The output layer produces the network’s prediction, which is then compared to the actual target value from the training data. This comparison generates an <strong>error signal</strong>—a measure of how far off the network’s prediction was.</p>
+<p>In the <strong>backward phase</strong>, this error signal is propagated backward through the network to update the weights. The goal is to adjust the weights in such a way that the network produces predictions closer to the true target values in subsequent forward passes. This is achieved using a technique called <strong>gradient descent</strong>, which determines the optimal direction and magnitude of weight changes to minimize the error. Gradient descent relies on the derivative of the activation function to compute the gradient of the error with respect to each weight. This gradient indicates how steeply the error changes for a small adjustment in the weight, providing a “slope” to guide the weight updates. The process is akin to finding the fastest route downhill in a mountainous terrain: by always stepping in the direction of the steepest descent, the network gradually approaches the point of minimum error.</p>
+<p>The size of each weight adjustment is controlled by a parameter called the <strong>learning rate</strong>. A high learning rate allows the network to make large, rapid updates to the weights, potentially speeding up training but risking overshooting the optimal solution. Conversely, a low learning rate ensures more precise updates but may result in slower convergence. Striking the right balance for the learning rate is crucial for effective training.</p>
+<p>To successfully apply gradient descent and backpropagation, the network’s activation functions must be <strong>differentiable</strong>. This requirement is why smooth, non-linear activation functions such as the sigmoid, hyperbolic tangent, and ReLU (Rectified Linear Unit) are widely used. Their differentiable nature enables the network to compute gradients efficiently, allowing the algorithm to make meaningful updates to the weights.</p>
+<p>Through repeated cycles of forward and backward propagation, the network refines its weights, reducing the overall error and improving its ability to generalize to unseen data. While the training process may sound complex, modern machine learning libraries like TensorFlow and PyTorch automate the implementation of backpropagation, gradient descent, and weight updates. These tools simplify the process, enabling practitioners to focus on designing the network architecture and preparing the data.</p>
+<p>The development of the backpropagation algorithm marked a turning point for neural networks, enabling them to tackle real-world problems with impressive accuracy. Although training remains computationally demanding, advancements in hardware—such as GPUs and TPUs—have made it practical to train even large, complex networks. This progress has driven breakthroughs in fields such as speech recognition, image classification, and predictive modeling.</p>
+<p>Now that we have a foundation in how neural networks are trained, we will explore their application to real-world scenarios, demonstrating how they can extract meaningful patterns from data to make predictions.</p>
+</div>
+<div id="case-study-bank-marketing" class="section level2" number="12.6">
+<h2>
+<span class="header-section-number">12.6</span> Case Study: Bank Marketing<a class="anchor" aria-label="anchor" href="#case-study-bank-marketing"><i class="fas fa-link"></i></a>
+</h2>
+<p>The <strong>bank marketing dataset</strong> contains information about customers contacted by a Portuguese banking institution to subscribe to a term deposit. The primary objective is to predict whether a customer will subscribe to the term deposit based on the available features. This analysis not only helps identify the profiles of likely subscribers but also provides insights for improving future marketing campaigns.</p>
+<div id="business-context" class="section level3 unnumbered">
+<h3>Business Context<a class="anchor" aria-label="anchor" href="#business-context"><i class="fas fa-link"></i></a>
+</h3>
+<p>Banks often rely on two approaches to promote their products:</p>
+<ul>
+<li>
+<strong>Mass Campaigns</strong>: Targeting the general public indiscriminately, typically resulting in low response rates (e.g., &lt;1%).<br>
+</li>
+<li>
+<strong>Directed Marketing</strong>: Focusing on specific, likely customers, which improves effectiveness but raises concerns about privacy intrusion.</li>
+</ul>
+<p>In this case, the goal is to refine the effectiveness of directed marketing campaigns by analyzing patterns in past campaign data. By identifying which customers are more likely to subscribe, the bank can reduce costs, minimize intrusive communications, and maintain success rates.</p>
+<p>A <strong>term deposit</strong> is a savings product with a fixed interest rate over a specified period. Customers benefit from better interest rates compared to regular savings accounts, and banks use term deposits to increase their financial assets. More about term deposits can be found <a href="https://www.investopedia.com/terms/t/termdeposit.asp">here</a>.</p>
+</div>
+<div id="overview-of-the-dataset-2" class="section level3 unnumbered">
+<h3>Overview of the Dataset<a class="anchor" aria-label="anchor" href="#overview-of-the-dataset-2"><i class="fas fa-link"></i></a>
+</h3>
+<p>The dataset, sourced from <a href="https://rdrr.io/cran/liver/man/bank.html">this repository</a>, includes information on direct phone-based marketing campaigns. Some customers were contacted multiple times during the same campaign. The goal is to classify whether a customer subscribed to a term deposit (<code>deposit = "yes"</code> or <code>"no"</code>).</p>
+<p>We load and inspect the dataset:</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="chapter-nn.html#cb169-1" tabindex="-1"></a><span class="fu">data</span>(bank)   <span class="co"># Load the bank marketing dataset </span></span>
+<span id="cb169-2"><a href="chapter-nn.html#cb169-2" tabindex="-1"></a></span>
+<span id="cb169-3"><a href="chapter-nn.html#cb169-3" tabindex="-1"></a><span class="fu">str</span>(bank)</span>
+<span id="cb169-4"><a href="chapter-nn.html#cb169-4" tabindex="-1"></a>   <span class="st">'data.frame'</span><span class="sc">:</span>    <span class="dv">4521</span> obs. of  <span class="dv">17</span> variables<span class="sc">:</span></span>
+<span id="cb169-5"><a href="chapter-nn.html#cb169-5" tabindex="-1"></a>    <span class="er">$</span> age      <span class="sc">:</span> int  <span class="dv">30</span> <span class="dv">33</span> <span class="dv">35</span> <span class="dv">30</span> <span class="dv">59</span> <span class="dv">35</span> <span class="dv">36</span> <span class="dv">39</span> <span class="dv">41</span> <span class="dv">43</span> ...</span>
+<span id="cb169-6"><a href="chapter-nn.html#cb169-6" tabindex="-1"></a>    <span class="sc">$</span> job      <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">12</span> levels <span class="st">"admin."</span>,<span class="st">"blue-collar"</span>,..<span class="sc">:</span> <span class="dv">11</span> <span class="dv">8</span> <span class="dv">5</span> <span class="dv">5</span> <span class="dv">2</span> <span class="dv">5</span> <span class="dv">7</span> <span class="dv">10</span> <span class="dv">3</span> <span class="dv">8</span> ...</span>
+<span id="cb169-7"><a href="chapter-nn.html#cb169-7" tabindex="-1"></a>    <span class="sc">$</span> marital  <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">3</span> levels <span class="st">"divorced"</span>,<span class="st">"married"</span>,..<span class="sc">:</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> ...</span>
+<span id="cb169-8"><a href="chapter-nn.html#cb169-8" tabindex="-1"></a>    <span class="sc">$</span> education<span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">4</span> levels <span class="st">"primary"</span>,<span class="st">"secondary"</span>,..<span class="sc">:</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">1</span> ...</span>
+<span id="cb169-9"><a href="chapter-nn.html#cb169-9" tabindex="-1"></a>    <span class="sc">$</span> default  <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"no"</span>,<span class="st">"yes"</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> ...</span>
+<span id="cb169-10"><a href="chapter-nn.html#cb169-10" tabindex="-1"></a>    <span class="sc">$</span> balance  <span class="sc">:</span> int  <span class="dv">1787</span> <span class="dv">4789</span> <span class="dv">1350</span> <span class="dv">1476</span> <span class="dv">0</span> <span class="dv">747</span> <span class="dv">307</span> <span class="dv">147</span> <span class="dv">221</span> <span class="sc">-</span><span class="dv">88</span> ...</span>
+<span id="cb169-11"><a href="chapter-nn.html#cb169-11" tabindex="-1"></a>    <span class="sc">$</span> housing  <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"no"</span>,<span class="st">"yes"</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> ...</span>
+<span id="cb169-12"><a href="chapter-nn.html#cb169-12" tabindex="-1"></a>    <span class="sc">$</span> loan     <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"no"</span>,<span class="st">"yes"</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> ...</span>
+<span id="cb169-13"><a href="chapter-nn.html#cb169-13" tabindex="-1"></a>    <span class="sc">$</span> contact  <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">3</span> levels <span class="st">"cellular"</span>,<span class="st">"telephone"</span>,..<span class="sc">:</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">1</span> ...</span>
+<span id="cb169-14"><a href="chapter-nn.html#cb169-14" tabindex="-1"></a>    <span class="sc">$</span> day      <span class="sc">:</span> int  <span class="dv">19</span> <span class="dv">11</span> <span class="dv">16</span> <span class="dv">3</span> <span class="dv">5</span> <span class="dv">23</span> <span class="dv">14</span> <span class="dv">6</span> <span class="dv">14</span> <span class="dv">17</span> ...</span>
+<span id="cb169-15"><a href="chapter-nn.html#cb169-15" tabindex="-1"></a>    <span class="sc">$</span> month    <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">12</span> levels <span class="st">"apr"</span>,<span class="st">"aug"</span>,<span class="st">"dec"</span>,..<span class="sc">:</span> <span class="dv">11</span> <span class="dv">9</span> <span class="dv">1</span> <span class="dv">7</span> <span class="dv">9</span> <span class="dv">4</span> <span class="dv">9</span> <span class="dv">9</span> <span class="dv">9</span> <span class="dv">1</span> ...</span>
+<span id="cb169-16"><a href="chapter-nn.html#cb169-16" tabindex="-1"></a>    <span class="sc">$</span> duration <span class="sc">:</span> int  <span class="dv">79</span> <span class="dv">220</span> <span class="dv">185</span> <span class="dv">199</span> <span class="dv">226</span> <span class="dv">141</span> <span class="dv">341</span> <span class="dv">151</span> <span class="dv">57</span> <span class="dv">313</span> ...</span>
+<span id="cb169-17"><a href="chapter-nn.html#cb169-17" tabindex="-1"></a>    <span class="sc">$</span> campaign <span class="sc">:</span> int  <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">4</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> ...</span>
+<span id="cb169-18"><a href="chapter-nn.html#cb169-18" tabindex="-1"></a>    <span class="sc">$</span> pdays    <span class="sc">:</span> int  <span class="sc">-</span><span class="dv">1</span> <span class="dv">339</span> <span class="dv">330</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">-</span><span class="dv">1</span> <span class="dv">176</span> <span class="dv">330</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">-</span><span class="dv">1</span> <span class="dv">147</span> ...</span>
+<span id="cb169-19"><a href="chapter-nn.html#cb169-19" tabindex="-1"></a>    <span class="sc">$</span> previous <span class="sc">:</span> int  <span class="dv">0</span> <span class="dv">4</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">2</span> ...</span>
+<span id="cb169-20"><a href="chapter-nn.html#cb169-20" tabindex="-1"></a>    <span class="sc">$</span> poutcome <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">4</span> levels <span class="st">"failure"</span>,<span class="st">"other"</span>,..<span class="sc">:</span> <span class="dv">4</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">4</span> <span class="dv">4</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">4</span> <span class="dv">4</span> <span class="dv">1</span> ...</span>
+<span id="cb169-21"><a href="chapter-nn.html#cb169-21" tabindex="-1"></a>    <span class="sc">$</span> deposit  <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"no"</span>,<span class="st">"yes"</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> ...</span></code></pre></div>
+<p>The dataset contains 4521 observations and 17 variables. It includes 16 predictors and one target variable (<code>deposit</code>). Below is a summary of the key variables:</p>
+<p><strong>Demographic Features</strong>:<br>
+- <code>age</code>: Age of the customer (numeric).<br>
+- <code>job</code>: Type of job (e.g., “admin.”, “blue-collar”, “management”).<br>
+- <code>marital</code>: Marital status (e.g., “married”, “single”).<br>
+- <code>education</code>: Level of education (e.g., “secondary”, “tertiary”).<br>
+- <code>default</code>: Whether the customer has credit in default (binary: “yes”, “no”).<br>
+- <code>balance</code>: Average yearly balance in euros (numeric).</p>
+<p><strong>Loan Information</strong>:<br>
+- <code>housing</code>: Whether the customer has a housing loan (binary).<br>
+- <code>loan</code>: Whether the customer has a personal loan (binary).</p>
+<p><strong>Campaign Details</strong>:<br>
+- <code>contact</code>: Type of communication (e.g., “telephone”, “cellular”).<br>
+- <code>duration</code>: Last contact duration in seconds (numeric).<br>
+- <code>campaign</code>: Number of contacts performed during this campaign (numeric).<br>
+- <code>pdays</code>: Days since the customer was last contacted (numeric).<br>
+- <code>previous</code>: Number of contacts before the current campaign (numeric).<br>
+- <code>poutcome</code>: Outcome of the previous campaign (e.g., “success”, “failure”).</p>
+<p><strong>Target Variable</strong>:<br>
+- <code>deposit</code>: Indicates whether the customer subscribed to a term deposit (binary: “yes”, “no”).</p>
+</div>
+<div id="data-cleaning-and-preparation-1" class="section level3 unnumbered">
+<h3>Data Cleaning and Preparation<a class="anchor" aria-label="anchor" href="#data-cleaning-and-preparation-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>To prepare the dataset for the Neural Network algorithm, all variables must be scaled to a range between 0 and 1. We apply <strong>min-max normalization</strong> using the <code><a href="https://rdrr.io/pkg/liver/man/minmax.html">minmax()</a></code> function from the <strong>liver</strong> package:</p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="chapter-nn.html#cb170-1" tabindex="-1"></a>bank_mm <span class="ot">=</span> <span class="fu">minmax</span>(bank, <span class="at">col =</span> <span class="st">"all"</span>)</span>
+<span id="cb170-2"><a href="chapter-nn.html#cb170-2" tabindex="-1"></a><span class="fu">str</span>(bank_mm)</span>
+<span id="cb170-3"><a href="chapter-nn.html#cb170-3" tabindex="-1"></a>   <span class="st">'data.frame'</span><span class="sc">:</span>    <span class="dv">4521</span> obs. of  <span class="dv">17</span> variables<span class="sc">:</span></span>
+<span id="cb170-4"><a href="chapter-nn.html#cb170-4" tabindex="-1"></a>    <span class="er">$</span> age      <span class="sc">:</span> num  <span class="fl">0.162</span> <span class="fl">0.206</span> <span class="fl">0.235</span> <span class="fl">0.162</span> <span class="fl">0.588</span> ...</span>
+<span id="cb170-5"><a href="chapter-nn.html#cb170-5" tabindex="-1"></a>    <span class="sc">$</span> job      <span class="sc">:</span> num  <span class="fl">0.9091</span> <span class="fl">0.6364</span> <span class="fl">0.3636</span> <span class="fl">0.3636</span> <span class="fl">0.0909</span> ...</span>
+<span id="cb170-6"><a href="chapter-nn.html#cb170-6" tabindex="-1"></a>    <span class="sc">$</span> marital  <span class="sc">:</span> num  <span class="fl">0.5</span> <span class="fl">0.5</span> <span class="dv">1</span> <span class="fl">0.5</span> <span class="fl">0.5</span> <span class="dv">1</span> <span class="fl">0.5</span> <span class="fl">0.5</span> <span class="fl">0.5</span> <span class="fl">0.5</span> ...</span>
+<span id="cb170-7"><a href="chapter-nn.html#cb170-7" tabindex="-1"></a>    <span class="sc">$</span> education<span class="sc">:</span> num  <span class="dv">0</span> <span class="fl">0.333</span> <span class="fl">0.667</span> <span class="fl">0.667</span> <span class="fl">0.333</span> ...</span>
+<span id="cb170-8"><a href="chapter-nn.html#cb170-8" tabindex="-1"></a>    <span class="sc">$</span> default  <span class="sc">:</span> num  <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> ...</span>
+<span id="cb170-9"><a href="chapter-nn.html#cb170-9" tabindex="-1"></a>    <span class="sc">$</span> balance  <span class="sc">:</span> num  <span class="fl">0.0685</span> <span class="fl">0.1088</span> <span class="fl">0.0626</span> <span class="fl">0.0643</span> <span class="fl">0.0445</span> ...</span>
+<span id="cb170-10"><a href="chapter-nn.html#cb170-10" tabindex="-1"></a>    <span class="sc">$</span> housing  <span class="sc">:</span> num  <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> ...</span>
+<span id="cb170-11"><a href="chapter-nn.html#cb170-11" tabindex="-1"></a>    <span class="sc">$</span> loan     <span class="sc">:</span> num  <span class="dv">0</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> ...</span>
+<span id="cb170-12"><a href="chapter-nn.html#cb170-12" tabindex="-1"></a>    <span class="sc">$</span> contact  <span class="sc">:</span> num  <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">0</span> ...</span>
+<span id="cb170-13"><a href="chapter-nn.html#cb170-13" tabindex="-1"></a>    <span class="sc">$</span> day      <span class="sc">:</span> num  <span class="fl">0.6</span> <span class="fl">0.3333</span> <span class="fl">0.5</span> <span class="fl">0.0667</span> <span class="fl">0.1333</span> ...</span>
+<span id="cb170-14"><a href="chapter-nn.html#cb170-14" tabindex="-1"></a>    <span class="sc">$</span> month    <span class="sc">:</span> num  <span class="fl">0.909</span> <span class="fl">0.727</span> <span class="dv">0</span> <span class="fl">0.545</span> <span class="fl">0.727</span> ...</span>
+<span id="cb170-15"><a href="chapter-nn.html#cb170-15" tabindex="-1"></a>    <span class="sc">$</span> duration <span class="sc">:</span> num  <span class="fl">0.0248</span> <span class="fl">0.0715</span> <span class="fl">0.0599</span> <span class="fl">0.0645</span> <span class="fl">0.0735</span> ...</span>
+<span id="cb170-16"><a href="chapter-nn.html#cb170-16" tabindex="-1"></a>    <span class="sc">$</span> campaign <span class="sc">:</span> num  <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="fl">0.0612</span> <span class="dv">0</span> ...</span>
+<span id="cb170-17"><a href="chapter-nn.html#cb170-17" tabindex="-1"></a>    <span class="sc">$</span> pdays    <span class="sc">:</span> num  <span class="dv">0</span> <span class="fl">0.39</span> <span class="fl">0.38</span> <span class="dv">0</span> <span class="dv">0</span> ...</span>
+<span id="cb170-18"><a href="chapter-nn.html#cb170-18" tabindex="-1"></a>    <span class="sc">$</span> previous <span class="sc">:</span> num  <span class="dv">0</span> <span class="fl">0.16</span> <span class="fl">0.04</span> <span class="dv">0</span> <span class="dv">0</span> <span class="fl">0.12</span> <span class="fl">0.08</span> <span class="dv">0</span> <span class="dv">0</span> <span class="fl">0.08</span> ...</span>
+<span id="cb170-19"><a href="chapter-nn.html#cb170-19" tabindex="-1"></a>    <span class="sc">$</span> poutcome <span class="sc">:</span> num  <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span> ...</span>
+<span id="cb170-20"><a href="chapter-nn.html#cb170-20" tabindex="-1"></a>    <span class="sc">$</span> deposit  <span class="sc">:</span> num  <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> ...</span></code></pre></div>
+<p>Before and after applying min-max normalization, we can compare the distribution of <code>age</code> as an example:</p>
+<div class="sourceCode" id="cb171"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bank</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">age</span><span class="op">)</span>, colour <span class="op">=</span> <span class="st">"darkblue"</span>, fill <span class="op">=</span> <span class="st">"lightblue"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Variable 'age' before normalization"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bank_mm</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">age</span><span class="op">)</span>, colour <span class="op">=</span> <span class="st">"darkblue"</span>, fill <span class="op">=</span> <span class="st">"lightblue"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Variable 'age' after normalization"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="nn_files/figure-html/unnamed-chunk-5-1.png" width="50%"><img src="nn_files/figure-html/unnamed-chunk-5-2.png" width="50%"></p>
+<p>Next, we partition the dataset into training (80%) and test (20%) subsets using the <code><a href="https://rdrr.io/pkg/liver/man/partition.html">partition()</a></code> function:</p>
+<div class="sourceCode" id="cb172"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">500</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">data_sets</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/liver/man/partition.html">partition</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bank_mm</span>, ratio <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.8</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">train_set</span> <span class="op">=</span> <span class="va">data_sets</span><span class="op">$</span><span class="va">part1</span></span>
+<span><span class="va">test_set</span>  <span class="op">=</span> <span class="va">data_sets</span><span class="op">$</span><span class="va">part2</span></span>
+<span><span class="va">actual_test</span> <span class="op">=</span> <span class="va">test_set</span><span class="op">$</span><span class="va">deposit</span></span></code></pre></div>
+<p>To validate this split, we compare the proportion of <code>deposit = "yes"</code> in the training and test sets using a two-sample Z-test:</p>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="chapter-nn.html#cb173-1" tabindex="-1"></a>x1 <span class="ot">=</span> <span class="fu">sum</span>(train_set<span class="sc">$</span>deposit <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb173-2"><a href="chapter-nn.html#cb173-2" tabindex="-1"></a>x2 <span class="ot">=</span> <span class="fu">sum</span>(test_set<span class="sc">$</span>deposit <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb173-3"><a href="chapter-nn.html#cb173-3" tabindex="-1"></a></span>
+<span id="cb173-4"><a href="chapter-nn.html#cb173-4" tabindex="-1"></a>n1 <span class="ot">=</span> <span class="fu">nrow</span>(train_set)</span>
+<span id="cb173-5"><a href="chapter-nn.html#cb173-5" tabindex="-1"></a>n2 <span class="ot">=</span> <span class="fu">nrow</span>(test_set)</span>
+<span id="cb173-6"><a href="chapter-nn.html#cb173-6" tabindex="-1"></a></span>
+<span id="cb173-7"><a href="chapter-nn.html#cb173-7" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(x1, x2), <span class="at">n =</span> <span class="fu">c</span>(n1, n2))</span>
+<span id="cb173-8"><a href="chapter-nn.html#cb173-8" tabindex="-1"></a>   </span>
+<span id="cb173-9"><a href="chapter-nn.html#cb173-9" tabindex="-1"></a>    <span class="dv">2</span><span class="sc">-</span>sample test <span class="cf">for</span> equality of proportions with continuity correction</span>
+<span id="cb173-10"><a href="chapter-nn.html#cb173-10" tabindex="-1"></a>   </span>
+<span id="cb173-11"><a href="chapter-nn.html#cb173-11" tabindex="-1"></a>   data<span class="sc">:</span>  <span class="fu">c</span>(x1, x2) out of <span class="fu">c</span>(n1, n2)</span>
+<span id="cb173-12"><a href="chapter-nn.html#cb173-12" tabindex="-1"></a>   X<span class="sc">-</span>squared <span class="ot">=</span> <span class="fl">0.0014152</span>, df <span class="ot">=</span> <span class="dv">1</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.97</span></span>
+<span id="cb173-13"><a href="chapter-nn.html#cb173-13" tabindex="-1"></a>   alternative hypothesis<span class="sc">:</span> two.sided</span>
+<span id="cb173-14"><a href="chapter-nn.html#cb173-14" tabindex="-1"></a>   <span class="dv">95</span> percent confidence interval<span class="sc">:</span></span>
+<span id="cb173-15"><a href="chapter-nn.html#cb173-15" tabindex="-1"></a>    <span class="sc">-</span><span class="fl">0.02516048</span>  <span class="fl">0.02288448</span></span>
+<span id="cb173-16"><a href="chapter-nn.html#cb173-16" tabindex="-1"></a>   sample estimates<span class="sc">:</span></span>
+<span id="cb173-17"><a href="chapter-nn.html#cb173-17" tabindex="-1"></a>      prop <span class="dv">1</span>    prop <span class="dv">2</span> </span>
+<span id="cb173-18"><a href="chapter-nn.html#cb173-18" tabindex="-1"></a>   <span class="fl">0.1150124</span> <span class="fl">0.1161504</span></span></code></pre></div>
+<p>The test confirms that the proportions in both subsets are statistically similar (<em>p</em>-value &gt; 0.05), validating our split.</p>
+<p>Here’s the improved version of your subsection:</p>
+</div>
+<div id="applying-the-neural-network-algorithm" class="section level3 unnumbered">
+<h3>Applying the Neural Network Algorithm<a class="anchor" aria-label="anchor" href="#applying-the-neural-network-algorithm"><i class="fas fa-link"></i></a>
+</h3>
+<p>Our objective is to classify customers as either likely (<code>deposit = "yes"</code>) or unlikely (<code>deposit = "no"</code>) to subscribe to a term deposit, based on the following predictors:</p>
+<p><code>age</code>, <code>default</code>, <code>balance</code>, <code>housing</code>, <code>loan</code>, <code>duration</code>, <code>campaign</code>, <code>pdays</code>, and <code>previous</code>.</p>
+<p>To implement a neural network, we use the <a href="https://CRAN.R-project.org/package=neuralnet"><strong>neuralnet</strong></a> package in <em>R</em>. This package offers a straightforward and flexible way to build neural networks and provides functionality for visualizing the network topology. While <strong>neuralnet</strong> is a great learning tool, it is also powerful enough for practical applications.</p>
+<p>If you haven’t already installed the <strong>neuralnet</strong> package, you can do so by typing:</p>
+<div class="sourceCode" id="cb174"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"neuralnet"</span><span class="op">)</span></span></code></pre></div>
+<p>Once installed, load it into your session:</p>
+<div class="sourceCode" id="cb175"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bips-hb/neuralnet">neuralnet</a></span><span class="op">)</span></span></code></pre></div>
+<p>Next, we apply the <code><a href="https://rdrr.io/pkg/neuralnet/man/neuralnet.html">neuralnet()</a></code> function to the training dataset to build our model:</p>
+<div class="sourceCode" id="cb176"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">formula</span> <span class="op">=</span> <span class="va">deposit</span> <span class="op">~</span> <span class="va">age</span> <span class="op">+</span> <span class="va">default</span> <span class="op">+</span> <span class="va">balance</span> <span class="op">+</span> <span class="va">housing</span> <span class="op">+</span> <span class="va">loan</span> <span class="op">+</span> <span class="va">duration</span> <span class="op">+</span> </span>
+<span>                    <span class="va">campaign</span> <span class="op">+</span> <span class="va">pdays</span> <span class="op">+</span> <span class="va">previous</span></span>
+<span></span>
+<span><span class="va">neuralnet_bank</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/neuralnet/man/neuralnet.html">neuralnet</a></span><span class="op">(</span></span>
+<span>  formula <span class="op">=</span> <span class="va">formula</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">train_set</span>,</span>
+<span>  hidden <span class="op">=</span> <span class="fl">1</span>,                <span class="co"># Single hidden layer with 1 node</span></span>
+<span>  err.fct <span class="op">=</span> <span class="st">"sse"</span>,           <span class="co"># Error function: Sum of Squared Errors</span></span>
+<span>  linear.output <span class="op">=</span> <span class="cn">FALSE</span>      <span class="co"># Nonlinear activation function</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>Here’s what each argument in the function call does:</p>
+<ul>
+<li>
+<strong><code>formula</code></strong>: Specifies the target variable (<code>deposit</code>) and the predictors.<br>
+</li>
+<li>
+<strong><code>data</code></strong>: Indicates the dataset used for training (<code>train_set</code>).<br>
+</li>
+<li>
+<strong><code>hidden</code></strong>: Defines the number of hidden layers and nodes (1 hidden layer with 1 node in this case).<br>
+</li>
+<li>
+<strong><code>err.fct</code></strong>: Sets the error function to minimize during training; we use “sse” (Sum of Squared Errors).<br>
+</li>
+<li>
+<strong><code>linear.output</code></strong>: Ensures a nonlinear activation function for the output layer, appropriate for classification tasks.</li>
+</ul>
+<p>After training, we visualize the network to examine its topology:</p>
+<div class="sourceCode" id="cb177"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">neuralnet_bank</span>, rep <span class="op">=</span> <span class="st">"best"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="nn_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;"></div>
+<p>This visualization shows that the network consists of:<br>
+- <strong>9 input nodes</strong>, corresponding to the 9 predictors,<br>
+- <strong>1 hidden layer</strong> containing a single node, and<br>
+- <strong>1 output node</strong> representing the classification result (<code>yes</code> or <code>no</code>).</p>
+<p>The training process converged after 2578 steps, with a final error rate of 142.97. Upon analyzing the weights of the network, it was found that the <strong><code>duration</code></strong> predictor had the greatest influence on the model’s output, making it the most significant factor in determining whether a customer is likely to subscribe to the term deposit.</p>
+<p>This straightforward setup demonstrates how neural networks process input data through multiple layers and extract meaningful patterns to make predictions. In the next section, we will evaluate the model’s performance and interpret its results.</p>
+</div>
+<div id="prediction-and-model-evaluation-1" class="section level3 unnumbered">
+<h3>Prediction and Model Evaluation<a class="anchor" aria-label="anchor" href="#prediction-and-model-evaluation-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>We use the trained Neural Network to predict the outcomes on the test dataset:</p>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="chapter-nn.html#cb178-1" tabindex="-1"></a>prob_nn <span class="ot">=</span> <span class="fu">predict</span>(neuralnet_bank, test_set)</span>
+<span id="cb178-2"><a href="chapter-nn.html#cb178-2" tabindex="-1"></a><span class="fu">head</span>(prob_nn)</span>
+<span id="cb178-3"><a href="chapter-nn.html#cb178-3" tabindex="-1"></a>            [,<span class="dv">1</span>]</span>
+<span id="cb178-4"><a href="chapter-nn.html#cb178-4" tabindex="-1"></a>   <span class="dv">12</span> <span class="fl">0.01460510</span></span>
+<span id="cb178-5"><a href="chapter-nn.html#cb178-5" tabindex="-1"></a>   <span class="dv">16</span> <span class="fl">0.02158387</span></span>
+<span id="cb178-6"><a href="chapter-nn.html#cb178-6" tabindex="-1"></a>   <span class="dv">17</span> <span class="fl">0.11371069</span></span>
+<span id="cb178-7"><a href="chapter-nn.html#cb178-7" tabindex="-1"></a>   <span class="dv">19</span> <span class="fl">0.02391761</span></span>
+<span id="cb178-8"><a href="chapter-nn.html#cb178-8" tabindex="-1"></a>   <span class="dv">32</span> <span class="fl">0.03149115</span></span>
+<span id="cb178-9"><a href="chapter-nn.html#cb178-9" tabindex="-1"></a>   <span class="dv">38</span> <span class="fl">0.01552204</span></span></code></pre></div>
+<p>We evaluate the predictions using a <strong>confusion matrix</strong> with a cutoff value of 0.5:</p>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="chapter-nn.html#cb179-1" tabindex="-1"></a><span class="fu">conf.mat</span>(prob_nn, actual_test, <span class="at">cutoff =</span> <span class="fl">0.5</span>)</span>
+<span id="cb179-2"><a href="chapter-nn.html#cb179-2" tabindex="-1"></a>   Setting levels<span class="sc">:</span> reference <span class="ot">=</span> <span class="st">"0"</span>, case <span class="ot">=</span> <span class="st">"1"</span></span>
+<span id="cb179-3"><a href="chapter-nn.html#cb179-3" tabindex="-1"></a>          Actual</span>
+<span id="cb179-4"><a href="chapter-nn.html#cb179-4" tabindex="-1"></a>   Predict   <span class="dv">0</span>   <span class="dv">1</span></span>
+<span id="cb179-5"><a href="chapter-nn.html#cb179-5" tabindex="-1"></a>         <span class="dv">0</span>  <span class="dv">16</span>  <span class="dv">22</span></span>
+<span id="cb179-6"><a href="chapter-nn.html#cb179-6" tabindex="-1"></a>         <span class="dv">1</span> <span class="dv">783</span>  <span class="dv">83</span></span></code></pre></div>
+<p>This confusion matrix reveals the number of correct and incorrect predictions (e.g., true positives, false positives). Finally, we assess the model’s performance by plotting the ROC curve and calculating the AUC:</p>
+<div class="sourceCode" id="cb180"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">roc_nn</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">actual_test</span>, <span class="va">prob_nn</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/pROC/man/ggroc.html">ggroc</a></span><span class="op">(</span><span class="va">roc_nn</span>, size <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"ROC for Neural Network Algorithm"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>, legend.position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">.7</span>, <span class="fl">.3</span><span class="op">)</span>, text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">17</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="nn_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;"></div>
+<p>The ROC curve illustrates the model’s ability to distinguish between the two classes. A high AUC score indicates strong predictive performance.</p>
+</div>
+</div>
+<div id="exercises-7" class="section level2" number="12.7">
+<h2>
+<span class="header-section-number">12.7</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-7"><i class="fas fa-link"></i></a>
+</h2>
+<p>To do …</p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="chapter-tree.html"><span class="header-section-number">11</span> Decision Trees and Random Forests</a></div>
+<div class="next"><a href="chapter-cluster.html"><span class="header-section-number">13</span> Clustering</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li>
+<a class="nav-link" href="#chapter-nn"><span class="header-section-number">12</span> Neural Networks: The Building Blocks of Artificial Intelligence</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#why-neural-networks-are-powerful">Why Neural Networks Are Powerful</a></li>
+<li><a class="nav-link" href="#whats-ahead">What’s Ahead</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#neural-networks-inspired-by-biological-neurons"><span class="header-section-number">12.1</span> Neural Networks: Inspired by Biological Neurons</a></li>
+<li>
+<a class="nav-link" href="#how-neural-networks-work"><span class="header-section-number">12.2</span> How Neural Networks Work</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#key-characteristics-of-neural-networks">Key Characteristics of Neural Networks</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#activation-functions"><span class="header-section-number">12.3</span> Activation Functions</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#the-sigmoid-activation-function">The Sigmoid Activation Function</a></li>
+<li><a class="nav-link" href="#other-common-activation-functions">Other Common Activation Functions</a></li>
+<li><a class="nav-link" href="#choosing-the-right-activation-function">Choosing the Right Activation Function</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#network-architecture"><span class="header-section-number">12.4</span> Network Architecture</a></li>
+<li><a class="nav-link" href="#how-neural-networks-learn"><span class="header-section-number">12.5</span> How Neural Networks Learn</a></li>
+<li>
+<a class="nav-link" href="#case-study-bank-marketing"><span class="header-section-number">12.6</span> Case Study: Bank Marketing</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#business-context">Business Context</a></li>
+<li><a class="nav-link" href="#overview-of-the-dataset-2">Overview of the Dataset</a></li>
+<li><a class="nav-link" href="#data-cleaning-and-preparation-1">Data Cleaning and Preparation</a></li>
+<li><a class="nav-link" href="#applying-the-neural-network-algorithm">Applying the Neural Network Algorithm</a></li>
+<li><a class="nav-link" href="#prediction-and-model-evaluation-1">Prediction and Model Evaluation</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#exercises-7"><span class="header-section-number">12.7</span> Exercises</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/RezaMoammadi/Book-Data-Science/blob/master/nn.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/RezaMoammadi/Book-Data-Science/edit/master/nn.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Uncovering Data Science with R</strong>" was written by . It was last built on 2025-02-06.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

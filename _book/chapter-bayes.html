@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 9 Naive Bayes Classifier | Uncovering Data Science with R</title>
+<meta name="generator" content="bookdown 0.37 with bs4_book()">
+<meta property="og:title" content="Chapter 9 Naive Bayes Classifier | Uncovering Data Science with R">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://uncovering-data-science.netlify.app/chapter-bayes.html">
+<meta property="og:image" content="https://uncovering-data-science.netlify.app/images/cover.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 9 Naive Bayes Classifier | Uncovering Data Science with R">
+<meta name="twitter:image" content="https://uncovering-data-science.netlify.app/images/cover.jpg">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+          margin-bottom: 0em;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="The Naive Bayes Classifier is one of the simplest yet surprisingly powerful algorithms in machine learning. This family of probabilistic classifiers is based on Bayes’ Theorem, with the key...">
+<meta property="og:description" content="The Naive Bayes Classifier is one of the simplest yet surprisingly powerful algorithms in machine learning. This family of probabilistic classifiers is based on Bayes’ Theorem, with the key...">
+<meta name="twitter:description" content="The Naive Bayes Classifier is one of the simplest yet surprisingly powerful algorithms in machine learning. This family of probabilistic classifiers is based on Bayes’ Theorem, with the key...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Uncovering Data Science with R</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li><a class="" href="chapter-into-R.html"><span class="header-section-number">1</span> The Basics for R</a></li>
+<li><a class="" href="chapter-intro-DS.html"><span class="header-section-number">2</span> Introduction to Data Science</a></li>
+<li><a class="" href="chapter-data-prep.html"><span class="header-section-number">3</span> Data Preparation</a></li>
+<li><a class="" href="chapter-EDA.html"><span class="header-section-number">4</span> Exploratory Data Analysis</a></li>
+<li><a class="" href="chapter-statistics.html"><span class="header-section-number">5</span> Statistical Inference and Hypothesis Testing</a></li>
+<li><a class="" href="chapter-modeling.html"><span class="header-section-number">6</span> Preparing Data for Modeling</a></li>
+<li><a class="" href="chapter-knn.html"><span class="header-section-number">7</span> Classification using k-Nearest Neighbors</a></li>
+<li><a class="" href="chapter-evaluation.html"><span class="header-section-number">8</span> Model Evaluation</a></li>
+<li><a class="active" href="chapter-bayes.html"><span class="header-section-number">9</span> Naive Bayes Classifier</a></li>
+<li><a class="" href="chapter-regression.html"><span class="header-section-number">10</span> Regression Modeling: From Basics to Advanced Techniques</a></li>
+<li><a class="" href="chapter-tree.html"><span class="header-section-number">11</span> Decision Trees and Random Forests</a></li>
+<li><a class="" href="chapter-nn.html"><span class="header-section-number">12</span> Neural Networks: The Building Blocks of Artificial Intelligence</a></li>
+<li><a class="" href="chapter-cluster.html"><span class="header-section-number">13</span> Clustering</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/RezaMoammadi/Book-Data-Science">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="chapter-bayes" class="section level1" number="9">
+<h1>
+<span class="header-section-number">9</span> Naive Bayes Classifier<a class="anchor" aria-label="anchor" href="#chapter-bayes"><i class="fas fa-link"></i></a>
+</h1>
+<p>The <strong>Naive Bayes Classifier</strong> is one of the simplest yet surprisingly powerful algorithms in machine learning. This family of probabilistic classifiers is based on <strong>Bayes’ Theorem</strong>, with the key assumption—often referred to as “naive”—that all features are conditionally independent given the target class. Despite this oversimplified assumption, Naive Bayes often delivers strong performance in practice, especially in domains like text classification, spam detection, sentiment analysis, and medical diagnosis.</p>
+<p>Naive Bayes is celebrated for its <strong>speed, scalability, and interpretability</strong>. It is efficient during both the training and prediction phases, making it suitable for large-scale datasets with high-dimensional feature spaces. For example, in text classification tasks, where thousands of features (e.g., words or tokens) may be involved, Naive Bayes can classify data points in milliseconds. Its simplicity and ease of implementation make it a foundational tool for beginners and a go-to algorithm for many real-world tasks.</p>
+<p>The roots of this algorithm lie in <strong>Bayes’ Theorem</strong> <a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Thomas Bayes, &lt;em&gt;Essay Toward Solving a Problem in the Doctrine of Changes&lt;/em&gt;, Philosophical Transactions of the Royal Society of London, 1793&lt;/p&gt;"><sup>5</sup></a>, a principle introduced by 18th-century mathematician Thomas Bayes. This theorem provides a mathematical framework for updating the probability of a hypothesis as new evidence is observed. At its core, Bayes’ Theorem refines our understanding of an event by combining our prior knowledge (known as the <strong>prior distribution</strong>) with new information from observed data (resulting in the <strong>posterior distribution</strong>). These ideas form the foundation of <strong>Bayesian methods</strong>, which have wide-ranging applications in machine learning, statistics, and beyond.</p>
+<div id="strengths-and-limitations" class="section level3 unnumbered">
+<h3>Strengths and Limitations<a class="anchor" aria-label="anchor" href="#strengths-and-limitations"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <strong>strength</strong> of Naive Bayes lies in its simplicity and computational efficiency. It is particularly effective for:</p>
+<ul>
+<li>High-dimensional datasets (e.g., text data with thousands of features).</li>
+<li>Tasks requiring quick predictions, such as real-time spam detection.</li>
+<li>Problems where feature independence is approximately true or where the independence assumption is not a major limitation.</li>
+</ul>
+<p>However, its <strong>limitations</strong> are also important to acknowledge:</p>
+<ul>
+<li>The independence assumption often does not hold in real-world data, especially when features are highly correlated.</li>
+<li>Naive Bayes may struggle in scenarios with continuous data unless Gaussian distributions are assumed.</li>
+<li>It tends to underperform on very complex datasets compared to more sophisticated algorithms like random forests or gradient boosting.</li>
+</ul>
+<p>Despite these limitations, Naive Bayes remains a reliable, interpretable, and robust algorithm. It is often the first choice for quick prototyping and serves as a benchmark for more advanced models.</p>
+</div>
+<div id="what-will-this-chapter-cover" class="section level3 unnumbered">
+<h3>What Will This Chapter Cover?<a class="anchor" aria-label="anchor" href="#what-will-this-chapter-cover"><i class="fas fa-link"></i></a>
+</h3>
+<p>In this chapter, we will:</p>
+<ol style="list-style-type: decimal">
+<li>Explore the mathematical foundations of Naive Bayes, including Bayes’ Theorem and its application in classification.</li>
+<li>Examine how Naive Bayes works, with step-by-step explanations and examples.</li>
+<li>Discuss different variants of the algorithm, including <strong>Gaussian Naive Bayes</strong>, <strong>Multinomial Naive Bayes</strong>, and <strong>Bernoulli Naive Bayes</strong>, and their use cases.</li>
+<li>Highlight its strengths, limitations, and practical applications.</li>
+<li>Provide an implementation guide in R, using real-world datasets (the <em>risk</em> dataset from the <code>liver</code> package) to demonstrate its effectiveness.</li>
+</ol>
+<p>By the end of this chapter, you will have a solid understanding of the Naive Bayes Classifier, its theoretical underpinnings, and its practical applications, enabling you to confidently apply it to real-world problems.</p>
+</div>
+<div id="bayes-theorem-and-probabilistic-foundations" class="section level2" number="9.1">
+<h2>
+<span class="header-section-number">9.1</span> Bayes’ Theorem and Probabilistic Foundations<a class="anchor" aria-label="anchor" href="#bayes-theorem-and-probabilistic-foundations"><i class="fas fa-link"></i></a>
+</h2>
+<p>What if we could explain uncertainty and predict outcomes using a single, elegant equation? As presented in Equation <a href="chapter-bayes.html#eq:bayes-theorem">(9.1)</a>, <strong>Bayes’ Theorem</strong> is the cornerstone of probabilistic reasoning, offering a mathematical framework for updating our beliefs in light of new evidence. The author of <a href="https://www.goodreads.com/book/show/199798096-everything-is-predictable">“Everything Is Predictable: How Bayesian Statistics Explain Our World”</a> argues that Bayesian statistics not only help predict the future but also explain the very fabric of rational decision-making. At the heart of this powerful framework lies the work of <strong>Thomas Bayes</strong>, an 18th-century Presbyterian minister and self-taught mathematician, whose contributions provided a systematic way to refine probabilities as new information becomes available.</p>
+<div id="the-essence-of-bayes-theorem" class="section level3 unnumbered">
+<h3>The Essence of Bayes’ Theorem<a class="anchor" aria-label="anchor" href="#the-essence-of-bayes-theorem"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bayes’ Theorem is a formula for calculating the probability of an event (<span class="math inline">\(A\)</span>) based on prior knowledge and new evidence (<span class="math inline">\(B\)</span>). It answers the question: <em>Given what we already know, how should our belief in a hypothesis change when we observe new data?</em></p>
+<p>Mathematically, it is expressed as:</p>
+<p><span class="math display" id="eq:bayes-theorem">\[\begin{equation}
+P(A|B) = P(A) \cdot \frac{P(B|A)}{P(B)}
+\tag{9.1}
+\end{equation}\]</span></p>
+<p>Where:</p>
+<ul>
+<li>
+<strong><span class="math inline">\(P(A|B)\)</span></strong>: The <strong>posterior probability</strong>—the probability of event <span class="math inline">\(A\)</span> (hypothesis) given that event <span class="math inline">\(B\)</span> (evidence) has occurred.</li>
+<li>
+<strong><span class="math inline">\(P(A)\)</span></strong>: The <strong>prior probability</strong>—our belief about <span class="math inline">\(A\)</span> before observing <span class="math inline">\(B\)</span>.<br>
+</li>
+<li>
+<strong><span class="math inline">\(P(B|A)\)</span></strong>: The <strong>likelihood</strong>—the probability of observing <span class="math inline">\(B\)</span> assuming <span class="math inline">\(A\)</span> is true.<br>
+</li>
+<li>
+<strong><span class="math inline">\(P(B)\)</span></strong>: The <strong>evidence</strong>—the total probability of observing <span class="math inline">\(B\)</span>.</li>
+</ul>
+<p>Bayes’ Theorem elegantly combines <strong>prior knowledge</strong> with <strong>new evidence</strong> to refine our understanding of uncertainty. It is a foundational principle for probabilistic learning, quantifying how data should adjust our expectations.</p>
+<p>To see Bayes’ Theorem in action, consider a practical example from the <code>risk</code> dataset in the <strong>liver</strong> package. Below, we calculate the probability of a customer having a good risk profile (<span class="math inline">\(A\)</span>) given they have a mortgage (<span class="math inline">\(B\)</span>).</p>
+<div class="example">
+<p><span id="exm:ex-bayes-risk" class="example"><strong>Example 9.1  </strong></span>Suppose we are tasked with estimating the probability of a customer having good risk if they have a mortgage. The <code>risk</code> dataset contains the relevant information:</p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="chapter-bayes.html#cb126-1" tabindex="-1"></a><span class="fu">data</span>(risk)</span>
+<span id="cb126-2"><a href="chapter-bayes.html#cb126-2" tabindex="-1"></a></span>
+<span id="cb126-3"><a href="chapter-bayes.html#cb126-3" tabindex="-1"></a><span class="fu">xtabs</span>(<span class="sc">~</span> risk <span class="sc">+</span> mortgage, <span class="at">data =</span> risk)</span>
+<span id="cb126-4"><a href="chapter-bayes.html#cb126-4" tabindex="-1"></a>              mortgage</span>
+<span id="cb126-5"><a href="chapter-bayes.html#cb126-5" tabindex="-1"></a>   risk        yes no</span>
+<span id="cb126-6"><a href="chapter-bayes.html#cb126-6" tabindex="-1"></a>     good risk  <span class="dv">81</span> <span class="dv">42</span></span>
+<span id="cb126-7"><a href="chapter-bayes.html#cb126-7" tabindex="-1"></a>     bad risk   <span class="dv">94</span> <span class="dv">29</span></span></code></pre></div>
+<p>Adding margins to the contingency table for clarity:</p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="chapter-bayes.html#cb127-1" tabindex="-1"></a><span class="fu">addmargins</span>(<span class="fu">xtabs</span>(<span class="sc">~</span> risk <span class="sc">+</span> mortgage, <span class="at">data =</span> risk))</span>
+<span id="cb127-2"><a href="chapter-bayes.html#cb127-2" tabindex="-1"></a>              mortgage</span>
+<span id="cb127-3"><a href="chapter-bayes.html#cb127-3" tabindex="-1"></a>   risk        yes  no Sum</span>
+<span id="cb127-4"><a href="chapter-bayes.html#cb127-4" tabindex="-1"></a>     good risk  <span class="dv">81</span>  <span class="dv">42</span> <span class="dv">123</span></span>
+<span id="cb127-5"><a href="chapter-bayes.html#cb127-5" tabindex="-1"></a>     bad risk   <span class="dv">94</span>  <span class="dv">29</span> <span class="dv">123</span></span>
+<span id="cb127-6"><a href="chapter-bayes.html#cb127-6" tabindex="-1"></a>     Sum       <span class="dv">175</span>  <span class="dv">71</span> <span class="dv">246</span></span></code></pre></div>
+<p>Now, define the events:</p>
+<ul>
+<li>
+<span class="math inline">\(A\)</span>: Customer has “good risk”.<br>
+</li>
+<li>
+<span class="math inline">\(B\)</span>: Customer has a mortgage (<code>mortgage = yes</code>).</li>
+</ul>
+<p>The <strong>prior probability</strong> of a customer having good risk is:</p>
+<p><span class="math display">\[
+P(A) = \frac{\text{Total Good Risk Cases}}{\text{Total Cases}} = \frac{123}{246} = 0.5
+\]</span></p>
+<p>Using Bayes’ Theorem, the probability of having good risk given that a customer has a mortgage is:</p>
+<p><span class="math display">\[\begin{equation}
+\label{eq1}
+\begin{split}
+P(\text{Good Risk} | \text{Mortgage = Yes}) &amp; = \frac{P(\text{Good Risk} \cap \text{Mortgage = Yes})}{P(\text{Mortgage = Yes})} \\
+&amp; = \frac{\text{Good Risk with Mortgage Cases}}{\text{Total Mortgage Cases}} \\
+&amp; = \frac{81}{175} \\
+&amp; = 0.463
+\end{split}
+\end{equation}\]</span></p>
+<p>This demonstrates that customers with mortgages have a lower probability of being classified as good risk compared to the overall population.</p>
+</div>
+</div>
+<div id="how-does-bayes-theorem-work" class="section level3 unnumbered">
+<h3>How Does Bayes’ Theorem Work?<a class="anchor" aria-label="anchor" href="#how-does-bayes-theorem-work"><i class="fas fa-link"></i></a>
+</h3>
+<p>Bayes’ Theorem leverages <strong>conditional probability</strong> to describe how the likelihood of an event changes based on specific conditions. For example:<br>
+- In medical diagnostics, it estimates the probability of a disease (<span class="math inline">\(A\)</span>) given a positive test result (<span class="math inline">\(B\)</span>), accounting for the test’s reliability and disease prevalence.<br>
+- In spam detection, it computes the probability of an email being spam (<span class="math inline">\(A\)</span>) based on the occurrence of certain keywords (<span class="math inline">\(B\)</span>).</p>
+<p>Probability theory provides a rigorous mathematical structure for reasoning under uncertainty, and Bayes’ Theorem transforms it into a framework for <strong>learning from data</strong> and making <strong>rational decisions</strong>.</p>
+</div>
+<div id="a-gateway-to-naive-bayes" class="section level3 unnumbered">
+<h3>A Gateway to Naive Bayes<a class="anchor" aria-label="anchor" href="#a-gateway-to-naive-bayes"><i class="fas fa-link"></i></a>
+</h3>
+<p>The Naive Bayes Classifier builds directly on Bayes’ Theorem. By assuming that features are <strong>conditionally independent</strong> given the target class, it simplifies the computation of probabilities for large, high-dimensional datasets. While this assumption is often violated in practice, it frequently works well enough to yield highly effective results, especially in applications like text classification and spam filtering.</p>
+<p>As we proceed, we’ll see how Bayes’ Theorem forms the foundation of the Naive Bayes algorithm, enabling it to handle complex datasets efficiently while maintaining simplicity and interpretability.</p>
+</div>
+</div>
+<div id="why-is-it-called-naive" class="section level2" number="9.2">
+<h2>
+<span class="header-section-number">9.2</span> Why is it Called “Naive”?<a class="anchor" aria-label="anchor" href="#why-is-it-called-naive"><i class="fas fa-link"></i></a>
+</h2>
+<p>The “naive” in Naive Bayes reflects the algorithm’s <strong>simplifying assumption</strong> that all features are <strong>conditionally independent</strong> of each other, given the target class. In reality, features are often correlated (e.g., income and age), but this assumption dramatically simplifies the computations, making the algorithm both efficient and scalable.</p>
+<p>To illustrate, consider the <code>risk</code> dataset from the <strong>liver</strong> package:</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="chapter-bayes.html#cb128-1" tabindex="-1"></a><span class="fu">str</span>(risk)</span>
+<span id="cb128-2"><a href="chapter-bayes.html#cb128-2" tabindex="-1"></a>   <span class="st">'data.frame'</span><span class="sc">:</span>    <span class="dv">246</span> obs. of  <span class="dv">6</span> variables<span class="sc">:</span></span>
+<span id="cb128-3"><a href="chapter-bayes.html#cb128-3" tabindex="-1"></a>    <span class="er">$</span> age     <span class="sc">:</span> int  <span class="dv">34</span> <span class="dv">37</span> <span class="dv">29</span> <span class="dv">33</span> <span class="dv">39</span> <span class="dv">28</span> <span class="dv">28</span> <span class="dv">25</span> <span class="dv">41</span> <span class="dv">26</span> ...</span>
+<span id="cb128-4"><a href="chapter-bayes.html#cb128-4" tabindex="-1"></a>    <span class="sc">$</span> marital <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">3</span> levels <span class="st">"single"</span>,<span class="st">"married"</span>,..<span class="sc">:</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> ...</span>
+<span id="cb128-5"><a href="chapter-bayes.html#cb128-5" tabindex="-1"></a>    <span class="sc">$</span> income  <span class="sc">:</span> num  <span class="dv">28061</span> <span class="dv">28009</span> <span class="dv">27615</span> <span class="dv">27287</span> <span class="dv">26954</span> ...</span>
+<span id="cb128-6"><a href="chapter-bayes.html#cb128-6" tabindex="-1"></a>    <span class="sc">$</span> mortgage<span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"yes"</span>,<span class="st">"no"</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> ...</span>
+<span id="cb128-7"><a href="chapter-bayes.html#cb128-7" tabindex="-1"></a>    <span class="sc">$</span> nr.loans<span class="sc">:</span> int  <span class="dv">3</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> ...</span>
+<span id="cb128-8"><a href="chapter-bayes.html#cb128-8" tabindex="-1"></a>    <span class="sc">$</span> risk    <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"good risk"</span>,<span class="st">"bad risk"</span><span class="sc">:</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> ...</span></code></pre></div>
+<p>As you can see this dataset includes features such as <strong>age</strong>, <strong>income</strong>, <strong>marital status</strong>, <strong>mortgage</strong>, and <strong>number of loans</strong>. Naive Bayes assumes that these features are independent when conditioned on the target class (<code>risk</code>), which can be either <code>good risk</code> or <code>bad risk</code>. Let’s express this mathematically. The target variable <span class="math inline">\(Y\)</span> represents <code>risk</code>, with possible values <span class="math inline">\(y_1 = \text{good risk}\)</span> and <span class="math inline">\(y_2 = \text{bad risk}\)</span>, while the predictors are <span class="math inline">\(X_1, X_2, \dots, X_5\)</span>. Using Bayes’ Theorem (Equation <a href="chapter-bayes.html#eq:bayes-theorem">(9.1)</a>), the probability of <span class="math inline">\(Y = y_1\)</span> given all the features is:</p>
+<p><span class="math display">\[
+P(Y = y_1 | X_1 \cap \dots \cap X_5) = \frac{P(Y = y_1) \cdot P(X_1 \cap \dots \cap X_5 | Y = y_1)}{P(X_1 \cap \dots \cap X_5)}
+\]</span></p>
+<p>However, calculating <span class="math inline">\(P(X_1 \cap X_2 \cap \dots \cap X_5 | Y = y_1)\)</span> is computationally challenging, especially when the number of predictors grows. For example, datasets with hundreds or thousands of features (common in domains like text classification) would require enormous amounts of memory to store probabilities for all possible combinations of features.</p>
+<p>The <strong>naive assumption</strong> of conditional independence simplifies this by treating each feature as independent of the others, given the target class. This allows the joint probability term <span class="math inline">\(P(X_1 \cap \dots \cap X_5 | Y = y_1)\)</span> to be expressed as the product of individual probabilities:</p>
+<p><span class="math display">\[
+P(X_1 \cap \dots \cap X_5 | Y = y_1) = P(X_1 | Y = y_1) \cdot \dots \cdot P(X_5 | Y = y_1)
+\]</span></p>
+<p>This transformation eliminates the need to compute complex joint probabilities and allows the algorithm to operate efficiently, even with high-dimensional datasets. Instead of handling an exponential number of combinations, Naive Bayes only calculates the conditional probabilities of each feature independently, given the class.</p>
+<p>In practice, this independence assumption is rarely true—features often exhibit some degree of correlation. However, Naive Bayes frequently performs surprisingly well despite this limitation. It excels in domains like <strong>text classification</strong>, where the independence assumption approximately holds, or where slight violations of the assumption do not significantly affect predictive accuracy. For example, spam detection systems and sentiment analysis often rely on Naive Bayes due to its simplicity, speed, and effectiveness.</p>
+<p>By combining these strengths with its ability to handle high-dimensional data, Naive Bayes strikes a balance between computational efficiency and predictive power, making it a foundational algorithm in machine learning.</p>
+</div>
+<div id="the-laplace-smoothing-technique" class="section level2" number="9.3">
+<h2>
+<span class="header-section-number">9.3</span> The Laplace Smoothing Technique<a class="anchor" aria-label="anchor" href="#the-laplace-smoothing-technique"><i class="fas fa-link"></i></a>
+</h2>
+<p>One of the primary challenges with the Naive Bayes algorithm is its vulnerability to <strong>zero probabilities</strong>. This issue arises when a feature category present in the test data is missing from the training data. If this happens, the algorithm assigns a probability of zero to the unseen category, and since Naive Bayes multiplies probabilities during prediction, even a single zero probability results in an overall prediction probability of zero for the affected class. This effectively eliminates the class as a possible prediction and can significantly degrade the classifier’s performance.</p>
+<p>To address this issue, <strong>Laplace Smoothing</strong> (also known as <strong>add-one smoothing</strong>) is employed. Named after the French mathematician <a href="https://en.wikipedia.org/wiki/Pierre-Simon_Laplace">Pierre-Simon Laplace</a>, this technique ensures that every class-feature combination has a <strong>non-zero probability</strong>, even if it is missing in the training data. Laplace smoothing works by adding a small constant (commonly <span class="math inline">\(k = 1\)</span>) to each count in the frequency table, ensuring that no category is left with zero probability.</p>
+<p>To illustrate the necessity of Laplace smoothing, consider the <code>marital</code> variable in the <code>risk</code> dataset. Suppose the category <code>married</code> is entirely absent for the class <code>bad risk</code> in the training data due to imbalance or sampling limitations. Let’s visualize this situation:</p>
+<pre><code>            risk
+   marital   good risk bad risk
+     single         21       11
+     married        51        0
+     other           8       10</code></pre>
+<p>In this case, the probability <span class="math inline">\(P(\text{bad risk} | \text{married})\)</span> would be zero. This creates a significant problem: the Naive Bayes classifier would completely ignore any instance with <code>marital = married</code> when predicting the <code>bad risk</code> class. However, intuitively, even if such examples are absent in the training data, the probability should still be a small non-zero value to reflect the possibility that this combination could occur in the test data.</p>
+<p>Laplace smoothing resolves this by modifying the calculation. It adds a small constant <span class="math inline">\(k\)</span> (usually <span class="math inline">\(k = 1\)</span>) to each count in the frequency table. The smoothed probability is then calculated as:</p>
+<p><span class="math display">\[
+P(\text{bad risk} | \text{married}) = \frac{\text{count}(\text{bad risk} \cap \text{married}) + k}{\text{count}(\text{bad risk}) + k \cdot \text{total unique categories in } \text{marital}}
+\]</span></p>
+<p>This adjustment ensures that:</p>
+<ul>
+<li>
+<strong>Counts are adjusted</strong>: Each category receives an additional <span class="math inline">\(k\)</span> count in the numerator.</li>
+<li>
+<strong>Denominator is expanded</strong>: The total count is increased by <span class="math inline">\(k \times \text{number of categories}\)</span>, ensuring that the probability distribution remains valid.</li>
+</ul>
+<p>This guarantees that every feature-class combination has a small, non-zero probability, thus preventing zero probabilities from dominating predictions.</p>
+<p>In R, the <strong><code>naivebayes</code></strong> package provides the <code>laplace</code> argument to apply Laplace smoothing. By default, <code>laplace = 0</code>, meaning no smoothing is applied. To apply smoothing, simply set <code>laplace = 1</code>. For instance:</p>
+<div class="sourceCode" id="cb130"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/majkamichal/naivebayes">naivebayes</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Fit Naive Bayes with Laplace smoothing</span></span>
+<span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://majkamichal.github.io/naivebayes/reference/naive_bayes.html">naive_bayes</a></span><span class="op">(</span><span class="va">risk</span> <span class="op">~</span> <span class="va">age</span> <span class="op">+</span> <span class="va">income</span> <span class="op">+</span> <span class="va">marital</span> <span class="op">+</span> <span class="va">mortgage</span> <span class="op">+</span> <span class="va">nr.loans</span>, </span>
+<span>                     data <span class="op">=</span> <span class="va">risk</span>, </span>
+<span>                     laplace <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<p>This ensures that no class-feature combination has a zero probability, improving the robustness of the Naive Bayes classifier, especially when dealing with small or imbalanced training datasets. While <span class="math inline">\(k = 1\)</span> is most commonly used, the value of <span class="math inline">\(k\)</span> can be adjusted based on specific domain knowledge or requirements. However, in practice, setting <span class="math inline">\(k = 1\)</span> suffices for most use cases.</p>
+<p>Laplace smoothing is a simple yet effective technique that highlights how minor adjustments can address critical limitations in machine learning algorithms. By ensuring that probabilities remain non-zero, it enhances the reliability and robustness of Naive Bayes in real-world scenarios.</p>
+</div>
+<div id="types-of-naive-bayes-classifiers" class="section level2" number="9.4">
+<h2>
+<span class="header-section-number">9.4</span> Types of Naive Bayes Classifiers<a class="anchor" aria-label="anchor" href="#types-of-naive-bayes-classifiers"><i class="fas fa-link"></i></a>
+</h2>
+<p>Naive Bayes is a flexible algorithm with variants tailored to different types of data and problem domains. The choice of the Naive Bayes classifier depends on the nature of the features and the assumptions about their underlying distribution. The three most common types are:</p>
+<ul>
+<li><p><strong>Multinomial Naive Bayes</strong>: Best suited for categorical or discrete count features, such as word frequencies in text data. For example, the <code>marital</code> variable in the <code>risk</code> dataset is categorical, making it a good fit for this variant.</p></li>
+<li><p><strong>Bernoulli Naive Bayes</strong>: Designed for binary features (e.g., 0s and 1s). This variant is ideal for datasets with yes/no or presence/absence features. For instance, the <code>mortgage</code> variable in the <code>risk</code> dataset, which has two categories (<code>yes</code> and <code>no</code>), fits this variant.</p></li>
+<li><p><strong>Gaussian Naive Bayes</strong>: Used for continuous features that are assumed to follow a normal (Gaussian) distribution. For example, the <code>age</code> and <code>income</code> variables in the <code>risk</code> dataset are continuous and thus suitable for this variant.</p></li>
+</ul>
+<p>Each variant is optimized for different data types, making it essential to choose the one that aligns with your dataset’s characteristics. By understanding these distinctions, you can select the most appropriate Naive Bayes classifier to achieve optimal performance. In the following sections, we will delve into each variant, exploring their unique characteristics and use cases.</p>
+</div>
+<div id="case-study-predicting-risk-profiles" class="section level2" number="9.5">
+<h2>
+<span class="header-section-number">9.5</span> Case Study: Predicting Risk Profiles<a class="anchor" aria-label="anchor" href="#case-study-predicting-risk-profiles"><i class="fas fa-link"></i></a>
+</h2>
+<p>In this case study, we apply the <strong>Naive Bayes classifier</strong> to predict financial risk using the real-world <code>risk</code> dataset from the <a href="https://CRAN.R-project.org/package=liver"><strong>liver</strong></a> package in R. The goal is to classify customers as either “<code>good risk</code>” or “<code>bad risk</code>” based on several predictors.</p>
+<div id="overview-of-the-dataset" class="section level3 unnumbered">
+<h3>Overview of the Dataset<a class="anchor" aria-label="anchor" href="#overview-of-the-dataset"><i class="fas fa-link"></i></a>
+</h3>
+<p>We start by loading the dataset and examining its structure:</p>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="chapter-bayes.html#cb131-1" tabindex="-1"></a><span class="fu">data</span>(risk)</span>
+<span id="cb131-2"><a href="chapter-bayes.html#cb131-2" tabindex="-1"></a></span>
+<span id="cb131-3"><a href="chapter-bayes.html#cb131-3" tabindex="-1"></a><span class="fu">str</span>(risk)</span>
+<span id="cb131-4"><a href="chapter-bayes.html#cb131-4" tabindex="-1"></a>   <span class="st">'data.frame'</span><span class="sc">:</span>    <span class="dv">246</span> obs. of  <span class="dv">6</span> variables<span class="sc">:</span></span>
+<span id="cb131-5"><a href="chapter-bayes.html#cb131-5" tabindex="-1"></a>    <span class="er">$</span> age     <span class="sc">:</span> int  <span class="dv">34</span> <span class="dv">37</span> <span class="dv">29</span> <span class="dv">33</span> <span class="dv">39</span> <span class="dv">28</span> <span class="dv">28</span> <span class="dv">25</span> <span class="dv">41</span> <span class="dv">26</span> ...</span>
+<span id="cb131-6"><a href="chapter-bayes.html#cb131-6" tabindex="-1"></a>    <span class="sc">$</span> marital <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">3</span> levels <span class="st">"single"</span>,<span class="st">"married"</span>,..<span class="sc">:</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> ...</span>
+<span id="cb131-7"><a href="chapter-bayes.html#cb131-7" tabindex="-1"></a>    <span class="sc">$</span> income  <span class="sc">:</span> num  <span class="dv">28061</span> <span class="dv">28009</span> <span class="dv">27615</span> <span class="dv">27287</span> <span class="dv">26954</span> ...</span>
+<span id="cb131-8"><a href="chapter-bayes.html#cb131-8" tabindex="-1"></a>    <span class="sc">$</span> mortgage<span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"yes"</span>,<span class="st">"no"</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> ...</span>
+<span id="cb131-9"><a href="chapter-bayes.html#cb131-9" tabindex="-1"></a>    <span class="sc">$</span> nr.loans<span class="sc">:</span> int  <span class="dv">3</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> ...</span>
+<span id="cb131-10"><a href="chapter-bayes.html#cb131-10" tabindex="-1"></a>    <span class="sc">$</span> risk    <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"good risk"</span>,<span class="st">"bad risk"</span><span class="sc">:</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> ...</span></code></pre></div>
+<p>The <code>risk</code> dataset is a <code>data.frame</code> with 6 variables and 246 observations. It contains 5 predictors and a target variable <code>risk</code>, which is a binary factor with two levels: “<code>good risk</code>” and “<code>bad risk</code>.” The predictors in this dataset are:</p>
+<ul>
+<li>
+<strong><code>age</code></strong>: Age in years.<br>
+</li>
+<li>
+<strong><code>marital</code></strong>: Marital status (levels: “<code>single</code>,” “<code>married</code>,” “<code>other</code>”).<br>
+</li>
+<li>
+<strong><code>income</code></strong>: Yearly income.<br>
+</li>
+<li>
+<strong><code>mortgage</code></strong>: Whether the customer has a mortgage (levels: “<code>yes</code>,” “<code>no</code>”).<br>
+</li>
+<li>
+<strong><code>nr_loans</code></strong>: Number of loans the customer has.<br>
+</li>
+<li>
+<strong><code>risk</code></strong>: The target variable (levels: “<code>good risk</code>,” “<code>bad risk</code>”).</li>
+</ul>
+<p>For additional details about the dataset, refer to its documentation <a href="https://search.r-project.org/CRAN/refmans/liver/html/risk.html">here</a>.</p>
+</div>
+<div id="data-preparation-1" class="section level3 unnumbered">
+<h3>Data Preparation<a class="anchor" aria-label="anchor" href="#data-preparation-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>To evaluate the model’s performance, we partition the dataset into <strong>training</strong> and <strong>testing</strong> sets, using an 80/20 split. This ensures that the classifier is trained on one subset and tested on unseen data:</p>
+<div class="sourceCode" id="cb132"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">data_sets</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/liver/man/partition.html">partition</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">risk</span>, ratio <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.8</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">train_set</span> <span class="op">=</span> <span class="va">data_sets</span><span class="op">$</span><span class="va">part1</span></span>
+<span><span class="va">test_set</span>  <span class="op">=</span> <span class="va">data_sets</span><span class="op">$</span><span class="va">part2</span></span>
+<span></span>
+<span><span class="va">actual_test</span> <span class="op">=</span> <span class="va">test_set</span><span class="op">$</span><span class="va">risk</span></span></code></pre></div>
+<p>The <code><a href="https://rdrr.io/r/base/Random.html">set.seed()</a></code> function ensures reproducibility of the data split.</p>
+<p>To validate the partitioning, we test whether the proportions of the <code>marital</code> variable are similar in the training and testing sets. We use a chi-squared test to compare the proportions across the three categories of <code>marital</code>:</p>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="chapter-bayes.html#cb133-1" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="at">x =</span> <span class="fu">table</span>(train_set<span class="sc">$</span>marital), <span class="at">y =</span> <span class="fu">table</span>(test_set<span class="sc">$</span>marital))</span>
+<span id="cb133-2"><a href="chapter-bayes.html#cb133-2" tabindex="-1"></a>   </span>
+<span id="cb133-3"><a href="chapter-bayes.html#cb133-3" tabindex="-1"></a>    Pearson<span class="st">'s Chi-squared test</span></span>
+<span id="cb133-4"><a href="chapter-bayes.html#cb133-4" tabindex="-1"></a><span class="st">   </span></span>
+<span id="cb133-5"><a href="chapter-bayes.html#cb133-5" tabindex="-1"></a><span class="st">   data:  table(train_set$marital) and table(test_set$marital)</span></span>
+<span id="cb133-6"><a href="chapter-bayes.html#cb133-6" tabindex="-1"></a><span class="st">   X-squared = 6, df = 4, p-value = 0.1991</span></span></code></pre></div>
+<p>The hypotheses for this test are:<br><span class="math display">\[
+\begin{aligned}
+H_0 &amp;: \text{The proportions of `marital` categories are the same in the training and test sets.} \\
+H_a &amp;: \text{At least one category has a different proportion.}
+\end{aligned}
+\]</span></p>
+<p>Since the p-value exceeds <span class="math inline">\(\alpha = 0.05\)</span>, we fail to reject <span class="math inline">\(H_0\)</span>. This indicates that the proportions of the <code>marital</code> categories are statistically similar between the training and test sets, confirming that the partitioning is valid.</p>
+</div>
+<div id="applying-the-naive-bayes-classifier" class="section level3 unnumbered">
+<h3>Applying the Naive Bayes Classifier<a class="anchor" aria-label="anchor" href="#applying-the-naive-bayes-classifier"><i class="fas fa-link"></i></a>
+</h3>
+<p>We specify the model formula, with <code>risk</code> as the target variable and all other predictors as features:</p>
+<div class="sourceCode" id="cb134"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">formula</span> <span class="op">=</span> <span class="va">risk</span> <span class="op">~</span> <span class="va">age</span> <span class="op">+</span> <span class="va">income</span> <span class="op">+</span> <span class="va">mortgage</span> <span class="op">+</span> <span class="va">nr.loans</span> <span class="op">+</span> <span class="va">marital</span></span></code></pre></div>
+<p>Using the <strong><code>naivebayes</code></strong> package, we train the Naive Bayes classifier on the training data:</p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="chapter-bayes.html#cb135-1" tabindex="-1"></a><span class="fu">library</span>(naivebayes)</span>
+<span id="cb135-2"><a href="chapter-bayes.html#cb135-2" tabindex="-1"></a></span>
+<span id="cb135-3"><a href="chapter-bayes.html#cb135-3" tabindex="-1"></a>naive_bayes <span class="ot">=</span> <span class="fu">naive_bayes</span>(formula, <span class="at">data =</span> train_set)</span>
+<span id="cb135-4"><a href="chapter-bayes.html#cb135-4" tabindex="-1"></a></span>
+<span id="cb135-5"><a href="chapter-bayes.html#cb135-5" tabindex="-1"></a>naive_bayes</span>
+<span id="cb135-6"><a href="chapter-bayes.html#cb135-6" tabindex="-1"></a>   </span>
+<span id="cb135-7"><a href="chapter-bayes.html#cb135-7" tabindex="-1"></a>   <span class="sc">==</span><span class="er">===============================</span> Naive Bayes <span class="sc">==</span><span class="er">================================</span></span>
+<span id="cb135-8"><a href="chapter-bayes.html#cb135-8" tabindex="-1"></a>   </span>
+<span id="cb135-9"><a href="chapter-bayes.html#cb135-9" tabindex="-1"></a>   Call<span class="sc">:</span></span>
+<span id="cb135-10"><a href="chapter-bayes.html#cb135-10" tabindex="-1"></a>   <span class="fu">naive_bayes.formula</span>(<span class="at">formula =</span> formula, <span class="at">data =</span> train_set)</span>
+<span id="cb135-11"><a href="chapter-bayes.html#cb135-11" tabindex="-1"></a>   </span>
+<span id="cb135-12"><a href="chapter-bayes.html#cb135-12" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
+<span id="cb135-13"><a href="chapter-bayes.html#cb135-13" tabindex="-1"></a>    </span>
+<span id="cb135-14"><a href="chapter-bayes.html#cb135-14" tabindex="-1"></a>   Laplace smoothing<span class="sc">:</span> <span class="dv">0</span></span>
+<span id="cb135-15"><a href="chapter-bayes.html#cb135-15" tabindex="-1"></a>   </span>
+<span id="cb135-16"><a href="chapter-bayes.html#cb135-16" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
+<span id="cb135-17"><a href="chapter-bayes.html#cb135-17" tabindex="-1"></a>    </span>
+<span id="cb135-18"><a href="chapter-bayes.html#cb135-18" tabindex="-1"></a>   A priori probabilities<span class="sc">:</span> </span>
+<span id="cb135-19"><a href="chapter-bayes.html#cb135-19" tabindex="-1"></a>   </span>
+<span id="cb135-20"><a href="chapter-bayes.html#cb135-20" tabindex="-1"></a>   good risk  bad risk </span>
+<span id="cb135-21"><a href="chapter-bayes.html#cb135-21" tabindex="-1"></a>   <span class="fl">0.4923858</span> <span class="fl">0.5076142</span> </span>
+<span id="cb135-22"><a href="chapter-bayes.html#cb135-22" tabindex="-1"></a>   </span>
+<span id="cb135-23"><a href="chapter-bayes.html#cb135-23" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
+<span id="cb135-24"><a href="chapter-bayes.html#cb135-24" tabindex="-1"></a>    </span>
+<span id="cb135-25"><a href="chapter-bayes.html#cb135-25" tabindex="-1"></a>   Tables<span class="sc">:</span> </span>
+<span id="cb135-26"><a href="chapter-bayes.html#cb135-26" tabindex="-1"></a>   </span>
+<span id="cb135-27"><a href="chapter-bayes.html#cb135-27" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
+<span id="cb135-28"><a href="chapter-bayes.html#cb135-28" tabindex="-1"></a>   <span class="er">::</span> <span class="fu">age</span> (Gaussian) </span>
+<span id="cb135-29"><a href="chapter-bayes.html#cb135-29" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
+<span id="cb135-30"><a href="chapter-bayes.html#cb135-30" tabindex="-1"></a>         </span>
+<span id="cb135-31"><a href="chapter-bayes.html#cb135-31" tabindex="-1"></a>   age    good risk  bad risk</span>
+<span id="cb135-32"><a href="chapter-bayes.html#cb135-32" tabindex="-1"></a>     mean <span class="fl">46.453608</span> <span class="fl">35.470000</span></span>
+<span id="cb135-33"><a href="chapter-bayes.html#cb135-33" tabindex="-1"></a>     sd    <span class="fl">8.563513</span>  <span class="fl">9.542520</span></span>
+<span id="cb135-34"><a href="chapter-bayes.html#cb135-34" tabindex="-1"></a>   </span>
+<span id="cb135-35"><a href="chapter-bayes.html#cb135-35" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
+<span id="cb135-36"><a href="chapter-bayes.html#cb135-36" tabindex="-1"></a>   <span class="er">::</span> <span class="fu">income</span> (Gaussian) </span>
+<span id="cb135-37"><a href="chapter-bayes.html#cb135-37" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
+<span id="cb135-38"><a href="chapter-bayes.html#cb135-38" tabindex="-1"></a>         </span>
+<span id="cb135-39"><a href="chapter-bayes.html#cb135-39" tabindex="-1"></a>   income good risk  bad risk</span>
+<span id="cb135-40"><a href="chapter-bayes.html#cb135-40" tabindex="-1"></a>     mean <span class="fl">48888.987</span> <span class="fl">27309.560</span></span>
+<span id="cb135-41"><a href="chapter-bayes.html#cb135-41" tabindex="-1"></a>     sd    <span class="fl">9986.962</span>  <span class="fl">7534.639</span></span>
+<span id="cb135-42"><a href="chapter-bayes.html#cb135-42" tabindex="-1"></a>   </span>
+<span id="cb135-43"><a href="chapter-bayes.html#cb135-43" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
+<span id="cb135-44"><a href="chapter-bayes.html#cb135-44" tabindex="-1"></a>   <span class="er">::</span> <span class="fu">mortgage</span> (Bernoulli) </span>
+<span id="cb135-45"><a href="chapter-bayes.html#cb135-45" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
+<span id="cb135-46"><a href="chapter-bayes.html#cb135-46" tabindex="-1"></a>           </span>
+<span id="cb135-47"><a href="chapter-bayes.html#cb135-47" tabindex="-1"></a>   mortgage good risk  bad risk</span>
+<span id="cb135-48"><a href="chapter-bayes.html#cb135-48" tabindex="-1"></a>        yes <span class="fl">0.6804124</span> <span class="fl">0.7400000</span></span>
+<span id="cb135-49"><a href="chapter-bayes.html#cb135-49" tabindex="-1"></a>        no  <span class="fl">0.3195876</span> <span class="fl">0.2600000</span></span>
+<span id="cb135-50"><a href="chapter-bayes.html#cb135-50" tabindex="-1"></a>   </span>
+<span id="cb135-51"><a href="chapter-bayes.html#cb135-51" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
+<span id="cb135-52"><a href="chapter-bayes.html#cb135-52" tabindex="-1"></a>   <span class="er">::</span> <span class="fu">nr.loans</span> (Gaussian) </span>
+<span id="cb135-53"><a href="chapter-bayes.html#cb135-53" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
+<span id="cb135-54"><a href="chapter-bayes.html#cb135-54" tabindex="-1"></a>           </span>
+<span id="cb135-55"><a href="chapter-bayes.html#cb135-55" tabindex="-1"></a>   nr.loans good risk  bad risk</span>
+<span id="cb135-56"><a href="chapter-bayes.html#cb135-56" tabindex="-1"></a>       mean <span class="fl">1.0309278</span> <span class="fl">1.6600000</span></span>
+<span id="cb135-57"><a href="chapter-bayes.html#cb135-57" tabindex="-1"></a>       sd   <span class="fl">0.7282057</span> <span class="fl">0.7550503</span></span>
+<span id="cb135-58"><a href="chapter-bayes.html#cb135-58" tabindex="-1"></a>   </span>
+<span id="cb135-59"><a href="chapter-bayes.html#cb135-59" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
+<span id="cb135-60"><a href="chapter-bayes.html#cb135-60" tabindex="-1"></a>   <span class="er">::</span> <span class="fu">marital</span> (Categorical) </span>
+<span id="cb135-61"><a href="chapter-bayes.html#cb135-61" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
+<span id="cb135-62"><a href="chapter-bayes.html#cb135-62" tabindex="-1"></a>            </span>
+<span id="cb135-63"><a href="chapter-bayes.html#cb135-63" tabindex="-1"></a>   marital    good risk   bad risk</span>
+<span id="cb135-64"><a href="chapter-bayes.html#cb135-64" tabindex="-1"></a>     single  <span class="fl">0.38144330</span> <span class="fl">0.49000000</span></span>
+<span id="cb135-65"><a href="chapter-bayes.html#cb135-65" tabindex="-1"></a>     married <span class="fl">0.52577320</span> <span class="fl">0.11000000</span></span>
+<span id="cb135-66"><a href="chapter-bayes.html#cb135-66" tabindex="-1"></a>     other   <span class="fl">0.09278351</span> <span class="fl">0.40000000</span></span>
+<span id="cb135-67"><a href="chapter-bayes.html#cb135-67" tabindex="-1"></a>   </span>
+<span id="cb135-68"><a href="chapter-bayes.html#cb135-68" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span></span></code></pre></div>
+<p>The <code><a href="https://majkamichal.github.io/naivebayes/reference/naive_bayes.html">naive_bayes()</a></code> function computes the conditional probabilities for each feature given the target class. For categorical predictors (e.g., <code>marital</code>, <code>mortgage</code>), it calculates class-conditional probabilities. For continuous predictors (e.g., <code>age</code>, <code>income</code>, <code>nr.loans</code>), it assumes a Gaussian distribution and calculates the mean and standard deviation for each class.</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="chapter-bayes.html#cb136-1" tabindex="-1"></a><span class="fu">summary</span>(naive_bayes)</span>
+<span id="cb136-2"><a href="chapter-bayes.html#cb136-2" tabindex="-1"></a>   </span>
+<span id="cb136-3"><a href="chapter-bayes.html#cb136-3" tabindex="-1"></a>   <span class="sc">==</span><span class="er">===============================</span> Naive Bayes <span class="sc">==</span><span class="er">================================</span> </span>
+<span id="cb136-4"><a href="chapter-bayes.html#cb136-4" tabindex="-1"></a>    </span>
+<span id="cb136-5"><a href="chapter-bayes.html#cb136-5" tabindex="-1"></a>   <span class="sc">-</span> Call<span class="sc">:</span> <span class="fu">naive_bayes.formula</span>(<span class="at">formula =</span> formula, <span class="at">data =</span> train_set) </span>
+<span id="cb136-6"><a href="chapter-bayes.html#cb136-6" tabindex="-1"></a>   <span class="sc">-</span> Laplace<span class="sc">:</span> <span class="dv">0</span> </span>
+<span id="cb136-7"><a href="chapter-bayes.html#cb136-7" tabindex="-1"></a>   <span class="sc">-</span> Classes<span class="sc">:</span> <span class="dv">2</span> </span>
+<span id="cb136-8"><a href="chapter-bayes.html#cb136-8" tabindex="-1"></a>   <span class="sc">-</span> Samples<span class="sc">:</span> <span class="dv">197</span> </span>
+<span id="cb136-9"><a href="chapter-bayes.html#cb136-9" tabindex="-1"></a>   <span class="sc">-</span> Features<span class="sc">:</span> <span class="dv">5</span> </span>
+<span id="cb136-10"><a href="chapter-bayes.html#cb136-10" tabindex="-1"></a>   <span class="sc">-</span> Conditional distributions<span class="sc">:</span> </span>
+<span id="cb136-11"><a href="chapter-bayes.html#cb136-11" tabindex="-1"></a>       <span class="sc">-</span> Bernoulli<span class="sc">:</span> <span class="dv">1</span></span>
+<span id="cb136-12"><a href="chapter-bayes.html#cb136-12" tabindex="-1"></a>       <span class="sc">-</span> Categorical<span class="sc">:</span> <span class="dv">1</span></span>
+<span id="cb136-13"><a href="chapter-bayes.html#cb136-13" tabindex="-1"></a>       <span class="sc">-</span> Gaussian<span class="sc">:</span> <span class="dv">3</span></span>
+<span id="cb136-14"><a href="chapter-bayes.html#cb136-14" tabindex="-1"></a>   <span class="sc">-</span> Prior probabilities<span class="sc">:</span> </span>
+<span id="cb136-15"><a href="chapter-bayes.html#cb136-15" tabindex="-1"></a>       <span class="sc">-</span> good risk<span class="sc">:</span> <span class="fl">0.4924</span></span>
+<span id="cb136-16"><a href="chapter-bayes.html#cb136-16" tabindex="-1"></a>       <span class="sc">-</span> bad risk<span class="sc">:</span> <span class="fl">0.5076</span></span>
+<span id="cb136-17"><a href="chapter-bayes.html#cb136-17" tabindex="-1"></a>   </span>
+<span id="cb136-18"><a href="chapter-bayes.html#cb136-18" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span></span></code></pre></div>
+<p>The summary output provides the following details:</p>
+<ul>
+<li>
+<strong>Categorical predictors</strong> (e.g., <code>marital</code>, <code>mortgage</code>): Class-conditional probabilities.<br>
+</li>
+<li>
+<strong>Continuous predictors</strong> (e.g., <code>age</code>, <code>income</code>, <code>nr.loans</code>): Means and standard deviations for the Gaussian distributions.</li>
+</ul>
+<p>This information forms the basis for making predictions with the trained model.</p>
+</div>
+<div id="prediction-and-model-evaluation" class="section level3 unnumbered">
+<h3>Prediction and Model Evaluation<a class="anchor" aria-label="anchor" href="#prediction-and-model-evaluation"><i class="fas fa-link"></i></a>
+</h3>
+<p>We now use the trained model to predict the <strong>posterior probabilities</strong> for the test set:</p>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="chapter-bayes.html#cb137-1" tabindex="-1"></a>prob_naive_bayes <span class="ot">=</span> <span class="fu">predict</span>(naive_bayes, test_set, <span class="at">type =</span> <span class="st">"prob"</span>)</span>
+<span id="cb137-2"><a href="chapter-bayes.html#cb137-2" tabindex="-1"></a></span>
+<span id="cb137-3"><a href="chapter-bayes.html#cb137-3" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">head</span>(prob_naive_bayes, <span class="at">n =</span> <span class="dv">10</span>), <span class="dv">3</span>)</span>
+<span id="cb137-4"><a href="chapter-bayes.html#cb137-4" tabindex="-1"></a>         good risk bad risk</span>
+<span id="cb137-5"><a href="chapter-bayes.html#cb137-5" tabindex="-1"></a>    [<span class="dv">1</span>,]     <span class="fl">0.001</span>    <span class="fl">0.999</span></span>
+<span id="cb137-6"><a href="chapter-bayes.html#cb137-6" tabindex="-1"></a>    [<span class="dv">2</span>,]     <span class="fl">0.013</span>    <span class="fl">0.987</span></span>
+<span id="cb137-7"><a href="chapter-bayes.html#cb137-7" tabindex="-1"></a>    [<span class="dv">3</span>,]     <span class="fl">0.000</span>    <span class="fl">1.000</span></span>
+<span id="cb137-8"><a href="chapter-bayes.html#cb137-8" tabindex="-1"></a>    [<span class="dv">4</span>,]     <span class="fl">0.184</span>    <span class="fl">0.816</span></span>
+<span id="cb137-9"><a href="chapter-bayes.html#cb137-9" tabindex="-1"></a>    [<span class="dv">5</span>,]     <span class="fl">0.614</span>    <span class="fl">0.386</span></span>
+<span id="cb137-10"><a href="chapter-bayes.html#cb137-10" tabindex="-1"></a>    [<span class="dv">6</span>,]     <span class="fl">0.193</span>    <span class="fl">0.807</span></span>
+<span id="cb137-11"><a href="chapter-bayes.html#cb137-11" tabindex="-1"></a>    [<span class="dv">7</span>,]     <span class="fl">0.002</span>    <span class="fl">0.998</span></span>
+<span id="cb137-12"><a href="chapter-bayes.html#cb137-12" tabindex="-1"></a>    [<span class="dv">8</span>,]     <span class="fl">0.002</span>    <span class="fl">0.998</span></span>
+<span id="cb137-13"><a href="chapter-bayes.html#cb137-13" tabindex="-1"></a>    [<span class="dv">9</span>,]     <span class="fl">0.378</span>    <span class="fl">0.622</span></span>
+<span id="cb137-14"><a href="chapter-bayes.html#cb137-14" tabindex="-1"></a>   [<span class="dv">10</span>,]     <span class="fl">0.283</span>    <span class="fl">0.717</span></span></code></pre></div>
+<p>The output contains the predicted probabilities for each class:</p>
+<ul>
+<li>The first column shows the probability of “<code>good risk</code>.”<br>
+</li>
+<li>The second column shows the probability of “<code>bad risk</code>.”</li>
+</ul>
+<p>For example, if the first row has a probability of 0.995 for “<code>bad risk</code>,” this indicates a high likelihood that the first customer in the test set belongs to the “<code>bad risk</code>” class.</p>
+<div id="confusion-matrix-1" class="section level4 unnumbered">
+<h4>Confusion Matrix<a class="anchor" aria-label="anchor" href="#confusion-matrix-1"><i class="fas fa-link"></i></a>
+</h4>
+<p>To evaluate the classification performance, we compute the confusion matrix using a cutoff of 0.5:</p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="chapter-bayes.html#cb138-1" tabindex="-1"></a>prob_naive_bayes <span class="ot">=</span> prob_naive_bayes[, <span class="dv">1</span>] <span class="co"># Probability of "good risk"</span></span>
+<span id="cb138-2"><a href="chapter-bayes.html#cb138-2" tabindex="-1"></a></span>
+<span id="cb138-3"><a href="chapter-bayes.html#cb138-3" tabindex="-1"></a><span class="fu">conf.mat</span>(prob_naive_bayes, actual_test, <span class="at">cutoff =</span> <span class="fl">0.5</span>, </span>
+<span id="cb138-4"><a href="chapter-bayes.html#cb138-4" tabindex="-1"></a>         <span class="at">reference =</span> <span class="st">"good risk"</span>)</span>
+<span id="cb138-5"><a href="chapter-bayes.html#cb138-5" tabindex="-1"></a>              Actual</span>
+<span id="cb138-6"><a href="chapter-bayes.html#cb138-6" tabindex="-1"></a>   Predict     good risk bad risk</span>
+<span id="cb138-7"><a href="chapter-bayes.html#cb138-7" tabindex="-1"></a>     good risk        <span class="dv">24</span>        <span class="dv">3</span></span>
+<span id="cb138-8"><a href="chapter-bayes.html#cb138-8" tabindex="-1"></a>     bad risk          <span class="dv">2</span>       <span class="dv">20</span></span>
+<span id="cb138-9"><a href="chapter-bayes.html#cb138-9" tabindex="-1"></a></span>
+<span id="cb138-10"><a href="chapter-bayes.html#cb138-10" tabindex="-1"></a><span class="fu">conf.mat.plot</span>(prob_naive_bayes, actual_test, <span class="at">cutoff =</span> <span class="fl">0.5</span>, </span>
+<span id="cb138-11"><a href="chapter-bayes.html#cb138-11" tabindex="-1"></a>              <span class="at">reference =</span> <span class="st">"good risk"</span>)</span></code></pre></div>
+<div class="inline-figure"><img src="bayes_files/figure-html/unnamed-chunk-16-1.png" width="65%" style="display: block; margin: auto;"></div>
+<p>The confusion matrix summarizes the model’s predictions:</p>
+<ul>
+<li>
+<strong>True Positives (TP)</strong>: Correctly predicted “<code>good risk</code>.”<br>
+</li>
+<li>
+<strong>True Negatives (TN)</strong>: Correctly predicted “<code>bad risk</code>.”<br>
+</li>
+<li>
+<strong>False Positives (FP)</strong>: Predicted “<code>good risk</code>” when it was “<code>bad risk</code>.”<br>
+</li>
+<li>
+<strong>False Negatives (FN)</strong>: Predicted “<code>bad risk</code>” when it was “<code>good risk</code>.”</li>
+</ul>
+<p>The values in the confusion matrix reveal the model’s accuracy and types of errors at a cutoff of 0.5. For example, the classifier makes “24 + 20” correct predictions and “3 + 2” incorrect predictions.</p>
+</div>
+<div id="roc-curve-and-auc-1" class="section level4 unnumbered">
+<h4>ROC Curve and AUC<a class="anchor" aria-label="anchor" href="#roc-curve-and-auc-1"><i class="fas fa-link"></i></a>
+</h4>
+<p>To further evaluate the model, we compute the <strong>ROC curve</strong> and <strong>AUC</strong> value:</p>
+<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">roc_naive_bayes</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">actual_test</span>, <span class="va">prob_naive_bayes</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/pROC/man/ggroc.html">ggroc</a></span><span class="op">(</span><span class="va">roc_naive_bayes</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="bayes_files/figure-html/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;"></div>
+<p>The ROC curve illustrates the trade-off between sensitivity and specificity at different thresholds. The closer the curve is to the top-left corner, the better the model’s performance.</p>
+<p>Finally, we calculate the <strong>AUC</strong> value:</p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="chapter-bayes.html#cb140-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">auc</span>(roc_naive_bayes), <span class="dv">3</span>)</span>
+<span id="cb140-2"><a href="chapter-bayes.html#cb140-2" tabindex="-1"></a>   [<span class="dv">1</span>] <span class="fl">0.957</span></span></code></pre></div>
+<p>The AUC value, 0.957, quantifies the model’s ability to rank positive instances higher than negative ones. A value closer to 1 indicates excellent performance, while a value of 0.5 represents random guessing.</p>
+<p>By applying the Naive Bayes classifier to the <code>risk</code> dataset, we demonstrated its ability to efficiently classify customers as “<code>good risk</code>” or “<code>bad risk</code>.” Through metrics such as the confusion matrix, ROC curve, and AUC, we evaluated the model’s predictive power and identified its strengths and limitations. This process highlights the simplicity and interpretability of Naive Bayes, making it a practical choice for many real-world classification problems.</p>
+</div>
+</div>
+</div>
+<div id="exercises-4" class="section level2" number="9.6">
+<h2>
+<span class="header-section-number">9.6</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-4"><i class="fas fa-link"></i></a>
+</h2>
+<p>To do ..</p>
+
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="chapter-evaluation.html"><span class="header-section-number">8</span> Model Evaluation</a></div>
+<div class="next"><a href="chapter-regression.html"><span class="header-section-number">10</span> Regression Modeling: From Basics to Advanced Techniques</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li>
+<a class="nav-link" href="#chapter-bayes"><span class="header-section-number">9</span> Naive Bayes Classifier</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#strengths-and-limitations">Strengths and Limitations</a></li>
+<li><a class="nav-link" href="#what-will-this-chapter-cover">What Will This Chapter Cover?</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#bayes-theorem-and-probabilistic-foundations"><span class="header-section-number">9.1</span> Bayes’ Theorem and Probabilistic Foundations</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#the-essence-of-bayes-theorem">The Essence of Bayes’ Theorem</a></li>
+<li><a class="nav-link" href="#how-does-bayes-theorem-work">How Does Bayes’ Theorem Work?</a></li>
+<li><a class="nav-link" href="#a-gateway-to-naive-bayes">A Gateway to Naive Bayes</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#why-is-it-called-naive"><span class="header-section-number">9.2</span> Why is it Called “Naive”?</a></li>
+<li><a class="nav-link" href="#the-laplace-smoothing-technique"><span class="header-section-number">9.3</span> The Laplace Smoothing Technique</a></li>
+<li><a class="nav-link" href="#types-of-naive-bayes-classifiers"><span class="header-section-number">9.4</span> Types of Naive Bayes Classifiers</a></li>
+<li>
+<a class="nav-link" href="#case-study-predicting-risk-profiles"><span class="header-section-number">9.5</span> Case Study: Predicting Risk Profiles</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#overview-of-the-dataset">Overview of the Dataset</a></li>
+<li><a class="nav-link" href="#data-preparation-1">Data Preparation</a></li>
+<li><a class="nav-link" href="#applying-the-naive-bayes-classifier">Applying the Naive Bayes Classifier</a></li>
+<li><a class="nav-link" href="#prediction-and-model-evaluation">Prediction and Model Evaluation</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#exercises-4"><span class="header-section-number">9.6</span> Exercises</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/RezaMoammadi/Book-Data-Science/blob/master/bayes.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/RezaMoammadi/Book-Data-Science/edit/master/bayes.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Uncovering Data Science with R</strong>" was written by . It was last built on 2025-02-06.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

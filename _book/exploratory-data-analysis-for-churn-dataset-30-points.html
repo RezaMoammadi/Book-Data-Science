@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Chapter 5 Exploratory Data Analysis for churn dataset (30 points) | Uncovering Data Science with R</title>
+
+  
+   
+   <meta name="generator" content="placeholder" />
+  <meta property="og:title" content="Chapter 5 Exploratory Data Analysis for churn dataset (30 points) | Uncovering Data Science with R" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://uncovering-data-science.netlify.app" />
+  <meta property="og:image" content="https://uncovering-data-science.netlify.app/images/cover.jpg" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Exploratory Data Analysis for churn dataset (30 points) | Uncovering Data Science with R" />
+  
+  
+  <meta name="twitter:image" content="https://uncovering-data-science.netlify.app/images/cover.jpg" />
+  <!-- JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script>
+    <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet" />
+    <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script>
+    <script src="libs/bs3compat-0.5.1/transition.js"></script>
+    <script src="libs/bs3compat-0.5.1/tabs.js"></script>
+    <script src="libs/bs3compat-0.5.1/bs3compat.js"></script>
+    <link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet" />
+    <script src="libs/bs4_book-1.0.0/bs4_book.js"></script>
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script>
+
+  <!-- CSS -->
+  <style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+      <link rel="stylesheet" href="style.css" />
+  
+</head>
+
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book">
+    <a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Uncovering Data Science with R</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+      </form>
+
+      <nav aria-label="Table of contents">
+        <h2>Table of contents</h2>
+        <div id="book-toc"></div>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="#">View book source <i class="fab fa-github"></i></a></li></p>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="col-sm-12 col-md-9 col-lg-7" id="content">
+<div id="exploratory-data-analysis-for-churn-dataset-30-points" class="section level1" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Exploratory Data Analysis for churn dataset (30 points)</h1>
+<p>Customer Churn is a topic that matters to organizations of all sizes. Customer churn occurs when customers stop doing business with a company, also known as customer attrition. Churn (loss of customers to competition) is a major problem for telecom companies because it is well known that it is more expensive to acquire a new customer than to keep an existing customer. Here, we use Exploratory Data Analysis to explore the <em>churn</em> dataset. Basically, we want to visualize and identify which factors contribute to customer churn.</p>
+<p><strong>Dataset</strong>: The <em>churn</em> data set is available in the <strong>R</strong> package <a href="https://CRAN.R-project.org/package=liver"><em>liver</em></a>. The data set contains ‘5000’ rows (customers) and 20 columns (features). The last column called <em>churn</em> is the target variable which indicates whether customers churned (left the company) or not. If you want to know more about the dataset just type <code>?churn</code> in your <strong>R</strong> console. You also can find more information about this dataset <a href="https://rdrr.io/cran/liver/man/churn.html">here</a>.</p>
+<p>Here we need to load the following <strong>R</strong> packages:</p>
+<ul>
+<li><a href="https://CRAN.R-project.org/package=ggplot2"><strong>ggplot2</strong></a>: we use this package to visualize our data in <strong>R</strong>.</li>
+<li><a href="https://CRAN.R-project.org/package=liver"><strong>liver</strong></a>: the <em>churn</em> dataset is in this package.</li>
+<li><a href="https://CRAN.R-project.org/package=GGally"><strong>GGally</strong></a>: We use the <code>ggcorr()</code> function from this package.</li>
+<li><a href="https://CRAN.R-project.org/package=psych"><strong>psych</strong></a>: We use the <code>pairs.panels()</code> function from this package.</li>
+<li><a href="https://CRAN.R-project.org/package=ggcorrplot"><strong>ggcorrplot</strong></a>: We use the <code>ggcorrplot()</code> function from this package.</li>
+</ul>
+<p><strong>NOTE:</strong> If you have not installed those two packages, you should first install them.</p>
+<p>To load the packages:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)  </span>
+<span id="cb1-2"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(liver)  </span>
+<span id="cb1-3"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb1-3" tabindex="-1"></a><span class="fu">library</span>(GGally)  </span>
+<span id="cb1-4"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb1-4" tabindex="-1"></a><span class="fu">library</span>(psych)  </span>
+<span id="cb1-5"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb1-5" tabindex="-1"></a><span class="fu">library</span>(ggcorrplot)</span></code></pre></div>
+<div id="business-understanding-1" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Business Understanding</h2>
+<p>Companies are interested to know who is gonna get churned so they can proactively go to the customer to provide them better services and turn customers’ decisions in the opposite direction. Companies are interested to know:</p>
+<ul>
+<li><strong>What</strong> are the causes or reasons of losing customers?</li>
+<li><strong>Why</strong> are we losing them?</li>
+<li><strong>How</strong> do we stop them from leaving the company?</li>
+</ul>
+<p>To answer these questions here, as a practical example, we use the <em>churn</em> data set is available in the <strong>R</strong> package <a href="https://CRAN.R-project.org/package=liver"><em>liver</em></a>.</p>
+</div>
+<div id="data-understanding" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Data Understanding</h2>
+<p>This dataset comes from IBM Sample Data Sets. The data set contains 5000 rows (customers) and 20 columns (features). The “churn” column is our target which indicates whether the customer churned (left the company) or not.
+The 20 variables are:</p>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li><code>state</code>: Categorical, for the 51 states and the District of Columbia.</li>
+<li><code>area.code</code>: Categorical.</li>
+<li><code>account.length</code>: count, how long account has been active.</li>
+<li><code>voice.plan</code>: Categorical, yes or no, voice mail plan.</li>
+<li><code>voice.messages</code>: Count, number of voice mail messages.</li>
+<li><code>intl.plan</code>: Categorical, yes or no, international plan.</li>
+<li><code>intl.mins</code>: Continuous, minutes customer used service to make international calls.</li>
+<li><code>intl.calls</code>: Count, total number of international calls.</li>
+<li><code>intl.charge</code>: Continuous, total international charge.</li>
+<li><code>day.mins</code>: Continuous, minutes customer used service during the day.</li>
+<li><code>day.calls</code>: Count, total number of calls during the day.</li>
+<li><code>day.charge</code>: Continuous, total charge during the day.</li>
+<li><code>eve.mins</code>: Continuous, minutes customer used service during the evening.</li>
+<li><code>eve.calls</code>: Count, total number of calls during the evening.</li>
+<li><code>eve.charge</code>: Continuous, total charge during the evening.</li>
+<li><code>night.mins</code>: Continuous, minutes customer used service during the night.</li>
+<li><code>night.calls</code>: Count, total number of calls during the night.</li>
+<li><code>night.charge</code>: Continuous, total charge during the night.</li>
+<li><code>customer.calls</code>: Count, number of calls to customer service.</li>
+<li><code>churn</code>: Categorical, yes or no. Indicator of whether the customer has left the company (yes or no).</li>
+</ol>
+</blockquote>
+<p>We import the dataset in <strong>R</strong> as follows:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb2-1" tabindex="-1"></a><span class="fu">data</span>(churn) <span class="co"># load the &quot;churn&quot; dataset</span></span></code></pre></div>
+<p>To see the overview of the dataset in <strong>R</strong> we could use the following functions:</p>
+<ul>
+<li><code>str()</code> to see a compact display of the structure of the data.</li>
+<li><code>View()</code> to see spreadsheet-style data.</li>
+<li><code>head()</code> to see the first part of the data (first 6 rows of the data).</li>
+<li><code>summary()</code> to see the summary of each variable.</li>
+<li><code>skim()</code> from the package <em>liver</em> package.</li>
+</ul>
+<p>To see the overview of the dataset in <strong>R</strong> we are using function <code>str()</code> as follows:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb3-1" tabindex="-1"></a><span class="fu">str</span>(churn)   <span class="co"># Compactly display the structure of the data</span></span>
+<span id="cb3-2"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb3-2" tabindex="-1"></a>   <span class="st">&#39;data.frame&#39;</span><span class="sc">:</span>    <span class="dv">5000</span> obs. of  <span class="dv">20</span> variables<span class="sc">:</span></span>
+<span id="cb3-3"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb3-3" tabindex="-1"></a>    <span class="er">$</span> state         <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">51</span> levels <span class="st">&quot;AK&quot;</span>,<span class="st">&quot;AL&quot;</span>,<span class="st">&quot;AR&quot;</span>,..<span class="sc">:</span> <span class="dv">17</span> <span class="dv">36</span> <span class="dv">32</span> <span class="dv">36</span> <span class="dv">37</span> <span class="dv">2</span> <span class="dv">20</span> <span class="dv">25</span> <span class="dv">19</span> <span class="dv">50</span> ...</span>
+<span id="cb3-4"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb3-4" tabindex="-1"></a>    <span class="sc">$</span> area.code     <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">3</span> levels <span class="st">&quot;area_code_408&quot;</span>,..<span class="sc">:</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> ...</span>
+<span id="cb3-5"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb3-5" tabindex="-1"></a>    <span class="sc">$</span> account.length<span class="sc">:</span> int  <span class="dv">128</span> <span class="dv">107</span> <span class="dv">137</span> <span class="dv">84</span> <span class="dv">75</span> <span class="dv">118</span> <span class="dv">121</span> <span class="dv">147</span> <span class="dv">117</span> <span class="dv">141</span> ...</span>
+<span id="cb3-6"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb3-6" tabindex="-1"></a>    <span class="sc">$</span> voice.plan    <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">&quot;yes&quot;</span>,<span class="st">&quot;no&quot;</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> ...</span>
+<span id="cb3-7"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb3-7" tabindex="-1"></a>    <span class="sc">$</span> voice.messages<span class="sc">:</span> int  <span class="dv">25</span> <span class="dv">26</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">24</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">37</span> ...</span>
+<span id="cb3-8"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb3-8" tabindex="-1"></a>    <span class="sc">$</span> intl.plan     <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">&quot;yes&quot;</span>,<span class="st">&quot;no&quot;</span><span class="sc">:</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> ...</span>
+<span id="cb3-9"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb3-9" tabindex="-1"></a>    <span class="sc">$</span> intl.mins     <span class="sc">:</span> num  <span class="dv">10</span> <span class="fl">13.7</span> <span class="fl">12.2</span> <span class="fl">6.6</span> <span class="fl">10.1</span> <span class="fl">6.3</span> <span class="fl">7.5</span> <span class="fl">7.1</span> <span class="fl">8.7</span> <span class="fl">11.2</span> ...</span>
+<span id="cb3-10"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb3-10" tabindex="-1"></a>    <span class="sc">$</span> intl.calls    <span class="sc">:</span> int  <span class="dv">3</span> <span class="dv">3</span> <span class="dv">5</span> <span class="dv">7</span> <span class="dv">3</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">6</span> <span class="dv">4</span> <span class="dv">5</span> ...</span>
+<span id="cb3-11"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb3-11" tabindex="-1"></a>    <span class="sc">$</span> intl.charge   <span class="sc">:</span> num  <span class="fl">2.7</span> <span class="fl">3.7</span> <span class="fl">3.29</span> <span class="fl">1.78</span> <span class="fl">2.73</span> <span class="fl">1.7</span> <span class="fl">2.03</span> <span class="fl">1.92</span> <span class="fl">2.35</span> <span class="fl">3.02</span> ...</span>
+<span id="cb3-12"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb3-12" tabindex="-1"></a>    <span class="sc">$</span> day.mins      <span class="sc">:</span> num  <span class="dv">265</span> <span class="dv">162</span> <span class="dv">243</span> <span class="dv">299</span> <span class="dv">167</span> ...</span>
+<span id="cb3-13"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb3-13" tabindex="-1"></a>    <span class="sc">$</span> day.calls     <span class="sc">:</span> int  <span class="dv">110</span> <span class="dv">123</span> <span class="dv">114</span> <span class="dv">71</span> <span class="dv">113</span> <span class="dv">98</span> <span class="dv">88</span> <span class="dv">79</span> <span class="dv">97</span> <span class="dv">84</span> ...</span>
+<span id="cb3-14"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb3-14" tabindex="-1"></a>    <span class="sc">$</span> day.charge    <span class="sc">:</span> num  <span class="fl">45.1</span> <span class="fl">27.5</span> <span class="fl">41.4</span> <span class="fl">50.9</span> <span class="fl">28.3</span> ...</span>
+<span id="cb3-15"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb3-15" tabindex="-1"></a>    <span class="sc">$</span> eve.mins      <span class="sc">:</span> num  <span class="fl">197.4</span> <span class="fl">195.5</span> <span class="fl">121.2</span> <span class="fl">61.9</span> <span class="fl">148.3</span> ...</span>
+<span id="cb3-16"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb3-16" tabindex="-1"></a>    <span class="sc">$</span> eve.calls     <span class="sc">:</span> int  <span class="dv">99</span> <span class="dv">103</span> <span class="dv">110</span> <span class="dv">88</span> <span class="dv">122</span> <span class="dv">101</span> <span class="dv">108</span> <span class="dv">94</span> <span class="dv">80</span> <span class="dv">111</span> ...</span>
+<span id="cb3-17"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb3-17" tabindex="-1"></a>    <span class="sc">$</span> eve.charge    <span class="sc">:</span> num  <span class="fl">16.78</span> <span class="fl">16.62</span> <span class="fl">10.3</span> <span class="fl">5.26</span> <span class="fl">12.61</span> ...</span>
+<span id="cb3-18"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb3-18" tabindex="-1"></a>    <span class="sc">$</span> night.mins    <span class="sc">:</span> num  <span class="dv">245</span> <span class="dv">254</span> <span class="dv">163</span> <span class="dv">197</span> <span class="dv">187</span> ...</span>
+<span id="cb3-19"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb3-19" tabindex="-1"></a>    <span class="sc">$</span> night.calls   <span class="sc">:</span> int  <span class="dv">91</span> <span class="dv">103</span> <span class="dv">104</span> <span class="dv">89</span> <span class="dv">121</span> <span class="dv">118</span> <span class="dv">118</span> <span class="dv">96</span> <span class="dv">90</span> <span class="dv">97</span> ...</span>
+<span id="cb3-20"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb3-20" tabindex="-1"></a>    <span class="sc">$</span> night.charge  <span class="sc">:</span> num  <span class="fl">11.01</span> <span class="fl">11.45</span> <span class="fl">7.32</span> <span class="fl">8.86</span> <span class="fl">8.41</span> ...</span>
+<span id="cb3-21"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb3-21" tabindex="-1"></a>    <span class="sc">$</span> customer.calls<span class="sc">:</span> int  <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">0</span> ...</span>
+<span id="cb3-22"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb3-22" tabindex="-1"></a>    <span class="sc">$</span> churn         <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">&quot;yes&quot;</span>,<span class="st">&quot;no&quot;</span><span class="sc">:</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> ...</span></code></pre></div>
+<p>It shows that data are as a <em>data.frame</em> object in <strong>R</strong> with 5000 observations and 20 variables. The last column (with name <em>churn</em>) is the <em>target variable</em> that indicates whether customers churned (left the company) or not.</p>
+<p>By using the function <code>summary()</code> in <strong>R</strong>, we can see the summary of the dataset as follows</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-1" tabindex="-1"></a><span class="fu">summary</span>(churn)</span>
+<span id="cb4-2"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-2" tabindex="-1"></a>        state              area.code    account.length  voice.plan</span>
+<span id="cb4-3"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-3" tabindex="-1"></a>    WV     <span class="sc">:</span> <span class="dv">158</span>   area_code_408<span class="sc">:</span><span class="dv">1259</span>   Min.   <span class="sc">:</span>  <span class="fl">1.0</span>   yes<span class="sc">:</span><span class="dv">1323</span>  </span>
+<span id="cb4-4"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-4" tabindex="-1"></a>    MN     <span class="sc">:</span> <span class="dv">125</span>   area_code_415<span class="sc">:</span><span class="dv">2495</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span> <span class="fl">73.0</span>   no <span class="sc">:</span><span class="dv">3677</span>  </span>
+<span id="cb4-5"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-5" tabindex="-1"></a>    AL     <span class="sc">:</span> <span class="dv">124</span>   area_code_510<span class="sc">:</span><span class="dv">1246</span>   Median <span class="sc">:</span><span class="fl">100.0</span>             </span>
+<span id="cb4-6"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-6" tabindex="-1"></a>    ID     <span class="sc">:</span> <span class="dv">119</span>                        Mean   <span class="sc">:</span><span class="fl">100.3</span>             </span>
+<span id="cb4-7"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-7" tabindex="-1"></a>    VA     <span class="sc">:</span> <span class="dv">118</span>                        <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">127.0</span>             </span>
+<span id="cb4-8"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-8" tabindex="-1"></a>    OH     <span class="sc">:</span> <span class="dv">116</span>                        Max.   <span class="sc">:</span><span class="fl">243.0</span>             </span>
+<span id="cb4-9"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-9" tabindex="-1"></a>    (Other)<span class="sc">:</span><span class="dv">4240</span>                                                  </span>
+<span id="cb4-10"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-10" tabindex="-1"></a>    voice.messages   intl.plan    intl.mins       intl.calls      intl.charge   </span>
+<span id="cb4-11"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-11" tabindex="-1"></a>    Min.   <span class="sc">:</span> <span class="fl">0.000</span>   yes<span class="sc">:</span> <span class="dv">473</span>   Min.   <span class="sc">:</span> <span class="fl">0.00</span>   Min.   <span class="sc">:</span> <span class="fl">0.000</span>   Min.   <span class="sc">:</span><span class="fl">0.000</span>  </span>
+<span id="cb4-12"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-12" tabindex="-1"></a>    <span class="dv">1</span>st Qu.<span class="sc">:</span> <span class="fl">0.000</span>   no <span class="sc">:</span><span class="dv">4527</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span> <span class="fl">8.50</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span> <span class="fl">3.000</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">2.300</span>  </span>
+<span id="cb4-13"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-13" tabindex="-1"></a>    Median <span class="sc">:</span> <span class="fl">0.000</span>              Median <span class="sc">:</span><span class="fl">10.30</span>   Median <span class="sc">:</span> <span class="fl">4.000</span>   Median <span class="sc">:</span><span class="fl">2.780</span>  </span>
+<span id="cb4-14"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-14" tabindex="-1"></a>    Mean   <span class="sc">:</span> <span class="fl">7.755</span>              Mean   <span class="sc">:</span><span class="fl">10.26</span>   Mean   <span class="sc">:</span> <span class="fl">4.435</span>   Mean   <span class="sc">:</span><span class="fl">2.771</span>  </span>
+<span id="cb4-15"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-15" tabindex="-1"></a>    <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">17.000</span>              <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">12.00</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span> <span class="fl">6.000</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">3.240</span>  </span>
+<span id="cb4-16"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-16" tabindex="-1"></a>    Max.   <span class="sc">:</span><span class="fl">52.000</span>              Max.   <span class="sc">:</span><span class="fl">20.00</span>   Max.   <span class="sc">:</span><span class="fl">20.000</span>   Max.   <span class="sc">:</span><span class="fl">5.400</span>  </span>
+<span id="cb4-17"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-17" tabindex="-1"></a>                                                                                </span>
+<span id="cb4-18"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-18" tabindex="-1"></a>       day.mins       day.calls     day.charge       eve.mins       eve.calls    </span>
+<span id="cb4-19"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-19" tabindex="-1"></a>    Min.   <span class="sc">:</span>  <span class="fl">0.0</span>   Min.   <span class="sc">:</span>  <span class="dv">0</span>   Min.   <span class="sc">:</span> <span class="fl">0.00</span>   Min.   <span class="sc">:</span>  <span class="fl">0.0</span>   Min.   <span class="sc">:</span>  <span class="fl">0.0</span>  </span>
+<span id="cb4-20"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-20" tabindex="-1"></a>    <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">143.7</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span> <span class="dv">87</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">24.43</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">166.4</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span> <span class="fl">87.0</span>  </span>
+<span id="cb4-21"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-21" tabindex="-1"></a>    Median <span class="sc">:</span><span class="fl">180.1</span>   Median <span class="sc">:</span><span class="dv">100</span>   Median <span class="sc">:</span><span class="fl">30.62</span>   Median <span class="sc">:</span><span class="fl">201.0</span>   Median <span class="sc">:</span><span class="fl">100.0</span>  </span>
+<span id="cb4-22"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-22" tabindex="-1"></a>    Mean   <span class="sc">:</span><span class="fl">180.3</span>   Mean   <span class="sc">:</span><span class="dv">100</span>   Mean   <span class="sc">:</span><span class="fl">30.65</span>   Mean   <span class="sc">:</span><span class="fl">200.6</span>   Mean   <span class="sc">:</span><span class="fl">100.2</span>  </span>
+<span id="cb4-23"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-23" tabindex="-1"></a>    <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">216.2</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="dv">113</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">36.75</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">234.1</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">114.0</span>  </span>
+<span id="cb4-24"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-24" tabindex="-1"></a>    Max.   <span class="sc">:</span><span class="fl">351.5</span>   Max.   <span class="sc">:</span><span class="dv">165</span>   Max.   <span class="sc">:</span><span class="fl">59.76</span>   Max.   <span class="sc">:</span><span class="fl">363.7</span>   Max.   <span class="sc">:</span><span class="fl">170.0</span>  </span>
+<span id="cb4-25"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-25" tabindex="-1"></a>                                                                                 </span>
+<span id="cb4-26"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-26" tabindex="-1"></a>      eve.charge      night.mins     night.calls      night.charge   </span>
+<span id="cb4-27"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-27" tabindex="-1"></a>    Min.   <span class="sc">:</span> <span class="fl">0.00</span>   Min.   <span class="sc">:</span>  <span class="fl">0.0</span>   Min.   <span class="sc">:</span>  <span class="fl">0.00</span>   Min.   <span class="sc">:</span> <span class="fl">0.000</span>  </span>
+<span id="cb4-28"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-28" tabindex="-1"></a>    <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">14.14</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">166.9</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span> <span class="fl">87.00</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span> <span class="fl">7.510</span>  </span>
+<span id="cb4-29"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-29" tabindex="-1"></a>    Median <span class="sc">:</span><span class="fl">17.09</span>   Median <span class="sc">:</span><span class="fl">200.4</span>   Median <span class="sc">:</span><span class="fl">100.00</span>   Median <span class="sc">:</span> <span class="fl">9.020</span>  </span>
+<span id="cb4-30"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-30" tabindex="-1"></a>    Mean   <span class="sc">:</span><span class="fl">17.05</span>   Mean   <span class="sc">:</span><span class="fl">200.4</span>   Mean   <span class="sc">:</span> <span class="fl">99.92</span>   Mean   <span class="sc">:</span> <span class="fl">9.018</span>  </span>
+<span id="cb4-31"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-31" tabindex="-1"></a>    <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">19.90</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">234.7</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">113.00</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">10.560</span>  </span>
+<span id="cb4-32"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-32" tabindex="-1"></a>    Max.   <span class="sc">:</span><span class="fl">30.91</span>   Max.   <span class="sc">:</span><span class="fl">395.0</span>   Max.   <span class="sc">:</span><span class="fl">175.00</span>   Max.   <span class="sc">:</span><span class="fl">17.770</span>  </span>
+<span id="cb4-33"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-33" tabindex="-1"></a>                                                                     </span>
+<span id="cb4-34"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-34" tabindex="-1"></a>    customer.calls churn     </span>
+<span id="cb4-35"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-35" tabindex="-1"></a>    Min.   <span class="sc">:</span><span class="fl">0.00</span>   yes<span class="sc">:</span> <span class="dv">707</span>  </span>
+<span id="cb4-36"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-36" tabindex="-1"></a>    <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">1.00</span>   no <span class="sc">:</span><span class="dv">4293</span>  </span>
+<span id="cb4-37"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-37" tabindex="-1"></a>    Median <span class="sc">:</span><span class="fl">1.00</span>             </span>
+<span id="cb4-38"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-38" tabindex="-1"></a>    Mean   <span class="sc">:</span><span class="fl">1.57</span>             </span>
+<span id="cb4-39"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-39" tabindex="-1"></a>    <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">2.00</span>             </span>
+<span id="cb4-40"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-40" tabindex="-1"></a>    Max.   <span class="sc">:</span><span class="fl">9.00</span>             </span>
+<span id="cb4-41"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb4-41" tabindex="-1"></a>   </span></code></pre></div>
+<p>It shows the summary of all the 20 variables.</p>
+<p><strong>a. For each variable in the churn dataset, specify its type.</strong></p>
+<p><strong>b. Based on the output of the <code>summary</code> function for the churn dataset, what is the number of customers who have an international plan (<code>intl.plan = "yes"</code>)?</strong></p>
+<p><span style="color:blue"><strong>Solution:</strong></span></p>
+<ol style="list-style-type: lower-alpha">
+<li>The dataset has 19 predictors along with the target variable <code>churn</code>. The type of variables are as follows:</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="left">Variable</th>
+<th align="center">R Datatype</th>
+<th align="left">Statistical Datatype</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>state</code></td>
+<td align="center"><code>Factor</code></td>
+<td align="left">categorical - nominal</td>
+</tr>
+<tr>
+<td align="left"><code>area.code</code></td>
+<td align="center"><code>Factor</code></td>
+<td align="left">categorical - nominal</td>
+</tr>
+<tr>
+<td align="left"><code>account.length</code></td>
+<td align="center"><code>int</code></td>
+<td align="left">numerical - discrete</td>
+</tr>
+<tr>
+<td align="left"><code>voice.plan</code></td>
+<td align="center"><code>Factor</code></td>
+<td align="left">categorical - binary</td>
+</tr>
+<tr>
+<td align="left"><code>voice.messages</code></td>
+<td align="center"><code>int</code></td>
+<td align="left">numerical - discrete</td>
+</tr>
+<tr>
+<td align="left"><code>intl.plan</code></td>
+<td align="center"><code>Factor</code></td>
+<td align="left">categorical - binary</td>
+</tr>
+<tr>
+<td align="left"><code>intl.mins</code></td>
+<td align="center"><code>num</code></td>
+<td align="left">numerical - continuous</td>
+</tr>
+<tr>
+<td align="left"><code>intl.calls</code></td>
+<td align="center"><code>int</code></td>
+<td align="left">numerical - discrete</td>
+</tr>
+<tr>
+<td align="left"><code>intl.charge</code></td>
+<td align="center"><code>num</code></td>
+<td align="left">numerical - continuous</td>
+</tr>
+<tr>
+<td align="left"><code>day.mins</code></td>
+<td align="center"><code>num</code></td>
+<td align="left">numerical - continuous</td>
+</tr>
+<tr>
+<td align="left"><code>day.calls</code></td>
+<td align="center"><code>int</code></td>
+<td align="left">numerical - discrete</td>
+</tr>
+<tr>
+<td align="left"><code>day.charge</code></td>
+<td align="center"><code>num</code></td>
+<td align="left">numerical - continuous</td>
+</tr>
+<tr>
+<td align="left"><code>eve.mins</code></td>
+<td align="center"><code>num</code></td>
+<td align="left">numerical - continuous</td>
+</tr>
+<tr>
+<td align="left"><code>eve.calls</code></td>
+<td align="center"><code>int</code></td>
+<td align="left">numerical - discrete</td>
+</tr>
+<tr>
+<td align="left"><code>eve.charge</code></td>
+<td align="center"><code>num</code></td>
+<td align="left">numerical - continuous</td>
+</tr>
+<tr>
+<td align="left"><code>night.mins</code></td>
+<td align="center"><code>num</code></td>
+<td align="left">numerical - continuous</td>
+</tr>
+<tr>
+<td align="left"><code>night.calls</code></td>
+<td align="center"><code>int</code></td>
+<td align="left">numerical - discrete</td>
+</tr>
+<tr>
+<td align="left"><code>night.charge</code></td>
+<td align="center"><code>num</code></td>
+<td align="left">numerical - continuous</td>
+</tr>
+<tr>
+<td align="left"><code>customer.calls</code></td>
+<td align="center"><code>int</code></td>
+<td align="left">numerical - discrete</td>
+</tr>
+<tr>
+<td align="left"><code>churn</code></td>
+<td align="center"><code>Factor</code></td>
+<td align="left">categorical - binary</td>
+</tr>
+</tbody>
+</table>
+<p>The target variable is <code>churn</code> as a binary variable with 2 levels “yes” or “no”.</p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Regarding to the summary of the dataset, 473 of the customers have an international plan.</li>
+</ol>
+</div>
+<div id="investigate-the-target-variable-churn" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> Investigate the target variable <em>churn</em></h2>
+<p>Here we report a bar plot for the target variable <code>churn</code> by using function <code>ggplot()</code> from the <strong>R</strong> package <strong>ggplot2</strong> as follows:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb5-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> churn) <span class="sc">+</span> </span>
+<span id="cb5-2"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb5-2" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> churn), <span class="at">fill =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb5-3" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Bar plot for the target variable &#39;churn&#39;&quot;</span>)  </span></code></pre></div>
+<p><img src="EDA_files/figure-html/unnamed-chunk-5-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>Summary for the target variable <code>churn</code></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb6-1" tabindex="-1"></a><span class="fu">summary</span>(churn<span class="sc">$</span>churn)</span>
+<span id="cb6-2"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb6-2" tabindex="-1"></a>    yes   no </span>
+<span id="cb6-3"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb6-3" tabindex="-1"></a>    <span class="dv">707</span> <span class="dv">4293</span></span></code></pre></div>
+<p><strong>Based on the above output, what is the proportion of the churner (customer churn rate)?</strong></p>
+<p><span style="color:blue"><strong>Solution:</strong></span></p>
+<p>It shows that 707 left the company and the proportion of the churner is:</p>
+<p>Customer Churn Rate = No. of Customers lost / Total no. of customers = <span class="math inline">\(\frac{707}{5000}\)</span> =0.141.</p>
+</div>
+<div id="investigate-variable-international-plan" class="section level2" number="5.4">
+<h2><span class="header-section-number">5.4</span> Investigate variable <em>International Plan</em></h2>
+<p>Here we first report a contingency table of International Plan (<code>intl.plan</code>) with <code>churn</code></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb7-1" tabindex="-1"></a><span class="fu">table</span>(churn<span class="sc">$</span>churn, churn<span class="sc">$</span>intl.plan, <span class="at">dnn =</span> <span class="fu">c</span>(<span class="st">&quot;Churn&quot;</span>, <span class="st">&quot;International Plan&quot;</span>))</span>
+<span id="cb7-2"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb7-2" tabindex="-1"></a>        International Plan</span>
+<span id="cb7-3"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb7-3" tabindex="-1"></a>   Churn  yes   no</span>
+<span id="cb7-4"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb7-4" tabindex="-1"></a>     yes  <span class="dv">199</span>  <span class="dv">508</span></span>
+<span id="cb7-5"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb7-5" tabindex="-1"></a>     no   <span class="dv">274</span> <span class="dv">4019</span></span></code></pre></div>
+<p>Here is the above contingency table with margins</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb8-1" tabindex="-1"></a><span class="fu">addmargins</span>(<span class="fu">table</span>(churn<span class="sc">$</span>churn, churn<span class="sc">$</span>intl.plan, <span class="at">dnn =</span> <span class="fu">c</span>(<span class="st">&quot;Churn&quot;</span>, <span class="st">&quot;International Plan&quot;</span>)))</span>
+<span id="cb8-2"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb8-2" tabindex="-1"></a>        International Plan</span>
+<span id="cb8-3"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb8-3" tabindex="-1"></a>   Churn  yes   no  Sum</span>
+<span id="cb8-4"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb8-4" tabindex="-1"></a>     yes  <span class="dv">199</span>  <span class="dv">508</span>  <span class="dv">707</span></span>
+<span id="cb8-5"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb8-5" tabindex="-1"></a>     no   <span class="dv">274</span> <span class="dv">4019</span> <span class="dv">4293</span></span>
+<span id="cb8-6"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb8-6" tabindex="-1"></a>     Sum  <span class="dv">473</span> <span class="dv">4527</span> <span class="dv">5000</span></span></code></pre></div>
+<p>Bar chart for International Plan</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb9-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> churn) <span class="sc">+</span> </span>
+<span id="cb9-2"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb9-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> intl.plan, <span class="at">fill =</span> churn)) <span class="sc">+</span></span>
+<span id="cb9-3"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb9-3" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>)) </span>
+<span id="cb9-4"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb9-4" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb9-5" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> churn) <span class="sc">+</span> </span>
+<span id="cb9-6"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb9-6" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> intl.plan, <span class="at">fill =</span> churn), <span class="at">position =</span> <span class="st">&quot;fill&quot;</span>) <span class="sc">+</span></span>
+<span id="cb9-7"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb9-7" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>)) </span></code></pre></div>
+<p><img src="EDA_files/figure-html/unnamed-chunk-9-1.png" width="50%" /><img src="EDA_files/figure-html/unnamed-chunk-9-2.png" width="50%" /></p>
+<p><strong>What would be your interpretation of the above plots?</strong></p>
+<p><span style="color:blue"><strong>Solution:</strong></span></p>
+<p>The first plot depicts a bar chart of <code>intl.plan</code>, with <code>churn</code> overlay. The chart shows approximately 500 customers have an international plan, while the rest do not. The proportions of churners is not clearly readable, but approximately half of the customers who have an international plan tend to churn. The churn rate is much smaller for customers who do not have international plan.</p>
+<p>The right chart is the version of the bar chart based on the proportions on the left. The proportion chart’s y-axis ranges between 0 and 1, and it shows the proportions of churners in each <code>intl.plan</code> category. This chart allows for more precision; we read that approximately 42% of international plan holders change to a different company, while this number is around 11% for those not having an international plan.</p>
+<p>The above plots show that International Plan holders (<code>intl.plan="yes"</code>) tend to churn more frequently, but they do not <em>quantify</em> the relationship. The above contingency table quantify the relationship between International Plan holding and churning, Since both variables are categorical. We should consider using International Plan as one of the predictor variables in whatever machine learning algorithms we use to predict churn.</p>
+</div>
+<div id="investigate-variable-voice-mail-plan" class="section level2" number="5.5">
+<h2><span class="header-section-number">5.5</span> Investigate variable “<em>voice mail plan</em>”</h2>
+<p>Make a table for counts of Churn and Voice Mail Plan</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb10-1" tabindex="-1"></a><span class="fu">table</span>(churn<span class="sc">$</span>churn, churn<span class="sc">$</span>voice.plan, <span class="at">dnn =</span> <span class="fu">c</span>(<span class="st">&quot;Churn&quot;</span>, <span class="st">&quot;Voice Mail Plan&quot;</span>))</span>
+<span id="cb10-2"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb10-2" tabindex="-1"></a>        Voice Mail Plan</span>
+<span id="cb10-3"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb10-3" tabindex="-1"></a>   Churn  yes   no</span>
+<span id="cb10-4"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb10-4" tabindex="-1"></a>     yes  <span class="dv">102</span>  <span class="dv">605</span></span>
+<span id="cb10-5"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb10-5" tabindex="-1"></a>     no  <span class="dv">1221</span> <span class="dv">3072</span></span></code></pre></div>
+<p>Bar chart for Voice Mail Plan</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb11-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> churn) <span class="sc">+</span> </span>
+<span id="cb11-2"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb11-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> voice.plan, <span class="at">fill =</span> churn)) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb11-3" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>)) </span>
+<span id="cb11-4"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb11-4" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb11-5" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> churn) <span class="sc">+</span> </span>
+<span id="cb11-6"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb11-6" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> voice.plan, <span class="at">fill =</span> churn), <span class="at">position =</span> <span class="st">&quot;fill&quot;</span>) <span class="sc">+</span></span>
+<span id="cb11-7"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb11-7" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>)) </span></code></pre></div>
+<p><img src="EDA_files/figure-html/unnamed-chunk-11-1.png" width="50%" /><img src="EDA_files/figure-html/unnamed-chunk-11-2.png" width="50%" /></p>
+<p><strong>What would be your interpretation of the above plots?</strong></p>
+<p><span style="color:blue"><strong>Solution:</strong></span></p>
+<p>The results above indicate that:</p>
+<ul>
+<li>It seems that Voice Mail Plan increases customers’ loyalty. Thus, we should consider enhancing our Voice Mail Plan.</li>
+<li>We should consider using Voice Mail Plan as one of the predictor variables in whatever machine learning algorithms we use to predict churn. Our confidence in this expectation is perhaps not as high as for the International Plan.</li>
+</ul>
+</div>
+<div id="investigate-variable-customer-service-calls" class="section level2" number="5.6">
+<h2><span class="header-section-number">5.6</span> Investigate variable “<em>customer service calls</em>”</h2>
+<p>Here, we are interested to investigate the relationship between variable “<em>customer service calls</em>” and the target variable “<em>churn</em>”. First, we report the histogram of the variable “<em>customer service calls</em>” by using function <code>ggplot</code> as follows</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb12-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> churn) <span class="sc">+</span></span>
+<span id="cb12-2"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb12-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(customer.calls))) </span></code></pre></div>
+<p><img src="EDA_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>To see the relationship between variable “<em>customer service calls</em>” and the target variable “<em>churn</em>”, we report the histogram of the variable “<em>customer service calls</em>” including “churn” overlay as follows</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb13-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> churn) <span class="sc">+</span></span>
+<span id="cb13-2"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb13-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(customer.calls), <span class="at">fill =</span> churn), <span class="at">position =</span> <span class="st">&quot;stack&quot;</span>) <span class="sc">+</span></span>
+<span id="cb13-3"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb13-3" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>)) </span></code></pre></div>
+<p><img src="EDA_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>We also report the <em>proportional</em> histogram of variable “<em>customer service calls</em>” including “churn” overlay as follow</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb14-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> churn) <span class="sc">+</span></span>
+<span id="cb14-2"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb14-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(customer.calls), <span class="at">fill =</span> churn), <span class="at">position =</span> <span class="st">&quot;fill&quot;</span>) <span class="sc">+</span></span>
+<span id="cb14-3"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb14-3" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>)) </span></code></pre></div>
+<p><img src="EDA_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><strong>What would be your interpretation of the above plots?</strong></p>
+<p><span style="color:blue"><strong>Solution:</strong></span></p>
+<p>The first plot is a regular bar chart of <code>customer.calls</code>, and it shows positively a skewed distribution, with a mean of 1.5704 number of calls. The skewness of the data may be explained by that the majority of customers who contacts the customer service desk had their issue resolved within one call, and hence there was no need for further calls.</p>
+<p>The second plot is similar to the first chart, however, it adds <code>churn</code> overlay. The overlay expresses the count of the specific <code>customer.calls</code> bar, how many have versus have not churned. Since it is challenging to read the proportions of the histogram we turn to the chart based on proportions, which is the last plot of this section.</p>
+<p>The proportion chart (the last chart) depicts the proportions of churners vs non-churners for each customer call counts. We observe that churn rate is nearly constant at around 11% for customers who had 3 or less customer service calls. The churn rate, however, at least quadruples for those contacting the customer service desk at least 4 times. It seems, that customers tolerance or satisfaction drops significantly as soon as they need to call at least 4 times the customer service.</p>
+<p>It is worth to note, that the proportion and non-proportion charts must be used together, otherwise it may lead to misleading observations. Such as, had we not taken into account the non-proportion bar chart, then we would have concluded that customers calling the service desk 9 times churn with certainty. However, for this observation, the data is not representative, because of the low sample size - i.e, there are only a few customers with 9 customer services calls.</p>
+<p>The results above indicate that:</p>
+<ul>
+<li>We should carefully track the number of customer service calls made by each customer. By the third call, specialized incentives should be offered to retain customer loyalty, since, by the fourth call, the probability of churn substantially increases.</li>
+<li>We should consider using variable “<em>customer service calls</em>” as one of the predictor variables in whatever machine learning algorithms we use to predict churn.</li>
+</ul>
+</div>
+<div id="investigate-variable-day-minutes" class="section level2" number="5.7">
+<h2><span class="header-section-number">5.7</span> Investigate variable “<em>Day Minutes</em>”</h2>
+<p>Here, we are interested to investigate the relationship between variable Day Minutes and the target variable <em>Churn</em>. One way to see the relationship between variable Day Minutes and the target variable <em>churn</em>, would be by using the boxplot plot as follow</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb15-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> churn) <span class="sc">+</span></span>
+<span id="cb15-2"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb15-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> churn, <span class="at">y =</span> day.mins), <span class="at">fill =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>)) </span></code></pre></div>
+<p><img src="EDA_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>To allow for a more precise analysis, we plot the data as frequency density plot; the below code performs that.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb16-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> churn) <span class="sc">+</span></span>
+<span id="cb16-2"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb16-2" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x =</span> day.mins, <span class="at">fill =</span> churn), <span class="at">alpha =</span> <span class="fl">0.3</span>)</span></code></pre></div>
+<p><img src="EDA_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><strong>What would be your interpretation of the above boxplot and density plot?</strong></p>
+<p><span style="color:blue"><strong>Solution:</strong></span></p>
+<p>The <em>boxplots</em> depict the locality, spread and skewness of <code>day.mins</code> grouped by <code>churn</code> categories.</p>
+<p><strong>Comparison of location:</strong> For both <code>churn</code> categories, that is for churners and non-churners, the distribution is approximately symmetric. This finding bears with the advantage, that we can state that the distributions’ mean and median are approximately at the same location. Knowing this, allows us to draw that the daily length of calls for churners is approximately on average 215 minutes. The length of the calls for those of non-churners is on average around 190 minutes a day.</p>
+<p>The <em>density plot</em> shows that churners show bimodality; at 160 minutes, and 270 minutes. That is, customers with daily phone calls of 160, and 270 minutes churn with the highest rate. Furthermore, we can read that customer churn rate increases as <code>day.mins</code> exceeds 200 minutes.</p>
+<p><strong>Comparison of dispersion:</strong> From the boxplots we read that the interquartile range for churners is approximately twice as large than for non-churners. Additionally, we read from the width of the whiskers, that the range of <code>day.mins</code> for churners is wider than for non-churners.</p>
+<p><strong>Comparison of skewness:</strong> <code>day.mins</code> for churners is skewed to the left - churners spend more time on average on phone calls, than non-churners.</p>
+<p><strong>Comparison of potential outliers:</strong> <code>day.mins</code>’s whisker spreads from the minima of the data to the maxima, and hence it does not have any outliers, or unusual values. This cannot be stated for non-churners, since its boxplot reports potential outliers beyond the lower and upper whiskers.</p>
+<p>The results above indicate that:</p>
+<ul>
+<li>We should carefully track customer Day Minutes as total exceeds 200. Investigate why those with high usage tend to leave.</li>
+<li>We should consider using variable “<em>Day Minutes</em>” as one of the predictor variables in whatever machine learning algorithms we use to predict churn.</li>
+</ul>
+</div>
+<div id="investigate-variable-international-calls" class="section level2" number="5.8">
+<h2><span class="header-section-number">5.8</span> Investigate variable “<em>International Calls</em>”</h2>
+<p>Here, we are interested to investigate the relationship between variable International Calls and the target variable <code>churn</code>. First, we report the histogram of the variable International Calls as follows:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb17-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> churn) <span class="sc">+</span></span>
+<span id="cb17-2"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb17-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> intl.calls)) </span></code></pre></div>
+<p><img src="EDA_files/figure-html/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>To see the relationship between variable International Calls and the target variable <em>churn</em>, we report the histogram of variable International Calls including Churn overlay as follow</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb18-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> churn) <span class="sc">+</span></span>
+<span id="cb18-2"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb18-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> intl.calls, <span class="at">fill =</span> churn), <span class="at">position =</span> <span class="st">&quot;stack&quot;</span>) <span class="sc">+</span></span>
+<span id="cb18-3"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb18-3" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>)) </span></code></pre></div>
+<p><img src="EDA_files/figure-html/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>We also report the <em>proportional</em> histogram of variable International Calls including Churn overlay as follow</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb19-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> churn) <span class="sc">+</span></span>
+<span id="cb19-2"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb19-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> intl.calls, <span class="at">fill =</span> churn), <span class="at">position =</span> <span class="st">&quot;fill&quot;</span>) <span class="sc">+</span></span>
+<span id="cb19-3"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb19-3" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>)) </span></code></pre></div>
+<p><img src="EDA_files/figure-html/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>To see the relationship between variable International Calls and the target variable <em>churn</em>, we report the boxplot as follow</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb20-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> churn) <span class="sc">+</span></span>
+<span id="cb20-2"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb20-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> churn, <span class="at">y =</span> intl.calls), <span class="at">fill =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>)) </span></code></pre></div>
+<p><img src="EDA_files/figure-html/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><strong>What would be your interpretation of the above boxplot?</strong></p>
+<p><span style="color:blue"><strong>Solution:</strong></span></p>
+<p>The above plots does not indicate strong graphical evidence of the predictive importance of International Calls. However, a t-test (see below) for the difference in the mean number of international calls for churners and non-churners is statistically significant (p-value = 0.003; p-values larger than, say, 0.10 are not considered significant), meaning that this variable is indeed useful for predicting churn: Churners tend to place a lower mean number of international calls. Thus, had we omitted International Calls from the analysis based on the seeming lack of graphical evidence, we would have committed a mistake, and our predictive model would not perform as well.</p>
+<p>Hypothesis testing for dependency between variables <em>International Calls</em> and <em>churn</em></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb21-1" tabindex="-1"></a><span class="fu">t.test</span>(intl.calls <span class="sc">~</span> churn, <span class="at">data =</span> churn)</span>
+<span id="cb21-2"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb21-2" tabindex="-1"></a>   </span>
+<span id="cb21-3"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb21-3" tabindex="-1"></a>    Welch Two Sample t<span class="sc">-</span>test</span>
+<span id="cb21-4"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb21-4" tabindex="-1"></a>   </span>
+<span id="cb21-5"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb21-5" tabindex="-1"></a>   data<span class="sc">:</span>  intl.calls by churn</span>
+<span id="cb21-6"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb21-6" tabindex="-1"></a>   t <span class="ot">=</span> <span class="sc">-</span><span class="fl">3.2138</span>, df <span class="ot">=</span> <span class="fl">931.13</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.001355</span></span>
+<span id="cb21-7"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb21-7" tabindex="-1"></a>   alternative hypothesis<span class="sc">:</span> true difference <span class="cf">in</span> means between group yes and group no is not equal to <span class="dv">0</span></span>
+<span id="cb21-8"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb21-8" tabindex="-1"></a>   <span class="dv">95</span> percent confidence interval<span class="sc">:</span></span>
+<span id="cb21-9"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb21-9" tabindex="-1"></a>    <span class="sc">-</span><span class="fl">0.5324872</span> <span class="sc">-</span><span class="fl">0.1287201</span></span>
+<span id="cb21-10"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb21-10" tabindex="-1"></a>   sample estimates<span class="sc">:</span></span>
+<span id="cb21-11"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb21-11" tabindex="-1"></a>   mean <span class="cf">in</span> group yes  mean <span class="cf">in</span> group no </span>
+<span id="cb21-12"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb21-12" tabindex="-1"></a>            <span class="fl">4.151344</span>          <span class="fl">4.481947</span></span></code></pre></div>
+<p>Since the P-value = 0.0013549 is less than <span class="math inline">\(\alpha\)</span> = 0.05, thus we reject the <span class="math inline">\(H_0\)</span>.
+It means the difference in the mean number of international calls for churners and non-churners is statistically significant.</p>
+</div>
+<div id="detect-correlated-variables" class="section level2" number="5.9">
+<h2><span class="header-section-number">5.9</span> Detect Correlated Variables</h2>
+<p>To visualize the correlation matrix between the “day.mins”, “Day.Calls”, “Day.Charge”, “Eve.Mins”, “Eve.Calls”, “Eve.Charge”, “Night.Mins”, “Night.Calls”, and “Night.Charge”, we could use the <code>ggcorr</code> function as follows</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb22-1" tabindex="-1"></a>variable_list <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;intl.mins&quot;</span>,  <span class="st">&quot;intl.calls&quot;</span>,  <span class="st">&quot;intl.charge&quot;</span>, </span>
+<span id="cb22-2"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb22-2" tabindex="-1"></a>                   <span class="st">&quot;day.mins&quot;</span>,   <span class="st">&quot;day.calls&quot;</span>,   <span class="st">&quot;day.charge&quot;</span>,</span>
+<span id="cb22-3"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb22-3" tabindex="-1"></a>                   <span class="st">&quot;eve.mins&quot;</span>,   <span class="st">&quot;eve.calls&quot;</span>,   <span class="st">&quot;eve.charge&quot;</span>,</span>
+<span id="cb22-4"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb22-4" tabindex="-1"></a>                   <span class="st">&quot;night.mins&quot;</span>, <span class="st">&quot;night.calls&quot;</span>, <span class="st">&quot;night.charge&quot;</span>)</span>
+<span id="cb22-5"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb22-5" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb22-6" tabindex="-1"></a>cor_matrix <span class="ot">=</span> <span class="fu">cor</span>(churn[, variable_list])</span>
+<span id="cb22-7"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb22-7" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb22-8" tabindex="-1"></a><span class="fu">ggcorrplot</span>(cor_matrix, <span class="at">type =</span> <span class="st">&quot;lower&quot;</span>, <span class="at">lab =</span> <span class="cn">TRUE</span>, <span class="at">lab_size =</span> <span class="dv">3</span>)</span></code></pre></div>
+<p><img src="EDA_files/figure-html/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb23-1" tabindex="-1"></a><span class="fu">pairs.panels</span>(churn[, <span class="fu">c</span>(<span class="st">&quot;intl.mins&quot;</span>, <span class="st">&quot;intl.calls&quot;</span>, <span class="st">&quot;intl.charge&quot;</span>)]) </span>
+<span id="cb23-2"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb23-2" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb23-3" tabindex="-1"></a><span class="fu">pairs.panels</span>(churn[, <span class="fu">c</span>(<span class="st">&quot;day.mins&quot;</span>, <span class="st">&quot;day.calls&quot;</span>, <span class="st">&quot;day.charge&quot;</span>)]) </span>
+<span id="cb23-4"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb23-4" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb23-5" tabindex="-1"></a><span class="fu">pairs.panels</span>(churn[, <span class="fu">c</span>(<span class="st">&quot;eve.mins&quot;</span>, <span class="st">&quot;eve.calls&quot;</span>, <span class="st">&quot;eve.charge&quot;</span>)]) </span>
+<span id="cb23-6"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb23-6" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="exploratory-data-analysis-for-churn-dataset-30-points.html#cb23-7" tabindex="-1"></a><span class="fu">pairs.panels</span>(churn[, <span class="fu">c</span>(<span class="st">&quot;night.mins&quot;</span>, <span class="st">&quot;night.calls&quot;</span>, <span class="st">&quot;night.charge&quot;</span>)]) </span></code></pre></div>
+<p><img src="EDA_files/figure-html/unnamed-chunk-23-1.png" width="50%" /><img src="EDA_files/figure-html/unnamed-chunk-23-2.png" width="50%" /><img src="EDA_files/figure-html/unnamed-chunk-23-3.png" width="50%" /><img src="EDA_files/figure-html/unnamed-chunk-23-4.png" width="50%" /></p>
+<p><strong>What would be your interpretation of the above correlation matrix plots?</strong></p>
+<p><span style="color:blue"><strong>Solution:</strong></span></p>
+<p>From the above correlation matrix we see that there are 4 problematic variables that shows perfect correlation (r=1.0) with another variable.</p>
+<p>Namely, <code>night.charge</code> is perfectly linearly correlated with <code>night.mins</code>, which does not come as surprise, since the former is a function of <code>night.mins</code>. The same holds true for <code>eve.mins</code> and <code>eve.charge</code>, <code>day.mins</code> and <code>day.charge</code>, and lastly <code>intl.mins</code> and <code>intl.charge</code>.</p>
+<p>Using correlated variables will overemphasize one data component, or at worst the data may become unstable and deliver unreliable results. Therefore we need to retain only one of the correlated variables. Furthermore, including highly correlated variables would result in multicollinearity which would result in unreliable regression model coefficients.</p>
+
+</div>
+</div>
+  </main>
+
+  <div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page">
+      <h2>On this page</h2>
+      <div id="book-on-this-page"></div>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          <li><a id="book-source" href="#">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="#">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5">
+  <div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Uncovering Data Science with R</strong>" was written by . It was last built on 2024-08-02.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+<script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+
+</html>

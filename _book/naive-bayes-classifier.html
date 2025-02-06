@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 9 Naive Bayes Classifier | Uncovering Data Science with R</title>
+<meta name="generator" content="bookdown 0.37 with bs4_book()">
+<meta property="og:title" content="Chapter 9 Naive Bayes Classifier | Uncovering Data Science with R">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://uncovering-data-science.netlify.app/naive-bayes-classifier.html">
+<meta property="og:image" content="https://uncovering-data-science.netlify.app/images/cover.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 9 Naive Bayes Classifier | Uncovering Data Science with R">
+<meta name="twitter:image" content="https://uncovering-data-science.netlify.app/images/cover.jpg">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+          margin-bottom: 0em;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="Naive Bayes classifiers constitute a set of probabilistic classifiers that apply Bayes’ theorem with a naive presumption of feature independence. These classifiers are exceptionally swift during...">
+<meta property="og:description" content="Naive Bayes classifiers constitute a set of probabilistic classifiers that apply Bayes’ theorem with a naive presumption of feature independence. These classifiers are exceptionally swift during...">
+<meta name="twitter:description" content="Naive Bayes classifiers constitute a set of probabilistic classifiers that apply Bayes’ theorem with a naive presumption of feature independence. These classifiers are exceptionally swift during...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Uncovering Data Science with R</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li><a class="" href="the-basics-for-r.html"><span class="header-section-number">1</span> The Basics for R</a></li>
+<li><a class="" href="intro-DS.html"><span class="header-section-number">2</span> Introduction to Data Science</a></li>
+<li><a class="" href="data-cleaning.html"><span class="header-section-number">3</span> Data Cleaning</a></li>
+<li><a class="" href="exploratory-data-analysis-1.html"><span class="header-section-number">4</span> Exploratory Data Analysis</a></li>
+<li><a class="" href="statistical-inference-and-hypothesis-testing.html"><span class="header-section-number">5</span> Statistical Inference and Hypothesis Testing</a></li>
+<li><a class="" href="modeling-process.html"><span class="header-section-number">6</span> Modeling Process</a></li>
+<li><a class="" href="k-nearest-neighbors.html"><span class="header-section-number">7</span> K-Nearest Neighbors</a></li>
+<li><a class="" href="model-evaluation.html"><span class="header-section-number">8</span> Model Evaluation</a></li>
+<li><a class="active" href="naive-bayes-classifier.html"><span class="header-section-number">9</span> Naive Bayes Classifier</a></li>
+<li><a class="" href="regression-modelling.html"><span class="header-section-number">10</span> Regression Modelling</a></li>
+<li><a class="" href="decision-trees-and-random-forests.html"><span class="header-section-number">11</span> Decision Trees and Random Forests</a></li>
+<li><a class="" href="neural-networks.html"><span class="header-section-number">12</span> Neural Networks</a></li>
+<li><a class="" href="cluster-analysis.html"><span class="header-section-number">13</span> Cluster Analysis</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/RezaMoammadi/Book-Data-Science">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="naive-bayes-classifier" class="section level1" number="9">
+<h1>
+<span class="header-section-number">9</span> Naive Bayes Classifier<a class="anchor" aria-label="anchor" href="#naive-bayes-classifier"><i class="fas fa-link"></i></a>
+</h1>
+<p>Naive Bayes classifiers constitute a set of probabilistic classifiers that apply Bayes’ theorem with a naive presumption of feature independence. These classifiers are exceptionally swift during both training and prediction phases, offering scalability and interpretability. Despite their simplified assumptions, they often perform admirably on intricate real-world problems. They particularly excel in text classification tasks like spam filtering and sentiment analysis, where their naive assumptions generally apply. Naive Bayes also represents one of the earliest generative models, predating ChatGPT, which learn the distribution of inputs in each class. The Naive Bayes Algorithm is leveraged to solve various practical problems such as:</p>
+<ul>
+<li><p>Text classification: The Naive Bayes Algorithm serves as a probabilistic learning method in text classification, being one of the most reputable algorithms for classifying documents into one or multiple categories.</p></li>
+<li><p>Sentiment analysis: This algorithm is utilized for sentiment analysis, to decipher whether the sentiment is positive, neutral, or negative.</p></li>
+<li><p>Recommendation system: By employing the Naive Bayes Algorithm, one can construct hybrid recommendation systems through collaborative filtering, predicting if a user will appreciate a certain resource.</p></li>
+<li><p>Spam filtering: The process closely resembles text classification, with its primary purpose being to assist in identifying whether an incoming email is spam.</p></li>
+<li><p>Medical diagnosis: The algorithm is also employed in medical diagnosis, aiding in determining a patient’s risk factors for specific illnesses.</p></li>
+<li><p>Weather prediction: The Naive Bayes Algorithm can be used to anticipate weather conditions.</p></li>
+<li><p>Face recognition: This algorithm can facilitate face identification.</p></li>
+</ul>
+<p>The Naive Bayes algorithm, also recognized as a probabilistic classifier, utilizes Bayes Theorem <a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Thomas Bayes, &lt;em&gt;Essay Toward Solving a Problem in the Doctrine of Changes&lt;/em&gt;, Philosophical Transactions of the Royal Society of London, 1793&lt;/p&gt;"><sup>4</sup></a> to discern the probability of an object, its characteristics, and its classification. This theorem was conceived by the 18th-century mathematician Thomas Bayes, who set forth fundamental principles for defining the probability of events and how these probabilities should be revised upon receiving new data. Bayes Theorem refines our understanding of data and its parameters by integrating our pre-existing knowledge (termed as the prior distribution) with fresh information derived from observed data. This fusion results in an updated understanding of the parameters (termed as the posterior distribution). These principles serve as the bedrock for what is presently referred to as <strong>Bayesian methods</strong>.</p>
+<div id="bayes-theorem" class="section level2" number="9.1">
+<h2>
+<span class="header-section-number">9.1</span> Bayes Theorem<a class="anchor" aria-label="anchor" href="#bayes-theorem"><i class="fas fa-link"></i></a>
+</h2>
+<p>Bayes’ theorem (or Bayes’ rule) is a probabilistic principle with the capability of computing the conditional probability of an event, based on prior knowledge of conditions that are related to that event. Mathematically, the theorem states that for any events A and B:
+<span class="math display">\[
+P(A|B) = P(A) \times \frac{P(B|A)}{P(B)}
+\]</span></p>
+<p>Where:</p>
+<ul>
+<li><p><span class="math inline">\(P(A|B)\)</span> is the <em>posterior</em> probability of event A given that event B has occurred; Also refers to the conditional probability of event A given event B.</p></li>
+<li><p><span class="math inline">\(P(B|A)\)</span> is the <em>likelihood</em>, the probability of event B given that event A has occurred; Also refers to the conditional probability of event B given event A.</p></li>
+<li><p><span class="math inline">\(P(A)\)</span> is the <em>prior</em> probability of event A occurring and refers to the probability of event A.</p></li>
+<li><p><span class="math inline">\(P(B)\)</span> is the <em>prior</em> probability of event B occurring and refers to the probability of event B.</p></li>
+</ul>
+<p>Probability provides a structured and rigorous mathematical approach to reason about events whose outcomes are uncertain. Conditional probability serves as a conduit to comprehend the relationship between various uncertain events. It offers a means to understand how the probability of a certain event can fluctuate under diverse conditions.</p>
+</div>
+<div id="why-naive" class="section level2" number="9.2">
+<h2>
+<span class="header-section-number">9.2</span> Why Naive?<a class="anchor" aria-label="anchor" href="#why-naive"><i class="fas fa-link"></i></a>
+</h2>
+<p>To do ..</p>
+</div>
+<div id="the-laplace-estimator" class="section level2" number="9.3">
+<h2>
+<span class="header-section-number">9.3</span> The Laplace Estimator<a class="anchor" aria-label="anchor" href="#the-laplace-estimator"><i class="fas fa-link"></i></a>
+</h2>
+<p>To do …</p>
+</div>
+<div id="naive-bayes-with-numeric-features" class="section level2" number="9.4">
+<h2>
+<span class="header-section-number">9.4</span> Naive Bayes with Numeric features<a class="anchor" aria-label="anchor" href="#naive-bayes-with-numeric-features"><i class="fas fa-link"></i></a>
+</h2>
+<p>To do …</p>
+</div>
+<div id="case-study" class="section level2" number="9.5">
+<h2>
+<span class="header-section-number">9.5</span> Case study<a class="anchor" aria-label="anchor" href="#case-study"><i class="fas fa-link"></i></a>
+</h2>
+<p>To do …</p>
+</div>
+<div id="exercises" class="section level2" number="9.6">
+<h2>
+<span class="header-section-number">9.6</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises"><i class="fas fa-link"></i></a>
+</h2>
+<p>To do ..</p>
+
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="model-evaluation.html"><span class="header-section-number">8</span> Model Evaluation</a></div>
+<div class="next"><a href="regression-modelling.html"><span class="header-section-number">10</span> Regression Modelling</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#naive-bayes-classifier"><span class="header-section-number">9</span> Naive Bayes Classifier</a></li>
+<li><a class="nav-link" href="#bayes-theorem"><span class="header-section-number">9.1</span> Bayes Theorem</a></li>
+<li><a class="nav-link" href="#why-naive"><span class="header-section-number">9.2</span> Why Naive?</a></li>
+<li><a class="nav-link" href="#the-laplace-estimator"><span class="header-section-number">9.3</span> The Laplace Estimator</a></li>
+<li><a class="nav-link" href="#naive-bayes-with-numeric-features"><span class="header-section-number">9.4</span> Naive Bayes with Numeric features</a></li>
+<li><a class="nav-link" href="#case-study"><span class="header-section-number">9.5</span> Case study</a></li>
+<li><a class="nav-link" href="#exercises"><span class="header-section-number">9.6</span> Exercises</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/RezaMoammadi/Book-Data-Science/blob/master/bayes.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/RezaMoammadi/Book-Data-Science/edit/master/bayes.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Uncovering Data Science with R</strong>" was written by . It was last built on 2024-08-06.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

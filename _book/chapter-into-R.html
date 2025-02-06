@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 1 The Basics for R | Uncovering Data Science with R</title>
+<meta name="generator" content="bookdown 0.37 with bs4_book()">
+<meta property="og:title" content="Chapter 1 The Basics for R | Uncovering Data Science with R">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://uncovering-data-science.netlify.app/chapter-into-R.html">
+<meta property="og:image" content="https://uncovering-data-science.netlify.app/images/cover.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 1 The Basics for R | Uncovering Data Science with R">
+<meta name="twitter:image" content="https://uncovering-data-science.netlify.app/images/cover.jpg">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+          margin-bottom: 0em;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="Before you can analyze data, you need a way to communicate with your computer. That’s where programming languages like R and Python come in. Many data science teams use a mix of languages, but R...">
+<meta property="og:description" content="Before you can analyze data, you need a way to communicate with your computer. That’s where programming languages like R and Python come in. Many data science teams use a mix of languages, but R...">
+<meta name="twitter:description" content="Before you can analyze data, you need a way to communicate with your computer. That’s where programming languages like R and Python come in. Many data science teams use a mix of languages, but R...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Uncovering Data Science with R</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li><a class="active" href="chapter-into-R.html"><span class="header-section-number">1</span> The Basics for R</a></li>
+<li><a class="" href="chapter-intro-DS.html"><span class="header-section-number">2</span> Introduction to Data Science</a></li>
+<li><a class="" href="chapter-data-prep.html"><span class="header-section-number">3</span> Data Preparation</a></li>
+<li><a class="" href="chapter-EDA.html"><span class="header-section-number">4</span> Exploratory Data Analysis</a></li>
+<li><a class="" href="chapter-statistics.html"><span class="header-section-number">5</span> Statistical Inference and Hypothesis Testing</a></li>
+<li><a class="" href="chapter-modeling.html"><span class="header-section-number">6</span> Preparing Data for Modeling</a></li>
+<li><a class="" href="chapter-knn.html"><span class="header-section-number">7</span> Classification using k-Nearest Neighbors</a></li>
+<li><a class="" href="chapter-evaluation.html"><span class="header-section-number">8</span> Model Evaluation</a></li>
+<li><a class="" href="chapter-bayes.html"><span class="header-section-number">9</span> Naive Bayes Classifier</a></li>
+<li><a class="" href="chapter-regression.html"><span class="header-section-number">10</span> Regression Modeling: From Basics to Advanced Techniques</a></li>
+<li><a class="" href="chapter-tree.html"><span class="header-section-number">11</span> Decision Trees and Random Forests</a></li>
+<li><a class="" href="chapter-nn.html"><span class="header-section-number">12</span> Neural Networks: The Building Blocks of Artificial Intelligence</a></li>
+<li><a class="" href="chapter-cluster.html"><span class="header-section-number">13</span> Clustering</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/RezaMoammadi/Book-Data-Science">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="chapter-into-R" class="section level1" number="1">
+<h1>
+<span class="header-section-number">1</span> The Basics for R<a class="anchor" aria-label="anchor" href="#chapter-into-R"><i class="fas fa-link"></i></a>
+</h1>
+<p>Before you can analyze data, you need a way to communicate with your computer. That’s where programming languages like R and Python come in. Many data science teams use a mix of languages, but R is a great starting point because it is designed specifically for data analysis and statistical computing.</p>
+<p>R offers a rich ecosystem of libraries and tools tailored for data science. It has a simple yet expressive syntax, making it easy to explore and manipulate data. Unlike general-purpose programming languages, R was built for statistical analysis, allowing data scientists to perform everything from basic calculations to advanced machine learning with just a few lines of code.</p>
+<p>Beyond its capabilities, R is:</p>
+<ul>
+<li>Free &amp; Open Source – Available to everyone, with a vibrant community of contributors.<br>
+</li>
+<li>Cross-Platform – Runs on Windows, macOS, and Linux.<br>
+</li>
+<li>Flexible &amp; Powerful – Supports interactive data exploration, visualization, and machine learning.</li>
+</ul>
+<p>While R is the language, RStudio is the tool that makes working with R easier. RStudio is an integrated development environment (IDE) that provides:</p>
+<ul>
+<li>A console for running R commands,<br>
+</li>
+<li>A script editor with syntax highlighting and auto-completion,<br>
+</li>
+<li>Built-in tools for data visualization, debugging, and package management.</li>
+</ul>
+<p>In this chapter, you will learn the fundamental skills needed to work with R, from installation to running your first commands. Let’s begin! 🚀</p>
+<div id="how-to-install-r" class="section level2" number="1.1">
+<h2>
+<span class="header-section-number">1.1</span> How to Install R<a class="anchor" aria-label="anchor" href="#how-to-install-r"><i class="fas fa-link"></i></a>
+</h2>
+<p>To get started with R, you first need to install it on your computer. Follow these steps:</p>
+<ol style="list-style-type: decimal">
+<li>Go to the <a href="https://cran.r-project.org">CRAN website</a> – The Comprehensive R Archive Network.<br>
+</li>
+<li>Select your operating system – Click the link for Windows, macOS, or Linux.<br>
+</li>
+<li>Download and install R – Follow the on-screen instructions to complete the installation.</li>
+</ol>
+<div id="keeping-r-up-to-date" class="section level3 unnumbered">
+<h3>Keeping R Up to Date<a class="anchor" aria-label="anchor" href="#keeping-r-up-to-date"><i class="fas fa-link"></i></a>
+</h3>
+<p>R receives a major update once a year, along with 2-3 minor updates annually. While updating R—especially major versions—requires reinstalling your packages, staying up to date ensures you:</p>
+<p>✅ Access the latest features and improvements,<br>
+✅ Maintain compatibility with new packages,<br>
+✅ Benefit from security patches and performance enhancements.</p>
+<p>Keeping R updated might feel like a hassle, but postponing updates can make the process more cumbersome later. It’s best to update regularly to ensure smooth performance and compatibility.</p>
+</div>
+</div>
+<div id="how-to-install-rstudio" class="section level2" number="1.2">
+<h2>
+<span class="header-section-number">1.2</span> How to Install RStudio<a class="anchor" aria-label="anchor" href="#how-to-install-rstudio"><i class="fas fa-link"></i></a>
+</h2>
+<p>RStudio is an open-source integrated development environment (IDE) that makes working with R easier, more interactive, and more efficient. It provides a user-friendly interface, an advanced script editor, and various tools for plotting, debugging, and workspace management—all of which significantly enhance the R programming experience.</p>
+<div id="installing-rstudio" class="section level3 unnumbered">
+<h3>Installing RStudio<a class="anchor" aria-label="anchor" href="#installing-rstudio"><i class="fas fa-link"></i></a>
+</h3>
+<p>Follow these steps to install RStudio:</p>
+<ol style="list-style-type: decimal">
+<li>Go to the <a href="http://www.rstudio.com/download">RStudio website</a>.<br>
+</li>
+<li>Download the latest version of RStudio Desktop (the free, open-source edition).<br>
+</li>
+<li>Run the installer and follow the on-screen instructions.<br>
+</li>
+<li>Launch RStudio, and you’re ready to start coding in R!</li>
+</ol>
+<p>RStudio is updated several times a year, and it will notify you when a new version is available. Keeping RStudio up to date is recommended to take advantage of new features and performance improvements.</p>
+</div>
+<div id="exploring-the-rstudio-interface" class="section level3 unnumbered">
+<h3>Exploring the RStudio Interface<a class="anchor" aria-label="anchor" href="#exploring-the-rstudio-interface"><i class="fas fa-link"></i></a>
+</h3>
+<p>When you open RStudio, you will see a window similar to Figure <a href="chapter-into-R.html#fig:RStudio-window-1">1.1</a>.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:RStudio-window-1"></span>
+<img src="images/RStudio-window-1.png" alt="The RStudio window when you first launch the program." width="70%"><p class="caption">
+Figure 1.1: The RStudio window when you first launch the program.
+</p>
+</div>
+<p>If you see only three panels, add a fourth by selecting <em>File &gt; New File &gt; R Script</em>. This opens a script editor where you can write and save R code. Here’s a quick overview of RStudio’s panels:</p>
+<ul>
+<li>Top-left: Script Editor – Write and save your R code.<br>
+</li>
+<li>Bottom-left: Console – Run R commands and see output.<br>
+</li>
+<li>Top-right: Environment &amp; History – View variables, datasets, and past commands.<br>
+</li>
+<li>Bottom-right: Plots, Help, &amp; Files – Display graphs, access documentation, and manage files.</li>
+</ul>
+<p>For now, just know that you can type R code into the console and press Enter to run it. As you progress through the book, you’ll become more familiar with RStudio’s features and learn how to efficiently write, run, and debug R code.</p>
+</div>
+<div id="customizing-rstudio" class="section level3 unnumbered">
+<h3>Customizing RStudio<a class="anchor" aria-label="anchor" href="#customizing-rstudio"><i class="fas fa-link"></i></a>
+</h3>
+<p>RStudio is highly customizable, allowing you to tailor it to your workflow. To adjust settings, go to:</p>
+<ul>
+<li>Tools &gt; Global Options – Access general settings.<br>
+</li>
+<li>Appearance &gt; Editor Theme – Change the editor’s theme (e.g., “Tomorrow Night 80” for a dark mode).<br>
+</li>
+<li>Font &amp; Layout Settings – Modify font size, panel positions, and other interface options.<br>
+A comfortable coding environment enhances productivity—so feel free to explore and tweak the settings to suit your preferences!</li>
+</ul>
+</div>
+</div>
+<div id="how-to-learn-r" class="section level2" number="1.3">
+<h2>
+<span class="header-section-number">1.3</span> How to Learn R<a class="anchor" aria-label="anchor" href="#how-to-learn-r"><i class="fas fa-link"></i></a>
+</h2>
+<p>Learning R is an exciting and rewarding journey that opens doors to data science, statistics, and machine learning. Fortunately, there are numerous resources—books, online courses, tutorials, and forums—that can help you get started and advance your skills.</p>
+<div id="video-tutorials" class="section level3 unnumbered">
+<h3>1. Video Tutorials<a class="anchor" aria-label="anchor" href="#video-tutorials"><i class="fas fa-link"></i></a>
+</h3>
+<p>If you prefer learning by watching, YouTube offers a wealth of R tutorials, ranging from beginner to advanced levels:</p>
+<ul>
+<li>
+<a href="https://www.youtube.com/channel/UCJ7w9dVjTOJi8Z7j0y9v6Qw">R Programming</a> – Covers R basics and data science concepts.<br>
+</li>
+<li>
+<a href="https://www.youtube.com/user/dataschool">Data School</a> – Focuses on data analysis, machine learning, and practical R applications.</li>
+</ul>
+</div>
+<div id="books" class="section level3 unnumbered">
+<h3>2. Books<a class="anchor" aria-label="anchor" href="#books"><i class="fas fa-link"></i></a>
+</h3>
+<p>Books are a great way to build a deep understanding of R. Here are some top recommendations:</p>
+<ul>
+<li>For Absolute Beginners: <a href="https://rstudio-education.github.io/hopr/"><em>Hands-On Programming with R</em></a> by Garrett Grolemund<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Garrett Grolemund, &lt;em&gt;Hands-on Programming with r: Write Your Own Functions and Simulations&lt;/em&gt; (" O’Reilly Media, Inc.", 2014), &lt;a href="https://rstudio-education.github.io/hopr/"&gt;https://rstudio-education.github.io/hopr/&lt;/a&gt;.&lt;/p&gt;'><sup>1</sup></a></span> – A practical introduction for those new to programming.<br>
+</li>
+<li>For Data Science with R: <a href="https://r4ds.had.co.nz"><em>R for Data Science</em></a> by Hadley Wickham and Garrett Grolemund<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;&lt;strong&gt;wickham2017r?&lt;/strong&gt;&lt;/p&gt;"><sup>2</sup></a></span> – Covers data visualization, wrangling, and modeling.<br>
+</li>
+<li>For Machine Learning: <a href="https://www.packtpub.com/product/machine-learning-with-r/9781782162148"><em>Machine Learning with R</em></a> by Brett Lantz<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;&lt;strong&gt;lantz2013machine?&lt;/strong&gt;&lt;/p&gt;"><sup>3</sup></a></span> – A comprehensive guide to machine learning techniques using R.</li>
+</ul>
+</div>
+<div id="online-courses" class="section level3 unnumbered">
+<h3>3. Online Courses<a class="anchor" aria-label="anchor" href="#online-courses"><i class="fas fa-link"></i></a>
+</h3>
+<p>If you prefer structured learning with hands-on exercises, online courses offer interactive experiences:</p>
+<ul>
+<li>
+<a href="https://www.datacamp.com">DataCamp</a> – Features beginner-friendly courses like <a href="https://learn.datacamp.com/courses/free-introduction-to-r"><em>Introduction to R</em></a>.<br>
+</li>
+<li>
+<a href="https://www.coursera.org">Coursera</a> – Offers courses such as <a href="https://www.coursera.org/learn/r-programming"><em>R Programming</em></a> and the <a href="https://www.coursera.org/specializations/jhu-data-science"><em>Data Science Specialization</em></a>.</li>
+</ul>
+</div>
+<div id="r-communities-forums" class="section level3 unnumbered">
+<h3>4. R Communities &amp; Forums<a class="anchor" aria-label="anchor" href="#r-communities-forums"><i class="fas fa-link"></i></a>
+</h3>
+<p>Engaging with online communities is a great way to learn from others, ask questions, and get support:</p>
+<ul>
+<li>
+<a href="https://stackoverflow.com/questions/tagged/r">Stack Overflow</a> – Find answers to R-related coding questions.<br>
+</li>
+<li>
+<a href="https://community.rstudio.com/">RStudio Community</a> – Connect with other R users and participate in discussions.</li>
+</ul>
+</div>
+<div id="practice-regularly" class="section level3 unnumbered">
+<h3>5. Practice Regularly<a class="anchor" aria-label="anchor" href="#practice-regularly"><i class="fas fa-link"></i></a>
+</h3>
+<p>The best way to learn R is through consistent practice. Start with simple exercises, explore real-world datasets, and experiment with R code. By combining structured learning with hands-on experience, you’ll quickly develop confidence and proficiency in R.</p>
+<p>🚀 Start today! Choose one of the resources above and begin your R learning journey.</p>
+</div>
+</div>
+<div id="getting-help-and-learning-more" class="section level2" number="1.4">
+<h2>
+<span class="header-section-number">1.4</span> Getting Help and Learning More<a class="anchor" aria-label="anchor" href="#getting-help-and-learning-more"><i class="fas fa-link"></i></a>
+</h2>
+<p>As you begin your journey with R, you’ll likely encounter challenges and questions along the way. Fortunately, there are many resources available to help you troubleshoot problems, deepen your understanding, and continue learning. Whether you’re stuck on an error message, exploring a new function, or looking for best practices, a combination of built-in documentation, online communities, and external learning materials can guide you.</p>
+<p>R comes with extensive built-in documentation that provides details on functions, packages, and programming techniques. To quickly look up a function, type <code>?</code> followed by the function name in the R console. This will bring up official documentation, including usage examples, argument details, and additional references. You can also use <code><a href="https://rdrr.io/r/utils/help.html">help()</a></code> or <code><a href="https://rdrr.io/r/utils/example.html">example()</a></code> to get more context on how a function works.</p>
+<p>Beyond R’s internal help system, the R community is an invaluable resource. If you have a question, chances are someone has already asked (and answered) it. Platforms like Stack Overflow, RStudio Community, and the R-help mailing list contain thousands of discussions on common and advanced topics in R programming, data science, and machine learning. Searching these forums can often lead you to quick and reliable solutions. If you don’t find an existing answer, posting your question with a clear explanation and a reproducible example will increase your chances of getting helpful responses.</p>
+<p>A simple Google search is often the fastest way to troubleshoot issues. Searching for an error message or function name will usually direct you to blog posts, documentation, or forum discussions with relevant explanations. Additionally, AI tools like ChatGPT can assist with R programming questions, debugging, and conceptual explanations. While AI-generated solutions aren’t always perfect, they can provide useful insights, suggest alternative approaches, and help clarify difficult concepts.</p>
+<p>Ultimately, the best way to master R is through hands-on experience. Don’t be afraid to experiment—write code, test different functions, and explore new datasets. Mistakes are a natural part of learning, and each one helps reinforce your understanding. The more you practice, the more confident and proficient you’ll become in R. Keep coding, keep exploring, and enjoy the journey!</p>
+</div>
+<div id="data-science-with-r" class="section level2" number="1.5">
+<h2>
+<span class="header-section-number">1.5</span> Data Science with R<a class="anchor" aria-label="anchor" href="#data-science-with-r"><i class="fas fa-link"></i></a>
+</h2>
+<p>R provides a strong foundation for data science, but its real power comes from its extensive ecosystem of packages—collections of functions, datasets, and documentation that extend R’s capabilities. While the base version of R includes many essential tools, it does not come preloaded with all the statistical and machine learning algorithms you may need. Instead, these algorithms are developed and shared by a large community of researchers and practitioners as free and open-source R packages.</p>
+<p>A package is a modular, reusable library that enhances R’s functionality. Packages include well-documented functions, usage instructions, and often sample datasets for testing and learning. In this book, we frequently use the <strong>liver</strong> package, which was developed specifically to accompany this book. It contains datasets and functions designed to illustrate key data science concepts and techniques. Additionally, for each machine learning algorithm covered in this book, we introduce and use the appropriate R packages that implement those methods.</p>
+<p>For those interested in exploring further, the Comprehensive R Archive Network (CRAN) hosts thousands of packages for statistical computing, data visualization, and machine learning. The full list of available packages can be browsed on the <a href="https://CRAN.R-project.org">CRAN website</a>, providing access to tools tailored to various domains in data science and beyond.</p>
+</div>
+<div id="install-packages" class="section level2" number="1.6">
+<h2>
+<span class="header-section-number">1.6</span> How to Install R Packages<a class="anchor" aria-label="anchor" href="#install-packages"><i class="fas fa-link"></i></a>
+</h2>
+<p>There are two ways to install R packages. The first method is through RStudio’s graphical interface. Click on the “Tools” tab and select “Install Packages…”. In the dialog box that appears, enter the name of the package(s) you wish to install in the “Packages” field and click the “Install” button. Make sure to check the “Install dependencies” option to ensure that all necessary supporting packages are installed as well. See Figure <a href="chapter-into-R.html#fig:install-packages">1.2</a> for a visual guide.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:install-packages"></span>
+<img src="images/RStudio-window-install.png" alt="A visual guide to installing R packages using the 'Tools' tab in RStudio." width="70%"><p class="caption">
+Figure 1.2: A visual guide to installing R packages using the ‘Tools’ tab in RStudio.
+</p>
+</div>
+<p>The second method is to install packages directly using the <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code> function. For example, to install the <strong>liver</strong> package, which provides datasets and functions used throughout this book, enter the following command in the R console:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"liver"</span><span class="op">)</span></span></code></pre></div>
+<p>Press “Enter” to execute the command. R will connect to <a href="https://cran.r-project.org">CRAN</a> and download the package in the correct format for your operating system. If you encounter any issues during installation, ensure you are connected to the internet and that your proxy or firewall is not blocking access to CRAN. The first time you install a package, R may ask you to select a CRAN mirror. Choose one that is geographically close to you for faster downloads.</p>
+<p>The <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code> function also allows for customization, such as installing a package from a local file or a specific repository. To learn more, type the following command in the R console:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">?</span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>Packages only need to be installed once. After installation, they must be loaded into each new R session using the <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> function. We will cover how to load packages in the next section.</p>
+</div>
+<div id="how-to-load-r-packages" class="section level2" number="1.7">
+<h2>
+<span class="header-section-number">1.7</span> How to Load R Packages<a class="anchor" aria-label="anchor" href="#how-to-load-r-packages"><i class="fas fa-link"></i></a>
+</h2>
+<p>To optimize memory usage, R does not automatically load all installed packages. Instead, you must explicitly load the necessary packages in each new R session. This ensures that only relevant functions and datasets are available, minimizing resource consumption.<br>
+To load a package, use the <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> or <code><a href="https://rdrr.io/r/base/library.html">require()</a></code> function. These functions locate the package on your system and make its functions, datasets, and documentation accessible. For example, to load the <strong>liver</strong> package, enter the following command in the R console:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.uva.nl/profile/a.mohammadi">liver</a></span><span class="op">)</span></span></code></pre></div>
+<p>Press <em>Enter</em> to execute the command. If an error message appears stating that the package is not found (e.g., <code>"there is no package called 'liver'"</code>), it indicates that the package has not been installed. In such cases, refer to the previous section on installing packages.</p>
+<p>Beyond <strong>liver</strong>, this book utilizes several other R packages, which will be introduced progressively throughout the chapters as needed. However, some R packages contain functions with identical names. For instance, both the <strong>liver* and </strong>dplyr** packages include a <code>select()</code> function. When multiple packages are loaded, R defaults to using the function from the most recently loaded package.</p>
+<p>To explicitly specify which package a function should be sourced from, use the <code>::</code> operator. This ensures clarity and prevents conflicts. For example, to use the <code>select()</code> function from the <strong>liver</strong> package, enter:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">liver</span><span class="fu">::</span><span class="fu">select</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>This approach is particularly useful in complex projects where multiple packages are required, preventing unintended overwrites of functions with the same name.</p>
+</div>
+<div id="running-r-code" class="section level2" number="1.8">
+<h2>
+<span class="header-section-number">1.8</span> Running R Code<a class="anchor" aria-label="anchor" href="#running-r-code"><i class="fas fa-link"></i></a>
+</h2>
+<p>R is an interactive language, allowing you to type commands directly into the console and see the results immediately. For example, you can perform basic arithmetic operations such as addition, subtraction, multiplication, and division. To add two numbers, type the following in the R console:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="chapter-into-R.html#cb5-1" tabindex="-1"></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span></span>
+<span id="cb5-2"><a href="chapter-into-R.html#cb5-2" tabindex="-1"></a>   [<span class="dv">1</span>] <span class="dv">5</span></span></code></pre></div>
+<p>Press <em>Enter</em> to execute the command. R will compute the sum and display the result. You can also store this result in a variable for later use:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fl">2</span> <span class="op">+</span> <span class="fl">3</span></span></code></pre></div>
+<p>Here, <code>&lt;-</code> is the assignment operator in R, used to assign values to variables. Some users prefer the <code>=</code> operator (<code>result = 2 + 3</code>), which also works in most cases, but <code>&lt;-</code> remains the recommended convention in R programming.</p>
+<p>Variables in R store values for later use, allowing you to perform calculations efficiently. For example, you can multiply <code>result</code> by 4:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="chapter-into-R.html#cb7-1" tabindex="-1"></a>result <span class="sc">*</span> <span class="dv">4</span></span>
+<span id="cb7-2"><a href="chapter-into-R.html#cb7-2" tabindex="-1"></a>   [<span class="dv">1</span>] <span class="dv">20</span></span></code></pre></div>
+<p>R will retrieve the stored value of <code>result</code> and compute the multiplication.</p>
+<div id="using-comments-in-r" class="section level3 unnumbered">
+<h3>Using Comments in R<a class="anchor" aria-label="anchor" href="#using-comments-in-r"><i class="fas fa-link"></i></a>
+</h3>
+<p>Comments are used to explain your code and make it easier to understand. In R, a comment starts with <code>#</code>, and everything following it on that line is ignored by the interpreter.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Store the sum of 2 and 3 in the variable `result`</span></span>
+<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fl">2</span> <span class="op">+</span> <span class="fl">3</span></span></code></pre></div>
+<p>Comments do not affect the execution of your code but are essential for documentation, especially when working on complex projects or collaborating with others.</p>
+</div>
+<div id="functions-in-r" class="section level3" number="1.8.1">
+<h3>
+<span class="header-section-number">1.8.1</span> Functions in R<a class="anchor" aria-label="anchor" href="#functions-in-r"><i class="fas fa-link"></i></a>
+</h3>
+<p>R provides a rich set of built-in functions to perform specific tasks. A function takes <strong>input(s)</strong> (arguments), processes them, and returns an <strong>output</strong>. For example, the <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> function creates vectors:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span>  <span class="co"># Create a vector</span></span></code></pre></div>
+<p>You can then apply functions to this vector. For example, to compute the average of the numbers in <code>x</code>, use the <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> function:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="chapter-into-R.html#cb10-1" tabindex="-1"></a><span class="fu">mean</span>(x)  <span class="co"># Calculate the mean of x</span></span>
+<span id="cb10-2"><a href="chapter-into-R.html#cb10-2" tabindex="-1"></a>   [<span class="dv">1</span>] <span class="dv">3</span></span></code></pre></div>
+<p>Functions in R follow a simple structure:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">function_name</span><span class="op">(</span><span class="va">arguments</span><span class="op">)</span></span></code></pre></div>
+<p>Some functions require arguments, while others are optional. To learn more about a function, use <code>?</code> followed by the function name:</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">?</span><span class="va">mean</span>  <span class="co"># or help(mean)</span></span></code></pre></div>
+<p>This will open R’s help documentation, providing details about the function’s purpose, usage, arguments, and examples.</p>
+<p>Functions are essential in R programming, helping to simplify complex operations and making code more reusable and efficient. As you progress, you will also learn how to write your own functions to automate tasks and improve workflow.</p>
+</div>
+</div>
+<div id="how-to-import-data-into-r" class="section level2" number="1.9">
+<h2>
+<span class="header-section-number">1.9</span> How to Import Data into R<a class="anchor" aria-label="anchor" href="#how-to-import-data-into-r"><i class="fas fa-link"></i></a>
+</h2>
+<p>Before performing any analysis, you first need to load data into R. R can read data from multiple sources, including text files, Excel files, and online datasets. Depending on the file format and data source, you can choose from several methods for importing data into R.</p>
+<div id="using-rstudios-graphical-interface" class="section level3 unnumbered">
+<h3>Using RStudio’s Graphical Interface<a class="anchor" aria-label="anchor" href="#using-rstudios-graphical-interface"><i class="fas fa-link"></i></a>
+</h3>
+<p>The easiest way to import data into R is through RStudio’s graphical interface. Click on the <em>Import Dataset</em> button in the top-right panel of RStudio (see Figure <a href="chapter-into-R.html#fig:load-data">1.3</a> for a visual guide). This will open a dialog box where you can choose the file type:<br>
+- <strong>From Text (base)</strong> – for CSV or tab-delimited files.<br>
+- <strong>From Excel</strong> – for Microsoft Excel files.<br>
+- Other formats are available, depending on installed packages.</p>
+<p>After selecting your file, RStudio will display an import settings window (see Figure <a href="chapter-into-R.html#fig:load-data-2">1.4</a>). Here, you can adjust column names, data types, and other options. If the first row contains column names, select <em>Yes</em> under the <em>Heading</em> option. Click <em>Import</em>, and the dataset will appear in RStudio’s Environment panel, ready for analysis.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:load-data"></span>
+<img src="images/RStudio-window-data-1.png" alt="A visual guide to loading a dataset into R using the 'Import Dataset' tab in RStudio." width="70%"><p class="caption">
+Figure 1.3: A visual guide to loading a dataset into R using the ‘Import Dataset’ tab in RStudio.
+</p>
+</div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:load-data-2"></span>
+<img src="images/RStudio-window-data.png" alt="A visual guide to customizing the import settings when loading a dataset into R using the 'Import Dataset' tab in RStudio." width="70%"><p class="caption">
+Figure 1.4: A visual guide to customizing the import settings when loading a dataset into R using the ‘Import Dataset’ tab in RStudio.
+</p>
+</div>
+</div>
+<div id="using-read.csv" class="section level3 unnumbered">
+<h3>Using <code>read.csv()</code><a class="anchor" aria-label="anchor" href="#using-read.csv"><i class="fas fa-link"></i></a>
+</h3>
+<p>You can also import data directly using the <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code> function, which reads tabular data (such as CSV files) into R as a data frame. If your data file is stored locally, you can load it as follows:</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"path/to/your/file.csv"</span><span class="op">)</span></span></code></pre></div>
+<p>Replace <code>"path/to/your/file.csv"</code> with the actual file path. If your file does not contain column names, use:</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"path/to/your/file.csv"</span>, header <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="setting-the-working-directory" class="section level3 unnumbered">
+<h3>Setting the Working Directory<a class="anchor" aria-label="anchor" href="#setting-the-working-directory"><i class="fas fa-link"></i></a>
+</h3>
+<p>By default, R looks for files in the current working directory. If your data is located elsewhere, you can specify the full path in <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code> or set the working directory.</p>
+<p>To check your current working directory:</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>To set a new working directory:</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span><span class="op">(</span><span class="st">"~/Documents"</span><span class="op">)</span>  <span class="co"># Adjust the path based on your system</span></span></code></pre></div>
+<p>Alternatively, in RStudio, go to <em>Session &gt; Set Working Directory &gt; Choose Directory…</em> and select the desired folder.</p>
+</div>
+<div id="using-file.choose-with-read.csv" class="section level3 unnumbered">
+<h3>Using <code>file.choose()</code> with <code>read.csv()</code><a class="anchor" aria-label="anchor" href="#using-file.choose-with-read.csv"><i class="fas fa-link"></i></a>
+</h3>
+<p>To interactively select a file instead of typing its path manually, use <code><a href="https://rdrr.io/r/base/file.choose.html">file.choose()</a></code>:</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.choose.html">file.choose</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>This will open a file selection dialog, making it a convenient option when working with multiple datasets.</p>
+</div>
+<div id="loading-data-from-online-sources" class="section level3 unnumbered">
+<h3>Loading Data from Online Sources<a class="anchor" aria-label="anchor" href="#loading-data-from-online-sources"><i class="fas fa-link"></i></a>
+</h3>
+<p>R also allows direct import of datasets from web sources. For example, to load a publicly available COVID-19 dataset:</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">corona_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"https://opendata.ecdc.europa.eu/covid19/casedistribution/csv"</span>, </span>
+<span>                        na.strings <span class="op">=</span> <span class="st">""</span>, fileEncoding <span class="op">=</span> <span class="st">"UTF-8-BOM"</span><span class="op">)</span></span></code></pre></div>
+<p>This approach is useful for accessing open datasets from research institutions or government agencies.</p>
+</div>
+<div id="using-read_excel-for-excel-files" class="section level3 unnumbered">
+<h3>Using <code>read_excel()</code> for Excel Files<a class="anchor" aria-label="anchor" href="#using-read_excel-for-excel-files"><i class="fas fa-link"></i></a>
+</h3>
+<p>To import Excel files, use the <code><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_excel()</a></code> function from the <strong>readxl</strong> package. First, install and load the package:</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"readxl"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readxl.tidyverse.org">readxl</a></span><span class="op">)</span></span></code></pre></div>
+<p>Then, import the Excel file:</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_excel</a></span><span class="op">(</span><span class="st">"path/to/your/file.xlsx"</span><span class="op">)</span></span></code></pre></div>
+<p>Unlike <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code>, <code><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_excel()</a></code> supports multiple sheets within an Excel file, which can be specified using the <code>sheet</code> argument.<br>
+### Loading Data from R Packages {-}</p>
+<p>Some datasets are available directly in R packages and do not require importing from an external file. For example, the <strong>liver</strong> package, developed for this book, contains multiple datasets. To access the <em>churn</em> dataset:</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.uva.nl/profile/a.mohammadi">liver</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">churn</span><span class="op">)</span></span></code></pre></div>
+<p>Since many of the datasets used in this book are included in the <strong>liver</strong> package (see Table <a href="index.html#tab:data-table">0.1</a>), we will frequently use this package for examples and demonstrations.</p>
+<p>This section is well-structured and clearly explains the fundamental data types in R. It is concise and informative, making it accessible to beginners while maintaining a professional tone suitable for a Springer publication. Below are some minor refinements to improve clarity, consistency, and readability.</p>
+</div>
+</div>
+<div id="data-types-in-r" class="section level2" number="1.10">
+<h2>
+<span class="header-section-number">1.10</span> Data Types in R<a class="anchor" aria-label="anchor" href="#data-types-in-r"><i class="fas fa-link"></i></a>
+</h2>
+<p>Data in R can take various forms, and correctly identifying these types is essential for effective data manipulation, visualization, and analysis. Each data type has specific properties that determine how R processes it, so understanding them helps avoid errors and ensures accurate results.</p>
+<p>Here are the most common data types in R:</p>
+<ul>
+<li>
+<strong>Numeric</strong>: Represents real numbers, such as <code>3.14</code> or <code>-5.67</code>. This type is used for continuous numerical values, like heights, weights, or temperatures.<br>
+</li>
+<li>
+<strong>Integer</strong>: Represents whole numbers without decimals, such as <code>1</code>, <code>42</code>, or <code>-10</code>. This type is useful for count-based data, such as the number of customers or items sold.<br>
+</li>
+<li>
+<strong>Character</strong>: Represents text or string data, such as <code>"Data Science"</code> or <code>"R Programming"</code>. This type is commonly used for categorical labels, names, and descriptive values.<br>
+</li>
+<li>
+<strong>Logical</strong>: Represents Boolean values: <code>TRUE</code> or <code>FALSE</code>. Logical data is often used in conditional statements and filtering operations.<br>
+</li>
+<li>
+<strong>Factor</strong>: Represents categorical data with predefined levels. Factors are commonly used for storing variables such as <code>"Male"</code> or <code>"Female"</code> in a dataset and are particularly useful in statistical modeling.</li>
+</ul>
+<p>To check the data type of a variable, use the <code><a href="https://rdrr.io/r/base/class.html">class()</a></code> function. For example, to determine the type of the variable <code>result</code>, type:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="chapter-into-R.html#cb22-1" tabindex="-1"></a><span class="fu">class</span>(result)</span>
+<span id="cb22-2"><a href="chapter-into-R.html#cb22-2" tabindex="-1"></a>   [<span class="dv">1</span>] <span class="st">"numeric"</span></span></code></pre></div>
+<p>Press <em>Enter</em>, and R will display the variable’s data type.</p>
+<p>Recognizing different data types is essential for choosing the right analytical and visualization techniques. As we will explore in later chapters (e.g., Chapters <a href="chapter-EDA.html#chapter-EDA">4</a> and <a href="chapter-statistics.html#chapter-statistics">5</a>), numerical and categorical variables require different approaches when performing descriptive statistics, hypothesis testing, and data visualization.</p>
+</div>
+<div id="data-structures-in-r" class="section level2" number="1.11">
+<h2>
+<span class="header-section-number">1.11</span> Data Structures in R<a class="anchor" aria-label="anchor" href="#data-structures-in-r"><i class="fas fa-link"></i></a>
+</h2>
+<p>Data structures are fundamental to working with data in R. They define how data is stored and manipulated, which directly impacts the efficiency and accuracy of data analysis. The most commonly used data structures in R are vectors, matrices, data frames, and lists, as illustrated in Figure <a href="chapter-into-R.html#fig:load-data-2">1.4</a>.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:R-objects"></span>
+<img src="images/R-objects.png" alt="A visual guide to different types of data structures in R." width="60%"><p class="caption">
+Figure 1.5: A visual guide to different types of data structures in R.
+</p>
+</div>
+<div id="vectors-in-r" class="section level3 unnumbered">
+<h3>Vectors in R<a class="anchor" aria-label="anchor" href="#vectors-in-r"><i class="fas fa-link"></i></a>
+</h3>
+<p>A vector is the simplest data structure in R. It is a one-dimensional array that holds elements of the same type (numeric, character, or logical). Vectors are the building blocks of other data structures. You can create a vector using the <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> function:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="chapter-into-R.html#cb23-1" tabindex="-1"></a><span class="co"># Create a numeric vector</span></span>
+<span id="cb23-2"><a href="chapter-into-R.html#cb23-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">3</span>, <span class="dv">5</span>)</span>
+<span id="cb23-3"><a href="chapter-into-R.html#cb23-3" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="chapter-into-R.html#cb23-4" tabindex="-1"></a><span class="co"># Display the vector</span></span>
+<span id="cb23-5"><a href="chapter-into-R.html#cb23-5" tabindex="-1"></a>x</span>
+<span id="cb23-6"><a href="chapter-into-R.html#cb23-6" tabindex="-1"></a>   [<span class="dv">1</span>]  <span class="dv">1</span>  <span class="dv">2</span>  <span class="dv">0</span> <span class="sc">-</span><span class="dv">3</span>  <span class="dv">5</span></span>
+<span id="cb23-7"><a href="chapter-into-R.html#cb23-7" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="chapter-into-R.html#cb23-8" tabindex="-1"></a><span class="co"># Check if x is a vector</span></span>
+<span id="cb23-9"><a href="chapter-into-R.html#cb23-9" tabindex="-1"></a><span class="fu">is.vector</span>(x)</span>
+<span id="cb23-10"><a href="chapter-into-R.html#cb23-10" tabindex="-1"></a>   [<span class="dv">1</span>] <span class="cn">TRUE</span></span>
+<span id="cb23-11"><a href="chapter-into-R.html#cb23-11" tabindex="-1"></a></span>
+<span id="cb23-12"><a href="chapter-into-R.html#cb23-12" tabindex="-1"></a><span class="co"># Check the length of the vector</span></span>
+<span id="cb23-13"><a href="chapter-into-R.html#cb23-13" tabindex="-1"></a><span class="fu">length</span>(x)</span>
+<span id="cb23-14"><a href="chapter-into-R.html#cb23-14" tabindex="-1"></a>   [<span class="dv">1</span>] <span class="dv">5</span></span></code></pre></div>
+<p>Here, <code>x</code> is a numeric vector containing five elements. The <code><a href="https://rdrr.io/r/base/vector.html">is.vector()</a></code> function confirms that <code>x</code> is indeed a vector, while <code>length(x)</code> returns the number of elements in the vector.</p>
+</div>
+<div id="matrices-in-r" class="section level3 unnumbered">
+<h3>Matrices in R<a class="anchor" aria-label="anchor" href="#matrices-in-r"><i class="fas fa-link"></i></a>
+</h3>
+<p>A matrix is a two-dimensional array where all elements must be of the same type. Matrices are useful for mathematical operations and structured numerical data. You can create a matrix using the <code><a href="https://rdrr.io/r/base/matrix.html">matrix()</a></code> function:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="chapter-into-R.html#cb24-1" tabindex="-1"></a><span class="co"># Create a matrix with 2 rows and 3 columns</span></span>
+<span id="cb24-2"><a href="chapter-into-R.html#cb24-2" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb24-3"><a href="chapter-into-R.html#cb24-3" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="chapter-into-R.html#cb24-4" tabindex="-1"></a><span class="co"># Display the matrix</span></span>
+<span id="cb24-5"><a href="chapter-into-R.html#cb24-5" tabindex="-1"></a>m</span>
+<span id="cb24-6"><a href="chapter-into-R.html#cb24-6" tabindex="-1"></a>        [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]</span>
+<span id="cb24-7"><a href="chapter-into-R.html#cb24-7" tabindex="-1"></a>   [<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">2</span>    <span class="dv">3</span></span>
+<span id="cb24-8"><a href="chapter-into-R.html#cb24-8" tabindex="-1"></a>   [<span class="dv">2</span>,]    <span class="dv">4</span>    <span class="dv">5</span>    <span class="dv">6</span></span>
+<span id="cb24-9"><a href="chapter-into-R.html#cb24-9" tabindex="-1"></a></span>
+<span id="cb24-10"><a href="chapter-into-R.html#cb24-10" tabindex="-1"></a><span class="co"># Check if m is a matrix</span></span>
+<span id="cb24-11"><a href="chapter-into-R.html#cb24-11" tabindex="-1"></a><span class="fu">is.matrix</span>(m)</span>
+<span id="cb24-12"><a href="chapter-into-R.html#cb24-12" tabindex="-1"></a>   [<span class="dv">1</span>] <span class="cn">TRUE</span></span>
+<span id="cb24-13"><a href="chapter-into-R.html#cb24-13" tabindex="-1"></a></span>
+<span id="cb24-14"><a href="chapter-into-R.html#cb24-14" tabindex="-1"></a><span class="co"># Check the dimensions of the matrix</span></span>
+<span id="cb24-15"><a href="chapter-into-R.html#cb24-15" tabindex="-1"></a><span class="fu">dim</span>(m)</span>
+<span id="cb24-16"><a href="chapter-into-R.html#cb24-16" tabindex="-1"></a>   [<span class="dv">1</span>] <span class="dv">2</span> <span class="dv">3</span></span></code></pre></div>
+<p>This matrix <code>m</code> consists of two rows and three columns, filled row-wise. The <code><a href="https://rdrr.io/r/base/dim.html">dim()</a></code> function returns the dimensions of the matrix. To fill the matrix column-wise, set <code>byrow = FALSE</code>.</p>
+</div>
+<div id="data-frames-in-r" class="section level3 unnumbered">
+<h3>Data Frames in R<a class="anchor" aria-label="anchor" href="#data-frames-in-r"><i class="fas fa-link"></i></a>
+</h3>
+<p>A data frame is a two-dimensional table where each column can contain a different data type (numeric, character, or logical). This makes data frames ideal for storing tabular data, similar to spreadsheets. You can create a data frame using the <code><a href="https://rdrr.io/r/base/data.frame.html">data.frame()</a></code> function:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="chapter-into-R.html#cb25-1" tabindex="-1"></a><span class="co"># Create vectors for student data</span></span>
+<span id="cb25-2"><a href="chapter-into-R.html#cb25-2" tabindex="-1"></a>student_id <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">101</span>, <span class="dv">102</span>, <span class="dv">103</span>, <span class="dv">104</span>)</span>
+<span id="cb25-3"><a href="chapter-into-R.html#cb25-3" tabindex="-1"></a>name       <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Emma"</span>, <span class="st">"Bob"</span>, <span class="st">"Alice"</span>, <span class="st">"Noah"</span>)</span>
+<span id="cb25-4"><a href="chapter-into-R.html#cb25-4" tabindex="-1"></a>age        <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">21</span>, <span class="dv">19</span>, <span class="dv">22</span>)</span>
+<span id="cb25-5"><a href="chapter-into-R.html#cb25-5" tabindex="-1"></a>grade      <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"A"</span>, <span class="st">"C"</span>)</span>
+<span id="cb25-6"><a href="chapter-into-R.html#cb25-6" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="chapter-into-R.html#cb25-7" tabindex="-1"></a><span class="co"># Create a data frame from the vectors</span></span>
+<span id="cb25-8"><a href="chapter-into-R.html#cb25-8" tabindex="-1"></a>students_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(student_id, name, age, grade)</span>
+<span id="cb25-9"><a href="chapter-into-R.html#cb25-9" tabindex="-1"></a></span>
+<span id="cb25-10"><a href="chapter-into-R.html#cb25-10" tabindex="-1"></a><span class="co"># Display the data frame</span></span>
+<span id="cb25-11"><a href="chapter-into-R.html#cb25-11" tabindex="-1"></a>students_df</span>
+<span id="cb25-12"><a href="chapter-into-R.html#cb25-12" tabindex="-1"></a>     student_id  name age grade</span>
+<span id="cb25-13"><a href="chapter-into-R.html#cb25-13" tabindex="-1"></a>   <span class="dv">1</span>        <span class="dv">101</span>  Emma  <span class="dv">20</span>     A</span>
+<span id="cb25-14"><a href="chapter-into-R.html#cb25-14" tabindex="-1"></a>   <span class="dv">2</span>        <span class="dv">102</span>   Bob  <span class="dv">21</span>     B</span>
+<span id="cb25-15"><a href="chapter-into-R.html#cb25-15" tabindex="-1"></a>   <span class="dv">3</span>        <span class="dv">103</span> Alice  <span class="dv">19</span>     A</span>
+<span id="cb25-16"><a href="chapter-into-R.html#cb25-16" tabindex="-1"></a>   <span class="dv">4</span>        <span class="dv">104</span>  Noah  <span class="dv">22</span>     C</span></code></pre></div>
+<p>This data frame <code>students_df</code> consists of four columns: <code>student_id</code>, <code>name</code>, <code>age</code>, and <code>grade</code>. The <code><a href="https://rdrr.io/r/base/class.html">class()</a></code> function confirms that an object is a data frame, while <code><a href="https://rdrr.io/r/base/as.data.frame.html">is.data.frame()</a></code> checks its structure.</p>
+<p>To inspect the first few rows of a data frame, use the <code><a href="https://rdrr.io/r/utils/head.html">head()</a></code> function. For example, to display the first six rows of the <em>churn</em> dataset from the <strong>liver</strong> package:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="chapter-into-R.html#cb26-1" tabindex="-1"></a><span class="fu">library</span>(liver)  <span class="co"># Load the liver package</span></span>
+<span id="cb26-2"><a href="chapter-into-R.html#cb26-2" tabindex="-1"></a><span class="fu">data</span>(churn)     <span class="co"># Load the churn dataset</span></span>
+<span id="cb26-3"><a href="chapter-into-R.html#cb26-3" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="chapter-into-R.html#cb26-4" tabindex="-1"></a><span class="co"># Check the structure of the dataset</span></span>
+<span id="cb26-5"><a href="chapter-into-R.html#cb26-5" tabindex="-1"></a><span class="fu">str</span>(churn)</span>
+<span id="cb26-6"><a href="chapter-into-R.html#cb26-6" tabindex="-1"></a>   <span class="st">'data.frame'</span><span class="sc">:</span>    <span class="dv">5000</span> obs. of  <span class="dv">20</span> variables<span class="sc">:</span></span>
+<span id="cb26-7"><a href="chapter-into-R.html#cb26-7" tabindex="-1"></a>    <span class="er">$</span> state         <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">51</span> levels <span class="st">"AK"</span>,<span class="st">"AL"</span>,<span class="st">"AR"</span>,..<span class="sc">:</span> <span class="dv">17</span> <span class="dv">36</span> <span class="dv">32</span> <span class="dv">36</span> <span class="dv">37</span> <span class="dv">2</span> <span class="dv">20</span> <span class="dv">25</span> <span class="dv">19</span> <span class="dv">50</span> ...</span>
+<span id="cb26-8"><a href="chapter-into-R.html#cb26-8" tabindex="-1"></a>    <span class="sc">$</span> area.code     <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">3</span> levels <span class="st">"area_code_408"</span>,..<span class="sc">:</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> ...</span>
+<span id="cb26-9"><a href="chapter-into-R.html#cb26-9" tabindex="-1"></a>    <span class="sc">$</span> account.length<span class="sc">:</span> int  <span class="dv">128</span> <span class="dv">107</span> <span class="dv">137</span> <span class="dv">84</span> <span class="dv">75</span> <span class="dv">118</span> <span class="dv">121</span> <span class="dv">147</span> <span class="dv">117</span> <span class="dv">141</span> ...</span>
+<span id="cb26-10"><a href="chapter-into-R.html#cb26-10" tabindex="-1"></a>    <span class="sc">$</span> voice.plan    <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"yes"</span>,<span class="st">"no"</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> ...</span>
+<span id="cb26-11"><a href="chapter-into-R.html#cb26-11" tabindex="-1"></a>    <span class="sc">$</span> voice.messages<span class="sc">:</span> int  <span class="dv">25</span> <span class="dv">26</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">24</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">37</span> ...</span>
+<span id="cb26-12"><a href="chapter-into-R.html#cb26-12" tabindex="-1"></a>    <span class="sc">$</span> intl.plan     <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"yes"</span>,<span class="st">"no"</span><span class="sc">:</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> ...</span>
+<span id="cb26-13"><a href="chapter-into-R.html#cb26-13" tabindex="-1"></a>    <span class="sc">$</span> intl.mins     <span class="sc">:</span> num  <span class="dv">10</span> <span class="fl">13.7</span> <span class="fl">12.2</span> <span class="fl">6.6</span> <span class="fl">10.1</span> <span class="fl">6.3</span> <span class="fl">7.5</span> <span class="fl">7.1</span> <span class="fl">8.7</span> <span class="fl">11.2</span> ...</span>
+<span id="cb26-14"><a href="chapter-into-R.html#cb26-14" tabindex="-1"></a>    <span class="sc">$</span> intl.calls    <span class="sc">:</span> int  <span class="dv">3</span> <span class="dv">3</span> <span class="dv">5</span> <span class="dv">7</span> <span class="dv">3</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">6</span> <span class="dv">4</span> <span class="dv">5</span> ...</span>
+<span id="cb26-15"><a href="chapter-into-R.html#cb26-15" tabindex="-1"></a>    <span class="sc">$</span> intl.charge   <span class="sc">:</span> num  <span class="fl">2.7</span> <span class="fl">3.7</span> <span class="fl">3.29</span> <span class="fl">1.78</span> <span class="fl">2.73</span> <span class="fl">1.7</span> <span class="fl">2.03</span> <span class="fl">1.92</span> <span class="fl">2.35</span> <span class="fl">3.02</span> ...</span>
+<span id="cb26-16"><a href="chapter-into-R.html#cb26-16" tabindex="-1"></a>    <span class="sc">$</span> day.mins      <span class="sc">:</span> num  <span class="dv">265</span> <span class="dv">162</span> <span class="dv">243</span> <span class="dv">299</span> <span class="dv">167</span> ...</span>
+<span id="cb26-17"><a href="chapter-into-R.html#cb26-17" tabindex="-1"></a>    <span class="sc">$</span> day.calls     <span class="sc">:</span> int  <span class="dv">110</span> <span class="dv">123</span> <span class="dv">114</span> <span class="dv">71</span> <span class="dv">113</span> <span class="dv">98</span> <span class="dv">88</span> <span class="dv">79</span> <span class="dv">97</span> <span class="dv">84</span> ...</span>
+<span id="cb26-18"><a href="chapter-into-R.html#cb26-18" tabindex="-1"></a>    <span class="sc">$</span> day.charge    <span class="sc">:</span> num  <span class="fl">45.1</span> <span class="fl">27.5</span> <span class="fl">41.4</span> <span class="fl">50.9</span> <span class="fl">28.3</span> ...</span>
+<span id="cb26-19"><a href="chapter-into-R.html#cb26-19" tabindex="-1"></a>    <span class="sc">$</span> eve.mins      <span class="sc">:</span> num  <span class="fl">197.4</span> <span class="fl">195.5</span> <span class="fl">121.2</span> <span class="fl">61.9</span> <span class="fl">148.3</span> ...</span>
+<span id="cb26-20"><a href="chapter-into-R.html#cb26-20" tabindex="-1"></a>    <span class="sc">$</span> eve.calls     <span class="sc">:</span> int  <span class="dv">99</span> <span class="dv">103</span> <span class="dv">110</span> <span class="dv">88</span> <span class="dv">122</span> <span class="dv">101</span> <span class="dv">108</span> <span class="dv">94</span> <span class="dv">80</span> <span class="dv">111</span> ...</span>
+<span id="cb26-21"><a href="chapter-into-R.html#cb26-21" tabindex="-1"></a>    <span class="sc">$</span> eve.charge    <span class="sc">:</span> num  <span class="fl">16.78</span> <span class="fl">16.62</span> <span class="fl">10.3</span> <span class="fl">5.26</span> <span class="fl">12.61</span> ...</span>
+<span id="cb26-22"><a href="chapter-into-R.html#cb26-22" tabindex="-1"></a>    <span class="sc">$</span> night.mins    <span class="sc">:</span> num  <span class="dv">245</span> <span class="dv">254</span> <span class="dv">163</span> <span class="dv">197</span> <span class="dv">187</span> ...</span>
+<span id="cb26-23"><a href="chapter-into-R.html#cb26-23" tabindex="-1"></a>    <span class="sc">$</span> night.calls   <span class="sc">:</span> int  <span class="dv">91</span> <span class="dv">103</span> <span class="dv">104</span> <span class="dv">89</span> <span class="dv">121</span> <span class="dv">118</span> <span class="dv">118</span> <span class="dv">96</span> <span class="dv">90</span> <span class="dv">97</span> ...</span>
+<span id="cb26-24"><a href="chapter-into-R.html#cb26-24" tabindex="-1"></a>    <span class="sc">$</span> night.charge  <span class="sc">:</span> num  <span class="fl">11.01</span> <span class="fl">11.45</span> <span class="fl">7.32</span> <span class="fl">8.86</span> <span class="fl">8.41</span> ...</span>
+<span id="cb26-25"><a href="chapter-into-R.html#cb26-25" tabindex="-1"></a>    <span class="sc">$</span> customer.calls<span class="sc">:</span> int  <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">0</span> ...</span>
+<span id="cb26-26"><a href="chapter-into-R.html#cb26-26" tabindex="-1"></a>    <span class="sc">$</span> churn         <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"yes"</span>,<span class="st">"no"</span><span class="sc">:</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> ...</span>
+<span id="cb26-27"><a href="chapter-into-R.html#cb26-27" tabindex="-1"></a></span>
+<span id="cb26-28"><a href="chapter-into-R.html#cb26-28" tabindex="-1"></a><span class="co"># Display the first six rows</span></span>
+<span id="cb26-29"><a href="chapter-into-R.html#cb26-29" tabindex="-1"></a><span class="fu">head</span>(churn)</span>
+<span id="cb26-30"><a href="chapter-into-R.html#cb26-30" tabindex="-1"></a>     state     area.code account.length voice.plan voice.messages intl.plan</span>
+<span id="cb26-31"><a href="chapter-into-R.html#cb26-31" tabindex="-1"></a>   <span class="dv">1</span>    KS area_code_415            <span class="dv">128</span>        yes             <span class="dv">25</span>        no</span>
+<span id="cb26-32"><a href="chapter-into-R.html#cb26-32" tabindex="-1"></a>   <span class="dv">2</span>    OH area_code_415            <span class="dv">107</span>        yes             <span class="dv">26</span>        no</span>
+<span id="cb26-33"><a href="chapter-into-R.html#cb26-33" tabindex="-1"></a>   <span class="dv">3</span>    NJ area_code_415            <span class="dv">137</span>         no              <span class="dv">0</span>        no</span>
+<span id="cb26-34"><a href="chapter-into-R.html#cb26-34" tabindex="-1"></a>   <span class="dv">4</span>    OH area_code_408             <span class="dv">84</span>         no              <span class="dv">0</span>       yes</span>
+<span id="cb26-35"><a href="chapter-into-R.html#cb26-35" tabindex="-1"></a>   <span class="dv">5</span>    OK area_code_415             <span class="dv">75</span>         no              <span class="dv">0</span>       yes</span>
+<span id="cb26-36"><a href="chapter-into-R.html#cb26-36" tabindex="-1"></a>   <span class="dv">6</span>    AL area_code_510            <span class="dv">118</span>         no              <span class="dv">0</span>       yes</span>
+<span id="cb26-37"><a href="chapter-into-R.html#cb26-37" tabindex="-1"></a>     intl.mins intl.calls intl.charge day.mins day.calls day.charge eve.mins</span>
+<span id="cb26-38"><a href="chapter-into-R.html#cb26-38" tabindex="-1"></a>   <span class="dv">1</span>      <span class="fl">10.0</span>          <span class="dv">3</span>        <span class="fl">2.70</span>    <span class="fl">265.1</span>       <span class="dv">110</span>      <span class="fl">45.07</span>    <span class="fl">197.4</span></span>
+<span id="cb26-39"><a href="chapter-into-R.html#cb26-39" tabindex="-1"></a>   <span class="dv">2</span>      <span class="fl">13.7</span>          <span class="dv">3</span>        <span class="fl">3.70</span>    <span class="fl">161.6</span>       <span class="dv">123</span>      <span class="fl">27.47</span>    <span class="fl">195.5</span></span>
+<span id="cb26-40"><a href="chapter-into-R.html#cb26-40" tabindex="-1"></a>   <span class="dv">3</span>      <span class="fl">12.2</span>          <span class="dv">5</span>        <span class="fl">3.29</span>    <span class="fl">243.4</span>       <span class="dv">114</span>      <span class="fl">41.38</span>    <span class="fl">121.2</span></span>
+<span id="cb26-41"><a href="chapter-into-R.html#cb26-41" tabindex="-1"></a>   <span class="dv">4</span>       <span class="fl">6.6</span>          <span class="dv">7</span>        <span class="fl">1.78</span>    <span class="fl">299.4</span>        <span class="dv">71</span>      <span class="fl">50.90</span>     <span class="fl">61.9</span></span>
+<span id="cb26-42"><a href="chapter-into-R.html#cb26-42" tabindex="-1"></a>   <span class="dv">5</span>      <span class="fl">10.1</span>          <span class="dv">3</span>        <span class="fl">2.73</span>    <span class="fl">166.7</span>       <span class="dv">113</span>      <span class="fl">28.34</span>    <span class="fl">148.3</span></span>
+<span id="cb26-43"><a href="chapter-into-R.html#cb26-43" tabindex="-1"></a>   <span class="dv">6</span>       <span class="fl">6.3</span>          <span class="dv">6</span>        <span class="fl">1.70</span>    <span class="fl">223.4</span>        <span class="dv">98</span>      <span class="fl">37.98</span>    <span class="fl">220.6</span></span>
+<span id="cb26-44"><a href="chapter-into-R.html#cb26-44" tabindex="-1"></a>     eve.calls eve.charge night.mins night.calls night.charge customer.calls churn</span>
+<span id="cb26-45"><a href="chapter-into-R.html#cb26-45" tabindex="-1"></a>   <span class="dv">1</span>        <span class="dv">99</span>      <span class="fl">16.78</span>      <span class="fl">244.7</span>          <span class="dv">91</span>        <span class="fl">11.01</span>              <span class="dv">1</span>    no</span>
+<span id="cb26-46"><a href="chapter-into-R.html#cb26-46" tabindex="-1"></a>   <span class="dv">2</span>       <span class="dv">103</span>      <span class="fl">16.62</span>      <span class="fl">254.4</span>         <span class="dv">103</span>        <span class="fl">11.45</span>              <span class="dv">1</span>    no</span>
+<span id="cb26-47"><a href="chapter-into-R.html#cb26-47" tabindex="-1"></a>   <span class="dv">3</span>       <span class="dv">110</span>      <span class="fl">10.30</span>      <span class="fl">162.6</span>         <span class="dv">104</span>         <span class="fl">7.32</span>              <span class="dv">0</span>    no</span>
+<span id="cb26-48"><a href="chapter-into-R.html#cb26-48" tabindex="-1"></a>   <span class="dv">4</span>        <span class="dv">88</span>       <span class="fl">5.26</span>      <span class="fl">196.9</span>          <span class="dv">89</span>         <span class="fl">8.86</span>              <span class="dv">2</span>    no</span>
+<span id="cb26-49"><a href="chapter-into-R.html#cb26-49" tabindex="-1"></a>   <span class="dv">5</span>       <span class="dv">122</span>      <span class="fl">12.61</span>      <span class="fl">186.9</span>         <span class="dv">121</span>         <span class="fl">8.41</span>              <span class="dv">3</span>    no</span>
+<span id="cb26-50"><a href="chapter-into-R.html#cb26-50" tabindex="-1"></a>   <span class="dv">6</span>       <span class="dv">101</span>      <span class="fl">18.75</span>      <span class="fl">203.9</span>         <span class="dv">118</span>         <span class="fl">9.18</span>              <span class="dv">0</span>    no</span></code></pre></div>
+<p>This code loads the <strong>liver</strong> package, retrieves the <em>churn</em> dataset, and provides an overview of its structure. The <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> function is particularly useful for summarizing data frames, as it displays data types and column values.</p>
+</div>
+<div id="lists-in-r" class="section level3 unnumbered">
+<h3>Lists in R<a class="anchor" aria-label="anchor" href="#lists-in-r"><i class="fas fa-link"></i></a>
+</h3>
+<p>A list is a flexible data structure that can contain elements of different types, including vectors, matrices, data frames, or even other lists. Lists are useful for storing complex objects in a structured way. You can create a list using the <code><a href="https://rdrr.io/r/base/list.html">list()</a></code> function:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="chapter-into-R.html#cb27-1" tabindex="-1"></a><span class="co"># Create a list containing a vector, matrix, and data frame</span></span>
+<span id="cb27-2"><a href="chapter-into-R.html#cb27-2" tabindex="-1"></a>my_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">vector =</span> x, <span class="at">matrix =</span> m, <span class="at">data_frame =</span> students_df)</span>
+<span id="cb27-3"><a href="chapter-into-R.html#cb27-3" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="chapter-into-R.html#cb27-4" tabindex="-1"></a><span class="co"># Display the list</span></span>
+<span id="cb27-5"><a href="chapter-into-R.html#cb27-5" tabindex="-1"></a>my_list</span>
+<span id="cb27-6"><a href="chapter-into-R.html#cb27-6" tabindex="-1"></a>   <span class="sc">$</span>vector</span>
+<span id="cb27-7"><a href="chapter-into-R.html#cb27-7" tabindex="-1"></a>   [<span class="dv">1</span>]  <span class="dv">1</span>  <span class="dv">2</span>  <span class="dv">0</span> <span class="sc">-</span><span class="dv">3</span>  <span class="dv">5</span></span>
+<span id="cb27-8"><a href="chapter-into-R.html#cb27-8" tabindex="-1"></a>   </span>
+<span id="cb27-9"><a href="chapter-into-R.html#cb27-9" tabindex="-1"></a>   <span class="sc">$</span>matrix</span>
+<span id="cb27-10"><a href="chapter-into-R.html#cb27-10" tabindex="-1"></a>        [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>]</span>
+<span id="cb27-11"><a href="chapter-into-R.html#cb27-11" tabindex="-1"></a>   [<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">2</span>    <span class="dv">3</span></span>
+<span id="cb27-12"><a href="chapter-into-R.html#cb27-12" tabindex="-1"></a>   [<span class="dv">2</span>,]    <span class="dv">4</span>    <span class="dv">5</span>    <span class="dv">6</span></span>
+<span id="cb27-13"><a href="chapter-into-R.html#cb27-13" tabindex="-1"></a>   </span>
+<span id="cb27-14"><a href="chapter-into-R.html#cb27-14" tabindex="-1"></a>   <span class="sc">$</span>data_frame</span>
+<span id="cb27-15"><a href="chapter-into-R.html#cb27-15" tabindex="-1"></a>     student_id  name age grade</span>
+<span id="cb27-16"><a href="chapter-into-R.html#cb27-16" tabindex="-1"></a>   <span class="dv">1</span>        <span class="dv">101</span>  Emma  <span class="dv">20</span>     A</span>
+<span id="cb27-17"><a href="chapter-into-R.html#cb27-17" tabindex="-1"></a>   <span class="dv">2</span>        <span class="dv">102</span>   Bob  <span class="dv">21</span>     B</span>
+<span id="cb27-18"><a href="chapter-into-R.html#cb27-18" tabindex="-1"></a>   <span class="dv">3</span>        <span class="dv">103</span> Alice  <span class="dv">19</span>     A</span>
+<span id="cb27-19"><a href="chapter-into-R.html#cb27-19" tabindex="-1"></a>   <span class="dv">4</span>        <span class="dv">104</span>  Noah  <span class="dv">22</span>     C</span></code></pre></div>
+<p>This list <code>my_list</code> stores a vector, a matrix, and a data frame within a single object. Lists allow for efficient organization of heterogeneous data. To explore the structure of a list, use the <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> function:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="chapter-into-R.html#cb28-1" tabindex="-1"></a><span class="fu">str</span>(my_list)</span>
+<span id="cb28-2"><a href="chapter-into-R.html#cb28-2" tabindex="-1"></a>   List of <span class="dv">3</span></span>
+<span id="cb28-3"><a href="chapter-into-R.html#cb28-3" tabindex="-1"></a>    <span class="sc">$</span> vector    <span class="sc">:</span> num [<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">0</span> <span class="sc">-</span><span class="dv">3</span> <span class="dv">5</span></span>
+<span id="cb28-4"><a href="chapter-into-R.html#cb28-4" tabindex="-1"></a>    <span class="sc">$</span> matrix    <span class="sc">:</span> num [<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>] <span class="dv">1</span> <span class="dv">4</span> <span class="dv">2</span> <span class="dv">5</span> <span class="dv">3</span> <span class="dv">6</span></span>
+<span id="cb28-5"><a href="chapter-into-R.html#cb28-5" tabindex="-1"></a>    <span class="sc">$</span> data_frame<span class="sc">:</span><span class="st">'data.frame'</span><span class="sc">:</span>  <span class="dv">4</span> obs. of  <span class="dv">4</span> variables<span class="sc">:</span></span>
+<span id="cb28-6"><a href="chapter-into-R.html#cb28-6" tabindex="-1"></a>     ..<span class="sc">$</span> student_id<span class="sc">:</span> num [<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>] <span class="dv">101</span> <span class="dv">102</span> <span class="dv">103</span> <span class="dv">104</span></span>
+<span id="cb28-7"><a href="chapter-into-R.html#cb28-7" tabindex="-1"></a>     ..<span class="sc">$</span> name      <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>] <span class="st">"Emma"</span> <span class="st">"Bob"</span> <span class="st">"Alice"</span> <span class="st">"Noah"</span></span>
+<span id="cb28-8"><a href="chapter-into-R.html#cb28-8" tabindex="-1"></a>     ..<span class="sc">$</span> age       <span class="sc">:</span> num [<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>] <span class="dv">20</span> <span class="dv">21</span> <span class="dv">19</span> <span class="dv">22</span></span>
+<span id="cb28-9"><a href="chapter-into-R.html#cb28-9" tabindex="-1"></a>     ..<span class="sc">$</span> grade     <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>] <span class="st">"A"</span> <span class="st">"B"</span> <span class="st">"A"</span> <span class="st">"C"</span></span></code></pre></div>
+<p>Lists are powerful tools in R, especially for handling nested or hierarchical data. For further exploration, use <code><a href="https://rdrr.io/r/base/list.html">?list</a></code> to access the documentation and additional examples.</p>
+</div>
+</div>
+<div id="accessing-records-or-variables-in-r" class="section level2" number="1.12">
+<h2>
+<span class="header-section-number">1.12</span> Accessing Records or Variables in R<a class="anchor" aria-label="anchor" href="#accessing-records-or-variables-in-r"><i class="fas fa-link"></i></a>
+</h2>
+<p>Once you’ve imported data into R, you can easily access specific records or variables using the <code>$</code> and <code>[]</code> operators. These tools are essential for extracting data from data frames and lists.</p>
+<p>The <code>$</code> operator allows you to extract a specific column from a data frame or a specific element from a list. For example, to access the <code>name</code> column in the <code>students_df</code> data frame, you would use:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="chapter-into-R.html#cb29-1" tabindex="-1"></a>students_df<span class="sc">$</span>name</span>
+<span id="cb29-2"><a href="chapter-into-R.html#cb29-2" tabindex="-1"></a>   [<span class="dv">1</span>] <span class="st">"Emma"</span>  <span class="st">"Bob"</span>   <span class="st">"Alice"</span> <span class="st">"Noah"</span></span></code></pre></div>
+<p>This command retrieves and displays the <code>name</code> column from the <code>students_df</code> data frame.</p>
+<p>Similarly, you can use the <code>$</code> operator to access elements within a list. For example, to access the <code>vector</code> element in the <code>my_list</code> list:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="chapter-into-R.html#cb30-1" tabindex="-1"></a>my_list<span class="sc">$</span>vector</span>
+<span id="cb30-2"><a href="chapter-into-R.html#cb30-2" tabindex="-1"></a>   [<span class="dv">1</span>]  <span class="dv">1</span>  <span class="dv">2</span>  <span class="dv">0</span> <span class="sc">-</span><span class="dv">3</span>  <span class="dv">5</span></span></code></pre></div>
+<p>This command retrieves and displays the <code>vector</code> element from the <code>my_list</code> list. The <code>$</code> operator is a straightforward and powerful way to access specific variables or elements within data frames and lists.</p>
+<p>Another method for accessing specific records or variables is through the <code>[]</code> operator, which allows you to subset data frames, matrices, and lists based on specific conditions. For example, to extract the first three rows of the <code>students_df</code> data frame, you can use:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="chapter-into-R.html#cb31-1" tabindex="-1"></a>students_df[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, ]</span>
+<span id="cb31-2"><a href="chapter-into-R.html#cb31-2" tabindex="-1"></a>     student_id  name age grade</span>
+<span id="cb31-3"><a href="chapter-into-R.html#cb31-3" tabindex="-1"></a>   <span class="dv">1</span>        <span class="dv">101</span>  Emma  <span class="dv">20</span>     A</span>
+<span id="cb31-4"><a href="chapter-into-R.html#cb31-4" tabindex="-1"></a>   <span class="dv">2</span>        <span class="dv">102</span>   Bob  <span class="dv">21</span>     B</span>
+<span id="cb31-5"><a href="chapter-into-R.html#cb31-5" tabindex="-1"></a>   <span class="dv">3</span>        <span class="dv">103</span> Alice  <span class="dv">19</span>     A</span></code></pre></div>
+<p>This command will display the first three rows of the <code>students_df</code> data frame.</p>
+<p>You can also use the <code>[]</code> operator to extract specific columns. For instance, to select the <code>name</code> and <code>grade</code> columns from the <code>students_df</code> data frame:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="chapter-into-R.html#cb32-1" tabindex="-1"></a>students_df[, <span class="fu">c</span>(<span class="st">"name"</span>, <span class="st">"grade"</span>)]</span>
+<span id="cb32-2"><a href="chapter-into-R.html#cb32-2" tabindex="-1"></a>      name grade</span>
+<span id="cb32-3"><a href="chapter-into-R.html#cb32-3" tabindex="-1"></a>   <span class="dv">1</span>  Emma     A</span>
+<span id="cb32-4"><a href="chapter-into-R.html#cb32-4" tabindex="-1"></a>   <span class="dv">2</span>   Bob     B</span>
+<span id="cb32-5"><a href="chapter-into-R.html#cb32-5" tabindex="-1"></a>   <span class="dv">3</span> Alice     A</span>
+<span id="cb32-6"><a href="chapter-into-R.html#cb32-6" tabindex="-1"></a>   <span class="dv">4</span>  Noah     C</span></code></pre></div>
+<p>This command retrieves and displays only the <code>name</code> and <code>grade</code> columns from the <code>students_df</code> data frame.</p>
+<p>The <code>[]</code> operator is versatile, enabling you to subset data frames, matrices, and lists with precision. Both the <code>$</code> and <code>[]</code> operators are fundamental tools for data manipulation in R, allowing you to efficiently access and manage the data you need.</p>
+</div>
+<div id="visualizing-data-in-r" class="section level2" number="1.13">
+<h2>
+<span class="header-section-number">1.13</span> Visualizing Data in R<a class="anchor" aria-label="anchor" href="#visualizing-data-in-r"><i class="fas fa-link"></i></a>
+</h2>
+<p>Data visualization is a powerful tool for exploring and communicating insights from data. It plays a crucial role in exploratory data analysis (EDA), which we will delve into in Chapter <a href="chapter-EDA.html#chapter-EDA">4</a>. As the saying goes, “a picture is worth a thousand words,” and in data science, this is especially true. R provides a broad array of tools for creating high-quality plots and visualizations, allowing you to effectively present your findings.</p>
+<p>In R, there are two primary ways to create plots: using base R graphics and using the <strong>ggplot2</strong> package. Base R graphics offer a simple and direct way to generate plots, while <strong>ggplot2</strong> provides greater flexibility and customization. This book primarily uses <strong>ggplot2</strong>, as it follows a structured approach based on the <em>grammar of graphics</em>, which breaks down plots into three key components:</p>
+<ul>
+<li>Data: The dataset to be visualized, which should be in a data frame format when using <strong>ggplot2</strong>.<br>
+</li>
+<li>Aesthetics: The visual properties of the data points, such as color, shape, and size.<br>
+</li>
+<li>Geometries: The type of plot to be created, such as scatter plots, bar plots, or line plots.</li>
+</ul>
+<p>To create a plot using <strong>ggplot2</strong>, first install and load the package. Instructions for installing packages are provided in Section <a href="chapter-into-R.html#install-packages">1.6</a>. To load <strong>ggplot2</strong>, use the following command:</p>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span></code></pre></div>
+<p>Next, define the data, aesthetics, and geometries for your plot. For example, to create a scatter plot of miles per gallon (<code>mpg</code>) versus horsepower (<code>hp</code>) using the built-in <em>mtcars</em> dataset:</p>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">hp</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="Intro-R_files/figure-html/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;"></div>
+<p>This code initializes the plot with the <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> function, specifying the dataset (<code>mtcars</code>). The <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code> function adds points to the plot, and the <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code> function maps <code>mpg</code> to the x-axis and <code>hp</code> to the y-axis.</p>
+<p>The general template for creating plots with <strong>ggplot2</strong> follows this structure:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="chapter-into-R.html#cb35-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="sc">&lt;</span>DATA<span class="sc">&gt;</span>) <span class="sc">+</span></span>
+<span id="cb35-2"><a href="chapter-into-R.html#cb35-2" tabindex="-1"></a>  <span class="er">&lt;</span>GEOM_FUNCTION<span class="sc">&gt;</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="sc">&lt;</span>MAPPINGS<span class="sc">&gt;</span>))</span></code></pre></div>
+<p>Using this template, a variety of visualizations can be created.</p>
+<div id="geom-functions-in-ggplot2" class="section level3 unnumbered">
+<h3>Geom Functions in ggplot2<a class="anchor" aria-label="anchor" href="#geom-functions-in-ggplot2"><i class="fas fa-link"></i></a>
+</h3>
+<p>Geom functions determine the type of plot created in <strong>ggplot2</strong>. Some commonly used geom functions include:</p>
+<ul>
+<li>
+<code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code> for scatter plots<br>
+</li>
+<li>
+<code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar()</a></code> for bar plots<br>
+</li>
+<li>
+<code><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line()</a></code> for line plots<br>
+</li>
+<li>
+<code><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot()</a></code> for box plots<br>
+</li>
+<li>
+<code><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram()</a></code> for histograms<br>
+</li>
+<li>
+<code><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density()</a></code> for density plots<br>
+</li>
+<li>
+<code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code> for adding smoothed conditional means to plots</li>
+</ul>
+<p>For example, to create a smoothed line plot of <code>mpg</code> versus <code>hp</code>:</p>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">hp</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="Intro-R_files/figure-html/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;"></div>
+<p>Multiple geom functions can be combined in a single plot. To overlay a scatter plot on the smoothed line:</p>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">hp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">hp</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="Intro-R_files/figure-html/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;"></div>
+<p>Alternatively, the <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code> function can be placed inside <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> to streamline the code:</p>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">hp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>Additional visualization examples can be found in Chapter <a href="chapter-EDA.html#chapter-EDA">4</a>. For a complete list of geom functions, refer to the <a href="https://ggplot2.tidyverse.org"><strong>ggplot2</strong> documentation</a>.</p>
+</div>
+<div id="aesthetics-in-ggplot2" class="section level3 unnumbered">
+<h3>Aesthetics in ggplot2<a class="anchor" aria-label="anchor" href="#aesthetics-in-ggplot2"><i class="fas fa-link"></i></a>
+</h3>
+<p>Aesthetics control the visual properties of data points, such as color, size, and shape. These properties are specified within the <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code> function. For example:</p>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">hp</span>, color <span class="op">=</span> <span class="va">cyl</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="Intro-R_files/figure-html/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;"></div>
+<p>Here, <code>color = cyl</code> maps the color of the points to the number of cylinders (<code>cyl</code>) in the <strong>mtcars</strong> dataset. <strong>ggplot2</strong> automatically assigns a unique color to each category and adds a corresponding legend.</p>
+<p>In addition to <code>color</code>, other aesthetics such as <code>size</code> and <code>alpha</code> (transparency) can be used:</p>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Left plot: using the size aesthetic</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">hp</span>, size <span class="op">=</span> <span class="va">cyl</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Right plot: using the alpha aesthetic</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">hp</span>, alpha <span class="op">=</span> <span class="va">cyl</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="Intro-R_files/figure-html/unnamed-chunk-38-1.png" width="50%"><img src="Intro-R_files/figure-html/unnamed-chunk-38-2.png" width="50%"></p>
+<p>Aesthetics can also be set directly inside geom functions. For example, to make all points blue triangles of size 3:</p>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">hp</span><span class="op">)</span>, </span>
+<span>             color <span class="op">=</span> <span class="st">"blue"</span>, size <span class="op">=</span> <span class="fl">3</span>, shape <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="Intro-R_files/figure-html/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;"></div>
+<p>This section introduced the fundamentals of data visualization in R using <strong>ggplot2</strong>. The next chapters will explore how visualization plays a crucial role in exploratory data analysis (Chapter <a href="chapter-EDA.html#chapter-EDA">4</a>) and how to refine plots for communication and reporting. For more details on visualization techniques, see the <a href="https://ggplot2.tidyverse.org"><strong>ggplot2</strong> documentation</a>. For interactive graphics, consider exploring the <strong>plotly</strong> package or <strong>Shiny</strong> for web applications.</p>
+</div>
+</div>
+<div id="sec-formula-in-R" class="section level2" number="1.14">
+<h2>
+<span class="header-section-number">1.14</span> Formula in R<a class="anchor" aria-label="anchor" href="#sec-formula-in-R"><i class="fas fa-link"></i></a>
+</h2>
+<p>Formulas in R provide a concise and intuitive way to specify relationships between variables for statistical modeling. They are widely used in functions for regression, classification, and machine learning to define how a response variable depends on one or more predictors.</p>
+<p>In R, formulas use the tilde symbol <code>~</code> to express relationships between variables, where the response variable appears on the left-hand side and predictor variables on the right-hand side. For example, the formula <code>y ~ x</code> specifies that <code>y</code> is modeled as a function of <code>x</code>. When there are multiple predictors, they are separated by <code>+</code>.<br>
+For instance, using the <code>diamonds</code> dataset, the formula:</p>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">price</span> <span class="op">~</span> <span class="va">carat</span> <span class="op">+</span> <span class="va">cut</span> <span class="op">+</span> <span class="va">color</span></span></code></pre></div>
+<p>models the <code>price</code> of a diamond based on its <code>carat</code>, <code>cut</code>, and <code>color</code>.</p>
+<p>To include all other variables in the dataset as predictors, we can use the shorthand notation:</p>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">price</span> <span class="op">~</span> <span class="va">.</span></span></code></pre></div>
+<p>This approach is particularly useful in large datasets where listing all predictors manually would be impractical.</p>
+<p>A formula in R acts as a <strong>quoting operator</strong>, instructing R to interpret the variables symbolically rather than evaluating them immediately. The variable on the left-hand side of <code>~</code> is the <strong>dependent variable</strong> (or response variable), while the variables on the right-hand side are the <strong>independent variables</strong> (or predictor variables).</p>
+<div class="example">
+<p><span id="exm:ex-formula" class="example"><strong>Example 1.1  </strong></span>To illustrate, suppose we want to predict the <code>price</code> of a diamond using a linear regression model. We can pass the formula into the <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> function:</p>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">price</span> <span class="op">~</span> <span class="va">carat</span> <span class="op">+</span> <span class="va">cut</span> <span class="op">+</span> <span class="va">color</span>, data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span></span></code></pre></div>
+<p>Here, the formula <code>price ~ carat + cut + color</code> defines the relationship, and the <code>data</code> argument specifies the dataset to use.</p>
+</div>
+<p>Once defined, formulas can be used in various R functions for statistical modeling and machine learning. As you progress through later chapters, you will encounter formulas in functions for regression, classification, and more (e.g., Chapters <a href="chapter-knn.html#chapter-knn">7</a>, <a href="chapter-bayes.html#chapter-bayes">9</a>, and <a href="chapter-regression.html#chapter-regression">10</a>). Mastering formula syntax will enable you to efficiently build, customize, and interpret models throughout this book.</p>
+</div>
+<div id="reporting-with-r-markdown" class="section level2" number="1.15">
+<h2>
+<span class="header-section-number">1.15</span> Reporting with R Markdown<a class="anchor" aria-label="anchor" href="#reporting-with-r-markdown"><i class="fas fa-link"></i></a>
+</h2>
+<p>Thus far, this book has covered how to interact with R and RStudio for data analysis. This section focuses on an equally important aspect: effectively communicating analytical findings. Data scientists must present results clearly to teams, stakeholders, and clients. Regardless of the depth of an analysis, its impact is limited if it is not communicated effectively. R Markdown facilitates this process by enabling the seamless integration of code, text, and output into dynamic, reproducible reports.</p>
+<p>R Markdown allows users to write and execute R code within a document, producing reports, presentations, and dashboards. It employs Markdown, a lightweight markup language designed for ease of reading and writing. This entire book was written in R Markdown, with all source files available on GitHub. R Markdown streamlines report generation, ensuring that text, code, and visualizations remain synchronized as data changes.</p>
+<p>R Markdown documents can be exported into multiple formats, including HTML, PDF, Word, and PowerPoint, making it adaptable to various audiences and reporting needs. Furthermore, it supports the creation of interactive documents using Shiny, allowing users to build web applications that facilitate exploratory data analysis.</p>
+<p>To get started, the following resources provide useful references:</p>
+<ul>
+<li>
+<strong>R Markdown Cheat Sheet</strong>: The <a href="https://rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf">R Markdown Cheat Sheet</a> offers a concise reference for creating documents, including syntax, formatting, and output options. It is available in RStudio under <em>Help &gt; Cheatsheets &gt; R Markdown Cheat Sheet</em>.<br>
+</li>
+<li>
+<strong>R Markdown Reference Guide</strong>: The <a href="https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf">R Markdown Reference Guide</a> provides a detailed overview of R Markdown’s features, including document structure and customization.</li>
+</ul>
+<div id="r-markdown-basics" class="section level3 unnumbered">
+<h3>R Markdown Basics<a class="anchor" aria-label="anchor" href="#r-markdown-basics"><i class="fas fa-link"></i></a>
+</h3>
+<p>R Markdown follows a literate programming approach, combining text and executable code in a single document. Unlike word processors where formatting is visible during writing, R Markdown requires compilation to generate the final report. This approach ensures automation, as plots and figures are generated dynamically and inserted into the document. Since the code is embedded, analyses are fully reproducible.</p>
+<p>To create an R Markdown document in RStudio:</p>
+<p style="font-family: serif">
+File &gt; New File &gt; R Markdown
+</p>
+<p>A dialog box will appear, allowing the selection of a document type. For a standard report, choose “Document.” Other options include “Presentation” for slides, “Shiny” for interactive applications, and “From Template” for predefined formats. After selecting the document type, enter a title and author name. The output format can be set to HTML, PDF, or Word; HTML is often recommended for debugging.</p>
+<p>R Markdown files use the <code>.Rmd</code> extension, distinguishing them from <code>.R</code> script files. A newly created file contains a template that can be modified with custom text, code, and formatting.</p>
+</div>
+<div id="the-header" class="section level3 unnumbered">
+<h3>The Header<a class="anchor" aria-label="anchor" href="#the-header"><i class="fas fa-link"></i></a>
+</h3>
+<p>The header defines metadata such as the document’s title, author, date, and output format. It is enclosed within three dashes (<code>---</code>).</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb45-1"><a href="chapter-into-R.html#cb45-1" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb45-2"><a href="chapter-into-R.html#cb45-2" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"An Analysis of Customer Churn"</span></span>
+<span id="cb45-3"><a href="chapter-into-R.html#cb45-3" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"Reza Mohammadi"</span></span>
+<span id="cb45-4"><a href="chapter-into-R.html#cb45-4" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"Aug 12, 2024"</span></span>
+<span id="cb45-5"><a href="chapter-into-R.html#cb45-5" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> html_document</span></span>
+<span id="cb45-6"><a href="chapter-into-R.html#cb45-6" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
+<ul>
+<li>
+<strong>Title</strong>: The document’s title.<br>
+</li>
+<li>
+<strong>Author</strong>: The name of the author.<br>
+</li>
+<li>
+<strong>Date</strong>: The date of creation.<br>
+</li>
+<li>
+<strong>Output format</strong>: The format of the final document (<code>html_document</code>, <code>pdf_document</code>, or <code>word_document</code>).</li>
+</ul>
+<p>Additional metadata can be included for customization, such as table of contents options and formatting preferences.</p>
+</div>
+<div id="code-chunks-and-inline-code" class="section level3 unnumbered">
+<h3>Code Chunks and Inline Code<a class="anchor" aria-label="anchor" href="#code-chunks-and-inline-code"><i class="fas fa-link"></i></a>
+</h3>
+<p>R Markdown integrates R code within documents using code chunks, which are enclosed in triple backticks (<code>```{r}</code>) followed by the code. For example:</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb46-1"><a href="chapter-into-R.html#cb46-1" tabindex="-1"></a></span>
+<span id="cb46-2"><a href="chapter-into-R.html#cb46-2" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb46-3"><a href="chapter-into-R.html#cb46-3" tabindex="-1"></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span></span>
+<span id="cb46-4"><a href="chapter-into-R.html#cb46-4" tabindex="-1"></a>   [<span class="dv">1</span>] <span class="dv">5</span></span>
+<span id="cb46-5"><a href="chapter-into-R.html#cb46-5" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+<p>When compiled, R executes the code and displays the output within the document. Code chunks are used for analysis, visualizations, and modeling. The “Run” button in RStudio allows individual execution of chunks. See Figure <a href="chapter-into-R.html#fig:run-chunk">1.6</a> for a visual guide.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:run-chunk"></span>
+<img src="images/run-chunk.png" alt="Executing a code chunk in R Markdown using the 'Run' button in RStudio." width="90%"><p class="caption">
+Figure 1.6: Executing a code chunk in R Markdown using the ‘Run’ button in RStudio.
+</p>
+</div>
+<p>Common chunk options include:</p>
+<ul>
+<li>
+<code>echo = FALSE</code>: Displays output but hides the code.<br>
+</li>
+<li>
+<code>eval = FALSE</code>: Shows the code but does not execute it.<br>
+</li>
+<li>
+<code>message = FALSE</code>: Suppresses messages.<br>
+</li>
+<li>
+<code>warning = FALSE</code>: Suppresses warnings.<br>
+</li>
+<li>
+<code>error = FALSE</code>: Hides error messages.<br>
+</li>
+<li>
+<code>include = FALSE</code>: Omits both code and output.</li>
+</ul>
+<p>For inline calculations, use backticks and the <code>r</code> keyword:</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb47-1"><a href="chapter-into-R.html#cb47-1" tabindex="-1"></a>The factorial of 5 is 120.</span></code></pre></div>
+<p>This renders dynamically as:</p>
+<pre><code>The factorial of 5 is 120.</code></pre>
+</div>
+<div id="styling-text" class="section level3 unnumbered">
+<h3>Styling Text<a class="anchor" aria-label="anchor" href="#styling-text"><i class="fas fa-link"></i></a>
+</h3>
+<p>R Markdown supports various text formatting options:</p>
+<ul>
+<li>
+<strong>Headings</strong>: Use <code>#</code> for section titles.<br>
+</li>
+<li>
+<strong>Bold</strong>: Enclose text in double asterisks (<code>**bold**</code>).<br>
+</li>
+<li>
+<strong>Italic</strong>: Use single asterisks (<code>*italic*</code>).<br>
+</li>
+<li>
+<strong>Lists</strong>: Use <code>*</code> for bullet points.<br>
+</li>
+<li>
+<strong>Links</strong>: <code>[R Markdown website](https://rmarkdown.rstudio.com)</code><br>
+</li>
+<li>
+<strong>Images</strong>: <code>![Alt text](path/to/image.png)</code>
+</li>
+</ul>
+<p>For mathematical notation, use LaTeX-style equations:</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb49-1"><a href="chapter-into-R.html#cb49-1" tabindex="-1"></a><span class="an">Inline:</span><span class="co"> $y = \beta_0 + \beta_1 x$  </span></span>
+<span id="cb49-2"><a href="chapter-into-R.html#cb49-2" tabindex="-1"></a><span class="an">Block:</span><span class="co"> $$ y = \beta_0 + \beta_1 x $$</span></span></code></pre></div>
+</div>
+<div id="mastering-r-markdown" class="section level3 unnumbered">
+<h3>Mastering R Markdown<a class="anchor" aria-label="anchor" href="#mastering-r-markdown"><i class="fas fa-link"></i></a>
+</h3>
+<p>For further learning:</p>
+<ul>
+<li>
+<strong>Books</strong>: <a href="https://bookdown.org/yihui/rmarkdown/"><em>R Markdown: The Definitive Guide</em></a>.<br>
+</li>
+<li>
+<strong>Tutorials</strong>: <a href="https://rmarkdown.rstudio.com/lesson-1.html">R Markdown website</a>.<br>
+</li>
+<li>
+<strong>Courses</strong>: <a href="https://www.datacamp.com/courses/reporting-with-r-markdown">DataCamp R Markdown course</a>.<br>
+</li>
+<li>
+<strong>Forums</strong>: <a href="https://community.rstudio.com/c/rmarkdown/9">RStudio Community</a>.</li>
+</ul>
+<p>By leveraging R Markdown, data scientists can produce high-quality, reproducible reports that enhance collaboration and communication.</p>
+</div>
+</div>
+<div id="exercises" class="section level2" number="1.16">
+<h2>
+<span class="header-section-number">1.16</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises"><i class="fas fa-link"></i></a>
+</h2>
+<p>This section provides hands-on exercises to reinforce your understanding of the fundamental concepts covered in this chapter.</p>
+<div id="basic-exercises" class="section level3 unnumbered">
+<h3>Basic Exercises<a class="anchor" aria-label="anchor" href="#basic-exercises"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>Install <strong>R</strong> and <strong>RStudio</strong> on your computer.<br>
+</li>
+<li>Use the <code><a href="https://rdrr.io/r/base/getwd.html">getwd()</a></code> function to check your current working directory. Then, change it to a new directory using <code><a href="https://rdrr.io/r/base/getwd.html">setwd()</a></code>.<br>
+</li>
+<li>Install and load the <strong>liver</strong> package in R. If you encounter any errors, check your internet connection and ensure CRAN is accessible.<br>
+</li>
+<li>Create a numeric vector named <code>numbers</code> containing the values <code>5, 10, 15, 20, 25</code>. Then, calculate the mean and standard deviation of the vector.<br>
+</li>
+<li>Write a comment in R explaining the purpose of the following line of code:</li>
+</ol>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fl">2</span> <span class="op">+</span> <span class="fl">3</span></span></code></pre></div>
+<ol start="6" style="list-style-type: decimal">
+<li>Create a character vector containing the names of three programming languages you would like to learn. Print the vector.<br>
+</li>
+<li>Convert the following vector into a factor:</li>
+</ol>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cities</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Amsterdam"</span>, <span class="st">"Berlin"</span>, <span class="st">"London"</span>, <span class="st">"Amsterdam"</span>, <span class="st">"Berlin"</span><span class="op">)</span></span></code></pre></div>
+<ol start="8" style="list-style-type: decimal">
+<li>Create a matrix with 3 rows and 4 columns, filled with numbers from 1 to 12.<br>
+</li>
+<li>Create a data frame containing the following variables:
+<ul>
+<li>
+<code>student_id</code> (integer)<br>
+</li>
+<li>
+<code>name</code> (character)<br>
+</li>
+<li>
+<code>score</code> (numeric)<br>
+</li>
+<li>
+<code>passed</code> (logical, where <code>TRUE</code> means the student passed and <code>FALSE</code> means they failed)<br>
+Print the first few rows of the data frame using <code><a href="https://rdrr.io/r/utils/head.html">head()</a></code>.<br>
+</li>
+</ul>
+</li>
+<li>Load the built-in <strong>mtcars</strong> dataset and display the structure of the dataset using the <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> function.</li>
+</ol>
+</div>
+<div id="intermediate-exercises" class="section level3 unnumbered">
+<h3>Intermediate Exercises<a class="anchor" aria-label="anchor" href="#intermediate-exercises"><i class="fas fa-link"></i></a>
+</h3>
+<ol start="11" style="list-style-type: decimal">
+<li>Import a CSV file into R using the <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code> function. Print the first six rows of the dataset.<br>
+</li>
+<li>Create a scatter plot using <strong>ggplot2</strong> that visualizes the relationship between <code>mpg</code> and <code>hp</code> in the <strong>mtcars</strong> dataset.<br>
+</li>
+<li>Using the <strong>liver</strong> package, load the <em>churn</em> dataset and display the summary statistics of the numerical variables.<br>
+</li>
+<li>Create a boxplot to compare the distribution of <code>mpg</code> across different values of <code>cyl</code> in the <strong>mtcars</strong> dataset.<br>
+</li>
+<li>Use the <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> function to compute the mean of the <code>mpg</code> variable in the <strong>mtcars</strong> dataset. Then, calculate the mean of <code>mpg</code> for cars with <code>cyl == 4</code>.<br>
+</li>
+<li>Use a formula in R to fit a linear model predicting <code>mpg</code> based on <code>hp</code> in the <strong>mtcars</strong> dataset. Display a summary of the model using <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code>.<br>
+</li>
+<li>Create an R Markdown document that includes a title, author, and a small analysis of the <strong>mtcars</strong> dataset. Generate an HTML report.</li>
+</ol>
+</div>
+<div id="more-challenges-exercise" class="section level3 unnumbered">
+<h3>More Challenges Exercise<a class="anchor" aria-label="anchor" href="#more-challenges-exercise"><i class="fas fa-link"></i></a>
+</h3>
+<ol start="18" style="list-style-type: decimal">
+<li>The formula syntax in R is essential for statistical modeling. Write formulas for the following relationships:
+<ul>
+<li>A linear model predicting <code>mpg</code> using <code>hp</code> and <code>wt</code> in <strong>mtcars</strong>.<br>
+</li>
+<li>A logistic regression model predicting <code>vs</code> using all other variables in <strong>mtcars</strong>.<br>
+</li>
+</ul>
+</li>
+<li>Modify the dataset below to replace the <code>score</code> column with letter grades (<code>A</code>, <code>B</code>, <code>C</code>, or <code>D</code>) based on the following rules:
+<ul>
+<li>
+<code>score &gt;= 90</code>: “A”<br>
+</li>
+<li>
+<code>score &gt;= 75</code>: “B”<br>
+</li>
+<li>
+<code>score &gt;= 60</code>: “C”<br>
+</li>
+<li>Otherwise: “D”</li>
+</ul>
+</li>
+</ol>
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">student_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<span>  student_id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,</span>
+<span>  name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Alice"</span>, <span class="st">"Bob"</span>, <span class="st">"Charlie"</span>, <span class="st">"David"</span>, <span class="st">"Eva"</span><span class="op">)</span>,</span>
+<span>  score <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">95</span>, <span class="fl">88</span>, <span class="fl">72</span>, <span class="fl">60</span>, <span class="fl">45</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<ol start="20" style="list-style-type: decimal">
+<li>Create a function in R that takes a numeric vector as input and returns a list containing the mean, median, and standard deviation of the vector.</li>
+</ol>
+</div>
+<div id="more-challenges-exercise-1" class="section level3 unnumbered">
+<h3>More Challenges Exercise<a class="anchor" aria-label="anchor" href="#more-challenges-exercise-1"><i class="fas fa-link"></i></a>
+</h3>
+<ol start="21" style="list-style-type: decimal">
+<li>The following R code generates a simulated dataset with 200 observations and three variables:
+<ul>
+<li>
+<code>Age</code> (numeric)<br>
+</li>
+<li>
+<code>Ratio</code> (Sodium/Potassium ratio)<br>
+</li>
+<li>
+<code>Type</code> (a factor with three levels: <code>"A"</code>, <code>"B"</code>, <code>"C"</code>)</li>
+</ul>
+Run the code and report the summary statistics of the data.</li>
+</ol>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Simulate data for kNN</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">n</span>  <span class="op">=</span> <span class="fl">200</span>         <span class="co"># Number of patients</span></span>
+<span><span class="va">n1</span> <span class="op">=</span> <span class="fl">90</span>          <span class="co"># Number of patients with drug A</span></span>
+<span><span class="va">n2</span> <span class="op">=</span> <span class="fl">60</span>          <span class="co"># Number of patients with drug B </span></span>
+<span><span class="va">n3</span> <span class="op">=</span> <span class="va">n</span> <span class="op">-</span> <span class="va">n1</span> <span class="op">-</span> <span class="va">n2</span> <span class="co"># Number of patients with drug C</span></span>
+<span></span>
+<span><span class="co"># Generate Age variable between 15 and 75</span></span>
+<span><span class="va">Age</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">15</span><span class="op">:</span><span class="fl">75</span>, size <span class="op">=</span> <span class="va">n</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Generate Drug Type variable with three levels</span></span>
+<span><span class="va">Type</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span><span class="op">)</span>, size <span class="op">=</span> <span class="va">n</span>, replace <span class="op">=</span> <span class="cn">TRUE</span>, </span>
+<span>              prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">n1</span>, <span class="va">n2</span>, <span class="va">n3</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Generate Sodium/Potassium Ratio based on Drug Type</span></span>
+<span><span class="va">Ratio</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">Ratio</span><span class="op">[</span><span class="va">Type</span> <span class="op">==</span> <span class="st">"A"</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">10</span><span class="op">:</span><span class="fl">40</span>, size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">Type</span> <span class="op">==</span> <span class="st">"A"</span><span class="op">)</span>, </span>
+<span>                            replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">Ratio</span><span class="op">[</span><span class="va">Type</span> <span class="op">==</span> <span class="st">"B"</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span>x <span class="op">=</span>  <span class="fl">5</span><span class="op">:</span><span class="fl">15</span>, size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">Type</span> <span class="op">==</span> <span class="st">"B"</span><span class="op">)</span>, </span>
+<span>                            replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">Ratio</span><span class="op">[</span><span class="va">Type</span> <span class="op">==</span> <span class="st">"C"</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span>x <span class="op">=</span>  <span class="fl">5</span><span class="op">:</span><span class="fl">15</span>, size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">Type</span> <span class="op">==</span> <span class="st">"C"</span><span class="op">)</span>, </span>
+<span>                            replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create a data frame with the generated variables</span></span>
+<span><span class="va">drug_data</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>Age <span class="op">=</span> <span class="va">Age</span>, Ratio <span class="op">=</span> <span class="va">Ratio</span>, Type <span class="op">=</span> <span class="va">Type</span><span class="op">)</span></span></code></pre></div>
+<p>Visualize the data using the following <strong>ggplot2</strong> code:</p>
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">drug_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Age</span>, y <span class="op">=</span> <span class="va">Ratio</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">Type</span>, shape <span class="op">=</span> <span class="va">Type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Age vs. Sodium/Potassium Ratio"</span>, </span>
+<span>       x <span class="op">=</span> <span class="st">"Age"</span>, y <span class="op">=</span> <span class="st">"Sodium/Potassium Ratio"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="Intro-R_files/figure-html/unnamed-chunk-48-1.png" width="672" style="display: block; margin: auto;"></div>
+<ol start="22" style="list-style-type: decimal">
+<li>Extend the dataset <code>drug_data</code> by adding a new variable named <code>Outcome</code>, which is a factor with two levels (<code>"Good"</code> and <code>"Bad"</code>).
+<ul>
+<li>Patients with <code>Type == "A"</code> should have a higher probability of <code>"Good"</code> outcomes.<br>
+</li>
+<li>Patients with <code>Type == "B"</code> and <code>Type == "C"</code> should have a lower probability of <code>"Good"</code> outcomes.<br>
+</li>
+<li>Use <code><a href="https://rdrr.io/r/base/sample.html">sample()</a></code> with appropriate probabilities to generate the <code>Outcome</code> variable.</li>
+</ul>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="index.html">Preface</a></div>
+<div class="next"><a href="chapter-intro-DS.html"><span class="header-section-number">2</span> Introduction to Data Science</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#chapter-into-R"><span class="header-section-number">1</span> The Basics for R</a></li>
+<li>
+<a class="nav-link" href="#how-to-install-r"><span class="header-section-number">1.1</span> How to Install R</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#keeping-r-up-to-date">Keeping R Up to Date</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#how-to-install-rstudio"><span class="header-section-number">1.2</span> How to Install RStudio</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#installing-rstudio">Installing RStudio</a></li>
+<li><a class="nav-link" href="#exploring-the-rstudio-interface">Exploring the RStudio Interface</a></li>
+<li><a class="nav-link" href="#customizing-rstudio">Customizing RStudio</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#how-to-learn-r"><span class="header-section-number">1.3</span> How to Learn R</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#video-tutorials">1. Video Tutorials</a></li>
+<li><a class="nav-link" href="#books">2. Books</a></li>
+<li><a class="nav-link" href="#online-courses">3. Online Courses</a></li>
+<li><a class="nav-link" href="#r-communities-forums">4. R Communities &amp; Forums</a></li>
+<li><a class="nav-link" href="#practice-regularly">5. Practice Regularly</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#getting-help-and-learning-more"><span class="header-section-number">1.4</span> Getting Help and Learning More</a></li>
+<li><a class="nav-link" href="#data-science-with-r"><span class="header-section-number">1.5</span> Data Science with R</a></li>
+<li><a class="nav-link" href="#install-packages"><span class="header-section-number">1.6</span> How to Install R Packages</a></li>
+<li><a class="nav-link" href="#how-to-load-r-packages"><span class="header-section-number">1.7</span> How to Load R Packages</a></li>
+<li>
+<a class="nav-link" href="#running-r-code"><span class="header-section-number">1.8</span> Running R Code</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#using-comments-in-r">Using Comments in R</a></li>
+<li><a class="nav-link" href="#functions-in-r"><span class="header-section-number">1.8.1</span> Functions in R</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#how-to-import-data-into-r"><span class="header-section-number">1.9</span> How to Import Data into R</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#using-rstudios-graphical-interface">Using RStudio’s Graphical Interface</a></li>
+<li><a class="nav-link" href="#using-read.csv">Using read.csv()</a></li>
+<li><a class="nav-link" href="#setting-the-working-directory">Setting the Working Directory</a></li>
+<li><a class="nav-link" href="#using-file.choose-with-read.csv">Using file.choose() with read.csv()</a></li>
+<li><a class="nav-link" href="#loading-data-from-online-sources">Loading Data from Online Sources</a></li>
+<li><a class="nav-link" href="#using-read_excel-for-excel-files">Using read_excel() for Excel Files</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#data-types-in-r"><span class="header-section-number">1.10</span> Data Types in R</a></li>
+<li>
+<a class="nav-link" href="#data-structures-in-r"><span class="header-section-number">1.11</span> Data Structures in R</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#vectors-in-r">Vectors in R</a></li>
+<li><a class="nav-link" href="#matrices-in-r">Matrices in R</a></li>
+<li><a class="nav-link" href="#data-frames-in-r">Data Frames in R</a></li>
+<li><a class="nav-link" href="#lists-in-r">Lists in R</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#accessing-records-or-variables-in-r"><span class="header-section-number">1.12</span> Accessing Records or Variables in R</a></li>
+<li>
+<a class="nav-link" href="#visualizing-data-in-r"><span class="header-section-number">1.13</span> Visualizing Data in R</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#geom-functions-in-ggplot2">Geom Functions in ggplot2</a></li>
+<li><a class="nav-link" href="#aesthetics-in-ggplot2">Aesthetics in ggplot2</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#sec-formula-in-R"><span class="header-section-number">1.14</span> Formula in R</a></li>
+<li>
+<a class="nav-link" href="#reporting-with-r-markdown"><span class="header-section-number">1.15</span> Reporting with R Markdown</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#r-markdown-basics">R Markdown Basics</a></li>
+<li><a class="nav-link" href="#the-header">The Header</a></li>
+<li><a class="nav-link" href="#code-chunks-and-inline-code">Code Chunks and Inline Code</a></li>
+<li><a class="nav-link" href="#styling-text">Styling Text</a></li>
+<li><a class="nav-link" href="#mastering-r-markdown">Mastering R Markdown</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#exercises"><span class="header-section-number">1.16</span> Exercises</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#basic-exercises">Basic Exercises</a></li>
+<li><a class="nav-link" href="#intermediate-exercises">Intermediate Exercises</a></li>
+<li><a class="nav-link" href="#more-challenges-exercise">More Challenges Exercise</a></li>
+<li><a class="nav-link" href="#more-challenges-exercise-1">More Challenges Exercise</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/RezaMoammadi/Book-Data-Science/blob/master/Intro-R.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/RezaMoammadi/Book-Data-Science/edit/master/Intro-R.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Uncovering Data Science with R</strong>" was written by . It was last built on 2025-02-06.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
