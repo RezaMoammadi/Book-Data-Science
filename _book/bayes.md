@@ -464,9 +464,7 @@ conf.mat.plot(prob_naive_bayes, actual_test, cutoff = 0.5,
               reference = "good risk")
 ```
 
-
-
-\begin{center}\includegraphics[width=0.65\linewidth]{bayes_files/figure-latex/unnamed-chunk-16-1} \end{center}
+<img src="bayes_files/figure-html/unnamed-chunk-16-1.png" width="65%" style="display: block; margin: auto;" />
 
 The confusion matrix summarizes the model’s predictions:  
 
@@ -488,9 +486,7 @@ roc_naive_bayes = roc(actual_test, prob_naive_bayes)
 ggroc(roc_naive_bayes)
 ```
 
-
-
-\begin{center}\includegraphics{bayes_files/figure-latex/unnamed-chunk-17-1} \end{center}
+<img src="bayes_files/figure-html/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" />
 
 The ROC curve illustrates the trade-off between sensitivity and specificity at different thresholds. The closer the curve is to the top-left corner, the better the model's performance.  
 
