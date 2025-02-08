@@ -12,10 +12,14 @@ This section is well-structured and provides a clear introduction to data scienc
 
 Data science is an interdisciplinary field that integrates computer science, statistics, and domain expertise to extract insights from data. It involves using analytical and computational techniques to process vast amounts of raw data, transforming them into meaningful information that supports decision-making and strategic planning.  
 
-<div class="figure" style="text-align: center">
-<img src="images/data_science.png" alt="Data science is a multidisciplinary field that applies computational and statistical methods to extract insights from data." width="50%" />
-<p class="caption">(\#fig:Data-Science)Data science is a multidisciplinary field that applies computational and statistical methods to extract insights from data.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{images/data_science} 
+
+}
+
+\caption{Data science is a multidisciplinary field that applies computational and statistical methods to extract insights from data.}(\#fig:Data-Science)
+\end{figure}
 
 Although the term “data science” is relatively new, its foundations lie in well-established disciplines such as statistics, data analysis, and machine learning. With the exponential growth of digital data, advancements in computational power, and the increasing demand for data-driven decision-making, data science has emerged as a distinct and essential field.  
 
@@ -50,10 +54,14 @@ The *data science workflow* follows an *iterative* and *cyclical* approach, wher
 
 A *data science workflow* follows a phased, adaptive approach within a scientific framework, transforming raw data into actionable knowledge. This transformation is often conceptualized using the *DIKW Pyramid* (Data → Information → Knowledge → Wisdom), as illustrated in Figure \@ref(fig:DIKW-Pyramid).  
 
-<div class="figure" style="text-align: center">
-<img src="images/DIKW-Pyramid.png" alt="The DIKW Pyramid illustrates the transformation of raw data into actionable insights, progressing from data to information, knowledge, and ultimately wisdom." width="40%" />
-<p class="caption">(\#fig:DIKW-Pyramid)The DIKW Pyramid illustrates the transformation of raw data into actionable insights, progressing from data to information, knowledge, and ultimately wisdom.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.4\linewidth]{images/DIKW-Pyramid} 
+
+}
+
+\caption{The DIKW Pyramid illustrates the transformation of raw data into actionable insights, progressing from data to information, knowledge, and ultimately wisdom.}(\#fig:DIKW-Pyramid)
+\end{figure}
 
 While the specifics may vary across projects, most data science workflows follow a common structure. In this book, we adopt the *Data Science Workflow* as a guiding framework for structuring data science projects. This workflow is inspired by the *Cross-Industry Standard Process for Data Mining (CRISP-DM)* model, a widely recognized methodology for data-driven projects. It is a *cyclic* framework that guides data scientists through the following key stages (see Figure \@ref(fig:CRISP-DM)):  
 
@@ -65,10 +73,14 @@ While the specifics may vary across projects, most data science workflows follow
 6. **Evaluation** – Assessing model performance using appropriate metrics and validation techniques.  
 7. **Deployment** – Integrating the model into a production environment and monitoring its performance over time.  
 
-<div class="figure" style="text-align: center">
-<img src="images/DSW.png" alt="The Data Science Workflow is an iterative framework for structuring data science and machine learning projects. Inspired by the CRISP-DM model, it ensures systematic problem-solving and continuous refinement." width="60%" />
-<p class="caption">(\#fig:CRISP-DM)The Data Science Workflow is an iterative framework for structuring data science and machine learning projects. Inspired by the CRISP-DM model, it ensures systematic problem-solving and continuous refinement.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.6\linewidth]{images/DSW} 
+
+}
+
+\caption{The Data Science Workflow is an iterative framework for structuring data science and machine learning projects. Inspired by the CRISP-DM model, it ensures systematic problem-solving and continuous refinement.}(\#fig:CRISP-DM)
+\end{figure}
 
 Because data science is inherently *iterative*, these steps are often revisited multiple times within a single project. The *feedback loops* between stages allow for continuous refinement—adjusting data preprocessing, modifying features, or retraining models as new insights emerge. By following a structured workflow, data scientists can ensure rigor, accuracy, and efficiency in transforming data into valuable insights.  
 
@@ -188,26 +200,28 @@ In summary, supervised learning is used when labeled data is available and a spe
 
 The following exercises will help reinforce the key concepts covered in this chapter. The questions range from fundamental definitions to applied problem-solving related to data science, the data science workflow, and machine learning.
 
-1. Define *data science* and explain its interdisciplinary nature.  
-2. Why is data often referred to as the *"new oil"*? Provide examples of industries that benefit from data science.  
-3. What are the three key components of data science? Briefly describe their roles.  
-4. How does data-driven decision-making impact businesses? Give an example of a real-world application.  
-5. Explain the significance of the *DIKW Pyramid* in data science.  
-
-6. What are the main stages of the data science workflow? Why is it considered an *iterative* process?  
-7. Describe the importance of *problem understanding* in a data science project. Provide an example.  
-8. Why is *data cleaning* a critical step before analysis? What are some common data quality issues?  
-9. How does *exploratory data analysis (EDA)* help in data science? Name two EDA techniques.  
-10. Explain the difference between *descriptive analytics*, *predictive analytics*, and *prescriptive analytics*.  
-
-11. Define *machine learning* and explain how it differs from traditional programming.  
-12. What is the key difference between *supervised learning* and *unsupervised learning*? Provide an example of each.  
-13. In the context of machine learning, what is a *training dataset* and a *test dataset*? Why are they important?  
-14. What is *classification*, and how does it differ from *regression* in supervised learning?  
-15. Explain what *clustering* is and provide a real-world scenario where it is useful.  
-
-16. What is *model evaluation*, and why is it important before deploying a model?  
-17. Name and describe two common metrics for evaluating classification models.  
-18. What is *cross-validation*, and how does it help assess a model’s performance?  
-19. Why is *concept drift* a concern in deployed machine learning models? How can it be addressed?  
-20. Why is deployment considered an *ongoing process* rather than a one-time step in data science?  
+1. How does data-driven decision-making impact businesses? Give an example of a real-world application.  
+2. *Data Science Workflow* is inspired by the *CRISP-DM* model. What does *CRISP-DM* stand for, and how does it guide data-driven projects? What are the key stages of the *CRISP-DM* model?  
+3. *Data Science Workflow* and *CRISP-DM* model are not the only standard processes for data science projects. What are some other methodologies used in the industry?  
+4. Do you think we can skip the *Problem Understanding* phase and directly jump to *Data Preparation* in a data science project? Justify your answer.  
+5. Why is *Data Preparation* considered one of the most time-consuming steps in a data science project? What are some common challenges faced during this phase?  
+6. To what extent can Data Science projects be automated without human intervention? What are the risks and limitations of relying solely on automated tools?  
+7. For each of the following scenarios, identify the appropriate stage in the data science workflow:  
+   a. A company wants to predict customer churn based on historical data.  
+   b. A researcher is exploring the relationship between air pollution and respiratory diseases.  
+   c. An e-commerce platform is analyzing user behavior to personalize product recommendations.  
+   d. A hospital is developing a predictive model for patient readmission rates.  
+8. For each task, classify it as *supervised* or *unsupervised* learning, explain your reasoning, and identify a suitable machine learning algorithm that could be applied.  
+   a. Identifying fraudulent transactions in a credit card dataset.  
+   b. Segmenting customers based on purchasing behavior.  
+   c. Predicting stock prices based on historical data.  
+   d. Grouping news articles into topics using natural language processing.  
+9. Define a training dataset and a test dataset. Why are they important? How does improper splitting of these datasets affect model performance? Provide an example of a real-world issue caused by poor dataset partitioning.  
+10. Many AI-driven systems have been criticized for biased predictions, such as hiring algorithms that favor certain demographics or facial recognition models that misidentify certain racial groups.  
+    - What are some common sources of bias in data science projects?  
+    - How can data scientists ensure fairness and mitigate biases in models?  
+    - Give an example of a real-world case where bias in AI led to negative consequences.  
+11. Accuracy is a common metric used to evaluate models, but it is not always the best indicator of success. Consider a binary classification problem where only *2%* of the cases are positive (e.g., detecting rare diseases or fraud).  
+    - Why might accuracy be misleading in this case?  
+    - What alternative evaluation metrics should be used?  
+    - How would you decide whether a model is truly valuable for decision-making?  

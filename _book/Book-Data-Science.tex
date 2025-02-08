@@ -96,12 +96,13 @@
 \urlstyle{same}
 \hypersetup{
   pdftitle={Uncovering Data Science with R},
+  pdfauthor={Reza Mohammadi},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 
 \title{Uncovering Data Science with R}
-\author{}
-\date{\vspace{-2.5em}2025-02-06}
+\author{Reza Mohammadi}
+\date{2025-02-08}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -306,18 +307,27 @@ No prior programming experience is required, but a basic understanding of number
 
 Before you can analyze data, you need a way to communicate with your computer. That's where programming languages like R and Python come in. Many data science teams use a mix of languages, but R is a great starting point because it is designed specifically for data analysis and statistical computing.
 
-R offers a rich ecosystem of libraries and tools tailored for data science. It has a simple yet expressive syntax, making it easy to explore and manipulate data. Unlike general-purpose programming languages, R was built for statistical analysis, allowing data scientists to perform everything from basic calculations to advanced machine learning with just a few lines of code.
+\subsection*{Why Choose R for Data Science?}\label{why-choose-r-for-data-science}
+\addcontentsline{toc}{subsection}{Why Choose R for Data Science?}
+
+R is widely used in statistics, data analysis, and visualization due to its rich ecosystem of libraries and tools tailored for data science. Unlike general-purpose programming languages, R was built for statistical analysis, allowing data scientists to perform everything from basic calculations to advanced machine learning with just a few lines of code.
+
+While Python is another popular language for data science, R is particularly well-suited for:
+- \emph{Statistical Computing} -- R has built-in statistical functions and methods for hypothesis testing, regression modeling, and machine learning.
+- \emph{Data Visualization} -- Packages like \passthrough{\lstinline!ggplot2!} provide powerful tools for creating high-quality plots and graphs with minimal effort.
+- \emph{Reproducible Research} -- R Markdown and Shiny make it easy to generate reports and interactive dashboards directly from R code.
+- \emph{Bioinformatics \& Finance} -- Many researchers and analysts in these fields use R due to its robust statistical libraries and domain-specific packages.
 
 Beyond its capabilities, R is:
 
 \begin{itemize}
 \tightlist
 \item
-  Free \& Open Source -- Available to everyone, with a vibrant community of contributors.\\
+  \emph{Free \& Open Source} -- Available to everyone, with a vibrant community of contributors.
 \item
-  Cross-Platform -- Runs on Windows, macOS, and Linux.\\
+  \emph{Cross-Platform} -- Runs on Windows, macOS, and Linux.
 \item
-  Flexible \& Powerful -- Supports interactive data exploration, visualization, and machine learning.
+  \emph{Flexible \& Powerful} -- Supports interactive data exploration, visualization, and machine learning.
 \end{itemize}
 
 While R is the language, RStudio is the tool that makes working with R easier. RStudio is an integrated development environment (IDE) that provides:
@@ -717,8 +727,7 @@ This will open a file selection dialog, making it a convenient option when worki
 R also allows direct import of datasets from web sources. For example, to load a publicly available COVID-19 dataset:
 
 \begin{lstlisting}[language=R]
-corona_data <- read.csv("https://opendata.ecdc.europa.eu/covid19/casedistribution/csv", 
-                        na.strings = "", fileEncoding = "UTF-8-BOM")
+corona_data <- read.csv("https://opendata.ecdc.europa.eu/covid19/casedistribution/csv", na.strings = "", fileEncoding = "UTF-8-BOM")
 \end{lstlisting}
 
 This approach is useful for accessing open datasets from research institutions or government agencies.
@@ -1052,7 +1061,7 @@ ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp))
 \end{lstlisting}
 
-\begin{center}\includegraphics{Intro-R_files/figure-latex/unnamed-chunk-32-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-32-1} \end{center}
 
 This code initializes the plot with the \passthrough{\lstinline!ggplot()!} function, specifying the dataset (\passthrough{\lstinline!mtcars!}). The \passthrough{\lstinline!geom\_point()!} function adds points to the plot, and the \passthrough{\lstinline!aes()!} function maps \passthrough{\lstinline!mpg!} to the x-axis and \passthrough{\lstinline!hp!} to the y-axis.
 
@@ -1095,7 +1104,7 @@ ggplot(data = mtcars) +
   geom_smooth(mapping = aes(x = mpg, y = hp))
 \end{lstlisting}
 
-\begin{center}\includegraphics{Intro-R_files/figure-latex/unnamed-chunk-34-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-34-1} \end{center}
 
 Multiple geom functions can be combined in a single plot. To overlay a scatter plot on the smoothed line:
 
@@ -1105,7 +1114,7 @@ ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp))
 \end{lstlisting}
 
-\begin{center}\includegraphics{Intro-R_files/figure-latex/unnamed-chunk-35-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-35-1} \end{center}
 
 Alternatively, the \passthrough{\lstinline!aes()!} function can be placed inside \passthrough{\lstinline!ggplot()!} to streamline the code:
 
@@ -1127,7 +1136,7 @@ ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp, color = cyl))
 \end{lstlisting}
 
-\begin{center}\includegraphics{Intro-R_files/figure-latex/unnamed-chunk-37-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-37-1} \end{center}
 
 Here, \passthrough{\lstinline!color = cyl!} maps the color of the points to the number of cylinders (\passthrough{\lstinline!cyl!}) in the \textbf{mtcars} dataset. \textbf{ggplot2} automatically assigns a unique color to each category and adds a corresponding legend.
 
@@ -1153,7 +1162,7 @@ ggplot(data = mtcars) +
              color = "blue", size = 3, shape = 2)
 \end{lstlisting}
 
-\begin{center}\includegraphics{Intro-R_files/figure-latex/unnamed-chunk-39-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-39-1} \end{center}
 
 This section introduced the fundamentals of data visualization in R using \textbf{ggplot2}. The next chapters will explore how visualization plays a crucial role in exploratory data analysis (Chapter \ref{chapter-EDA}) and how to refine plots for communication and reporting. For more details on visualization techniques, see the \href{https://ggplot2.tidyverse.org}{\textbf{ggplot2} documentation}. For interactive graphics, consider exploring the \textbf{plotly} package or \textbf{Shiny} for web applications.
 
@@ -1196,7 +1205,7 @@ Once defined, formulas can be used in various R functions for statistical modeli
 
 Thus far, this book has covered how to interact with R and RStudio for data analysis. This section focuses on an equally important aspect: effectively communicating analytical findings. Data scientists must present results clearly to teams, stakeholders, and clients. Regardless of the depth of an analysis, its impact is limited if it is not communicated effectively. R Markdown facilitates this process by enabling the seamless integration of code, text, and output into dynamic, reproducible reports.
 
-R Markdown allows users to write and execute R code within a document, producing reports, presentations, and dashboards. It employs Markdown, a lightweight markup language designed for ease of reading and writing. This entire book was written in R Markdown, with all source files available on GitHub. R Markdown streamlines report generation, ensuring that text, code, and visualizations remain synchronized as data changes.
+R Markdown allows users to write and execute R code within a document, producing reports, presentations, and dashboards. Unlike traditional notebooks or word processors, R Markdown ensures that text, code, and results remain synchronized as data changes. This book itself is entirely written using R Markdown and generated with the \href{https://bookdown.org}{\textbf{bookdown}} package, ensuring a fully reproducible and dynamic workflow.
 
 R Markdown documents can be exported into multiple formats, including HTML, PDF, Word, and PowerPoint, making it adaptable to various audiences and reporting needs. Furthermore, it supports the creation of interactive documents using Shiny, allowing users to build web applications that facilitate exploratory data analysis.
 
@@ -1367,77 +1376,52 @@ This section provides hands-on exercises to reinforce your understanding of the 
 \item
   Use the \passthrough{\lstinline!getwd()!} function to check your current working directory. Then, change it to a new directory using \passthrough{\lstinline!setwd()!}.\\
 \item
-  Install and load the \textbf{liver} package in R. If you encounter any errors, check your internet connection and ensure CRAN is accessible.\\
-\item
   Create a numeric vector named \passthrough{\lstinline!numbers!} containing the values \passthrough{\lstinline!5, 10, 15, 20, 25!}. Then, calculate the mean and standard deviation of the vector.\\
 \item
-  Write a comment in R explaining the purpose of the following line of code:
+  Create a matrix with 3 rows and 4 columns, filled with numbers from 1 to 12.\\
+\item
+  Create a data frame containing the following variables:\\
 \end{enumerate}
 
-\begin{lstlisting}[language=R]
-result <- 2 + 3
-\end{lstlisting}
+\begin{itemize}
+\tightlist
+\item
+  \passthrough{\lstinline!student\_id!} (integer)\\
+\item
+  \passthrough{\lstinline!name!} (character)\\
+\item
+  \passthrough{\lstinline!score!} (numeric)\\
+\item
+  \passthrough{\lstinline!passed!} (logical, where \passthrough{\lstinline!TRUE!} means the student passed and \passthrough{\lstinline!FALSE!} means they failed)\\
+  Print the first few rows of the data frame using \passthrough{\lstinline!head()!}.\\
+\end{itemize}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \setcounter{enumi}{5}
 \tightlist
 \item
-  Create a character vector containing the names of three programming languages you would like to learn. Print the vector.\\
+  Install and load the \textbf{liver} and \textbf{ggplot2} packages in R. If you encounter any errors, check your internet connection and ensure CRAN is accessible.\\
 \item
-  Convert the following vector into a factor:
-\end{enumerate}
-
-\begin{lstlisting}[language=R]
-cities <- c("Amsterdam", "Berlin", "London", "Amsterdam", "Berlin")
-\end{lstlisting}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{7}
-\tightlist
+  Load the \emph{churn} dataset from the \textbf{liver} package and display the first few rows using the \passthrough{\lstinline!head()!} function.
 \item
-  Create a matrix with 3 rows and 4 columns, filled with numbers from 1 to 12.\\
+  Report the data types of the variables in the \emph{churn} dataset using the \passthrough{\lstinline!str()!} function.
 \item
-  Create a data frame containing the following variables:
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \passthrough{\lstinline!student\_id!} (integer)\\
-  \item
-    \passthrough{\lstinline!name!} (character)\\
-  \item
-    \passthrough{\lstinline!score!} (numeric)\\
-  \item
-    \passthrough{\lstinline!passed!} (logical, where \passthrough{\lstinline!TRUE!} means the student passed and \passthrough{\lstinline!FALSE!} means they failed)\\
-    Print the first few rows of the data frame using \passthrough{\lstinline!head()!}.\\
-  \end{itemize}
+  Report the dimensions of the \emph{churn} dataset using the \passthrough{\lstinline!dim()!} function.
 \item
-  Load the built-in \textbf{mtcars} dataset and display the structure of the dataset using the \passthrough{\lstinline!str()!} function.
-\end{enumerate}
-
-\subsection*{Intermediate Exercises}\label{intermediate-exercises}
-\addcontentsline{toc}{subsection}{Intermediate Exercises}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{10}
-\tightlist
+  Report the summary statistics of the variables in the \emph{churn} dataset using the \passthrough{\lstinline!summary()!} function.
 \item
-  Import a CSV file into R using the \passthrough{\lstinline!read.csv()!} function. Print the first six rows of the dataset.\\
+  Create a scatter plot using \textbf{ggplot2} that visualizes the relationship between \passthrough{\lstinline!day.mins!} and \passthrough{\lstinline!eve.mins!} in the \emph{churn} dataset. \textbf{Hint:} See the code in Section \ref{EDA-sec-multivariate}.
 \item
-  Create a scatter plot using \textbf{ggplot2} that visualizes the relationship between \passthrough{\lstinline!mpg!} and \passthrough{\lstinline!hp!} in the \textbf{mtcars} dataset.\\
+  Create a histogram for the \passthrough{\lstinline!day.calls!} variable in the \emph{churn} dataset.
 \item
-  Using the \textbf{liver} package, load the \emph{churn} dataset and display the summary statistics of the numerical variables.\\
+  Create a boxplot for the \passthrough{\lstinline!day.mins!} variable in the \emph{churn} dataset.
 \item
-  Create a boxplot to compare the distribution of \passthrough{\lstinline!mpg!} across different values of \passthrough{\lstinline!cyl!} in the \textbf{mtcars} dataset.\\
+  Create a boxplot for the \passthrough{\lstinline!day.mins!} variable in the \emph{churn} dataset, grouped by the \passthrough{\lstinline!churn!} variable. \textbf{Hint:} See the code in Section \ref{EDA-sec-numeric}.
 \item
-  Use the \passthrough{\lstinline!mean()!} function to compute the mean of the \passthrough{\lstinline!mpg!} variable in the \textbf{mtcars} dataset. Then, calculate the mean of \passthrough{\lstinline!mpg!} for cars with \passthrough{\lstinline!cyl == 4!}.\\
+  Use the \passthrough{\lstinline!mean()!} function to compute the mean of the \passthrough{\lstinline!customer.calls!} variable in the \emph{churn} dataset. Then, calculate the mean of \passthrough{\lstinline!customer.calls!} for churner \passthrough{\lstinline!churn == yes!}.\\
 \item
-  Use a formula in R to fit a linear model predicting \passthrough{\lstinline!mpg!} based on \passthrough{\lstinline!hp!} in the \textbf{mtcars} dataset. Display a summary of the model using \passthrough{\lstinline!summary()!}.\\
-\item
-  Create an R Markdown document that includes a title, author, and a small analysis of the \textbf{mtcars} dataset. Generate an HTML report.
+  Create an R Markdown document that includes a title, author, and a small analysis of the \emph{churn} dataset. Generate an HTML report.
 \end{enumerate}
 
 \subsection*{More Challenges Exercise}\label{more-challenges-exercise}
@@ -1445,72 +1429,23 @@ cities <- c("Amsterdam", "Berlin", "London", "Amsterdam", "Berlin")
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{17}
+\setcounter{enumi}{16}
 \tightlist
 \item
-  The formula syntax in R is essential for statistical modeling. Write formulas for the following relationships:
-
-  \begin{itemize}
-  \tightlist
-  \item
-    A linear model predicting \passthrough{\lstinline!mpg!} using \passthrough{\lstinline!hp!} and \passthrough{\lstinline!wt!} in \textbf{mtcars}.\\
-  \item
-    A logistic regression model predicting \passthrough{\lstinline!vs!} using all other variables in \textbf{mtcars}.\\
-  \end{itemize}
-\item
-  Modify the dataset below to replace the \passthrough{\lstinline!score!} column with letter grades (\passthrough{\lstinline!A!}, \passthrough{\lstinline!B!}, \passthrough{\lstinline!C!}, or \passthrough{\lstinline!D!}) based on the following rules:
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \passthrough{\lstinline!score >= 90!}: ``A''\\
-  \item
-    \passthrough{\lstinline!score >= 75!}: ``B''\\
-  \item
-    \passthrough{\lstinline!score >= 60!}: ``C''\\
-  \item
-    Otherwise: ``D''
-  \end{itemize}
+  The following R code generates a simulated dataset with 200 observations. We will use this simulated dataset as a simple toy example in Chapter \ref{chapter-knn} to explain how k-nearest neighbors algorithm works. This simulated data is for patients with three variables:
 \end{enumerate}
 
-\begin{lstlisting}[language=R]
-student_df <- data.frame(
-  student_id = 1:5,
-  name = c("Alice", "Bob", "Charlie", "David", "Eva"),
-  score = c(95, 88, 72, 60, 45)
-)
-\end{lstlisting}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{19}
+\begin{itemize}
 \tightlist
 \item
-  Create a function in R that takes a numeric vector as input and returns a list containing the mean, median, and standard deviation of the vector.
-\end{enumerate}
-
-\subsection*{More Challenges Exercise}\label{more-challenges-exercise-1}
-\addcontentsline{toc}{subsection}{More Challenges Exercise}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{20}
-\tightlist
+  \passthrough{\lstinline!Age!}: Age of the patients as numeric variable with range from 15 to 75 years old.\\
 \item
-  The following R code generates a simulated dataset with 200 observations and three variables:
+  \passthrough{\lstinline!Ratio!}: Sodium/Potassium ratio in the patient's blood as numeric variable. The ratio is generated based on the \passthrough{\lstinline!Type!} variable.
+\item
+  \passthrough{\lstinline!Type!}: a factor with three levels: \passthrough{\lstinline!"A"!}, \passthrough{\lstinline!"B"!}, \passthrough{\lstinline!"C"!} representing the type of drug the patient is taking.
+\end{itemize}
 
-  \begin{itemize}
-  \tightlist
-  \item
-    \passthrough{\lstinline!Age!} (numeric)\\
-  \item
-    \passthrough{\lstinline!Ratio!} (Sodium/Potassium ratio)\\
-  \item
-    \passthrough{\lstinline!Type!} (a factor with three levels: \passthrough{\lstinline!"A"!}, \passthrough{\lstinline!"B"!}, \passthrough{\lstinline!"C"!})
-  \end{itemize}
-
-  Run the code and report the summary statistics of the data.
-\end{enumerate}
+Run the code and report the summary statistics of the data.
 
 \begin{lstlisting}[language=R]
 # Simulate data for kNN
@@ -1525,18 +1460,14 @@ n3 = n - n1 - n2 # Number of patients with drug C
 Age = sample(x = 15:75, size = n, replace = TRUE)
 
 # Generate Drug Type variable with three levels
-Type = sample(x = c("A", "B", "C"), size = n, replace = TRUE, 
-              prob = c(n1, n2, n3))
+Type = sample(x = c("A", "B", "C"), size = n, replace = TRUE, prob = c(n1, n2, n3))
 
 # Generate Sodium/Potassium Ratio based on Drug Type
 Ratio = numeric(n)
 
-Ratio[Type == "A"] = sample(x = 10:40, size = sum(Type == "A"), 
-                            replace = TRUE)
-Ratio[Type == "B"] = sample(x =  5:15, size = sum(Type == "B"), 
-                            replace = TRUE)
-Ratio[Type == "C"] = sample(x =  5:15, size = sum(Type == "C"), 
-                            replace = TRUE)
+Ratio[Type == "A"] = sample(x = 10:40, size = sum(Type == "A"), replace = TRUE)
+Ratio[Type == "B"] = sample(x =  5:15, size = sum(Type == "B"), replace = TRUE)
+Ratio[Type == "C"] = sample(x =  5:15, size = sum(Type == "C"), replace = TRUE)
 
 # Create a data frame with the generated variables
 drug_data = data.frame(Age = Age, Ratio = Ratio, Type = Type)
@@ -1551,24 +1482,60 @@ ggplot(data = drug_data, aes(x = Age, y = Ratio)) +
        x = "Age", y = "Sodium/Potassium Ratio")
 \end{lstlisting}
 
-\begin{center}\includegraphics{Intro-R_files/figure-latex/unnamed-chunk-48-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-45-1} \end{center}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{21}
+\setcounter{enumi}{17}
 \tightlist
 \item
-  Extend the dataset \passthrough{\lstinline!drug\_data!} by adding a new variable named \passthrough{\lstinline!Outcome!}, which is a factor with two levels (\passthrough{\lstinline!"Good"!} and \passthrough{\lstinline!"Bad"!}).
+  Extend the dataset \passthrough{\lstinline!drug\_data!} by adding a new variable named \passthrough{\lstinline!Outcome!}, which is a factor with two levels (\passthrough{\lstinline!"Good"!} and \passthrough{\lstinline!"Bad"!}).\\
+\end{enumerate}
 
-  \begin{itemize}
-  \tightlist
-  \item
-    Patients with \passthrough{\lstinline!Type == "A"!} should have a higher probability of \passthrough{\lstinline!"Good"!} outcomes.\\
-  \item
-    Patients with \passthrough{\lstinline!Type == "B"!} and \passthrough{\lstinline!Type == "C"!} should have a lower probability of \passthrough{\lstinline!"Good"!} outcomes.\\
-  \item
-    Use \passthrough{\lstinline!sample()!} with appropriate probabilities to generate the \passthrough{\lstinline!Outcome!} variable.
-  \end{itemize}
+\begin{itemize}
+\tightlist
+\item
+  Patients with \passthrough{\lstinline!Type == "A"!} should have a higher probability of \passthrough{\lstinline!"Good"!} outcomes.\\
+\item
+  Patients with \passthrough{\lstinline!Type == "B"!} and \passthrough{\lstinline!Type == "C"!} should have a lower probability of \passthrough{\lstinline!"Good"!} outcomes.\\
+\item
+  Use \passthrough{\lstinline!sample()!} with appropriate probabilities to generate the \passthrough{\lstinline!Outcome!} variable.\\
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{18}
+\tightlist
+\item
+  Create a new scatter plot using \textbf{ggplot2} that visualizes the relationship between \passthrough{\lstinline!Age!} and \passthrough{\lstinline!Ratio!}, colored by the \passthrough{\lstinline!Outcome!} variable.
+\item
+  Create a new variable \passthrough{\lstinline!Age\_group!} in the \passthrough{\lstinline!drug\_data!} dataset that categorizes patients into three groups:\\
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  ``Young'' (\(\leq 30\) years old)
+\item
+  ``Middle-aged'' (31-50 years old)
+\item
+  ``Senior'' (\textgreater50 years old).
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{20}
+\tightlist
+\item
+  Calculate the mean \passthrough{\lstinline!Ratio!} for each \passthrough{\lstinline!Age\_group!} category in the \passthrough{\lstinline!drug\_data!} dataset.\\
+\item
+  Create a bar chart using \textbf{ggplot2} that displays the average \passthrough{\lstinline!Ratio!} for each \passthrough{\lstinline!Age\_group!}.\\
+\item
+  Modify the \passthrough{\lstinline!drug\_data!} dataset by adding a \passthrough{\lstinline!Risk\_factor!} variable, calculated as \passthrough{\lstinline!Ratio * Age / 10!}. Analyze how \passthrough{\lstinline!Risk\_factor!} differs by \passthrough{\lstinline!Type!}.\\
+\item
+  Create a histogram of the \passthrough{\lstinline!Risk\_factor!} variable, grouped by \passthrough{\lstinline!Type!}.\\
+\item
+  Generate a boxplot to visualize the distribution of \passthrough{\lstinline!Risk\_factor!} across different \passthrough{\lstinline!Outcome!} categories.
 \end{enumerate}
 
 \chapter{Introduction to Data Science}\label{chapter-intro-DS}
@@ -1842,46 +1809,75 @@ The following exercises will help reinforce the key concepts covered in this cha
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\item
-  Define \emph{data science} and explain its interdisciplinary nature.\\
-\item
-  Why is data often referred to as the \emph{``new oil''}? Provide examples of industries that benefit from data science.\\
-\item
-  What are the three key components of data science? Briefly describe their roles.\\
+\tightlist
 \item
   How does data-driven decision-making impact businesses? Give an example of a real-world application.\\
 \item
-  Explain the significance of the \emph{DIKW Pyramid} in data science.
+  \emph{Data Science Workflow} is inspired by the \emph{CRISP-DM} model. What does \emph{CRISP-DM} stand for, and how does it guide data-driven projects? What are the key stages of the \emph{CRISP-DM} model?\\
 \item
-  What are the main stages of the data science workflow? Why is it considered an \emph{iterative} process?\\
+  \emph{Data Science Workflow} and \emph{CRISP-DM} model are not the only standard processes for data science projects. What are some other methodologies used in the industry?\\
 \item
-  Describe the importance of \emph{problem understanding} in a data science project. Provide an example.\\
+  Do you think we can skip the \emph{Problem Understanding} phase and directly jump to \emph{Data Preparation} in a data science project? Justify your answer.\\
 \item
-  Why is \emph{data cleaning} a critical step before analysis? What are some common data quality issues?\\
+  Why is \emph{Data Preparation} considered one of the most time-consuming steps in a data science project? What are some common challenges faced during this phase?\\
 \item
-  How does \emph{exploratory data analysis (EDA)} help in data science? Name two EDA techniques.\\
+  To what extent can Data Science projects be automated without human intervention? What are the risks and limitations of relying solely on automated tools?\\
 \item
-  Explain the difference between \emph{descriptive analytics}, \emph{predictive analytics}, and \emph{prescriptive analytics}.
+  For each of the following scenarios, identify the appropriate stage in the data science workflow:
+
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \tightlist
+  \item
+    A company wants to predict customer churn based on historical data.\\
+  \item
+    A researcher is exploring the relationship between air pollution and respiratory diseases.\\
+  \item
+    An e-commerce platform is analyzing user behavior to personalize product recommendations.\\
+  \item
+    A hospital is developing a predictive model for patient readmission rates.\\
+  \end{enumerate}
 \item
-  Define \emph{machine learning} and explain how it differs from traditional programming.\\
+  For each task, classify it as \emph{supervised} or \emph{unsupervised} learning, explain your reasoning, and identify a suitable machine learning algorithm that could be applied.
+
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \tightlist
+  \item
+    Identifying fraudulent transactions in a credit card dataset.\\
+  \item
+    Segmenting customers based on purchasing behavior.\\
+  \item
+    Predicting stock prices based on historical data.\\
+  \item
+    Grouping news articles into topics using natural language processing.\\
+  \end{enumerate}
 \item
-  What is the key difference between \emph{supervised learning} and \emph{unsupervised learning}? Provide an example of each.\\
+  Define a training dataset and a test dataset. Why are they important? How does improper splitting of these datasets affect model performance? Provide an example of a real-world issue caused by poor dataset partitioning.\\
 \item
-  In the context of machine learning, what is a \emph{training dataset} and a \emph{test dataset}? Why are they important?\\
+  Many AI-driven systems have been criticized for biased predictions, such as hiring algorithms that favor certain demographics or facial recognition models that misidentify certain racial groups.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    What are some common sources of bias in data science projects?\\
+  \item
+    How can data scientists ensure fairness and mitigate biases in models?\\
+  \item
+    Give an example of a real-world case where bias in AI led to negative consequences.\\
+  \end{itemize}
 \item
-  What is \emph{classification}, and how does it differ from \emph{regression} in supervised learning?\\
-\item
-  Explain what \emph{clustering} is and provide a real-world scenario where it is useful.
-\item
-  What is \emph{model evaluation}, and why is it important before deploying a model?\\
-\item
-  Name and describe two common metrics for evaluating classification models.\\
-\item
-  What is \emph{cross-validation}, and how does it help assess a model's performance?\\
-\item
-  Why is \emph{concept drift} a concern in deployed machine learning models? How can it be addressed?\\
-\item
-  Why is deployment considered an \emph{ongoing process} rather than a one-time step in data science?
+  Accuracy is a common metric used to evaluate models, but it is not always the best indicator of success. Consider a binary classification problem where only \emph{2\%} of the cases are positive (e.g., detecting rare diseases or fraud).
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Why might accuracy be misleading in this case?\\
+  \item
+    What alternative evaluation metrics should be used?\\
+  \item
+    How would you decide whether a model is truly valuable for decision-making?
+  \end{itemize}
 \end{enumerate}
 
 \chapter{Data Preparation}\label{chapter-data-prep}
@@ -1938,7 +1934,7 @@ From a business perspective, understanding diamond pricing can provide valuable 
   \emph{Exploratory data analysis (EDA)}: Identifying trends and relationships without building a predictive model.
 \end{enumerate}
 
-Clearly defining these objectives ensures that our data preparation efforts align with the intended analytical approach. This structured problem framing will guide decisions during data cleaning, transformation, and feature engineering, ensuring that our analysis remains focused and actionable.
+Clearly defining these objectives ensures that our data preparation efforts align with the intended analytical approach, whether for exploratory insights or building robust predictive models that generalize well to unseen data. This structured problem framing will guide decisions during data cleaning, transformation, and feature engineering, ensuring that our analysis remains focused and actionable.
 
 \section{diamonds Dataset Overview}\label{diamonds-dataset-overview}
 
@@ -2054,7 +2050,7 @@ With our objectives in mind, here are the main priorities for preparing this dat
   \emph{Data Transformation}: Ensure that all features are in appropriate formats. Categorical variables like \emph{cut} and \emph{color} may need to be converted into numeric codes or dummy variables to work with machine learning algorithms effectively.
 \end{itemize}
 
-\section{Outliers}\label{outliers}
+\section{Outliers}\label{Data-pre-outliers}
 
 Outliers are data points that significantly deviate from the general distribution of a dataset. They can arise due to measurement variability, data entry errors, or genuinely unique observations. Identifying and handling outliers is crucial, as they can skew statistical analyses, affect model performance, and lead to misleading insights.
 
@@ -2085,7 +2081,7 @@ ggplot(data = diamonds) +
     geom_boxplot(mapping = aes(y = y))
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-5-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-4-1} \end{center}
 
 Here, boxplots highlight values beyond the whiskers, which may indicate potential outliers. Since diamonds cannot have a width of 0 mm, values like 32 mm or 59 mm likely result from data entry errors.
 
@@ -2099,7 +2095,7 @@ ggplot(data = diamonds) +
     geom_histogram(aes(x = y), binwidth = 0.5, color = 'blue', fill = "lightblue")
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-6-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-5-1} \end{center}
 
 To enhance visibility, we can zoom in on smaller frequencies by using the \emph{coord\_cartesian()} function from the \textbf{ggplot2} package:
 
@@ -2109,7 +2105,7 @@ ggplot(data = diamonds) +
     coord_cartesian(ylim = c(0, 30))
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-7-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-6-1} \end{center}
 
 Other useful visualization techniques include:
 
@@ -2291,7 +2287,7 @@ ggplot(data = diamonds) +
   xlab("Values for variable `carat`")
 \end{lstlisting}
 
-\includegraphics[width=0.5\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-11-1} \includegraphics[width=0.5\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-11-2}
+\includegraphics[width=0.5\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-10-1} \includegraphics[width=0.5\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-10-2}
 
 The first histogram (left) shows the distribution of \passthrough{\lstinline!carat!} without scaling, while the second histogram (right) shows it after Min-Max Scaling. After scaling, the \passthrough{\lstinline!carat!} values are compressed to a range between 0 and 1, allowing it to be more comparable to other features that may have different original scales. This scaling method is particularly beneficial for distance-based algorithms, as it prevents features with wider ranges from having undue influence.
 \end{example}
@@ -2327,7 +2323,7 @@ ggplot(data = diamonds) +
   xlab("Values for variable `carat`")
 \end{lstlisting}
 
-\includegraphics[width=0.5\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-12-1} \includegraphics[width=0.5\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-12-2}
+\includegraphics[width=0.5\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-11-1} \includegraphics[width=0.5\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-11-2}
 
 The first histogram (left) displays the distribution of \passthrough{\lstinline!carat!} without scaling, while the second histogram (right) shows the distribution after Z-score Scaling. This transformation makes feature values comparable across different scales and ensures that each feature contributes equally to distance-based computations and model training.
 \end{example}
@@ -2480,63 +2476,513 @@ By encoding the categorical fields in this way, we transform the dataset into a 
 
 With our dataset now cleaned, scaled, and encoded, we are ready to move into the next stage of data analysis. In the upcoming chapter, we will explore Exploratory Data Analysis (EDA), where we will use visualizations and summary statistics to gain insights into the structure and relationships within the data. By combining the prepared data with EDA techniques, we can better understand which features may hold predictive value for our model and set the stage for successful machine learning outcomes.
 
-\section{Exercises}\label{exercises-2}
+\section{Case Study: Who Can Earn More Than \$50K Per Year?}\label{Data-pre-adult}
 
-To reinforce your understanding of data preparation concepts, answer the following questions:
+In this case study, we will explore the \emph{Adult} dataset, sourced from the \href{https://www.census.gov}{US Census Bureau}. This dataset contains demographic information about individuals, including age, education, occupation, and income. The dataset is available in the \textbf{liver} package. For more details, refer to the \href{https://www.rdocumentation.org/packages/liver/versions/1.3/topics/adult}{documentation}.
+
+The goal of this study is to predict whether an individual earns more than \$50,000 per year based on their attributes. In Section \ref{tree-case-study} of Chapter \ref{chapter-tree}, we will apply decision tree and random forest algorithms to build a predictive model. Before applying these techniques, we need to preprocess the dataset by handling missing values, encoding categorical variables, and scaling numerical features. Let's begin by loading the dataset and examining its structure.
+
+\subsection*{Overview of the Dataset}\label{overview-of-the-dataset}
+\addcontentsline{toc}{subsection}{Overview of the Dataset}
+
+To use the \emph{Adult} dataset, first ensure that the \textbf{liver} package is installed. If not, install it using:
+
+\begin{lstlisting}[language=R]
+install.packages("liver")
+\end{lstlisting}
+
+Next, load the package and dataset:
+
+\begin{lstlisting}[language=R]
+library(liver)  # Load liver package
+data(adult)     # Load Adult dataset
+\end{lstlisting}
+
+To inspect the dataset structure, use:
+
+\begin{lstlisting}[language=R]
+str(adult)
+   'data.frame':    48598 obs. of  15 variables:
+    $ age           : int  25 38 28 44 18 34 29 63 24 55 ...
+    $ workclass     : Factor w/ 6 levels "?","Gov","Never-worked",..: 4 4 2 4 1 4 1 5 4 4 ...
+    $ demogweight   : int  226802 89814 336951 160323 103497 198693 227026 104626 369667 104996 ...
+    $ education     : Factor w/ 16 levels "10th","11th",..: 2 12 8 16 16 1 12 15 16 6 ...
+    $ education.num : int  7 9 12 10 10 6 9 15 10 4 ...
+    $ marital.status: Factor w/ 5 levels "Divorced","Married",..: 3 2 2 2 3 3 3 2 3 2 ...
+    $ occupation    : Factor w/ 15 levels "?","Adm-clerical",..: 8 6 12 8 1 9 1 11 9 4 ...
+    $ relationship  : Factor w/ 6 levels "Husband","Not-in-family",..: 4 1 1 1 4 2 5 1 5 1 ...
+    $ race          : Factor w/ 5 levels "Amer-Indian-Eskimo",..: 3 5 5 3 5 5 3 5 5 5 ...
+    $ gender        : Factor w/ 2 levels "Female","Male": 2 2 2 2 1 2 2 2 1 2 ...
+    $ capital.gain  : int  0 0 0 7688 0 0 0 3103 0 0 ...
+    $ capital.loss  : int  0 0 0 0 0 0 0 0 0 0 ...
+    $ hours.per.week: int  40 50 40 40 30 30 40 32 40 10 ...
+    $ native.country: Factor w/ 42 levels "?","Cambodia",..: 40 40 40 40 40 40 40 40 40 40 ...
+    $ income        : Factor w/ 2 levels "<=50K",">50K": 1 1 2 2 1 1 1 2 1 1 ...
+\end{lstlisting}
+
+The dataset contains 48598 records and 15 variables. Of these, 14 are predictors, while the target variable, \passthrough{\lstinline!income!}, is a categorical variable with two levels: \passthrough{\lstinline!<=50K!} and \passthrough{\lstinline!>50K!}. The features include both numerical and categorical variables:
+
+\begin{itemize}
+\tightlist
+\item
+  \passthrough{\lstinline!age!}: Age in years (numerical).\\
+\item
+  \passthrough{\lstinline!workclass!}: Employment type (categorical, 6 levels).\\
+\item
+  \passthrough{\lstinline!demogweight!}: Census weighting factor (numerical).\\
+\item
+  \passthrough{\lstinline!education!}: Highest level of education (categorical, 16 levels).\\
+\item
+  \passthrough{\lstinline!education.num!}: Number of years of education (numerical).\\
+\item
+  \passthrough{\lstinline!marital.status!}: Marital status (categorical, 5 levels).\\
+\item
+  \passthrough{\lstinline!occupation!}: Job category (categorical, 15 levels).\\
+\item
+  \passthrough{\lstinline!relationship!}: Family relationship status (categorical, 6 levels).\\
+\item
+  \passthrough{\lstinline!race!}: Racial background (categorical, 5 levels).\\
+\item
+  \passthrough{\lstinline!gender!}: Gender identity (categorical, Male/Female).\\
+\item
+  \passthrough{\lstinline!capital.gain!}: Capital gains (numerical).\\
+\item
+  \passthrough{\lstinline!capital.loss!}: Capital losses (numerical).\\
+\item
+  \passthrough{\lstinline!hours.per.week!}: Hours worked per week (numerical).\\
+\item
+  \passthrough{\lstinline!native.country!}: Country of origin (categorical, 42 levels).\\
+\item
+  \passthrough{\lstinline!income!}: Target variable indicating annual income (\passthrough{\lstinline!<=50K!} or \passthrough{\lstinline!>50K!}).
+\end{itemize}
+
+For clarity, we categorize the dataset's variables:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Nominal variables}: \passthrough{\lstinline!workclass!}, \passthrough{\lstinline!marital.status!}, \passthrough{\lstinline!occupation!}, \passthrough{\lstinline!relationship!}, \passthrough{\lstinline!race!}, \passthrough{\lstinline!native.country!}, and \passthrough{\lstinline!gender!}.\\
+\item
+  \textbf{Ordinal variable}: \passthrough{\lstinline!education!}.\\
+\item
+  \textbf{Numerical variables}: \passthrough{\lstinline!age!}, \passthrough{\lstinline!demogweight!}, \passthrough{\lstinline!education.num!}, \passthrough{\lstinline!capital.gain!}, \passthrough{\lstinline!capital.loss!}, and \passthrough{\lstinline!hours.per.week!}.
+\end{itemize}
+
+To better understand the dataset, we generate summary statistics:
+
+\begin{lstlisting}[language=R]
+summary(adult)
+         age              workclass      demogweight             education    
+    Min.   :17.0   ?           : 2794   Min.   :  12285   HS-grad     :15750  
+    1st Qu.:28.0   Gov         : 6536   1st Qu.: 117550   Some-college:10860  
+    Median :37.0   Never-worked:   10   Median : 178215   Bachelors   : 7962  
+    Mean   :38.6   Private     :33780   Mean   : 189685   Masters     : 2627  
+    3rd Qu.:48.0   Self-emp    : 5457   3rd Qu.: 237713   Assoc-voc   : 2058  
+    Max.   :90.0   Without-pay :   21   Max.   :1490400   11th        : 1812  
+                                                          (Other)     : 7529  
+    education.num         marital.status            occupation   
+    Min.   : 1.00   Divorced     : 6613   Craft-repair   : 6096  
+    1st Qu.: 9.00   Married      :22847   Prof-specialty : 6071  
+    Median :10.00   Never-married:16096   Exec-managerial: 6019  
+    Mean   :10.06   Separated    : 1526   Adm-clerical   : 5603  
+    3rd Qu.:12.00   Widowed      : 1516   Sales          : 5470  
+    Max.   :16.00                         Other-service  : 4920  
+                                          (Other)        :14419  
+            relationship                   race          gender     
+    Husband       :19537   Amer-Indian-Eskimo:  470   Female:16156  
+    Not-in-family :12546   Asian-Pac-Islander: 1504   Male  :32442  
+    Other-relative: 1506   Black             : 4675                 
+    Own-child     : 7577   Other             :  403                 
+    Unmarried     : 5118   White             :41546                 
+    Wife          : 2314                                            
+                                                                    
+     capital.gain      capital.loss     hours.per.week        native.country 
+    Min.   :    0.0   Min.   :   0.00   Min.   : 1.00   United-States:43613  
+    1st Qu.:    0.0   1st Qu.:   0.00   1st Qu.:40.00   Mexico       :  949  
+    Median :    0.0   Median :   0.00   Median :40.00   ?            :  847  
+    Mean   :  582.4   Mean   :  87.94   Mean   :40.37   Philippines  :  292  
+    3rd Qu.:    0.0   3rd Qu.:   0.00   3rd Qu.:45.00   Germany      :  206  
+    Max.   :41310.0   Max.   :4356.00   Max.   :99.00   Puerto-Rico  :  184  
+                                                        (Other)      : 2507  
+      income     
+    <=50K:37155  
+    >50K :11443  
+                 
+                 
+                 
+                 
+   
+\end{lstlisting}
+
+This summary provides insights into the distribution of numerical variables, missing values, and categorical variable levels, guiding us in preparing the data for further analysis.
+
+\subsection{Missing Values}\label{missing-values-1}
+
+The \passthrough{\lstinline!summary()!} function reveals that the variables \passthrough{\lstinline!workclass!} and \passthrough{\lstinline!native.country!} contain missing values, represented by the \passthrough{\lstinline!"?"!} category. Specifically, 2794 records in \passthrough{\lstinline!workclass!} and 847 records in \passthrough{\lstinline!native.country!} have missing values. Since \passthrough{\lstinline!"?"!} is used as a placeholder for missing data, we first convert these entries to \passthrough{\lstinline!NA!}:
+
+\begin{lstlisting}[language=R]
+adult[adult == "?"] = NA
+\end{lstlisting}
+
+After replacing \passthrough{\lstinline!"?"!} with \passthrough{\lstinline!NA!}, we remove unused factor levels to clean up the dataset:
+
+\begin{lstlisting}[language=R]
+adult = droplevels(adult)
+\end{lstlisting}
+
+To visualize the distribution of missing values, we use the \passthrough{\lstinline!gg\_miss\_var()!} function from the \textbf{naniar} package:
+
+\begin{lstlisting}[language=R]
+library(naniar)  # Load package for visualizing missing values
+
+gg_miss_var(adult, show_pct = TRUE)
+\end{lstlisting}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-18-1} \end{center}
+
+The plot indicates that \passthrough{\lstinline!workclass!}, \passthrough{\lstinline!occupation!}, and \passthrough{\lstinline!native.country!} contain missing values. The percentage of missing values in these variables is relatively low, with \passthrough{\lstinline!workclass!} and \passthrough{\lstinline!occupation!} having less than 0.06 percent missing data, while \passthrough{\lstinline!native.country!} has about 0.02 percent.
+
+\subsubsection*{Imputing Missing Values}\label{imputing-missing-values}
+\addcontentsline{toc}{subsubsection}{Imputing Missing Values}
+
+Instead of removing records with missing values, which can lead to information loss, we apply \emph{random imputation}, where missing values are filled with randomly selected values from the existing distribution of each variable. This maintains the natural proportions of each category.
+
+We use the \passthrough{\lstinline!impute()!} function from the \textbf{Hmisc} package for this purpose:
+
+\begin{lstlisting}[language=R]
+library(Hmisc)  # Load package for imputation
+
+# Impute missing values using random sampling from existing categories
+adult$workclass      = impute(adult$workclass,      'random')
+adult$native.country = impute(adult$native.country, 'random')
+adult$occupation     = impute(adult$occupation,     'random')
+\end{lstlisting}
+
+To confirm that missing values have been successfully imputed, we generate another missing values plot:
+
+\begin{lstlisting}[language=R]
+gg_miss_var(adult, show_pct = TRUE)
+\end{lstlisting}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-20-1} \end{center}
+
+The updated plot should show no missing values, indicating successful imputation.
+
+\subsubsection*{Alternative Approaches}\label{alternative-approaches}
+\addcontentsline{toc}{subsubsection}{Alternative Approaches}
+
+The \passthrough{\lstinline!impute()!} function allows for different statistical methods such as mean, median, or mode imputation. Its default behavior is \emph{median} imputation. For more advanced techniques, the \passthrough{\lstinline!aregImpute()!} function from the \textbf{Hmisc} package offers predictive imputation using additive regression, bootstrapping, and predictive mean matching.
+
+Although removing records with missing values using \passthrough{\lstinline!na.omit()!} is an option, it is generally discouraged unless missing values are excessive or biased in a way that could distort analysis.
+
+By properly handling missing values, we ensure data completeness and maintain the integrity of the dataset for subsequent preprocessing steps, such as recoding categorical variables and grouping country-level data into broader regions.
+
+\subsection{Encoding Categorical Variables}\label{encoding-categorical-variables}
+
+Categorical variables often contain a large number of unique values, making them challenging to use in predictive models. In the \emph{Adult} dataset, \passthrough{\lstinline!native.country!} and \passthrough{\lstinline!workclass!} have multiple categories, which can introduce complexity and redundancy. To simplify these variables, we group similar categories together while preserving their interpretability.
+
+\subsubsection*{\texorpdfstring{Grouping \texttt{native.country} by Continent}{Grouping native.country by Continent}}\label{grouping-native.country-by-continent}
+\addcontentsline{toc}{subsubsection}{Grouping \texttt{native.country} by Continent}
+
+The \passthrough{\lstinline!native.country!} variable contains 41 distinct countries. To make it more manageable, we categorize countries into broader geographical regions:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Europe}: England, France, Germany, Greece, Netherlands, Hungary, Ireland, Italy, Poland, Portugal, Scotland, Yugoslavia\\
+\item
+  \textbf{Asia}: China, Hong Kong, India, Iran, Cambodia, Japan, Laos, Philippines, Vietnam, Taiwan, Thailand\\
+\item
+  \textbf{North America}: Canada, United States, Puerto Rico\\
+\item
+  \textbf{South America}: Colombia, Cuba, Dominican Republic, Ecuador, El Salvador, Guatemala, Haiti, Honduras, Mexico, Nicaragua, Outlying US territories, Peru, Jamaica, Trinidad \& Tobago\\
+\item
+  \textbf{Other}: This includes the ambiguous ``South'' category, as its meaning is unclear in the dataset documentation.\\
+  We use the \passthrough{\lstinline!fct\_collapse()!} function from the \textbf{forcats} package to reassign categories:
+\end{itemize}
+
+\begin{lstlisting}[language=R]
+library(forcats)  # Load package for categorical variable transformation
+
+# To create a new factor variable with fewer levels for `native.country`
+Europe = c("England", "France", "Germany", "Greece", "Holand-Netherlands", "Hungary", "Ireland", "Italy", "Poland", "Portugal", "Scotland", "Yugoslavia")
+
+Asia = c("China", "Hong", "India", "Iran", "Cambodia", "Japan", "Laos", "Philippines", "Vietnam", "Taiwan", "Thailand")
+
+N.America = c("Canada", "United-States", "Puerto-Rico")
+
+S.America = c("Columbia", "Cuba", "Dominican-Republic", "Ecuador", "El-Salvador", "Guatemala", "Haiti", "Honduras", "Mexico", "Nicaragua", "Outlying-US(Guam-USVI-etc)", "Peru", "Jamaica", "Trinadad&Tobago")
+
+# Reclassify native.country into broader regions
+adult$native.country = fct_collapse(adult$native.country, 
+                                    "Europe"    = Europe,
+                                    "Asia"      = Asia,
+                                    "N.America" = N.America,
+                                    "S.America" = S.America,
+                                    "Other"     = c("South") )
+\end{lstlisting}
+
+To confirm the changes, we display the frequency distribution of \passthrough{\lstinline!native.country!}:
+
+\begin{lstlisting}[language=R]
+table(adult$native.country)
+   
+        Asia N.America S.America    Europe     Other 
+         993     44747      1946       797       115
+\end{lstlisting}
+
+By grouping the original 42 countries into 5 broader regions, we simplify the variable while maintaining its relevance for analysis.
+
+\subsubsection*{\texorpdfstring{Simplifying \texttt{workclass}}{Simplifying workclass}}\label{simplifying-workclass}
+\addcontentsline{toc}{subsubsection}{Simplifying \texttt{workclass}}
+
+The \passthrough{\lstinline!workclass!} variable originally contains several employment categories. Since ``Never-worked'' and ``Without-pay'' represent similar employment statuses, we merge them into a single category labeled ``Unemployed'':
+
+\begin{lstlisting}[language=R]
+adult$workclass = fct_collapse(adult$workclass, "Unemployed" = c("Never-worked", "Without-pay"))
+\end{lstlisting}
+
+To verify the updated categories, we check the frequency distribution:
+
+\begin{lstlisting}[language=R]
+table(adult$workclass)
+   
+          Gov Unemployed    Private   Self-emp 
+         6919         32      35851       5796
+\end{lstlisting}
+
+By reducing the number of unique categories in \passthrough{\lstinline!workclass!} and \passthrough{\lstinline!native.country!}, we improve model interpretability and reduce the risk of overfitting when applying machine learning algorithms.
+
+\subsection{Outliers}\label{outliers}
+
+Detecting and handling outliers is an essential step in data preprocessing, as extreme values can significantly impact statistical analysis and model performance. Here, we examine potential outliers in the \passthrough{\lstinline!capital.loss!} variable to determine whether adjustments are necessary.
+
+\subsubsection*{Summary Statistics}\label{summary-statistics}
+\addcontentsline{toc}{subsubsection}{Summary Statistics}
+
+To gain an initial understanding of \passthrough{\lstinline!capital.loss!}, we compute its summary statistics:
+
+\begin{lstlisting}[language=R]
+summary(adult$capital.loss)
+      Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+      0.00    0.00    0.00   87.94    0.00 4356.00
+\end{lstlisting}
+
+The summary output reveals the following insights:
+
+\begin{itemize}
+\tightlist
+\item
+  The minimum value is 0, while the maximum is 4356.\\
+\item
+  The \emph{median} is 0, which is significantly lower than the \emph{mean}, indicating a highly skewed distribution.\\
+\item
+  More than 75\% of the observations have a capital loss of 0, confirming a strong right-skew.\\
+\item
+  The mean capital loss is 87.94, which is influenced by a small number of extreme values.
+\end{itemize}
+
+\subsubsection*{Visualizing Outliers}\label{visualizing-outliers}
+\addcontentsline{toc}{subsubsection}{Visualizing Outliers}
+
+To further investigate the distribution of \passthrough{\lstinline!capital.loss!}, we use a boxplot and histogram:
+
+\begin{lstlisting}[language=R]
+ggplot(data = adult, aes(y = capital.loss)) +
+     geom_boxplot()
+\end{lstlisting}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-26-1} \end{center}
+
+\begin{lstlisting}[language=R]
+ggplot(data = adult, aes(x = capital.loss)) +
+     geom_histogram(bins = 30, color = "blue", fill = "lightblue")
+\end{lstlisting}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-27-1} \end{center}
+
+From these plots, we observe:
+
+\begin{itemize}
+\tightlist
+\item
+  The boxplot shows a strong \emph{positive skew}, with many extreme values above the upper whisker.\\
+\item
+  The histogram indicates that most observations have \emph{zero capital loss}, with a few cases around 2,000 and 4,000.
+\end{itemize}
+
+Since a large proportion of observations report no capital loss, we further examine the nonzero cases.
+
+\subsubsection*{Zooming into the Nonzero Distribution}\label{zooming-into-the-nonzero-distribution}
+\addcontentsline{toc}{subsubsection}{Zooming into the Nonzero Distribution}
+
+To better visualize the spread of nonzero values, we focus on observations with \passthrough{\lstinline!capital.loss > 0!}:
+
+\begin{lstlisting}[language=R]
+ggplot(data = adult, mapping = aes(x = capital.loss)) +
+    geom_histogram(bins = 30, color = "blue", fill = "lightblue") +
+    coord_cartesian(xlim = c(500, 4000), ylim = c(0, 1000))
+\end{lstlisting}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-28-1} \end{center}
+
+\begin{lstlisting}[language=R]
+ggplot(data = subset(adult, capital.loss > 0)) +
+     geom_boxplot(aes(y = capital.loss)) 
+\end{lstlisting}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-29-1} \end{center}
+
+Key takeaways from these refined plots:
+
+\begin{itemize}
+\tightlist
+\item
+  The majority of nonzero values are below 500, with a small number extending beyond 4,000.\\
+\item
+  The distribution of nonzero values is approximately symmetric, suggesting that while there are extreme values, they follow a structured pattern rather than random anomalies.
+\end{itemize}
+
+\subsubsection*{Handling Outliers}\label{handling-outliers}
+\addcontentsline{toc}{subsubsection}{Handling Outliers}
+
+Although \passthrough{\lstinline!capital.loss!} contains many high values, these do not appear to be erroneous. Instead, they reflect genuine cases within the dataset. Since these values provide meaningful information about particular individuals, we retain them rather than applying transformations or removals.
+
+However, if model performance is significantly affected by these extreme values, we might consider:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  What is the primary goal of data preparation in a data science workflow?
+  \emph{Winsorization}: Capping values at a reasonable percentile (e.g., the 95th percentile).\\
 \item
-  Why is it important to understand the problem context before preparing data?
+  \emph{Log Transformation}: Applying a log transformation to reduce skewness.\\
 \item
-  What are the key attributes in the \emph{diamonds} dataset, and why are they relevant for analysis?
+  \emph{Creating a Binary Indicator}: Introducing a new variable indicating whether a capital loss occurred (\passthrough{\lstinline!capital.loss > 0!}).
+\end{enumerate}
+
+Next, we perform a similar outlier analysis for the \passthrough{\lstinline!capital.gain!} variable. See the exercises below for a guided approach.
+
+\section{Exercises}\label{exercises-2}
+
+This section provides hands-on exercises to reinforce the key concepts covered in this chapter. These questions include theoretical, exploratory, and practical challenges related to data types, outliers, encoding techniques, and feature engineering.
+
+\subsection*{Understanding Data Types}\label{understanding-data-types}
+\addcontentsline{toc}{subsection}{Understanding Data Types}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
 \item
-  How can we inspect the structure of a dataset in \textbf{R}?
+  What is the difference between continuous and discrete numerical variables? Provide an example of each from real-world data.\\
 \item
-  What is the difference between continuous and discrete numerical variables?
+  How do ordinal categorical variables differ from nominal categorical variables? Give an example for both.
+\end{enumerate}
+
+\subsection*{Exploring the diamonds Dataset}\label{exploring-the-diamonds-dataset}
+\addcontentsline{toc}{subsection}{Exploring the diamonds Dataset}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
 \item
-  How do ordinal categorical variables differ from nominal categorical variables?
+  Report the summary statistics for the diamonds dataset using the \passthrough{\lstinline!summary()!} function. What insights can you derive from the output?\\
 \item
-  Why is handling missing values crucial in data analysis?
+  In the diamonds dataset, which variables are nominal, ordinal, and numerical? List them accordingly.
+\end{enumerate}
+
+\subsection*{Detecting and Handling Outliers}\label{detecting-and-handling-outliers}
+\addcontentsline{toc}{subsection}{Detecting and Handling Outliers}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
 \item
-  What are two common strategies for dealing with missing values?
+  Identify outliers in the variable \passthrough{\lstinline!x!}. If any exist, handle them appropriately. Follow the same approach as in Section \ref{Data-pre-outliers} for the \passthrough{\lstinline!y!} variable in the diamonds dataset.\\
 \item
-  How does the \passthrough{\lstinline!impute()!} function from \textbf{Hmisc} help in handling missing values?
+  Repeat the outlier detection process for the variable \passthrough{\lstinline!z!}. If necessary, apply transformations or filtering techniques.\\
 \item
-  What are outliers, and how can they impact a dataset?
+  Check for outliers in the \passthrough{\lstinline!depth!} variable. What method would you use to detect and handle them?
+\end{enumerate}
+
+\subsection*{Encoding Categorical Variables}\label{encoding-categorical-variables-1}
+\addcontentsline{toc}{subsection}{Encoding Categorical Variables}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{7}
+\tightlist
 \item
-  How can we detect outliers using a boxplot for the \passthrough{\lstinline!y!} variable in \textbf{ggplot2}?
+  The \passthrough{\lstinline!cut!} variable in the diamonds dataset is ordinal. How can we encode it properly using ordinal encoding?\\
 \item
-  How can we detect outliers using a boxplot for the \passthrough{\lstinline!z!} variable in \textbf{ggplot2}?
+  The \passthrough{\lstinline!color!} variable in the diamonds dataset is nominal. How can we encode it using one-hot encoding?
+\end{enumerate}
+
+\subsection*{Analyzing the Adult Dataset}\label{analyzing-the-adult-dataset}
+\addcontentsline{toc}{subsection}{Analyzing the Adult Dataset}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{9}
+\tightlist
 \item
-  How can we detect outliers using a histogram for the \passthrough{\lstinline!x!} variable in \textbf{ggplot2}?
+  Load the Adult dataset from the \textbf{liver} package and examine its structure. Identify the categorical variables and classify them as nominal or ordinal.\\
 \item
-  What are some alternative visualization methods for identifying outliers?
+  Compute the proportion of individuals who earn more than 50K (\passthrough{\lstinline!>50K!}). What does this distribution tell you about income levels in this dataset?\\
 \item
-  Why is it sometimes necessary to transform outliers rather than remove them?
+  For the Adult dataset, generate the summary statistics, boxplot, and histogram for the variable \passthrough{\lstinline!capital.gain!}. What do you observe?\\
 \item
-  What are the advantages and disadvantages of Min-Max Scaling?
+  Based on the visualizations from the previous question, are there outliers in the \passthrough{\lstinline!capital.gain!} variable? If so, suggest a strategy to handle them.
+\end{enumerate}
+
+\subsection*{Feature Engineering Challenge}\label{feature-engineering-challenge}
+\addcontentsline{toc}{subsection}{Feature Engineering Challenge}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{13}
+\tightlist
 \item
-  When should Min-Max Scaling be preferred over Z-score Scaling?
+  Create a new categorical variable \passthrough{\lstinline!Age\_Group!} in the Adult dataset, grouping ages into:\\
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
 \item
-  What is the main purpose of Z-score Scaling, and how does it work?
+  Young (≤30 years old)\\
 \item
-  How does the presence of outliers impact Z-score Scaling?
+  Middle-aged (31-50 years old)\\
 \item
-  Which machine learning models are most sensitive to unscaled features?
+  Senior (\textgreater50 years old)\\
+  Use the \passthrough{\lstinline!cut()!} function to implement this transformation.
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{14}
+\tightlist
 \item
-  What are the differences between one-hot encoding and ordinal encoding?
+  Compute the mean \passthrough{\lstinline!capital.gain!} for each \passthrough{\lstinline!Age\_Group!}. What insights do you gain about income levels across different age groups?
+\end{enumerate}
+
+\subsection*{Advanced Data Preparation Challenges}\label{advanced-data-preparation-challenges}
+\addcontentsline{toc}{subsection}{Advanced Data Preparation Challenges}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{15}
 \item
-  When is it appropriate to use frequency encoding for categorical variables?
+  In the Adult dataset, the \passthrough{\lstinline!education!} variable contains 16 distinct levels. Reduce these categories into broader groups such as ``No Diploma,'' ``High School Graduate,'' ``Some College,'' and ``Postgraduate.'' Implement this transformation using the \passthrough{\lstinline!fct\_collapse()!} function.
 \item
-  How does one-hot encoding increase the dimensionality of a dataset?
+  The \passthrough{\lstinline!capital.gain!} and \passthrough{\lstinline!capital.loss!} variables represent financial assets. Create a new variable \passthrough{\lstinline!net.capital!} that computes the difference between \passthrough{\lstinline!capital.gain!} and \passthrough{\lstinline!capital.loss!}. Analyze its distribution.
 \item
-  How can we encode the \passthrough{\lstinline!cut!} variable in the \emph{diamonds} dataset using ordinal encoding?
+  Perform Min-Max scaling on the numerical variables in the Adult dataset (\passthrough{\lstinline!age!}, \passthrough{\lstinline!capital.gain!}, \passthrough{\lstinline!capital.loss!}, \passthrough{\lstinline!hours.per.week!}). Use the \passthrough{\lstinline!mutate()!} function to apply this transformation.
 \item
-  How can we encode the \passthrough{\lstinline!color!} variable in the \emph{diamonds} dataset using one-hot encoding?
+  Perform Z-score normalization on the same set of numerical variables. Compare the results with Min-Max scaling. In what scenarios would one approach be preferable over the other?
+\item
+  Construct a logistic regression model to predict whether an individual earns more than 50K (\passthrough{\lstinline!>50K!}) based on selected numerical features (\passthrough{\lstinline!age!}, \passthrough{\lstinline!education.num!}, \passthrough{\lstinline!hours.per.week!}). Preprocess the data accordingly and interpret the coefficients of the model.
 \end{enumerate}
 
 \chapter{Exploratory Data Analysis}\label{chapter-EDA}
@@ -2964,7 +3410,7 @@ In summary, this EDA on the Voice Mail Plan variable suggests two key takeaways:
 
 These insights reinforce the importance of EDA in uncovering patterns that inform both strategic decisions and model-building efforts, helping companies address churn more effectively.
 
-\section{Investigating Numerical Variables}\label{investigating-numerical-variables}
+\section{Investigating Numerical Variables}\label{EDA-sec-numeric}
 
 Next, we turn to an exploration of the numeric predictive variables. Refer back to summary statistics of the various predictors. We start with the variable \passthrough{\lstinline!service.calls!} (Customer Service Calls), which represents the number of calls made to customer service. This variable is numerical and discrete, making it suitable for histogram analysis. We can use histograms to visualize the distribution of customer service calls as follows:
 
@@ -3081,7 +3527,7 @@ As an example, while \passthrough{\lstinline!night.mins!} does not display a str
 
 To confirm whether any observed differences are statistically significant, we will delve into hypothesis testing and other statistical techniques in the next chapter. These methods fall under the domain of statistical inference and model building, extending beyond the scope of exploratory data analysis. We mention them here to emphasize that EDA is only one step in the modeling process; some variables may reveal their importance only under more formal analysis. For this reason, it's essential not to prematurely discard predictors simply because their relationship with the target variable isn't immediately apparent in EDA.
 
-\section{Envestigating Multivarate Relationships}\label{envestigating-multivarate-relationships}
+\section{Envestigating Multivarate Relationships}\label{EDA-sec-multivariate}
 
 We examine potential multivariate associations between numeric variables and churn using scatter plots. While univariate exploration gives us insights into individual variables, multivariate graphics can reveal interaction effects that may not be apparent when examining variables in isolation.
 
@@ -5899,7 +6345,7 @@ Each variant is optimized for different data types, making it essential to choos
 
 In this case study, we apply the \textbf{Naive Bayes classifier} to predict financial risk using the real-world \passthrough{\lstinline!risk!} dataset from the \href{https://CRAN.R-project.org/package=liver}{\textbf{liver}} package in R. The goal is to classify customers as either ``\passthrough{\lstinline!good risk!}'' or ``\passthrough{\lstinline!bad risk!}'' based on several predictors.
 
-\subsection*{Overview of the Dataset}\label{overview-of-the-dataset}
+\subsection*{Overview of the Dataset}\label{overview-of-the-dataset-1}
 \addcontentsline{toc}{subsection}{Overview of the Dataset}
 
 We start by loading the dataset and examining its structure:
@@ -7505,11 +7951,11 @@ Random Forests strike a balance between accuracy and robustness, addressing many
 
 Random Forests have become one of the most widely used machine learning algorithms due to their versatility, reliability, and strong performance across a variety of applications. In the next section, we will apply Random Forests, along with Decision Trees, to the \textbf{adult dataset} to explore the question: \emph{Who can earn more than \$50K per year?} This case study will provide a practical demonstration of how these models work and how they can be evaluated and compared in a real-world scenario.
 
-\section{Case Study: Who Can Earn More Than \$50K Per Year?}\label{case-study-who-can-earn-more-than-50k-per-year}
+\section{Case Study: Who Can Earn More Than \$50K Per Year?}\label{tree-case-study}
 
-To demonstrate the practical application of Decision Trees and Random Forests, we use the \textbf{\passthrough{\lstinline!adult!} dataset}, which provides demographic and income information about individuals. This dataset, sourced from the \href{https://www.census.gov}{US Census Bureau}, is widely used to predict whether an individual earns more than \$50,000 per year based on features such as education, hours worked per week, marital status, and more. The objective of this binary classification problem is to categorize individuals into one of two income groups: \passthrough{\lstinline!<=50K!} or \passthrough{\lstinline!>50K!}, with the features serving as predictors and the target variable being \passthrough{\lstinline!income!}.
+To demonstrate the practical application of Decision Trees and Random Forests, we use the \emph{adult} dataset, which provides demographic and income information about individuals. This dataset, sourced from the \href{https://www.census.gov}{US Census Bureau}, is widely used to predict whether an individual earns more than \$50,000 per year based on features such as education, hours worked per week, marital status, and more. The objective of this binary classification problem is to categorize individuals into one of two income groups: \passthrough{\lstinline!<=50K!} or \passthrough{\lstinline!>50K!}, with the features serving as predictors and the target variable being \passthrough{\lstinline!income!}.
 
-\subsection*{Overview of the Dataset}\label{overview-of-the-dataset-1}
+\subsection*{Overview of the Dataset}\label{overview-of-the-dataset-2}
 \addcontentsline{toc}{subsection}{Overview of the Dataset}
 
 We begin by loading the dataset and examining its structure:
@@ -8128,7 +8574,7 @@ In this case, the goal is to refine the effectiveness of directed marketing camp
 
 A \textbf{term deposit} is a savings product with a fixed interest rate over a specified period. Customers benefit from better interest rates compared to regular savings accounts, and banks use term deposits to increase their financial assets. More about term deposits can be found \href{https://www.investopedia.com/terms/t/termdeposit.asp}{here}.
 
-\subsection*{Overview of the Dataset}\label{overview-of-the-dataset-2}
+\subsection*{Overview of the Dataset}\label{overview-of-the-dataset-3}
 \addcontentsline{toc}{subsection}{Overview of the Dataset}
 
 The dataset, sourced from \href{https://rdrr.io/cran/liver/man/bank.html}{this repository}, includes information on direct phone-based marketing campaigns. Some customers were contacted multiple times during the same campaign. The goal is to classify whether a customer subscribed to a term deposit (\passthrough{\lstinline!deposit = "yes"!} or \passthrough{\lstinline!"no"!}).

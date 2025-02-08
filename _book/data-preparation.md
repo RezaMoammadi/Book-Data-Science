@@ -1,5 +1,3 @@
-
-
 # Data Preparation {#chapter-data-prep}
 
 Data preparation is a foundational step in any data science project, ensuring that raw data is transformed into a clean and structured format suitable for analysis. This process is often the most time-consuming yet crucial stage, as the quality of data directly influences the accuracy of insights and the effectiveness of predictive models.  
@@ -33,7 +31,7 @@ From a business perspective, understanding diamond pricing can provide valuable 
 1. *Predictive modeling*: Developing a model that estimates *diamond price* based on its attributes.  
 2. *Exploratory data analysis (EDA)*: Identifying trends and relationships without building a predictive model.  
 
-Clearly defining these objectives ensures that our data preparation efforts align with the intended analytical approach. This structured problem framing will guide decisions during data cleaning, transformation, and feature engineering, ensuring that our analysis remains focused and actionable.  
+Clearly defining these objectives ensures that our data preparation efforts align with the intended analytical approach, whether for exploratory insights or building robust predictive models that generalize well to unseen data. This structured problem framing will guide decisions during data cleaning, transformation, and feature engineering, ensuring that our analysis remains focused and actionable.  
 
 ## diamonds Dataset Overview
 
@@ -54,7 +52,7 @@ To inspect the dataset structure, use:
 
 ```r
 str(diamonds)   
-   tibble [53,940 × 10] (S3: tbl_df/tbl/data.frame)
+   tibble [53,940 x 10] (S3: tbl_df/tbl/data.frame)
     $ carat  : num [1:53940] 0.23 0.21 0.23 0.29 0.31 0.24 0.24 0.26 0.22 0.23 ...
     $ cut    : Ord.factor w/ 5 levels "Fair"<"Good"<..: 5 4 2 4 2 3 3 3 1 3 ...
     $ color  : Ord.factor w/ 7 levels "D"<"E"<"F"<"G"<..: 2 2 2 6 7 7 6 5 2 5 ...
@@ -107,7 +105,7 @@ With our objectives in mind, here are the main priorities for preparing this dat
 - *Feature Engineering*: Explore the possibility of creating new features to improve predictive accuracy. For instance, calculating *volume* (using the product of *x*, *y*, and *z* dimensions) could provide an additional measure of a diamond’s size.
 - *Data Transformation*: Ensure that all features are in appropriate formats. Categorical variables like *cut* and *color* may need to be converted into numeric codes or dummy variables to work with machine learning algorithms effectively.
    
-## Outliers
+## Outliers {#Data-pre-outliers}
 
 Outliers are data points that significantly deviate from the general distribution of a dataset. They can arise due to measurement variability, data entry errors, or genuinely unique observations. Identifying and handling outliers is crucial, as they can skew statistical analyses, affect model performance, and lead to misleading insights.
 
@@ -131,7 +129,9 @@ ggplot(data = diamonds) +
     geom_boxplot(mapping = aes(y = y))
 ```
 
-<img src="data-preparation_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-4-1} \end{center}
 
 Here, boxplots highlight values beyond the whiskers, which may indicate potential outliers. Since diamonds cannot have a width of 0 mm, values like 32 mm or 59 mm likely result from data entry errors.
 
@@ -145,7 +145,9 @@ ggplot(data = diamonds) +
     geom_histogram(aes(x = y), binwidth = 0.5, color = 'blue', fill = "lightblue")
 ```
 
-<img src="data-preparation_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-5-1} \end{center}
 
 To enhance visibility, we can zoom in on smaller frequencies by using the *coord_cartesian()* function from the **ggplot2** package:
 
@@ -156,7 +158,9 @@ ggplot(data = diamonds) +
     coord_cartesian(ylim = c(0, 30))
 ```
 
-<img src="data-preparation_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-6-1} \end{center}
 
 Other useful visualization techniques include:
 
@@ -284,7 +288,8 @@ ggplot(data = diamonds) +
   xlab("Values for variable `carat`")
 ```
 
-<img src="data-preparation_files/figure-html/unnamed-chunk-11-1.png" width="50%" /><img src="data-preparation_files/figure-html/unnamed-chunk-11-2.png" width="50%" />
+
+\includegraphics[width=0.5\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-10-1} \includegraphics[width=0.5\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-10-2} 
 
 The first histogram (left) shows the distribution of `carat` without scaling, while the second histogram (right) shows it after Min-Max Scaling. After scaling, the `carat` values are compressed to a range between 0 and 1, allowing it to be more comparable to other features that may have different original scales. This scaling method is particularly beneficial for distance-based algorithms, as it prevents features with wider ranges from having undue influence.
 :::
@@ -321,7 +326,8 @@ ggplot(data = diamonds) +
   xlab("Values for variable `carat`")
 ```
 
-<img src="data-preparation_files/figure-html/unnamed-chunk-12-1.png" width="50%" /><img src="data-preparation_files/figure-html/unnamed-chunk-12-2.png" width="50%" />
+
+\includegraphics[width=0.5\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-11-1} \includegraphics[width=0.5\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-11-2} 
 
 The first histogram (left) displays the distribution of `carat` without scaling, while the second histogram (right) shows the distribution after Z-score Scaling. This transformation makes feature values comparable across different scales and ensures that each feature contributes equally to distance-based computations and model training.
 :::
@@ -429,34 +435,397 @@ By encoding the categorical fields in this way, we transform the dataset into a 
 
 With our dataset now cleaned, scaled, and encoded, we are ready to move into the next stage of data analysis. In the upcoming chapter, we will explore Exploratory Data Analysis (EDA), where we will use visualizations and summary statistics to gain insights into the structure and relationships within the data. By combining the prepared data with EDA techniques, we can better understand which features may hold predictive value for our model and set the stage for successful machine learning outcomes.
 
-## Exercises
+## Case Study: Who Can Earn More Than $50K Per Year? {#Data-pre-adult}
 
-To reinforce your understanding of data preparation concepts, answer the following questions:
+In this case study, we will explore the *Adult* dataset, sourced from the [US Census Bureau](https://www.census.gov). This dataset contains demographic information about individuals, including age, education, occupation, and income. The dataset is available in the **liver** package. For more details, refer to the [documentation](https://www.rdocumentation.org/packages/liver/versions/1.3/topics/adult). 
 
-1. What is the primary goal of data preparation in a data science workflow?
-2. Why is it important to understand the problem context before preparing data?
-3. What are the key attributes in the *diamonds* dataset, and why are they relevant for analysis?
-4. How can we inspect the structure of a dataset in **R**?
-5. What is the difference between continuous and discrete numerical variables?
-6. How do ordinal categorical variables differ from nominal categorical variables?
-7. Why is handling missing values crucial in data analysis?
-8. What are two common strategies for dealing with missing values?
-9. How does the `impute()` function from **Hmisc** help in handling missing values?
-10. What are outliers, and how can they impact a dataset?
-11. How can we detect outliers using a boxplot for the `y` variable in **ggplot2**?
-12. How can we detect outliers using a boxplot for the `z` variable in **ggplot2**?
-13. How can we detect outliers using a histogram for the `x` variable in **ggplot2**?
-14. What are some alternative visualization methods for identifying outliers?
-15. Why is it sometimes necessary to transform outliers rather than remove them?
-16. What are the advantages and disadvantages of Min-Max Scaling?
-17. When should Min-Max Scaling be preferred over Z-score Scaling?
-18. What is the main purpose of Z-score Scaling, and how does it work?
-19. How does the presence of outliers impact Z-score Scaling?
-20. Which machine learning models are most sensitive to unscaled features?
-21. What are the differences between one-hot encoding and ordinal encoding?
-22. When is it appropriate to use frequency encoding for categorical variables?
-23. How does one-hot encoding increase the dimensionality of a dataset?
-24. How can we encode the `cut` variable in the *diamonds* dataset using ordinal encoding?
-25. How can we encode the `color` variable in the *diamonds* dataset using one-hot encoding?
+The goal of this study is to predict whether an individual earns more than $50,000 per year based on their attributes. In Section \@ref(tree-case-study) of Chapter \@ref(chapter-tree), we will apply decision tree and random forest algorithms to build a predictive model. Before applying these techniques, we need to preprocess the dataset by handling missing values, encoding categorical variables, and scaling numerical features. Let's begin by loading the dataset and examining its structure.
+
+### Overview of the Dataset {-}
+
+To use the *Adult* dataset, first ensure that the **liver** package is installed. If not, install it using:
+
+```r
+install.packages("liver")
+```
+Next, load the package and dataset:
+
+```r
+library(liver)  # Load liver package
+data(adult)     # Load Adult dataset
+```
+
+To inspect the dataset structure, use:
+
+```r
+str(adult)
+   'data.frame':	48598 obs. of  15 variables:
+    $ age           : int  25 38 28 44 18 34 29 63 24 55 ...
+    $ workclass     : Factor w/ 6 levels "?","Gov","Never-worked",..: 4 4 2 4 1 4 1 5 4 4 ...
+    $ demogweight   : int  226802 89814 336951 160323 103497 198693 227026 104626 369667 104996 ...
+    $ education     : Factor w/ 16 levels "10th","11th",..: 2 12 8 16 16 1 12 15 16 6 ...
+    $ education.num : int  7 9 12 10 10 6 9 15 10 4 ...
+    $ marital.status: Factor w/ 5 levels "Divorced","Married",..: 3 2 2 2 3 3 3 2 3 2 ...
+    $ occupation    : Factor w/ 15 levels "?","Adm-clerical",..: 8 6 12 8 1 9 1 11 9 4 ...
+    $ relationship  : Factor w/ 6 levels "Husband","Not-in-family",..: 4 1 1 1 4 2 5 1 5 1 ...
+    $ race          : Factor w/ 5 levels "Amer-Indian-Eskimo",..: 3 5 5 3 5 5 3 5 5 5 ...
+    $ gender        : Factor w/ 2 levels "Female","Male": 2 2 2 2 1 2 2 2 1 2 ...
+    $ capital.gain  : int  0 0 0 7688 0 0 0 3103 0 0 ...
+    $ capital.loss  : int  0 0 0 0 0 0 0 0 0 0 ...
+    $ hours.per.week: int  40 50 40 40 30 30 40 32 40 10 ...
+    $ native.country: Factor w/ 42 levels "?","Cambodia",..: 40 40 40 40 40 40 40 40 40 40 ...
+    $ income        : Factor w/ 2 levels "<=50K",">50K": 1 1 2 2 1 1 1 2 1 1 ...
+```
+
+The dataset contains 48598 records and 15 variables. Of these, 14 are predictors, while the target variable, `income`, is a categorical variable with two levels: `<=50K` and `>50K`. The features include both numerical and categorical variables:
+
+- `age`: Age in years (numerical).  
+- `workclass`: Employment type (categorical, 6 levels).  
+- `demogweight`: Census weighting factor (numerical).  
+- `education`: Highest level of education (categorical, 16 levels).  
+- `education.num`: Number of years of education (numerical).  
+- `marital.status`: Marital status (categorical, 5 levels).  
+- `occupation`: Job category (categorical, 15 levels).  
+- `relationship`: Family relationship status (categorical, 6 levels).  
+- `race`: Racial background (categorical, 5 levels).  
+- `gender`: Gender identity (categorical, Male/Female).  
+- `capital.gain`: Capital gains (numerical).  
+- `capital.loss`: Capital losses (numerical).  
+- `hours.per.week`: Hours worked per week (numerical).  
+- `native.country`: Country of origin (categorical, 42 levels).  
+- `income`: Target variable indicating annual income (`<=50K` or `>50K`).  
+
+For clarity, we categorize the dataset’s variables:
+
+- **Nominal variables**: `workclass`, `marital.status`, `occupation`, `relationship`, `race`, `native.country`, and `gender`.  
+- **Ordinal variable**: `education`.  
+- **Numerical variables**: `age`, `demogweight`, `education.num`, `capital.gain`, `capital.loss`, and `hours.per.week`.  
+
+To better understand the dataset, we generate summary statistics:
+
+```r
+summary(adult)
+         age              workclass      demogweight             education    
+    Min.   :17.0   ?           : 2794   Min.   :  12285   HS-grad     :15750  
+    1st Qu.:28.0   Gov         : 6536   1st Qu.: 117550   Some-college:10860  
+    Median :37.0   Never-worked:   10   Median : 178215   Bachelors   : 7962  
+    Mean   :38.6   Private     :33780   Mean   : 189685   Masters     : 2627  
+    3rd Qu.:48.0   Self-emp    : 5457   3rd Qu.: 237713   Assoc-voc   : 2058  
+    Max.   :90.0   Without-pay :   21   Max.   :1490400   11th        : 1812  
+                                                          (Other)     : 7529  
+    education.num         marital.status            occupation   
+    Min.   : 1.00   Divorced     : 6613   Craft-repair   : 6096  
+    1st Qu.: 9.00   Married      :22847   Prof-specialty : 6071  
+    Median :10.00   Never-married:16096   Exec-managerial: 6019  
+    Mean   :10.06   Separated    : 1526   Adm-clerical   : 5603  
+    3rd Qu.:12.00   Widowed      : 1516   Sales          : 5470  
+    Max.   :16.00                         Other-service  : 4920  
+                                          (Other)        :14419  
+            relationship                   race          gender     
+    Husband       :19537   Amer-Indian-Eskimo:  470   Female:16156  
+    Not-in-family :12546   Asian-Pac-Islander: 1504   Male  :32442  
+    Other-relative: 1506   Black             : 4675                 
+    Own-child     : 7577   Other             :  403                 
+    Unmarried     : 5118   White             :41546                 
+    Wife          : 2314                                            
+                                                                    
+     capital.gain      capital.loss     hours.per.week        native.country 
+    Min.   :    0.0   Min.   :   0.00   Min.   : 1.00   United-States:43613  
+    1st Qu.:    0.0   1st Qu.:   0.00   1st Qu.:40.00   Mexico       :  949  
+    Median :    0.0   Median :   0.00   Median :40.00   ?            :  847  
+    Mean   :  582.4   Mean   :  87.94   Mean   :40.37   Philippines  :  292  
+    3rd Qu.:    0.0   3rd Qu.:   0.00   3rd Qu.:45.00   Germany      :  206  
+    Max.   :41310.0   Max.   :4356.00   Max.   :99.00   Puerto-Rico  :  184  
+                                                        (Other)      : 2507  
+      income     
+    <=50K:37155  
+    >50K :11443  
+                 
+                 
+                 
+                 
+   
+```
+This summary provides insights into the distribution of numerical variables, missing values, and categorical variable levels, guiding us in preparing the data for further analysis.
+
+### Missing Values
+
+The `summary()` function reveals that the variables `workclass` and `native.country` contain missing values, represented by the `"?"` category. Specifically, 2794 records in `workclass` and 847 records in `native.country` have missing values. Since `"?"` is used as a placeholder for missing data, we first convert these entries to `NA`:
+
+
+```r
+adult[adult == "?"] = NA
+```
+
+After replacing `"?"` with `NA`, we remove unused factor levels to clean up the dataset:
+
+
+```r
+adult = droplevels(adult)
+```
+
+To visualize the distribution of missing values, we use the `gg_miss_var()` function from the **naniar** package:
+
+
+```r
+library(naniar)  # Load package for visualizing missing values
+
+gg_miss_var(adult, show_pct = TRUE)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-18-1} \end{center}
+
+The plot indicates that `workclass`, `occupation`, and `native.country` contain missing values. The percentage of missing values in these variables is relatively low, with `workclass` and `occupation` having less than 0.06 percent missing data, while `native.country` has about 0.02 percent.
+
+#### Imputing Missing Values {-}
+
+Instead of removing records with missing values, which can lead to information loss, we apply *random imputation*, where missing values are filled with randomly selected values from the existing distribution of each variable. This maintains the natural proportions of each category.
+
+We use the `impute()` function from the **Hmisc** package for this purpose:
+
+
+```r
+library(Hmisc)  # Load package for imputation
+
+# Impute missing values using random sampling from existing categories
+adult$workclass      = impute(adult$workclass,      'random')
+adult$native.country = impute(adult$native.country, 'random')
+adult$occupation     = impute(adult$occupation,     'random')
+```
+
+To confirm that missing values have been successfully imputed, we generate another missing values plot:
+
+
+```r
+gg_miss_var(adult, show_pct = TRUE)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-20-1} \end{center}
+
+The updated plot should show no missing values, indicating successful imputation.
+
+#### Alternative Approaches {-}
+
+The `impute()` function allows for different statistical methods such as mean, median, or mode imputation. Its default behavior is *median* imputation. For more advanced techniques, the `aregImpute()` function from the **Hmisc** package offers predictive imputation using additive regression, bootstrapping, and predictive mean matching.
+
+Although removing records with missing values using `na.omit()` is an option, it is generally discouraged unless missing values are excessive or biased in a way that could distort analysis.
+
+By properly handling missing values, we ensure data completeness and maintain the integrity of the dataset for subsequent preprocessing steps, such as recoding categorical variables and grouping country-level data into broader regions.
+
+### Encoding Categorical Variables  
+
+Categorical variables often contain a large number of unique values, making them challenging to use in predictive models. In the *Adult* dataset, `native.country` and `workclass` have multiple categories, which can introduce complexity and redundancy. To simplify these variables, we group similar categories together while preserving their interpretability.
+
+#### Grouping `native.country` by Continent {-}
+
+The `native.country` variable contains 41 distinct countries. To make it more manageable, we categorize countries into broader geographical regions:  
+
+- **Europe**: England, France, Germany, Greece, Netherlands, Hungary, Ireland, Italy, Poland, Portugal, Scotland, Yugoslavia  
+- **Asia**: China, Hong Kong, India, Iran, Cambodia, Japan, Laos, Philippines, Vietnam, Taiwan, Thailand  
+- **North America**: Canada, United States, Puerto Rico  
+- **South America**: Colombia, Cuba, Dominican Republic, Ecuador, El Salvador, Guatemala, Haiti, Honduras, Mexico, Nicaragua, Outlying US territories, Peru, Jamaica, Trinidad & Tobago  
+- **Other**: This includes the ambiguous "South" category, as its meaning is unclear in the dataset documentation.  
+We use the `fct_collapse()` function from the **forcats** package to reassign categories:
+
+```r
+library(forcats)  # Load package for categorical variable transformation
+
+# To create a new factor variable with fewer levels for `native.country`
+Europe = c("England", "France", "Germany", "Greece", "Holand-Netherlands", "Hungary", "Ireland", "Italy", "Poland", "Portugal", "Scotland", "Yugoslavia")
+
+Asia = c("China", "Hong", "India", "Iran", "Cambodia", "Japan", "Laos", "Philippines", "Vietnam", "Taiwan", "Thailand")
+
+N.America = c("Canada", "United-States", "Puerto-Rico")
+
+S.America = c("Columbia", "Cuba", "Dominican-Republic", "Ecuador", "El-Salvador", "Guatemala", "Haiti", "Honduras", "Mexico", "Nicaragua", "Outlying-US(Guam-USVI-etc)", "Peru", "Jamaica", "Trinadad&Tobago")
+
+# Reclassify native.country into broader regions
+adult$native.country = fct_collapse(adult$native.country, 
+                                    "Europe"    = Europe,
+                                    "Asia"      = Asia,
+                                    "N.America" = N.America,
+                                    "S.America" = S.America,
+                                    "Other"     = c("South") )
+```
+
+To confirm the changes, we display the frequency distribution of `native.country`:
+
+
+```r
+table(adult$native.country)
+   
+        Asia N.America S.America    Europe     Other 
+         993     44747      1946       797       115
+```
+
+By grouping the original 42 countries into 5 broader regions, we simplify the variable while maintaining its relevance for analysis.
+
+#### Simplifying `workclass` {-}  
+
+The `workclass` variable originally contains several employment categories. Since "Never-worked" and "Without-pay" represent similar employment statuses, we merge them into a single category labeled "Unemployed":
+
+
+```r
+adult$workclass = fct_collapse(adult$workclass, "Unemployed" = c("Never-worked", "Without-pay"))
+```
+
+To verify the updated categories, we check the frequency distribution:
+
+
+```r
+table(adult$workclass)
+   
+          Gov Unemployed    Private   Self-emp 
+         6919         32      35851       5796
+```
+
+By reducing the number of unique categories in `workclass` and `native.country`, we improve model interpretability and reduce the risk of overfitting when applying machine learning algorithms.
+
+### Outliers  
+
+Detecting and handling outliers is an essential step in data preprocessing, as extreme values can significantly impact statistical analysis and model performance. Here, we examine potential outliers in the `capital.loss` variable to determine whether adjustments are necessary.  
+
+#### Summary Statistics {-} 
+
+To gain an initial understanding of `capital.loss`, we compute its summary statistics:  
+
+
+```r
+summary(adult$capital.loss)
+      Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+      0.00    0.00    0.00   87.94    0.00 4356.00
+```
+
+The summary output reveals the following insights:  
+
+- The minimum value is 0, while the maximum is 4356.  
+- The *median* is 0, which is significantly lower than the *mean*, indicating a highly skewed distribution.  
+- More than 75% of the observations have a capital loss of 0, confirming a strong right-skew.  
+- The mean capital loss is 87.94, which is influenced by a small number of extreme values.  
+
+#### Visualizing Outliers {-}
+
+To further investigate the distribution of `capital.loss`, we use a boxplot and histogram:
+
+
+```r
+ggplot(data = adult, aes(y = capital.loss)) +
+     geom_boxplot()
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-26-1} \end{center}
+
+
+```r
+ggplot(data = adult, aes(x = capital.loss)) +
+     geom_histogram(bins = 30, color = "blue", fill = "lightblue")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-27-1} \end{center}
+
+From these plots, we observe:  
+
+- The boxplot shows a strong *positive skew*, with many extreme values above the upper whisker.  
+- The histogram indicates that most observations have *zero capital loss*, with a few cases around 2,000 and 4,000.  
+
+Since a large proportion of observations report no capital loss, we further examine the nonzero cases.
+
+#### Zooming into the Nonzero Distribution {-}
+
+To better visualize the spread of nonzero values, we focus on observations with `capital.loss > 0`:
+
+
+```r
+ggplot(data = adult, mapping = aes(x = capital.loss)) +
+    geom_histogram(bins = 30, color = "blue", fill = "lightblue") +
+    coord_cartesian(xlim = c(500, 4000), ylim = c(0, 1000))
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-28-1} \end{center}
+
+
+```r
+ggplot(data = subset(adult, capital.loss > 0)) +
+     geom_boxplot(aes(y = capital.loss)) 
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-29-1} \end{center}
+
+Key takeaways from these refined plots:  
+
+- The majority of nonzero values are below 500, with a small number extending beyond 4,000.  
+- The distribution of nonzero values is approximately symmetric, suggesting that while there are extreme values, they follow a structured pattern rather than random anomalies.  
+
+#### Handling Outliers {-}
+
+Although `capital.loss` contains many high values, these do not appear to be erroneous. Instead, they reflect genuine cases within the dataset. Since these values provide meaningful information about particular individuals, we retain them rather than applying transformations or removals.  
+
+However, if model performance is significantly affected by these extreme values, we might consider:  
+
+1. *Winsorization*: Capping values at a reasonable percentile (e.g., the 95th percentile).  
+2. *Log Transformation*: Applying a log transformation to reduce skewness.  
+3. *Creating a Binary Indicator*: Introducing a new variable indicating whether a capital loss occurred (`capital.loss > 0`).  
+
+Next, we perform a similar outlier analysis for the `capital.gain` variable. See the exercises below for a guided approach.
+
+## Exercises  
+
+This section provides hands-on exercises to reinforce the key concepts covered in this chapter. These questions include theoretical, exploratory, and practical challenges related to data types, outliers, encoding techniques, and feature engineering.
+
+### Understanding Data Types {-}  
+1. What is the difference between continuous and discrete numerical variables? Provide an example of each from real-world data.  
+2. How do ordinal categorical variables differ from nominal categorical variables? Give an example for both.  
+
+### Exploring the diamonds Dataset {-}  
+3. Report the summary statistics for the diamonds dataset using the `summary()` function. What insights can you derive from the output?  
+4. In the diamonds dataset, which variables are nominal, ordinal, and numerical? List them accordingly.  
+
+### Detecting and Handling Outliers {-}  
+5. Identify outliers in the variable `x`. If any exist, handle them appropriately. Follow the same approach as in Section \@ref(Data-pre-outliers) for the `y` variable in the diamonds dataset.  
+6. Repeat the outlier detection process for the variable `z`. If necessary, apply transformations or filtering techniques.  
+7. Check for outliers in the `depth` variable. What method would you use to detect and handle them?  
+
+### Encoding Categorical Variables {-}  
+8. The `cut` variable in the diamonds dataset is ordinal. How can we encode it properly using ordinal encoding?  
+9. The `color` variable in the diamonds dataset is nominal. How can we encode it using one-hot encoding?  
+
+### Analyzing the Adult Dataset {-}  
+10. Load the Adult dataset from the **liver** package and examine its structure. Identify the categorical variables and classify them as nominal or ordinal.  
+11. Compute the proportion of individuals who earn more than 50K (`>50K`). What does this distribution tell you about income levels in this dataset?  
+12. For the Adult dataset, generate the summary statistics, boxplot, and histogram for the variable `capital.gain`. What do you observe?  
+13. Based on the visualizations from the previous question, are there outliers in the `capital.gain` variable? If so, suggest a strategy to handle them.  
+
+### Feature Engineering Challenge {-}  
+14. Create a new categorical variable `Age_Group` in the Adult dataset, grouping ages into:  
+   - Young (≤30 years old)  
+   - Middle-aged (31-50 years old)  
+   - Senior (>50 years old)  
+   Use the `cut()` function to implement this transformation.  
+
+15. Compute the mean `capital.gain` for each `Age_Group`. What insights do you gain about income levels across different age groups?  
+
+### Advanced Data Preparation Challenges {-}  
+
+16. In the Adult dataset, the `education` variable contains 16 distinct levels. Reduce these categories into broader groups such as "No Diploma," "High School Graduate," "Some College," and "Postgraduate." Implement this transformation using the `fct_collapse()` function.  
+
+17. The `capital.gain` and `capital.loss` variables represent financial assets. Create a new variable `net.capital` that computes the difference between `capital.gain` and `capital.loss`. Analyze its distribution.  
+
+18. Perform Min-Max scaling on the numerical variables in the Adult dataset (`age`, `capital.gain`, `capital.loss`, `hours.per.week`). Use the `mutate()` function to apply this transformation.  
+
+19. Perform Z-score normalization on the same set of numerical variables. Compare the results with Min-Max scaling. In what scenarios would one approach be preferable over the other?  
+
+20. Construct a logistic regression model to predict whether an individual earns more than 50K (`>50K`) based on selected numerical features (`age`, `education.num`, `hours.per.week`). Preprocess the data accordingly and interpret the coefficients of the model.  
 
 

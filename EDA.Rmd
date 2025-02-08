@@ -303,7 +303,7 @@ In summary, this EDA on the Voice Mail Plan variable suggests two key takeaways:
 
 These insights reinforce the importance of EDA in uncovering patterns that inform both strategic decisions and model-building efforts, helping companies address churn more effectively.
 
-## Investigating Numerical Variables
+## Investigating Numerical Variables {#EDA-sec-numeric}
 
 Next, we turn to an exploration of the numeric predictive variables. Refer back to summary statistics of the various predictors. We start with the variable `service.calls` (Customer Service Calls), which represents the number of calls made to customer service. This variable is numerical and discrete, making it suitable for histogram analysis. We can use histograms to visualize the distribution of customer service calls as follows:
 
@@ -397,7 +397,7 @@ As an example, while `night.mins` does not display a strong association with chu
 
 To confirm whether any observed differences are statistically significant, we will delve into hypothesis testing and other statistical techniques in the next chapter. These methods fall under the domain of statistical inference and model building, extending beyond the scope of exploratory data analysis. We mention them here to emphasize that EDA is only one step in the modeling process; some variables may reveal their importance only under more formal analysis. For this reason, it’s essential not to prematurely discard predictors simply because their relationship with the target variable isn’t immediately apparent in EDA.
 
-## Envestigating Multivarate Relationships
+## Envestigating Multivarate Relationships {#EDA-sec-multivariate}
 
 We examine potential multivariate associations between numeric variables and churn using scatter plots. While univariate exploration gives us insights into individual variables, multivariate graphics can reveal interaction effects that may not be apparent when examining variables in isolation.
 

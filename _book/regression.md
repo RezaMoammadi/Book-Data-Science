@@ -57,7 +57,9 @@ To understand the relationships between variables, we use the `pairs.panels()` f
 pairs.panels(marketing)
 ```
 
-<img src="regression_files/figure-html/unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=1\linewidth]{regression_files/figure-latex/unnamed-chunk-4-1} \end{center}
 
 This plot includes: *Bivariate scatter plots* (bottom-left) showing relationships between pairs of variables; *Histograms* (diagonal) showing the distribution of each variable; *Correlation coefficients* (top-right) quantifying the strength of linear relationships. For example, the variables `spend` and `revenue` exhibit a strong positive linear relationship, with a correlation coefficient of 0.79. This indicates that higher spending is generally associated with higher revenue, supporting the hypothesis of a linear relationship between these variables.
 
@@ -65,10 +67,14 @@ This plot includes: *Bivariate scatter plots* (bottom-left) showing relationship
 
 To begin our analysis, we focus on a simple linear regression model that examines the relationship between a single predictor (`spend`) and the target variable (`revenue`). This provides a foundational understanding of regression before expanding to more complex models involving multiple predictors. First, let’s visualize the relationship with a scatter plot and overlay a regression line:
 
-<div class="figure" style="text-align: center">
-<img src="regression_files/figure-html/scoter-plot-simple-reg-1.png" alt="Scatter plot of daily revenue (€) versus daily spend (€) for 40 observations, with the fitted least-squares regression line (blue) showing the linear relationship." width="80%" />
-<p class="caption">(\#fig:scoter-plot-simple-reg)Scatter plot of daily revenue (€) versus daily spend (€) for 40 observations, with the fitted least-squares regression line (blue) showing the linear relationship.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.8\linewidth]{regression_files/figure-latex/scoter-plot-simple-reg-1} 
+
+}
+
+\caption{Scatter plot of daily revenue (€) versus daily spend (€) for 40 observations, with the fitted least-squares regression line (blue) showing the linear relationship.}(\#fig:scoter-plot-simple-reg)
+\end{figure}
 
 Figure \@ref(fig:scoter-plot-simple-reg) displays the scatter plot of `spend` versus `revenue` for the *marketing* dataset, with the fitted least-squares regression line.
 
@@ -233,9 +239,9 @@ summary(simple_reg)
 From the output:
 
 - The **t-statistic** for the slope is 7.93.  
-- The **p-value** is 1.4150362\times 10^{-9} (close to zero).
+- The **p-value** is \ensuremath{1.4150362\times 10^{-9}} (close to zero).
 
-The p-value, 1.4150362\times 10^{-9}, is extremely small (near zero). This represents the probability of observing a t-statistic as extreme as the one calculated, assuming there is no relationship between `spend` and `revenue` (\(\beta_1 = 0\)).
+The p-value, \ensuremath{1.4150362\times 10^{-9}}, is extremely small (near zero). This represents the probability of observing a t-statistic as extreme as the one calculated, assuming there is no relationship between `spend` and `revenue` (\(\beta_1 = 0\)).
 
 Since the p-value is much smaller than the commonly used significance level (\(\alpha = 0.05\)), we reject the null hypothesis \(H_0\). This leads to the conclusion that the slope \(\beta_1\) is significantly different from zero, providing strong evidence of a linear relationship between `spend` and `revenue`.
 
@@ -259,7 +265,7 @@ RSE = \sqrt{\frac{1}{n-p-1} SSE}
 \]
 where SSE is the sum of squared errors as defined in Equation \@ref(eq:sse), \(n\) is the number of observations, and \(p\) is the number of predictors in the model. The RSE provides an estimate of the typical prediction error, with smaller values indicating a better fit.
 
-A smaller SSE indicates that the regression model more accurately captures the variability in the response variable, producing better predictions. For example, in the simple linear regression model for the *marketing* dataset, the SSE is 3.3447117\times 10^{5}. This value represents the total squared error in predicting `revenue` from `spend`. The closer SSE is to zero, the smaller the typical prediction error, which indicates a higher-quality model.
+A smaller SSE indicates that the regression model more accurately captures the variability in the response variable, producing better predictions. For example, in the simple linear regression model for the *marketing* dataset, the SSE is \ensuremath{3.3447117\times 10^{5}}. This value represents the total squared error in predicting `revenue` from `spend`. The closer SSE is to zero, the smaller the typical prediction error, which indicates a higher-quality model.
 
 The **\(R^2\) (R-squared)** statistic evaluates how well the regression model explains the variability in the response variable. It is defined as:
 
@@ -736,10 +742,14 @@ unit.price = b_0 + b_1 \cdot house.age + b_2 \cdot house.age^2
 
 This equation predicts `unit.price` using both `house.age` and its square (`house.age^2`). While this model accommodates non-linear relationships, it remains a **linear model** because the coefficients (\(b_0, b_1, b_2\)) are estimated using linear least squares. The blue curve in Figure \@ref(fig:scoter-plot-non-reg) illustrates the quadratic fit, which captures the data’s pattern far better than the linear fit.  
 
-<div class="figure" style="text-align: center">
-<img src="regression_files/figure-html/scoter-plot-non-reg-1.png" alt="Scatter plot of house price ($) versus house age (years) for the house dataset, with the fitted simple linear regression line in orange and the quadratic regression curve in blue." width="100%" />
-<p class="caption">(\#fig:scoter-plot-non-reg)Scatter plot of house price ($) versus house age (years) for the house dataset, with the fitted simple linear regression line in orange and the quadratic regression curve in blue.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{regression_files/figure-latex/scoter-plot-non-reg-1} 
+
+}
+
+\caption{Scatter plot of house price ($) versus house age (years) for the house dataset, with the fitted simple linear regression line in orange and the quadratic regression curve in blue.}(\#fig:scoter-plot-non-reg)
+\end{figure}
 
 ### Polynomial Regression  
 
@@ -882,10 +892,9 @@ ml_stepwise = lm(revenue ~ clicks + display, data = marketing)
 plot(ml_stepwise)  
 ```
 
-<div class="figure">
-<img src="regression_files/figure-html/model-diagnostics-1.png" alt="Diagnostic plots for assessing regression model assumptions." width="50%" /><img src="regression_files/figure-html/model-diagnostics-2.png" alt="Diagnostic plots for assessing regression model assumptions." width="50%" /><img src="regression_files/figure-html/model-diagnostics-3.png" alt="Diagnostic plots for assessing regression model assumptions." width="50%" /><img src="regression_files/figure-html/model-diagnostics-4.png" alt="Diagnostic plots for assessing regression model assumptions." width="50%" />
-<p class="caption">(\#fig:model-diagnostics)Diagnostic plots for assessing regression model assumptions.</p>
-</div>
+\begin{figure}
+\includegraphics[width=0.5\linewidth]{regression_files/figure-latex/model-diagnostics-1} \includegraphics[width=0.5\linewidth]{regression_files/figure-latex/model-diagnostics-2} \includegraphics[width=0.5\linewidth]{regression_files/figure-latex/model-diagnostics-3} \includegraphics[width=0.5\linewidth]{regression_files/figure-latex/model-diagnostics-4} \caption{Diagnostic plots for assessing regression model assumptions.}(\#fig:model-diagnostics)
+\end{figure}
 
 The diagnostic plots help us assess each of the four key assumptions:
 

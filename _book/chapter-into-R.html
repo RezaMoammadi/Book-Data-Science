@@ -96,14 +96,23 @@
 <span class="header-section-number">1</span> The Basics for R<a class="anchor" aria-label="anchor" href="#chapter-into-R"><i class="fas fa-link"></i></a>
 </h1>
 <p>Before you can analyze data, you need a way to communicate with your computer. That’s where programming languages like R and Python come in. Many data science teams use a mix of languages, but R is a great starting point because it is designed specifically for data analysis and statistical computing.</p>
-<p>R offers a rich ecosystem of libraries and tools tailored for data science. It has a simple yet expressive syntax, making it easy to explore and manipulate data. Unlike general-purpose programming languages, R was built for statistical analysis, allowing data scientists to perform everything from basic calculations to advanced machine learning with just a few lines of code.</p>
+<div id="why-choose-r-for-data-science" class="section level3 unnumbered">
+<h3>Why Choose R for Data Science?<a class="anchor" aria-label="anchor" href="#why-choose-r-for-data-science"><i class="fas fa-link"></i></a>
+</h3>
+<p>R is widely used in statistics, data analysis, and visualization due to its rich ecosystem of libraries and tools tailored for data science. Unlike general-purpose programming languages, R was built for statistical analysis, allowing data scientists to perform everything from basic calculations to advanced machine learning with just a few lines of code.</p>
+<p>While Python is another popular language for data science, R is particularly well-suited for:
+- <em>Statistical Computing</em> – R has built-in statistical functions and methods for hypothesis testing, regression modeling, and machine learning.
+- <em>Data Visualization</em> – Packages like <code>ggplot2</code> provide powerful tools for creating high-quality plots and graphs with minimal effort.
+- <em>Reproducible Research</em> – R Markdown and Shiny make it easy to generate reports and interactive dashboards directly from R code.
+- <em>Bioinformatics &amp; Finance</em> – Many researchers and analysts in these fields use R due to its robust statistical libraries and domain-specific packages.</p>
 <p>Beyond its capabilities, R is:</p>
 <ul>
-<li>Free &amp; Open Source – Available to everyone, with a vibrant community of contributors.<br>
-</li>
-<li>Cross-Platform – Runs on Windows, macOS, and Linux.<br>
-</li>
-<li>Flexible &amp; Powerful – Supports interactive data exploration, visualization, and machine learning.</li>
+<li>
+<em>Free &amp; Open Source</em> – Available to everyone, with a vibrant community of contributors.</li>
+<li>
+<em>Cross-Platform</em> – Runs on Windows, macOS, and Linux.</li>
+<li>
+<em>Flexible &amp; Powerful</em> – Supports interactive data exploration, visualization, and machine learning.</li>
 </ul>
 <p>While R is the language, RStudio is the tool that makes working with R easier. RStudio is an integrated development environment (IDE) that provides:</p>
 <ul>
@@ -114,6 +123,7 @@
 <li>Built-in tools for data visualization, debugging, and package management.</li>
 </ul>
 <p>In this chapter, you will learn the fundamental skills needed to work with R, from installation to running your first commands. Let’s begin! 🚀</p>
+</div>
 <div id="how-to-install-r" class="section level2" number="1.1">
 <h2>
 <span class="header-section-number">1.1</span> How to Install R<a class="anchor" aria-label="anchor" href="#how-to-install-r"><i class="fas fa-link"></i></a>
@@ -410,8 +420,7 @@ Figure 1.4: A visual guide to customizing the import settings when loading a dat
 </h3>
 <p>R also allows direct import of datasets from web sources. For example, to load a publicly available COVID-19 dataset:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">corona_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"https://opendata.ecdc.europa.eu/covid19/casedistribution/csv"</span>, </span>
-<span>                        na.strings <span class="op">=</span> <span class="st">""</span>, fileEncoding <span class="op">=</span> <span class="st">"UTF-8-BOM"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">corona_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"https://opendata.ecdc.europa.eu/covid19/casedistribution/csv"</span>, na.strings <span class="op">=</span> <span class="st">""</span>, fileEncoding <span class="op">=</span> <span class="st">"UTF-8-BOM"</span><span class="op">)</span></span></code></pre></div>
 <p>This approach is useful for accessing open datasets from research institutions or government agencies.</p>
 </div>
 <div id="using-read_excel-for-excel-files" class="section level3 unnumbered">
@@ -676,7 +685,7 @@ Figure 1.5: A visual guide to different types of data structures in R.
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">hp</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="Intro-R_files/figure-html/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="Intro-R_files/figure-html/unnamed-chunk-32-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>This code initializes the plot with the <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> function, specifying the dataset (<code>mtcars</code>). The <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code> function adds points to the plot, and the <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code> function maps <code>mpg</code> to the x-axis and <code>hp</code> to the y-axis.</p>
 <p>The general template for creating plots with <strong>ggplot2</strong> follows this structure:</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="chapter-into-R.html#cb35-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="sc">&lt;</span>DATA<span class="sc">&gt;</span>) <span class="sc">+</span></span>
@@ -712,13 +721,13 @@ Figure 1.5: A visual guide to different types of data structures in R.
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">hp</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="Intro-R_files/figure-html/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="Intro-R_files/figure-html/unnamed-chunk-34-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>Multiple geom functions can be combined in a single plot. To overlay a scatter plot on the smoothed line:</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">hp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">hp</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="Intro-R_files/figure-html/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="Intro-R_files/figure-html/unnamed-chunk-35-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>Alternatively, the <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code> function can be placed inside <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> to streamline the code:</p>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">hp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -733,7 +742,7 @@ Figure 1.5: A visual guide to different types of data structures in R.
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">hp</span>, color <span class="op">=</span> <span class="va">cyl</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="Intro-R_files/figure-html/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="Intro-R_files/figure-html/unnamed-chunk-37-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>Here, <code>color = cyl</code> maps the color of the points to the number of cylinders (<code>cyl</code>) in the <strong>mtcars</strong> dataset. <strong>ggplot2</strong> automatically assigns a unique color to each category and adds a corresponding legend.</p>
 <p>In addition to <code>color</code>, other aesthetics such as <code>size</code> and <code>alpha</code> (transparency) can be used:</p>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
@@ -750,7 +759,7 @@ Figure 1.5: A visual guide to different types of data structures in R.
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">hp</span><span class="op">)</span>, </span>
 <span>             color <span class="op">=</span> <span class="st">"blue"</span>, size <span class="op">=</span> <span class="fl">3</span>, shape <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="Intro-R_files/figure-html/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="Intro-R_files/figure-html/unnamed-chunk-39-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>This section introduced the fundamentals of data visualization in R using <strong>ggplot2</strong>. The next chapters will explore how visualization plays a crucial role in exploratory data analysis (Chapter <a href="chapter-EDA.html#chapter-EDA">4</a>) and how to refine plots for communication and reporting. For more details on visualization techniques, see the <a href="https://ggplot2.tidyverse.org"><strong>ggplot2</strong> documentation</a>. For interactive graphics, consider exploring the <strong>plotly</strong> package or <strong>Shiny</strong> for web applications.</p>
 </div>
 </div>
@@ -782,7 +791,7 @@ For instance, using the <code>diamonds</code> dataset, the formula:</p>
 <span class="header-section-number">1.15</span> Reporting with R Markdown<a class="anchor" aria-label="anchor" href="#reporting-with-r-markdown"><i class="fas fa-link"></i></a>
 </h2>
 <p>Thus far, this book has covered how to interact with R and RStudio for data analysis. This section focuses on an equally important aspect: effectively communicating analytical findings. Data scientists must present results clearly to teams, stakeholders, and clients. Regardless of the depth of an analysis, its impact is limited if it is not communicated effectively. R Markdown facilitates this process by enabling the seamless integration of code, text, and output into dynamic, reproducible reports.</p>
-<p>R Markdown allows users to write and execute R code within a document, producing reports, presentations, and dashboards. It employs Markdown, a lightweight markup language designed for ease of reading and writing. This entire book was written in R Markdown, with all source files available on GitHub. R Markdown streamlines report generation, ensuring that text, code, and visualizations remain synchronized as data changes.</p>
+<p>R Markdown allows users to write and execute R code within a document, producing reports, presentations, and dashboards. Unlike traditional notebooks or word processors, R Markdown ensures that text, code, and results remain synchronized as data changes. This book itself is entirely written using R Markdown and generated with the <a href="https://bookdown.org"><strong>bookdown</strong></a> package, ensuring a fully reproducible and dynamic workflow.</p>
 <p>R Markdown documents can be exported into multiple formats, including HTML, PDF, Word, and PowerPoint, making it adaptable to various audiences and reporting needs. Furthermore, it supports the creation of interactive documents using Shiny, allowing users to build web applications that facilitate exploratory data analysis.</p>
 <p>To get started, the following resources provide useful references:</p>
 <ul>
@@ -930,25 +939,13 @@ Figure 1.6: Executing a code chunk in R Markdown using the ‘Run’ button in R
 </li>
 <li>Use the <code><a href="https://rdrr.io/r/base/getwd.html">getwd()</a></code> function to check your current working directory. Then, change it to a new directory using <code><a href="https://rdrr.io/r/base/getwd.html">setwd()</a></code>.<br>
 </li>
-<li>Install and load the <strong>liver</strong> package in R. If you encounter any errors, check your internet connection and ensure CRAN is accessible.<br>
-</li>
 <li>Create a numeric vector named <code>numbers</code> containing the values <code>5, 10, 15, 20, 25</code>. Then, calculate the mean and standard deviation of the vector.<br>
 </li>
-<li>Write a comment in R explaining the purpose of the following line of code:</li>
-</ol>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fl">2</span> <span class="op">+</span> <span class="fl">3</span></span></code></pre></div>
-<ol start="6" style="list-style-type: decimal">
-<li>Create a character vector containing the names of three programming languages you would like to learn. Print the vector.<br>
-</li>
-<li>Convert the following vector into a factor:</li>
-</ol>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cities</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Amsterdam"</span>, <span class="st">"Berlin"</span>, <span class="st">"London"</span>, <span class="st">"Amsterdam"</span>, <span class="st">"Berlin"</span><span class="op">)</span></span></code></pre></div>
-<ol start="8" style="list-style-type: decimal">
 <li>Create a matrix with 3 rows and 4 columns, filled with numbers from 1 to 12.<br>
 </li>
-<li>Create a data frame containing the following variables:
+<li>Create a data frame containing the following variables:<br>
+</li>
+</ol>
 <ul>
 <li>
 <code>student_id</code> (integer)<br>
@@ -964,84 +961,39 @@ Figure 1.6: Executing a code chunk in R Markdown using the ‘Run’ button in R
 Print the first few rows of the data frame using <code><a href="https://rdrr.io/r/utils/head.html">head()</a></code>.<br>
 </li>
 </ul>
+<ol start="6" style="list-style-type: decimal">
+<li>Install and load the <strong>liver</strong> and <strong>ggplot2</strong> packages in R. If you encounter any errors, check your internet connection and ensure CRAN is accessible.<br>
 </li>
-<li>Load the built-in <strong>mtcars</strong> dataset and display the structure of the dataset using the <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> function.</li>
-</ol>
-</div>
-<div id="intermediate-exercises" class="section level3 unnumbered">
-<h3>Intermediate Exercises<a class="anchor" aria-label="anchor" href="#intermediate-exercises"><i class="fas fa-link"></i></a>
-</h3>
-<ol start="11" style="list-style-type: decimal">
-<li>Import a CSV file into R using the <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code> function. Print the first six rows of the dataset.<br>
+<li>Load the <em>churn</em> dataset from the <strong>liver</strong> package and display the first few rows using the <code><a href="https://rdrr.io/r/utils/head.html">head()</a></code> function.</li>
+<li>Report the data types of the variables in the <em>churn</em> dataset using the <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> function.</li>
+<li>Report the dimensions of the <em>churn</em> dataset using the <code><a href="https://rdrr.io/r/base/dim.html">dim()</a></code> function.</li>
+<li>Report the summary statistics of the variables in the <em>churn</em> dataset using the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function.</li>
+<li>Create a scatter plot using <strong>ggplot2</strong> that visualizes the relationship between <code>day.mins</code> and <code>eve.mins</code> in the <em>churn</em> dataset. <strong>Hint:</strong> See the code in Section <a href="chapter-EDA.html#EDA-sec-multivariate">4.7</a>.</li>
+<li>Create a histogram for the <code>day.calls</code> variable in the <em>churn</em> dataset.</li>
+<li>Create a boxplot for the <code>day.mins</code> variable in the <em>churn</em> dataset.</li>
+<li>Create a boxplot for the <code>day.mins</code> variable in the <em>churn</em> dataset, grouped by the <code>churn</code> variable. <strong>Hint:</strong> See the code in Section <a href="chapter-EDA.html#EDA-sec-numeric">4.6</a>.</li>
+<li>Use the <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> function to compute the mean of the <code>customer.calls</code> variable in the <em>churn</em> dataset. Then, calculate the mean of <code>customer.calls</code> for churner <code>churn == yes</code>.<br>
 </li>
-<li>Create a scatter plot using <strong>ggplot2</strong> that visualizes the relationship between <code>mpg</code> and <code>hp</code> in the <strong>mtcars</strong> dataset.<br>
-</li>
-<li>Using the <strong>liver</strong> package, load the <em>churn</em> dataset and display the summary statistics of the numerical variables.<br>
-</li>
-<li>Create a boxplot to compare the distribution of <code>mpg</code> across different values of <code>cyl</code> in the <strong>mtcars</strong> dataset.<br>
-</li>
-<li>Use the <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> function to compute the mean of the <code>mpg</code> variable in the <strong>mtcars</strong> dataset. Then, calculate the mean of <code>mpg</code> for cars with <code>cyl == 4</code>.<br>
-</li>
-<li>Use a formula in R to fit a linear model predicting <code>mpg</code> based on <code>hp</code> in the <strong>mtcars</strong> dataset. Display a summary of the model using <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code>.<br>
-</li>
-<li>Create an R Markdown document that includes a title, author, and a small analysis of the <strong>mtcars</strong> dataset. Generate an HTML report.</li>
+<li>Create an R Markdown document that includes a title, author, and a small analysis of the <em>churn</em> dataset. Generate an HTML report.</li>
 </ol>
 </div>
 <div id="more-challenges-exercise" class="section level3 unnumbered">
 <h3>More Challenges Exercise<a class="anchor" aria-label="anchor" href="#more-challenges-exercise"><i class="fas fa-link"></i></a>
 </h3>
-<ol start="18" style="list-style-type: decimal">
-<li>The formula syntax in R is essential for statistical modeling. Write formulas for the following relationships:
-<ul>
-<li>A linear model predicting <code>mpg</code> using <code>hp</code> and <code>wt</code> in <strong>mtcars</strong>.<br>
-</li>
-<li>A logistic regression model predicting <code>vs</code> using all other variables in <strong>mtcars</strong>.<br>
-</li>
-</ul>
-</li>
-<li>Modify the dataset below to replace the <code>score</code> column with letter grades (<code>A</code>, <code>B</code>, <code>C</code>, or <code>D</code>) based on the following rules:
+<ol start="17" style="list-style-type: decimal">
+<li>The following R code generates a simulated dataset with 200 observations. We will use this simulated dataset as a simple toy example in Chapter <a href="chapter-knn.html#chapter-knn">7</a> to explain how k-nearest neighbors algorithm works. This simulated data is for patients with three variables:</li>
+</ol>
 <ul>
 <li>
-<code>score &gt;= 90</code>: “A”<br>
+<code>Age</code>: Age of the patients as numeric variable with range from 15 to 75 years old.<br>
 </li>
 <li>
-<code>score &gt;= 75</code>: “B”<br>
-</li>
+<code>Ratio</code>: Sodium/Potassium ratio in the patient’s blood as numeric variable. The ratio is generated based on the <code>Type</code> variable.</li>
 <li>
-<code>score &gt;= 60</code>: “C”<br>
-</li>
-<li>Otherwise: “D”</li>
+<code>Type</code>: a factor with three levels: <code>"A"</code>, <code>"B"</code>, <code>"C"</code> representing the type of drug the patient is taking.</li>
 </ul>
-</li>
-</ol>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">student_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
-<span>  student_id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,</span>
-<span>  name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Alice"</span>, <span class="st">"Bob"</span>, <span class="st">"Charlie"</span>, <span class="st">"David"</span>, <span class="st">"Eva"</span><span class="op">)</span>,</span>
-<span>  score <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">95</span>, <span class="fl">88</span>, <span class="fl">72</span>, <span class="fl">60</span>, <span class="fl">45</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<ol start="20" style="list-style-type: decimal">
-<li>Create a function in R that takes a numeric vector as input and returns a list containing the mean, median, and standard deviation of the vector.</li>
-</ol>
-</div>
-<div id="more-challenges-exercise-1" class="section level3 unnumbered">
-<h3>More Challenges Exercise<a class="anchor" aria-label="anchor" href="#more-challenges-exercise-1"><i class="fas fa-link"></i></a>
-</h3>
-<ol start="21" style="list-style-type: decimal">
-<li>The following R code generates a simulated dataset with 200 observations and three variables:
-<ul>
-<li>
-<code>Age</code> (numeric)<br>
-</li>
-<li>
-<code>Ratio</code> (Sodium/Potassium ratio)<br>
-</li>
-<li>
-<code>Type</code> (a factor with three levels: <code>"A"</code>, <code>"B"</code>, <code>"C"</code>)</li>
-</ul>
-Run the code and report the summary statistics of the data.</li>
-</ol>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<p>Run the code and report the summary statistics of the data.</p>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Simulate data for kNN</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
 <span></span>
@@ -1054,38 +1006,56 @@ Run the code and report the summary statistics of the data.</li>
 <span><span class="va">Age</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">15</span><span class="op">:</span><span class="fl">75</span>, size <span class="op">=</span> <span class="va">n</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Generate Drug Type variable with three levels</span></span>
-<span><span class="va">Type</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span><span class="op">)</span>, size <span class="op">=</span> <span class="va">n</span>, replace <span class="op">=</span> <span class="cn">TRUE</span>, </span>
-<span>              prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">n1</span>, <span class="va">n2</span>, <span class="va">n3</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">Type</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span><span class="op">)</span>, size <span class="op">=</span> <span class="va">n</span>, replace <span class="op">=</span> <span class="cn">TRUE</span>, prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">n1</span>, <span class="va">n2</span>, <span class="va">n3</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Generate Sodium/Potassium Ratio based on Drug Type</span></span>
 <span><span class="va">Ratio</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">Ratio</span><span class="op">[</span><span class="va">Type</span> <span class="op">==</span> <span class="st">"A"</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">10</span><span class="op">:</span><span class="fl">40</span>, size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">Type</span> <span class="op">==</span> <span class="st">"A"</span><span class="op">)</span>, </span>
-<span>                            replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="va">Ratio</span><span class="op">[</span><span class="va">Type</span> <span class="op">==</span> <span class="st">"B"</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span>x <span class="op">=</span>  <span class="fl">5</span><span class="op">:</span><span class="fl">15</span>, size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">Type</span> <span class="op">==</span> <span class="st">"B"</span><span class="op">)</span>, </span>
-<span>                            replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="va">Ratio</span><span class="op">[</span><span class="va">Type</span> <span class="op">==</span> <span class="st">"C"</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span>x <span class="op">=</span>  <span class="fl">5</span><span class="op">:</span><span class="fl">15</span>, size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">Type</span> <span class="op">==</span> <span class="st">"C"</span><span class="op">)</span>, </span>
-<span>                            replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">Ratio</span><span class="op">[</span><span class="va">Type</span> <span class="op">==</span> <span class="st">"A"</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">10</span><span class="op">:</span><span class="fl">40</span>, size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">Type</span> <span class="op">==</span> <span class="st">"A"</span><span class="op">)</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">Ratio</span><span class="op">[</span><span class="va">Type</span> <span class="op">==</span> <span class="st">"B"</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span>x <span class="op">=</span>  <span class="fl">5</span><span class="op">:</span><span class="fl">15</span>, size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">Type</span> <span class="op">==</span> <span class="st">"B"</span><span class="op">)</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">Ratio</span><span class="op">[</span><span class="va">Type</span> <span class="op">==</span> <span class="st">"C"</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span>x <span class="op">=</span>  <span class="fl">5</span><span class="op">:</span><span class="fl">15</span>, size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">Type</span> <span class="op">==</span> <span class="st">"C"</span><span class="op">)</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Create a data frame with the generated variables</span></span>
 <span><span class="va">drug_data</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>Age <span class="op">=</span> <span class="va">Age</span>, Ratio <span class="op">=</span> <span class="va">Ratio</span>, Type <span class="op">=</span> <span class="va">Type</span><span class="op">)</span></span></code></pre></div>
 <p>Visualize the data using the following <strong>ggplot2</strong> code:</p>
-<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">drug_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Age</span>, y <span class="op">=</span> <span class="va">Ratio</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">Type</span>, shape <span class="op">=</span> <span class="va">Type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Age vs. Sodium/Potassium Ratio"</span>, </span>
 <span>       x <span class="op">=</span> <span class="st">"Age"</span>, y <span class="op">=</span> <span class="st">"Sodium/Potassium Ratio"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="Intro-R_files/figure-html/unnamed-chunk-48-1.png" width="672" style="display: block; margin: auto;"></div>
-<ol start="22" style="list-style-type: decimal">
-<li>Extend the dataset <code>drug_data</code> by adding a new variable named <code>Outcome</code>, which is a factor with two levels (<code>"Good"</code> and <code>"Bad"</code>).
+<div class="inline-figure"><img src="Intro-R_files/figure-html/unnamed-chunk-45-1.png" width="70%" style="display: block; margin: auto;"></div>
+<ol start="18" style="list-style-type: decimal">
+<li>Extend the dataset <code>drug_data</code> by adding a new variable named <code>Outcome</code>, which is a factor with two levels (<code>"Good"</code> and <code>"Bad"</code>).<br>
+</li>
+</ol>
 <ul>
 <li>Patients with <code>Type == "A"</code> should have a higher probability of <code>"Good"</code> outcomes.<br>
 </li>
 <li>Patients with <code>Type == "B"</code> and <code>Type == "C"</code> should have a lower probability of <code>"Good"</code> outcomes.<br>
 </li>
-<li>Use <code><a href="https://rdrr.io/r/base/sample.html">sample()</a></code> with appropriate probabilities to generate the <code>Outcome</code> variable.</li>
-</ul>
+<li>Use <code><a href="https://rdrr.io/r/base/sample.html">sample()</a></code> with appropriate probabilities to generate the <code>Outcome</code> variable.<br>
 </li>
+</ul>
+<ol start="19" style="list-style-type: decimal">
+<li>Create a new scatter plot using <strong>ggplot2</strong> that visualizes the relationship between <code>Age</code> and <code>Ratio</code>, colored by the <code>Outcome</code> variable.</li>
+<li>Create a new variable <code>Age_group</code> in the <code>drug_data</code> dataset that categorizes patients into three groups:<br>
+</li>
+</ol>
+<ul>
+<li>“Young” (<span class="math inline">\(\leq 30\)</span> years old)</li>
+<li>“Middle-aged” (31-50 years old)</li>
+<li>“Senior” (&gt;50 years old).</li>
+</ul>
+<ol start="21" style="list-style-type: decimal">
+<li>Calculate the mean <code>Ratio</code> for each <code>Age_group</code> category in the <code>drug_data</code> dataset.<br>
+</li>
+<li>Create a bar chart using <strong>ggplot2</strong> that displays the average <code>Ratio</code> for each <code>Age_group</code>.<br>
+</li>
+<li>Modify the <code>drug_data</code> dataset by adding a <code>Risk_factor</code> variable, calculated as <code>Ratio * Age / 10</code>. Analyze how <code>Risk_factor</code> differs by <code>Type</code>.<br>
+</li>
+<li>Create a histogram of the <code>Risk_factor</code> variable, grouped by <code>Type</code>.<br>
+</li>
+<li>Generate a boxplot to visualize the distribution of <code>Risk_factor</code> across different <code>Outcome</code> categories.</li>
 </ol>
 </div>
 </div>
@@ -1097,7 +1067,9 @@ Run the code and report the summary statistics of the data.</li>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#chapter-into-R"><span class="header-section-number">1</span> The Basics for R</a></li>
+<li>
+<a class="nav-link" href="#chapter-into-R"><span class="header-section-number">1</span> The Basics for R</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#why-choose-r-for-data-science">Why Choose R for Data Science?</a></li></ul>
+</li>
 <li>
 <a class="nav-link" href="#how-to-install-r"><span class="header-section-number">1.1</span> How to Install R</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#keeping-r-up-to-date">Keeping R Up to Date</a></li></ul>
 </li>
@@ -1166,9 +1138,7 @@ Run the code and report the summary statistics of the data.</li>
 <li>
 <a class="nav-link" href="#exercises"><span class="header-section-number">1.16</span> Exercises</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#basic-exercises">Basic Exercises</a></li>
-<li><a class="nav-link" href="#intermediate-exercises">Intermediate Exercises</a></li>
 <li><a class="nav-link" href="#more-challenges-exercise">More Challenges Exercise</a></li>
-<li><a class="nav-link" href="#more-challenges-exercise-1">More Challenges Exercise</a></li>
 </ul>
 </li>
 </ul>
@@ -1188,7 +1158,7 @@ Run the code and report the summary statistics of the data.</li>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Uncovering Data Science with R</strong>" was written by Reza Mohammadi. It was last built on 2025-02-06.</p>
+    <p>"<strong>Uncovering Data Science with R</strong>" was written by Reza Mohammadi. It was last built on 2025-02-08.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

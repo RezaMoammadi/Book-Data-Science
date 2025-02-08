@@ -42,10 +42,14 @@ Partitioning the dataset is a critical step in preparing data for modeling. A co
 
 The goal of partitioning is to divide the data into two distinct subsets: the **training set**, used to build the model, and the **testing set**, used to evaluate its performance. This separation simulates real-world conditions, where the model must make predictions on new, unseen data. Partitioning helps us detect and address common modeling pitfalls like **overfitting** and **underfitting**. These trade-offs are illustrated in Figure \@ref(fig:model-complexity), which highlights the balance between model complexity and performance on training and testing datasets.
 
-<div class="figure" style="text-align: center">
-<img src="images/model_complexity.png" alt="The trade-off between model complexity and accuracy on the training and test sets. It highlights the optimal model complexity (sweet spot), where the test set accuracy reaches its highest value for unseen data." width="65%" />
-<p class="caption">(\#fig:model-complexity)The trade-off between model complexity and accuracy on the training and test sets. It highlights the optimal model complexity (sweet spot), where the test set accuracy reaches its highest value for unseen data.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.65\linewidth]{images/model_complexity} 
+
+}
+
+\caption{The trade-off between model complexity and accuracy on the training and test sets. It highlights the optimal model complexity (sweet spot), where the test set accuracy reaches its highest value for unseen data.}(\#fig:model-complexity)
+\end{figure}
 
 **Overfitting** occurs when a model learns the training data too well, including its noise and random fluctuations, instead of capturing the general patterns. Overfitted models achieve high accuracy on the training set but fail miserably on unseen data. For example, a churn prediction model might memorize customer IDs or irrelevant details instead of identifying meaningful behavioral trends. Such a model would struggle to predict churn for new customers and have little practical value.
 
@@ -65,10 +69,14 @@ To summarize, the general strategy for supervised machine learning models consis
 2. **Building** machine learning models on the training data.  
 3. **Evaluating** the performance of the models on the testing data to identify the most effective approach.
 
-<div class="figure" style="text-align: center">
-<img src="images/partitioning.png" alt="A general predictive machine learning process for building and evaluating models. The 80-20 split ratio is an example and may vary based on the dataset and task." width="80%" />
-<p class="caption">(\#fig:modeling)A general predictive machine learning process for building and evaluating models. The 80-20 split ratio is an example and may vary based on the dataset and task.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.8\linewidth]{images/partitioning} 
+
+}
+
+\caption{A general predictive machine learning process for building and evaluating models. The 80-20 split ratio is an example and may vary based on the dataset and task.}(\#fig:modeling)
+\end{figure}
 
 By following this process, we create models that are both reliable and capable of generalizing to unseen data. In this chapter, we will focus on the crucial first step: partitioning the data effectively, validating the partition, and preparing a balanced training dataset. These steps form the foundation for robust model building and evaluation, paving the way for impactful, data-driven decision-making.
 

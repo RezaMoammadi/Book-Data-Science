@@ -345,26 +345,65 @@ Figure 2.3: The Data Science Workflow is an iterative framework for structuring 
 </h2>
 <p>The following exercises will help reinforce the key concepts covered in this chapter. The questions range from fundamental definitions to applied problem-solving related to data science, the data science workflow, and machine learning.</p>
 <ol style="list-style-type: decimal">
-<li><p>Define <em>data science</em> and explain its interdisciplinary nature.<br></p></li>
-<li><p>Why is data often referred to as the <em>“new oil”</em>? Provide examples of industries that benefit from data science.<br></p></li>
-<li><p>What are the three key components of data science? Briefly describe their roles.<br></p></li>
-<li><p>How does data-driven decision-making impact businesses? Give an example of a real-world application.<br></p></li>
-<li><p>Explain the significance of the <em>DIKW Pyramid</em> in data science.</p></li>
-<li><p>What are the main stages of the data science workflow? Why is it considered an <em>iterative</em> process?<br></p></li>
-<li><p>Describe the importance of <em>problem understanding</em> in a data science project. Provide an example.<br></p></li>
-<li><p>Why is <em>data cleaning</em> a critical step before analysis? What are some common data quality issues?<br></p></li>
-<li><p>How does <em>exploratory data analysis (EDA)</em> help in data science? Name two EDA techniques.<br></p></li>
-<li><p>Explain the difference between <em>descriptive analytics</em>, <em>predictive analytics</em>, and <em>prescriptive analytics</em>.</p></li>
-<li><p>Define <em>machine learning</em> and explain how it differs from traditional programming.<br></p></li>
-<li><p>What is the key difference between <em>supervised learning</em> and <em>unsupervised learning</em>? Provide an example of each.<br></p></li>
-<li><p>In the context of machine learning, what is a <em>training dataset</em> and a <em>test dataset</em>? Why are they important?<br></p></li>
-<li><p>What is <em>classification</em>, and how does it differ from <em>regression</em> in supervised learning?<br></p></li>
-<li><p>Explain what <em>clustering</em> is and provide a real-world scenario where it is useful.</p></li>
-<li><p>What is <em>model evaluation</em>, and why is it important before deploying a model?<br></p></li>
-<li><p>Name and describe two common metrics for evaluating classification models.<br></p></li>
-<li><p>What is <em>cross-validation</em>, and how does it help assess a model’s performance?<br></p></li>
-<li><p>Why is <em>concept drift</em> a concern in deployed machine learning models? How can it be addressed?<br></p></li>
-<li><p>Why is deployment considered an <em>ongoing process</em> rather than a one-time step in data science?</p></li>
+<li>How does data-driven decision-making impact businesses? Give an example of a real-world application.<br>
+</li>
+<li>
+<em>Data Science Workflow</em> is inspired by the <em>CRISP-DM</em> model. What does <em>CRISP-DM</em> stand for, and how does it guide data-driven projects? What are the key stages of the <em>CRISP-DM</em> model?<br>
+</li>
+<li>
+<em>Data Science Workflow</em> and <em>CRISP-DM</em> model are not the only standard processes for data science projects. What are some other methodologies used in the industry?<br>
+</li>
+<li>Do you think we can skip the <em>Problem Understanding</em> phase and directly jump to <em>Data Preparation</em> in a data science project? Justify your answer.<br>
+</li>
+<li>Why is <em>Data Preparation</em> considered one of the most time-consuming steps in a data science project? What are some common challenges faced during this phase?<br>
+</li>
+<li>To what extent can Data Science projects be automated without human intervention? What are the risks and limitations of relying solely on automated tools?<br>
+</li>
+<li>For each of the following scenarios, identify the appropriate stage in the data science workflow:
+<ol style="list-style-type: lower-alpha">
+<li>A company wants to predict customer churn based on historical data.<br>
+</li>
+<li>A researcher is exploring the relationship between air pollution and respiratory diseases.<br>
+</li>
+<li>An e-commerce platform is analyzing user behavior to personalize product recommendations.<br>
+</li>
+<li>A hospital is developing a predictive model for patient readmission rates.<br>
+</li>
+</ol>
+</li>
+<li>For each task, classify it as <em>supervised</em> or <em>unsupervised</em> learning, explain your reasoning, and identify a suitable machine learning algorithm that could be applied.
+<ol style="list-style-type: lower-alpha">
+<li>Identifying fraudulent transactions in a credit card dataset.<br>
+</li>
+<li>Segmenting customers based on purchasing behavior.<br>
+</li>
+<li>Predicting stock prices based on historical data.<br>
+</li>
+<li>Grouping news articles into topics using natural language processing.<br>
+</li>
+</ol>
+</li>
+<li>Define a training dataset and a test dataset. Why are they important? How does improper splitting of these datasets affect model performance? Provide an example of a real-world issue caused by poor dataset partitioning.<br>
+</li>
+<li>Many AI-driven systems have been criticized for biased predictions, such as hiring algorithms that favor certain demographics or facial recognition models that misidentify certain racial groups.
+<ul>
+<li>What are some common sources of bias in data science projects?<br>
+</li>
+<li>How can data scientists ensure fairness and mitigate biases in models?<br>
+</li>
+<li>Give an example of a real-world case where bias in AI led to negative consequences.<br>
+</li>
+</ul>
+</li>
+<li>Accuracy is a common metric used to evaluate models, but it is not always the best indicator of success. Consider a binary classification problem where only <em>2%</em> of the cases are positive (e.g., detecting rare diseases or fraud).
+<ul>
+<li>Why might accuracy be misleading in this case?<br>
+</li>
+<li>What alternative evaluation metrics should be used?<br>
+</li>
+<li>How would you decide whether a model is truly valuable for decision-making?</li>
+</ul>
+</li>
 </ol>
 </div>
 </div>
@@ -408,7 +447,7 @@ Figure 2.3: The Data Science Workflow is an iterative framework for structuring 
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Uncovering Data Science with R</strong>" was written by Reza Mohammadi. It was last built on 2025-02-06.</p>
+    <p>"<strong>Uncovering Data Science with R</strong>" was written by Reza Mohammadi. It was last built on 2025-02-08.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

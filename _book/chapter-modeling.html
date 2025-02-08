@@ -188,7 +188,7 @@ Figure 6.2: A general predictive machine learning process for building and evalu
 - The <strong>training set</strong>, which includes customer features and their known churn status.<br>
 - The <strong>testing set</strong>, which includes customer features but omits the churn status (temporarily treated as unknown).</p>
 <p>In R, the <strong>liver</strong> package offers the <code><a href="https://rdrr.io/pkg/liver/man/partition.html">partition()</a></code> function for creating a train-test split. Here’s how the <em>churn</em> dataset can be split into training and testing sets:</p>
-<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">43</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">data_sets</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/liver/man/partition.html">partition</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span>, ratio <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.8</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span>
@@ -246,25 +246,25 @@ Figure 6.2: A general predictive machine learning process for building and evalu
 <p>Validating the partition is more than a procedural step—it is a safeguard against biased modeling. If the training and testing sets differ significantly, the model’s performance could be compromised. For example, if the training set isn’t representative of the original dataset, the model may fail to generalize. Conversely, if the testing set isn’t representative, the evaluation results may be overly optimistic. Ensuring that the split reflects the original dataset’s characteristics allows for fair and reliable model evaluation.</p>
 <div class="example">
 <p><span id="exm:ex-test-partition" class="example"><strong>Example 6.1  </strong></span>Let’s consider the <em>churn</em> dataset introduced in the previous section. The target variable, <em>churn</em> (whether a customer has churned or not), is binary. According to Table <a href="chapter-modeling.html#tab:partition-test">6.1</a>, the appropriate statistical test to validate the partition for this variable is a <strong>Two-Sample Z-Test</strong>, which compares the proportion of churned customers in the training and testing sets. Here’s how it can be implemented in R:</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="chapter-modeling.html#cb103-1" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">sum</span>(train_set<span class="sc">$</span>churn <span class="sc">==</span> <span class="st">"yes"</span>)</span>
-<span id="cb103-2"><a href="chapter-modeling.html#cb103-2" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">sum</span>(test_set<span class="sc">$</span>churn <span class="sc">==</span> <span class="st">"yes"</span>)</span>
-<span id="cb103-3"><a href="chapter-modeling.html#cb103-3" tabindex="-1"></a></span>
-<span id="cb103-4"><a href="chapter-modeling.html#cb103-4" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> <span class="fu">nrow</span>(train_set)</span>
-<span id="cb103-5"><a href="chapter-modeling.html#cb103-5" tabindex="-1"></a>n2 <span class="ot">&lt;-</span> <span class="fu">nrow</span>(test_set)</span>
-<span id="cb103-6"><a href="chapter-modeling.html#cb103-6" tabindex="-1"></a></span>
-<span id="cb103-7"><a href="chapter-modeling.html#cb103-7" tabindex="-1"></a>test_churn <span class="ot">&lt;-</span> <span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(x1, x2), <span class="at">n =</span> <span class="fu">c</span>(n1, n2))</span>
-<span id="cb103-8"><a href="chapter-modeling.html#cb103-8" tabindex="-1"></a>test_churn</span>
-<span id="cb103-9"><a href="chapter-modeling.html#cb103-9" tabindex="-1"></a>   </span>
-<span id="cb103-10"><a href="chapter-modeling.html#cb103-10" tabindex="-1"></a>    <span class="dv">2</span><span class="sc">-</span>sample test <span class="cf">for</span> equality of proportions with continuity correction</span>
-<span id="cb103-11"><a href="chapter-modeling.html#cb103-11" tabindex="-1"></a>   </span>
-<span id="cb103-12"><a href="chapter-modeling.html#cb103-12" tabindex="-1"></a>   data<span class="sc">:</span>  <span class="fu">c</span>(x1, x2) out of <span class="fu">c</span>(n1, n2)</span>
-<span id="cb103-13"><a href="chapter-modeling.html#cb103-13" tabindex="-1"></a>   X<span class="sc">-</span>squared <span class="ot">=</span> <span class="fl">0.1566</span>, df <span class="ot">=</span> <span class="dv">1</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.6923</span></span>
-<span id="cb103-14"><a href="chapter-modeling.html#cb103-14" tabindex="-1"></a>   alternative hypothesis<span class="sc">:</span> two.sided</span>
-<span id="cb103-15"><a href="chapter-modeling.html#cb103-15" tabindex="-1"></a>   <span class="dv">95</span> percent confidence interval<span class="sc">:</span></span>
-<span id="cb103-16"><a href="chapter-modeling.html#cb103-16" tabindex="-1"></a>    <span class="sc">-</span><span class="fl">0.0190317</span>  <span class="fl">0.0300317</span></span>
-<span id="cb103-17"><a href="chapter-modeling.html#cb103-17" tabindex="-1"></a>   sample estimates<span class="sc">:</span></span>
-<span id="cb103-18"><a href="chapter-modeling.html#cb103-18" tabindex="-1"></a>   prop <span class="dv">1</span> prop <span class="dv">2</span> </span>
-<span id="cb103-19"><a href="chapter-modeling.html#cb103-19" tabindex="-1"></a>   <span class="fl">0.1425</span> <span class="fl">0.1370</span></span></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="chapter-modeling.html#cb118-1" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">sum</span>(train_set<span class="sc">$</span>churn <span class="sc">==</span> <span class="st">"yes"</span>)</span>
+<span id="cb118-2"><a href="chapter-modeling.html#cb118-2" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">sum</span>(test_set<span class="sc">$</span>churn <span class="sc">==</span> <span class="st">"yes"</span>)</span>
+<span id="cb118-3"><a href="chapter-modeling.html#cb118-3" tabindex="-1"></a></span>
+<span id="cb118-4"><a href="chapter-modeling.html#cb118-4" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> <span class="fu">nrow</span>(train_set)</span>
+<span id="cb118-5"><a href="chapter-modeling.html#cb118-5" tabindex="-1"></a>n2 <span class="ot">&lt;-</span> <span class="fu">nrow</span>(test_set)</span>
+<span id="cb118-6"><a href="chapter-modeling.html#cb118-6" tabindex="-1"></a></span>
+<span id="cb118-7"><a href="chapter-modeling.html#cb118-7" tabindex="-1"></a>test_churn <span class="ot">&lt;-</span> <span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(x1, x2), <span class="at">n =</span> <span class="fu">c</span>(n1, n2))</span>
+<span id="cb118-8"><a href="chapter-modeling.html#cb118-8" tabindex="-1"></a>test_churn</span>
+<span id="cb118-9"><a href="chapter-modeling.html#cb118-9" tabindex="-1"></a>   </span>
+<span id="cb118-10"><a href="chapter-modeling.html#cb118-10" tabindex="-1"></a>    <span class="dv">2</span><span class="sc">-</span>sample test <span class="cf">for</span> equality of proportions with continuity correction</span>
+<span id="cb118-11"><a href="chapter-modeling.html#cb118-11" tabindex="-1"></a>   </span>
+<span id="cb118-12"><a href="chapter-modeling.html#cb118-12" tabindex="-1"></a>   data<span class="sc">:</span>  <span class="fu">c</span>(x1, x2) out of <span class="fu">c</span>(n1, n2)</span>
+<span id="cb118-13"><a href="chapter-modeling.html#cb118-13" tabindex="-1"></a>   X<span class="sc">-</span>squared <span class="ot">=</span> <span class="fl">0.1566</span>, df <span class="ot">=</span> <span class="dv">1</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.6923</span></span>
+<span id="cb118-14"><a href="chapter-modeling.html#cb118-14" tabindex="-1"></a>   alternative hypothesis<span class="sc">:</span> two.sided</span>
+<span id="cb118-15"><a href="chapter-modeling.html#cb118-15" tabindex="-1"></a>   <span class="dv">95</span> percent confidence interval<span class="sc">:</span></span>
+<span id="cb118-16"><a href="chapter-modeling.html#cb118-16" tabindex="-1"></a>    <span class="sc">-</span><span class="fl">0.0190317</span>  <span class="fl">0.0300317</span></span>
+<span id="cb118-17"><a href="chapter-modeling.html#cb118-17" tabindex="-1"></a>   sample estimates<span class="sc">:</span></span>
+<span id="cb118-18"><a href="chapter-modeling.html#cb118-18" tabindex="-1"></a>   prop <span class="dv">1</span> prop <span class="dv">2</span> </span>
+<span id="cb118-19"><a href="chapter-modeling.html#cb118-19" tabindex="-1"></a>   <span class="fl">0.1425</span> <span class="fl">0.1370</span></span></code></pre></div>
 <p>In this example:</p>
 <ul>
 <li>
@@ -310,33 +310,33 @@ H_a:  \pi_{\text{churn, train}} \neq \pi_{\text{churn, test}} \quad \text{(Propo
 </ol>
 <p>The choice of technique depends on factors such as the dataset size, the degree of imbalance, and the specific machine learning algorithm being used. Let’s demonstrate balancing the training dataset with an example using the churn dataset.</p>
 <p>First, we examine the distribution of the target variable, <em>churn</em>, in the training dataset to determine whether balancing is necessary. This can be done in R as follows:</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="chapter-modeling.html#cb104-1" tabindex="-1"></a><span class="co"># Check the class distribution</span></span>
-<span id="cb104-2"><a href="chapter-modeling.html#cb104-2" tabindex="-1"></a><span class="fu">table</span>(train_set<span class="sc">$</span>churn)</span>
-<span id="cb104-3"><a href="chapter-modeling.html#cb104-3" tabindex="-1"></a>   </span>
-<span id="cb104-4"><a href="chapter-modeling.html#cb104-4" tabindex="-1"></a>    yes   no </span>
-<span id="cb104-5"><a href="chapter-modeling.html#cb104-5" tabindex="-1"></a>    <span class="dv">570</span> <span class="dv">3430</span></span>
-<span id="cb104-6"><a href="chapter-modeling.html#cb104-6" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(train_set<span class="sc">$</span>churn))</span>
-<span id="cb104-7"><a href="chapter-modeling.html#cb104-7" tabindex="-1"></a>   </span>
-<span id="cb104-8"><a href="chapter-modeling.html#cb104-8" tabindex="-1"></a>      yes     no </span>
-<span id="cb104-9"><a href="chapter-modeling.html#cb104-9" tabindex="-1"></a>   <span class="fl">0.1425</span> <span class="fl">0.8575</span></span></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="chapter-modeling.html#cb119-1" tabindex="-1"></a><span class="co"># Check the class distribution</span></span>
+<span id="cb119-2"><a href="chapter-modeling.html#cb119-2" tabindex="-1"></a><span class="fu">table</span>(train_set<span class="sc">$</span>churn)</span>
+<span id="cb119-3"><a href="chapter-modeling.html#cb119-3" tabindex="-1"></a>   </span>
+<span id="cb119-4"><a href="chapter-modeling.html#cb119-4" tabindex="-1"></a>    yes   no </span>
+<span id="cb119-5"><a href="chapter-modeling.html#cb119-5" tabindex="-1"></a>    <span class="dv">570</span> <span class="dv">3430</span></span>
+<span id="cb119-6"><a href="chapter-modeling.html#cb119-6" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(train_set<span class="sc">$</span>churn))</span>
+<span id="cb119-7"><a href="chapter-modeling.html#cb119-7" tabindex="-1"></a>   </span>
+<span id="cb119-8"><a href="chapter-modeling.html#cb119-8" tabindex="-1"></a>      yes     no </span>
+<span id="cb119-9"><a href="chapter-modeling.html#cb119-9" tabindex="-1"></a>   <span class="fl">0.1425</span> <span class="fl">0.8575</span></span></code></pre></div>
 <p>Suppose the output reveals that the proportion of customers who churn (<code>churn = "yes"</code>) is only 0.14 while the proportion of non-churners (<code>churn = "no"</code>) is 0.86. This significant imbalance suggests that balancing may be beneficial, particularly if predicting churners is a priority.</p>
 <p>To balance the training dataset, we use the <strong>ROSE</strong> package in R to oversample the minority class (<code>churn = "yes"</code>) so that it constitutes 30% of the training dataset. Here’s how this can be implemented:</p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="chapter-modeling.html#cb105-1" tabindex="-1"></a><span class="co"># Load the ROSE package</span></span>
-<span id="cb105-2"><a href="chapter-modeling.html#cb105-2" tabindex="-1"></a><span class="fu">library</span>(ROSE)</span>
-<span id="cb105-3"><a href="chapter-modeling.html#cb105-3" tabindex="-1"></a></span>
-<span id="cb105-4"><a href="chapter-modeling.html#cb105-4" tabindex="-1"></a><span class="co"># Oversample the training set to balance the classes with 30% churners</span></span>
-<span id="cb105-5"><a href="chapter-modeling.html#cb105-5" tabindex="-1"></a>balanced_train_set <span class="ot">&lt;-</span> <span class="fu">ovun.sample</span>(churn <span class="sc">~</span> ., <span class="at">data =</span> train_set, <span class="at">method =</span> <span class="st">"over"</span>, </span>
-<span id="cb105-6"><a href="chapter-modeling.html#cb105-6" tabindex="-1"></a>                                  <span class="at">p =</span> <span class="fl">0.3</span>)<span class="sc">$</span>data</span>
-<span id="cb105-7"><a href="chapter-modeling.html#cb105-7" tabindex="-1"></a></span>
-<span id="cb105-8"><a href="chapter-modeling.html#cb105-8" tabindex="-1"></a><span class="co"># Check the new class distribution</span></span>
-<span id="cb105-9"><a href="chapter-modeling.html#cb105-9" tabindex="-1"></a><span class="fu">table</span>(balanced_train_set<span class="sc">$</span>churn)</span>
-<span id="cb105-10"><a href="chapter-modeling.html#cb105-10" tabindex="-1"></a>   </span>
-<span id="cb105-11"><a href="chapter-modeling.html#cb105-11" tabindex="-1"></a>     no  yes </span>
-<span id="cb105-12"><a href="chapter-modeling.html#cb105-12" tabindex="-1"></a>   <span class="dv">3430</span> <span class="dv">1444</span></span>
-<span id="cb105-13"><a href="chapter-modeling.html#cb105-13" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(balanced_train_set<span class="sc">$</span>churn))</span>
-<span id="cb105-14"><a href="chapter-modeling.html#cb105-14" tabindex="-1"></a>   </span>
-<span id="cb105-15"><a href="chapter-modeling.html#cb105-15" tabindex="-1"></a>          no       yes </span>
-<span id="cb105-16"><a href="chapter-modeling.html#cb105-16" tabindex="-1"></a>   <span class="fl">0.7037341</span> <span class="fl">0.2962659</span></span></code></pre></div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="chapter-modeling.html#cb120-1" tabindex="-1"></a><span class="co"># Load the ROSE package</span></span>
+<span id="cb120-2"><a href="chapter-modeling.html#cb120-2" tabindex="-1"></a><span class="fu">library</span>(ROSE)</span>
+<span id="cb120-3"><a href="chapter-modeling.html#cb120-3" tabindex="-1"></a></span>
+<span id="cb120-4"><a href="chapter-modeling.html#cb120-4" tabindex="-1"></a><span class="co"># Oversample the training set to balance the classes with 30% churners</span></span>
+<span id="cb120-5"><a href="chapter-modeling.html#cb120-5" tabindex="-1"></a>balanced_train_set <span class="ot">&lt;-</span> <span class="fu">ovun.sample</span>(churn <span class="sc">~</span> ., <span class="at">data =</span> train_set, <span class="at">method =</span> <span class="st">"over"</span>, </span>
+<span id="cb120-6"><a href="chapter-modeling.html#cb120-6" tabindex="-1"></a>                                  <span class="at">p =</span> <span class="fl">0.3</span>)<span class="sc">$</span>data</span>
+<span id="cb120-7"><a href="chapter-modeling.html#cb120-7" tabindex="-1"></a></span>
+<span id="cb120-8"><a href="chapter-modeling.html#cb120-8" tabindex="-1"></a><span class="co"># Check the new class distribution</span></span>
+<span id="cb120-9"><a href="chapter-modeling.html#cb120-9" tabindex="-1"></a><span class="fu">table</span>(balanced_train_set<span class="sc">$</span>churn)</span>
+<span id="cb120-10"><a href="chapter-modeling.html#cb120-10" tabindex="-1"></a>   </span>
+<span id="cb120-11"><a href="chapter-modeling.html#cb120-11" tabindex="-1"></a>     no  yes </span>
+<span id="cb120-12"><a href="chapter-modeling.html#cb120-12" tabindex="-1"></a>   <span class="dv">3430</span> <span class="dv">1444</span></span>
+<span id="cb120-13"><a href="chapter-modeling.html#cb120-13" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(balanced_train_set<span class="sc">$</span>churn))</span>
+<span id="cb120-14"><a href="chapter-modeling.html#cb120-14" tabindex="-1"></a>   </span>
+<span id="cb120-15"><a href="chapter-modeling.html#cb120-15" tabindex="-1"></a>          no       yes </span>
+<span id="cb120-16"><a href="chapter-modeling.html#cb120-16" tabindex="-1"></a>   <span class="fl">0.7037341</span> <span class="fl">0.2962659</span></span></code></pre></div>
 <p>In this example, the <code>ovun.sample()</code> function is used to oversample the minority class, achieving the desired class distribution. The parameter <code>p = 0.3</code> specifies that churners should comprise 30% of the balanced training dataset. Notably, the formula notation <code>churn ~ .</code> indicates that the balancing is performed based on the target variable <code>churn</code> (refer to Section <a href="chapter-into-R.html#sec-formula-in-R">1.14</a> for details on formula notation). After oversampling, the new class distribution is examined to ensure that the dataset reflects the specified proportions.</p>
 <p>Balancing ensures that the model is exposed to a sufficient number of examples from both churners and non-churners during training. For instance, a decision tree trained on this balanced dataset would give equal importance to features predictive of churn, rather than being dominated by the majority class.</p>
 <p>It’s important to note that balancing should be applied only to the <strong>training dataset</strong>, not the test dataset. The test dataset should remain representative of the original data distribution to provide an unbiased evaluation of the model’s generalization performance. Balancing the test set can introduce bias and lead to overly optimistic performance metrics, which do not reflect real-world conditions.</p>
@@ -375,7 +375,7 @@ H_a:  \pi_{\text{churn, train}} \neq \pi_{\text{churn, test}} \quad \text{(Propo
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Uncovering Data Science with R</strong>" was written by Reza Mohammadi. It was last built on 2025-02-06.</p>
+    <p>"<strong>Uncovering Data Science with R</strong>" was written by Reza Mohammadi. It was last built on 2025-02-08.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

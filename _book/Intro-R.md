@@ -1,22 +1,30 @@
 # The Basics for R {#chapter-into-R}
 
-Before you can analyze data, you need a way to communicate with your computer. That’s where programming languages like R and Python come in. Many data science teams use a mix of languages, but R is a great starting point because it is designed specifically for data analysis and statistical computing.  
+Before you can analyze data, you need a way to communicate with your computer. That’s where programming languages like R and Python come in. Many data science teams use a mix of languages, but R is a great starting point because it is designed specifically for data analysis and statistical computing.
 
-R offers a rich ecosystem of libraries and tools tailored for data science. It has a simple yet expressive syntax, making it easy to explore and manipulate data. Unlike general-purpose programming languages, R was built for statistical analysis, allowing data scientists to perform everything from basic calculations to advanced machine learning with just a few lines of code.  
+### Why Choose R for Data Science? {-}
 
-Beyond its capabilities, R is:  
+R is widely used in statistics, data analysis, and visualization due to its rich ecosystem of libraries and tools tailored for data science. Unlike general-purpose programming languages, R was built for statistical analysis, allowing data scientists to perform everything from basic calculations to advanced machine learning with just a few lines of code.
 
-- Free & Open Source – Available to everyone, with a vibrant community of contributors.  
-- Cross-Platform – Runs on Windows, macOS, and Linux.  
-- Flexible & Powerful – Supports interactive data exploration, visualization, and machine learning.  
+While Python is another popular language for data science, R is particularly well-suited for:
+- *Statistical Computing* – R has built-in statistical functions and methods for hypothesis testing, regression modeling, and machine learning.
+- *Data Visualization* – Packages like `ggplot2` provide powerful tools for creating high-quality plots and graphs with minimal effort.
+- *Reproducible Research* – R Markdown and Shiny make it easy to generate reports and interactive dashboards directly from R code.
+- *Bioinformatics & Finance* – Many researchers and analysts in these fields use R due to its robust statistical libraries and domain-specific packages.
 
-While R is the language, RStudio is the tool that makes working with R easier. RStudio is an integrated development environment (IDE) that provides:  
+Beyond its capabilities, R is:
+
+- *Free & Open Source* – Available to everyone, with a vibrant community of contributors.
+- *Cross-Platform* – Runs on Windows, macOS, and Linux.
+- *Flexible & Powerful* – Supports interactive data exploration, visualization, and machine learning.
+
+While R is the language, RStudio is the tool that makes working with R easier. RStudio is an integrated development environment (IDE) that provides:
 
 - A console for running R commands,  
 - A script editor with syntax highlighting and auto-completion,  
 - Built-in tools for data visualization, debugging, and package management.  
 
-In this chapter, you will learn the fundamental skills needed to work with R, from installation to running your first commands. Let’s begin! 🚀  
+In this chapter, you will learn the fundamental skills needed to work with R, from installation to running your first commands. Let’s begin! 🚀
 
 ## How to Install R  
 
@@ -55,10 +63,14 @@ RStudio is updated several times a year, and it will notify you when a new versi
 
 When you open RStudio, you will see a window similar to Figure \@ref(fig:RStudio-window-1).
 
-<div class="figure" style="text-align: center">
-<img src="images/RStudio-window-1.png" alt="The RStudio window when you first launch the program." width="70%" />
-<p class="caption">(\#fig:RStudio-window-1)The RStudio window when you first launch the program.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/RStudio-window-1} 
+
+}
+
+\caption{The RStudio window when you first launch the program.}(\#fig:RStudio-window-1)
+\end{figure}
 
 If you see only three panels, add a fourth by selecting _File > New File > R Script_. This opens a script editor where you can write and save R code. Here’s a quick overview of RStudio’s panels:  
 
@@ -141,10 +153,14 @@ For those interested in exploring further, the Comprehensive R Archive Network (
 
 There are two ways to install R packages. The first method is through RStudio’s graphical interface. Click on the "Tools" tab and select "Install Packages…". In the dialog box that appears, enter the name of the package(s) you wish to install in the "Packages" field and click the "Install" button. Make sure to check the "Install dependencies" option to ensure that all necessary supporting packages are installed as well. See Figure \@ref(fig:install-packages) for a visual guide.  
 
-<div class="figure" style="text-align: center">
-<img src="images/RStudio-window-install.png" alt="A visual guide to installing R packages using the 'Tools' tab in RStudio." width="70%" />
-<p class="caption">(\#fig:install-packages)A visual guide to installing R packages using the 'Tools' tab in RStudio.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/RStudio-window-install} 
+
+}
+
+\caption{A visual guide to installing R packages using the 'Tools' tab in RStudio.}(\#fig:install-packages)
+\end{figure}
 
 The second method is to install packages directly using the `install.packages()` function. For example, to install the **liver** package, which provides datasets and functions used throughout this book, enter the following command in the R console:  
 
@@ -274,15 +290,23 @@ The easiest way to import data into R is through RStudio’s graphical interface
 
 After selecting your file, RStudio will display an import settings window (see Figure \@ref(fig:load-data-2)). Here, you can adjust column names, data types, and other options. If the first row contains column names, select *Yes* under the *Heading* option. Click *Import*, and the dataset will appear in RStudio’s Environment panel, ready for analysis.  
 
-<div class="figure" style="text-align: center">
-<img src="images/RStudio-window-data-1.png" alt="A visual guide to loading a dataset into R using the 'Import Dataset' tab in RStudio." width="70%" />
-<p class="caption">(\#fig:load-data)A visual guide to loading a dataset into R using the 'Import Dataset' tab in RStudio.</p>
-</div>
+\begin{figure}
 
-<div class="figure" style="text-align: center">
-<img src="images/RStudio-window-data.png" alt="A visual guide to customizing the import settings when loading a dataset into R using the 'Import Dataset' tab in RStudio." width="70%" />
-<p class="caption">(\#fig:load-data-2)A visual guide to customizing the import settings when loading a dataset into R using the 'Import Dataset' tab in RStudio.</p>
-</div>
+{\centering \includegraphics[width=0.7\linewidth]{images/RStudio-window-data-1} 
+
+}
+
+\caption{A visual guide to loading a dataset into R using the 'Import Dataset' tab in RStudio.}(\#fig:load-data)
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/RStudio-window-data} 
+
+}
+
+\caption{A visual guide to customizing the import settings when loading a dataset into R using the 'Import Dataset' tab in RStudio.}(\#fig:load-data-2)
+\end{figure}
 
 ### Using `read.csv()`  {-}
 
@@ -337,8 +361,7 @@ R also allows direct import of datasets from web sources. For example, to load a
 
 
 ```r
-corona_data <- read.csv("https://opendata.ecdc.europa.eu/covid19/casedistribution/csv", 
-                        na.strings = "", fileEncoding = "UTF-8-BOM")
+corona_data <- read.csv("https://opendata.ecdc.europa.eu/covid19/casedistribution/csv", na.strings = "", fileEncoding = "UTF-8-BOM")
 ```
 
 This approach is useful for accessing open datasets from research institutions or government agencies.  
@@ -404,10 +427,14 @@ Recognizing different data types is essential for choosing the right analytical 
 
 Data structures are fundamental to working with data in R. They define how data is stored and manipulated, which directly impacts the efficiency and accuracy of data analysis. The most commonly used data structures in R are vectors, matrices, data frames, and lists, as illustrated in Figure \@ref(fig:load-data-2).  
 
-<div class="figure" style="text-align: center">
-<img src="images/R-objects.png" alt="A visual guide to different types of data structures in R." width="60%" />
-<p class="caption">(\#fig:R-objects)A visual guide to different types of data structures in R.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.6\linewidth]{images/R-objects} 
+
+}
+
+\caption{A visual guide to different types of data structures in R.}(\#fig:R-objects)
+\end{figure}
 
 ### Vectors in R {-} 
 
@@ -665,7 +692,9 @@ ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp))
 ```
 
-<img src="Intro-R_files/figure-html/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-32-1} \end{center}
 
 This code initializes the plot with the `ggplot()` function, specifying the dataset (`mtcars`). The `geom_point()` function adds points to the plot, and the `aes()` function maps `mpg` to the x-axis and `hp` to the y-axis.  
 
@@ -699,7 +728,9 @@ ggplot(data = mtcars) +
   geom_smooth(mapping = aes(x = mpg, y = hp))
 ```
 
-<img src="Intro-R_files/figure-html/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-34-1} \end{center}
 
 Multiple geom functions can be combined in a single plot. To overlay a scatter plot on the smoothed line:  
 
@@ -710,7 +741,9 @@ ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp))
 ```
 
-<img src="Intro-R_files/figure-html/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-35-1} \end{center}
 
 Alternatively, the `aes()` function can be placed inside `ggplot()` to streamline the code:  
 
@@ -733,7 +766,9 @@ ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp, color = cyl))
 ```
 
-<img src="Intro-R_files/figure-html/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-37-1} \end{center}
 
 Here, `color = cyl` maps the color of the points to the number of cylinders (`cyl`) in the **mtcars** dataset. **ggplot2** automatically assigns a unique color to each category and adds a corresponding legend.  
 
@@ -750,7 +785,8 @@ ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp, alpha = cyl))
 ```
 
-<img src="Intro-R_files/figure-html/unnamed-chunk-38-1.png" width="50%" /><img src="Intro-R_files/figure-html/unnamed-chunk-38-2.png" width="50%" />
+
+\includegraphics[width=0.5\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-38-1} \includegraphics[width=0.5\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-38-2} 
 
 Aesthetics can also be set directly inside geom functions. For example, to make all points blue triangles of size 3:  
 
@@ -761,7 +797,9 @@ ggplot(data = mtcars) +
              color = "blue", size = 3, shape = 2)
 ```
 
-<img src="Intro-R_files/figure-html/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-39-1} \end{center}
 
 This section introduced the fundamentals of data visualization in R using **ggplot2**. The next chapters will explore how visualization plays a crucial role in exploratory data analysis (Chapter \@ref(chapter-EDA)) and how to refine plots for communication and reporting. For more details on visualization techniques, see the [**ggplot2** documentation](https://ggplot2.tidyverse.org). For interactive graphics, consider exploring the **plotly** package or **Shiny** for web applications.  
 
@@ -807,9 +845,9 @@ Once defined, formulas can be used in various R functions for statistical modeli
 
 Thus far, this book has covered how to interact with R and RStudio for data analysis. This section focuses on an equally important aspect: effectively communicating analytical findings. Data scientists must present results clearly to teams, stakeholders, and clients. Regardless of the depth of an analysis, its impact is limited if it is not communicated effectively. R Markdown facilitates this process by enabling the seamless integration of code, text, and output into dynamic, reproducible reports.  
 
-R Markdown allows users to write and execute R code within a document, producing reports, presentations, and dashboards. It employs Markdown, a lightweight markup language designed for ease of reading and writing. This entire book was written in R Markdown, with all source files available on GitHub. R Markdown streamlines report generation, ensuring that text, code, and visualizations remain synchronized as data changes.  
+R Markdown allows users to write and execute R code within a document, producing reports, presentations, and dashboards. Unlike traditional notebooks or word processors, R Markdown ensures that text, code, and results remain synchronized as data changes. This book itself is entirely written using R Markdown and generated with the [**bookdown**](https://bookdown.org) package, ensuring a fully reproducible and dynamic workflow.
 
-R Markdown documents can be exported into multiple formats, including HTML, PDF, Word, and PowerPoint, making it adaptable to various audiences and reporting needs. Furthermore, it supports the creation of interactive documents using Shiny, allowing users to build web applications that facilitate exploratory data analysis.  
+R Markdown documents can be exported into multiple formats, including HTML, PDF, Word, and PowerPoint, making it adaptable to various audiences and reporting needs. Furthermore, it supports the creation of interactive documents using Shiny, allowing users to build web applications that facilitate exploratory data analysis.
 
 To get started, the following resources provide useful references:  
 
@@ -864,10 +902,14 @@ R Markdown integrates R code within documents using code chunks, which are enclo
 
 When compiled, R executes the code and displays the output within the document. Code chunks are used for analysis, visualizations, and modeling. The "Run" button in RStudio allows individual execution of chunks. See Figure \@ref(fig:run-chunk) for a visual guide.  
 
-<div class="figure" style="text-align: center">
-<img src="images/run-chunk.png" alt="Executing a code chunk in R Markdown using the 'Run' button in RStudio." width="90%" />
-<p class="caption">(\#fig:run-chunk)Executing a code chunk in R Markdown using the 'Run' button in RStudio.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{images/run-chunk} 
+
+}
+
+\caption{Executing a code chunk in R Markdown using the 'Run' button in RStudio.}(\#fig:run-chunk)
+\end{figure}
 
 Common chunk options include:  
 
@@ -919,7 +961,6 @@ For further learning:
 
 By leveraging R Markdown, data scientists can produce high-quality, reproducible reports that enhance collaboration and communication.
 
-
 ## Exercises  
 
 This section provides hands-on exercises to reinforce your understanding of the fundamental concepts covered in this chapter.  
@@ -928,67 +969,35 @@ This section provides hands-on exercises to reinforce your understanding of the 
 
 1. Install **R** and **RStudio** on your computer.  
 2. Use the `getwd()` function to check your current working directory. Then, change it to a new directory using `setwd()`.  
-3. Install and load the **liver** package in R. If you encounter any errors, check your internet connection and ensure CRAN is accessible.  
-4. Create a numeric vector named `numbers` containing the values `5, 10, 15, 20, 25`. Then, calculate the mean and standard deviation of the vector.  
-5. Write a comment in R explaining the purpose of the following line of code:  
-
-```r
-result <- 2 + 3
-```
-6. Create a character vector containing the names of three programming languages you would like to learn. Print the vector.  
-7. Convert the following vector into a factor:  
-
-```r
-cities <- c("Amsterdam", "Berlin", "London", "Amsterdam", "Berlin")
-```
-8. Create a matrix with 3 rows and 4 columns, filled with numbers from 1 to 12.  
-9. Create a data frame containing the following variables:  
-   - `student_id` (integer)  
-   - `name` (character)  
-   - `score` (numeric)  
-   - `passed` (logical, where `TRUE` means the student passed and `FALSE` means they failed)  
-   Print the first few rows of the data frame using `head()`.  
-10. Load the built-in **mtcars** dataset and display the structure of the dataset using the `str()` function.  
-
-### Intermediate Exercises  {-}
-
-11. Import a CSV file into R using the `read.csv()` function. Print the first six rows of the dataset.  
-12. Create a scatter plot using **ggplot2** that visualizes the relationship between `mpg` and `hp` in the **mtcars** dataset.  
-13. Using the **liver** package, load the *churn* dataset and display the summary statistics of the numerical variables.  
-14. Create a boxplot to compare the distribution of `mpg` across different values of `cyl` in the **mtcars** dataset.  
-15. Use the `mean()` function to compute the mean of the `mpg` variable in the **mtcars** dataset. Then, calculate the mean of `mpg` for cars with `cyl == 4`.  
-16. Use a formula in R to fit a linear model predicting `mpg` based on `hp` in the **mtcars** dataset. Display a summary of the model using `summary()`.  
-17. Create an R Markdown document that includes a title, author, and a small analysis of the **mtcars** dataset. Generate an HTML report.  
-
-### More Challenges Exercise  {-}
-
-18. The formula syntax in R is essential for statistical modeling. Write formulas for the following relationships:  
-    - A linear model predicting `mpg` using `hp` and `wt` in **mtcars**.  
-    - A logistic regression model predicting `vs` using all other variables in **mtcars**.  
-19. Modify the dataset below to replace the `score` column with letter grades (`A`, `B`, `C`, or `D`) based on the following rules:  
-    - `score >= 90`: "A"  
-    - `score >= 75`: "B"  
-    - `score >= 60`: "C"  
-    - Otherwise: "D"  
-
-```r
-student_df <- data.frame(
-  student_id = 1:5,
-  name = c("Alice", "Bob", "Charlie", "David", "Eva"),
-  score = c(95, 88, 72, 60, 45)
-)
-```
-20. Create a function in R that takes a numeric vector as input and returns a list containing the mean, median, and standard deviation of the vector.  
+3. Create a numeric vector named `numbers` containing the values `5, 10, 15, 20, 25`. Then, calculate the mean and standard deviation of the vector.  
+4. Create a matrix with 3 rows and 4 columns, filled with numbers from 1 to 12.  
+5. Create a data frame containing the following variables:  
+- `student_id` (integer)  
+- `name` (character)  
+- `score` (numeric)  
+- `passed` (logical, where `TRUE` means the student passed and `FALSE` means they failed)  
+Print the first few rows of the data frame using `head()`.  
+6. Install and load the **liver** and **ggplot2** packages in R. If you encounter any errors, check your internet connection and ensure CRAN is accessible.  
+7. Load the *churn* dataset from the **liver** package and display the first few rows using the `head()` function.
+8. Report the data types of the variables in the *churn* dataset using the `str()` function.
+9. Report the dimensions of the *churn* dataset using the `dim()` function.
+10. Report the summary statistics of the variables in the *churn* dataset using the `summary()` function.
+11. Create a scatter plot using **ggplot2** that visualizes the relationship between `day.mins` and `eve.mins` in the *churn* dataset. **Hint:** See the code in Section \@ref(EDA-sec-multivariate).
+12. Create a histogram for the `day.calls` variable in the *churn* dataset.
+13. Create a boxplot for the `day.mins` variable in the *churn* dataset.
+14. Create a boxplot for the `day.mins` variable in the *churn* dataset, grouped by the `churn` variable. **Hint:** See the code in Section \@ref(EDA-sec-numeric).
+15. Use the `mean()` function to compute the mean of the `customer.calls` variable in the *churn* dataset. Then, calculate the mean of `customer.calls` for churner `churn == yes`.  
+16. Create an R Markdown document that includes a title, author, and a small analysis of the *churn* dataset. Generate an HTML report.  
 
 ### More Challenges Exercise {-}  
 
-21. The following R code generates a simulated dataset with 200 observations and three variables:  
-    - `Age` (numeric)  
-    - `Ratio` (Sodium/Potassium ratio)  
-    - `Type` (a factor with three levels: `"A"`, `"B"`, `"C"`)  
-     
-    Run the code and report the summary statistics of the data.  
+17. The following R code generates a simulated dataset with 200 observations. We will use this simulated dataset as a simple toy example in Chapter \@ref(chapter-knn) to explain how k-nearest neighbors algorithm works. This simulated data is for patients with three variables:  
 
+- `Age`: Age of the patients as numeric variable with range from 15 to 75 years old.  
+- `Ratio`: Sodium/Potassium ratio in the patient's blood as numeric variable. The ratio is generated based on the `Type` variable.
+- `Type`: a factor with three levels: `"A"`, `"B"`, `"C"` representing the type of drug the patient is taking.
+     
+Run the code and report the summary statistics of the data.  
 
 ```r
 # Simulate data for kNN
@@ -1003,25 +1012,20 @@ n3 = n - n1 - n2 # Number of patients with drug C
 Age = sample(x = 15:75, size = n, replace = TRUE)
 
 # Generate Drug Type variable with three levels
-Type = sample(x = c("A", "B", "C"), size = n, replace = TRUE, 
-              prob = c(n1, n2, n3))
+Type = sample(x = c("A", "B", "C"), size = n, replace = TRUE, prob = c(n1, n2, n3))
 
 # Generate Sodium/Potassium Ratio based on Drug Type
 Ratio = numeric(n)
 
-Ratio[Type == "A"] = sample(x = 10:40, size = sum(Type == "A"), 
-                            replace = TRUE)
-Ratio[Type == "B"] = sample(x =  5:15, size = sum(Type == "B"), 
-                            replace = TRUE)
-Ratio[Type == "C"] = sample(x =  5:15, size = sum(Type == "C"), 
-                            replace = TRUE)
+Ratio[Type == "A"] = sample(x = 10:40, size = sum(Type == "A"), replace = TRUE)
+Ratio[Type == "B"] = sample(x =  5:15, size = sum(Type == "B"), replace = TRUE)
+Ratio[Type == "C"] = sample(x =  5:15, size = sum(Type == "C"), replace = TRUE)
 
 # Create a data frame with the generated variables
 drug_data = data.frame(Age = Age, Ratio = Ratio, Type = Type)
 ```
 
 Visualize the data using the following **ggplot2** code:  
-
 
 ```r
 ggplot(data = drug_data, aes(x = Age, y = Ratio)) +
@@ -1030,9 +1034,30 @@ ggplot(data = drug_data, aes(x = Age, y = Ratio)) +
        x = "Age", y = "Sodium/Potassium Ratio")
 ```
 
-<img src="Intro-R_files/figure-html/unnamed-chunk-48-1.png" width="672" style="display: block; margin: auto;" />
 
-22. Extend the dataset `drug_data` by adding a new variable named `Outcome`, which is a factor with two levels (`"Good"` and `"Bad"`).  
-    - Patients with `Type == "A"` should have a higher probability of `"Good"` outcomes.  
-    - Patients with `Type == "B"` and `Type == "C"` should have a lower probability of `"Good"` outcomes.  
-    - Use `sample()` with appropriate probabilities to generate the `Outcome` variable.  
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-45-1} \end{center}
+
+18. Extend the dataset `drug_data` by adding a new variable named `Outcome`, which is a factor with two levels (`"Good"` and `"Bad"`).  
+- Patients with `Type == "A"` should have a higher probability of `"Good"` outcomes.  
+- Patients with `Type == "B"` and `Type == "C"` should have a lower probability of `"Good"` outcomes.  
+- Use `sample()` with appropriate probabilities to generate the `Outcome` variable.  
+19. Create a new scatter plot using **ggplot2** that visualizes the relationship between `Age` and `Ratio`, colored by the `Outcome` variable.
+20. Create a new variable `Age_group` in the `drug_data` dataset that categorizes patients into three groups:  
+   - "Young" ($\leq 30$ years old)
+   - "Middle-aged" (31-50 years old)
+   - "Senior" (>50 years old).
+
+21. Calculate the mean `Ratio` for each `Age_group` category in the `drug_data` dataset.  
+22. Create a bar chart using **ggplot2** that displays the average `Ratio` for each `Age_group`.  
+23. Modify the `drug_data` dataset by adding a `Risk_factor` variable, calculated as `Ratio * Age / 10`. Analyze how `Risk_factor` differs by `Type`.  
+24. Create a histogram of the `Risk_factor` variable, grouped by `Type`.  
+25. Generate a boxplot to visualize the distribution of `Risk_factor` across different `Outcome` categories.  
+
+
+
+
+
+
+
+

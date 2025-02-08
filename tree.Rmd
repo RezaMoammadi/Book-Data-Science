@@ -217,9 +217,9 @@ Random Forests strike a balance between accuracy and robustness, addressing many
 
 Random Forests have become one of the most widely used machine learning algorithms due to their versatility, reliability, and strong performance across a variety of applications. In the next section, we will apply Random Forests, along with Decision Trees, to the **adult dataset** to explore the question: *Who can earn more than $50K per year?* This case study will provide a practical demonstration of how these models work and how they can be evaluated and compared in a real-world scenario.
 
-## Case Study: Who Can Earn More Than $50K Per Year?
+## Case Study: Who Can Earn More Than $50K Per Year? {#tree-case-study}
 
-To demonstrate the practical application of Decision Trees and Random Forests, we use the **`adult` dataset**, which provides demographic and income information about individuals. This dataset, sourced from the [US Census Bureau](https://www.census.gov), is widely used to predict whether an individual earns more than $50,000 per year based on features such as education, hours worked per week, marital status, and more. The objective of this binary classification problem is to categorize individuals into one of two income groups: `<=50K` or `>50K`, with the features serving as predictors and the target variable being `income`.
+To demonstrate the practical application of Decision Trees and Random Forests, we use the *adult* dataset, which provides demographic and income information about individuals. This dataset, sourced from the [US Census Bureau](https://www.census.gov), is widely used to predict whether an individual earns more than $50,000 per year based on features such as education, hours worked per week, marital status, and more. The objective of this binary classification problem is to categorize individuals into one of two income groups: `<=50K` or `>50K`, with the features serving as predictors and the target variable being `income`.
 
 ### Overview of the Dataset {-}
 
