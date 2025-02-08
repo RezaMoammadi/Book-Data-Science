@@ -94,14 +94,10 @@ where the sample mean \( \bar{x} \) is the point estimate and the quantity \( z_
 
 This is visually represented in \@ref(fig:confidence-interval), showing the interval centered around the point estimate with the width determined by the margin of error.
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.8\linewidth]{images/confidence_interval} 
-
-}
-
-\caption{Confidence interval for the population mean. The interval is centered around the point estimate, with the width determined by the margin of error. The confidence level specifies the probability that the interval contains the true population parameter.}(\#fig:confidence-interval)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/confidence_interval.png" alt="Confidence interval for the population mean. The interval is centered around the point estimate, with the width determined by the margin of error. The confidence level specifies the probability that the interval contains the true population parameter." width="80%" />
+<p class="caption">(\#fig:confidence-interval)Confidence interval for the population mean. The interval is centered around the point estimate, with the width determined by the margin of error. The confidence level specifies the probability that the interval contains the true population parameter.</p>
+</div>
 
 Key Factors That Influence Confidence Intervals:
 
@@ -294,7 +290,7 @@ t_test
 
 The output of the t-test includes the **p-value**, the test statistic, the degrees of freedom, and a confidence interval for the population mean. Let’s interpret the results step by step:
 
-- If the **p-value** = \ensuremath{2\times 10^{-4}} is less than the significance level (\(\alpha = 0.05\)), we reject the null hypothesis (\(H_0\)). This would indicate that there is sufficient evidence, at the 5% significance level, to conclude that the true average number of customer service calls differs from 2.  
+- If the **p-value** = 2\times 10^{-4} is less than the significance level (\(\alpha = 0.05\)), we reject the null hypothesis (\(H_0\)). This would indicate that there is sufficient evidence, at the 5% significance level, to conclude that the true average number of customer service calls differs from 2.  
 - Conversely, if the \(p\)-value is greater than 0.05, we would fail to reject \(H_0\), concluding that there is insufficient evidence to support that the true mean is different from 2.
 
 For example, if the **p-value** is small enough to reject \(H_0\), we conclude:  
@@ -391,9 +387,7 @@ ggplot(data = churn) +
     geom_boxplot(aes(x = churn, y = intl.calls), fill = c("palevioletred1", "darkseagreen1"))
 ```
 
-
-
-\begin{center}\includegraphics{statistics_files/figure-latex/unnamed-chunk-9-1} \end{center}
+<img src="statistics_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" />
 
 The boxplot compares the distribution of international calls for churners and non-churners. If the medians or spreads differ substantially, this may indicate that the variable has predictive importance. In this case, the plot does not reveal strong visual evidence of a difference, but to formally assess this, we proceed with the two-sample t-test.
 
@@ -455,8 +449,7 @@ ggplot(data = churn) +
   scale_fill_manual(values = c("palevioletred1", "darkseagreen1")) 
 ```
 
-
-\includegraphics[width=0.5\linewidth]{statistics_files/figure-latex/unnamed-chunk-11-1} \includegraphics[width=0.5\linewidth]{statistics_files/figure-latex/unnamed-chunk-11-2} 
+<img src="statistics_files/figure-html/unnamed-chunk-11-1.png" width="50%" /><img src="statistics_files/figure-html/unnamed-chunk-11-2.png" width="50%" />
 
 The first bar plot shows the raw counts of churners and non-churners across the two categories of *Voice Mail Plan* (Yes or No), while the second plot provides proportions, making it easier to compare the relative churn rates within each category. These visualizations suggest that the proportion of churners might differ based on whether they have a Voice Mail Plan, but a formal hypothesis test is needed to confirm this.
 
@@ -543,8 +536,7 @@ ggplot(data = bank) +
     scale_fill_manual(values = c("palevioletred1", "darkseagreen1")) 
 ```
 
-
-\includegraphics[width=0.5\linewidth]{statistics_files/figure-latex/unnamed-chunk-14-1} \includegraphics[width=0.5\linewidth]{statistics_files/figure-latex/unnamed-chunk-14-2} 
+<img src="statistics_files/figure-html/unnamed-chunk-14-1.png" width="50%" /><img src="statistics_files/figure-html/unnamed-chunk-14-2.png" width="50%" />
 
 The first bar plot shows the raw counts of deposits across marital categories, while the second plot shows the proportions within each marital group. These visualizations suggest that the marital status might influence the likelihood of making a deposit, but a formal hypothesis test is needed to confirm this.
 
@@ -591,7 +583,7 @@ chisq_test
    X-squared = 19.03, df = 2, p-value = 7.374e-05
 ```
 
-The output provides the Chi-square test statistic, degrees of freedom, and the **p-value**. Here, the **p-value** = \ensuremath{7.3735354\times 10^{-5}} is smaller than the significance level \(\alpha = 0.05\). Therefore, we reject the null hypothesis (\(H_0\)) and conclude that there is a statistically significant association between marital status and deposit behavior. In other words, the proportion of deposits differs across the marital categories.
+The output provides the Chi-square test statistic, degrees of freedom, and the **p-value**. Here, the **p-value** = 7.3735354\times 10^{-5} is smaller than the significance level \(\alpha = 0.05\). Therefore, we reject the null hypothesis (\(H_0\)) and conclude that there is a statistically significant association between marital status and deposit behavior. In other words, the proportion of deposits differs across the marital categories.
 
 Additionally, the output includes the expected frequencies under the null hypothesis, which can be compared with the observed frequencies to assess where the differences lie. These insights can guide further analysis, such as investigating which marital group contributes most to the association.
 
@@ -614,9 +606,7 @@ ggplot(data = diamonds) +
   scale_fill_manual(values = c("palevioletred1", "darkseagreen1", "skyblue1", "gold1", "lightcoral"))
 ```
 
-
-
-\begin{center}\includegraphics{statistics_files/figure-latex/unnamed-chunk-17-1} \end{center}
+<img src="statistics_files/figure-html/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" />
 
 The box plot displays the spread and median prices for diamonds in each cut category. If the distributions appear distinct—for example, with noticeable differences in medians or ranges—this suggests that the cut might influence the price. However, visual inspection alone is insufficient to confirm whether these differences are statistically significant, so we proceed with an ANOVA test.
 
@@ -646,7 +636,7 @@ summary(anova_test)
    Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
-The output provides the test statistic (F-value), degrees of freedom, and the **p-value**. If the **p-value** is smaller than the significance level (\(\alpha = 0.05\)), we reject the null hypothesis (\(H_0\)). For instance, if the **p-value** = \ensuremath{8.4283073\times 10^{-150}}, we would reject \(H_0\) and conclude that not all group means are equal. This indicates that the variable `cut` has a significant impact on the price of diamonds.
+The output provides the test statistic (F-value), degrees of freedom, and the **p-value**. If the **p-value** is smaller than the significance level (\(\alpha = 0.05\)), we reject the null hypothesis (\(H_0\)). For instance, if the **p-value** = 8.4283073\times 10^{-150}, we would reject \(H_0\) and conclude that not all group means are equal. This indicates that the variable `cut` has a significant impact on the price of diamonds.
 
 It’s important to note that rejecting \(H_0\) in ANOVA doesn’t identify which specific groups differ. To determine this, we can conduct **post-hoc tests**, such as Tukey’s Honestly Significant Difference (Tukey HSD) test, to pinpoint the pairs of categories that have significant differences in their means. In this example, we could apply Tukey’s test to identify which cut categories (e.g., "Ideal" vs. "Good") drive the observed differences.
 
@@ -666,9 +656,7 @@ ggplot(data = diamonds) +
     labs(x = "Carat", y = "Price") 
 ```
 
-
-
-\begin{center}\includegraphics{statistics_files/figure-latex/unnamed-chunk-19-1} \end{center}
+<img src="statistics_files/figure-html/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" />
 
 The scatter plot shows a clear upward trend, suggesting a positive relationship between **carat** and **price**—as the weight of the diamond increases, so does its price. To formally test whether this observed pattern is statistically significant, we establish the following hypotheses:
 
