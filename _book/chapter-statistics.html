@@ -138,7 +138,7 @@
 <p>Let’s explore some examples:</p>
 <div class="example">
 <p><span id="exm:ex-est-churn-proportion" class="example"><strong>Example 5.1  </strong></span>To estimate the <strong>proportion of churners</strong> in the dataset, we use the <strong>sample proportion</strong> as a point estimate for the population proportion. Here’s how to calculate it in R:</p>
-<div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Calculate the proportion of churners</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/proportions.html">prop.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">churn</span><span class="op">$</span><span class="va">churn</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="st">"yes"</span><span class="op">]</span></span>
 <span>      <span class="va">yes</span> </span>
@@ -147,13 +147,13 @@
 </div>
 <div class="example">
 <p><span id="exm:ex-est-service-call" class="example"><strong>Example 5.2  </strong></span>let’s estimate the <strong>average number of customer service calls</strong> for customers who churned. The <strong>sample mean</strong> acts as a point estimate for the population mean:</p>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="chapter-statistics.html#cb100-1" tabindex="-1"></a><span class="co"># Filter churners</span></span>
-<span id="cb100-2"><a href="chapter-statistics.html#cb100-2" tabindex="-1"></a>churned_customers <span class="ot">&lt;-</span> churn[churn<span class="sc">$</span>churn <span class="sc">==</span> <span class="st">"yes"</span>, ]</span>
-<span id="cb100-3"><a href="chapter-statistics.html#cb100-3" tabindex="-1"></a></span>
-<span id="cb100-4"><a href="chapter-statistics.html#cb100-4" tabindex="-1"></a><span class="co"># Calculate the mean</span></span>
-<span id="cb100-5"><a href="chapter-statistics.html#cb100-5" tabindex="-1"></a>mean_calls <span class="ot">&lt;-</span> <span class="fu">mean</span>(churned_customers<span class="sc">$</span>customer.calls)</span>
-<span id="cb100-6"><a href="chapter-statistics.html#cb100-6" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Point Estimate: Average Customer Service Calls for Churners:"</span>, mean_calls)</span>
-<span id="cb100-7"><a href="chapter-statistics.html#cb100-7" tabindex="-1"></a>   Point Estimate<span class="sc">:</span> Average Customer Service Calls <span class="cf">for</span> Churners<span class="sc">:</span> <span class="fl">2.254597</span></span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="chapter-statistics.html#cb102-1" tabindex="-1"></a><span class="co"># Filter churners</span></span>
+<span id="cb102-2"><a href="chapter-statistics.html#cb102-2" tabindex="-1"></a>churned_customers <span class="ot">&lt;-</span> churn[churn<span class="sc">$</span>churn <span class="sc">==</span> <span class="st">"yes"</span>, ]</span>
+<span id="cb102-3"><a href="chapter-statistics.html#cb102-3" tabindex="-1"></a></span>
+<span id="cb102-4"><a href="chapter-statistics.html#cb102-4" tabindex="-1"></a><span class="co"># Calculate the mean</span></span>
+<span id="cb102-5"><a href="chapter-statistics.html#cb102-5" tabindex="-1"></a>mean_calls <span class="ot">&lt;-</span> <span class="fu">mean</span>(churned_customers<span class="sc">$</span>customer.calls)</span>
+<span id="cb102-6"><a href="chapter-statistics.html#cb102-6" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Point Estimate: Average Customer Service Calls for Churners:"</span>, mean_calls)</span>
+<span id="cb102-7"><a href="chapter-statistics.html#cb102-7" tabindex="-1"></a>   Point Estimate<span class="sc">:</span> Average Customer Service Calls <span class="cf">for</span> Churners<span class="sc">:</span> <span class="fl">2.254597</span></span></code></pre></div>
 <p>If the mean is <strong>4 calls</strong>, this is our best single guess for the average number of customer service calls among all churners in the population.</p>
 </div>
 <blockquote>
@@ -199,24 +199,24 @@ Figure 5.1: Confidence interval for the population mean. The interval is centere
 </ul>
 <div class="example">
 <p><span id="exm:ex-confidence-service-call" class="example"><strong>Example 5.3  </strong></span>Let’s calculate a 95% confidence interval for the <strong>average number of customer service calls</strong> among churners:</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="chapter-statistics.html#cb101-1" tabindex="-1"></a><span class="co"># Calculate mean and standard error</span></span>
-<span id="cb101-2"><a href="chapter-statistics.html#cb101-2" tabindex="-1"></a>mean_calls <span class="ot">&lt;-</span> <span class="fu">mean</span>(churned_customers<span class="sc">$</span>customer.calls)</span>
-<span id="cb101-3"><a href="chapter-statistics.html#cb101-3" tabindex="-1"></a>se_calls <span class="ot">&lt;-</span> <span class="fu">sd</span>(churned_customers<span class="sc">$</span>customer.calls) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">nrow</span>(churned_customers))</span>
-<span id="cb101-4"><a href="chapter-statistics.html#cb101-4" tabindex="-1"></a></span>
-<span id="cb101-5"><a href="chapter-statistics.html#cb101-5" tabindex="-1"></a><span class="co"># Confidence Interval</span></span>
-<span id="cb101-6"><a href="chapter-statistics.html#cb101-6" tabindex="-1"></a>z_score <span class="ot">&lt;-</span> <span class="fl">1.96</span>  <span class="co"># For 95% confidence</span></span>
-<span id="cb101-7"><a href="chapter-statistics.html#cb101-7" tabindex="-1"></a>ci_lower <span class="ot">&lt;-</span> mean_calls <span class="sc">-</span> z_score <span class="sc">*</span> se_calls</span>
-<span id="cb101-8"><a href="chapter-statistics.html#cb101-8" tabindex="-1"></a>ci_upper <span class="ot">&lt;-</span> mean_calls <span class="sc">+</span> z_score <span class="sc">*</span> se_calls</span>
-<span id="cb101-9"><a href="chapter-statistics.html#cb101-9" tabindex="-1"></a></span>
-<span id="cb101-10"><a href="chapter-statistics.html#cb101-10" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"95% Confidence Interval: ["</span>, ci_lower, <span class="st">","</span>, ci_upper, <span class="st">"]"</span>)</span>
-<span id="cb101-11"><a href="chapter-statistics.html#cb101-11" tabindex="-1"></a>   <span class="dv">95</span>% Confidence Interval<span class="sc">:</span> [ <span class="fl">2.120737</span> , <span class="fl">2.388457</span> ]</span></code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="chapter-statistics.html#cb103-1" tabindex="-1"></a><span class="co"># Calculate mean and standard error</span></span>
+<span id="cb103-2"><a href="chapter-statistics.html#cb103-2" tabindex="-1"></a>mean_calls <span class="ot">&lt;-</span> <span class="fu">mean</span>(churned_customers<span class="sc">$</span>customer.calls)</span>
+<span id="cb103-3"><a href="chapter-statistics.html#cb103-3" tabindex="-1"></a>se_calls <span class="ot">&lt;-</span> <span class="fu">sd</span>(churned_customers<span class="sc">$</span>customer.calls) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">nrow</span>(churned_customers))</span>
+<span id="cb103-4"><a href="chapter-statistics.html#cb103-4" tabindex="-1"></a></span>
+<span id="cb103-5"><a href="chapter-statistics.html#cb103-5" tabindex="-1"></a><span class="co"># Confidence Interval</span></span>
+<span id="cb103-6"><a href="chapter-statistics.html#cb103-6" tabindex="-1"></a>z_score <span class="ot">&lt;-</span> <span class="fl">1.96</span>  <span class="co"># For 95% confidence</span></span>
+<span id="cb103-7"><a href="chapter-statistics.html#cb103-7" tabindex="-1"></a>ci_lower <span class="ot">&lt;-</span> mean_calls <span class="sc">-</span> z_score <span class="sc">*</span> se_calls</span>
+<span id="cb103-8"><a href="chapter-statistics.html#cb103-8" tabindex="-1"></a>ci_upper <span class="ot">&lt;-</span> mean_calls <span class="sc">+</span> z_score <span class="sc">*</span> se_calls</span>
+<span id="cb103-9"><a href="chapter-statistics.html#cb103-9" tabindex="-1"></a></span>
+<span id="cb103-10"><a href="chapter-statistics.html#cb103-10" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"95% Confidence Interval: ["</span>, ci_lower, <span class="st">","</span>, ci_upper, <span class="st">"]"</span>)</span>
+<span id="cb103-11"><a href="chapter-statistics.html#cb103-11" tabindex="-1"></a>   <span class="dv">95</span>% Confidence Interval<span class="sc">:</span> [ <span class="fl">2.120737</span> , <span class="fl">2.388457</span> ]</span></code></pre></div>
 <p>If the confidence interval is <strong>[ 2.12, 2.39 ]</strong>, we are 95% confident that the true average lies within this range.</p>
 </div>
 <p>For smaller sample sizes, use the <strong>t-distribution</strong> instead of the normal distribution. The t-distribution adjusts for the added uncertainty when estimating the population standard deviation. You can calculate confidence intervals for small samples in R using the <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> function:</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="chapter-statistics.html#cb102-1" tabindex="-1"></a><span class="fu">t.test</span>(churned_customers<span class="sc">$</span>customer.calls, <span class="at">conf.level =</span> <span class="fl">0.95</span>)<span class="sc">$</span>conf.int</span>
-<span id="cb102-2"><a href="chapter-statistics.html#cb102-2" tabindex="-1"></a>   [<span class="dv">1</span>] <span class="fl">2.120509</span> <span class="fl">2.388685</span></span>
-<span id="cb102-3"><a href="chapter-statistics.html#cb102-3" tabindex="-1"></a>   <span class="fu">attr</span>(,<span class="st">"conf.level"</span>)</span>
-<span id="cb102-4"><a href="chapter-statistics.html#cb102-4" tabindex="-1"></a>   [<span class="dv">1</span>] <span class="fl">0.95</span></span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="chapter-statistics.html#cb104-1" tabindex="-1"></a><span class="fu">t.test</span>(churned_customers<span class="sc">$</span>customer.calls, <span class="at">conf.level =</span> <span class="fl">0.95</span>)<span class="sc">$</span>conf.int</span>
+<span id="cb104-2"><a href="chapter-statistics.html#cb104-2" tabindex="-1"></a>   [<span class="dv">1</span>] <span class="fl">2.120509</span> <span class="fl">2.388685</span></span>
+<span id="cb104-3"><a href="chapter-statistics.html#cb104-3" tabindex="-1"></a>   <span class="fu">attr</span>(,<span class="st">"conf.level"</span>)</span>
+<span id="cb104-4"><a href="chapter-statistics.html#cb104-4" tabindex="-1"></a>   [<span class="dv">1</span>] <span class="fl">0.95</span></span></code></pre></div>
 <p>This approach automatically adjusts for the sample size and underlying variability in the data, making it a robust alternative to manual calculations.</p>
 <blockquote>
 <p><strong>Interpretation</strong>: If confidence intervals for different groups (e.g., churners vs. non-churners) don’t overlap significantly, it suggests meaningful differences in behavior between the groups.</p>
@@ -415,23 +415,23 @@ Example: Testing whether the mean monthly charges are <strong>different</strong>
 <strong>Alternative Hypothesis (<span class="math inline">\(H_a\)</span>)</strong>: <span class="math inline">\(H_a: \mu \neq 2\)</span> (The average number of customer service calls is not 2.)</li>
 </ol>
 <p>We perform a <strong>two-tailed one-sample t-test</strong> in R using the <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> function. Here’s how it is implemented:</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="chapter-statistics.html#cb103-1" tabindex="-1"></a><span class="co"># Filter churned customers</span></span>
-<span id="cb103-2"><a href="chapter-statistics.html#cb103-2" tabindex="-1"></a>churned_customers <span class="ot">&lt;-</span> churn[churn<span class="sc">$</span>churn <span class="sc">==</span> <span class="st">"yes"</span>, ]</span>
-<span id="cb103-3"><a href="chapter-statistics.html#cb103-3" tabindex="-1"></a></span>
-<span id="cb103-4"><a href="chapter-statistics.html#cb103-4" tabindex="-1"></a><span class="co"># Perform One-sample T-test</span></span>
-<span id="cb103-5"><a href="chapter-statistics.html#cb103-5" tabindex="-1"></a>t_test <span class="ot">&lt;-</span> <span class="fu">t.test</span>(churned_customers<span class="sc">$</span>customer.calls, <span class="at">mu =</span> <span class="dv">2</span>)</span>
-<span id="cb103-6"><a href="chapter-statistics.html#cb103-6" tabindex="-1"></a>t_test</span>
-<span id="cb103-7"><a href="chapter-statistics.html#cb103-7" tabindex="-1"></a>   </span>
-<span id="cb103-8"><a href="chapter-statistics.html#cb103-8" tabindex="-1"></a>    One Sample t<span class="sc">-</span>test</span>
-<span id="cb103-9"><a href="chapter-statistics.html#cb103-9" tabindex="-1"></a>   </span>
-<span id="cb103-10"><a href="chapter-statistics.html#cb103-10" tabindex="-1"></a>   data<span class="sc">:</span>  churned_customers<span class="sc">$</span>customer.calls</span>
-<span id="cb103-11"><a href="chapter-statistics.html#cb103-11" tabindex="-1"></a>   t <span class="ot">=</span> <span class="fl">3.7278</span>, df <span class="ot">=</span> <span class="dv">706</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.0002086</span></span>
-<span id="cb103-12"><a href="chapter-statistics.html#cb103-12" tabindex="-1"></a>   alternative hypothesis<span class="sc">:</span> true mean is not equal to <span class="dv">2</span></span>
-<span id="cb103-13"><a href="chapter-statistics.html#cb103-13" tabindex="-1"></a>   <span class="dv">95</span> percent confidence interval<span class="sc">:</span></span>
-<span id="cb103-14"><a href="chapter-statistics.html#cb103-14" tabindex="-1"></a>    <span class="fl">2.120509</span> <span class="fl">2.388685</span></span>
-<span id="cb103-15"><a href="chapter-statistics.html#cb103-15" tabindex="-1"></a>   sample estimates<span class="sc">:</span></span>
-<span id="cb103-16"><a href="chapter-statistics.html#cb103-16" tabindex="-1"></a>   mean of x </span>
-<span id="cb103-17"><a href="chapter-statistics.html#cb103-17" tabindex="-1"></a>    <span class="fl">2.254597</span></span></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="chapter-statistics.html#cb105-1" tabindex="-1"></a><span class="co"># Filter churned customers</span></span>
+<span id="cb105-2"><a href="chapter-statistics.html#cb105-2" tabindex="-1"></a>churned_customers <span class="ot">&lt;-</span> churn[churn<span class="sc">$</span>churn <span class="sc">==</span> <span class="st">"yes"</span>, ]</span>
+<span id="cb105-3"><a href="chapter-statistics.html#cb105-3" tabindex="-1"></a></span>
+<span id="cb105-4"><a href="chapter-statistics.html#cb105-4" tabindex="-1"></a><span class="co"># Perform One-sample T-test</span></span>
+<span id="cb105-5"><a href="chapter-statistics.html#cb105-5" tabindex="-1"></a>t_test <span class="ot">&lt;-</span> <span class="fu">t.test</span>(churned_customers<span class="sc">$</span>customer.calls, <span class="at">mu =</span> <span class="dv">2</span>)</span>
+<span id="cb105-6"><a href="chapter-statistics.html#cb105-6" tabindex="-1"></a>t_test</span>
+<span id="cb105-7"><a href="chapter-statistics.html#cb105-7" tabindex="-1"></a>   </span>
+<span id="cb105-8"><a href="chapter-statistics.html#cb105-8" tabindex="-1"></a>    One Sample t<span class="sc">-</span>test</span>
+<span id="cb105-9"><a href="chapter-statistics.html#cb105-9" tabindex="-1"></a>   </span>
+<span id="cb105-10"><a href="chapter-statistics.html#cb105-10" tabindex="-1"></a>   data<span class="sc">:</span>  churned_customers<span class="sc">$</span>customer.calls</span>
+<span id="cb105-11"><a href="chapter-statistics.html#cb105-11" tabindex="-1"></a>   t <span class="ot">=</span> <span class="fl">3.7278</span>, df <span class="ot">=</span> <span class="dv">706</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.0002086</span></span>
+<span id="cb105-12"><a href="chapter-statistics.html#cb105-12" tabindex="-1"></a>   alternative hypothesis<span class="sc">:</span> true mean is not equal to <span class="dv">2</span></span>
+<span id="cb105-13"><a href="chapter-statistics.html#cb105-13" tabindex="-1"></a>   <span class="dv">95</span> percent confidence interval<span class="sc">:</span></span>
+<span id="cb105-14"><a href="chapter-statistics.html#cb105-14" tabindex="-1"></a>    <span class="fl">2.120509</span> <span class="fl">2.388685</span></span>
+<span id="cb105-15"><a href="chapter-statistics.html#cb105-15" tabindex="-1"></a>   sample estimates<span class="sc">:</span></span>
+<span id="cb105-16"><a href="chapter-statistics.html#cb105-16" tabindex="-1"></a>   mean of x </span>
+<span id="cb105-17"><a href="chapter-statistics.html#cb105-17" tabindex="-1"></a>    <span class="fl">2.254597</span></span></code></pre></div>
 <p>The output of the t-test includes the <strong>p-value</strong>, the test statistic, the degrees of freedom, and a confidence interval for the population mean. Let’s interpret the results step by step:</p>
 <ul>
 <li>If the <strong>p-value</strong> = 2^{-4} is less than the significance level (<span class="math inline">\(\alpha = 0.05\)</span>), we reject the null hypothesis (<span class="math inline">\(H_0\)</span>). This would indicate that there is sufficient evidence, at the 5% significance level, to conclude that the true average number of customer service calls differs from 2.<br>
@@ -459,22 +459,22 @@ If we fail to reject <span class="math inline">\(H_0\)</span>, the conclusion wo
 1. <strong>Null Hypothesis (<span class="math inline">\(H_0\)</span>)</strong>: <span class="math inline">\(\pi = 0.15\)</span> (The population proportion of churners is 15%.)<br>
 2. <strong>Alternative Hypothesis (<span class="math inline">\(H_a\)</span>)</strong>: <span class="math inline">\(\pi \neq 0.15\)</span> (The population proportion of churners is not 15%.)</p>
 <p>We can perform the proportion test in R using the <code><a href="https://rdrr.io/r/stats/prop.test.html">prop.test()</a></code> function as follows:</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="chapter-statistics.html#cb104-1" tabindex="-1"></a><span class="co"># Perform a proportion test</span></span>
-<span id="cb104-2"><a href="chapter-statistics.html#cb104-2" tabindex="-1"></a>prop_test <span class="ot">&lt;-</span> <span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">sum</span>(churn<span class="sc">$</span>churn <span class="sc">==</span> <span class="st">"yes"</span>), </span>
-<span id="cb104-3"><a href="chapter-statistics.html#cb104-3" tabindex="-1"></a>                       <span class="at">n =</span> <span class="fu">nrow</span>(churn), </span>
-<span id="cb104-4"><a href="chapter-statistics.html#cb104-4" tabindex="-1"></a>                       <span class="at">p =</span> <span class="fl">0.15</span>)</span>
-<span id="cb104-5"><a href="chapter-statistics.html#cb104-5" tabindex="-1"></a>prop_test</span>
-<span id="cb104-6"><a href="chapter-statistics.html#cb104-6" tabindex="-1"></a>   </span>
-<span id="cb104-7"><a href="chapter-statistics.html#cb104-7" tabindex="-1"></a>    <span class="dv">1</span><span class="sc">-</span>sample proportions test with continuity correction</span>
-<span id="cb104-8"><a href="chapter-statistics.html#cb104-8" tabindex="-1"></a>   </span>
-<span id="cb104-9"><a href="chapter-statistics.html#cb104-9" tabindex="-1"></a>   data<span class="sc">:</span>  <span class="fu">sum</span>(churn<span class="sc">$</span>churn <span class="sc">==</span> <span class="st">"yes"</span>) out of <span class="fu">nrow</span>(churn), null probability <span class="fl">0.15</span></span>
-<span id="cb104-10"><a href="chapter-statistics.html#cb104-10" tabindex="-1"></a>   X<span class="sc">-</span>squared <span class="ot">=</span> <span class="fl">2.8333</span>, df <span class="ot">=</span> <span class="dv">1</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.09233</span></span>
-<span id="cb104-11"><a href="chapter-statistics.html#cb104-11" tabindex="-1"></a>   alternative hypothesis<span class="sc">:</span> true p is not equal to <span class="fl">0.15</span></span>
-<span id="cb104-12"><a href="chapter-statistics.html#cb104-12" tabindex="-1"></a>   <span class="dv">95</span> percent confidence interval<span class="sc">:</span></span>
-<span id="cb104-13"><a href="chapter-statistics.html#cb104-13" tabindex="-1"></a>    <span class="fl">0.1319201</span> <span class="fl">0.1514362</span></span>
-<span id="cb104-14"><a href="chapter-statistics.html#cb104-14" tabindex="-1"></a>   sample estimates<span class="sc">:</span></span>
-<span id="cb104-15"><a href="chapter-statistics.html#cb104-15" tabindex="-1"></a>        p </span>
-<span id="cb104-16"><a href="chapter-statistics.html#cb104-16" tabindex="-1"></a>   <span class="fl">0.1414</span></span></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="chapter-statistics.html#cb106-1" tabindex="-1"></a><span class="co"># Perform a proportion test</span></span>
+<span id="cb106-2"><a href="chapter-statistics.html#cb106-2" tabindex="-1"></a>prop_test <span class="ot">&lt;-</span> <span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">sum</span>(churn<span class="sc">$</span>churn <span class="sc">==</span> <span class="st">"yes"</span>), </span>
+<span id="cb106-3"><a href="chapter-statistics.html#cb106-3" tabindex="-1"></a>                       <span class="at">n =</span> <span class="fu">nrow</span>(churn), </span>
+<span id="cb106-4"><a href="chapter-statistics.html#cb106-4" tabindex="-1"></a>                       <span class="at">p =</span> <span class="fl">0.15</span>)</span>
+<span id="cb106-5"><a href="chapter-statistics.html#cb106-5" tabindex="-1"></a>prop_test</span>
+<span id="cb106-6"><a href="chapter-statistics.html#cb106-6" tabindex="-1"></a>   </span>
+<span id="cb106-7"><a href="chapter-statistics.html#cb106-7" tabindex="-1"></a>    <span class="dv">1</span><span class="sc">-</span>sample proportions test with continuity correction</span>
+<span id="cb106-8"><a href="chapter-statistics.html#cb106-8" tabindex="-1"></a>   </span>
+<span id="cb106-9"><a href="chapter-statistics.html#cb106-9" tabindex="-1"></a>   data<span class="sc">:</span>  <span class="fu">sum</span>(churn<span class="sc">$</span>churn <span class="sc">==</span> <span class="st">"yes"</span>) out of <span class="fu">nrow</span>(churn), null probability <span class="fl">0.15</span></span>
+<span id="cb106-10"><a href="chapter-statistics.html#cb106-10" tabindex="-1"></a>   X<span class="sc">-</span>squared <span class="ot">=</span> <span class="fl">2.8333</span>, df <span class="ot">=</span> <span class="dv">1</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.09233</span></span>
+<span id="cb106-11"><a href="chapter-statistics.html#cb106-11" tabindex="-1"></a>   alternative hypothesis<span class="sc">:</span> true p is not equal to <span class="fl">0.15</span></span>
+<span id="cb106-12"><a href="chapter-statistics.html#cb106-12" tabindex="-1"></a>   <span class="dv">95</span> percent confidence interval<span class="sc">:</span></span>
+<span id="cb106-13"><a href="chapter-statistics.html#cb106-13" tabindex="-1"></a>    <span class="fl">0.1319201</span> <span class="fl">0.1514362</span></span>
+<span id="cb106-14"><a href="chapter-statistics.html#cb106-14" tabindex="-1"></a>   sample estimates<span class="sc">:</span></span>
+<span id="cb106-15"><a href="chapter-statistics.html#cb106-15" tabindex="-1"></a>        p </span>
+<span id="cb106-16"><a href="chapter-statistics.html#cb106-16" tabindex="-1"></a>   <span class="fl">0.1414</span></span></code></pre></div>
 <p>Interpreting the Output:</p>
 <ol style="list-style-type: decimal">
 <li>
@@ -514,25 +514,25 @@ The test also provides the <strong>sample proportion</strong> = 0.14, which is t
 \end{matrix}
 \]</span></p>
 <p>To begin, let’s visually explore the relationship between <em>International Calls</em> (<code>intl.calls</code>) and churn status using a boxplot:</p>
-<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">churn</span>, y <span class="op">=</span> <span class="va">intl.calls</span><span class="op">)</span>, fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"palevioletred1"</span>, <span class="st">"darkseagreen1"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="statistics_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="statistics_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>The boxplot compares the distribution of international calls for churners and non-churners. If the medians or spreads differ substantially, this may indicate that the variable has predictive importance. In this case, the plot does not reveal strong visual evidence of a difference, but to formally assess this, we proceed with the two-sample t-test.</p>
 <p>To perform the test in <strong>R</strong>, we use the <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> function:</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="chapter-statistics.html#cb106-1" tabindex="-1"></a>t_test_calls <span class="ot">&lt;-</span> <span class="fu">t.test</span>(intl.calls <span class="sc">~</span> churn, <span class="at">data =</span> churn)</span>
-<span id="cb106-2"><a href="chapter-statistics.html#cb106-2" tabindex="-1"></a>t_test_calls</span>
-<span id="cb106-3"><a href="chapter-statistics.html#cb106-3" tabindex="-1"></a>   </span>
-<span id="cb106-4"><a href="chapter-statistics.html#cb106-4" tabindex="-1"></a>    Welch Two Sample t<span class="sc">-</span>test</span>
-<span id="cb106-5"><a href="chapter-statistics.html#cb106-5" tabindex="-1"></a>   </span>
-<span id="cb106-6"><a href="chapter-statistics.html#cb106-6" tabindex="-1"></a>   data<span class="sc">:</span>  intl.calls by churn</span>
-<span id="cb106-7"><a href="chapter-statistics.html#cb106-7" tabindex="-1"></a>   t <span class="ot">=</span> <span class="sc">-</span><span class="fl">3.2138</span>, df <span class="ot">=</span> <span class="fl">931.13</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.001355</span></span>
-<span id="cb106-8"><a href="chapter-statistics.html#cb106-8" tabindex="-1"></a>   alternative hypothesis<span class="sc">:</span> true difference <span class="cf">in</span> means between group yes and group no is not equal to <span class="dv">0</span></span>
-<span id="cb106-9"><a href="chapter-statistics.html#cb106-9" tabindex="-1"></a>   <span class="dv">95</span> percent confidence interval<span class="sc">:</span></span>
-<span id="cb106-10"><a href="chapter-statistics.html#cb106-10" tabindex="-1"></a>    <span class="sc">-</span><span class="fl">0.5324872</span> <span class="sc">-</span><span class="fl">0.1287201</span></span>
-<span id="cb106-11"><a href="chapter-statistics.html#cb106-11" tabindex="-1"></a>   sample estimates<span class="sc">:</span></span>
-<span id="cb106-12"><a href="chapter-statistics.html#cb106-12" tabindex="-1"></a>   mean <span class="cf">in</span> group yes  mean <span class="cf">in</span> group no </span>
-<span id="cb106-13"><a href="chapter-statistics.html#cb106-13" tabindex="-1"></a>            <span class="fl">4.151344</span>          <span class="fl">4.481947</span></span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="chapter-statistics.html#cb108-1" tabindex="-1"></a>t_test_calls <span class="ot">&lt;-</span> <span class="fu">t.test</span>(intl.calls <span class="sc">~</span> churn, <span class="at">data =</span> churn)</span>
+<span id="cb108-2"><a href="chapter-statistics.html#cb108-2" tabindex="-1"></a>t_test_calls</span>
+<span id="cb108-3"><a href="chapter-statistics.html#cb108-3" tabindex="-1"></a>   </span>
+<span id="cb108-4"><a href="chapter-statistics.html#cb108-4" tabindex="-1"></a>    Welch Two Sample t<span class="sc">-</span>test</span>
+<span id="cb108-5"><a href="chapter-statistics.html#cb108-5" tabindex="-1"></a>   </span>
+<span id="cb108-6"><a href="chapter-statistics.html#cb108-6" tabindex="-1"></a>   data<span class="sc">:</span>  intl.calls by churn</span>
+<span id="cb108-7"><a href="chapter-statistics.html#cb108-7" tabindex="-1"></a>   t <span class="ot">=</span> <span class="sc">-</span><span class="fl">3.2138</span>, df <span class="ot">=</span> <span class="fl">931.13</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.001355</span></span>
+<span id="cb108-8"><a href="chapter-statistics.html#cb108-8" tabindex="-1"></a>   alternative hypothesis<span class="sc">:</span> true difference <span class="cf">in</span> means between group yes and group no is not equal to <span class="dv">0</span></span>
+<span id="cb108-9"><a href="chapter-statistics.html#cb108-9" tabindex="-1"></a>   <span class="dv">95</span> percent confidence interval<span class="sc">:</span></span>
+<span id="cb108-10"><a href="chapter-statistics.html#cb108-10" tabindex="-1"></a>    <span class="sc">-</span><span class="fl">0.5324872</span> <span class="sc">-</span><span class="fl">0.1287201</span></span>
+<span id="cb108-11"><a href="chapter-statistics.html#cb108-11" tabindex="-1"></a>   sample estimates<span class="sc">:</span></span>
+<span id="cb108-12"><a href="chapter-statistics.html#cb108-12" tabindex="-1"></a>   mean <span class="cf">in</span> group yes  mean <span class="cf">in</span> group no </span>
+<span id="cb108-13"><a href="chapter-statistics.html#cb108-13" tabindex="-1"></a>            <span class="fl">4.151344</span>          <span class="fl">4.481947</span></span></code></pre></div>
 <p>This function evaluates the difference in means between the two groups (<code>churn = "yes"</code> vs. <code>churn = "no"</code>) and calculates a test statistic and corresponding p-value. Based on the output:</p>
 <ul>
 <li><p>The <strong>p-value</strong> = 0.0014. Since this value is less than the significance level (<span class="math inline">\(\alpha = 0.05\)</span>), we <strong>reject the null hypothesis (<span class="math inline">\(H_0\)</span>)</strong>. This indicates that the mean number of international calls differs significantly between churners and non-churners.</p></li>
@@ -559,7 +559,7 @@ The test also provides the <strong>sample proportion</strong> = 0.14, which is t
 <p>The <strong>two-sample Z-test</strong> is used to compare the proportions of two groups to determine whether the observed difference in proportions is statistically significant. It is particularly useful for binary categorical variables, where the goal is to evaluate whether the proportions of success (or presence) in one group differ from those in another.</p>
 <p>In the context of the <em>churn</em> dataset, we can apply the two-sample Z-test to investigate whether there is a relationship between the target variable <em>churn</em> and the variable <em>Voice Mail Plan</em> (<code>voice.plan</code>). Specifically, we aim to test whether the proportion of churners who have a Voice Mail Plan differs from the proportion of non-churners with the plan.</p>
 <p>First, let’s visualize the relationship between <em>Voice Mail Plan</em> and <em>churn</em> using bar plots:</p>
-<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">voice.plan</span>, fill <span class="op">=</span> <span class="va">churn</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"palevioletred1"</span>, <span class="st">"darkseagreen1"</span><span class="op">)</span><span class="op">)</span> </span>
@@ -585,27 +585,27 @@ The test also provides the <strong>sample proportion</strong> = 0.14, which is t
 \end{matrix}
 \]</span></p>
 <p>To perform the Z-test in R, we first create a contingency table to summarize the counts of customers with and without a Voice Mail Plan in the churner and non-churner groups. This can be done using the <code><a href="https://rdrr.io/r/base/table.html">table()</a></code> function:</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="chapter-statistics.html#cb108-1" tabindex="-1"></a>table_plan <span class="ot">=</span> <span class="fu">table</span>(churn<span class="sc">$</span>churn, churn<span class="sc">$</span>voice.plan, <span class="at">dnn =</span> <span class="fu">c</span>(<span class="st">"churn"</span>, <span class="st">"voice.plan"</span>))</span>
-<span id="cb108-2"><a href="chapter-statistics.html#cb108-2" tabindex="-1"></a>table_plan</span>
-<span id="cb108-3"><a href="chapter-statistics.html#cb108-3" tabindex="-1"></a>        voice.plan</span>
-<span id="cb108-4"><a href="chapter-statistics.html#cb108-4" tabindex="-1"></a>   churn  yes   no</span>
-<span id="cb108-5"><a href="chapter-statistics.html#cb108-5" tabindex="-1"></a>     yes  <span class="dv">102</span>  <span class="dv">605</span></span>
-<span id="cb108-6"><a href="chapter-statistics.html#cb108-6" tabindex="-1"></a>     no  <span class="dv">1221</span> <span class="dv">3072</span></span></code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="chapter-statistics.html#cb110-1" tabindex="-1"></a>table_plan <span class="ot">=</span> <span class="fu">table</span>(churn<span class="sc">$</span>churn, churn<span class="sc">$</span>voice.plan, <span class="at">dnn =</span> <span class="fu">c</span>(<span class="st">"churn"</span>, <span class="st">"voice.plan"</span>))</span>
+<span id="cb110-2"><a href="chapter-statistics.html#cb110-2" tabindex="-1"></a>table_plan</span>
+<span id="cb110-3"><a href="chapter-statistics.html#cb110-3" tabindex="-1"></a>        voice.plan</span>
+<span id="cb110-4"><a href="chapter-statistics.html#cb110-4" tabindex="-1"></a>   churn  yes   no</span>
+<span id="cb110-5"><a href="chapter-statistics.html#cb110-5" tabindex="-1"></a>     yes  <span class="dv">102</span>  <span class="dv">605</span></span>
+<span id="cb110-6"><a href="chapter-statistics.html#cb110-6" tabindex="-1"></a>     no  <span class="dv">1221</span> <span class="dv">3072</span></span></code></pre></div>
 <p>This table displays the count of customers for each combination of <em>churn</em> and <em>voice.plan</em>. For example, it might show how many churners and non-churners have subscribed to a Voice Mail Plan versus how many have not.</p>
 <p>Next, we apply the <code><a href="https://rdrr.io/r/stats/prop.test.html">prop.test()</a></code> function to conduct the two-sample Z-test for the difference in proportions:</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="chapter-statistics.html#cb109-1" tabindex="-1"></a>z_test <span class="ot">=</span> <span class="fu">prop.test</span>(table_plan)</span>
-<span id="cb109-2"><a href="chapter-statistics.html#cb109-2" tabindex="-1"></a>z_test</span>
-<span id="cb109-3"><a href="chapter-statistics.html#cb109-3" tabindex="-1"></a>   </span>
-<span id="cb109-4"><a href="chapter-statistics.html#cb109-4" tabindex="-1"></a>    <span class="dv">2</span><span class="sc">-</span>sample test <span class="cf">for</span> equality of proportions with continuity correction</span>
-<span id="cb109-5"><a href="chapter-statistics.html#cb109-5" tabindex="-1"></a>   </span>
-<span id="cb109-6"><a href="chapter-statistics.html#cb109-6" tabindex="-1"></a>   data<span class="sc">:</span>  table_plan</span>
-<span id="cb109-7"><a href="chapter-statistics.html#cb109-7" tabindex="-1"></a>   X<span class="sc">-</span>squared <span class="ot">=</span> <span class="fl">60.552</span>, df <span class="ot">=</span> <span class="dv">1</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">7.165e-15</span></span>
-<span id="cb109-8"><a href="chapter-statistics.html#cb109-8" tabindex="-1"></a>   alternative hypothesis<span class="sc">:</span> two.sided</span>
-<span id="cb109-9"><a href="chapter-statistics.html#cb109-9" tabindex="-1"></a>   <span class="dv">95</span> percent confidence interval<span class="sc">:</span></span>
-<span id="cb109-10"><a href="chapter-statistics.html#cb109-10" tabindex="-1"></a>    <span class="sc">-</span><span class="fl">0.1701734</span> <span class="sc">-</span><span class="fl">0.1101165</span></span>
-<span id="cb109-11"><a href="chapter-statistics.html#cb109-11" tabindex="-1"></a>   sample estimates<span class="sc">:</span></span>
-<span id="cb109-12"><a href="chapter-statistics.html#cb109-12" tabindex="-1"></a>      prop <span class="dv">1</span>    prop <span class="dv">2</span> </span>
-<span id="cb109-13"><a href="chapter-statistics.html#cb109-13" tabindex="-1"></a>   <span class="fl">0.1442716</span> <span class="fl">0.2844165</span></span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="chapter-statistics.html#cb111-1" tabindex="-1"></a>z_test <span class="ot">=</span> <span class="fu">prop.test</span>(table_plan)</span>
+<span id="cb111-2"><a href="chapter-statistics.html#cb111-2" tabindex="-1"></a>z_test</span>
+<span id="cb111-3"><a href="chapter-statistics.html#cb111-3" tabindex="-1"></a>   </span>
+<span id="cb111-4"><a href="chapter-statistics.html#cb111-4" tabindex="-1"></a>    <span class="dv">2</span><span class="sc">-</span>sample test <span class="cf">for</span> equality of proportions with continuity correction</span>
+<span id="cb111-5"><a href="chapter-statistics.html#cb111-5" tabindex="-1"></a>   </span>
+<span id="cb111-6"><a href="chapter-statistics.html#cb111-6" tabindex="-1"></a>   data<span class="sc">:</span>  table_plan</span>
+<span id="cb111-7"><a href="chapter-statistics.html#cb111-7" tabindex="-1"></a>   X<span class="sc">-</span>squared <span class="ot">=</span> <span class="fl">60.552</span>, df <span class="ot">=</span> <span class="dv">1</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">7.165e-15</span></span>
+<span id="cb111-8"><a href="chapter-statistics.html#cb111-8" tabindex="-1"></a>   alternative hypothesis<span class="sc">:</span> two.sided</span>
+<span id="cb111-9"><a href="chapter-statistics.html#cb111-9" tabindex="-1"></a>   <span class="dv">95</span> percent confidence interval<span class="sc">:</span></span>
+<span id="cb111-10"><a href="chapter-statistics.html#cb111-10" tabindex="-1"></a>    <span class="sc">-</span><span class="fl">0.1701734</span> <span class="sc">-</span><span class="fl">0.1101165</span></span>
+<span id="cb111-11"><a href="chapter-statistics.html#cb111-11" tabindex="-1"></a>   sample estimates<span class="sc">:</span></span>
+<span id="cb111-12"><a href="chapter-statistics.html#cb111-12" tabindex="-1"></a>      prop <span class="dv">1</span>    prop <span class="dv">2</span> </span>
+<span id="cb111-13"><a href="chapter-statistics.html#cb111-13" tabindex="-1"></a>   <span class="fl">0.1442716</span> <span class="fl">0.2844165</span></span></code></pre></div>
 <p>The output of the test provides the <strong>p-value</strong>, the estimated proportions for each group, and the confidence interval for the difference in proportions. Based on the result:</p>
 <ul>
 <li><p>If the <strong>p-value</strong> (0) is less than the significance level (<span class="math inline">\(\alpha = 0.05\)</span>), we reject the null hypothesis (<span class="math inline">\(H_0\)</span>). This indicates that the difference in proportions is statistically significant, meaning the proportion of customers with a Voice Mail Plan differs between churners and non-churners.</p></li>
@@ -623,7 +623,7 @@ The test also provides the <strong>sample proportion</strong> = 0.14, which is t
 <p>The <strong>Chi-square test</strong> is used to evaluate whether there is an association between two categorical variables. It assesses whether the observed frequencies in each category differ significantly from what would be expected under the assumption of independence. This test is particularly useful for variables with more than two categories, and it derives its name from the Chi-square (<span class="math inline">\(\chi^2\)</span>) distribution on which it is based.</p>
 <p>To illustrate, let’s analyze whether there is a relationship between the variable <em>marital</em> and the target variable <em>deposit</em> in the <em>bank</em> dataset (available in the <strong>liver</strong> package). The variable <code>marital</code> has three categories: “divorced,” “married,” and “single,” while the target variable <code>deposit</code> has two categories: “yes” (customers who purchased a deposit) and “no” (customers who did not). Our goal is to determine whether the marital status of customers is associated with their decision to make a deposit.</p>
 <p>We start by visualizing the relationship between <code>marital</code> and <code>deposit</code> using bar plots:</p>
-<div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bank</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">marital</span>, fill <span class="op">=</span> <span class="va">deposit</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"palevioletred1"</span>, <span class="st">"darkseagreen1"</span><span class="op">)</span><span class="op">)</span> </span>
@@ -634,12 +634,12 @@ The test also provides the <strong>sample proportion</strong> = 0.14, which is t
 <p><img src="statistics_files/figure-html/unnamed-chunk-14-1.png" width="50%"><img src="statistics_files/figure-html/unnamed-chunk-14-2.png" width="50%"></p>
 <p>The first bar plot shows the raw counts of deposits across marital categories, while the second plot shows the proportions within each marital group. These visualizations suggest that the marital status might influence the likelihood of making a deposit, but a formal hypothesis test is needed to confirm this.</p>
 <p>We create a contingency table to summarize the counts of observations across the categories of <code>marital</code> and <code>deposit</code>:</p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="chapter-statistics.html#cb111-1" tabindex="-1"></a>table_marital <span class="ot">&lt;-</span> <span class="fu">table</span>(bank<span class="sc">$</span>deposit, bank<span class="sc">$</span>marital, <span class="at">dnn =</span> <span class="fu">c</span>(<span class="st">"deposit"</span>, <span class="st">"marital"</span>))</span>
-<span id="cb111-2"><a href="chapter-statistics.html#cb111-2" tabindex="-1"></a>table_marital</span>
-<span id="cb111-3"><a href="chapter-statistics.html#cb111-3" tabindex="-1"></a>          marital</span>
-<span id="cb111-4"><a href="chapter-statistics.html#cb111-4" tabindex="-1"></a>   deposit divorced married single</span>
-<span id="cb111-5"><a href="chapter-statistics.html#cb111-5" tabindex="-1"></a>       no       <span class="dv">451</span>    <span class="dv">2520</span>   <span class="dv">1029</span></span>
-<span id="cb111-6"><a href="chapter-statistics.html#cb111-6" tabindex="-1"></a>       yes       <span class="dv">77</span>     <span class="dv">277</span>    <span class="dv">167</span></span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="chapter-statistics.html#cb113-1" tabindex="-1"></a>table_marital <span class="ot">&lt;-</span> <span class="fu">table</span>(bank<span class="sc">$</span>deposit, bank<span class="sc">$</span>marital, <span class="at">dnn =</span> <span class="fu">c</span>(<span class="st">"deposit"</span>, <span class="st">"marital"</span>))</span>
+<span id="cb113-2"><a href="chapter-statistics.html#cb113-2" tabindex="-1"></a>table_marital</span>
+<span id="cb113-3"><a href="chapter-statistics.html#cb113-3" tabindex="-1"></a>          marital</span>
+<span id="cb113-4"><a href="chapter-statistics.html#cb113-4" tabindex="-1"></a>   deposit divorced married single</span>
+<span id="cb113-5"><a href="chapter-statistics.html#cb113-5" tabindex="-1"></a>       no       <span class="dv">451</span>    <span class="dv">2520</span>   <span class="dv">1029</span></span>
+<span id="cb113-6"><a href="chapter-statistics.html#cb113-6" tabindex="-1"></a>       yes       <span class="dv">77</span>     <span class="dv">277</span>    <span class="dv">167</span></span></code></pre></div>
 <p>This table provides the observed frequencies of deposits (“yes” and “no”) across the marital categories. To test whether these proportions differ significantly, we use the Chi-square test with the following hypotheses:</p>
 <ol style="list-style-type: decimal">
 <li>
@@ -660,13 +660,13 @@ Mathematically:<br><span class="math display">\[
 \end{matrix}
 \]</span></p>
 <p>We apply the Chi-square test using the <code><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test()</a></code> function in R:</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="chapter-statistics.html#cb112-1" tabindex="-1"></a>chisq_test <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(table_marital)</span>
-<span id="cb112-2"><a href="chapter-statistics.html#cb112-2" tabindex="-1"></a>chisq_test</span>
-<span id="cb112-3"><a href="chapter-statistics.html#cb112-3" tabindex="-1"></a>   </span>
-<span id="cb112-4"><a href="chapter-statistics.html#cb112-4" tabindex="-1"></a>    Pearson<span class="st">'s Chi-squared test</span></span>
-<span id="cb112-5"><a href="chapter-statistics.html#cb112-5" tabindex="-1"></a><span class="st">   </span></span>
-<span id="cb112-6"><a href="chapter-statistics.html#cb112-6" tabindex="-1"></a><span class="st">   data:  table_marital</span></span>
-<span id="cb112-7"><a href="chapter-statistics.html#cb112-7" tabindex="-1"></a><span class="st">   X-squared = 19.03, df = 2, p-value = 7.374e-05</span></span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="chapter-statistics.html#cb114-1" tabindex="-1"></a>chisq_test <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(table_marital)</span>
+<span id="cb114-2"><a href="chapter-statistics.html#cb114-2" tabindex="-1"></a>chisq_test</span>
+<span id="cb114-3"><a href="chapter-statistics.html#cb114-3" tabindex="-1"></a>   </span>
+<span id="cb114-4"><a href="chapter-statistics.html#cb114-4" tabindex="-1"></a>    Pearson<span class="st">'s Chi-squared test</span></span>
+<span id="cb114-5"><a href="chapter-statistics.html#cb114-5" tabindex="-1"></a><span class="st">   </span></span>
+<span id="cb114-6"><a href="chapter-statistics.html#cb114-6" tabindex="-1"></a><span class="st">   data:  table_marital</span></span>
+<span id="cb114-7"><a href="chapter-statistics.html#cb114-7" tabindex="-1"></a><span class="st">   X-squared = 19.03, df = 2, p-value = 7.374e-05</span></span></code></pre></div>
 <p>The output provides the Chi-square test statistic, degrees of freedom, and the <strong>p-value</strong>. Here, the <strong>p-value</strong> = 7.3735354^{-5} is smaller than the significance level <span class="math inline">\(\alpha = 0.05\)</span>. Therefore, we reject the null hypothesis (<span class="math inline">\(H_0\)</span>) and conclude that there is a statistically significant association between marital status and deposit behavior. In other words, the proportion of deposits differs across the marital categories.</p>
 <p>Additionally, the output includes the expected frequencies under the null hypothesis, which can be compared with the observed frequencies to assess where the differences lie. These insights can guide further analysis, such as investigating which marital group contributes most to the association.</p>
 <p>From a business perspective, this result indicates that marital status is a useful predictor of whether a customer will purchase a deposit. Marketing strategies can leverage this information by tailoring campaigns or offers to specific marital groups to increase deposit adoption rates.</p>
@@ -679,11 +679,11 @@ Mathematically:<br><span class="math display">\[
 <p>The <strong>Analysis of Variance (ANOVA)</strong> test is used to compare the means of a numerical variable across more than two groups. It evaluates whether at least one group mean differs significantly from the others. ANOVA is especially useful when analyzing the relationship between a numerical variable and a categorical variable with multiple levels, providing a formal way to determine if the categorical variable impacts the numerical variable. The test relies on the F-distribution to assess whether the observed differences in means are statistically significant.</p>
 <p>To illustrate, let’s analyze the relationship between the variable <code>cut</code> and the target variable <code>price</code> in the popular <em>diamonds</em> dataset (available in the <strong>ggplot2</strong> package). The variable <code>cut</code> has five categories (“Fair,” “Good,” “Very Good,” “Premium,” and “Ideal”), while <code>price</code> is numerical. Our objective is to test whether the mean price of diamonds differs across the five cut categories.</p>
 <p>We begin with a box plot to visualize the distribution of diamond prices for each category of <code>cut</code>:</p>
-<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cut</span>, y <span class="op">=</span> <span class="va">price</span>, fill <span class="op">=</span> <span class="va">cut</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"palevioletred1"</span>, <span class="st">"darkseagreen1"</span>, <span class="st">"skyblue1"</span>, <span class="st">"gold1"</span>, <span class="st">"lightcoral"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="statistics_files/figure-html/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="statistics_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>The box plot displays the spread and median prices for diamonds in each cut category. If the distributions appear distinct—for example, with noticeable differences in medians or ranges—this suggests that the cut might influence the price. However, visual inspection alone is insufficient to confirm whether these differences are statistically significant, so we proceed with an ANOVA test.</p>
 <p>To formally test whether the mean prices differ by cut type, we set up the following hypotheses:</p>
 <ol style="list-style-type: decimal">
@@ -696,14 +696,14 @@ Mathematically:<br><span class="math display">\[
 (Not all average prices are equal across the cut categories.)</p></li>
 </ol>
 <p>To conduct the ANOVA test in R, we use the <code><a href="https://rdrr.io/r/stats/aov.html">aov()</a></code> function as follows:</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="chapter-statistics.html#cb114-1" tabindex="-1"></a><span class="co"># Perform ANOVA</span></span>
-<span id="cb114-2"><a href="chapter-statistics.html#cb114-2" tabindex="-1"></a>anova_test <span class="ot">&lt;-</span> <span class="fu">aov</span>(price <span class="sc">~</span> cut, <span class="at">data =</span> diamonds)</span>
-<span id="cb114-3"><a href="chapter-statistics.html#cb114-3" tabindex="-1"></a><span class="fu">summary</span>(anova_test)</span>
-<span id="cb114-4"><a href="chapter-statistics.html#cb114-4" tabindex="-1"></a>                  Df    Sum Sq   Mean Sq F value <span class="fu">Pr</span>(<span class="sc">&gt;</span>F)    </span>
-<span id="cb114-5"><a href="chapter-statistics.html#cb114-5" tabindex="-1"></a>   cut             <span class="dv">4</span> <span class="fl">1.104e+10</span> <span class="fl">2.760e+09</span>   <span class="fl">175.7</span> <span class="sc">&lt;</span><span class="fl">2e-16</span> <span class="sc">**</span><span class="er">*</span></span>
-<span id="cb114-6"><a href="chapter-statistics.html#cb114-6" tabindex="-1"></a>   Residuals   <span class="dv">53935</span> <span class="fl">8.474e+11</span> <span class="fl">1.571e+07</span>                   </span>
-<span id="cb114-7"><a href="chapter-statistics.html#cb114-7" tabindex="-1"></a>   <span class="sc">---</span></span>
-<span id="cb114-8"><a href="chapter-statistics.html#cb114-8" tabindex="-1"></a>   Signif. codes<span class="sc">:</span>  <span class="dv">0</span> <span class="st">'***'</span> <span class="fl">0.001</span> <span class="st">'**'</span> <span class="fl">0.01</span> <span class="st">'*'</span> <span class="fl">0.05</span> <span class="st">'.'</span> <span class="fl">0.1</span> <span class="st">' '</span> <span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="chapter-statistics.html#cb116-1" tabindex="-1"></a><span class="co"># Perform ANOVA</span></span>
+<span id="cb116-2"><a href="chapter-statistics.html#cb116-2" tabindex="-1"></a>anova_test <span class="ot">&lt;-</span> <span class="fu">aov</span>(price <span class="sc">~</span> cut, <span class="at">data =</span> diamonds)</span>
+<span id="cb116-3"><a href="chapter-statistics.html#cb116-3" tabindex="-1"></a><span class="fu">summary</span>(anova_test)</span>
+<span id="cb116-4"><a href="chapter-statistics.html#cb116-4" tabindex="-1"></a>                  Df    Sum Sq   Mean Sq F value <span class="fu">Pr</span>(<span class="sc">&gt;</span>F)    </span>
+<span id="cb116-5"><a href="chapter-statistics.html#cb116-5" tabindex="-1"></a>   cut             <span class="dv">4</span> <span class="fl">1.104e+10</span> <span class="fl">2.760e+09</span>   <span class="fl">175.7</span> <span class="sc">&lt;</span><span class="fl">2e-16</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb116-6"><a href="chapter-statistics.html#cb116-6" tabindex="-1"></a>   Residuals   <span class="dv">53935</span> <span class="fl">8.474e+11</span> <span class="fl">1.571e+07</span>                   </span>
+<span id="cb116-7"><a href="chapter-statistics.html#cb116-7" tabindex="-1"></a>   <span class="sc">---</span></span>
+<span id="cb116-8"><a href="chapter-statistics.html#cb116-8" tabindex="-1"></a>   Signif. codes<span class="sc">:</span>  <span class="dv">0</span> <span class="st">'***'</span> <span class="fl">0.001</span> <span class="st">'**'</span> <span class="fl">0.01</span> <span class="st">'*'</span> <span class="fl">0.05</span> <span class="st">'.'</span> <span class="fl">0.1</span> <span class="st">' '</span> <span class="dv">1</span></span></code></pre></div>
 <p>The output provides the test statistic (F-value), degrees of freedom, and the <strong>p-value</strong>. If the <strong>p-value</strong> is smaller than the significance level (<span class="math inline">\(\alpha = 0.05\)</span>), we reject the null hypothesis (<span class="math inline">\(H_0\)</span>). For instance, if the <strong>p-value</strong> = 8.4283073^{-150}, we would reject <span class="math inline">\(H_0\)</span> and conclude that not all group means are equal. This indicates that the variable <code>cut</code> has a significant impact on the price of diamonds.</p>
 <p>It’s important to note that rejecting <span class="math inline">\(H_0\)</span> in ANOVA doesn’t identify which specific groups differ. To determine this, we can conduct <strong>post-hoc tests</strong>, such as Tukey’s Honestly Significant Difference (Tukey HSD) test, to pinpoint the pairs of categories that have significant differences in their means. In this example, we could apply Tukey’s test to identify which cut categories (e.g., “Ideal” vs. “Good”) drive the observed differences.</p>
 <p>In summary, the ANOVA test confirms whether a categorical variable with multiple levels influences a numerical variable. In this case, the relationship between <code>cut</code> and <code>price</code> suggests that diamond cut type is an important predictor of price, providing valuable insight into how quality impacts cost.</p>
@@ -714,11 +714,11 @@ Mathematically:<br><span class="math display">\[
 </h3>
 <p>The <strong>correlation test</strong> determines whether there is a significant linear relationship between two numerical variables by testing the null hypothesis that the population correlation coefficient (<span class="math inline">\(\rho\)</span>) is equal to zero. This test evaluates both the direction and strength of the relationship between the variables.</p>
 <p>In the diamonds dataset, let’s explore whether there is a significant relationship between the variable <strong><code>carat</code></strong> (diamond weight) and the target variable <strong><code>price</code></strong> (diamond price). Visualizing the relationship between these two variables is often the first step in correlation analysis. Below is a scatter plot illustrating their relationship:</p>
-<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">carat</span>, y <span class="op">=</span> <span class="va">price</span><span class="op">)</span>, colour <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Carat"</span>, y <span class="op">=</span> <span class="st">"Price"</span><span class="op">)</span> </span></code></pre></div>
-<div class="inline-figure"><img src="statistics_files/figure-html/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="statistics_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>The scatter plot shows a clear upward trend, suggesting a positive relationship between <strong>carat</strong> and <strong>price</strong>—as the weight of the diamond increases, so does its price. To formally test whether this observed pattern is statistically significant, we establish the following hypotheses:</p>
 <ol style="list-style-type: decimal">
 <li>
@@ -735,19 +735,19 @@ Mathematically:<br><span class="math display">\[
 \end{matrix}
 \]</span></p>
 <p>To perform the correlation test in R, we use the <code><a href="https://rdrr.io/r/stats/cor.test.html">cor.test()</a></code> function:</p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="chapter-statistics.html#cb116-1" tabindex="-1"></a>cor_test <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(diamonds<span class="sc">$</span>carat, diamonds<span class="sc">$</span>price)</span>
-<span id="cb116-2"><a href="chapter-statistics.html#cb116-2" tabindex="-1"></a>cor_test</span>
-<span id="cb116-3"><a href="chapter-statistics.html#cb116-3" tabindex="-1"></a>   </span>
-<span id="cb116-4"><a href="chapter-statistics.html#cb116-4" tabindex="-1"></a>    Pearson<span class="st">'s product-moment correlation</span></span>
-<span id="cb116-5"><a href="chapter-statistics.html#cb116-5" tabindex="-1"></a><span class="st">   </span></span>
-<span id="cb116-6"><a href="chapter-statistics.html#cb116-6" tabindex="-1"></a><span class="st">   data:  diamonds$carat and diamonds$price</span></span>
-<span id="cb116-7"><a href="chapter-statistics.html#cb116-7" tabindex="-1"></a><span class="st">   t = 551.41, df = 53938, p-value &lt; 2.2e-16</span></span>
-<span id="cb116-8"><a href="chapter-statistics.html#cb116-8" tabindex="-1"></a><span class="st">   alternative hypothesis: true correlation is not equal to 0</span></span>
-<span id="cb116-9"><a href="chapter-statistics.html#cb116-9" tabindex="-1"></a><span class="st">   95 percent confidence interval:</span></span>
-<span id="cb116-10"><a href="chapter-statistics.html#cb116-10" tabindex="-1"></a><span class="st">    0.9203098 0.9228530</span></span>
-<span id="cb116-11"><a href="chapter-statistics.html#cb116-11" tabindex="-1"></a><span class="st">   sample estimates:</span></span>
-<span id="cb116-12"><a href="chapter-statistics.html#cb116-12" tabindex="-1"></a><span class="st">         cor </span></span>
-<span id="cb116-13"><a href="chapter-statistics.html#cb116-13" tabindex="-1"></a><span class="st">   0.9215913</span></span></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="chapter-statistics.html#cb118-1" tabindex="-1"></a>cor_test <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(diamonds<span class="sc">$</span>carat, diamonds<span class="sc">$</span>price)</span>
+<span id="cb118-2"><a href="chapter-statistics.html#cb118-2" tabindex="-1"></a>cor_test</span>
+<span id="cb118-3"><a href="chapter-statistics.html#cb118-3" tabindex="-1"></a>   </span>
+<span id="cb118-4"><a href="chapter-statistics.html#cb118-4" tabindex="-1"></a>    Pearson<span class="st">'s product-moment correlation</span></span>
+<span id="cb118-5"><a href="chapter-statistics.html#cb118-5" tabindex="-1"></a><span class="st">   </span></span>
+<span id="cb118-6"><a href="chapter-statistics.html#cb118-6" tabindex="-1"></a><span class="st">   data:  diamonds$carat and diamonds$price</span></span>
+<span id="cb118-7"><a href="chapter-statistics.html#cb118-7" tabindex="-1"></a><span class="st">   t = 551.41, df = 53938, p-value &lt; 2.2e-16</span></span>
+<span id="cb118-8"><a href="chapter-statistics.html#cb118-8" tabindex="-1"></a><span class="st">   alternative hypothesis: true correlation is not equal to 0</span></span>
+<span id="cb118-9"><a href="chapter-statistics.html#cb118-9" tabindex="-1"></a><span class="st">   95 percent confidence interval:</span></span>
+<span id="cb118-10"><a href="chapter-statistics.html#cb118-10" tabindex="-1"></a><span class="st">    0.9203098 0.9228530</span></span>
+<span id="cb118-11"><a href="chapter-statistics.html#cb118-11" tabindex="-1"></a><span class="st">   sample estimates:</span></span>
+<span id="cb118-12"><a href="chapter-statistics.html#cb118-12" tabindex="-1"></a><span class="st">         cor </span></span>
+<span id="cb118-13"><a href="chapter-statistics.html#cb118-13" tabindex="-1"></a><span class="st">   0.9215913</span></span></code></pre></div>
 <p>The output of the correlation test includes the <strong>p-value</strong>, which quantifies the evidence against the null hypothesis. If the p-value = 0 is smaller than the significance level (<span class="math inline">\(\alpha = 0.05\)</span>), we reject <span class="math inline">\(H_0\)</span>. In this case, the test result indicates strong evidence of a significant relationship between <strong><code>carat</code></strong> and <strong><code>price</code></strong>.</p>
 <p>The test output also provides additional insights:</p>
 <ul>
@@ -808,7 +808,7 @@ Mathematically:<br><span class="math display">\[
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Uncovering Data Science with R</strong>" was written by Reza Mohammadi. It was last built on 2025-02-08.</p>
+    <p>"<strong>Uncovering Data Science with R</strong>" was written by Reza Mohammadi. It was last built on 2025-02-09.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

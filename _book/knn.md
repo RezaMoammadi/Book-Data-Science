@@ -72,10 +72,14 @@ A new data point, represented by a **dark star**, needs to be classified. The fi
 1. **When \(k = 3\)**: The algorithm looks at the 3 closest neighbors to the dark star—two blue squares and one red circle. Since the majority of these neighbors belong to **Class B (blue squares)**, the new point is classified as Class B.  
 2. **When \(k = 6\)**: The algorithm now considers a larger neighborhood of 6 neighbors. In this case, four red circles and two blue squares are the nearest neighbors. With the majority vote shifting to **Class A (red circles)**, the new point is classified as Class A.  
 
-<div class="figure" style="text-align: center">
-<img src="images/knn.png" alt="A two-dimensional toy dataset with two classes (Class A and Class B) and a new data point (dark star), illustrating the k-Nearest Neighbors algorithm with k = 3 and k = 6." width="75%" />
-<p class="caption">(\#fig:knn-image)A two-dimensional toy dataset with two classes (Class A and Class B) and a new data point (dark star), illustrating the k-Nearest Neighbors algorithm with k = 3 and k = 6.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.75\linewidth]{images/knn} 
+
+}
+
+\caption{A two-dimensional toy dataset with two classes (Class A and Class B) and a new data point (dark star), illustrating the k-Nearest Neighbors algorithm with k = 3 and k = 6.}(\#fig:knn-image)
+\end{figure}
 
 **Key Takeaway from the Figure:**  
 
@@ -103,10 +107,14 @@ To further illustrate kNN, consider a toy simulated example from a real-world sc
 - **Green triangles** for Drug B, and  
 - **Blue squares** for Drug C.  
 
-<div class="figure" style="text-align: center">
-<img src="knn_files/figure-html/scatter-plot-ex-drug-1.png" alt="Scatter plot of Age vs. Sodium/Potassium Ratio for 200 patients, with drug type indicated by color and shape." width="85%" />
-<p class="caption">(\#fig:scatter-plot-ex-drug)Scatter plot of Age vs. Sodium/Potassium Ratio for 200 patients, with drug type indicated by color and shape.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.85\linewidth]{knn_files/figure-latex/scatter-plot-ex-drug-1} 
+
+}
+
+\caption{Scatter plot of Age vs. Sodium/Potassium Ratio for 200 patients, with drug type indicated by color and shape.}(\#fig:scatter-plot-ex-drug)
+\end{figure}
 
 Suppose we now have three new patients whose drug classifications are unknown. Their details are as follows:
     
@@ -116,10 +124,14 @@ Suppose we now have three new patients whose drug classifications are unknown. T
 
 These patients are represented as **orange circles** in Figure \@ref(fig:scatter-plot-ex-drug-2). Using kNN, we will classify the drug type for each patient.
 
-<div class="figure" style="text-align: center">
-<img src="knn_files/figure-html/scatter-plot-ex-drug-2-1.png" alt="Scatter plot of Age vs. Sodium/Potassium Ratio for 200 patients, with drug type indicated by color and shape. The three new patients are represented by large orange circles." width="85%" />
-<p class="caption">(\#fig:scatter-plot-ex-drug-2)Scatter plot of Age vs. Sodium/Potassium Ratio for 200 patients, with drug type indicated by color and shape. The three new patients are represented by large orange circles.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.85\linewidth]{knn_files/figure-latex/scatter-plot-ex-drug-2-1} 
+
+}
+
+\caption{Scatter plot of Age vs. Sodium/Potassium Ratio for 200 patients, with drug type indicated by color and shape. The three new patients are represented by large orange circles.}(\#fig:scatter-plot-ex-drug-2)
+\end{figure}
 
 For **Patient 1**, who is located deep within a cluster of red-circle points (Drug A), the classification is straightforward: **Drug A**. All the nearest neighbors belong to Drug A, making it an easy decision.
 
@@ -134,10 +146,9 @@ For **Patient 3**, the scenario becomes even more ambiguous:
 - **With \(k = 1\)**: The closest neighbor is a blue square, so the classification is **Drug C**.  
 - **With \(k = 2 or 3\)**: The neighbors belong to multiple classes, resulting in ties or uncertainty.  
 
-<div class="figure">
-<img src="knn_files/figure-html/scatter-plot-ex-drug-3-1.png" alt="Zoom-in plots for the three new patients and their nearest neighbors. The left plot is for Patient 1, the middle plot is for Patient 2, and the right plot is for Patient 3." width="33%" /><img src="knn_files/figure-html/scatter-plot-ex-drug-3-2.png" alt="Zoom-in plots for the three new patients and their nearest neighbors. The left plot is for Patient 1, the middle plot is for Patient 2, and the right plot is for Patient 3." width="33%" /><img src="knn_files/figure-html/scatter-plot-ex-drug-3-3.png" alt="Zoom-in plots for the three new patients and their nearest neighbors. The left plot is for Patient 1, the middle plot is for Patient 2, and the right plot is for Patient 3." width="33%" />
-<p class="caption">(\#fig:scatter-plot-ex-drug-3)Zoom-in plots for the three new patients and their nearest neighbors. The left plot is for Patient 1, the middle plot is for Patient 2, and the right plot is for Patient 3.</p>
-</div>
+\begin{figure}
+\includegraphics[width=0.33\linewidth]{knn_files/figure-latex/scatter-plot-ex-drug-3-1} \includegraphics[width=0.33\linewidth]{knn_files/figure-latex/scatter-plot-ex-drug-3-2} \includegraphics[width=0.33\linewidth]{knn_files/figure-latex/scatter-plot-ex-drug-3-3} \caption{Zoom-in plots for the three new patients and their nearest neighbors. The left plot is for Patient 1, the middle plot is for Patient 2, and the right plot is for Patient 3.}(\#fig:scatter-plot-ex-drug-3)
+\end{figure}
 
 These examples illustrate several key considerations for kNN:
 
@@ -210,10 +221,14 @@ To illustrate, let’s use the **churn** dataset and evaluate the accuracy of th
    Setting levels: reference = "yes", case = "no"
 ```
 
-<div class="figure" style="text-align: center">
-<img src="knn_files/figure-html/kNN-plot-1.png" alt="Accuracy of the k-Nearest Neighbors algorithm for different values of k in the range from 1 to 30." width="85%" />
-<p class="caption">(\#fig:kNN-plot)Accuracy of the k-Nearest Neighbors algorithm for different values of k in the range from 1 to 30.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.85\linewidth]{knn_files/figure-latex/kNN-plot-1} 
+
+}
+
+\caption{Accuracy of the k-Nearest Neighbors algorithm for different values of k in the range from 1 to 30.}(\#fig:kNN-plot)
+\end{figure}
 
 From the plot, we observe that the accuracy of the kNN algorithm fluctuates as \( k \) increases. In this example, the highest accuracy is achieved when \( k = 5 \). At this value, the kNN algorithm balances sensitivity to local patterns with robustness to noise, delivering an accuracy of 0.932 and an error rate of 0.068.
 
@@ -467,7 +482,9 @@ kNN.plot(formula = formula, train = train_scaled, test = test_scaled,
    Setting levels: reference = "yes", case = "no"
 ```
 
-<img src="knn_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{knn_files/figure-latex/unnamed-chunk-8-1} \end{center}
 
 The `kNN.plot()` function generates a plot of accuracy versus \( k \) values, allowing us to visually identify the optimal \( k \). In this case, the highest accuracy is achieved at \( k = 5 \), striking a balance between sensitivity to local patterns (small \( k \)) and robustness to noise (large \( k \)).
 

@@ -69,22 +69,7 @@
 </form>
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
-        <ul class="book-toc list-unstyled">
-<li><a class="" href="index.html">Preface</a></li>
-<li><a class="" href="chapter-into-R.html"><span class="header-section-number">1</span> The Basics for R</a></li>
-<li><a class="" href="chapter-intro-DS.html"><span class="header-section-number">2</span> Introduction to Data Science</a></li>
-<li><a class="" href="chapter-data-prep.html"><span class="header-section-number">3</span> Data Preparation</a></li>
-<li><a class="active" href="chapter-EDA.html"><span class="header-section-number">4</span> Exploratory Data Analysis</a></li>
-<li><a class="" href="chapter-statistics.html"><span class="header-section-number">5</span> Statistical Inference and Hypothesis Testing</a></li>
-<li><a class="" href="chapter-modeling.html"><span class="header-section-number">6</span> Preparing Data for Modeling</a></li>
-<li><a class="" href="chapter-knn.html"><span class="header-section-number">7</span> Classification using k-Nearest Neighbors</a></li>
-<li><a class="" href="chapter-evaluation.html"><span class="header-section-number">8</span> Model Evaluation</a></li>
-<li><a class="" href="chapter-bayes.html"><span class="header-section-number">9</span> Naive Bayes Classifier</a></li>
-<li><a class="" href="chapter-regression.html"><span class="header-section-number">10</span> Regression Modeling: From Basics to Advanced Techniques</a></li>
-<li><a class="" href="chapter-tree.html"><span class="header-section-number">11</span> Decision Trees and Random Forests</a></li>
-<li><a class="" href="chapter-nn.html"><span class="header-section-number">12</span> Neural Networks: The Building Blocks of Artificial Intelligence</a></li>
-<li><a class="" href="chapter-cluster.html"><span class="header-section-number">13</span> Clustering</a></li>
-</ul>
+        <ul class="book-toc list-unstyled"><li><a class="" href="index.html"><span class="header-section-number">Chapter 4</span> Exploratory Data Analysis</a></li></ul>
 
         <div class="book-extra">
           <p><a id="book-repo" href="https://github.com/RezaMoammadi/Book-Data-Science">View book source <i class="fab fa-github"></i></a></p>
@@ -95,7 +80,7 @@
 <h1>
 <span class="header-section-number">4</span> Exploratory Data Analysis<a class="anchor" aria-label="anchor" href="#chapter-EDA"><i class="fas fa-link"></i></a>
 </h1>
-<p><strong>Exploratory Data Analysis (EDA)</strong> is the process of examining and exploring data to gain insights, identify patterns, and understand relationships between variables—all before applying formal hypotheses or machine learning algorithms. This critical step allows us to “get to know” the data, using a mix of summary statistics, visualizations, and preliminary analysis to reveal structure and potential insights. EDA is foundational to data science because it helps generate hypotheses and informs the decisions we’ll make in later stages of analysis.</p>
+<p><em>Exploratory Data Analysis (EDA)</em> is the process of examining and exploring data to gain insights, identify patterns, and understand relationships between variables—all before applying formal hypotheses or machine learning algorithms. This critical step allows us to “get to know” the data, using a mix of summary statistics, visualizations, and preliminary analysis to reveal structure and potential insights. EDA is foundational to data science because it helps generate hypotheses and informs the decisions we’ll make in later stages of analysis.</p>
 <p>EDA is not a rigid process with strict rules; rather, it is a flexible, iterative approach that encourages curiosity and open-ended exploration. At this stage, it’s important to remain open to investigating any ideas that arise. Some explorations may lead to dead ends, but others can uncover valuable insights that guide the rest of the project. Over time, as you become more familiar with the data, you’ll naturally focus on the most promising leads, which will help shape your final analysis and conclusions.</p>
 <p>EDA is primarily about exploration and discovery—it’s a way to find clues and patterns in the data rather than proving any particular theory. Using tools like summary statistics, visualizations, and basic correlations, we can generate hypotheses and start to understand the underlying structure of the data. However, these insights are just preliminary observations, not formal conclusions; they provide direction for further analysis, where more rigorous testing can confirm or refine what we uncover during EDA.</p>
 <p>When interpreting patterns in EDA, it’s essential to balance statistical significance with practical relevance. In large datasets, even small correlations or patterns may be statistically significant, but they might not have meaningful implications for the problem at hand. For example, a variable might show a slight but statistically significant association with churn; however, if this association is weak, it may not be actionable in a real-world context. EDA encourages us to consider both perspectives: while statistical tests can highlight interesting relationships, we also need to interpret these findings in a way that aligns with practical goals and domain knowledge.</p>
@@ -122,29 +107,87 @@
 <h2>
 <span class="header-section-number">4.2</span> Types of EDA Questions<a class="anchor" aria-label="anchor" href="#types-of-eda-questions"><i class="fas fa-link"></i></a>
 </h2>
-<p>When performing EDA, it’s helpful to approach the data with specific questions in mind. These questions typically fall into two broad categories: <strong>univariate questions</strong> and <strong>multivariate questions</strong>.</p>
-<ol style="list-style-type: decimal">
-<li>
-<strong>Univariate Questions</strong>: These questions focus on understanding the distribution of individual variables. Examples include:</li>
-</ol>
+<p>When performing exploratory data analysis, it is useful to approach the dataset with structured questions. These questions generally fall into two broad categories: <strong>univariate analysis</strong> and <strong>multivariate analysis</strong>.</p>
+<p>Univariate analysis focuses on individual variables, examining their distributions and characteristics. Typical questions include:</p>
 <ul>
-<li>What is the distribution of the target variable?</li>
-<li>How are predictor variables like <strong>age</strong>, <strong>income</strong>, or <strong>education</strong> distributed?</li>
-<li>Are there any missing values, and how are they distributed across variables?</li>
+<li>What is the distribution of the target variable?<br>
+</li>
+<li>How are numerical variables such as age, income, or education distributed?<br>
+</li>
+<li>Are there missing values, and how are they distributed across variables?</li>
 </ul>
-<p>Answering univariate questions helps you understand each variable in isolation, which is essential for detecting skewness, outliers, and data ranges. You can use <strong>histograms</strong>, <strong>box plots</strong>, and <strong>summary statistics</strong> to explore these characteristics.</p>
-<ol start="2" style="list-style-type: decimal">
-<li>
-<strong>Multivariate Questions</strong>: These questions examine the relationships between multiple variables. Examples include:</li>
-</ol>
+<p>This type of analysis helps identify skewness, outliers, and data ranges. The most commonly used tools include histograms, box plots, and summary statistics such as mean, median, quartiles, and standard deviation.</p>
+<p>Multivariate analysis explores relationships between multiple variables. Some relevant questions include:</p>
 <ul>
-<li>What is the relationship between the target variable and predictors?</li>
-<li>Are certain predictors correlated with each other, indicating potential multicollinearity?</li>
-<li>Is there any relationship between missing values in different variables?</li>
+<li>What is the relationship between the target variable and predictor variables?<br>
+</li>
+<li>Are certain predictors correlated, indicating potential multicollinearity?<br>
+</li>
+<li>Is there an interaction between categorical and numerical variables?</li>
 </ul>
-<p>To answer multivariate questions, use <strong>scatter plots</strong>, <strong>correlation matrices</strong>, and <strong>pair plots</strong> to visualize relationships. These tools reveal interactions between features and can help you detect patterns that could be important for building predictive models.</p>
-<p>These questions guide the exploratory process and allow you to uncover insights that will inform later analysis. Keep in mind that EDA is primarily about exploration—finding clues rather than proving theories.</p>
-<p>Note that to answer to these types of questions we can use different types of visualizations and statistical summaries. But <em>how to we know which visualization to use?</em> This is a question that I hear a lot from my students and the answer it: <em>It depends on the type of data you have and the question you want to answer</em>. To be more specific, in the following sections we will see some examples of visualizations and statistical summaries that can be used to answer univariate and multi-variate questions. And we will also see how to use them in practice with the churn dataset. And at the end of this chapter we have a guide line to specificity answer this question.</p>
+<p>To answer these, scatter plots, correlation matrices, and pairwise comparisons are frequently employed. These techniques help detect dependencies between features and provide insights for feature selection in predictive modeling.</p>
+<p>A common challenge in exploratory data analysis is selecting the most appropriate visualization or summary statistic. The choice depends on the type of data and the specific question being explored. The following table summarizes the most effective tools for various exploratory tasks:</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="24%">
+<col width="24%">
+<col width="50%">
+</colgroup>
+<thead><tr>
+<th>Question</th>
+<th>Data Type</th>
+<th>Recommended EDA Tools</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Distribution of a numerical variable</td>
+<td>Numerical (continuous or discrete)</td>
+<td>Histogram, Box Plot, Density Plot, Summary Statistics</td>
+</tr>
+<tr>
+<td>Distribution of a categorical variable</td>
+<td>Categorical</td>
+<td>Bar Chart, Frequency Table</td>
+</tr>
+<tr>
+<td>Detection of outliers</td>
+<td>Numerical</td>
+<td>Box Plot, Histogram, Z-Score Analysis</td>
+</tr>
+<tr>
+<td>Presence of missing values</td>
+<td>Any</td>
+<td>Missing Data Heatmap, Summary Statistics</td>
+</tr>
+<tr>
+<td>Relationship between two numerical variables</td>
+<td>Numerical &amp; Numerical</td>
+<td>Scatter Plot, Correlation Coefficient</td>
+</tr>
+<tr>
+<td>Relationship between a categorical and numerical variable</td>
+<td>Categorical &amp; Numerical</td>
+<td>Box Plot, Violin Plot, Grouped Bar Chart</td>
+</tr>
+<tr>
+<td>Interaction between two categorical variables</td>
+<td>Categorical &amp; Categorical</td>
+<td>Stacked Bar Chart, Mosaic Plot, Contingency Table</td>
+</tr>
+<tr>
+<td>Correlation among numerical variables</td>
+<td>Multiple Numerical</td>
+<td>Correlation Matrix, Pair Plot (Scatterplot Matrix)</td>
+</tr>
+<tr>
+<td>Interactions among multiple variables</td>
+<td>Multiple Variables</td>
+<td>Facet Grid, Regression Plot, Principal Component Analysis (PCA)</td>
+</tr>
+</tbody>
+</table></div>
+<p>As seen in the table, different types of exploratory analysis require different tools. The selection of the appropriate technique depends on whether the goal is to examine a single variable, compare distributions, detect relationships, or explore interactions.</p>
+<p>The subsequent sections provide practical applications of these tools using real-world datasets, including the churn dataset. This structured approach ensures that exploratory data analysis is not just an initial step but a continuous process that refines the understanding of data before statistical modeling and machine learning are applied.</p>
 </div>
 <div id="eda-as-data-storytelling" class="section level2" number="4.3">
 <h2>
@@ -154,7 +197,7 @@
 <p>Many scientific reports, journalistic pieces, and public presentations rely on data storytelling to convey insights effectively. Figures like the ones below demonstrate how data visualization can bring a narrative to life:</p>
 <ul>
 <li>
-<strong>Figure <a href="chapter-EDA.html#fig:EDA-fig-1">4.1</a></strong> illustrates global mean surface temperature changes over the Common Era, using visual cues to communicate a story about temperature anomalies over time. This visualization, taken from <span class="citation">Raphael Neukom et al.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;&lt;span&gt;“Consistent Multi-Decadal Variability in Global Temperature Reconstructions and Simulations over the Common Era,”&lt;/span&gt; &lt;em&gt;Nature Geoscience&lt;/em&gt; 12, no. 8 (2019): 643.&lt;/p&gt;"><sup>4</sup></a></span>, shows how data can be transformed into a compelling visual narrative.</li>
+<strong>Figure <a href="chapter-EDA.html#fig:EDA-fig-1">4.1</a></strong> illustrates global mean surface temperature changes over the Common Era, using visual cues to communicate a story about temperature anomalies over time. This visualization, taken from <span class="citation">Raphael Neukom et al.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;&lt;span&gt;“Consistent Multi-Decadal Variability in Global Temperature Reconstructions and Simulations over the Common Era,”&lt;/span&gt; &lt;em&gt;Nature Geoscience&lt;/em&gt; 12, no. 8 (2019): 643.&lt;/p&gt;"><sup>1</sup></a></span>, shows how data can be transformed into a compelling visual narrative.</li>
 </ul>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:EDA-fig-1"></span>
@@ -168,7 +211,7 @@ Figure 4.1: Global mean surface temperature history over the Common Era. Tempera
 </ul>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:EDA-fig-2"></span>
-<img src="EDA_files/figure-html/EDA-fig-2-1.gif" alt="Animated scatter plot of fertility rate and life expectancy at birth for different regions of the world from 1960 to 2015." width="80%"><p class="caption">
+<img src="EDA_files/figure-html/EDA-fig-2-1.gif" alt="Animated scatter plot of fertility rate and life expectancy at birth for different regions of the world from 1960 to 2015." width="100%"><p class="caption">
 Figure 4.2: Animated scatter plot of fertility rate and life expectancy at birth for different regions of the world from 1960 to 2015.
 </p>
 </div>
@@ -199,7 +242,7 @@ Figure 4.2: Animated scatter plot of fertility rate and life expectancy at birth
 <li>
 <strong>How</strong> do we stop them from leaving the company?</li>
 </ul>
-<p>EDA will help us to answer these questions and provide insights to the company to take actions.</p>
+<p>EDA will help us to answer these questions and provide insights to the company to take actions. In Chapter @ref{chapter-knn} we will use the churn dataset to build a predictive model that can identify customers likely to churn. But before we build the model, we need to understand the data and identify patterns that may help predict customer behavior. This is where EDA comes in.</p>
 </div>
 <div id="data-understanding" class="section level3" number="4.4.2">
 <h3>
@@ -252,77 +295,77 @@ The 20 variables are:</p>
 </ol>
 </blockquote>
 <p>We import the dataset in <strong>R</strong> as follows:</p>
-<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.uva.nl/profile/a.mohammadi">liver</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">churn</span><span class="op">)</span> <span class="co"># load the "churn" dataset</span></span></code></pre></div>
 <p>To see the overview of the dataset in <strong>R</strong> we are using function <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> as follows:</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="chapter-EDA.html#cb83-1" tabindex="-1"></a><span class="fu">str</span>(churn)   <span class="co"># Compactly display the structure of the data</span></span>
-<span id="cb83-2"><a href="chapter-EDA.html#cb83-2" tabindex="-1"></a>   <span class="st">'data.frame'</span><span class="sc">:</span>    <span class="dv">5000</span> obs. of  <span class="dv">20</span> variables<span class="sc">:</span></span>
-<span id="cb83-3"><a href="chapter-EDA.html#cb83-3" tabindex="-1"></a>    <span class="er">$</span> state         <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">51</span> levels <span class="st">"AK"</span>,<span class="st">"AL"</span>,<span class="st">"AR"</span>,..<span class="sc">:</span> <span class="dv">17</span> <span class="dv">36</span> <span class="dv">32</span> <span class="dv">36</span> <span class="dv">37</span> <span class="dv">2</span> <span class="dv">20</span> <span class="dv">25</span> <span class="dv">19</span> <span class="dv">50</span> ...</span>
-<span id="cb83-4"><a href="chapter-EDA.html#cb83-4" tabindex="-1"></a>    <span class="sc">$</span> area.code     <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">3</span> levels <span class="st">"area_code_408"</span>,..<span class="sc">:</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> ...</span>
-<span id="cb83-5"><a href="chapter-EDA.html#cb83-5" tabindex="-1"></a>    <span class="sc">$</span> account.length<span class="sc">:</span> int  <span class="dv">128</span> <span class="dv">107</span> <span class="dv">137</span> <span class="dv">84</span> <span class="dv">75</span> <span class="dv">118</span> <span class="dv">121</span> <span class="dv">147</span> <span class="dv">117</span> <span class="dv">141</span> ...</span>
-<span id="cb83-6"><a href="chapter-EDA.html#cb83-6" tabindex="-1"></a>    <span class="sc">$</span> voice.plan    <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"yes"</span>,<span class="st">"no"</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> ...</span>
-<span id="cb83-7"><a href="chapter-EDA.html#cb83-7" tabindex="-1"></a>    <span class="sc">$</span> voice.messages<span class="sc">:</span> int  <span class="dv">25</span> <span class="dv">26</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">24</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">37</span> ...</span>
-<span id="cb83-8"><a href="chapter-EDA.html#cb83-8" tabindex="-1"></a>    <span class="sc">$</span> intl.plan     <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"yes"</span>,<span class="st">"no"</span><span class="sc">:</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> ...</span>
-<span id="cb83-9"><a href="chapter-EDA.html#cb83-9" tabindex="-1"></a>    <span class="sc">$</span> intl.mins     <span class="sc">:</span> num  <span class="dv">10</span> <span class="fl">13.7</span> <span class="fl">12.2</span> <span class="fl">6.6</span> <span class="fl">10.1</span> <span class="fl">6.3</span> <span class="fl">7.5</span> <span class="fl">7.1</span> <span class="fl">8.7</span> <span class="fl">11.2</span> ...</span>
-<span id="cb83-10"><a href="chapter-EDA.html#cb83-10" tabindex="-1"></a>    <span class="sc">$</span> intl.calls    <span class="sc">:</span> int  <span class="dv">3</span> <span class="dv">3</span> <span class="dv">5</span> <span class="dv">7</span> <span class="dv">3</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">6</span> <span class="dv">4</span> <span class="dv">5</span> ...</span>
-<span id="cb83-11"><a href="chapter-EDA.html#cb83-11" tabindex="-1"></a>    <span class="sc">$</span> intl.charge   <span class="sc">:</span> num  <span class="fl">2.7</span> <span class="fl">3.7</span> <span class="fl">3.29</span> <span class="fl">1.78</span> <span class="fl">2.73</span> <span class="fl">1.7</span> <span class="fl">2.03</span> <span class="fl">1.92</span> <span class="fl">2.35</span> <span class="fl">3.02</span> ...</span>
-<span id="cb83-12"><a href="chapter-EDA.html#cb83-12" tabindex="-1"></a>    <span class="sc">$</span> day.mins      <span class="sc">:</span> num  <span class="dv">265</span> <span class="dv">162</span> <span class="dv">243</span> <span class="dv">299</span> <span class="dv">167</span> ...</span>
-<span id="cb83-13"><a href="chapter-EDA.html#cb83-13" tabindex="-1"></a>    <span class="sc">$</span> day.calls     <span class="sc">:</span> int  <span class="dv">110</span> <span class="dv">123</span> <span class="dv">114</span> <span class="dv">71</span> <span class="dv">113</span> <span class="dv">98</span> <span class="dv">88</span> <span class="dv">79</span> <span class="dv">97</span> <span class="dv">84</span> ...</span>
-<span id="cb83-14"><a href="chapter-EDA.html#cb83-14" tabindex="-1"></a>    <span class="sc">$</span> day.charge    <span class="sc">:</span> num  <span class="fl">45.1</span> <span class="fl">27.5</span> <span class="fl">41.4</span> <span class="fl">50.9</span> <span class="fl">28.3</span> ...</span>
-<span id="cb83-15"><a href="chapter-EDA.html#cb83-15" tabindex="-1"></a>    <span class="sc">$</span> eve.mins      <span class="sc">:</span> num  <span class="fl">197.4</span> <span class="fl">195.5</span> <span class="fl">121.2</span> <span class="fl">61.9</span> <span class="fl">148.3</span> ...</span>
-<span id="cb83-16"><a href="chapter-EDA.html#cb83-16" tabindex="-1"></a>    <span class="sc">$</span> eve.calls     <span class="sc">:</span> int  <span class="dv">99</span> <span class="dv">103</span> <span class="dv">110</span> <span class="dv">88</span> <span class="dv">122</span> <span class="dv">101</span> <span class="dv">108</span> <span class="dv">94</span> <span class="dv">80</span> <span class="dv">111</span> ...</span>
-<span id="cb83-17"><a href="chapter-EDA.html#cb83-17" tabindex="-1"></a>    <span class="sc">$</span> eve.charge    <span class="sc">:</span> num  <span class="fl">16.78</span> <span class="fl">16.62</span> <span class="fl">10.3</span> <span class="fl">5.26</span> <span class="fl">12.61</span> ...</span>
-<span id="cb83-18"><a href="chapter-EDA.html#cb83-18" tabindex="-1"></a>    <span class="sc">$</span> night.mins    <span class="sc">:</span> num  <span class="dv">245</span> <span class="dv">254</span> <span class="dv">163</span> <span class="dv">197</span> <span class="dv">187</span> ...</span>
-<span id="cb83-19"><a href="chapter-EDA.html#cb83-19" tabindex="-1"></a>    <span class="sc">$</span> night.calls   <span class="sc">:</span> int  <span class="dv">91</span> <span class="dv">103</span> <span class="dv">104</span> <span class="dv">89</span> <span class="dv">121</span> <span class="dv">118</span> <span class="dv">118</span> <span class="dv">96</span> <span class="dv">90</span> <span class="dv">97</span> ...</span>
-<span id="cb83-20"><a href="chapter-EDA.html#cb83-20" tabindex="-1"></a>    <span class="sc">$</span> night.charge  <span class="sc">:</span> num  <span class="fl">11.01</span> <span class="fl">11.45</span> <span class="fl">7.32</span> <span class="fl">8.86</span> <span class="fl">8.41</span> ...</span>
-<span id="cb83-21"><a href="chapter-EDA.html#cb83-21" tabindex="-1"></a>    <span class="sc">$</span> customer.calls<span class="sc">:</span> int  <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">0</span> ...</span>
-<span id="cb83-22"><a href="chapter-EDA.html#cb83-22" tabindex="-1"></a>    <span class="sc">$</span> churn         <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"yes"</span>,<span class="st">"no"</span><span class="sc">:</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> ...</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="chapter-EDA.html#cb2-1" tabindex="-1"></a><span class="fu">str</span>(churn)   <span class="co"># Compactly display the structure of the data</span></span>
+<span id="cb2-2"><a href="chapter-EDA.html#cb2-2" tabindex="-1"></a>   <span class="st">'data.frame'</span><span class="sc">:</span>    <span class="dv">5000</span> obs. of  <span class="dv">20</span> variables<span class="sc">:</span></span>
+<span id="cb2-3"><a href="chapter-EDA.html#cb2-3" tabindex="-1"></a>    <span class="er">$</span> state         <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">51</span> levels <span class="st">"AK"</span>,<span class="st">"AL"</span>,<span class="st">"AR"</span>,..<span class="sc">:</span> <span class="dv">17</span> <span class="dv">36</span> <span class="dv">32</span> <span class="dv">36</span> <span class="dv">37</span> <span class="dv">2</span> <span class="dv">20</span> <span class="dv">25</span> <span class="dv">19</span> <span class="dv">50</span> ...</span>
+<span id="cb2-4"><a href="chapter-EDA.html#cb2-4" tabindex="-1"></a>    <span class="sc">$</span> area.code     <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">3</span> levels <span class="st">"area_code_408"</span>,..<span class="sc">:</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> ...</span>
+<span id="cb2-5"><a href="chapter-EDA.html#cb2-5" tabindex="-1"></a>    <span class="sc">$</span> account.length<span class="sc">:</span> int  <span class="dv">128</span> <span class="dv">107</span> <span class="dv">137</span> <span class="dv">84</span> <span class="dv">75</span> <span class="dv">118</span> <span class="dv">121</span> <span class="dv">147</span> <span class="dv">117</span> <span class="dv">141</span> ...</span>
+<span id="cb2-6"><a href="chapter-EDA.html#cb2-6" tabindex="-1"></a>    <span class="sc">$</span> voice.plan    <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"yes"</span>,<span class="st">"no"</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> ...</span>
+<span id="cb2-7"><a href="chapter-EDA.html#cb2-7" tabindex="-1"></a>    <span class="sc">$</span> voice.messages<span class="sc">:</span> int  <span class="dv">25</span> <span class="dv">26</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">24</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">37</span> ...</span>
+<span id="cb2-8"><a href="chapter-EDA.html#cb2-8" tabindex="-1"></a>    <span class="sc">$</span> intl.plan     <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"yes"</span>,<span class="st">"no"</span><span class="sc">:</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> ...</span>
+<span id="cb2-9"><a href="chapter-EDA.html#cb2-9" tabindex="-1"></a>    <span class="sc">$</span> intl.mins     <span class="sc">:</span> num  <span class="dv">10</span> <span class="fl">13.7</span> <span class="fl">12.2</span> <span class="fl">6.6</span> <span class="fl">10.1</span> <span class="fl">6.3</span> <span class="fl">7.5</span> <span class="fl">7.1</span> <span class="fl">8.7</span> <span class="fl">11.2</span> ...</span>
+<span id="cb2-10"><a href="chapter-EDA.html#cb2-10" tabindex="-1"></a>    <span class="sc">$</span> intl.calls    <span class="sc">:</span> int  <span class="dv">3</span> <span class="dv">3</span> <span class="dv">5</span> <span class="dv">7</span> <span class="dv">3</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">6</span> <span class="dv">4</span> <span class="dv">5</span> ...</span>
+<span id="cb2-11"><a href="chapter-EDA.html#cb2-11" tabindex="-1"></a>    <span class="sc">$</span> intl.charge   <span class="sc">:</span> num  <span class="fl">2.7</span> <span class="fl">3.7</span> <span class="fl">3.29</span> <span class="fl">1.78</span> <span class="fl">2.73</span> <span class="fl">1.7</span> <span class="fl">2.03</span> <span class="fl">1.92</span> <span class="fl">2.35</span> <span class="fl">3.02</span> ...</span>
+<span id="cb2-12"><a href="chapter-EDA.html#cb2-12" tabindex="-1"></a>    <span class="sc">$</span> day.mins      <span class="sc">:</span> num  <span class="dv">265</span> <span class="dv">162</span> <span class="dv">243</span> <span class="dv">299</span> <span class="dv">167</span> ...</span>
+<span id="cb2-13"><a href="chapter-EDA.html#cb2-13" tabindex="-1"></a>    <span class="sc">$</span> day.calls     <span class="sc">:</span> int  <span class="dv">110</span> <span class="dv">123</span> <span class="dv">114</span> <span class="dv">71</span> <span class="dv">113</span> <span class="dv">98</span> <span class="dv">88</span> <span class="dv">79</span> <span class="dv">97</span> <span class="dv">84</span> ...</span>
+<span id="cb2-14"><a href="chapter-EDA.html#cb2-14" tabindex="-1"></a>    <span class="sc">$</span> day.charge    <span class="sc">:</span> num  <span class="fl">45.1</span> <span class="fl">27.5</span> <span class="fl">41.4</span> <span class="fl">50.9</span> <span class="fl">28.3</span> ...</span>
+<span id="cb2-15"><a href="chapter-EDA.html#cb2-15" tabindex="-1"></a>    <span class="sc">$</span> eve.mins      <span class="sc">:</span> num  <span class="fl">197.4</span> <span class="fl">195.5</span> <span class="fl">121.2</span> <span class="fl">61.9</span> <span class="fl">148.3</span> ...</span>
+<span id="cb2-16"><a href="chapter-EDA.html#cb2-16" tabindex="-1"></a>    <span class="sc">$</span> eve.calls     <span class="sc">:</span> int  <span class="dv">99</span> <span class="dv">103</span> <span class="dv">110</span> <span class="dv">88</span> <span class="dv">122</span> <span class="dv">101</span> <span class="dv">108</span> <span class="dv">94</span> <span class="dv">80</span> <span class="dv">111</span> ...</span>
+<span id="cb2-17"><a href="chapter-EDA.html#cb2-17" tabindex="-1"></a>    <span class="sc">$</span> eve.charge    <span class="sc">:</span> num  <span class="fl">16.78</span> <span class="fl">16.62</span> <span class="fl">10.3</span> <span class="fl">5.26</span> <span class="fl">12.61</span> ...</span>
+<span id="cb2-18"><a href="chapter-EDA.html#cb2-18" tabindex="-1"></a>    <span class="sc">$</span> night.mins    <span class="sc">:</span> num  <span class="dv">245</span> <span class="dv">254</span> <span class="dv">163</span> <span class="dv">197</span> <span class="dv">187</span> ...</span>
+<span id="cb2-19"><a href="chapter-EDA.html#cb2-19" tabindex="-1"></a>    <span class="sc">$</span> night.calls   <span class="sc">:</span> int  <span class="dv">91</span> <span class="dv">103</span> <span class="dv">104</span> <span class="dv">89</span> <span class="dv">121</span> <span class="dv">118</span> <span class="dv">118</span> <span class="dv">96</span> <span class="dv">90</span> <span class="dv">97</span> ...</span>
+<span id="cb2-20"><a href="chapter-EDA.html#cb2-20" tabindex="-1"></a>    <span class="sc">$</span> night.charge  <span class="sc">:</span> num  <span class="fl">11.01</span> <span class="fl">11.45</span> <span class="fl">7.32</span> <span class="fl">8.86</span> <span class="fl">8.41</span> ...</span>
+<span id="cb2-21"><a href="chapter-EDA.html#cb2-21" tabindex="-1"></a>    <span class="sc">$</span> customer.calls<span class="sc">:</span> int  <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">0</span> ...</span>
+<span id="cb2-22"><a href="chapter-EDA.html#cb2-22" tabindex="-1"></a>    <span class="sc">$</span> churn         <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"yes"</span>,<span class="st">"no"</span><span class="sc">:</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> ...</span></code></pre></div>
 <p>It shows that data are as a <em>data.frame</em> object in <strong>R</strong> with 5000 observations and 20 variables. The last column (with name <em>churn</em>) is the <em>target variable</em> that indicates whether customers churned (left the company) or not.</p>
 <p>By using the function <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> in <strong>R</strong>, we can see the summary of the dataset as follows</p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="chapter-EDA.html#cb84-1" tabindex="-1"></a><span class="fu">summary</span>(churn)</span>
-<span id="cb84-2"><a href="chapter-EDA.html#cb84-2" tabindex="-1"></a>        state              area.code    account.length  voice.plan</span>
-<span id="cb84-3"><a href="chapter-EDA.html#cb84-3" tabindex="-1"></a>    WV     <span class="sc">:</span> <span class="dv">158</span>   area_code_408<span class="sc">:</span><span class="dv">1259</span>   Min.   <span class="sc">:</span>  <span class="fl">1.0</span>   yes<span class="sc">:</span><span class="dv">1323</span>  </span>
-<span id="cb84-4"><a href="chapter-EDA.html#cb84-4" tabindex="-1"></a>    MN     <span class="sc">:</span> <span class="dv">125</span>   area_code_415<span class="sc">:</span><span class="dv">2495</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span> <span class="fl">73.0</span>   no <span class="sc">:</span><span class="dv">3677</span>  </span>
-<span id="cb84-5"><a href="chapter-EDA.html#cb84-5" tabindex="-1"></a>    AL     <span class="sc">:</span> <span class="dv">124</span>   area_code_510<span class="sc">:</span><span class="dv">1246</span>   Median <span class="sc">:</span><span class="fl">100.0</span>             </span>
-<span id="cb84-6"><a href="chapter-EDA.html#cb84-6" tabindex="-1"></a>    ID     <span class="sc">:</span> <span class="dv">119</span>                        Mean   <span class="sc">:</span><span class="fl">100.3</span>             </span>
-<span id="cb84-7"><a href="chapter-EDA.html#cb84-7" tabindex="-1"></a>    VA     <span class="sc">:</span> <span class="dv">118</span>                        <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">127.0</span>             </span>
-<span id="cb84-8"><a href="chapter-EDA.html#cb84-8" tabindex="-1"></a>    OH     <span class="sc">:</span> <span class="dv">116</span>                        Max.   <span class="sc">:</span><span class="fl">243.0</span>             </span>
-<span id="cb84-9"><a href="chapter-EDA.html#cb84-9" tabindex="-1"></a>    (Other)<span class="sc">:</span><span class="dv">4240</span>                                                  </span>
-<span id="cb84-10"><a href="chapter-EDA.html#cb84-10" tabindex="-1"></a>    voice.messages   intl.plan    intl.mins       intl.calls      intl.charge   </span>
-<span id="cb84-11"><a href="chapter-EDA.html#cb84-11" tabindex="-1"></a>    Min.   <span class="sc">:</span> <span class="fl">0.000</span>   yes<span class="sc">:</span> <span class="dv">473</span>   Min.   <span class="sc">:</span> <span class="fl">0.00</span>   Min.   <span class="sc">:</span> <span class="fl">0.000</span>   Min.   <span class="sc">:</span><span class="fl">0.000</span>  </span>
-<span id="cb84-12"><a href="chapter-EDA.html#cb84-12" tabindex="-1"></a>    <span class="dv">1</span>st Qu.<span class="sc">:</span> <span class="fl">0.000</span>   no <span class="sc">:</span><span class="dv">4527</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span> <span class="fl">8.50</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span> <span class="fl">3.000</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">2.300</span>  </span>
-<span id="cb84-13"><a href="chapter-EDA.html#cb84-13" tabindex="-1"></a>    Median <span class="sc">:</span> <span class="fl">0.000</span>              Median <span class="sc">:</span><span class="fl">10.30</span>   Median <span class="sc">:</span> <span class="fl">4.000</span>   Median <span class="sc">:</span><span class="fl">2.780</span>  </span>
-<span id="cb84-14"><a href="chapter-EDA.html#cb84-14" tabindex="-1"></a>    Mean   <span class="sc">:</span> <span class="fl">7.755</span>              Mean   <span class="sc">:</span><span class="fl">10.26</span>   Mean   <span class="sc">:</span> <span class="fl">4.435</span>   Mean   <span class="sc">:</span><span class="fl">2.771</span>  </span>
-<span id="cb84-15"><a href="chapter-EDA.html#cb84-15" tabindex="-1"></a>    <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">17.000</span>              <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">12.00</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span> <span class="fl">6.000</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">3.240</span>  </span>
-<span id="cb84-16"><a href="chapter-EDA.html#cb84-16" tabindex="-1"></a>    Max.   <span class="sc">:</span><span class="fl">52.000</span>              Max.   <span class="sc">:</span><span class="fl">20.00</span>   Max.   <span class="sc">:</span><span class="fl">20.000</span>   Max.   <span class="sc">:</span><span class="fl">5.400</span>  </span>
-<span id="cb84-17"><a href="chapter-EDA.html#cb84-17" tabindex="-1"></a>                                                                                </span>
-<span id="cb84-18"><a href="chapter-EDA.html#cb84-18" tabindex="-1"></a>       day.mins       day.calls     day.charge       eve.mins       eve.calls    </span>
-<span id="cb84-19"><a href="chapter-EDA.html#cb84-19" tabindex="-1"></a>    Min.   <span class="sc">:</span>  <span class="fl">0.0</span>   Min.   <span class="sc">:</span>  <span class="dv">0</span>   Min.   <span class="sc">:</span> <span class="fl">0.00</span>   Min.   <span class="sc">:</span>  <span class="fl">0.0</span>   Min.   <span class="sc">:</span>  <span class="fl">0.0</span>  </span>
-<span id="cb84-20"><a href="chapter-EDA.html#cb84-20" tabindex="-1"></a>    <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">143.7</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span> <span class="dv">87</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">24.43</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">166.4</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span> <span class="fl">87.0</span>  </span>
-<span id="cb84-21"><a href="chapter-EDA.html#cb84-21" tabindex="-1"></a>    Median <span class="sc">:</span><span class="fl">180.1</span>   Median <span class="sc">:</span><span class="dv">100</span>   Median <span class="sc">:</span><span class="fl">30.62</span>   Median <span class="sc">:</span><span class="fl">201.0</span>   Median <span class="sc">:</span><span class="fl">100.0</span>  </span>
-<span id="cb84-22"><a href="chapter-EDA.html#cb84-22" tabindex="-1"></a>    Mean   <span class="sc">:</span><span class="fl">180.3</span>   Mean   <span class="sc">:</span><span class="dv">100</span>   Mean   <span class="sc">:</span><span class="fl">30.65</span>   Mean   <span class="sc">:</span><span class="fl">200.6</span>   Mean   <span class="sc">:</span><span class="fl">100.2</span>  </span>
-<span id="cb84-23"><a href="chapter-EDA.html#cb84-23" tabindex="-1"></a>    <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">216.2</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="dv">113</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">36.75</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">234.1</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">114.0</span>  </span>
-<span id="cb84-24"><a href="chapter-EDA.html#cb84-24" tabindex="-1"></a>    Max.   <span class="sc">:</span><span class="fl">351.5</span>   Max.   <span class="sc">:</span><span class="dv">165</span>   Max.   <span class="sc">:</span><span class="fl">59.76</span>   Max.   <span class="sc">:</span><span class="fl">363.7</span>   Max.   <span class="sc">:</span><span class="fl">170.0</span>  </span>
-<span id="cb84-25"><a href="chapter-EDA.html#cb84-25" tabindex="-1"></a>                                                                                 </span>
-<span id="cb84-26"><a href="chapter-EDA.html#cb84-26" tabindex="-1"></a>      eve.charge      night.mins     night.calls      night.charge   </span>
-<span id="cb84-27"><a href="chapter-EDA.html#cb84-27" tabindex="-1"></a>    Min.   <span class="sc">:</span> <span class="fl">0.00</span>   Min.   <span class="sc">:</span>  <span class="fl">0.0</span>   Min.   <span class="sc">:</span>  <span class="fl">0.00</span>   Min.   <span class="sc">:</span> <span class="fl">0.000</span>  </span>
-<span id="cb84-28"><a href="chapter-EDA.html#cb84-28" tabindex="-1"></a>    <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">14.14</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">166.9</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span> <span class="fl">87.00</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span> <span class="fl">7.510</span>  </span>
-<span id="cb84-29"><a href="chapter-EDA.html#cb84-29" tabindex="-1"></a>    Median <span class="sc">:</span><span class="fl">17.09</span>   Median <span class="sc">:</span><span class="fl">200.4</span>   Median <span class="sc">:</span><span class="fl">100.00</span>   Median <span class="sc">:</span> <span class="fl">9.020</span>  </span>
-<span id="cb84-30"><a href="chapter-EDA.html#cb84-30" tabindex="-1"></a>    Mean   <span class="sc">:</span><span class="fl">17.05</span>   Mean   <span class="sc">:</span><span class="fl">200.4</span>   Mean   <span class="sc">:</span> <span class="fl">99.92</span>   Mean   <span class="sc">:</span> <span class="fl">9.018</span>  </span>
-<span id="cb84-31"><a href="chapter-EDA.html#cb84-31" tabindex="-1"></a>    <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">19.90</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">234.7</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">113.00</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">10.560</span>  </span>
-<span id="cb84-32"><a href="chapter-EDA.html#cb84-32" tabindex="-1"></a>    Max.   <span class="sc">:</span><span class="fl">30.91</span>   Max.   <span class="sc">:</span><span class="fl">395.0</span>   Max.   <span class="sc">:</span><span class="fl">175.00</span>   Max.   <span class="sc">:</span><span class="fl">17.770</span>  </span>
-<span id="cb84-33"><a href="chapter-EDA.html#cb84-33" tabindex="-1"></a>                                                                     </span>
-<span id="cb84-34"><a href="chapter-EDA.html#cb84-34" tabindex="-1"></a>    customer.calls churn     </span>
-<span id="cb84-35"><a href="chapter-EDA.html#cb84-35" tabindex="-1"></a>    Min.   <span class="sc">:</span><span class="fl">0.00</span>   yes<span class="sc">:</span> <span class="dv">707</span>  </span>
-<span id="cb84-36"><a href="chapter-EDA.html#cb84-36" tabindex="-1"></a>    <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">1.00</span>   no <span class="sc">:</span><span class="dv">4293</span>  </span>
-<span id="cb84-37"><a href="chapter-EDA.html#cb84-37" tabindex="-1"></a>    Median <span class="sc">:</span><span class="fl">1.00</span>             </span>
-<span id="cb84-38"><a href="chapter-EDA.html#cb84-38" tabindex="-1"></a>    Mean   <span class="sc">:</span><span class="fl">1.57</span>             </span>
-<span id="cb84-39"><a href="chapter-EDA.html#cb84-39" tabindex="-1"></a>    <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">2.00</span>             </span>
-<span id="cb84-40"><a href="chapter-EDA.html#cb84-40" tabindex="-1"></a>    Max.   <span class="sc">:</span><span class="fl">9.00</span>             </span>
-<span id="cb84-41"><a href="chapter-EDA.html#cb84-41" tabindex="-1"></a>   </span>
-<span id="cb84-42"><a href="chapter-EDA.html#cb84-42" tabindex="-1"></a><span class="co"># skim(churn)</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="chapter-EDA.html#cb3-1" tabindex="-1"></a><span class="fu">summary</span>(churn)</span>
+<span id="cb3-2"><a href="chapter-EDA.html#cb3-2" tabindex="-1"></a>        state              area.code    account.length  voice.plan</span>
+<span id="cb3-3"><a href="chapter-EDA.html#cb3-3" tabindex="-1"></a>    WV     <span class="sc">:</span> <span class="dv">158</span>   area_code_408<span class="sc">:</span><span class="dv">1259</span>   Min.   <span class="sc">:</span>  <span class="fl">1.0</span>   yes<span class="sc">:</span><span class="dv">1323</span>  </span>
+<span id="cb3-4"><a href="chapter-EDA.html#cb3-4" tabindex="-1"></a>    MN     <span class="sc">:</span> <span class="dv">125</span>   area_code_415<span class="sc">:</span><span class="dv">2495</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span> <span class="fl">73.0</span>   no <span class="sc">:</span><span class="dv">3677</span>  </span>
+<span id="cb3-5"><a href="chapter-EDA.html#cb3-5" tabindex="-1"></a>    AL     <span class="sc">:</span> <span class="dv">124</span>   area_code_510<span class="sc">:</span><span class="dv">1246</span>   Median <span class="sc">:</span><span class="fl">100.0</span>             </span>
+<span id="cb3-6"><a href="chapter-EDA.html#cb3-6" tabindex="-1"></a>    ID     <span class="sc">:</span> <span class="dv">119</span>                        Mean   <span class="sc">:</span><span class="fl">100.3</span>             </span>
+<span id="cb3-7"><a href="chapter-EDA.html#cb3-7" tabindex="-1"></a>    VA     <span class="sc">:</span> <span class="dv">118</span>                        <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">127.0</span>             </span>
+<span id="cb3-8"><a href="chapter-EDA.html#cb3-8" tabindex="-1"></a>    OH     <span class="sc">:</span> <span class="dv">116</span>                        Max.   <span class="sc">:</span><span class="fl">243.0</span>             </span>
+<span id="cb3-9"><a href="chapter-EDA.html#cb3-9" tabindex="-1"></a>    (Other)<span class="sc">:</span><span class="dv">4240</span>                                                  </span>
+<span id="cb3-10"><a href="chapter-EDA.html#cb3-10" tabindex="-1"></a>    voice.messages   intl.plan    intl.mins       intl.calls      intl.charge   </span>
+<span id="cb3-11"><a href="chapter-EDA.html#cb3-11" tabindex="-1"></a>    Min.   <span class="sc">:</span> <span class="fl">0.000</span>   yes<span class="sc">:</span> <span class="dv">473</span>   Min.   <span class="sc">:</span> <span class="fl">0.00</span>   Min.   <span class="sc">:</span> <span class="fl">0.000</span>   Min.   <span class="sc">:</span><span class="fl">0.000</span>  </span>
+<span id="cb3-12"><a href="chapter-EDA.html#cb3-12" tabindex="-1"></a>    <span class="dv">1</span>st Qu.<span class="sc">:</span> <span class="fl">0.000</span>   no <span class="sc">:</span><span class="dv">4527</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span> <span class="fl">8.50</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span> <span class="fl">3.000</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">2.300</span>  </span>
+<span id="cb3-13"><a href="chapter-EDA.html#cb3-13" tabindex="-1"></a>    Median <span class="sc">:</span> <span class="fl">0.000</span>              Median <span class="sc">:</span><span class="fl">10.30</span>   Median <span class="sc">:</span> <span class="fl">4.000</span>   Median <span class="sc">:</span><span class="fl">2.780</span>  </span>
+<span id="cb3-14"><a href="chapter-EDA.html#cb3-14" tabindex="-1"></a>    Mean   <span class="sc">:</span> <span class="fl">7.755</span>              Mean   <span class="sc">:</span><span class="fl">10.26</span>   Mean   <span class="sc">:</span> <span class="fl">4.435</span>   Mean   <span class="sc">:</span><span class="fl">2.771</span>  </span>
+<span id="cb3-15"><a href="chapter-EDA.html#cb3-15" tabindex="-1"></a>    <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">17.000</span>              <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">12.00</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span> <span class="fl">6.000</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">3.240</span>  </span>
+<span id="cb3-16"><a href="chapter-EDA.html#cb3-16" tabindex="-1"></a>    Max.   <span class="sc">:</span><span class="fl">52.000</span>              Max.   <span class="sc">:</span><span class="fl">20.00</span>   Max.   <span class="sc">:</span><span class="fl">20.000</span>   Max.   <span class="sc">:</span><span class="fl">5.400</span>  </span>
+<span id="cb3-17"><a href="chapter-EDA.html#cb3-17" tabindex="-1"></a>                                                                                </span>
+<span id="cb3-18"><a href="chapter-EDA.html#cb3-18" tabindex="-1"></a>       day.mins       day.calls     day.charge       eve.mins       eve.calls    </span>
+<span id="cb3-19"><a href="chapter-EDA.html#cb3-19" tabindex="-1"></a>    Min.   <span class="sc">:</span>  <span class="fl">0.0</span>   Min.   <span class="sc">:</span>  <span class="dv">0</span>   Min.   <span class="sc">:</span> <span class="fl">0.00</span>   Min.   <span class="sc">:</span>  <span class="fl">0.0</span>   Min.   <span class="sc">:</span>  <span class="fl">0.0</span>  </span>
+<span id="cb3-20"><a href="chapter-EDA.html#cb3-20" tabindex="-1"></a>    <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">143.7</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span> <span class="dv">87</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">24.43</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">166.4</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span> <span class="fl">87.0</span>  </span>
+<span id="cb3-21"><a href="chapter-EDA.html#cb3-21" tabindex="-1"></a>    Median <span class="sc">:</span><span class="fl">180.1</span>   Median <span class="sc">:</span><span class="dv">100</span>   Median <span class="sc">:</span><span class="fl">30.62</span>   Median <span class="sc">:</span><span class="fl">201.0</span>   Median <span class="sc">:</span><span class="fl">100.0</span>  </span>
+<span id="cb3-22"><a href="chapter-EDA.html#cb3-22" tabindex="-1"></a>    Mean   <span class="sc">:</span><span class="fl">180.3</span>   Mean   <span class="sc">:</span><span class="dv">100</span>   Mean   <span class="sc">:</span><span class="fl">30.65</span>   Mean   <span class="sc">:</span><span class="fl">200.6</span>   Mean   <span class="sc">:</span><span class="fl">100.2</span>  </span>
+<span id="cb3-23"><a href="chapter-EDA.html#cb3-23" tabindex="-1"></a>    <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">216.2</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="dv">113</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">36.75</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">234.1</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">114.0</span>  </span>
+<span id="cb3-24"><a href="chapter-EDA.html#cb3-24" tabindex="-1"></a>    Max.   <span class="sc">:</span><span class="fl">351.5</span>   Max.   <span class="sc">:</span><span class="dv">165</span>   Max.   <span class="sc">:</span><span class="fl">59.76</span>   Max.   <span class="sc">:</span><span class="fl">363.7</span>   Max.   <span class="sc">:</span><span class="fl">170.0</span>  </span>
+<span id="cb3-25"><a href="chapter-EDA.html#cb3-25" tabindex="-1"></a>                                                                                 </span>
+<span id="cb3-26"><a href="chapter-EDA.html#cb3-26" tabindex="-1"></a>      eve.charge      night.mins     night.calls      night.charge   </span>
+<span id="cb3-27"><a href="chapter-EDA.html#cb3-27" tabindex="-1"></a>    Min.   <span class="sc">:</span> <span class="fl">0.00</span>   Min.   <span class="sc">:</span>  <span class="fl">0.0</span>   Min.   <span class="sc">:</span>  <span class="fl">0.00</span>   Min.   <span class="sc">:</span> <span class="fl">0.000</span>  </span>
+<span id="cb3-28"><a href="chapter-EDA.html#cb3-28" tabindex="-1"></a>    <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">14.14</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">166.9</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span> <span class="fl">87.00</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span> <span class="fl">7.510</span>  </span>
+<span id="cb3-29"><a href="chapter-EDA.html#cb3-29" tabindex="-1"></a>    Median <span class="sc">:</span><span class="fl">17.09</span>   Median <span class="sc">:</span><span class="fl">200.4</span>   Median <span class="sc">:</span><span class="fl">100.00</span>   Median <span class="sc">:</span> <span class="fl">9.020</span>  </span>
+<span id="cb3-30"><a href="chapter-EDA.html#cb3-30" tabindex="-1"></a>    Mean   <span class="sc">:</span><span class="fl">17.05</span>   Mean   <span class="sc">:</span><span class="fl">200.4</span>   Mean   <span class="sc">:</span> <span class="fl">99.92</span>   Mean   <span class="sc">:</span> <span class="fl">9.018</span>  </span>
+<span id="cb3-31"><a href="chapter-EDA.html#cb3-31" tabindex="-1"></a>    <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">19.90</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">234.7</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">113.00</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">10.560</span>  </span>
+<span id="cb3-32"><a href="chapter-EDA.html#cb3-32" tabindex="-1"></a>    Max.   <span class="sc">:</span><span class="fl">30.91</span>   Max.   <span class="sc">:</span><span class="fl">395.0</span>   Max.   <span class="sc">:</span><span class="fl">175.00</span>   Max.   <span class="sc">:</span><span class="fl">17.770</span>  </span>
+<span id="cb3-33"><a href="chapter-EDA.html#cb3-33" tabindex="-1"></a>                                                                     </span>
+<span id="cb3-34"><a href="chapter-EDA.html#cb3-34" tabindex="-1"></a>    customer.calls churn     </span>
+<span id="cb3-35"><a href="chapter-EDA.html#cb3-35" tabindex="-1"></a>    Min.   <span class="sc">:</span><span class="fl">0.00</span>   yes<span class="sc">:</span> <span class="dv">707</span>  </span>
+<span id="cb3-36"><a href="chapter-EDA.html#cb3-36" tabindex="-1"></a>    <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">1.00</span>   no <span class="sc">:</span><span class="dv">4293</span>  </span>
+<span id="cb3-37"><a href="chapter-EDA.html#cb3-37" tabindex="-1"></a>    Median <span class="sc">:</span><span class="fl">1.00</span>             </span>
+<span id="cb3-38"><a href="chapter-EDA.html#cb3-38" tabindex="-1"></a>    Mean   <span class="sc">:</span><span class="fl">1.57</span>             </span>
+<span id="cb3-39"><a href="chapter-EDA.html#cb3-39" tabindex="-1"></a>    <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">2.00</span>             </span>
+<span id="cb3-40"><a href="chapter-EDA.html#cb3-40" tabindex="-1"></a>    Max.   <span class="sc">:</span><span class="fl">9.00</span>             </span>
+<span id="cb3-41"><a href="chapter-EDA.html#cb3-41" tabindex="-1"></a>   </span>
+<span id="cb3-42"><a href="chapter-EDA.html#cb3-42" tabindex="-1"></a><span class="co"># skim(churn)</span></span></code></pre></div>
 <p>It shows the summary of all the 20 variables. The dataset has 19 predictors along with the target variable <code>churn</code>. The type of variables are as follows:</p>
 <div class="inline-table"><table class="table table-sm">
 <thead><tr>
@@ -442,32 +485,32 @@ The 20 variables are:</p>
 <span class="header-section-number">4.5</span> Investigating Categorical Variables<a class="anchor" aria-label="anchor" href="#chapter-EDA-categorical"><i class="fas fa-link"></i></a>
 </h2>
 <p>Categorical variables are those that represent discrete values, such as names, labels, or categories. In the churn dataset, the variables <code>state</code>, <code>area.code</code>, <code>voice.plan</code>, and <code>intl.plan</code> are categorical. To explore these variables, we can use bar plots, pie charts, and frequency tables to visualize their distributions. Here we start with the target variable <code>churn</code> as follows:</p>
-<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">churn</span>, label <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/percent_format.html">percent</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/proportions.html">prop.table</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html">stat</a></span><span class="op">(</span><span class="va">count</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"palevioletred1"</span>, <span class="st">"darkseagreen1"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span>stat <span class="op">=</span> <span class="st">'count'</span>, vjust <span class="op">=</span> <span class="fl">0.2</span>, size <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">churn</span>, label <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/percent_format.html">percent</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/proportions.html">prop.table</a></span><span class="op">(</span><span class="fu">stat</span><span class="op">(</span><span class="va">count</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_bar</span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"palevioletred1"</span>, <span class="st">"darkseagreen1"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">geom_text</span><span class="op">(</span>stat <span class="op">=</span> <span class="st">'count'</span>, vjust <span class="op">=</span> <span class="fl">0.2</span>, size <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>The bar plot above presents the distribution of the target variable <code>churn</code>, which indicates whether a customer has churned (left the company). The plot reveals that the dataset is imbalanced, with more customers staying (<code>churn = "no"</code>) than leaving (<code>churn = "yes"</code>); It presents that the proportion of churner (<code>churn = "yes"</code>) is 1.4 percent while the proportion of non-churner (<code>churn = "yes"</code>) is 8.6 percent. This information is crucial for building predictive models, as imbalance can affect model performance and accuracy. Besides, one of our objective is <em>to reduce the proportion of churners</em>. For this we need <em>to identify patterns in the data related to customer churn</em>, so we need to investigate the relationship between the target variable and other predictors.</p>
 <p>The primary purpose of exploratory data analysis (EDA) is to gain a thorough understanding of the variables in the dataset by examining the distributions of categorical variables, analyzing histograms of numerical variables, and exploring relationships between variables. While EDA focuses on uncovering patterns and understanding data structure, our ultimate goal for this data mining project is to develop a predictive model that identifies customers likely to churn, or switch to a competitor. Today’s data analysis tools allow us to familiarize ourselves with the dataset and investigate potential associations with churn, helping us explore the data while keeping the project’s objective in mind. We begin by examining the categorical variables and their relationship to churn, as this foundational analysis will guide us in building an effective predictive model.</p>
 <p>We begin our analysis with the <code>intl.plan</code> (International Plan) variable, which indicates whether a customer has subscribed to an international calling plan. As a binary variable, it provides two categories—those with an international plan and those without. To explore the relationship between this feature and customer churn, we can use bar plots to visualize the distribution of churners and non-churners based on the international plan selection:</p>
-<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">intl.plan</span>, fill <span class="op">=</span> <span class="va">churn</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"palevioletred1"</span>, <span class="st">"darkseagreen1"</span><span class="op">)</span><span class="op">)</span> </span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">geom_bar</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">intl.plan</span>, fill <span class="op">=</span> <span class="va">churn</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_fill_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"palevioletred1"</span>, <span class="st">"darkseagreen1"</span><span class="op">)</span><span class="op">)</span> </span>
 <span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">intl.plan</span>, fill <span class="op">=</span> <span class="va">churn</span><span class="op">)</span>, position <span class="op">=</span> <span class="st">"fill"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"palevioletred1"</span>, <span class="st">"darkseagreen1"</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">geom_bar</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">intl.plan</span>, fill <span class="op">=</span> <span class="va">churn</span><span class="op">)</span>, position <span class="op">=</span> <span class="st">"fill"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_fill_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"palevioletred1"</span>, <span class="st">"darkseagreen1"</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-6-1.png" width="50%"><img src="EDA_files/figure-html/unnamed-chunk-6-2.png" width="50%"></p>
 <p>The first plot (on the left) shows the distribution of churners and non-churners across the two categories of the international plan. This plot allows us to directly compare the raw counts of churners and non-churners among customers with and without the plan. The second plot (on the right) displays the proportions of churners and non-churners within each category, with the y-axis scaled from 0 to 1. This proportion plot is particularly useful for comparing churn rates, as it normalizes for differences in group sizes. From these plots, we observe that customers with the international plan have a noticeably higher churn rate than those without it, suggesting a potential link between the international plan and customer attrition.</p>
 <p>To quantify this relationship, we can examine a contingency table, which provides a detailed breakdown of churners and non-churners by international plan status. Since both <code>intl.plan</code> and <code>churn</code> are categorical variables, this table helps us summarize and compare the distribution across categories:</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="chapter-EDA.html#cb87-1" tabindex="-1"></a><span class="fu">addmargins</span>(<span class="fu">table</span>(churn<span class="sc">$</span>churn, churn<span class="sc">$</span>intl.plan, </span>
-<span id="cb87-2"><a href="chapter-EDA.html#cb87-2" tabindex="-1"></a>                 <span class="at">dnn =</span> <span class="fu">c</span>(<span class="st">"Churn"</span>, <span class="st">"International Plan"</span>)))</span>
-<span id="cb87-3"><a href="chapter-EDA.html#cb87-3" tabindex="-1"></a>        International Plan</span>
-<span id="cb87-4"><a href="chapter-EDA.html#cb87-4" tabindex="-1"></a>   Churn  yes   no  Sum</span>
-<span id="cb87-5"><a href="chapter-EDA.html#cb87-5" tabindex="-1"></a>     yes  <span class="dv">199</span>  <span class="dv">508</span>  <span class="dv">707</span></span>
-<span id="cb87-6"><a href="chapter-EDA.html#cb87-6" tabindex="-1"></a>     no   <span class="dv">274</span> <span class="dv">4019</span> <span class="dv">4293</span></span>
-<span id="cb87-7"><a href="chapter-EDA.html#cb87-7" tabindex="-1"></a>     Sum  <span class="dv">473</span> <span class="dv">4527</span> <span class="dv">5000</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="chapter-EDA.html#cb6-1" tabindex="-1"></a><span class="fu">addmargins</span>(<span class="fu">table</span>(churn<span class="sc">$</span>churn, churn<span class="sc">$</span>intl.plan, </span>
+<span id="cb6-2"><a href="chapter-EDA.html#cb6-2" tabindex="-1"></a>                 <span class="at">dnn =</span> <span class="fu">c</span>(<span class="st">"Churn"</span>, <span class="st">"International Plan"</span>)))</span>
+<span id="cb6-3"><a href="chapter-EDA.html#cb6-3" tabindex="-1"></a>        International Plan</span>
+<span id="cb6-4"><a href="chapter-EDA.html#cb6-4" tabindex="-1"></a>   Churn  yes   no  Sum</span>
+<span id="cb6-5"><a href="chapter-EDA.html#cb6-5" tabindex="-1"></a>     yes  <span class="dv">199</span>  <span class="dv">508</span>  <span class="dv">707</span></span>
+<span id="cb6-6"><a href="chapter-EDA.html#cb6-6" tabindex="-1"></a>     no   <span class="dv">274</span> <span class="dv">4019</span> <span class="dv">4293</span></span>
+<span id="cb6-7"><a href="chapter-EDA.html#cb6-7" tabindex="-1"></a>     Sum  <span class="dv">473</span> <span class="dv">4527</span> <span class="dv">5000</span></span></code></pre></div>
 <p>This contingency table shows the count of churners and non-churners for customers with and without the international plan. If we wish to view these counts as proportions, we can use the <code><a href="https://rdrr.io/r/base/proportions.html">prop.table()</a></code> function, which converts the counts into percentages and provides a clearer view of the relative churn rates within each category.</p>
 <p>In summary, our exploratory analysis of the International Plan variable suggests two key takeaways:</p>
 <ol style="list-style-type: decimal">
@@ -476,23 +519,23 @@ The 20 variables are:</p>
 </ol>
 <p>By examining the relationship between the international plan and churn, we’ve taken an important first step toward understanding the dataset and identifying potential predictors of customer attrition. This initial analysis lays the groundwork for building predictive models that can help companies proactively address factors influencing churn and ultimately improve customer retention.</p>
 <p>Next, we’ll continue our exploration by investigating the <code>voice.plan</code> (Voice Mail Plan) variable and its relationship to churn. Applying a similar approach—visualizing and summarizing the data—will provide additional insights into customer behavior and allow us to refine our understanding of the dataset. To start, we visualize the distribution of churners and non-churners based on the Voice Mail Plan with the following bar plots:</p>
-<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">voice.plan</span>, fill <span class="op">=</span> <span class="va">churn</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"palevioletred1"</span>, <span class="st">"darkseagreen1"</span><span class="op">)</span><span class="op">)</span> </span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">geom_bar</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">voice.plan</span>, fill <span class="op">=</span> <span class="va">churn</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_fill_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"palevioletred1"</span>, <span class="st">"darkseagreen1"</span><span class="op">)</span><span class="op">)</span> </span>
 <span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">voice.plan</span>, fill <span class="op">=</span> <span class="va">churn</span><span class="op">)</span>, position <span class="op">=</span> <span class="st">"fill"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"palevioletred1"</span>, <span class="st">"darkseagreen1"</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">geom_bar</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">voice.plan</span>, fill <span class="op">=</span> <span class="va">churn</span><span class="op">)</span>, position <span class="op">=</span> <span class="st">"fill"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_fill_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"palevioletred1"</span>, <span class="st">"darkseagreen1"</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-8-1.png" width="50%"><img src="EDA_files/figure-html/unnamed-chunk-8-2.png" width="50%"></p>
 <p>The first plot (on the left) shows the raw counts of churners and non-churners among customers with and without a Voice Mail Plan, while the second plot (on the right) displays the proportions. From these plots, we observe that customers without a Voice Mail Plan appear more likely to churn than those who have opted in for this feature.</p>
 <p>To quantify this observation, we can create a contingency table to summarize the counts of churners and non-churners by Voice Mail Plan status:</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="chapter-EDA.html#cb89-1" tabindex="-1"></a><span class="fu">addmargins</span>(<span class="fu">table</span>(churn<span class="sc">$</span>churn, churn<span class="sc">$</span>voice.plan, <span class="at">dnn =</span> <span class="fu">c</span>(<span class="st">"Churn"</span>, <span class="st">"Voice Mail Plan"</span>)))</span>
-<span id="cb89-2"><a href="chapter-EDA.html#cb89-2" tabindex="-1"></a>        Voice Mail Plan</span>
-<span id="cb89-3"><a href="chapter-EDA.html#cb89-3" tabindex="-1"></a>   Churn  yes   no  Sum</span>
-<span id="cb89-4"><a href="chapter-EDA.html#cb89-4" tabindex="-1"></a>     yes  <span class="dv">102</span>  <span class="dv">605</span>  <span class="dv">707</span></span>
-<span id="cb89-5"><a href="chapter-EDA.html#cb89-5" tabindex="-1"></a>     no  <span class="dv">1221</span> <span class="dv">3072</span> <span class="dv">4293</span></span>
-<span id="cb89-6"><a href="chapter-EDA.html#cb89-6" tabindex="-1"></a>     Sum <span class="dv">1323</span> <span class="dv">3677</span> <span class="dv">5000</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="chapter-EDA.html#cb8-1" tabindex="-1"></a><span class="fu">addmargins</span>(<span class="fu">table</span>(churn<span class="sc">$</span>churn, churn<span class="sc">$</span>voice.plan, <span class="at">dnn =</span> <span class="fu">c</span>(<span class="st">"Churn"</span>, <span class="st">"Voice Mail Plan"</span>)))</span>
+<span id="cb8-2"><a href="chapter-EDA.html#cb8-2" tabindex="-1"></a>        Voice Mail Plan</span>
+<span id="cb8-3"><a href="chapter-EDA.html#cb8-3" tabindex="-1"></a>   Churn  yes   no  Sum</span>
+<span id="cb8-4"><a href="chapter-EDA.html#cb8-4" tabindex="-1"></a>     yes  <span class="dv">102</span>  <span class="dv">605</span>  <span class="dv">707</span></span>
+<span id="cb8-5"><a href="chapter-EDA.html#cb8-5" tabindex="-1"></a>     no  <span class="dv">1221</span> <span class="dv">3072</span> <span class="dv">4293</span></span>
+<span id="cb8-6"><a href="chapter-EDA.html#cb8-6" tabindex="-1"></a>     Sum <span class="dv">1323</span> <span class="dv">3677</span> <span class="dv">5000</span></span></code></pre></div>
 <p>This table shows the number of churners and non-churners for customers with and without a Voice Mail Plan. For example, it reveals that 102 customers with a Voice Mail Plan did not churn, while 1221 did. Similarly, we can see the counts for customers without a Voice Mail Plan. The higher proportion of churners among those without a Voice Mail Plan suggests that this feature may indeed be a relevant predictor of customer attrition.</p>
 <p>In summary, this EDA on the Voice Mail Plan variable suggests two key takeaways:</p>
 <ol style="list-style-type: decimal">
@@ -506,21 +549,21 @@ The 20 variables are:</p>
 <span class="header-section-number">4.6</span> Investigating Numerical Variables<a class="anchor" aria-label="anchor" href="#EDA-sec-numeric"><i class="fas fa-link"></i></a>
 </h2>
 <p>Next, we turn to an exploration of the numeric predictive variables. Refer back to summary statistics of the various predictors. We start with the variable <code>service.calls</code> (Customer Service Calls), which represents the number of calls made to customer service. This variable is numerical and discrete, making it suitable for histogram analysis. We can use histograms to visualize the distribution of customer service calls as follows:</p>
-<div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">customer.calls</span><span class="op">)</span>, </span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_histogram</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">customer.calls</span><span class="op">)</span>, </span>
 <span>                 bins <span class="op">=</span> <span class="fl">10</span>, fill <span class="op">=</span> <span class="st">"skyblue"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>The histogram above displays the distribution of customer service calls, with the x-axis representing the number of calls and the y-axis showing the count of customers. This visualization allows us to observe the frequency of different call counts. For example, we can see that the range of calls is between 0 and maximum 9 with the majority of customers calls to customer service numeric times and that the distribution is right-skewed, with a long tail to the right. This skewness indicates that a few customers made a large number of calls, potentially signaling dissatisfaction or issues that need to be addressed.</p>
 <p>The initial histogram gives a basic overview of the distribution of customer service calls, but to investigate its association with churn, we need to incorporate the target variable in the visualization. Overlaying the histogram with the target variable provides a clearer picture of how this predictor relates to churn. By coloring the histogram bars according to churn status, we can better discern patterns that might suggest a relationship between customer service calls and the likelihood of churn. Here’s the code to create these overlay histograms:</p>
-<div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">customer.calls</span>, fill <span class="op">=</span> <span class="va">churn</span><span class="op">)</span>, position <span class="op">=</span> <span class="st">"stack"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"palevioletred1"</span>, <span class="st">"darkseagreen1"</span><span class="op">)</span><span class="op">)</span> </span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_histogram</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">customer.calls</span>, fill <span class="op">=</span> <span class="va">churn</span><span class="op">)</span>, position <span class="op">=</span> <span class="st">"stack"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_fill_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"palevioletred1"</span>, <span class="st">"darkseagreen1"</span><span class="op">)</span><span class="op">)</span> </span>
 <span>  </span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">customer.calls</span>, fill <span class="op">=</span> <span class="va">churn</span><span class="op">)</span>, position <span class="op">=</span> <span class="st">"fill"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"palevioletred1"</span>, <span class="st">"darkseagreen1"</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_histogram</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">customer.calls</span>, fill <span class="op">=</span> <span class="va">churn</span><span class="op">)</span>, position <span class="op">=</span> <span class="st">"fill"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_fill_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"palevioletred1"</span>, <span class="st">"darkseagreen1"</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-11-1.png" width="50%"><img src="EDA_files/figure-html/unnamed-chunk-11-2.png" width="50%"></p>
 <p>The first plot (left) shows the distribution of churners and non-churners for each level of customer service calls, while the second plot (right) presents these values as proportions within each call count. In the left plot, there is a suggestion that churn is more prevalent among customers with higher call counts, but the pattern isn’t immediately clear. The normalized histogram on the right, however, makes the relationship much more apparent by standardizing each bar to a height of 1, allowing us to easily compare the relative proportions of churners within each call level.</p>
 <p>From the normalized plot, we can see a striking pattern: customers who have made three or fewer calls to customer service have a notably lower churn rate than those who have made four or more calls. This visualization indicates that frequent customer service interactions are a strong indicator of churn risk.</p>
@@ -532,13 +575,13 @@ The 20 variables are:</p>
 <strong>Predictive Modeling</strong>: We should expect that the number of customer service calls will be an important predictor in any model designed to forecast churn, as it appears to be highly indicative of customer dissatisfaction.</li>
 </ol>
 <p>Let’s now examine the remaining numerical variables in the dataset, starting with <code>day.mins</code> (Day Minutes). Since <code>day.mins</code> is a continuous variable, we can visualize its distribution using both a box plot and a density plot, each providing different insights. Below, we present these two plots side by side:</p>
-<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">churn</span>, y <span class="op">=</span> <span class="va">day.mins</span><span class="op">)</span>, </span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">geom_boxplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">churn</span>, y <span class="op">=</span> <span class="va">day.mins</span><span class="op">)</span>, </span>
 <span>                 fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"palevioletred1"</span>, <span class="st">"darkseagreen1"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">day.mins</span>, fill <span class="op">=</span> <span class="va">churn</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">geom_density</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">day.mins</span>, fill <span class="op">=</span> <span class="va">churn</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></span></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-12-1.png" width="50%"><img src="EDA_files/figure-html/unnamed-chunk-12-2.png" width="50%"></p>
 <p>The box plot on the left allows us to compare the distribution of <code>day.mins</code> between churners and non-churners, highlighting any differences in median, spread, and potential outliers. The density plot on the right provides a smooth visualization of the distribution, making it easier to spot patterns in day usage across both groups.</p>
 <p>From these plots, we observe that high day-minute users are more likely to churn. The density plot, in particular, shows a noticeable peak among churners at higher <code>day.mins</code> values, suggesting that heavy daytime usage may be linked to customer dissatisfaction or unmet needs.</p>
@@ -553,23 +596,23 @@ The 20 variables are:</p>
 </ol>
 <p>In summary, analyzing <code>day.mins</code> has provided valuable insights into customer behavior, highlighting an opportunity to improve customer retention by focusing on heavy daytime users. By including this variable in predictive models, we can enhance the model’s accuracy and take proactive steps to reduce churn among high-usage customers.</p>
 <p>To examine the relationship between the <code>eve.mins</code> (Evening Minutes) variable and churn, we can use both a box plot and a density plot to visualize the distribution of evening minutes for churners and non-churners:</p>
-<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">churn</span>, y <span class="op">=</span> <span class="va">eve.mins</span><span class="op">)</span>, fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"palevioletred1"</span>, <span class="st">"darkseagreen1"</span><span class="op">)</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">geom_boxplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">churn</span>, y <span class="op">=</span> <span class="va">eve.mins</span><span class="op">)</span>, fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"palevioletred1"</span>, <span class="st">"darkseagreen1"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">eve.mins</span>, fill <span class="op">=</span> <span class="va">churn</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">geom_density</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">eve.mins</span>, fill <span class="op">=</span> <span class="va">churn</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></span></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-13-1.png" width="50%"><img src="EDA_files/figure-html/unnamed-chunk-13-2.png" width="50%"></p>
 <p>The box plot (left) and density plot (right) offer different perspectives on the distribution of evening minutes across the churn and non-churn groups. The box plot provides a summary of the median, interquartile range, and potential outliers, while the density plot shows the overall shape of the distribution for each group.</p>
 <p>From these plots, we observe a slight tendency for customers with higher evening minutes to have a greater likelihood of churning. However, this pattern is subtle, and the graphical evidence alone is not strong enough to make a definitive conclusion about the relationship between evening usage and churn. In situations like this, where the visual trends are ambiguous, it’s prudent to withhold policy recommendations until we have more robust evidence from statistical analyses or predictive models.</p>
 <p>In summary, while there may be an association between evening usage and churn, we need additional evidence before drawing conclusions. Proceeding with caution is essential in data analysis, particularly when visual trends are weak or uncertain. A data-driven approach will allow us to validate these findings before making any data-backed recommendations for policy or customer retention strategies.</p>
 <p>To explore the relationship between <code>night.mins</code> (Night Minutes) and churn, we can visualize the data using a box plot and a density plot:</p>
-<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">churn</span>, y <span class="op">=</span> <span class="va">night.mins</span><span class="op">)</span>, fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"palevioletred1"</span>, <span class="st">"darkseagreen1"</span><span class="op">)</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">geom_boxplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">churn</span>, y <span class="op">=</span> <span class="va">night.mins</span><span class="op">)</span>, fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"palevioletred1"</span>, <span class="st">"darkseagreen1"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">night.mins</span>, fill <span class="op">=</span> <span class="va">churn</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">geom_density</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">night.mins</span>, fill <span class="op">=</span> <span class="va">churn</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></span></code></pre></div>
 <p><img src="EDA_files/figure-html/unnamed-chunk-14-1.png" width="50%"><img src="EDA_files/figure-html/unnamed-chunk-14-2.png" width="50%"></p>
 <p>The box plot (on the left) and density plot (on the right) both suggest that there is little to no discernible association between churn and night minutes. The distributions of night minutes for churners and non-churners are quite similar, with no significant differences in median, spread, or overall shape. This lack of variation implies that <code>night.mins</code> may not be a strong predictor of customer churn.</p>
 <p>In fact, this pattern of minimal association with churn appears to hold for several of the remaining numeric variables in the dataset. While we have examined only a subset of variables in detail, you may wish to further investigate others to confirm whether they exhibit any meaningful relationship with churn. Identifying variables with little or no predictive value is a valuable part of the EDA process, as it allows us to focus on features that are more likely to enhance our model’s accuracy.</p>
@@ -584,33 +627,33 @@ The 20 variables are:</p>
 </h2>
 <p>We examine potential multivariate associations between numeric variables and churn using scatter plots. While univariate exploration gives us insights into individual variables, multivariate graphics can reveal interaction effects that may not be apparent when examining variables in isolation.</p>
 <p>For instance, consider the scatter plot of <code>day.mins</code> (Day Minutes) versus <code>eve.mins</code> (Evening Minutes), with churn overlaid:</p>
-<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">eve.mins</span>, y <span class="op">=</span> <span class="va">day.mins</span>, color <span class="op">=</span> <span class="va">churn</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">0.7</span>, alpha <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"palevioletred1"</span>, <span class="st">"darkseagreen1"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>intercept <span class="op">=</span> <span class="fl">400</span>, slope <span class="op">=</span> <span class="op">-</span><span class="fl">0.6</span>, color <span class="op">=</span> <span class="st">"blue"</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">eve.mins</span>, y <span class="op">=</span> <span class="va">day.mins</span>, color <span class="op">=</span> <span class="va">churn</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">0.7</span>, alpha <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">scale_color_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"palevioletred1"</span>, <span class="st">"darkseagreen1"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">geom_abline</span><span class="op">(</span>intercept <span class="op">=</span> <span class="fl">400</span>, slope <span class="op">=</span> <span class="op">-</span><span class="fl">0.6</span>, color <span class="op">=</span> <span class="st">"blue"</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>Notice the diagonal line partitioning the plot. This line, represented by the equation:</p>
 <p><span class="math display">\[
 \text{day.mins} = 400 - 0.6 \times \text{eve.mins}
 \]</span></p>
 <p>separates the upper-right section of the graph, where we observe a higher concentration of churners. This region, encompassing customers with both high day minutes and high evening minutes, appears to be a high-churn zone compared to the rest of the data.</p>
 <p>To further investigate, we isolate this high-churn region and visualize the churn distribution within it:</p>
-<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sub_churn</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">churn</span>, <span class="op">(</span><span class="va">day.mins</span> <span class="op">&gt;</span> <span class="fl">400</span> <span class="op">-</span> <span class="fl">0.6</span> <span class="op">*</span> <span class="va">eve.mins</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">sub_churn</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">churn</span>, label <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/percent_format.html">percent</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/proportions.html">prop.table</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html">stat</a></span><span class="op">(</span><span class="va">count</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"palevioletred1"</span>, <span class="st">"darkseagreen1"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span>stat <span class="op">=</span> <span class="st">'count'</span>, vjust <span class="op">=</span> <span class="fl">0.2</span>, size <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;"></div>
+<span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">sub_churn</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">churn</span>, label <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/percent_format.html">percent</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/proportions.html">prop.table</a></span><span class="op">(</span><span class="fu">stat</span><span class="op">(</span><span class="va">count</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">geom_bar</span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"palevioletred1"</span>, <span class="st">"darkseagreen1"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu">geom_text</span><span class="op">(</span>stat <span class="op">=</span> <span class="st">'count'</span>, vjust <span class="op">=</span> <span class="fl">0.2</span>, size <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>In this high-churn subset, the churn rate is approximately 29%, which is significantly higher than the churn rate of 86% observed across the entire dataset—around five times the overall churn rate. This stark increase in churn rate among customers with both high day and evening usage suggests a strong interaction effect that wasn’t fully apparent in the univariate analyses.</p>
 <p>Interestingly, while the univariate exploration of <code>eve.mins</code> alone did not clearly indicate a high churn rate, this multivariate analysis reveals that evening minutes do play a role in churn—particularly when combined with high day minutes. This demonstrates the value of multivariate exploration in uncovering hidden patterns and interactions, providing us with more nuanced insights into the factors influencing customer churn.</p>
 <p>We can further investigate multivariate relationships by examining the scatter plot of <code>customer.calls</code> versus <code>day.mins</code>, with churn status overlaid:</p>
-<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">day.mins</span>, y <span class="op">=</span> <span class="va">customer.calls</span>, color <span class="op">=</span> <span class="va">churn</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"palevioletred1"</span>, <span class="st">"darkseagreen1"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">day.mins</span>, y <span class="op">=</span> <span class="va">customer.calls</span>, color <span class="op">=</span> <span class="va">churn</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_color_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"palevioletred1"</span>, <span class="st">"darkseagreen1"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>This plot reveals an interesting high-churn region in the upper left section, where customers have made numerous calls to customer service but have relatively low day minutes. This group of customers, characterized by frequent customer service interactions yet low usage, might represent a dissatisfied segment prone to leaving. Such insights would be difficult to uncover through univariate analysis alone, as they stem from the interaction between two variables rather than the behavior of any one variable in isolation.</p>
 <p>In summary, our previous univariate analysis showed that customers who make many calls to customer service tend to have a higher churn rate. However, this scatter plot adds nuance to that finding. Among the high-call customers, those with high day minutes seem somewhat “protected” from churning—they are more likely to stay compared to those with lower day minutes. In other words, the upper right area of the plot, where day minutes are high and customer calls are also high, shows a lower churn rate than the upper left, where high customer calls coincide with low day minutes.</p>
 <p>This interaction suggests that high usage (indicated by high day minutes) may offset the negative effect of frequent customer service calls, perhaps reflecting a more engaged or “sticky” customer segment. But how do we quantify these observations from the scatter plot?</p>
@@ -648,7 +691,7 @@ Figure 4.3: Example scatterplots showing different correlation coefficients.
 </blockquote>
 <p>By following these steps, you can reduce the risk of multicollinearity and redundancy, helping to ensure that your models are both reliable and interpretable. This approach allows EDA to inform a thoughtful, data-driven selection of variables as you move into the modeling phase.</p>
 <p>Let’s apply this process to our dataset. For each of the categories <strong>day</strong>, <strong>evening</strong>, <strong>night</strong>, and <strong>international</strong>, we have three variables: <strong>minutes</strong>, <strong>calls</strong>, and <strong>charge</strong>. According to the data description, the <strong>charge</strong> variables are likely calculated based on <strong>minutes</strong> and <strong>calls</strong> for each time period, which would naturally result in high correlations between them. To verify this, we’ll compute the correlation matrix for these variables and visualize it using a correlation plot.</p>
-<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.sthda.com/english/wiki/ggcorrplot-visualization-of-a-correlation-matrix-using-ggplot2">ggcorrplot</a></span><span class="op">)</span> <span class="co"># For correlation plots (ggcorrplot)</span></span>
 <span><span class="va">variable_list</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"intl.mins"</span>,  <span class="st">"intl.calls"</span>,  <span class="st">"intl.charge"</span>, </span>
 <span>                  <span class="st">"day.mins"</span>,   <span class="st">"day.calls"</span>,   <span class="st">"day.charge"</span>,</span>
@@ -658,7 +701,7 @@ Figure 4.3: Example scatterplots showing different correlation coefficients.
 <span><span class="va">cor_matrix</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">churn</span><span class="op">[</span>, <span class="va">variable_list</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/ggcorrplot/man/ggcorrplot.html">ggcorrplot</a></span><span class="op">(</span><span class="va">cor_matrix</span>, type <span class="op">=</span> <span class="st">"lower"</span>, lab <span class="op">=</span> <span class="cn">TRUE</span>, lab_size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-18-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p>The correlation matrix reveals several key insights:
 - <strong>Perfect Correlations</strong>: We observe perfect correlations (r = 1) between <code>day.mins</code> and <code>day.charge</code>, <code>eve.mins</code> and <code>eve.charge</code>, <code>night.mins</code> and <code>night.charge</code>, and <code>intl.mins</code> and <code>intl.charge</code>. This indicates that each <strong>charge</strong> variable is a direct linear function of the corresponding <strong>minutes</strong> variable.
 - <strong>No Correlation Between Minutes and Calls</strong>: Interestingly, there is no significant correlation between <strong>minutes</strong> and <strong>calls</strong> within each time period (e.g., <code>day.mins</code> and <code>day.calls</code> are uncorrelated). While one might expect that customers making more calls would also spend more minutes on the phone, the data does not support this assumption.</p>
@@ -714,38 +757,104 @@ Figure 4.3: Example scatterplots showing different correlation coefficients.
 - Specialized retention strategies could be deployed for customers who make frequent customer service calls, potentially offering tailored support to resolve their issues before they decide to leave.
 - High-usage customers, particularly those with high day and evening minutes, could be targeted with incentives or loyalty programs to address any dissatisfaction related to cost or service quality.</p>
 <p>By identifying and understanding these patterns, the company can take proactive steps to reduce churn and improve customer satisfaction, ultimately leading to a more loyal customer base.</p>
-
+</div>
+<div id="exercises-3" class="section level2" number="4.9">
+<h2>
+<span class="header-section-number">4.9</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-3"><i class="fas fa-link"></i></a>
+</h2>
+<div id="conceptual-questions" class="section level3 unnumbered">
+<h3>Conceptual Questions<a class="anchor" aria-label="anchor" href="#conceptual-questions"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p>Why is it important to perform exploratory data analysis before proceeding to the modeling phase? What are the potential risks of skipping EDA and directly applying data mining techniques?<br></p></li>
+<li><p>If a predictor does not exhibit a clear relationship with the target variable during exploratory data analysis, should it be omitted from the modeling stage? Justify your answer by considering potential interactions, hidden patterns, and the role of feature selection.<br></p></li>
+<li><p>What does it mean for two variables to be correlated? Explain the concept of correlation, including its direction and strength, and discuss how it differs from causation. Provide an example to illustrate your explanation.<br></p></li>
+<li><p>How can you identify and address correlated variables during exploratory data analysis? Describe the steps you would take to manage correlated predictors effectively and explain the benefits of this approach for predictive modeling.<br></p></li>
+<li><p>What are the consequences of including highly correlated variables in a predictive model? Discuss the impact of multicollinearity on model performance, interpretability, and stability, and explain how it can be detected and addressed.<br></p></li>
+<li><p>Is it always advisable to remove one of two correlated predictors from a model? Discuss the advantages and drawbacks of this approach, and explain under what circumstances keeping both predictors might be beneficial.<br></p></li>
+<li>
+<p>For each of the following descriptive methods, determine whether it applies to categorical data, continuous numerical data, or both. Provide a brief explanation of how each method is used in exploratory data analysis.</p>
+<ul>
+<li>Histograms<br>
+</li>
+<li>Box plots<br>
+</li>
+<li>Density plots<br>
+</li>
+<li>Scatter plots<br>
+</li>
+<li>Summary statistics<br>
+</li>
+<li>Correlation analysis<br>
+</li>
+<li>Contingency tables<br>
+</li>
+<li>Bar plots<br>
+</li>
+<li>Heatmaps</li>
+</ul>
+</li>
+<li><p>A telecommunications company is analyzing customer data to identify factors influencing churn. During exploratory data analysis, they discover that customers with both high day minutes and high evening minutes have a significantly higher churn rate. What actionable insights could the company derive from this finding, and how might they use this information to reduce customer attrition?<br></p></li>
+<li><p>Suppose you are conducting exploratory data analysis on a dataset with 20 predictor variables. After examining the correlation matrix, you find that several pairs of variables are highly correlated (r &gt; 0.9). How would you address these correlations to ensure the reliability and interpretability of your predictive models? Describe the steps you would take to manage these correlated variables effectively.<br></p></li>
+<li><p>Discuss the importance of considering both statistical and practical implications when evaluating correlations during exploratory data analysis. Provide an example of a statistically significant correlation that may not have real-world significance, and explain why it is essential to consider both aspects in data analysis.</p></li>
+</ol>
+</div>
+<div id="hands-on-practice-exploring-the-bank-dataset" class="section level3 unnumbered">
+<h3>Hands-On Practice: Exploring the Bank Dataset<a class="anchor" aria-label="anchor" href="#hands-on-practice-exploring-the-bank-dataset"><i class="fas fa-link"></i></a>
+</h3>
+<p>For hands-on practice, we will explore the <em>bank</em> dataset available in the <strong>R</strong> package <strong>liver</strong>. The <em>bank</em> dataset is related to direct marketing campaigns of a Portuguese banking institution. The campaigns were conducted via phone calls, with multiple contacts sometimes needed to determine whether a client would subscribe to a term deposit. The goal of this dataset is to predict whether a client will subscribe to a term deposit, which will be explored using classification techniques in later chapters.</p>
+<p>More details on this dataset can be found at: <a href="https://rdrr.io/cran/liver/man/bank.html">https://rdrr.io/cran/liver/man/bank.html</a>.</p>
+<p>We can import the dataset in <strong>R</strong> as follows:</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.uva.nl/profile/a.mohammadi">liver</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">bank</span><span class="op">)</span>      </span></code></pre></div>
+<p>To examine the dataset’s structure, we use:</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">bank</span><span class="op">)</span></span></code></pre></div>
+<ol start="11" style="list-style-type: decimal">
+<li>
+<strong>Dataset Overview</strong>: Report the summary statistics of the dataset, including the types of variables. What can you infer from the structure of the data?<br>
+</li>
+<li>
+<strong>Target Variable Analysis</strong>: Generate a bar plot for the target variable <code>deposit</code> using the <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> function from <strong>ggplot2</strong>. What is the proportion of clients who subscribed to a term deposit?<br>
+</li>
+<li>
+<strong>Binary Variable Exploration</strong>: Investigate the binary categorical variables <code>default</code>, <code>housing</code>, and <code>loan</code>. Create contingency tables and bar plots to visualize their distributions. What insights can you draw from these variables?<br>
+</li>
+<li>
+<strong>Exploring Numerical Variables</strong>: Analyze the numerical variables in the dataset. Create histograms and box plots to visualize their distributions. Identify any patterns, skewness, or unusual observations.<br>
+</li>
+<li>
+<strong>Outlier Detection</strong>: Identify whether any numerical variables contain outliers. How would you handle these outliers to maintain data integrity while ensuring robust analysis?<br>
+</li>
+<li>
+<strong>Correlation Analysis</strong>: Compute the correlation matrix for the numerical variables. Identify pairs of highly correlated variables. What strategies would you use to handle these correlations to avoid redundancy and multicollinearity in predictive modeling?<br>
+</li>
+<li>
+<strong>Key EDA Findings</strong>: Summarize the key findings from your exploratory data analysis based on the exercises above. If you were preparing a formal report, how would you highlight notable patterns, relationships, or anomalies?<br>
+</li>
+<li>
+<strong>Business Implications</strong>: Based on your findings, what actionable insights could the bank derive from this exploratory analysis? How could these insights help in optimizing marketing strategies and improving customer targeting?</li>
+<li>
+<strong>Multivariate Analysis</strong>: Investigate the relationship between the number of previous marketing campaign contacts (<code>campaign</code>) and term deposit subscriptions (<code>deposit</code>). Does higher contact frequency correlate with increased subscriptions? Use a box plot or bar chart to support your findings.<br>
+</li>
+<li>
+<strong>Feature Engineering Insight</strong>: Based on your EDA, propose at least one new feature that could improve the predictive power of a classification model for term deposit subscriptions. Justify your reasoning.</li>
+</ol>
+</div>
 </div>
 </div>
 
   <div class="chapter-nav">
-<div class="prev"><a href="chapter-data-prep.html"><span class="header-section-number">3</span> Data Preparation</a></div>
-<div class="next"><a href="chapter-statistics.html"><span class="header-section-number">5</span> Statistical Inference and Hypothesis Testing</a></div>
+<div class="empty"></div>
+<div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#chapter-EDA"><span class="header-section-number">4</span> Exploratory Data Analysis</a></li>
-<li><a class="nav-link" href="#key-areas-of-focus-in-eda"><span class="header-section-number">4.1</span> Key Areas of Focus in EDA</a></li>
-<li><a class="nav-link" href="#types-of-eda-questions"><span class="header-section-number">4.2</span> Types of EDA Questions</a></li>
-<li><a class="nav-link" href="#eda-as-data-storytelling"><span class="header-section-number">4.3</span> EDA as Data Storytelling</a></li>
-<li>
-<a class="nav-link" href="#eda-in-practice-working-with-the-churn-dataset"><span class="header-section-number">4.4</span> EDA in Practice: Working with the Churn Dataset</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#problembusiness-understanding"><span class="header-section-number">4.4.1</span> Problem/Business Understanding</a></li>
-<li><a class="nav-link" href="#data-understanding"><span class="header-section-number">4.4.2</span> Data Understanding</a></li>
-</ul>
-</li>
-<li><a class="nav-link" href="#chapter-EDA-categorical"><span class="header-section-number">4.5</span> Investigating Categorical Variables</a></li>
-<li><a class="nav-link" href="#EDA-sec-numeric"><span class="header-section-number">4.6</span> Investigating Numerical Variables</a></li>
-<li>
-<a class="nav-link" href="#EDA-sec-multivariate"><span class="header-section-number">4.7</span> Envestigating Multivarate Relationships</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#investigating-correlated-variables"><span class="header-section-number">4.7.1</span> Investigating Correlated Variables</a></li></ul>
-</li>
-<li><a class="nav-link" href="#key-findings-and-insights"><span class="header-section-number">4.8</span> Key Findings and Insights</a></li>
-</ul>
+      <div id="book-on-this-page"></div>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/RezaMoammadi/Book-Data-Science/blob/master/EDA.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/RezaMoammadi/Book-Data-Science/edit/master/EDA.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+          
         </ul>
 </div>
     </nav>
@@ -757,7 +866,7 @@ Figure 4.3: Example scatterplots showing different correlation coefficients.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Uncovering Data Science with R</strong>" was written by Reza Mohammadi. It was last built on 2025-02-08.</p>
+    <p>"<strong>Uncovering Data Science with R</strong>" was written by Reza Mohammadi. It was last built on 2025-02-09.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

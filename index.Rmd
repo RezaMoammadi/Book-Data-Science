@@ -131,7 +131,7 @@ datasets = data.frame(
     "Diamond pricing dataset.", 
     "Nutritional information for 77 breakfast cereals."
   ),
-  Chapter = c("Chapters 4, 6, 8, 10", "Chapter 7, 12", "Chapter 11", "Chapter 9", "Chapter 10", "Chapter 10", "Chapter 3", "Chapter 13")
+  Chapter = c("Chapters 4, 6, 7, 8, 10", "Chapter 7, 12", "Chapter 11", "Chapter 9", "Chapter 10", "Chapter 10", "Chapter 3", "Chapter 13")
 )
 kbl(datasets, booktabs = T, caption = "List of datasets used for case studies in different chapters. Available in the R package liver.") %>%
 kable_styling(full_width = F) %>%

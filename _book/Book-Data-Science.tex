@@ -102,7 +102,7 @@
 
 \title{Uncovering Data Science with R}
 \author{Reza Mohammadi}
-\date{2025-02-08}
+\date{2025-02-09}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -285,7 +285,7 @@ Table \ref{tab:data-table} lists the datasets used in this book. These real-worl
 \toprule
 Name & Description & Chapter\\
 \midrule
-\textcolor{black}{\textbf{churn}} & Customer churn dataset. & Chapters 4, 6, 8, 10\\
+\textcolor{black}{\textbf{churn}} & Customer churn dataset. & Chapters 4, 6, 7, 8, 10\\
 \textcolor{black}{\textbf{bank}} & Direct marketing data from a Portuguese bank. & Chapter 7, 12\\
 \textcolor{black}{\textbf{adult}} & US Census data for income prediction. & Chapter 11\\
 \textcolor{black}{\textbf{risk}} & Credit risk dataset. & Chapter 9\\
@@ -2987,7 +2987,7 @@ This section provides hands-on exercises to reinforce the key concepts covered i
 
 \chapter{Exploratory Data Analysis}\label{chapter-EDA}
 
-\textbf{Exploratory Data Analysis (EDA)} is the process of examining and exploring data to gain insights, identify patterns, and understand relationships between variables---all before applying formal hypotheses or machine learning algorithms. This critical step allows us to ``get to know'' the data, using a mix of summary statistics, visualizations, and preliminary analysis to reveal structure and potential insights. EDA is foundational to data science because it helps generate hypotheses and informs the decisions we'll make in later stages of analysis.
+\emph{Exploratory Data Analysis (EDA)} is the process of examining and exploring data to gain insights, identify patterns, and understand relationships between variables---all before applying formal hypotheses or machine learning algorithms. This critical step allows us to ``get to know'' the data, using a mix of summary statistics, visualizations, and preliminary analysis to reveal structure and potential insights. EDA is foundational to data science because it helps generate hypotheses and informs the decisions we'll make in later stages of analysis.
 
 EDA is not a rigid process with strict rules; rather, it is a flexible, iterative approach that encourages curiosity and open-ended exploration. At this stage, it's important to remain open to investigating any ideas that arise. Some explorations may lead to dead ends, but others can uncover valuable insights that guide the rest of the project. Over time, as you become more familiar with the data, you'll naturally focus on the most promising leads, which will help shape your final analysis and conclusions.
 
@@ -3020,50 +3020,68 @@ These objectives serve as a guide to ensure that we gain a comprehensive underst
 
 \section{Types of EDA Questions}\label{types-of-eda-questions}
 
-When performing EDA, it's helpful to approach the data with specific questions in mind. These questions typically fall into two broad categories: \textbf{univariate questions} and \textbf{multivariate questions}.
+When performing exploratory data analysis, it is useful to approach the dataset with structured questions. These questions generally fall into two broad categories: \textbf{univariate analysis} and \textbf{multivariate analysis}.
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  \textbf{Univariate Questions}: These questions focus on understanding the distribution of individual variables. Examples include:
-\end{enumerate}
+Univariate analysis focuses on individual variables, examining their distributions and characteristics. Typical questions include:
 
 \begin{itemize}
 \tightlist
 \item
-  What is the distribution of the target variable?
+  What is the distribution of the target variable?\\
 \item
-  How are predictor variables like \textbf{age}, \textbf{income}, or \textbf{education} distributed?
+  How are numerical variables such as age, income, or education distributed?\\
 \item
-  Are there any missing values, and how are they distributed across variables?
+  Are there missing values, and how are they distributed across variables?
 \end{itemize}
 
-Answering univariate questions helps you understand each variable in isolation, which is essential for detecting skewness, outliers, and data ranges. You can use \textbf{histograms}, \textbf{box plots}, and \textbf{summary statistics} to explore these characteristics.
+This type of analysis helps identify skewness, outliers, and data ranges. The most commonly used tools include histograms, box plots, and summary statistics such as mean, median, quartiles, and standard deviation.
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\tightlist
-\item
-  \textbf{Multivariate Questions}: These questions examine the relationships between multiple variables. Examples include:
-\end{enumerate}
+Multivariate analysis explores relationships between multiple variables. Some relevant questions include:
 
 \begin{itemize}
 \tightlist
 \item
-  What is the relationship between the target variable and predictors?
+  What is the relationship between the target variable and predictor variables?\\
 \item
-  Are certain predictors correlated with each other, indicating potential multicollinearity?
+  Are certain predictors correlated, indicating potential multicollinearity?\\
 \item
-  Is there any relationship between missing values in different variables?
+  Is there an interaction between categorical and numerical variables?
 \end{itemize}
 
-To answer multivariate questions, use \textbf{scatter plots}, \textbf{correlation matrices}, and \textbf{pair plots} to visualize relationships. These tools reveal interactions between features and can help you detect patterns that could be important for building predictive models.
+To answer these, scatter plots, correlation matrices, and pairwise comparisons are frequently employed. These techniques help detect dependencies between features and provide insights for feature selection in predictive modeling.
 
-These questions guide the exploratory process and allow you to uncover insights that will inform later analysis. Keep in mind that EDA is primarily about exploration---finding clues rather than proving theories.
+A common challenge in exploratory data analysis is selecting the most appropriate visualization or summary statistic. The choice depends on the type of data and the specific question being explored. The following table summarizes the most effective tools for various exploratory tasks:
 
-Note that to answer to these types of questions we can use different types of visualizations and statistical summaries. But \emph{how to we know which visualization to use?} This is a question that I hear a lot from my students and the answer it: \emph{It depends on the type of data you have and the question you want to answer}. To be more specific, in the following sections we will see some examples of visualizations and statistical summaries that can be used to answer univariate and multi-variate questions. And we will also see how to use them in practice with the churn dataset. And at the end of this chapter we have a guide line to specificity answer this question.
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2453}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2453}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.5094}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Question
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Data Type
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Recommended EDA Tools
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Distribution of a numerical variable & Numerical (continuous or discrete) & Histogram, Box Plot, Density Plot, Summary Statistics \\
+Distribution of a categorical variable & Categorical & Bar Chart, Frequency Table \\
+Detection of outliers & Numerical & Box Plot, Histogram, Z-Score Analysis \\
+Presence of missing values & Any & Missing Data Heatmap, Summary Statistics \\
+Relationship between two numerical variables & Numerical \& Numerical & Scatter Plot, Correlation Coefficient \\
+Relationship between a categorical and numerical variable & Categorical \& Numerical & Box Plot, Violin Plot, Grouped Bar Chart \\
+Interaction between two categorical variables & Categorical \& Categorical & Stacked Bar Chart, Mosaic Plot, Contingency Table \\
+Correlation among numerical variables & Multiple Numerical & Correlation Matrix, Pair Plot (Scatterplot Matrix) \\
+Interactions among multiple variables & Multiple Variables & Facet Grid, Regression Plot, Principal Component Analysis (PCA) \\
+\end{longtable}
+
+As seen in the table, different types of exploratory analysis require different tools. The selection of the appropriate technique depends on whether the goal is to examine a single variable, compare distributions, detect relationships, or explore interactions.
+
+The subsequent sections provide practical applications of these tools using real-world datasets, including the churn dataset. This structured approach ensures that exploratory data analysis is not just an initial step but a continuous process that refines the understanding of data before statistical modeling and machine learning are applied.
 
 \section{EDA as Data Storytelling}\label{eda-as-data-storytelling}
 
@@ -3094,7 +3112,7 @@ Many scientific reports, journalistic pieces, and public presentations rely on d
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.8\linewidth]{EDA_files/figure-latex/EDA-fig-2-1} 
+{\centering \includegraphics[width=1\linewidth]{EDA_files/figure-latex/EDA-fig-2-1} 
 
 }
 
@@ -3136,7 +3154,7 @@ Companies are interested to know who is gonna get churned so they can proactivel
   \textbf{How} do we stop them from leaving the company?
 \end{itemize}
 
-EDA will help us to answer these questions and provide insights to the company to take actions.
+EDA will help us to answer these questions and provide insights to the company to take actions. In Chapter @ref\{chapter-knn\} we will use the churn dataset to build a predictive model that can identify customers likely to churn. But before we build the model, we need to understand the data and identify patterns that may help predict customer behavior. This is where EDA comes in.
 
 \subsection{Data Understanding}\label{data-understanding}
 
@@ -3319,7 +3337,7 @@ ggplot(data = churn, aes(x = churn, label = scales::percent(prop.table(stat(coun
   geom_text(stat = 'count', vjust = 0.2, size = 6)
 \end{lstlisting}
 
-\begin{center}\includegraphics{EDA_files/figure-latex/unnamed-chunk-5-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-5-1} \end{center}
 
 The bar plot above presents the distribution of the target variable \passthrough{\lstinline!churn!}, which indicates whether a customer has churned (left the company). The plot reveals that the dataset is imbalanced, with more customers staying (\passthrough{\lstinline!churn = "no"!}) than leaving (\passthrough{\lstinline!churn = "yes"!}); It presents that the proportion of churner (\passthrough{\lstinline!churn = "yes"!}) is 1.4 percent while the proportion of non-churner (\passthrough{\lstinline!churn = "yes"!}) is 8.6 percent. This information is crucial for building predictive models, as imbalance can affect model performance and accuracy. Besides, one of our objective is \emph{to reduce the proportion of churners}. For this we need \emph{to identify patterns in the data related to customer churn}, so we need to investigate the relationship between the target variable and other predictors.
 
@@ -3420,7 +3438,7 @@ ggplot(data = churn) +
                  bins = 10, fill = "skyblue", color = "black")
 \end{lstlisting}
 
-\begin{center}\includegraphics{EDA_files/figure-latex/unnamed-chunk-10-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-10-1} \end{center}
 
 The histogram above displays the distribution of customer service calls, with the x-axis representing the number of calls and the y-axis showing the count of customers. This visualization allows us to observe the frequency of different call counts. For example, we can see that the range of calls is between 0 and maximum 9 with the majority of customers calls to customer service numeric times and that the distribution is right-skewed, with a long tail to the right. This skewness indicates that a few customers made a large number of calls, potentially signaling dissatisfaction or issues that need to be addressed.
 
@@ -3540,7 +3558,7 @@ ggplot(data = churn) +
     geom_abline(intercept = 400, slope = -0.6, color = "blue", size = 1)
 \end{lstlisting}
 
-\begin{center}\includegraphics{EDA_files/figure-latex/unnamed-chunk-15-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-15-1} \end{center}
 
 Notice the diagonal line partitioning the plot. This line, represented by the equation:
 
@@ -3560,7 +3578,7 @@ ggplot(data = sub_churn, aes(x = churn, label = scales::percent(prop.table(stat(
     geom_text(stat = 'count', vjust = 0.2, size = 6)
 \end{lstlisting}
 
-\begin{center}\includegraphics{EDA_files/figure-latex/unnamed-chunk-16-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-16-1} \end{center}
 
 In this high-churn subset, the churn rate is approximately 29\%, which is significantly higher than the churn rate of 86\% observed across the entire dataset---around five times the overall churn rate. This stark increase in churn rate among customers with both high day and evening usage suggests a strong interaction effect that wasn't fully apparent in the univariate analyses.
 
@@ -3574,7 +3592,7 @@ ggplot(data = churn) +
   scale_color_manual(values = c("palevioletred1", "darkseagreen1"))
 \end{lstlisting}
 
-\begin{center}\includegraphics{EDA_files/figure-latex/unnamed-chunk-17-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 This plot reveals an interesting high-churn region in the upper left section, where customers have made numerous calls to customer service but have relatively low day minutes. This group of customers, characterized by frequent customer service interactions yet low usage, might represent a dissatisfied segment prone to leaving. Such insights would be difficult to uncover through univariate analysis alone, as they stem from the interaction between two variables rather than the behavior of any one variable in isolation.
 
@@ -3646,7 +3664,7 @@ cor_matrix = cor(churn[, variable_list])
 ggcorrplot(cor_matrix, type = "lower", lab = TRUE, lab_size = 3)
 \end{lstlisting}
 
-\begin{center}\includegraphics{EDA_files/figure-latex/unnamed-chunk-18-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{EDA_files/figure-latex/unnamed-chunk-18-1} \end{center}
 
 The correlation matrix reveals several key insights:
 - \textbf{Perfect Correlations}: We observe perfect correlations (r = 1) between \passthrough{\lstinline!day.mins!} and \passthrough{\lstinline!day.charge!}, \passthrough{\lstinline!eve.mins!} and \passthrough{\lstinline!eve.charge!}, \passthrough{\lstinline!night.mins!} and \passthrough{\lstinline!night.charge!}, and \passthrough{\lstinline!intl.mins!} and \passthrough{\lstinline!intl.charge!}. This indicates that each \textbf{charge} variable is a direct linear function of the corresponding \textbf{minutes} variable.
@@ -3727,6 +3745,103 @@ Additionally, the insights from EDA can be translated into actionable recommenda
 - High-usage customers, particularly those with high day and evening minutes, could be targeted with incentives or loyalty programs to address any dissatisfaction related to cost or service quality.
 
 By identifying and understanding these patterns, the company can take proactive steps to reduce churn and improve customer satisfaction, ultimately leading to a more loyal customer base.
+
+\section{Exercises}\label{exercises-3}
+
+\subsection*{Conceptual Questions}\label{conceptual-questions}
+\addcontentsline{toc}{subsection}{Conceptual Questions}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Why is it important to perform exploratory data analysis before proceeding to the modeling phase? What are the potential risks of skipping EDA and directly applying data mining techniques?\\
+\item
+  If a predictor does not exhibit a clear relationship with the target variable during exploratory data analysis, should it be omitted from the modeling stage? Justify your answer by considering potential interactions, hidden patterns, and the role of feature selection.\\
+\item
+  What does it mean for two variables to be correlated? Explain the concept of correlation, including its direction and strength, and discuss how it differs from causation. Provide an example to illustrate your explanation.\\
+\item
+  How can you identify and address correlated variables during exploratory data analysis? Describe the steps you would take to manage correlated predictors effectively and explain the benefits of this approach for predictive modeling.\\
+\item
+  What are the consequences of including highly correlated variables in a predictive model? Discuss the impact of multicollinearity on model performance, interpretability, and stability, and explain how it can be detected and addressed.\\
+\item
+  Is it always advisable to remove one of two correlated predictors from a model? Discuss the advantages and drawbacks of this approach, and explain under what circumstances keeping both predictors might be beneficial.\\
+\item
+  For each of the following descriptive methods, determine whether it applies to categorical data, continuous numerical data, or both. Provide a brief explanation of how each method is used in exploratory data analysis.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Histograms\\
+  \item
+    Box plots\\
+  \item
+    Density plots\\
+  \item
+    Scatter plots\\
+  \item
+    Summary statistics\\
+  \item
+    Correlation analysis\\
+  \item
+    Contingency tables\\
+  \item
+    Bar plots\\
+  \item
+    Heatmaps
+  \end{itemize}
+\item
+  A telecommunications company is analyzing customer data to identify factors influencing churn. During exploratory data analysis, they discover that customers with both high day minutes and high evening minutes have a significantly higher churn rate. What actionable insights could the company derive from this finding, and how might they use this information to reduce customer attrition?\\
+\item
+  Suppose you are conducting exploratory data analysis on a dataset with 20 predictor variables. After examining the correlation matrix, you find that several pairs of variables are highly correlated (r \textgreater{} 0.9). How would you address these correlations to ensure the reliability and interpretability of your predictive models? Describe the steps you would take to manage these correlated variables effectively.\\
+\item
+  Discuss the importance of considering both statistical and practical implications when evaluating correlations during exploratory data analysis. Provide an example of a statistically significant correlation that may not have real-world significance, and explain why it is essential to consider both aspects in data analysis.
+\end{enumerate}
+
+\subsection*{Hands-On Practice: Exploring the Bank Dataset}\label{hands-on-practice-exploring-the-bank-dataset}
+\addcontentsline{toc}{subsection}{Hands-On Practice: Exploring the Bank Dataset}
+
+For hands-on practice, we will explore the \emph{bank} dataset available in the \textbf{R} package \textbf{liver}. The \emph{bank} dataset is related to direct marketing campaigns of a Portuguese banking institution. The campaigns were conducted via phone calls, with multiple contacts sometimes needed to determine whether a client would subscribe to a term deposit. The goal of this dataset is to predict whether a client will subscribe to a term deposit, which will be explored using classification techniques in later chapters.
+
+More details on this dataset can be found at: \url{https://rdrr.io/cran/liver/man/bank.html}.
+
+We can import the dataset in \textbf{R} as follows:
+
+\begin{lstlisting}[language=R]
+library(liver)
+data(bank)      
+\end{lstlisting}
+
+To examine the dataset's structure, we use:
+
+\begin{lstlisting}[language=R]
+str(bank)
+\end{lstlisting}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{10}
+\tightlist
+\item
+  \textbf{Dataset Overview}: Report the summary statistics of the dataset, including the types of variables. What can you infer from the structure of the data?\\
+\item
+  \textbf{Target Variable Analysis}: Generate a bar plot for the target variable \passthrough{\lstinline!deposit!} using the \passthrough{\lstinline!ggplot()!} function from \textbf{ggplot2}. What is the proportion of clients who subscribed to a term deposit?\\
+\item
+  \textbf{Binary Variable Exploration}: Investigate the binary categorical variables \passthrough{\lstinline!default!}, \passthrough{\lstinline!housing!}, and \passthrough{\lstinline!loan!}. Create contingency tables and bar plots to visualize their distributions. What insights can you draw from these variables?\\
+\item
+  \textbf{Exploring Numerical Variables}: Analyze the numerical variables in the dataset. Create histograms and box plots to visualize their distributions. Identify any patterns, skewness, or unusual observations.\\
+\item
+  \textbf{Outlier Detection}: Identify whether any numerical variables contain outliers. How would you handle these outliers to maintain data integrity while ensuring robust analysis?\\
+\item
+  \textbf{Correlation Analysis}: Compute the correlation matrix for the numerical variables. Identify pairs of highly correlated variables. What strategies would you use to handle these correlations to avoid redundancy and multicollinearity in predictive modeling?\\
+\item
+  \textbf{Key EDA Findings}: Summarize the key findings from your exploratory data analysis based on the exercises above. If you were preparing a formal report, how would you highlight notable patterns, relationships, or anomalies?\\
+\item
+  \textbf{Business Implications}: Based on your findings, what actionable insights could the bank derive from this exploratory analysis? How could these insights help in optimizing marketing strategies and improving customer targeting?
+\item
+  \textbf{Multivariate Analysis}: Investigate the relationship between the number of previous marketing campaign contacts (\passthrough{\lstinline!campaign!}) and term deposit subscriptions (\passthrough{\lstinline!deposit!}). Does higher contact frequency correlate with increased subscriptions? Use a box plot or bar chart to support your findings.\\
+\item
+  \textbf{Feature Engineering Insight}: Based on your EDA, propose at least one new feature that could improve the predictive power of a classification model for term deposit subscriptions. Justify your reasoning.
+\end{enumerate}
 
 \chapter{Statistical Inference and Hypothesis Testing}\label{chapter-statistics}
 
@@ -4262,7 +4377,7 @@ ggplot(data = churn) +
     geom_boxplot(aes(x = churn, y = intl.calls), fill = c("palevioletred1", "darkseagreen1"))
 \end{lstlisting}
 
-\begin{center}\includegraphics{statistics_files/figure-latex/unnamed-chunk-9-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{statistics_files/figure-latex/unnamed-chunk-9-1} \end{center}
 
 The boxplot compares the distribution of international calls for churners and non-churners. If the medians or spreads differ substantially, this may indicate that the variable has predictive importance. In this case, the plot does not reveal strong visual evidence of a difference, but to formally assess this, we proceed with the two-sample t-test.
 
@@ -4495,7 +4610,7 @@ ggplot(data = diamonds) +
   scale_fill_manual(values = c("palevioletred1", "darkseagreen1", "skyblue1", "gold1", "lightcoral"))
 \end{lstlisting}
 
-\begin{center}\includegraphics{statistics_files/figure-latex/unnamed-chunk-17-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{statistics_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 The box plot displays the spread and median prices for diamonds in each cut category. If the distributions appear distinct---for example, with noticeable differences in medians or ranges---this suggests that the cut might influence the price. However, visual inspection alone is insufficient to confirm whether these differences are statistically significant, so we proceed with an ANOVA test.
 
@@ -4546,7 +4661,7 @@ ggplot(data = diamonds) +
     labs(x = "Carat", y = "Price") 
 \end{lstlisting}
 
-\begin{center}\includegraphics{statistics_files/figure-latex/unnamed-chunk-19-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{statistics_files/figure-latex/unnamed-chunk-19-1} \end{center}
 
 The scatter plot shows a clear upward trend, suggesting a positive relationship between \textbf{carat} and \textbf{price}---as the weight of the diamond increases, so does its price. To formally test whether this observed pattern is statistically significant, we establish the following hypotheses:
 
@@ -5493,7 +5608,7 @@ kNN.plot(formula = formula, train = train_scaled, test = test_scaled,
    Setting levels: reference = "yes", case = "no"
 \end{lstlisting}
 
-\begin{center}\includegraphics{knn_files/figure-latex/unnamed-chunk-8-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{knn_files/figure-latex/unnamed-chunk-8-1} \end{center}
 
 The \passthrough{\lstinline!kNN.plot()!} function generates a plot of accuracy versus \(k\) values, allowing us to visually identify the optimal \(k\). In this case, the highest accuracy is achieved at \(k = 5\), striking a balance between sensitivity to local patterns (small \(k\)) and robustness to noise (large \(k\)).
 
@@ -5539,7 +5654,7 @@ The simplicity and interpretability of kNN make it an excellent starting point f
 
 While kNN is easy to understand and implement, its prediction speed and scalability constraints often make it unsuitable for modern, large-scale datasets. Nonetheless, it is a helpful baseline method and a stepping stone to more sophisticated techniques. In the upcoming chapters, we will explore advanced classification algorithms, such as Decision Trees, Random Forests, and Logistic Regression, which address the limitations of kNN and provide enhanced performance and scalability for a wide range of applications.
 
-\section{Exercises}\label{exercises-3}
+\section{Exercises}\label{exercises-4}
 
 To do \ldots{}
 
@@ -6621,7 +6736,7 @@ roc_naive_bayes = roc(actual_test, prob_naive_bayes)
 ggroc(roc_naive_bayes)
 \end{lstlisting}
 
-\begin{center}\includegraphics{bayes_files/figure-latex/unnamed-chunk-17-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{bayes_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 The ROC curve illustrates the trade-off between sensitivity and specificity at different thresholds. The closer the curve is to the top-left corner, the better the model's performance.
 
@@ -6636,7 +6751,7 @@ The AUC value, 0.957, quantifies the model's ability to rank positive instances 
 
 By applying the Naive Bayes classifier to the \passthrough{\lstinline!risk!} dataset, we demonstrated its ability to efficiently classify customers as ``\passthrough{\lstinline!good risk!}'' or ``\passthrough{\lstinline!bad risk!}.'' Through metrics such as the confusion matrix, ROC curve, and AUC, we evaluated the model's predictive power and identified its strengths and limitations. This process highlights the simplicity and interpretability of Naive Bayes, making it a practical choice for many real-world classification problems.
 
-\section{Exercises}\label{exercises-4}
+\section{Exercises}\label{exercises-5}
 
 To do ..
 
@@ -7666,7 +7781,7 @@ Model diagnostics and validation are fundamental to ensuring the integrity of a 
 
 By adhering to diagnostic best practices, we ensure that the models we deploy are built on solid statistical foundations, capable of providing accurate and trustworthy predictions.
 
-\section{\texorpdfstring{\textbf{Exercises}}{Exercises}}\label{exercises-5}
+\section{\texorpdfstring{\textbf{Exercises}}{Exercises}}\label{exercises-6}
 
 \begin{itemize}
 \tightlist
@@ -8127,7 +8242,7 @@ varImpPlot(random_forest)
 plot(random_forest)
 \end{lstlisting}
 
-\begin{center}\includegraphics{tree_files/figure-latex/unnamed-chunk-10-1} \includegraphics{tree_files/figure-latex/unnamed-chunk-10-2} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{tree_files/figure-latex/unnamed-chunk-10-1} \includegraphics[width=0.7\linewidth]{tree_files/figure-latex/unnamed-chunk-10-2} \end{center}
 
 \subsection*{Model Evaluation}\label{model-evaluation}
 \addcontentsline{toc}{subsection}{Model Evaluation}
@@ -8209,11 +8324,11 @@ ggroc(list(roc_cart, roc_C50, roc_random_forest), size = 0.8) +
   theme(legend.position = c(.7, .3), text = element_text(size = 17))
 \end{lstlisting}
 
-\begin{center}\includegraphics{tree_files/figure-latex/unnamed-chunk-14-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{tree_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
 The \textbf{black} curve represents CART, the {\textbf{red}} curve represents C5.0, and the {\textbf{green}} curve represents Random Forest. Based on AUC values, C5.0 performs slightly better, but all three models show comparable accuracy, making them reliable for this classification task.
 
-\section{Exercises}\label{exercises-6}
+\section{Exercises}\label{exercises-7}
 
 To do \ldots{}
 
@@ -8768,7 +8883,7 @@ After training, we visualize the network to examine its topology:
 plot(neuralnet_bank, rep = "best")
 \end{lstlisting}
 
-\begin{center}\includegraphics{nn_files/figure-latex/unnamed-chunk-11-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{nn_files/figure-latex/unnamed-chunk-11-1} \end{center}
 
 This visualization shows that the network consists of:\\
 - \textbf{9 input nodes}, corresponding to the 9 predictors,\\
@@ -8818,11 +8933,11 @@ ggroc(roc_nn, size = 0.8) +
   theme(legend.title = element_blank(), legend.position = c(.7, .3), text = element_text(size = 17))
 \end{lstlisting}
 
-\begin{center}\includegraphics{nn_files/figure-latex/unnamed-chunk-14-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{nn_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
 The ROC curve illustrates the model's ability to distinguish between the two classes. A high AUC score indicates strong predictive performance.
 
-\section{Exercises}\label{exercises-7}
+\section{Exercises}\label{exercises-8}
 
 To do \ldots{}
 
@@ -9229,7 +9344,7 @@ fviz_nbclust(cereal_mm, kmeans, method = "wss", k.max = 15) +
   geom_vline(xintercept = 4, linetype = 2, color = "gray")
 \end{lstlisting}
 
-\begin{center}\includegraphics{clustering_files/figure-latex/unnamed-chunk-11-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{clustering_files/figure-latex/unnamed-chunk-11-1} \end{center}
 
 From the plot, we observe that \emph{\(k = 4\) clusters} is a reasonable choice, as adding more clusters beyond this point yields diminishing improvements in WCSS.
 
@@ -9259,7 +9374,7 @@ To better understand the clustering results, we visualize the clusters using the
 fviz_cluster(cereal_kmeans, cereal_mm, geom = "point", ellipse.type = "norm", palette = "custom_palette")
 \end{lstlisting}
 
-\begin{center}\includegraphics{clustering_files/figure-latex/unnamed-chunk-14-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{clustering_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
 The scatter plot displays the \emph{four clusters}, with each point representing a cereal brand. Different colors indicate distinct clusters, and the ellipses represent the \emph{spread of each cluster} based on its standard deviation.
 
@@ -9283,7 +9398,7 @@ This case study demonstrated how \emph{K-means clustering} can segment cereals i
 
 In this chapter, we explored the fundamentals of clustering, the mechanics of the K-means algorithm, and methods for choosing the optimal number of clusters. We then applied these concepts to a real-world dataset, demonstrating how K-means can extract meaningful insights. Clustering remains a powerful tool across various domains, from marketing to bioinformatics, making it an essential technique in the modern data science toolkit.
 
-\section{Exercises}\label{exercises-8}
+\section{Exercises}\label{exercises-9}
 
 To do \ldots{}
 
