@@ -5100,7 +5100,7 @@ In summary, balancing the training dataset can improve model performance, especi
 \subsection*{Hands-On Practice}\label{hands-on-practice}
 \addcontentsline{toc}{subsection}{Hands-On Practice}
 
-For the following exercises, use the \emph{churn}, \emph{bank}, and \emph{risk} datasets from the \emph{liver} package. Load the datasets using:
+For the following exercises, use the \emph{churn}, \emph{bank}, and \emph{risk} datasets available in the \textbf{liver} package. We have previously used the \emph{churn} and \emph{bank} datasets in this and earlier chapters. In Chapter \ref{chapter-bayes}, we will introduce the \emph{risk} dataset. Load the datasets using:
 
 \begin{lstlisting}[language=R]
 library(liver)
@@ -5169,16 +5169,16 @@ The k-Nearest Neighbors (kNN) algorithm is a simple yet effective machine learni
 
 \section{Classification}\label{classification}
 
-Have you ever wondered how your email app effortlessly filters spam, how your streaming service seems to know exactly what you want to watch next, or how banks detect fraudulent credit card transactions in real-time? These seemingly magical predictions are made possible by \textbf{classification}, a fundamental task in machine learning.
+Have you ever wondered how your email app effortlessly filters spam, how your streaming service seems to know exactly what you want to watch next, or how banks detect fraudulent credit card transactions in real-time? These seemingly magical predictions are made possible by \emph{classification}, a fundamental task in machine learning.
 
-At its core, classification involves assigning a label or category to an observation based on its features. For example, given customer data, classification can predict whether they are likely to churn or stay loyal. Unlike regression, which predicts continuous numerical values (e.g., house prices), classification deals with discrete outcomes. The target variable, often called the \textbf{class} or \textbf{label}, can either be:
+At its core, classification involves assigning a label or category to an observation based on its features. For example, given customer data, classification can predict whether they are likely to churn or stay loyal. Unlike regression, which predicts continuous numerical values (e.g., house prices), classification deals with discrete outcomes. The target variable, often called the \emph{class} or \emph{label}, can either be:
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Binary}: Two possible categories (e.g., spam vs.~not spam).\\
+  \emph{Binary}: Two possible categories (e.g., spam vs.~not spam).\\
 \item
-  \textbf{Multi-class}: More than two categories (e.g., car, bicycle, or pedestrian in image recognition).
+  \emph{Multi-class}: More than two categories (e.g., car, bicycle, or pedestrian in image recognition).
 \end{itemize}
 
 From diagnosing diseases to identifying fraudulent activities, classification is a versatile tool used across countless domains to solve practical problems.
@@ -5187,12 +5187,12 @@ From diagnosing diseases to identifying fraudulent activities, classification is
 \addcontentsline{toc}{subsection}{Where Is Classification Used?}
 
 Classification algorithms power many everyday applications and cutting-edge technologies. Here are some examples:\\
-- \textbf{Email filtering}: Sorting spam from non-spam messages.\\
-- \textbf{Fraud detection}: Identifying suspicious credit card transactions.\\
-- \textbf{Customer retention}: Predicting whether a customer will churn.\\
-- \textbf{Medical diagnosis}: Diagnosing diseases based on patient records.\\
-- \textbf{Object recognition}: Detecting pedestrians and vehicles in self-driving cars.\\
-- \textbf{Recommendation systems}: Suggesting movies, songs, or products based on user preferences.
+- \emph{Email filtering}: Sorting spam from non-spam messages.\\
+- \emph{Fraud detection}: Identifying suspicious credit card transactions.\\
+- \emph{Customer retention}: Predicting whether a customer will churn.\\
+- \emph{Medical diagnosis}: Diagnosing diseases based on patient records.\\
+- \emph{Object recognition}: Detecting pedestrians and vehicles in self-driving cars.\\
+- \emph{Recommendation systems}: Suggesting movies, songs, or products based on user preferences.
 
 Every time you interact with technology that ``predicts'' something for you, chances are, a classification model is working behind the scenes.
 
@@ -5210,51 +5210,51 @@ Classification involves two critical phases:
   \textbf{Prediction Phase}: Once the model is trained, it applies these learned patterns to classify new, unseen data. For example, given a new transaction, the model predicts whether it is fraudulent or legitimate.
 \end{enumerate}
 
-A good classification model does more than just memorize the training data---it \textbf{generalizes} well, meaning it performs accurately on new, unseen data. For example, a model trained on historical medical data should be able to correctly diagnose a new patient it has never seen before.
+A good classification model does more than just memorize the training data---it \emph{generalizes} well, meaning it performs accurately on new, unseen data. For example, a model trained on historical medical data should be able to correctly diagnose a new patient it has never seen before.
 
 \subsection*{Which Classification Algorithm Should You Use?}\label{which-classification-algorithm-should-you-use}
 \addcontentsline{toc}{subsection}{Which Classification Algorithm Should You Use?}
 
 Different classification algorithms are designed for different kinds of problems and datasets. Some commonly used algorithms include:\\
-- \textbf{k-Nearest Neighbors (kNN)}: A simple, distance-based algorithm (covered in this chapter).\\
-- \textbf{Logistic Regression}: Popular for binary classification tasks, such as predicting customer churn.\\
-- \textbf{Decision Trees and Random Forests}: Versatile, interpretable methods for complex problems.\\
-- \textbf{Naive Bayes}: Particularly useful for text classification, like spam filtering.\\
-- \textbf{Neural Networks}: Effective for handling high-dimensional and complex data, such as images or natural language.
+- \emph{k-Nearest Neighbors (kNN)}: A simple, distance-based algorithm (covered in this chapter).\\
+- \emph{Logistic Regression}: Popular for binary classification tasks, such as predicting customer churn.\\
+- \emph{Decision Trees and Random Forests}: Versatile, interpretable methods for complex problems.\\
+- \emph{Naive Bayes}: Particularly useful for text classification, like spam filtering.\\
+- \emph{Neural Networks}: Effective for handling high-dimensional and complex data, such as images or natural language.
 
 The choice of algorithm depends on factors like the dataset size, feature relationships, and the desired trade-off between interpretability and performance. For example, if you're working with a small dataset and need an easy-to-interpret solution, kNN or Decision Trees might be ideal. On the other hand, if you're analyzing high-dimensional data like images, Neural Networks could be more suitable.
 
-To see classification in action, imagine a \textbf{bank dataset} where the goal is to predict whether a customer will make a deposit (\passthrough{\lstinline!deposit = yes!}) or not (\passthrough{\lstinline!deposit = no!}). The features might include customer details like \passthrough{\lstinline!age!}, \passthrough{\lstinline!education!}, \passthrough{\lstinline!job!}, and \passthrough{\lstinline!marital status!}. By training a classification model on this data, the bank can identify and target potential customers who are likely to invest, improving their marketing strategy.
+To see classification in action, imagine a \emph{bank} dataset where the goal is to predict whether a customer will make a deposit (\passthrough{\lstinline!deposit = yes!}) or not (\passthrough{\lstinline!deposit = no!}). The features might include customer details like \passthrough{\lstinline!age!}, \passthrough{\lstinline!education!}, \passthrough{\lstinline!job!}, and \passthrough{\lstinline!marital status!}. By training a classification model on this data, the bank can identify and target potential customers who are likely to invest, improving their marketing strategy.
 
 \subsection*{Why Is Classification Important?}\label{why-is-classification-important}
 \addcontentsline{toc}{subsection}{Why Is Classification Important?}
 
 Classification forms the backbone of countless machine learning applications that drive smarter decisions and actionable insights in industries like finance, healthcare, retail, and technology. Understanding how it works is a critical step in mastering machine learning and applying it to solve real-world problems.
 
-In the rest of this chapter, we'll explore the \textbf{k-Nearest Neighbors (kNN)} algorithm, a straightforward yet powerful method for classification. Its simplicity and intuitive nature make it an excellent choice for beginners and a foundational building block for more advanced algorithms. Let's dive in!
+In the rest of this chapter, we'll explore the \emph{k-Nearest Neighbors (kNN)} algorithm, a straightforward yet powerful method for classification. Its simplicity and intuitive nature make it an excellent choice for beginners and a foundational building block for more advanced algorithms. Let's dive in!
 
 \section{How k-Nearest Neighbors Works}\label{how-k-nearest-neighbors-works}
 
-Have you ever tried to make a decision by asking a few trusted friends for their advice? The \textbf{k-Nearest Neighbors (kNN)} algorithm works in a similar way---it ``asks'' the nearest data points in its neighborhood to determine the category of a new observation. This simple yet powerful idea makes kNN one of the most intuitive methods in machine learning.
+Have you ever tried to make a decision by asking a few trusted friends for their advice? The kNN algorithm works in a similar way---it ``asks'' the nearest data points in its neighborhood to determine the category of a new observation. This simple yet powerful idea makes kNN one of the most intuitive methods in machine learning.
 
-Unlike many algorithms that require a complex training phase, kNN is a \textbf{lazy learning} or \textbf{instance-based} method. It doesn't build an explicit model during training; instead, it stores the entire training dataset and makes predictions on-the-fly by finding the nearest neighbors of a given observation. The parameter \(k\) determines how many neighbors to consider, and the majority class among these neighbors becomes the prediction.
+Unlike many algorithms that require a complex training phase, kNN is a \emph{lazy learning} or \emph{instance-based} method. It doesn't build an explicit model during training; instead, it stores the entire training dataset and makes predictions on-the-fly by finding the nearest neighbors of a given observation. The parameter \(k\) determines how many neighbors to consider, and the majority class among these neighbors becomes the prediction.
 
 \subsection*{How Does kNN Classify a New Observation?}\label{how-does-knn-classify-a-new-observation}
 \addcontentsline{toc}{subsection}{How Does kNN Classify a New Observation?}
 
-When a new observation needs to be classified, kNN calculates its \textbf{distance} to every data point in the training set using a specified distance metric, such as Euclidean distance. The algorithm identifies the \(k\)-nearest neighbors and predicts the class based on a \textbf{majority vote} among these neighbors.
+When a new observation needs to be classified, kNN calculates its \emph{distance} to every data point in the training set using a specified distance metric, such as Euclidean distance. The algorithm identifies the \(k\)-nearest neighbors and predicts the class based on a \emph{majority vote} among these neighbors.
 
 To better understand how this works, let's look at Figure \ref{fig:knn-image}, which illustrates a simple example with two classes: {Class A (red circles)} and {Class B (blue squares)}.
 
-A new data point, represented by a \textbf{dark star}, needs to be classified. The figure demonstrates the predictions for two different values of \(k\):
+A new data point, represented by a \emph{dark star}, needs to be classified. The figure demonstrates the predictions for two different values of \(k\):
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  \textbf{When \(k = 3\)}: The algorithm looks at the 3 closest neighbors to the dark star---two blue squares and one red circle. Since the majority of these neighbors belong to \textbf{Class B (blue squares)}, the new point is classified as Class B.\\
+  \emph{When \(k = 3\)}: The algorithm looks at the 3 closest neighbors to the dark star---two blue squares and one red circle. Since the majority of these neighbors belong to \emph{Class B (blue squares)}, the new point is classified as Class B.\\
 \item
-  \textbf{When \(k = 6\)}: The algorithm now considers a larger neighborhood of 6 neighbors. In this case, four red circles and two blue squares are the nearest neighbors. With the majority vote shifting to \textbf{Class A (red circles)}, the new point is classified as Class A.
+  \emph{When \(k = 6\)}: The algorithm now considers a larger neighborhood of 6 neighbors. In this case, four red circles and two blue squares are the nearest neighbors. With the majority vote shifting to \emph{Class A (red circles)}, the new point is classified as Class A.
 \end{enumerate}
 
 \begin{figure}
@@ -5266,7 +5266,7 @@ A new data point, represented by a \textbf{dark star}, needs to be classified. T
 \caption{A two-dimensional toy dataset with two classes (Class A and Class B) and a new data point (dark star), illustrating the k-Nearest Neighbors algorithm with k = 3 and k = 6.}\label{fig:knn-image}
 \end{figure}
 
-\textbf{Key Takeaway from the Figure:}
+\emph{Key Takeaway from the Figure:}
 
 \begin{itemize}
 \tightlist
@@ -5284,7 +5284,7 @@ The simplicity of kNN makes it an excellent starting point for understanding cla
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Strengths}:
+  \emph{Strengths}:
 
   \begin{itemize}
   \tightlist
@@ -5294,7 +5294,7 @@ The simplicity of kNN makes it an excellent starting point for understanding cla
     Effective for small datasets with clear patterns.
   \end{itemize}
 \item
-  \textbf{Limitations}:
+  \emph{Limitations}:
 
   \begin{itemize}
   \tightlist
@@ -5310,21 +5310,21 @@ The simplicity of kNN makes it an excellent starting point for understanding cla
 \subsection*{A Practical Example of kNN in Action}\label{a-practical-example-of-knn-in-action}
 \addcontentsline{toc}{subsection}{A Practical Example of kNN in Action}
 
-To further illustrate kNN, consider a toy simulated example from a real-world scenario involving drug prescription classification. A dataset of 200 patients includes their \textbf{age}, \textbf{sodium-to-potassium (Na/K) ratio}, and the drug type they were prescribed. Figure \ref{fig:scatter-plot-ex-drug} shows a scatter plot of this data, where the drug types are represented by:
+To further illustrate kNN, consider a toy simulated example from a real-world scenario involving drug prescription classification. A dataset of 200 patients includes their \emph{age}, \emph{sodium-to-potassium (Na/K) ratio}, and the drug type they were prescribed. Figure \ref{fig:scatter-plot-ex-drug} shows a scatter plot of this data, where the drug types are represented by:
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Red circles} for Drug A,\\
+  \emph{Red circles} for Drug A,\\
 \item
-  \textbf{Green triangles} for Drug B, and\\
+  \emph{Green triangles} for Drug B, and\\
 \item
-  \textbf{Blue squares} for Drug C.
+  \emph{Blue squares} for Drug C.
 \end{itemize}
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.85\linewidth]{knn_files/figure-latex/scatter-plot-ex-drug-1} 
+{\centering \includegraphics[width=0.95\linewidth]{knn_files/figure-latex/scatter-plot-ex-drug-1} 
 
 }
 
@@ -5337,46 +5337,46 @@ Suppose we now have three new patients whose drug classifications are unknown. T
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  \textbf{Patient 1}: 40 years old with a Na/K ratio of 30.5,\\
+  \emph{Patient 1}: 40 years old with a Na/K ratio of 30.5,\\
 \item
-  \textbf{Patient 2}: 28 years old with a Na/K ratio of 9.6, and\\
+  \emph{Patient 2}: 28 years old with a Na/K ratio of 9.6, and\\
 \item
-  \textbf{Patient 3}: 61 years old with a Na/K ratio of 10.5.
+  \emph{Patient 3}: 61 years old with a Na/K ratio of 10.5.
 \end{enumerate}
 
-These patients are represented as \textbf{orange circles} in Figure \ref{fig:scatter-plot-ex-drug-2}. Using kNN, we will classify the drug type for each patient.
+These patients are represented as \emph{orange circles} in Figure \ref{fig:scatter-plot-ex-drug-2}. Using kNN, we will classify the drug type for each patient.
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.85\linewidth]{knn_files/figure-latex/scatter-plot-ex-drug-2-1} 
+{\centering \includegraphics[width=0.95\linewidth]{knn_files/figure-latex/scatter-plot-ex-drug-2-1} 
 
 }
 
 \caption{Scatter plot of Age vs. Sodium/Potassium Ratio for 200 patients, with drug type indicated by color and shape. The three new patients are represented by large orange circles.}\label{fig:scatter-plot-ex-drug-2}
 \end{figure}
 
-For \textbf{Patient 1}, who is located deep within a cluster of red-circle points (Drug A), the classification is straightforward: \textbf{Drug A}. All the nearest neighbors belong to Drug A, making it an easy decision.
+For \emph{Patient 1}, who is located deep within a cluster of red-circle points (Drug A), the classification is straightforward: \emph{Drug A}. All the nearest neighbors belong to Drug A, making it an easy decision.
 
-For \textbf{Patient 2}, the situation is more nuanced.
+For \emph{Patient 2}, the situation is more nuanced.
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{With \(k = 1\)}: The nearest neighbor is a blue square, so the classification is \textbf{Drug C}.\\
+  \emph{With \(k = 1\)}: The nearest neighbor is a blue square, so the classification is \emph{Drug C}.\\
 \item
-  \textbf{With \(k = 2\)}: There is a tie between Drug B and Drug C, leaving no clear majority.\\
+  \emph{With \(k = 2\)}: There is a tie between Drug B and Drug C, leaving no clear majority.\\
 \item
-  \textbf{With \(k = 3\)}: Two out of the three nearest neighbors are blue squares, resulting in a majority vote for \textbf{Drug C}.
+  \emph{With \(k = 3\)}: Two out of the three nearest neighbors are blue squares, resulting in a majority vote for \emph{Drug C}.
 \end{itemize}
 
-For \textbf{Patient 3}, the scenario becomes even more ambiguous:
+For \emph{Patient 3}, the scenario becomes even more ambiguous:
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{With \(k = 1\)}: The closest neighbor is a blue square, so the classification is \textbf{Drug C}.\\
+  \emph{With \(k = 1\)}: The closest neighbor is a blue square, so the classification is \emph{Drug C}.\\
 \item
-  \textbf{With \(k = 2 or 3\)}: The neighbors belong to multiple classes, resulting in ties or uncertainty.
+  \emph{With \(k = 2 or 3\)}: The neighbors belong to multiple classes, resulting in ties or uncertainty.
 \end{itemize}
 
 \begin{figure}
@@ -5399,11 +5399,11 @@ To classify a new observation, kNN relies on measuring the similarity between da
 
 \section{Distance Metrics}\label{distance-metrics}
 
-In the k-Nearest Neighbors (kNN) algorithm, the classification of a new data point is determined by identifying the most \emph{similar} records from the training dataset. But how do we define and measure \emph{similarity}? While similarity might seem intuitive, applying it in machine learning requires precise \textbf{distance metrics}. These metrics quantify the ``closeness'' or ``distance'' between two data points in a multidimensional space, directly influencing how neighbors are selected for classification.
+In the k-Nearest Neighbors (kNN) algorithm, the classification of a new data point is determined by identifying the most \emph{similar} records from the training dataset. But how do we define and measure \emph{similarity}? While similarity might seem intuitive, applying it in machine learning requires precise \emph{distance metrics}. These metrics quantify the ``closeness'' or ``distance'' between two data points in a multidimensional space, directly influencing how neighbors are selected for classification.
 
 Imagine you're shopping online and looking for recommendations. You're a 50-year-old married female---who's more ``similar'' to you: a 40-year-old single female or a 30-year-old married male? The answer depends on how we measure the distance between you and each person. In kNN, this distance is calculated based on features such as age and marital status. The smaller the distance, the more ``similar'' the two individuals are, and the more influence they have in determining the recommendation or classification.
 
-The most widely used distance metric in kNN is \textbf{Euclidean distance}, which measures the straight-line distance between two points. Think of it as the ``as-the-crow-flies'' distance, similar to the shortest path between two locations on a map. This metric is intuitive and aligns with how we often perceive distance in the real world.
+The most widely used distance metric in kNN is \emph{Euclidean distance}, which measures the straight-line distance between two points. Think of it as the ``as-the-crow-flies'' distance, similar to the shortest path between two locations on a map. This metric is intuitive and aligns with how we often perceive distance in the real world.
 
 In mathematical terms, the Euclidean distance between two points, \(x\) and \(y\), in \(n\)-dimensional space is given by:
 
@@ -5423,7 +5423,7 @@ Where:
 
 \subsection{Example: Calculating Euclidean Distance}\label{example-calculating-euclidean-distance}
 
-Let's calculate the Euclidean distance between two patients based on their \textbf{age} and \textbf{sodium/potassium (Na/K) ratio}:
+Let's calculate the Euclidean distance between two patients based on their \emph{age} and \emph{sodium/potassium (Na/K) ratio}:
 
 \begin{itemize}
 \tightlist
@@ -5443,7 +5443,7 @@ This result quantifies the dissimilarity between the two patients. In kNN, this 
 \subsection*{A Note on Choosing Distance Metrics}\label{a-note-on-choosing-distance-metrics}
 \addcontentsline{toc}{subsection}{A Note on Choosing Distance Metrics}
 
-While there are many distance metrics, such as Manhattan Distance, Hamming Distance, and Cosine Similarity, by default, \textbf{Euclidean distance} is commonly used in kNN. It works well in many scenarios, particularly when features are continuous and have been properly scaled. Choosing the right distance measure is somewhat beyond the scope of this book, but for most general purposes, Euclidean distance is a reliable choice. If your dataset has unique characteristics or categorical features, you might need to explore alternative metrics; For more details, refer to the \passthrough{\lstinline!dist()!} function in R.
+While there are many distance metrics, such as Manhattan Distance, Hamming Distance, and Cosine Similarity, by default, \emph{Euclidean distance} is commonly used in kNN. It works well in many scenarios, particularly when features are continuous and have been properly scaled. Choosing the right distance measure is somewhat beyond the scope of this book, but for most general purposes, Euclidean distance is a reliable choice. If your dataset has unique characteristics or categorical features, you might need to explore alternative metrics; For more details, refer to the \passthrough{\lstinline!dist()!} function in R.
 
 \section{\texorpdfstring{How to Choose an Optimal \(k\)}{How to Choose an Optimal k}}\label{how-to-choose-an-optimal-k}
 
@@ -5454,23 +5454,18 @@ There is no universally ``correct'' value for \(k\). The optimal choice depends 
 \subsection*{Balancing Overfitting and Underfitting}\label{balancing-overfitting-and-underfitting}
 \addcontentsline{toc}{subsection}{Balancing Overfitting and Underfitting}
 
-When \(k\) is set to a very small value, such as \(k = 1\), the algorithm becomes highly sensitive to outliers in the training data. Each new observation is classified solely based on its single closest neighbor. This can lead to \textbf{overfitting}, where the model memorizes the training data but struggles to generalize to unseen data. For example, a small cluster of mislabeled data points could disproportionately influence predictions, reducing the model's reliability.
+When \(k\) is set to a very small value, such as \(k = 1\), the algorithm becomes highly sensitive to outliers in the training data. Each new observation is classified solely based on its single closest neighbor. This can lead to \emph{overfitting}, where the model memorizes the training data but struggles to generalize to unseen data. For example, a small cluster of mislabeled data points could disproportionately influence predictions, reducing the model's reliability.
 
-Conversely, as \(k\) increases, the algorithm incorporates more neighbors into the classification decision. Larger \(k\) values smooth the decision boundary, making the model less sensitive to noise and outliers. However, if \(k\) becomes too large, the model may over-simplify, averaging out meaningful patterns in the data. For instance, when \(k\) is comparable to the size of the training set, the majority class will dominate predictions, leading to \textbf{underfitting}.
+Conversely, as \(k\) increases, the algorithm incorporates more neighbors into the classification decision. Larger \(k\) values smooth the decision boundary, making the model less sensitive to noise and outliers. However, if \(k\) becomes too large, the model may over-simplify, averaging out meaningful patterns in the data. For instance, when \(k\) is comparable to the size of the training set, the majority class will dominate predictions, leading to \emph{underfitting}.
 
 Finding the right \(k\) involves striking a balance between these extremes. Smaller \(k\) values capture local patterns more effectively, while larger \(k\) values provide robustness at the expense of detail.
 
 \subsection*{\texorpdfstring{Choosing \(k\) Through Validation}{Choosing k Through Validation}}\label{choosing-k-through-validation}
 \addcontentsline{toc}{subsection}{Choosing \(k\) Through Validation}
 
-In practice, selecting \(k\) is an iterative process. A common approach is to evaluate the algorithm's performance for multiple \(k\) values using a \textbf{validation set} or \textbf{cross-validation}. Performance metrics like accuracy, precision, recall, or F1-score guide the selection of the \(k\) that works best for the dataset.
+In practice, selecting \(k\) is an iterative process. A common approach is to evaluate the algorithm's performance for multiple \(k\) values using a \emph{validation set} or \emph{cross-validation}. Performance metrics like accuracy, precision, recall, or F1-score guide the selection of the \(k\) that works best for the dataset.
 
-To illustrate, let's use the \textbf{churn} dataset and evaluate the accuracy of the kNN algorithm across \(k\) values ranging from 1 to 30. Figure \ref{fig:kNN-plot} shows how accuracy fluctuates as \(k\) increases. This plot is generated using the \passthrough{\lstinline!kNN.plot()!} function from the \textbf{liver} package in R.
-
-\begin{lstlisting}
-   Setting levels: reference = "yes", case = "no"
-   Setting levels: reference = "yes", case = "no"
-\end{lstlisting}
+To illustrate, let's use the \emph{churn} dataset and evaluate the accuracy of the kNN algorithm across \(k\) values ranging from 1 to 30. Figure \ref{fig:kNN-plot} shows how accuracy fluctuates as \(k\) increases. This plot is generated using the \passthrough{\lstinline!kNN.plot()!} function from the \textbf{liver} package in R.
 
 \begin{figure}
 
@@ -5489,19 +5484,19 @@ Keep in mind that the optimal \(k\) may vary across datasets, so it's essential 
 
 \section{Preparing Data for kNN}\label{preparing-data-for-knn}
 
-The effectiveness of the k-Nearest Neighbors (kNN) algorithm relies heavily on how the dataset is prepared. Since kNN uses distance metrics to evaluate similarity between data points, proper preprocessing is crucial to ensure accurate and meaningful results. Two essential steps in this process are \textbf{feature scaling} and \textbf{one-hot encoding}, which enable the algorithm to handle numerical and categorical features effectively.
+The effectiveness of the k-Nearest Neighbors (kNN) algorithm relies heavily on how the dataset is prepared. Since kNN uses distance metrics to evaluate similarity between data points, proper preprocessing is crucial to ensure accurate and meaningful results. Two essential steps in this process are \emph{feature scaling} and \emph{one-hot encoding}, which enable the algorithm to handle numerical and categorical features effectively.
 
 \subsection{Feature Scaling}\label{feature-scaling-1}
 
-In most datasets, numerical features often have vastly different ranges. For instance, \textbf{age} may range from 20 to 70, while \textbf{income} could range from 20,000 to 150,000. Without proper scaling, features with larger ranges (like income) dominate distance calculations, leading to biased predictions. To address this, all numerical features must be transformed to comparable scales.
+In most datasets, numerical features often have vastly different ranges. For instance, \emph{age} may range from 20 to 70, while \emph{income} could range from 20,000 to 150,000. Without proper scaling, features with larger ranges (like income) dominate distance calculations, leading to biased predictions. To address this, all numerical features must be transformed to comparable scales.
 
-A widely used scaling method is \textbf{min-max scaling}, which transforms each feature to a specified range, typically {[}0, 1{]}, using the formula:
+A widely used scaling method is \emph{min-max scaling}, which transforms each feature to a specified range, typically {[}0, 1{]}, using the formula:
 
 \[
 x_{\text{scaled}} = \frac{x - \min(x)}{\max(x) - \min(x)}
 \]
 
-Here, \(x\) represents the original feature value, and \(\min(x)\) and \(\max(x)\) are the feature's minimum and maximum values. This ensures that all features contribute equally to the distance metric. Another commonly used method is \textbf{z-score standardization}, which scales features to have a mean of 0 and a standard deviation of 1:
+Here, \(x\) represents the original feature value, and \(\min(x)\) and \(\max(x)\) are the feature's minimum and maximum values. This ensures that all features contribute equally to the distance metric. Another commonly used method is \emph{z-score standardization}, which scales features to have a mean of 0 and a standard deviation of 1:
 
 \[
 x_{\text{scaled}} = \frac{x - \text{mean}(x)}{\text{sd}(x)}
@@ -5510,20 +5505,21 @@ x_{\text{scaled}} = \frac{x - \text{mean}(x)}{\text{sd}(x)}
 This method is particularly useful when features follow different distributions or have varying units. Both methods prevent any single feature from dominating distance calculations, ensuring fair treatment of all numerical variables.
 
 \begin{quote}
-\textbf{Important:} Scaling must always be performed \textbf{after partitioning} the dataset into training and test sets. Scaling parameters (e.g., minimum, maximum, mean, standard deviation) must be calculated using only the training set and applied consistently to both training and test sets. This ensures that test data remains independent, avoiding information leakage that could bias the results.
+\textbf{Important:} Scaling must always be performed \emph{after partitioning} the dataset into training and test sets. Scaling parameters (e.g., minimum, maximum, mean, standard deviation) must be calculated using only the training set and applied consistently to both training and test sets. This ensures that test data remains independent, avoiding information leakage that could bias the results.
 \end{quote}
 
 \subsection{Scaling Training and Test Data the Same Way}\label{scaling-training-and-test-data-the-same-way}
 
-To illustrate the importance of consistent scaling, consider the \textbf{patient drug classification problem}, which involves two features: \passthrough{\lstinline!age!} and \passthrough{\lstinline!sodium/potassium (Na/K) ratio!}. Figure \ref{fig:scatter-plot-ex-drug-2} shows a dataset of 200 patients as the training set, with three additional patients in the test set. Using the \passthrough{\lstinline!minmax()!} function from the \textbf{liver} package, we demonstrate both correct and incorrect ways to scale the data:
+To illustrate the importance of consistent scaling, consider the \emph{patient drug classification problem}, which involves two features: \passthrough{\lstinline!age!} and \passthrough{\lstinline!sodium/potassium (Na/K) ratio!}. Figure \ref{fig:scatter-plot-ex-drug-2} shows a dataset of 200 patients as the training set, with three additional patients in the test set. Using the \passthrough{\lstinline!minmax()!} function from the \textbf{liver} package, we demonstrate both correct and incorrect ways to scale the data:
 
 \begin{lstlisting}[language=R]
+# Load the liver package
+library(liver)
+
 # A proper way to scale the data
 train_scaled = minmax(train_data, col = c("Age", "Ratio"))
 
-test_scaled = minmax(test_data, col = c("Age", "Ratio"), 
-                     min = c(min(train_data$Age), min(train_data$Ratio)), 
-                     max = c(max(train_data$Age), max(train_data$Ratio)))
+test_scaled = minmax(test_data, col = c("Age", "Ratio"), min = c(min(train_data$Age), min(train_data$Ratio)), max = c(max(train_data$Age), max(train_data$Ratio)))
 
 # An incorrect way to scale the data
 train_scaled_wrongly = minmax(train_data, col = c("Age", "Ratio"))
@@ -5532,48 +5528,56 @@ test_scaled_wrongly  = minmax(test_data , col = c("Age", "Ratio"))
 
 The difference is illustrated in Figure \ref{fig:ex-proper-scaling}. The middle panel shows the results of proper scaling, where the test set is scaled using the same parameters derived from the training set. This ensures consistency in distance calculations across both datasets. In contrast, the right panel shows improper scaling, where the test set is scaled independently. This leads to distorted relationships between the training and test data, which can cause unreliable predictions.
 
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{knn_files/figure-latex/ex-proper-scaling-1} \includegraphics[width=0.5\linewidth]{knn_files/figure-latex/ex-proper-scaling-2} \includegraphics[width=0.5\linewidth]{knn_files/figure-latex/ex-proper-scaling-3} 
+
+}
+
+\caption{Visuliaztion to liiustrate the difference of proper scaling and improper scaling. The leff panel shows the original data without scaling. The middle panel shows the results of proper scaling. The right panel shows the results of improper scaling.}\label{fig:ex-proper-scaling}
+\end{figure}
+
 \begin{quote}
-\textbf{Key Insight:} Proper scaling ensures that distance metrics remain valid, while improper scaling creates inconsistencies that undermine the kNN algorithm's performance. \textbf{Always derive scaling parameters from the training set and apply them consistently to the test set}.
+\textbf{Key Insight:} Proper scaling ensures that distance metrics remain valid, while improper scaling creates inconsistencies that undermine the kNN algorithm's performance. \emph{Always derive scaling parameters from the training set and apply them consistently to the test set}.
 \end{quote}
 
 \subsection{One-Hot Encoding}\label{one-hot-encoding-1}
 
-Categorical features, such as \textbf{marital status} or \textbf{subscription type}, cannot be directly used in distance calculations because distance metrics like Euclidean distance only work with numerical data. To overcome this, we use \textbf{one-hot encoding}, which converts categorical variables into binary (dummy) variables. For example, the categorical variable \textbf{voice.plan}, with levels \passthrough{\lstinline!yes!} and \passthrough{\lstinline!no!}, can be encoded as:
+Categorical features, such as \emph{marital status} or \emph{subscription type}, cannot be directly used in distance calculations because distance metrics like Euclidean distance only work with numerical data. To overcome this, we use \emph{one-hot encoding}, which converts categorical variables into binary (dummy) variables. For example, the categorical variable \passthrough{\lstinline!voice.plan!}, with levels \passthrough{\lstinline!yes!} and \passthrough{\lstinline!no!}, can be encoded as:
 
 \[
 \text{voice.plan-yes} = 
-\bigg\{
-\begin{matrix}
+\begin{cases}
 1 \quad \text{if voice plan = yes}  \\
 0 \quad \text{if voice plan = no} 
-\end{matrix}
+\end{cases}
 \]
 
-Similarly, a variable like \textbf{marital status} with three levels (\passthrough{\lstinline!single!}, \passthrough{\lstinline!married!}, \passthrough{\lstinline!divorced!}) can be encoded into two binary features:
+Similarly, a variable like \emph{marital status} with three levels (\passthrough{\lstinline!single!}, \passthrough{\lstinline!married!}, \passthrough{\lstinline!divorced!}) can be encoded into two binary features:
 
 \[
 \text{marital-single} = 
-\bigg\{
-\begin{matrix}
+\begin{cases}
 1 \quad \text{if marital status = single}  \\
 0 \quad \text{otherwise}
-\end{matrix}
+\end{cases}
 \]
 
 \[
 \text{marital-married} = 
-\bigg\{
-\begin{matrix}
+\begin{cases}
 1 \quad \text{if marital status = married}  \\
 0 \quad \text{otherwise}
-\end{matrix}
+\end{cases}
 \]
 
 The absence of both \passthrough{\lstinline!marital\_single!} and \passthrough{\lstinline!marital\_married!} implies the third category (\passthrough{\lstinline!divorced!}). This approach ensures that the categorical variable is fully represented, while maintaining the same scale as numerical features. For a categorical variable with \(k\) levels, \(k-1\) binary features are created to avoid redundancy.
 
-The \textbf{liver} package in R provides the \passthrough{\lstinline!one.hot()!} function to perform one-hot encoding automatically. It identifies categorical variables and encodes them into binary columns, leaving numerical features unchanged. For example, applying one-hot encoding to the \textbf{marital} variable in the \emph{bank} dataset adds binary columns for the encoded categories:
+The \textbf{liver} package in R provides the \passthrough{\lstinline!one.hot()!} function to perform one-hot encoding automatically. It identifies categorical variables and encodes them into binary columns, leaving numerical features unchanged. For example, applying one-hot encoding to the \emph{marital} variable in the \emph{bank} dataset adds binary columns for the encoded categories:
 
 \begin{lstlisting}[language=R]
+data(bank)
+
 # To perform one-hot encoding on the "marital" variable
 bank_encoded <- one.hot(bank, cols = c("marital"), dropCols = FALSE)
 
@@ -5607,7 +5611,7 @@ str(bank_encoded)
 
 \section{Applying kNN Algorithm in Practice}\label{sec-kNN-churn}
 
-Applying the kNN algorithm involves several key steps, from preparing the data to training the model, making predictions, and evaluating its performance. In this section, we demonstrate the entire workflow using the \textbf{churn} dataset from the \textbf{liver} package in R. The target variable, \passthrough{\lstinline!churn!}, indicates whether a customer has churned (\passthrough{\lstinline!yes!}) or not (\passthrough{\lstinline!no!}), while the predictors include customer characteristics like account length, international plan status, and call details. Here is the strcure of the dataset:
+Applying the kNN algorithm involves several key steps, from preparing the data to training the model, making predictions, and evaluating its performance. In this section, we demonstrate the entire workflow using the \emph{churn} dataset from the \textbf{liver} package in R. The target variable, \passthrough{\lstinline!churn!}, indicates whether a customer has churned (\passthrough{\lstinline!yes!}) or not (\passthrough{\lstinline!no!}), while the predictors include customer characteristics like account length, international plan status, and call details. Here is the strcure of the dataset:
 
 \begin{lstlisting}[language=R]
 str(churn)
@@ -5636,7 +5640,7 @@ str(churn)
 
 It shows that data are as a \emph{data.frame} object in \textbf{R} with 5000 observations and 19 features along with the target binary variable (the last column) with name \emph{churn} that indicates whether customers churned (left the company) or not. Our goal is to build a kNN model that accurately predicts customer churn based on these features.
 
-In Chapter \ref{chapter-EDA}, we explored the \textbf{churn} dataset and identified key features that influence customer churn. Based on that results we will use the following features to build the kNN model:
+In Chapter \ref{chapter-EDA}, we explored the \emph{churn} dataset and identified key features that influence customer churn. Based on that results we will use the following features to build the kNN model:
 
 \passthrough{\lstinline!account.length!}, \passthrough{\lstinline!voice.plan!}, \passthrough{\lstinline!voice.messages!}, \passthrough{\lstinline!intl.plan!}, \passthrough{\lstinline!intl.mins!}, \passthrough{\lstinline!day.mins!}, \passthrough{\lstinline!eve.mins!}, \passthrough{\lstinline!night.mins!}, and \passthrough{\lstinline!customer.calls!}.
 
@@ -5734,7 +5738,7 @@ kNN.plot(formula = formula, train = train_scaled, test = test_scaled,
    Setting levels: reference = "yes", case = "no"
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{knn_files/figure-latex/unnamed-chunk-8-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{knn_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
 The \passthrough{\lstinline!kNN.plot()!} function generates a plot of accuracy versus \(k\) values, allowing us to visually identify the optimal \(k\). In this case, the highest accuracy is achieved at \(k = 5\), striking a balance between sensitivity to local patterns (small \(k\)) and robustness to noise (large \(k\)).
 
@@ -5774,7 +5778,7 @@ Through this step-by-step implementation of the kNN algorithm, we demonstrated t
 
 \section{Summary}\label{summary}
 
-In this chapter, we explored the k-Nearest Neighbors (kNN) algorithm, a simple yet effective method for solving classification problems. We began by revisiting the concept of classification and its real-world applications, highlighting the difference between binary and multi-class problems. We then delved into the mechanics of kNN, emphasizing its reliance on distance metrics to identify the most similar data points. Critical preprocessing steps, such as feature scaling and one-hot encoding, were discussed to ensure accurate and meaningful distance calculations. We also covered how to select an optimal \(k\) value and demonstrated the implementation of kNN using the \textbf{liver} package in R with the \textbf{churn} dataset. Through practical examples, we highlighted the importance of proper data preparation and parameter tuning for reliable and effective classification performance.
+In this chapter, we explored the k-Nearest Neighbors (kNN) algorithm, a simple yet effective method for solving classification problems. We began by revisiting the concept of classification and its real-world applications, highlighting the difference between binary and multi-class problems. We then delved into the mechanics of kNN, emphasizing its reliance on distance metrics to identify the most similar data points. Critical preprocessing steps, such as feature scaling and one-hot encoding, were discussed to ensure accurate and meaningful distance calculations. We also covered how to select an optimal \(k\) value and demonstrated the implementation of kNN using the \textbf{liver} package in R with the \emph{churn} dataset. Through practical examples, we highlighted the importance of proper data preparation and parameter tuning for reliable and effective classification performance.
 
 The simplicity and interpretability of kNN make it an excellent starting point for understanding classification and exploring dataset structure. However, the algorithm has notable limitations, including sensitivity to noise, computational inefficiency with large datasets, and the requirement for proper scaling and feature selection. These challenges make kNN less practical for large-scale applications, but it remains a valuable tool for small to medium-sized datasets and serves as a benchmark for evaluating more advanced algorithms.
 

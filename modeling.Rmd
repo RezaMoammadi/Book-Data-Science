@@ -247,7 +247,7 @@ In summary, balancing the training dataset can improve model performance, especi
 
 ### Hands-On Practice {-}
 
-For the following exercises, use the *churn*, *bank*, and *risk* datasets from the *liver* package. Load the datasets using:
+For the following exercises, use the *churn*, *bank*, and *risk* datasets available in the **liver** package. We have previously used the *churn* and *bank* datasets in this and earlier chapters. In Chapter \@ref(chapter-bayes), we will introduce the *risk* dataset. Load the datasets using:
 
 ```{r}
 library(liver)

@@ -203,7 +203,7 @@ You’ve built a model to detect fraudulent credit card transactions, and it ach
 <div class="example">
 <p><span id="exm:ex-confusion-matrix-kNN" class="example"><strong>Example 8.1  </strong></span>Let’s revisit the k-Nearest Neighbors (kNN) model we built in Chapter <a href="chapter-knn.html#chapter-knn">7</a> to classify the <code>churn</code> dataset. Using the confusion matrix, we can evaluate how well this model performs on the test data.</p>
 <p>Here’s how we apply the kNN model and generate the confusion matrix for its predictions:</p>
-<div class="sourceCode" id="cb143"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load the churn dataset</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">churn</span><span class="op">)</span></span>
 <span></span>
@@ -225,12 +225,12 @@ You’ve built a model to detect fraudulent credit card transactions, and it ach
 <span>                  test <span class="op">=</span> <span class="va">test_set</span>, k <span class="op">=</span> <span class="fl">5</span>, scaler <span class="op">=</span> <span class="st">"minmax"</span><span class="op">)</span></span></code></pre></div>
 <p>For more details on how the kNN model was built, refer to Section <a href="chapter-knn.html#sec-kNN-churn">7.6</a>.</p>
 <p>Now, we’ll generate the confusion matrix for the predictions using the <code><a href="https://rdrr.io/pkg/liver/man/conf.mat.html">conf.mat()</a></code> function from the <strong>liver</strong> package:</p>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="chapter-evaluation.html#cb144-1" tabindex="-1"></a><span class="fu">conf.mat</span>(kNN_predict, actual_test)</span>
-<span id="cb144-2"><a href="chapter-evaluation.html#cb144-2" tabindex="-1"></a>   Setting levels<span class="sc">:</span> reference <span class="ot">=</span> <span class="st">"yes"</span>, case <span class="ot">=</span> <span class="st">"no"</span></span>
-<span id="cb144-3"><a href="chapter-evaluation.html#cb144-3" tabindex="-1"></a>          Actual</span>
-<span id="cb144-4"><a href="chapter-evaluation.html#cb144-4" tabindex="-1"></a>   Predict yes  no</span>
-<span id="cb144-5"><a href="chapter-evaluation.html#cb144-5" tabindex="-1"></a>       yes  <span class="dv">54</span>   <span class="dv">7</span></span>
-<span id="cb144-6"><a href="chapter-evaluation.html#cb144-6" tabindex="-1"></a>       no   <span class="dv">83</span> <span class="dv">856</span></span></code></pre></div>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="chapter-evaluation.html#cb143-1" tabindex="-1"></a><span class="fu">conf.mat</span>(kNN_predict, actual_test)</span>
+<span id="cb143-2"><a href="chapter-evaluation.html#cb143-2" tabindex="-1"></a>   Setting levels<span class="sc">:</span> reference <span class="ot">=</span> <span class="st">"yes"</span>, case <span class="ot">=</span> <span class="st">"no"</span></span>
+<span id="cb143-3"><a href="chapter-evaluation.html#cb143-3" tabindex="-1"></a>          Actual</span>
+<span id="cb143-4"><a href="chapter-evaluation.html#cb143-4" tabindex="-1"></a>   Predict yes  no</span>
+<span id="cb143-5"><a href="chapter-evaluation.html#cb143-5" tabindex="-1"></a>       yes  <span class="dv">54</span>   <span class="dv">7</span></span>
+<span id="cb143-6"><a href="chapter-evaluation.html#cb143-6" tabindex="-1"></a>       no   <span class="dv">83</span> <span class="dv">856</span></span></code></pre></div>
 <pre><code>   Setting levels: reference = "yes", case = "no"</code></pre>
 <p>The confusion matrix summarizes the model’s performance. For example:</p>
 <ul>
@@ -247,8 +247,8 @@ You’ve built a model to detect fraudulent credit card transactions, and it ach
 <strong>False Negatives (FN)</strong>: 7 cases where churn was missed.</li>
 </ul>
 <p>We can also visualize the confusion matrix using the <code><a href="https://rdrr.io/pkg/liver/man/conf.mat.plot.html">conf.mat.plot()</a></code> function from the <strong>liver</strong> package:</p>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="chapter-evaluation.html#cb146-1" tabindex="-1"></a><span class="fu">conf.mat.plot</span>(kNN_predict, actual_test)</span>
-<span id="cb146-2"><a href="chapter-evaluation.html#cb146-2" tabindex="-1"></a>   Setting levels<span class="sc">:</span> reference <span class="ot">=</span> <span class="st">"yes"</span>, case <span class="ot">=</span> <span class="st">"no"</span></span></code></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="chapter-evaluation.html#cb145-1" tabindex="-1"></a><span class="fu">conf.mat.plot</span>(kNN_predict, actual_test)</span>
+<span id="cb145-2"><a href="chapter-evaluation.html#cb145-2" tabindex="-1"></a>   Setting levels<span class="sc">:</span> reference <span class="ot">=</span> <span class="st">"yes"</span>, case <span class="ot">=</span> <span class="st">"no"</span></span></code></pre></div>
 <div class="inline-figure"><img src="evaluation_files/figure-html/unnamed-chunk-5-1.png" width="65%" style="display: block; margin: auto;"></div>
 <p>Using the confusion matrix, we can calculate the following metrics for our kNN model:</p>
 <p><span class="math display">\[
@@ -347,35 +347,35 @@ The F1-Score indicates how well the model balances precision and recall, offerin
 <p>Making a prediction can be viewed as <strong>thresholding</strong> the model’s probability output. By default, a threshold of 0.5 is used: if the probability of belonging to the positive class is 50% or greater, the model predicts the positive class. Otherwise, it predicts the negative class. While this default threshold works in many cases, it is not universal. Adjusting the threshold can significantly impact the model’s performance, allowing it to better align with <strong>business goals</strong> or <strong>domain-specific needs</strong>. For example, in some applications, false negatives may be far more costly than false positives—or vice versa. By experimenting with different thresholds, we can explore the trade-offs between sensitivity, specificity, precision, and recall to optimize the model’s performance.</p>
 <div class="example">
 <p><span id="exm:ex-confusion-matrix-kNN-prob" class="example"><strong>Example 8.2  </strong></span>Let’s revisit the <strong>k-Nearest Neighbors (kNN)</strong> model from Example <a href="chapter-evaluation.html#exm:ex-confusion-matrix-kNN">8.1</a> to predict customer churn (<code>churn = yes</code>). This time, instead of making discrete predictions, we’ll obtain probabilities for the positive class by setting the <code>type</code> parameter to <code>"prob"</code> in the <code><a href="https://rdrr.io/pkg/liver/man/kNN.html">kNN()</a></code> function:</p>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="chapter-evaluation.html#cb147-1" tabindex="-1"></a>kNN_prob <span class="ot">=</span> <span class="fu">kNN</span>(<span class="at">formula =</span> formula, <span class="at">train =</span> train_set, </span>
-<span id="cb147-2"><a href="chapter-evaluation.html#cb147-2" tabindex="-1"></a>               <span class="at">test =</span> test_set, <span class="at">k =</span> <span class="dv">5</span>, <span class="at">scaler =</span> <span class="st">"minmax"</span>,</span>
-<span id="cb147-3"><a href="chapter-evaluation.html#cb147-3" tabindex="-1"></a>               <span class="at">type =</span> <span class="st">"prob"</span>)</span>
-<span id="cb147-4"><a href="chapter-evaluation.html#cb147-4" tabindex="-1"></a>kNN_prob[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, ]</span>
-<span id="cb147-5"><a href="chapter-evaluation.html#cb147-5" tabindex="-1"></a>      yes  no</span>
-<span id="cb147-6"><a href="chapter-evaluation.html#cb147-6" tabindex="-1"></a>   <span class="dv">6</span>  <span class="fl">0.4</span> <span class="fl">0.6</span></span>
-<span id="cb147-7"><a href="chapter-evaluation.html#cb147-7" tabindex="-1"></a>   <span class="dv">10</span> <span class="fl">0.2</span> <span class="fl">0.8</span></span>
-<span id="cb147-8"><a href="chapter-evaluation.html#cb147-8" tabindex="-1"></a>   <span class="dv">17</span> <span class="fl">0.0</span> <span class="fl">1.0</span></span>
-<span id="cb147-9"><a href="chapter-evaluation.html#cb147-9" tabindex="-1"></a>   <span class="dv">19</span> <span class="fl">0.0</span> <span class="fl">1.0</span></span>
-<span id="cb147-10"><a href="chapter-evaluation.html#cb147-10" tabindex="-1"></a>   <span class="dv">21</span> <span class="fl">0.0</span> <span class="fl">1.0</span></span>
-<span id="cb147-11"><a href="chapter-evaluation.html#cb147-11" tabindex="-1"></a>   <span class="dv">23</span> <span class="fl">0.2</span> <span class="fl">0.8</span></span>
-<span id="cb147-12"><a href="chapter-evaluation.html#cb147-12" tabindex="-1"></a>   <span class="dv">29</span> <span class="fl">0.0</span> <span class="fl">1.0</span></span>
-<span id="cb147-13"><a href="chapter-evaluation.html#cb147-13" tabindex="-1"></a>   <span class="dv">31</span> <span class="fl">0.0</span> <span class="fl">1.0</span></span>
-<span id="cb147-14"><a href="chapter-evaluation.html#cb147-14" tabindex="-1"></a>   <span class="dv">36</span> <span class="fl">0.0</span> <span class="fl">1.0</span></span>
-<span id="cb147-15"><a href="chapter-evaluation.html#cb147-15" tabindex="-1"></a>   <span class="dv">40</span> <span class="fl">0.0</span> <span class="fl">1.0</span></span></code></pre></div>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="chapter-evaluation.html#cb146-1" tabindex="-1"></a>kNN_prob <span class="ot">=</span> <span class="fu">kNN</span>(<span class="at">formula =</span> formula, <span class="at">train =</span> train_set, </span>
+<span id="cb146-2"><a href="chapter-evaluation.html#cb146-2" tabindex="-1"></a>               <span class="at">test =</span> test_set, <span class="at">k =</span> <span class="dv">5</span>, <span class="at">scaler =</span> <span class="st">"minmax"</span>,</span>
+<span id="cb146-3"><a href="chapter-evaluation.html#cb146-3" tabindex="-1"></a>               <span class="at">type =</span> <span class="st">"prob"</span>)</span>
+<span id="cb146-4"><a href="chapter-evaluation.html#cb146-4" tabindex="-1"></a>kNN_prob[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, ]</span>
+<span id="cb146-5"><a href="chapter-evaluation.html#cb146-5" tabindex="-1"></a>      yes  no</span>
+<span id="cb146-6"><a href="chapter-evaluation.html#cb146-6" tabindex="-1"></a>   <span class="dv">6</span>  <span class="fl">0.4</span> <span class="fl">0.6</span></span>
+<span id="cb146-7"><a href="chapter-evaluation.html#cb146-7" tabindex="-1"></a>   <span class="dv">10</span> <span class="fl">0.2</span> <span class="fl">0.8</span></span>
+<span id="cb146-8"><a href="chapter-evaluation.html#cb146-8" tabindex="-1"></a>   <span class="dv">17</span> <span class="fl">0.0</span> <span class="fl">1.0</span></span>
+<span id="cb146-9"><a href="chapter-evaluation.html#cb146-9" tabindex="-1"></a>   <span class="dv">19</span> <span class="fl">0.0</span> <span class="fl">1.0</span></span>
+<span id="cb146-10"><a href="chapter-evaluation.html#cb146-10" tabindex="-1"></a>   <span class="dv">21</span> <span class="fl">0.0</span> <span class="fl">1.0</span></span>
+<span id="cb146-11"><a href="chapter-evaluation.html#cb146-11" tabindex="-1"></a>   <span class="dv">23</span> <span class="fl">0.2</span> <span class="fl">0.8</span></span>
+<span id="cb146-12"><a href="chapter-evaluation.html#cb146-12" tabindex="-1"></a>   <span class="dv">29</span> <span class="fl">0.0</span> <span class="fl">1.0</span></span>
+<span id="cb146-13"><a href="chapter-evaluation.html#cb146-13" tabindex="-1"></a>   <span class="dv">31</span> <span class="fl">0.0</span> <span class="fl">1.0</span></span>
+<span id="cb146-14"><a href="chapter-evaluation.html#cb146-14" tabindex="-1"></a>   <span class="dv">36</span> <span class="fl">0.0</span> <span class="fl">1.0</span></span>
+<span id="cb146-15"><a href="chapter-evaluation.html#cb146-15" tabindex="-1"></a>   <span class="dv">40</span> <span class="fl">0.0</span> <span class="fl">1.0</span></span></code></pre></div>
 <p>The output lists the first 10 probabilities for each class: the first column corresponds to the positive class (<code>churn = yes</code>), while the second column corresponds to the negative class (<code>churn = no</code>). For example, for the first row, a probability of 0.4 indicates that the model is 40% confident that the customer will churn, while a probability of 0.6 suggests a 60% confidence that the customer will not churn. By modifying the threshold for classification, we can adjust how the model determines whether a prediction is positive or negative.</p>
 <p>Now, let’s calculate the confusion matrix for the model at two different thresholds: 0.5 (the default) and 0.7:</p>
-<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="chapter-evaluation.html#cb148-1" tabindex="-1"></a><span class="fu">conf.mat</span>(kNN_prob[, <span class="dv">1</span>], actual_test, <span class="at">cutoff =</span> <span class="fl">0.5</span>)</span>
-<span id="cb148-2"><a href="chapter-evaluation.html#cb148-2" tabindex="-1"></a>   Setting levels<span class="sc">:</span> reference <span class="ot">=</span> <span class="st">"yes"</span>, case <span class="ot">=</span> <span class="st">"no"</span></span>
-<span id="cb148-3"><a href="chapter-evaluation.html#cb148-3" tabindex="-1"></a>          Actual</span>
-<span id="cb148-4"><a href="chapter-evaluation.html#cb148-4" tabindex="-1"></a>   Predict yes  no</span>
-<span id="cb148-5"><a href="chapter-evaluation.html#cb148-5" tabindex="-1"></a>       yes  <span class="dv">54</span>   <span class="dv">7</span></span>
-<span id="cb148-6"><a href="chapter-evaluation.html#cb148-6" tabindex="-1"></a>       no   <span class="dv">83</span> <span class="dv">856</span></span>
-<span id="cb148-7"><a href="chapter-evaluation.html#cb148-7" tabindex="-1"></a><span class="fu">conf.mat</span>(kNN_prob[, <span class="dv">1</span>], actual_test, <span class="at">cutoff =</span> <span class="fl">0.7</span>)</span>
-<span id="cb148-8"><a href="chapter-evaluation.html#cb148-8" tabindex="-1"></a>   Setting levels<span class="sc">:</span> reference <span class="ot">=</span> <span class="st">"yes"</span>, case <span class="ot">=</span> <span class="st">"no"</span></span>
-<span id="cb148-9"><a href="chapter-evaluation.html#cb148-9" tabindex="-1"></a>          Actual</span>
-<span id="cb148-10"><a href="chapter-evaluation.html#cb148-10" tabindex="-1"></a>   Predict yes  no</span>
-<span id="cb148-11"><a href="chapter-evaluation.html#cb148-11" tabindex="-1"></a>       yes  <span class="dv">22</span>   <span class="dv">1</span></span>
-<span id="cb148-12"><a href="chapter-evaluation.html#cb148-12" tabindex="-1"></a>       no  <span class="dv">115</span> <span class="dv">862</span></span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="chapter-evaluation.html#cb147-1" tabindex="-1"></a><span class="fu">conf.mat</span>(kNN_prob[, <span class="dv">1</span>], actual_test, <span class="at">cutoff =</span> <span class="fl">0.5</span>)</span>
+<span id="cb147-2"><a href="chapter-evaluation.html#cb147-2" tabindex="-1"></a>   Setting levels<span class="sc">:</span> reference <span class="ot">=</span> <span class="st">"yes"</span>, case <span class="ot">=</span> <span class="st">"no"</span></span>
+<span id="cb147-3"><a href="chapter-evaluation.html#cb147-3" tabindex="-1"></a>          Actual</span>
+<span id="cb147-4"><a href="chapter-evaluation.html#cb147-4" tabindex="-1"></a>   Predict yes  no</span>
+<span id="cb147-5"><a href="chapter-evaluation.html#cb147-5" tabindex="-1"></a>       yes  <span class="dv">54</span>   <span class="dv">7</span></span>
+<span id="cb147-6"><a href="chapter-evaluation.html#cb147-6" tabindex="-1"></a>       no   <span class="dv">83</span> <span class="dv">856</span></span>
+<span id="cb147-7"><a href="chapter-evaluation.html#cb147-7" tabindex="-1"></a><span class="fu">conf.mat</span>(kNN_prob[, <span class="dv">1</span>], actual_test, <span class="at">cutoff =</span> <span class="fl">0.7</span>)</span>
+<span id="cb147-8"><a href="chapter-evaluation.html#cb147-8" tabindex="-1"></a>   Setting levels<span class="sc">:</span> reference <span class="ot">=</span> <span class="st">"yes"</span>, case <span class="ot">=</span> <span class="st">"no"</span></span>
+<span id="cb147-9"><a href="chapter-evaluation.html#cb147-9" tabindex="-1"></a>          Actual</span>
+<span id="cb147-10"><a href="chapter-evaluation.html#cb147-10" tabindex="-1"></a>   Predict yes  no</span>
+<span id="cb147-11"><a href="chapter-evaluation.html#cb147-11" tabindex="-1"></a>       yes  <span class="dv">22</span>   <span class="dv">1</span></span>
+<span id="cb147-12"><a href="chapter-evaluation.html#cb147-12" tabindex="-1"></a>       no  <span class="dv">115</span> <span class="dv">862</span></span></code></pre></div>
 <p>At a threshold of 0.5, the model classifies a customer as a churner if the probability of churn is at least 50%. For this threshold, the confusion matrix will match the one in Example <a href="chapter-evaluation.html#exm:ex-confusion-matrix-kNN">8.1</a>, as both use the same default cutoff. By raising the threshold to 0.7, the model requires at least 70% confidence to classify a customer as a churner. This change shifts the balance between true positives, true negatives, false positives, and false negatives. For example:</p>
 <ul>
 <li>Lowering the threshold increases <strong>sensitivity</strong>, allowing the model to catch more true positives but potentially leading to more false positives.<br>
@@ -408,12 +408,12 @@ Figure 8.1: The ROC curve illustrates the trade-off between sensitivity and spec
 <p>To construct the ROC curve, a classifier’s predictions are sorted by their estimated probabilities for the positive class. Starting from the origin, each prediction’s impact on sensitivity and specificity is plotted. Correct predictions (true positives) result in vertical movements, while incorrect predictions (false positives) lead to horizontal shifts.</p>
 <p>Let’s apply this concept to the <strong>k-Nearest Neighbors (kNN)</strong> model from Example <a href="chapter-evaluation.html#exm:ex-confusion-matrix-kNN-prob">8.2</a>, where we obtained probabilities for the positive class (<code>churn = yes</code>). We’ll use these probabilities to generate the ROC curve for the model. The <strong>pROC</strong> package in R simplifies this process. Ensure the package is installed using <code>install.packages("pROC")</code> before proceeding.</p>
 <p>To create an ROC curve, two inputs are needed: the estimated probabilities for the positive class and the actual class labels. Using the <code><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc()</a></code> function from the <strong>pROC</strong> package, we can create the ROC curve object as follows:</p>
-<div class="sourceCode" id="cb149"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://xrobin.github.io/pROC/">pROC</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">roc_knn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span>response <span class="op">=</span> <span class="va">actual_test</span>, predictor <span class="op">=</span> <span class="va">kNN_prob</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <p>We can then visualize the ROC curve using the <code><a href="https://rdrr.io/pkg/pROC/man/ggroc.html">ggroc()</a></code> function from the <strong>ggplot2</strong> package or the <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function for a basic display. Here’s the ROC curve for the kNN model:</p>
-<div class="sourceCode" id="cb150"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb149"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/pROC/man/ggroc.html">ggroc</a></span><span class="op">(</span><span class="va">roc_knn</span>, colour <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"ROC curve for KNN with k = 5, based on churn data"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
@@ -439,8 +439,8 @@ Figure 8.3: The AUC summarizes the ROC curve into a single number, representing 
 <strong>AUC = 0.5</strong>: No better than random guessing.</li>
 </ul>
 <p>For the kNN model, we can calculate the AUC as follows:</p>
-<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="chapter-evaluation.html#cb151-1" tabindex="-1"></a><span class="fu">auc</span>(roc_knn)</span>
-<span id="cb151-2"><a href="chapter-evaluation.html#cb151-2" tabindex="-1"></a>   Area under the curve<span class="sc">:</span> <span class="fl">0.8494</span></span></code></pre></div>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="chapter-evaluation.html#cb150-1" tabindex="-1"></a><span class="fu">auc</span>(roc_knn)</span>
+<span id="cb150-2"><a href="chapter-evaluation.html#cb150-2" tabindex="-1"></a>   Area under the curve<span class="sc">:</span> <span class="fl">0.8494</span></span></code></pre></div>
 <p>The AUC value for this model is 0.849, indicating that the model ranks positive cases higher than negative ones with a probability of 0.849.</p>
 <p>The ROC curve and AUC offer a comprehensive and systematic way to evaluate classification models, enabling comparisons between models and helping identify the optimal threshold for specific tasks. These tools are particularly valuable when working with imbalanced datasets, as they account for the trade-offs between sensitivity and specificity across all thresholds. By combining these insights with metrics like precision, recall, and F1-score, we can develop a deeper understanding of model performance and select the best approach for the problem at hand.</p>
 </div>
