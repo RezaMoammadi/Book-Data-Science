@@ -46,9 +46,9 @@
     }
   </style>
 <link rel="stylesheet" href="style.css">
-<meta name="description" content="Statistical inference bridges the gap between what we observe in a sample and what we want to understand about the population. It allows us to assess whether the patterns we observed during EDA...">
-<meta property="og:description" content="Statistical inference bridges the gap between what we observe in a sample and what we want to understand about the population. It allows us to assess whether the patterns we observed during EDA...">
-<meta name="twitter:description" content="Statistical inference bridges the gap between what we observe in a sample and what we want to understand about the population. It allows us to assess whether the patterns we observed during EDA...">
+<meta name="description" content="Statistical inference bridges the gap between what we observe in a sample and what we want to understand about the population. While exploratory data analysis (EDA) helps us identify patterns and...">
+<meta property="og:description" content="Statistical inference bridges the gap between what we observe in a sample and what we want to understand about the population. While exploratory data analysis (EDA) helps us identify patterns and...">
+<meta name="twitter:description" content="Statistical inference bridges the gap between what we observe in a sample and what we want to understand about the population. While exploratory data analysis (EDA) helps us identify patterns and...">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -95,194 +95,163 @@
 <h1>
 <span class="header-section-number">5</span> Statistical Inference and Hypothesis Testing<a class="anchor" aria-label="anchor" href="#chapter-statistics"><i class="fas fa-link"></i></a>
 </h1>
-<p>Statistical inference bridges the gap between <strong>what we observe in a sample</strong> and <strong>what we want to understand about the population</strong>. It allows us to assess whether the patterns we observed during EDA reflect true relationships in the broader population—or whether they’re just the result of chance. In this chapter, we’ll focus on the <strong>practical side of statistical inference</strong>: how to ask the right questions, apply the appropriate techniques, and use results to guide meaningful decisions.</p>
+<p>Statistical inference bridges the gap between <em>what we observe in a sample</em> and <em>what we want to understand about the population</em>. While exploratory data analysis (EDA) helps us identify patterns and relationships, statistical inference allows us to determine whether these patterns hold beyond our sample—or whether they could have arisen by chance. In this chapter, we transition from <em>exploring</em> data to <em>validating</em> insights through estimation, hypothesis testing, and quantifying uncertainty.</p>
 <p>The goals of statistical inference can be summarized into three fundamental tasks:</p>
 <ol style="list-style-type: decimal">
 <li>
-<strong>Estimating</strong> unknown population characteristics, such as averages or proportions.<br>
+<em>Estimating population characteristics</em>, such as averages or proportions, based on sample data.<br>
 </li>
 <li>
-<strong>Quantifying Uncertainty</strong> to measure how confident we can be in our results.<br>
+<em>Quantifying uncertainty</em> to measure how confident we can be in our results.<br>
 </li>
 <li>
-<strong>Testing Hypotheses</strong> to evaluate whether observed patterns are statistically meaningful or simply due to random variation.</li>
+<em>Testing hypotheses</em> to evaluate whether observed patterns are statistically meaningful or simply due to random variation.</li>
 </ol>
-<p>These tasks lie at the heart of data analysis, providing the foundation for robust conclusions and data-driven decision-making. In this chapter, we’ll explore these three pillars—estimation, uncertainty, and hypothesis testing—using intuitive explanations and practical examples.</p>
-<p>But statistical inference isn’t just about learning techniques—it’s also about <strong>critical thinking</strong>. By the end of this chapter, you’ll learn two essential skills:</p>
+<p>These tasks form the foundation of <em>data-driven decision-making</em>, enabling us to distinguish meaningful insights from statistical noise. In this chapter, we will explore these three pillars—estimation, uncertainty, and hypothesis testing—using intuitive explanations and practical examples.</p>
+<p>But statistical inference isn’t just about applying formulas—it’s also about <em>critical thinking</em>. By the end of this chapter, you’ll develop two essential skills:</p>
 <ul>
 <li>
-<strong>How to detect when others are misusing statistics</strong>, so you can identify misleading claims.<br>
+<em>How to detect statistical misuses and misleading claims</em>, helping you critically evaluate data-driven arguments.<br>
 </li>
 <li>
-<strong>How to avoid statistical missteps yourself</strong>, or, if you’re feeling mischievous, <em>how to “lie” with statistics</em> effectively.</li>
+<em>How to avoid common pitfalls in statistical analysis</em>, ensuring that your own conclusions are both sound and defensible.</li>
 </ul>
-<p>For those intrigued by the art of spotting statistical trickery, consider reading Darrell Huff’s classic book, <a href="https://www.goodreads.com/book/show/51291.How_to_Lie_with_Statistics"><em>How to Lie with Statistics</em></a>. Although written with humor and journalistic insight, it offers timeless lessons in statistical skepticism—a valuable skill in an age of data overload.</p>
-<p>Let’s dive in and learn how to make inferences with confidence, curiosity, and just a touch of caution.</p>
+<p>For those interested in the art of identifying statistical manipulation, Darrell Huff’s classic book, <a href="https://www.goodreads.com/book/show/51291.How_to_Lie_with_Statistics"><em>How to Lie with Statistics</em></a>, offers timeless lessons in statistical skepticism. Understanding these techniques is valuable not just for avoiding errors but also for recognizing when data is being used to mislead.</p>
+<p>Let’s dive in and learn how to make statistical inferences with confidence, curiosity, and a healthy dose of skepticism.</p>
 <div id="estimation-using-data-to-make-predictions" class="section level2" number="5.1">
 <h2>
 <span class="header-section-number">5.1</span> Estimation: Using Data to Make Predictions<a class="anchor" aria-label="anchor" href="#estimation-using-data-to-make-predictions"><i class="fas fa-link"></i></a>
 </h2>
-<p>Estimation addresses the question: <em>What can we infer about the population based on our sample?</em> For example, in the churn dataset, we may want to estimate:</p>
+<p>Estimation is a fundamental aspect of statistical inference that allows us to make informed guesses about a population based on a sample. Rather than relying on the entire population, which is often impractical, we use sample data to estimate key characteristics such as averages or proportions. For instance, in the churn dataset, we might want to estimate:</p>
 <ul>
-<li>The <strong>average number of customer service calls</strong> among churners.</li>
-<li>The <strong>proportion of customers</strong> subscribed to the International Plan.</li>
+<li>The <em>average number of customer service calls</em> among churners.<br>
+</li>
+<li>The <em>proportion of customers</em> subscribed to the International Plan.</li>
 </ul>
-<p>Estimation comes in two main forms:</p>
+<p>There are two main types of estimation:</p>
 <ol style="list-style-type: decimal">
 <li>
-<strong>Point Estimation</strong>: A single best guess for the population parameter (e.g., the sample mean or proportion).<br>
+<em>Point estimation</em> provides a single best guess for a population parameter, such as using the sample mean to estimate the population mean.<br>
 </li>
 <li>
-<strong>Interval Estimation</strong>: A range of values (confidence interval) likely to contain the true population parameter.</li>
+<em>Interval estimation</em> gives a range of plausible values (a confidence interval) within which the true population parameter is likely to fall.</li>
 </ol>
 <p>Let’s explore some examples:</p>
 <div class="example">
-<p><span id="exm:ex-est-churn-proportion" class="example"><strong>Example 5.1  </strong></span>To estimate the <strong>proportion of churners</strong> in the dataset, we use the <strong>sample proportion</strong> as a point estimate for the population proportion. Here’s how to calculate it in R:</p>
-<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Calculate the proportion of churners</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/proportions.html">prop.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">churn</span><span class="op">$</span><span class="va">churn</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="st">"yes"</span><span class="op">]</span></span>
+<p><span id="exm:ex-est-churn-proportion" class="example"><strong>Example 5.1  </strong></span>To estimate the <em>proportion of churners</em> in the dataset, we use the <em>sample proportion</em> as a point estimate for the population proportion. Here’s how to calculate it in R:</p>
+<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/proportions.html">prop.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">churn</span><span class="op">$</span><span class="va">churn</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="st">"yes"</span><span class="op">]</span></span>
 <span>      <span class="va">yes</span> </span>
 <span>   <span class="fl">0.1414</span></span></code></pre></div>
-<p>The proportion of churners in the dataset is <strong>0.14</strong>. This serves as our best single guess for the proportion of churners in the population.</p>
+<p>The estimated proportion of churners in the dataset is 0.14, serving as our best guess for the proportion of churners in the population.</p>
 </div>
 <div class="example">
-<p><span id="exm:ex-est-service-call" class="example"><strong>Example 5.2  </strong></span>let’s estimate the <strong>average number of customer service calls</strong> for customers who churned. The <strong>sample mean</strong> acts as a point estimate for the population mean:</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="chapter-statistics.html#cb102-1" tabindex="-1"></a><span class="co"># Filter churners</span></span>
-<span id="cb102-2"><a href="chapter-statistics.html#cb102-2" tabindex="-1"></a>churned_customers <span class="ot">&lt;-</span> churn[churn<span class="sc">$</span>churn <span class="sc">==</span> <span class="st">"yes"</span>, ]</span>
-<span id="cb102-3"><a href="chapter-statistics.html#cb102-3" tabindex="-1"></a></span>
-<span id="cb102-4"><a href="chapter-statistics.html#cb102-4" tabindex="-1"></a><span class="co"># Calculate the mean</span></span>
-<span id="cb102-5"><a href="chapter-statistics.html#cb102-5" tabindex="-1"></a>mean_calls <span class="ot">&lt;-</span> <span class="fu">mean</span>(churned_customers<span class="sc">$</span>customer.calls)</span>
-<span id="cb102-6"><a href="chapter-statistics.html#cb102-6" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Point Estimate: Average Customer Service Calls for Churners:"</span>, mean_calls)</span>
-<span id="cb102-7"><a href="chapter-statistics.html#cb102-7" tabindex="-1"></a>   Point Estimate<span class="sc">:</span> Average Customer Service Calls <span class="cf">for</span> Churners<span class="sc">:</span> <span class="fl">2.254597</span></span></code></pre></div>
-<p>If the mean is <strong>4 calls</strong>, this is our best single guess for the average number of customer service calls among all churners in the population.</p>
+<p><span id="exm:ex-est-service-call" class="example"><strong>Example 5.2  </strong></span>Now, let’s estimate the <em>average number of customer service calls</em> for customers who churned. The <em>sample mean</em> serves as a point estimate for the population mean:</p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="chapter-statistics.html#cb103-1" tabindex="-1"></a><span class="co"># Filter churners</span></span>
+<span id="cb103-2"><a href="chapter-statistics.html#cb103-2" tabindex="-1"></a>churned_customers <span class="ot">&lt;-</span> churn[churn<span class="sc">$</span>churn <span class="sc">==</span> <span class="st">"yes"</span>, ]</span>
+<span id="cb103-3"><a href="chapter-statistics.html#cb103-3" tabindex="-1"></a></span>
+<span id="cb103-4"><a href="chapter-statistics.html#cb103-4" tabindex="-1"></a><span class="co"># Calculate the mean</span></span>
+<span id="cb103-5"><a href="chapter-statistics.html#cb103-5" tabindex="-1"></a>mean_calls <span class="ot">&lt;-</span> <span class="fu">mean</span>(churned_customers<span class="sc">$</span>customer.calls)</span>
+<span id="cb103-6"><a href="chapter-statistics.html#cb103-6" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Point Estimate: Average Customer Service Calls for Churners:"</span>, mean_calls)</span>
+<span id="cb103-7"><a href="chapter-statistics.html#cb103-7" tabindex="-1"></a>   Point Estimate<span class="sc">:</span> Average Customer Service Calls <span class="cf">for</span> Churners<span class="sc">:</span> <span class="fl">2.254597</span></span></code></pre></div>
+<p>If the sample mean is <strong>4 calls</strong>, this would be our best estimate of the average number of customer service calls among all churners in the population.</p>
 </div>
 <blockquote>
-<p><strong>Key Insight</strong>: While point estimates are informative, they don’t tell us how precise or reliable they are. For that, we turn to confidence intervals.</p>
+<p><em>While point estimates are useful, they provide no information about uncertainty. Confidence intervals help quantify the precision of an estimate, which we explore next.</em></p>
 </blockquote>
 </div>
-<div id="quantifying-uncertainty-confidence-intervals" class="section level2" number="5.2">
+<div id="statistics-confidence-interval" class="section level2" number="5.2">
 <h2>
-<span class="header-section-number">5.2</span> Quantifying Uncertainty: Confidence Intervals<a class="anchor" aria-label="anchor" href="#quantifying-uncertainty-confidence-intervals"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.2</span> Quantifying Uncertainty: Confidence Intervals<a class="anchor" aria-label="anchor" href="#statistics-confidence-interval"><i class="fas fa-link"></i></a>
 </h2>
-<p>Confidence intervals (CIs) provide a way to <strong>quantify uncertainty</strong> by offering a range of plausible values for a population parameter. Instead of saying, “The average number of customer service calls is 4,” a confidence interval might state, “We are 95% confident that the true average is between 3.8 and 4.2.”</p>
-<p>A confidence interval combines:</p>
-<ol style="list-style-type: decimal">
-<li>A <strong>point estimate</strong> (e.g., sample mean or proportion).</li>
-<li>A <strong>margin of error</strong>, which accounts for variability and uncertainty.</li>
-</ol>
-<p>The general form of a confidence interval is:</p>
+<p>Confidence intervals help quantify uncertainty when estimating population parameters. Instead of simply stating that “the average number of customer service calls is 4,” a confidence interval provides a range, such as “we are 95% confident that the true average is between 3.8 and 4.2.” This range accounts for sampling variability, offering a clearer picture of how reliable the estimate is.</p>
+<p>A confidence interval consists of a point estimate, such as a sample mean or proportion, and a margin of error, which accounts for uncertainty. The general form of a confidence interval is:</p>
 <p><span class="math display">\[
 \text{Point Estimate}  \pm \text{Margin of Error}
 \]</span></p>
-<p>For example, the confidence interval for a population mean is calculated as:</p>
+<p>For a population mean, the confidence interval is calculated as:</p>
 <p><span class="math display">\[
 \bar{x} \pm z_{\frac{\alpha}{2}} \times \left( \frac{s}{\sqrt{n}} \right),
-\]</span>
-where the sample mean <span class="math inline">\(\bar{x}\)</span> is the point estimate and the quantity <span class="math inline">\(z_{\frac{\alpha}{2}} \times \left( \frac{s}{\sqrt{n}} \right)\)</span> is the margin of error. The z-score <span class="math inline">\(z_{\frac{\alpha}{2}}\)</span> is determined by the desired confidence level (e.g., 1.96 for 95% confidence), <span class="math inline">\(s\)</span> is the sample standard deviation, and <span class="math inline">\(n\)</span> = sample size.</p>
-<p>This is visually represented in <a href="chapter-statistics.html#fig:confidence-interval">5.1</a>, showing the interval centered around the point estimate with the width determined by the margin of error.</p>
+\]</span></p>
+<p>where <span class="math inline">\(\bar{x}\)</span> is the sample mean, <span class="math inline">\(z_{\frac{\alpha}{2}}\)</span> is a critical value from the standard normal distribution (such as 1.96 for a 95% confidence level), <span class="math inline">\(s\)</span> is the sample standard deviation, and <span class="math inline">\(n\)</span> is the sample size. This concept is illustrated in Figure <a href="chapter-statistics.html#fig:confidence-interval">5.1</a>, where the interval is centered around the point estimate and its width depends on the margin of error.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:confidence-interval"></span>
 <img src="images/confidence_interval.png" alt="Confidence interval for the population mean. The interval is centered around the point estimate, with the width determined by the margin of error. The confidence level specifies the probability that the interval contains the true population parameter." width="80%"><p class="caption">
 Figure 5.1: Confidence interval for the population mean. The interval is centered around the point estimate, with the width determined by the margin of error. The confidence level specifies the probability that the interval contains the true population parameter.
 </p>
 </div>
-<p>Key Factors That Influence Confidence Intervals:</p>
-<ul>
-<li>
-<strong>Sample Size</strong>: Larger samples yield narrower intervals, increasing precision.<br>
-</li>
-<li>
-<strong>Variability</strong>: Higher variability in the data results in wider intervals.<br>
-</li>
-<li>
-<strong>Confidence Level</strong>: Higher confidence levels (e.g., 99%) lead to wider intervals than lower levels (e.g., 90%).</li>
-</ul>
-<div class="example">
-<p><span id="exm:ex-confidence-service-call" class="example"><strong>Example 5.3  </strong></span>Let’s calculate a 95% confidence interval for the <strong>average number of customer service calls</strong> among churners:</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="chapter-statistics.html#cb103-1" tabindex="-1"></a><span class="co"># Calculate mean and standard error</span></span>
-<span id="cb103-2"><a href="chapter-statistics.html#cb103-2" tabindex="-1"></a>mean_calls <span class="ot">&lt;-</span> <span class="fu">mean</span>(churned_customers<span class="sc">$</span>customer.calls)</span>
-<span id="cb103-3"><a href="chapter-statistics.html#cb103-3" tabindex="-1"></a>se_calls <span class="ot">&lt;-</span> <span class="fu">sd</span>(churned_customers<span class="sc">$</span>customer.calls) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">nrow</span>(churned_customers))</span>
-<span id="cb103-4"><a href="chapter-statistics.html#cb103-4" tabindex="-1"></a></span>
-<span id="cb103-5"><a href="chapter-statistics.html#cb103-5" tabindex="-1"></a><span class="co"># Confidence Interval</span></span>
-<span id="cb103-6"><a href="chapter-statistics.html#cb103-6" tabindex="-1"></a>z_score <span class="ot">&lt;-</span> <span class="fl">1.96</span>  <span class="co"># For 95% confidence</span></span>
-<span id="cb103-7"><a href="chapter-statistics.html#cb103-7" tabindex="-1"></a>ci_lower <span class="ot">&lt;-</span> mean_calls <span class="sc">-</span> z_score <span class="sc">*</span> se_calls</span>
-<span id="cb103-8"><a href="chapter-statistics.html#cb103-8" tabindex="-1"></a>ci_upper <span class="ot">&lt;-</span> mean_calls <span class="sc">+</span> z_score <span class="sc">*</span> se_calls</span>
-<span id="cb103-9"><a href="chapter-statistics.html#cb103-9" tabindex="-1"></a></span>
-<span id="cb103-10"><a href="chapter-statistics.html#cb103-10" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"95% Confidence Interval: ["</span>, ci_lower, <span class="st">","</span>, ci_upper, <span class="st">"]"</span>)</span>
-<span id="cb103-11"><a href="chapter-statistics.html#cb103-11" tabindex="-1"></a>   <span class="dv">95</span>% Confidence Interval<span class="sc">:</span> [ <span class="fl">2.120737</span> , <span class="fl">2.388457</span> ]</span></code></pre></div>
-<p>If the confidence interval is <strong>[ 2.12, 2.39 ]</strong>, we are 95% confident that the true average lies within this range.</p>
-</div>
-<p>For smaller sample sizes, use the <strong>t-distribution</strong> instead of the normal distribution. The t-distribution adjusts for the added uncertainty when estimating the population standard deviation. You can calculate confidence intervals for small samples in R using the <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> function:</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="chapter-statistics.html#cb104-1" tabindex="-1"></a><span class="fu">t.test</span>(churned_customers<span class="sc">$</span>customer.calls, <span class="at">conf.level =</span> <span class="fl">0.95</span>)<span class="sc">$</span>conf.int</span>
-<span id="cb104-2"><a href="chapter-statistics.html#cb104-2" tabindex="-1"></a>   [<span class="dv">1</span>] <span class="fl">2.120509</span> <span class="fl">2.388685</span></span>
-<span id="cb104-3"><a href="chapter-statistics.html#cb104-3" tabindex="-1"></a>   <span class="fu">attr</span>(,<span class="st">"conf.level"</span>)</span>
-<span id="cb104-4"><a href="chapter-statistics.html#cb104-4" tabindex="-1"></a>   [<span class="dv">1</span>] <span class="fl">0.95</span></span></code></pre></div>
-<p>This approach automatically adjusts for the sample size and underlying variability in the data, making it a robust alternative to manual calculations.</p>
-<blockquote>
-<p><strong>Interpretation</strong>: If confidence intervals for different groups (e.g., churners vs. non-churners) don’t overlap significantly, it suggests meaningful differences in behavior between the groups.</p>
-</blockquote>
-<p>In summary, confidence intervals go beyond point estimates by providing a range of plausible values for the population parameter, helping us account for the uncertainty in our predictions. Narrower intervals indicate greater precision, which is achieved through larger sample sizes or lower variability in the data. Confidence levels, such as 95%, quantify the degree of certainty that the interval contains the true population parameter. For smaller sample sizes, the t-distribution offers a more reliable approach by adjusting for the additional uncertainty inherent in limited data. Confidence intervals, therefore, serve as a critical tool for balancing precision and uncertainty in statistical inference.</p>
+<p>Several factors influence the width of a confidence interval. Larger sample sizes generally yield narrower intervals, increasing precision, while higher variability in the data results in wider intervals. The choice of confidence level also affects the width; for example, a 99% confidence level produces a wider interval than a 90% confidence level because it must capture more possible values.</p>
+<p>Imagine you want to estimate the average height of all students in a university. If you survey only 10 students, your confidence interval will be wide because you have little data. But if you survey 1,000 students, your estimate becomes much more precise, and the confidence interval shrinks. This illustrates why larger sample sizes lead to more reliable estimates—more data reduces uncertainty and results in tighter confidence intervals.</p>
+<p>To illustrate, suppose we want to estimate the average number of customer service calls among churners with 95% confidence:</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="chapter-statistics.html#cb104-1" tabindex="-1"></a><span class="co"># Calculate mean and standard error</span></span>
+<span id="cb104-2"><a href="chapter-statistics.html#cb104-2" tabindex="-1"></a>mean_calls <span class="ot">&lt;-</span> <span class="fu">mean</span>(churned_customers<span class="sc">$</span>customer.calls)</span>
+<span id="cb104-3"><a href="chapter-statistics.html#cb104-3" tabindex="-1"></a>se_calls <span class="ot">&lt;-</span> <span class="fu">sd</span>(churned_customers<span class="sc">$</span>customer.calls) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">nrow</span>(churned_customers))</span>
+<span id="cb104-4"><a href="chapter-statistics.html#cb104-4" tabindex="-1"></a></span>
+<span id="cb104-5"><a href="chapter-statistics.html#cb104-5" tabindex="-1"></a><span class="co"># Confidence Interval</span></span>
+<span id="cb104-6"><a href="chapter-statistics.html#cb104-6" tabindex="-1"></a>z_score <span class="ot">&lt;-</span> <span class="fl">1.96</span>  <span class="co"># For 95% confidence</span></span>
+<span id="cb104-7"><a href="chapter-statistics.html#cb104-7" tabindex="-1"></a>ci_lower <span class="ot">&lt;-</span> mean_calls <span class="sc">-</span> z_score <span class="sc">*</span> se_calls</span>
+<span id="cb104-8"><a href="chapter-statistics.html#cb104-8" tabindex="-1"></a>ci_upper <span class="ot">&lt;-</span> mean_calls <span class="sc">+</span> z_score <span class="sc">*</span> se_calls</span>
+<span id="cb104-9"><a href="chapter-statistics.html#cb104-9" tabindex="-1"></a></span>
+<span id="cb104-10"><a href="chapter-statistics.html#cb104-10" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"95% Confidence Interval: ["</span>, ci_lower, <span class="st">","</span>, ci_upper, <span class="st">"]"</span>)</span>
+<span id="cb104-11"><a href="chapter-statistics.html#cb104-11" tabindex="-1"></a>   <span class="dv">95</span>% Confidence Interval<span class="sc">:</span> [ <span class="fl">2.120737</span> , <span class="fl">2.388457</span> ]</span></code></pre></div>
+<p>If the computed interval is [2.12, 2.39], we can say with 95% confidence that the true average number of service calls for churners falls within this range.</p>
+<p>For smaller sample sizes, it is better to use the t-distribution instead of the normal distribution, as it accounts for the added uncertainty when estimating the population standard deviation. This adjustment is applied automatically in R when using the <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> function:</p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="chapter-statistics.html#cb105-1" tabindex="-1"></a><span class="fu">t.test</span>(churned_customers<span class="sc">$</span>customer.calls, <span class="at">conf.level =</span> <span class="fl">0.95</span>)<span class="sc">$</span>conf.int</span>
+<span id="cb105-2"><a href="chapter-statistics.html#cb105-2" tabindex="-1"></a>   [<span class="dv">1</span>] <span class="fl">2.120509</span> <span class="fl">2.388685</span></span>
+<span id="cb105-3"><a href="chapter-statistics.html#cb105-3" tabindex="-1"></a>   <span class="fu">attr</span>(,<span class="st">"conf.level"</span>)</span>
+<span id="cb105-4"><a href="chapter-statistics.html#cb105-4" tabindex="-1"></a>   [<span class="dv">1</span>] <span class="fl">0.95</span></span></code></pre></div>
+<p>Confidence intervals are particularly useful for comparing groups. If confidence intervals for two groups, such as churners and non-churners, do not overlap significantly, it suggests meaningful differences in behavior. By providing a range rather than a single estimate, confidence intervals help balance precision and uncertainty, making them a valuable tool in statistical inference.</p>
 </div>
 <div id="hypothesis-testing" class="section level2" number="5.3">
 <h2>
 <span class="header-section-number">5.3</span> Hypothesis Testing<a class="anchor" aria-label="anchor" href="#hypothesis-testing"><i class="fas fa-link"></i></a>
 </h2>
-<p>Hypothesis testing is a cornerstone of inferential statistics, providing a structured framework for evaluating claims or assumptions about population parameters based on sample data. It allows us to assess whether observed patterns in the data are statistically significant or merely the result of random chance. This process lies at the heart of data-driven decision-making, empowering us to separate meaningful insights from noise.</p>
-<p>At its core, hypothesis testing involves formulating two competing statements about a population parameter:</p>
-<ol style="list-style-type: decimal">
-<li>
-<strong>Null Hypothesis (<span class="math inline">\(H_0\)</span>)</strong>: Represents the default assumption or status quo. For example, it might claim that there is no difference between two groups, no effect of a treatment, or no relationship between variables.</li>
-<li>
-<strong>Alternative Hypothesis (<span class="math inline">\(H_a\)</span>)</strong>: Represents a competing claim that challenges the null hypothesis. For instance, it might state that there is a difference, an effect, or a relationship.</li>
-</ol>
-<p>The goal of hypothesis testing is to use evidence from the sample to decide whether to:</p>
+<p>Hypothesis testing provides a structured framework for evaluating claims about population parameters using sample data. It helps us assess whether patterns observed during exploratory analysis are statistically significant or simply the result of random variation. This method is fundamental to data-driven decision-making, enabling us to distinguish meaningful insights from noise.</p>
+<p>At its core, hypothesis testing involves two competing statements about a population parameter:</p>
+<ul>
+<li>The <em>null hypothesis</em> (<span class="math inline">\(H_0\)</span>) represents the default assumption or status quo, often stating that there is no difference between groups, no effect of a treatment, or no relationship between variables.<br>
+</li>
+<li>The <em>alternative hypothesis</em> (<span class="math inline">\(H_a\)</span>) challenges <span class="math inline">\(H_0\)</span>, suggesting that a difference, effect, or relationship does exist.</li>
+</ul>
+<p>Using sample evidence, we decide whether to:</p>
 <ul>
 <li>
-<strong>Reject <span class="math inline">\(H_0\)</span></strong>: Conclude that the evidence supports <span class="math inline">\(H_a\)</span>, and the null hypothesis is unlikely to be true.</li>
+<em>Reject <span class="math inline">\(H_0\)</span></em> and conclude that the data supports <span class="math inline">\(H_a\)</span>.<br>
+</li>
 <li>
-<strong>Fail to reject <span class="math inline">\(H_0\)</span></strong>: Conclude that there is insufficient evidence to refute <span class="math inline">\(H_0\)</span>, though this does not prove <span class="math inline">\(H_0\)</span> to be true.</li>
+<em>Fail to reject <span class="math inline">\(H_0\)</span></em>, meaning the evidence is insufficient to dismiss <span class="math inline">\(H_0\)</span>, though this does not prove it to be true.</li>
 </ul>
-<p>To make these decisions, we calculate a measure of evidence against the null hypothesis: the <strong>p-value</strong>.</p>
-<p>The <strong>p-value</strong> quantifies the strength of the evidence against <span class="math inline">\(H_0\)</span>. Specifically, it represents the <strong>probability of observing the sample data—or something more extreme—if the null hypothesis (<span class="math inline">\(H_0\)</span>) were true</strong>. Smaller p-values indicate stronger evidence against <span class="math inline">\(H_0\)</span>, as the observed data would be highly unlikely under the assumption that <span class="math inline">\(H_0\)</span> is true. We interpret the p-value as follows:</p>
+<p>The strength of the evidence against <span class="math inline">\(H_0\)</span> is quantified using the <em>p</em>-value, which represents the probability of obtaining the observed data—or something more extreme—if <span class="math inline">\(H_0\)</span> were true. A smaller <em>p</em>-value suggests stronger evidence against <span class="math inline">\(H_0\)</span>.</p>
 <ul>
-<li>
-<strong>Small p-value (e.g., &lt; 0.05)</strong>: The observed data is unlikely under <span class="math inline">\(H_0\)</span>. We reject <span class="math inline">\(H_0\)</span> and conclude that there is evidence to support <span class="math inline">\(H_a\)</span>.</li>
-<li>
-<strong>Large p-value (e.g., &gt; 0.05)</strong>: The observed data is consistent with <span class="math inline">\(H_0\)</span>. We fail to reject <span class="math inline">\(H_0\)</span> and conclude that there is insufficient evidence to support <span class="math inline">\(H_a\)</span>.</li>
+<li>If <span class="math inline">\(p &lt; 0.05\)</span>, we reject <span class="math inline">\(H_0\)</span> and conclude there is statistical evidence for <span class="math inline">\(H_a\)</span>.<br>
+</li>
+<li>If <span class="math inline">\(p &gt; 0.05\)</span>, we fail to reject <span class="math inline">\(H_0\)</span>, meaning the evidence is not strong enough to support <span class="math inline">\(H_a\)</span>.</li>
 </ul>
-<p>The <strong>p-value</strong> is compared against a predefined threshold known as the <strong>significance level (<span class="math inline">\(\alpha\)</span>)</strong>, which is commonly set at 0.05 (5%). The significance level represents the maximum probability of committing a <strong>Type I error</strong>—rejecting <span class="math inline">\(H_0\)</span> when it is actually true—that we are willing to tolerate. In certain fields, such as medicine or aerospace, where the cost of a Type I error is especially high, stricter thresholds (e.g., <span class="math inline">\(\alpha = 0.01\)</span>) may be used to minimize this risk.</p>
-<p>This leads us to a simple yet crucial takeaway, often referred to as the key decision rule for hypothesis testing. I often tell my students to remember this as the <strong>core message</strong> of the chapter:</p>
-<div style="text-align: center; font-weight: bold;">
-<p><strong>Reject <span class="math inline">\(H_0\)</span> if the <span class="math inline">\(p\)</span>-value &lt; <span class="math inline">\(\alpha\)</span></strong>.</p>
+<p>The threshold for decision-making is called the <em>significance level</em> (<span class="math inline">\(\alpha\)</span>), typically set at 0.05 (5%). This value represents the maximum probability of making a <em>Type I error</em>—incorrectly rejecting <span class="math inline">\(H_0\)</span>. In fields where errors have serious consequences, such as medicine or aerospace, stricter thresholds (e.g., <span class="math inline">\(\alpha = 0.01\)</span>) are often used.</p>
+<p>A simple takeaway, often emphasized in hypothesis testing, is:</p>
+<div style="text-align: center; font-style: italic;">
+<p>Reject <span class="math inline">\(H_0\)</span> if the <span class="math inline">\(p\)</span>-value &lt; <span class="math inline">\(\alpha\)</span>.</p>
 </div>
-<p>Let’s see how this works in practice:</p>
+<p>For example:<br>
+- If <span class="math inline">\(p = 0.03\)</span> and <span class="math inline">\(\alpha = 0.05\)</span>, we reject <span class="math inline">\(H_0\)</span> because <span class="math inline">\(p &lt; \alpha\)</span>.<br>
+- If <span class="math inline">\(p = 0.12\)</span>, we fail to reject <span class="math inline">\(H_0\)</span> because <span class="math inline">\(p &gt; \alpha\)</span>.</p>
+<p>Although <em>p</em>-values provide a structured way to make decisions, they have limitations. A small <em>p</em>-value does not necessarily mean a result is practically important—it only indicates statistical significance. Large datasets can generate small <em>p</em>-values for trivial effects, while small datasets may fail to detect meaningful differences. Additionally, the binary reject/fail-to-reject approach can sometimes oversimplify interpretation.</p>
+<div id="types-of-hypothesis-tests" class="section level3" number="5.3.1">
+<h3>
+<span class="header-section-number">5.3.1</span> Types of Hypothesis Tests<a class="anchor" aria-label="anchor" href="#types-of-hypothesis-tests"><i class="fas fa-link"></i></a>
+</h3>
+<p>Depending on the research question, hypothesis tests can take different forms:</p>
 <ul>
-<li>If <span class="math inline">\(p = 0.03\)</span> and <span class="math inline">\(\alpha = 0.05\)</span>: <strong>Reject <span class="math inline">\(H_0\)</span></strong> because <span class="math inline">\(p &lt; \alpha\)</span>. The evidence against <span class="math inline">\(H_0\)</span> is strong enough to conclude that the alternative hypothesis is supported.</li>
-<li>If <span class="math inline">\(p = 0.12\)</span> and <span class="math inline">\(\alpha = 0.05\)</span>: <strong>Fail to reject <span class="math inline">\(H_0\)</span></strong> because <span class="math inline">\(p &gt; \alpha\)</span>. The evidence is insufficient to refute <span class="math inline">\(H_0\)</span>, though this does not prove that <span class="math inline">\(H_0\)</span> is true.</li>
+<li>
+<em>Left-tailed test</em>: The alternative hypothesis states that the parameter is <em>less than</em> a specified value (<span class="math inline">\(H_a: \theta &lt; \theta_0\)</span>). Example: Testing whether the average number of customer service calls is <em>less than</em> 3.<br>
+</li>
+<li>
+<em>Right-tailed test</em>: The alternative hypothesis states that the parameter is <em>greater than</em> a specified value (<span class="math inline">\(H_a: \theta &gt; \theta_0\)</span>). Example: Testing whether the churn rate is <em>greater than</em> 30%.<br>
+</li>
+<li>
+<em>Two-tailed test</em>: The alternative hypothesis states that the parameter is <em>not equal to</em> a specified value (<span class="math inline">\(H_a: \theta \neq \theta_0\)</span>), evaluating deviations in either direction. Example: Testing whether the mean monthly charges differ from $50.</li>
 </ul>
-<p>This decision-making framework ensures that hypothesis testing remains consistent, objective, and aligned with the predefined level of risk we are willing to accept for making errors.</p>
-<p>While p-values are a useful tool, they are not without limitations:</p>
-<ol style="list-style-type: decimal">
-<li>
-<strong>p-value ≠ Importance</strong>: A small p-value does not mean the effect is practically significant—it only indicates statistical significance. For example, a p-value of 0.02 might suggest a statistically detectable difference, but if the effect size is trivial, it may not justify action.</li>
-<li>
-<strong>Dependent on Sample Size</strong>: Large samples can produce small p-values even for negligible effects, while small samples may fail to detect meaningful differences.</li>
-<li>
-<strong>Binary Nature</strong>: The dichotomous “reject/fail to reject” decision oversimplifies the data, which often requires more nuanced interpretation.</li>
-</ol>
-<blockquote>
-<p><strong>Key Insight</strong>: p-values provide a measure of how surprising the sample data is under <span class="math inline">\(H_0\)</span>, but they must be used alongside confidence intervals, effect sizes, and domain knowledge for robust conclusions.</p>
-</blockquote>
-<p>Hypothesis tests can take three forms depending on the research question and the nature of the alternative hypothesis (<span class="math inline">\(H_a\)</span>):</p>
-<ol style="list-style-type: decimal">
-<li><p><strong>Left-Tailed Test</strong>: The alternative hypothesis states that the parameter is <strong>less than</strong> the null hypothesis value (<span class="math inline">\(H_a: \theta &lt; \theta_0\)</span>). This type of test focuses on the lower (left) tail of the distribution.<br>
-Example: Testing whether the average number of customer service calls is <strong>less than</strong> 3.</p></li>
-<li><p><strong>Right-Tailed Test</strong>: The alternative hypothesis states that the parameter is <strong>greater than</strong> the null hypothesis value (<span class="math inline">\(H_a: \theta &gt; \theta_0\)</span>). This test focuses on the upper (right) tail of the distribution.<br>
-Example: Testing whether the churn rate is <strong>greater than</strong> 30%.</p></li>
-<li><p><strong>Two-Tailed Test</strong>: The alternative hypothesis states that the parameter is <strong>not equal to</strong> the null hypothesis value (<span class="math inline">\(H_a: \theta \neq \theta_0\)</span>). This test evaluates both tails of the distribution to determine whether the parameter is either significantly lower or higher than the null value.<br>
-Example: Testing whether the mean monthly charges are <strong>different</strong> from $50.</p></li>
-</ol>
-<p>A helpful analogy for hypothesis testing is a criminal trial. The null hypothesis (<span class="math inline">\(H_0\)</span>) represents the presumption of innocence, while the alternative hypothesis (<span class="math inline">\(H_a\)</span>) represents guilt. The jury must weigh the evidence to decide whether to reject <span class="math inline">\(H_0\)</span> (declare guilt) or fail to reject <span class="math inline">\(H_0\)</span> (declare innocence due to insufficient evidence). Just as a jury can make errors, so too can hypothesis tests, with possible outcomes summarized in Table <a href="chapter-statistics.html#tab:hypothesis-errors">5.1</a>.</p>
+<p>A useful analogy for hypothesis testing is a criminal trial. The <em>null hypothesis</em> (<span class="math inline">\(H_0\)</span>) represents the presumption of innocence, while the <em>alternative hypothesis</em> (<span class="math inline">\(H_a\)</span>) represents guilt. The jury weighs the evidence and either rejects <span class="math inline">\(H_0\)</span> (convicts the defendant) or fails to reject <span class="math inline">\(H_0\)</span> (acquits due to insufficient evidence). Just as juries can make errors, hypothesis tests also have two types of errors summarized in Table <a href="chapter-statistics.html#tab:hypothesis-errors">5.1</a>.</p>
 <div class="inline-table"><table class="table table-sm">
 <caption>
 <span id="tab:hypothesis-errors">Table 5.1: </span> Possible outcomes of hypothesis testing with two correct decisions and two types of errors.</caption>
@@ -292,27 +261,31 @@ Example: Testing whether the mean monthly charges are <strong>different</strong>
 <col width="36%">
 </colgroup>
 <thead><tr>
-<th><strong>Decision</strong></th>
-<th><strong>Reality: <span class="math inline">\(H_0\)</span> is True</strong></th>
-<th><strong>Reality: <span class="math inline">\(H_0\)</span> is False</strong></th>
+<th><em>Decision</em></th>
+<th><em>Reality: <span class="math inline">\(H_0\)</span> is True</em></th>
+<th><em>Reality: <span class="math inline">\(H_0\)</span> is False</em></th>
 </tr></thead>
 <tbody>
 <tr>
 <td>Fail to Reject <span class="math inline">\(H_0\)</span>
 </td>
-<td><span style="color: green;"><strong>Correct Decision</strong>: Acquit an innocent person.</span></td>
-<td><span style="color: red;"><strong>Type II Error (<span class="math inline">\(\beta\)</span>)</strong>: Acquit a guilty person.</span></td>
+<td><span style="color: green;"><em>Correct Decision</em>: Acquit an innocent person.</span></td>
+<td><span style="color: red;"><em>Type II Error (<span class="math inline">\(\beta\)</span>)</em>: Acquit a guilty person.</span></td>
 </tr>
 <tr>
 <td>Reject <span class="math inline">\(H_0\)</span>
 </td>
-<td><span style="color: red;"><strong>Type I Error (<span class="math inline">\(\alpha\)</span>)</strong>: Convict an innocent person.</span></td>
-<td><span style="color: green;"><strong>Correct Decision</strong>: Convict a guilty person.</span></td>
+<td><span style="color: red;"><em>Type I Error (<span class="math inline">\(\alpha\)</span>)</em>: Convict an innocent person.</span></td>
+<td><span style="color: green;"><em>Correct Decision</em>: Convict a guilty person.</span></td>
 </tr>
 </tbody>
 </table></div>
-<p>A <strong>Type I Error (<span class="math inline">\(\alpha\)</span>)</strong> occurs when <span class="math inline">\(H_0\)</span> is rejected even though it is true, akin to convicting an innocent person. The significance level (<span class="math inline">\(\alpha\)</span>), typically set to 0.05, controls the probability of this error. Conversely, a <strong>Type II Error (<span class="math inline">\(\beta\)</span>)</strong> happens when <span class="math inline">\(H_0\)</span> is not rejected even though it is false, akin to acquitting a guilty person. The likelihood of a Type II error depends on factors such as sample size and the power of the test.</p>
-<p>This chapter introduces seven widely used hypothesis tests (Table <a href="chapter-statistics.html#tab:hypothesis-test">5.2</a>) applied across various data types and scenarios. Each test will be paired with practical examples to demonstrate its application and interpretation. By the end of this section, you will have the tools to confidently test hypotheses and make informed decisions based on statistical evidence.</p>
+<p>A <em>Type I Error</em> (<span class="math inline">\(\alpha\)</span>) occurs when <span class="math inline">\(H_0\)</span> is rejected even though it is true—similar to convicting an innocent person. A <em>Type II Error</em> (<span class="math inline">\(\beta\)</span>) happens when <span class="math inline">\(H_0\)</span> is not rejected even though it is false—similar to acquitting a guilty person. The probability of a Type I error is controlled by the chosen significance level (<span class="math inline">\(\alpha\)</span>), while the probability of a Type II error depends on factors like sample size and test sensitivity.</p>
+</div>
+<div id="common-hypothesis-tests" class="section level3 unnumbered">
+<h3>Common Hypothesis Tests<a class="anchor" aria-label="anchor" href="#common-hypothesis-tests"><i class="fas fa-link"></i></a>
+</h3>
+<p>There are several widely used hypothesis tests, as listed in Table <a href="chapter-statistics.html#tab:hypothesis-errors">5.1</a>, each suited to different types of data.</p>
 <div class="inline-table"><table class="table table-sm">
 <caption>
 <span id="tab:hypothesis-test">Table 5.2: </span> Seven commonly used hypothesis tests, their null hypotheses (<span class="math inline">\(H_0\)</span>), and the types of variables they apply to.</caption>
@@ -364,235 +337,205 @@ Example: Testing whether the mean monthly charges are <strong>different</strong>
 </tr>
 </tbody>
 </table></div>
-<p>Let’s dive into each test with a practical example.</p>
-<div id="one-sample-t-test" class="section level3" number="5.3.1">
-<h3>
-<span class="header-section-number">5.3.1</span> One-sample T-test<a class="anchor" aria-label="anchor" href="#one-sample-t-test"><i class="fas fa-link"></i></a>
-</h3>
-<p>The <strong>one-sample t-test</strong> evaluates whether the mean (<span class="math inline">\(\mu\)</span>) of a numerical variable in a population is equal to a specified value (<span class="math inline">\(\mu_0\)</span>). It is often used to compare the sample mean to a benchmark or target. The term “one-sample” refers to the fact that we are comparing the sample mean to a single specified value, while “t-test” indicates that the test statistic follows a t-distribution, which is used to calculate the <span class="math inline">\(p\)</span>-value.</p>
-<p>The null hypothesis (<span class="math inline">\(H_0\)</span>) and alternative hypothesis (<span class="math inline">\(H_a\)</span>) are formulated based on the research question, and they can take the following forms:</p>
+<p>Each test serves a specific purpose. The <em>t-test</em> compares means, the <em>Z-test</em> compares proportions, the <em>Chi-square test</em> assesses categorical relationships, and <em>ANOVA</em> compares means across multiple groups. These tests will be explored in the following sections with practical examples.</p>
+</div>
+</div>
+<div id="one-sample-t-test" class="section level2" number="5.4">
+<h2>
+<span class="header-section-number">5.4</span> One-sample t-test<a class="anchor" aria-label="anchor" href="#one-sample-t-test"><i class="fas fa-link"></i></a>
+</h2>
+<p>The one-sample t-test evaluates whether the mean of a numerical variable in a population is equal to a specified value. It is commonly used to compare a sample mean to a benchmark or theoretical expectation. The term “one-sample” reflects that only a single group is being tested against a fixed value, while “t-test” refers to the fact that the test statistic follows a t-distribution, which is used to compute the <em>p</em>-value.</p>
+<p>The hypotheses for a one-sample t-test depend on the research question and can be formulated in different ways. A two-tailed test assesses whether the mean differs from a specified value, regardless of direction. A left-tailed test evaluates whether the mean is lower than the specified value, while a right-tailed test examines whether the mean is greater. The mathematical formulation is:</p>
 <ul>
 <li>
-<strong>Two-Tailed Test</strong>:
+<em>Two-Tailed Test</em>:
 <span class="math display">\[
-\bigg\{
-\begin{matrix}
-        H_0:  \mu   =  \mu_0 \\
-        H_a:  \mu \neq \mu_0
-\end{matrix}
+\begin{cases}
+H_0:  \mu   =  \mu_0 \\
+H_a:  \mu \neq \mu_0
+\end{cases}
 \]</span>
 </li>
 <li>
-<strong>Left-Tailed Test</strong>:
+<em>Left-Tailed Test</em>:
 <span class="math display">\[
-\bigg\{
-\begin{matrix}
-        H_0:  \mu \geq \mu_0 \\
-        H_a:  \mu  &lt;   \mu_0
-\end{matrix}
+\begin{cases}
+H_0:  \mu \geq \mu_0 \\
+H_a:  \mu  &lt;   \mu_0
+\end{cases}
 \]</span>
 </li>
 <li>
-<strong>Right-Tailed Test</strong>:
+<em>Right-Tailed Test</em>:
 <span class="math display">\[
-\bigg\{
-\begin{matrix}
-        H_0:  \mu \leq \mu_0 \\
-        H_a:  \mu &gt;   \mu_0
-\end{matrix}
+\begin{cases}
+H_0:  \mu \leq \mu_0 \\
+H_a:  \mu &gt;   \mu_0
+\end{cases}
 \]</span>
 </li>
 </ul>
-<p>The <span class="math inline">\(p\)</span>-value represents the probability of observing the sample mean (or something more extreme) under the assumption that the null hypothesis is true. A smaller <span class="math inline">\(p\)</span>-value provides stronger evidence against <span class="math inline">\(H_0\)</span>. If the <span class="math inline">\(p\)</span>-value is less than the significance level (<span class="math inline">\(\alpha = 0.05\)</span>), we reject <span class="math inline">\(H_0\)</span> and conclude that the sample mean differs significantly from the specified value. Otherwise, we fail to reject <span class="math inline">\(H_0\)</span>.</p>
+<p>The <em>p</em>-value represents the probability of observing the sample mean, or a more extreme value, under the assumption that the null hypothesis is true. A smaller <em>p</em>-value provides stronger evidence against <span class="math inline">\(H_0\)</span>. If the <em>p</em>-value is less than the significance level (<span class="math inline">\(\alpha = 0.05\)</span>), the null hypothesis is rejected, indicating that the sample mean differs significantly from the specified value.</p>
+<p>The following example demonstrates how to apply a one-sample t-test in R using the <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> function.</p>
 <div class="example">
-<p><span id="exm:ex-one-sample-test" class="example"><strong>Example 5.4  </strong></span>Suppose a company believes that, on average, customers make <strong>2 service calls</strong> before churning. We want to test whether the true average number of customer service calls among churners differs from this value.</p>
+<p><span id="exm:ex-one-sample-test" class="example"><strong>Example 5.3  </strong></span>A company assumes that, on average, customers make two service calls before churning. To test whether the actual average number of customer service calls among churners differs from this assumed value, we conduct a one-sample t-test using the <em>churn</em> dataset provided in the <strong>liver</strong> package.</p>
 <p>To conduct the test, we set up the following hypotheses:</p>
 <ol style="list-style-type: decimal">
 <li>
-<strong>Null Hypothesis (<span class="math inline">\(H_0\)</span>)</strong>: <span class="math inline">\(H_0: \mu = 2\)</span> (The average number of customer service calls is 2.)<br>
+<em>Null Hypothesis (<span class="math inline">\(H_0\)</span>)</em>: <span class="math inline">\(H_0: \mu = 2\)</span> (The average number of customer service calls is 2.)<br>
 </li>
 <li>
-<strong>Alternative Hypothesis (<span class="math inline">\(H_a\)</span>)</strong>: <span class="math inline">\(H_a: \mu \neq 2\)</span> (The average number of customer service calls is not 2.)</li>
+<em>Alternative Hypothesis (<span class="math inline">\(H_a\)</span>)</em>: <span class="math inline">\(H_a: \mu \neq 2\)</span> (The average number of customer service calls is not 2.)</li>
 </ol>
-<p>We perform a <strong>two-tailed one-sample t-test</strong> in R using the <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> function. Here’s how it is implemented:</p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="chapter-statistics.html#cb105-1" tabindex="-1"></a><span class="co"># Filter churned customers</span></span>
-<span id="cb105-2"><a href="chapter-statistics.html#cb105-2" tabindex="-1"></a>churned_customers <span class="ot">&lt;-</span> churn[churn<span class="sc">$</span>churn <span class="sc">==</span> <span class="st">"yes"</span>, ]</span>
-<span id="cb105-3"><a href="chapter-statistics.html#cb105-3" tabindex="-1"></a></span>
-<span id="cb105-4"><a href="chapter-statistics.html#cb105-4" tabindex="-1"></a><span class="co"># Perform One-sample T-test</span></span>
-<span id="cb105-5"><a href="chapter-statistics.html#cb105-5" tabindex="-1"></a>t_test <span class="ot">&lt;-</span> <span class="fu">t.test</span>(churned_customers<span class="sc">$</span>customer.calls, <span class="at">mu =</span> <span class="dv">2</span>)</span>
-<span id="cb105-6"><a href="chapter-statistics.html#cb105-6" tabindex="-1"></a>t_test</span>
-<span id="cb105-7"><a href="chapter-statistics.html#cb105-7" tabindex="-1"></a>   </span>
-<span id="cb105-8"><a href="chapter-statistics.html#cb105-8" tabindex="-1"></a>    One Sample t<span class="sc">-</span>test</span>
-<span id="cb105-9"><a href="chapter-statistics.html#cb105-9" tabindex="-1"></a>   </span>
-<span id="cb105-10"><a href="chapter-statistics.html#cb105-10" tabindex="-1"></a>   data<span class="sc">:</span>  churned_customers<span class="sc">$</span>customer.calls</span>
-<span id="cb105-11"><a href="chapter-statistics.html#cb105-11" tabindex="-1"></a>   t <span class="ot">=</span> <span class="fl">3.7278</span>, df <span class="ot">=</span> <span class="dv">706</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.0002086</span></span>
-<span id="cb105-12"><a href="chapter-statistics.html#cb105-12" tabindex="-1"></a>   alternative hypothesis<span class="sc">:</span> true mean is not equal to <span class="dv">2</span></span>
-<span id="cb105-13"><a href="chapter-statistics.html#cb105-13" tabindex="-1"></a>   <span class="dv">95</span> percent confidence interval<span class="sc">:</span></span>
-<span id="cb105-14"><a href="chapter-statistics.html#cb105-14" tabindex="-1"></a>    <span class="fl">2.120509</span> <span class="fl">2.388685</span></span>
-<span id="cb105-15"><a href="chapter-statistics.html#cb105-15" tabindex="-1"></a>   sample estimates<span class="sc">:</span></span>
-<span id="cb105-16"><a href="chapter-statistics.html#cb105-16" tabindex="-1"></a>   mean of x </span>
-<span id="cb105-17"><a href="chapter-statistics.html#cb105-17" tabindex="-1"></a>    <span class="fl">2.254597</span></span></code></pre></div>
-<p>The output of the t-test includes the <strong>p-value</strong>, the test statistic, the degrees of freedom, and a confidence interval for the population mean. Let’s interpret the results step by step:</p>
-<ul>
-<li>If the <strong>p-value</strong> = 2^{-4} is less than the significance level (<span class="math inline">\(\alpha = 0.05\)</span>), we reject the null hypothesis (<span class="math inline">\(H_0\)</span>). This would indicate that there is sufficient evidence, at the 5% significance level, to conclude that the true average number of customer service calls differs from 2.<br>
-</li>
-<li>Conversely, if the <span class="math inline">\(p\)</span>-value is greater than 0.05, we would fail to reject <span class="math inline">\(H_0\)</span>, concluding that there is insufficient evidence to support that the true mean is different from 2.</li>
-</ul>
-<p>For example, if the <strong>p-value</strong> is small enough to reject <span class="math inline">\(H_0\)</span>, we conclude:<br><em>“There is sufficient evidence, at the 5% significance level, to conclude that the population mean number of customer service calls among churners is different from 2.”</em><br>
-If we fail to reject <span class="math inline">\(H_0\)</span>, the conclusion would be phrased as:<br><em>“There is insufficient evidence, at the 5% significance level, to conclude that the population mean number of customer service calls among churners differs from 2.”</em></p>
-<p>Additionally, the test output provides the following useful information:
-- <strong>95% Confidence Interval</strong> = [2.12, 2.39]: This interval represents the range of plausible values for the true population mean. If the value of 2 lies outside this interval, it reinforces the rejection of <span class="math inline">\(H_0\)</span>.
-- <strong>Sample Mean</strong> = 2.25: This is the point estimate of the population mean, calculated directly from the sample.</p>
-<p>As a side note, the test statistic used to compute the p-value follows a <strong>t-distribution</strong> with <span class="math inline">\(n - 1\)</span> degrees of freedom (df). In this case, the degrees of freedom are 706, which depend on the sample size. The test statistic is 3.73, and it quantifies how far the sample mean deviates from the hypothesized mean (<span class="math inline">\(2\)</span>) in units of the standard error. A larger absolute value of the test statistic indicates stronger evidence against <span class="math inline">\(H_0\)</span>.</p>
-<p>To summarize: The one-sample t-test not only tells us whether to reject <span class="math inline">\(H_0\)</span>, but also provides additional insights through the confidence interval, sample mean, and test statistic, giving a comprehensive view of the data and the strength of evidence.</p>
+<p>We can present the hypotheses in mathematical form as:
+<span class="math display">\[
+\begin{cases}
+    H_0: \mu = 2   \\
+    H_a: \mu \neq 2  
+\end{cases}
+\]</span></p>
+<p>We begin by loading the <em>churn</em> dataset and filtering the customers who have churned:</p>
+<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.uva.nl/profile/a.mohammadi">liver</a></span><span class="op">)</span>  <span class="co"># Load the liver package</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">churn</span><span class="op">)</span>     <span class="co"># Load the churn dataset</span></span>
+<span></span>
+<span><span class="co"># Filter churned customers</span></span>
+<span><span class="va">churned_customers</span> <span class="op">&lt;-</span> <span class="va">churn</span><span class="op">[</span><span class="va">churn</span><span class="op">$</span><span class="va">churn</span> <span class="op">==</span> <span class="st">"yes"</span>, <span class="op">]</span></span></code></pre></div>
+<p>Now, we conduct a two-tailed one-sample t-test in R using the <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> function; If you want to know more about the functionality of the <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> function, you can find more by typing <code><a href="https://rdrr.io/r/stats/t.test.html">?t.test</a></code> in the R console.</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="chapter-statistics.html#cb107-1" tabindex="-1"></a>t_test <span class="ot">&lt;-</span> <span class="fu">t.test</span>(churned_customers<span class="sc">$</span>customer.calls, <span class="at">mu =</span> <span class="dv">2</span>)</span>
+<span id="cb107-2"><a href="chapter-statistics.html#cb107-2" tabindex="-1"></a>t_test</span>
+<span id="cb107-3"><a href="chapter-statistics.html#cb107-3" tabindex="-1"></a>   </span>
+<span id="cb107-4"><a href="chapter-statistics.html#cb107-4" tabindex="-1"></a>    One Sample t<span class="sc">-</span>test</span>
+<span id="cb107-5"><a href="chapter-statistics.html#cb107-5" tabindex="-1"></a>   </span>
+<span id="cb107-6"><a href="chapter-statistics.html#cb107-6" tabindex="-1"></a>   data<span class="sc">:</span>  churned_customers<span class="sc">$</span>customer.calls</span>
+<span id="cb107-7"><a href="chapter-statistics.html#cb107-7" tabindex="-1"></a>   t <span class="ot">=</span> <span class="fl">3.7278</span>, df <span class="ot">=</span> <span class="dv">706</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.0002086</span></span>
+<span id="cb107-8"><a href="chapter-statistics.html#cb107-8" tabindex="-1"></a>   alternative hypothesis<span class="sc">:</span> true mean is not equal to <span class="dv">2</span></span>
+<span id="cb107-9"><a href="chapter-statistics.html#cb107-9" tabindex="-1"></a>   <span class="dv">95</span> percent confidence interval<span class="sc">:</span></span>
+<span id="cb107-10"><a href="chapter-statistics.html#cb107-10" tabindex="-1"></a>    <span class="fl">2.120509</span> <span class="fl">2.388685</span></span>
+<span id="cb107-11"><a href="chapter-statistics.html#cb107-11" tabindex="-1"></a>   sample estimates<span class="sc">:</span></span>
+<span id="cb107-12"><a href="chapter-statistics.html#cb107-12" tabindex="-1"></a>   mean of x </span>
+<span id="cb107-13"><a href="chapter-statistics.html#cb107-13" tabindex="-1"></a>    <span class="fl">2.254597</span></span></code></pre></div>
+<p>The output includes the <em>p</em>-value, test statistic, degrees of freedom, and confidence interval for the population mean. Since the <em>p</em>-value = 2^{-4} is less than the significance level (<span class="math inline">\(\alpha = 0.05\)</span>), we reject the null hypothesis (<span class="math inline">\(H_0\)</span>). This would indicate that there is sufficient evidence, at the 5% significance level, to conclude that the true average number of customer service calls differs from 2.</p>
+<p>The test also provides a 95% confidence interval, [2.12, 2.39], which represents the range of plausible values for the true population mean. Since 2 is outside this interval, we have further evidence that the true average number of service calls is different from the assumed value. Additionally, the sample mean, 2.25, is reported as the best estimate of the population mean.</p>
+<p>Since the sample standard deviation is used in place of the population standard deviation, the test statistic follows a t-distribution with <span class="math inline">\(n - 1\)</span> degrees of freedom. It measures how far the sample mean deviates from the hypothesized mean in terms of standard error. A larger absolute value indicates stronger evidence against <span class="math inline">\(H_0\)</span>.</p>
 </div>
+<p>The one-sample t-test provides a structured approach for comparing a sample mean to a predefined benchmark. It not only determines statistical significance but also offers additional insights through the confidence interval, sample mean, and test statistic. While statistical significance is important, practical relevance must also be evaluated to determine whether the observed difference has meaningful real-world implications. Even if a statistically significant difference is detected, the magnitude of the difference determines whether it has real-world implications. A deviation of 0.1 calls may be negligible, whereas a difference of two calls could impact customer service strategies.</p>
+<p>By integrating statistical inference with domain knowledge, the one-sample t-test allows analysts to determine whether deviations from expectations are both statistically significant and practically meaningful.</p>
 </div>
-<div id="hypothesis-testing-for-proportion" class="section level3" number="5.3.2">
-<h3>
-<span class="header-section-number">5.3.2</span> Hypothesis Testing for Proportion<a class="anchor" aria-label="anchor" href="#hypothesis-testing-for-proportion"><i class="fas fa-link"></i></a>
-</h3>
-<p>The <strong>test for proportion</strong> determines whether the proportion (<span class="math inline">\(\pi\)</span>) of a category in the population matches a hypothesized value (<span class="math inline">\(\pi_0\)</span>). It is especially useful for binary categorical variables, where each observation falls into one of two categories (e.g., churned vs. not churned). This test allows us to assess whether the observed sample proportion deviates significantly from a specified benchmark, making it a practical tool in business and scientific contexts.</p>
-<p>For example, a company might want to evaluate whether the proportion of churners in the population aligns with an expected value based on historical data or industry standards.</p>
+<div id="hypothesis-testing-for-proportion" class="section level2" number="5.5">
+<h2>
+<span class="header-section-number">5.5</span> Hypothesis Testing for Proportion<a class="anchor" aria-label="anchor" href="#hypothesis-testing-for-proportion"><i class="fas fa-link"></i></a>
+</h2>
+<p>The <em>test for proportion</em> evaluates whether the proportion (<span class="math inline">\(\pi\)</span>) of a specific category in the population aligns with a hypothesized value (<span class="math inline">\(\pi_0\)</span>). It is particularly useful for binary categorical variables, where observations fall into one of two groups, such as churned vs. not churned. This test helps determine whether an observed sample proportion deviates significantly from a specified benchmark, making it valuable in business and scientific contexts.</p>
+<p>For instance, a company might want to assess whether the proportion of churners in the population aligns with an expected value based on historical data or industry standards. The following example demonstrates how to apply the proportion test in R using the <code><a href="https://rdrr.io/r/stats/prop.test.html">prop.test()</a></code> function.</p>
 <div class="example">
-<p><span id="exm:ex-test-proportion" class="example"><strong>Example 5.5  </strong></span>The company estimates that 15% of customers churn. We aim to test whether the actual proportion of churners in the dataset differs from this estimate.</p>
-<p><strong>Hypotheses</strong>:<br>
-1. <strong>Null Hypothesis (<span class="math inline">\(H_0\)</span>)</strong>: <span class="math inline">\(\pi = 0.15\)</span> (The population proportion of churners is 15%.)<br>
-2. <strong>Alternative Hypothesis (<span class="math inline">\(H_a\)</span>)</strong>: <span class="math inline">\(\pi \neq 0.15\)</span> (The population proportion of churners is not 15%.)</p>
-<p>We can perform the proportion test in R using the <code><a href="https://rdrr.io/r/stats/prop.test.html">prop.test()</a></code> function as follows:</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="chapter-statistics.html#cb106-1" tabindex="-1"></a><span class="co"># Perform a proportion test</span></span>
-<span id="cb106-2"><a href="chapter-statistics.html#cb106-2" tabindex="-1"></a>prop_test <span class="ot">&lt;-</span> <span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">sum</span>(churn<span class="sc">$</span>churn <span class="sc">==</span> <span class="st">"yes"</span>), </span>
-<span id="cb106-3"><a href="chapter-statistics.html#cb106-3" tabindex="-1"></a>                       <span class="at">n =</span> <span class="fu">nrow</span>(churn), </span>
-<span id="cb106-4"><a href="chapter-statistics.html#cb106-4" tabindex="-1"></a>                       <span class="at">p =</span> <span class="fl">0.15</span>)</span>
-<span id="cb106-5"><a href="chapter-statistics.html#cb106-5" tabindex="-1"></a>prop_test</span>
-<span id="cb106-6"><a href="chapter-statistics.html#cb106-6" tabindex="-1"></a>   </span>
-<span id="cb106-7"><a href="chapter-statistics.html#cb106-7" tabindex="-1"></a>    <span class="dv">1</span><span class="sc">-</span>sample proportions test with continuity correction</span>
-<span id="cb106-8"><a href="chapter-statistics.html#cb106-8" tabindex="-1"></a>   </span>
-<span id="cb106-9"><a href="chapter-statistics.html#cb106-9" tabindex="-1"></a>   data<span class="sc">:</span>  <span class="fu">sum</span>(churn<span class="sc">$</span>churn <span class="sc">==</span> <span class="st">"yes"</span>) out of <span class="fu">nrow</span>(churn), null probability <span class="fl">0.15</span></span>
-<span id="cb106-10"><a href="chapter-statistics.html#cb106-10" tabindex="-1"></a>   X<span class="sc">-</span>squared <span class="ot">=</span> <span class="fl">2.8333</span>, df <span class="ot">=</span> <span class="dv">1</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.09233</span></span>
-<span id="cb106-11"><a href="chapter-statistics.html#cb106-11" tabindex="-1"></a>   alternative hypothesis<span class="sc">:</span> true p is not equal to <span class="fl">0.15</span></span>
-<span id="cb106-12"><a href="chapter-statistics.html#cb106-12" tabindex="-1"></a>   <span class="dv">95</span> percent confidence interval<span class="sc">:</span></span>
-<span id="cb106-13"><a href="chapter-statistics.html#cb106-13" tabindex="-1"></a>    <span class="fl">0.1319201</span> <span class="fl">0.1514362</span></span>
-<span id="cb106-14"><a href="chapter-statistics.html#cb106-14" tabindex="-1"></a>   sample estimates<span class="sc">:</span></span>
-<span id="cb106-15"><a href="chapter-statistics.html#cb106-15" tabindex="-1"></a>        p </span>
-<span id="cb106-16"><a href="chapter-statistics.html#cb106-16" tabindex="-1"></a>   <span class="fl">0.1414</span></span></code></pre></div>
-<p>Interpreting the Output:</p>
-<ol style="list-style-type: decimal">
-<li>
-<strong>P-value</strong>:<br>
-If the <strong>p-value</strong> = 0.0923 is greater than <span class="math inline">\(\alpha = 0.05\)</span>, we fail to reject the null hypothesis. This means there is insufficient evidence to conclude that the proportion of churners in the population differs from 15%. In this case, we would report:<br><em>“There is no statistically significant evidence to suggest that the population proportion of churners deviates from 15%.”</em>
-</li>
-</ol>
-<p>If the p-value had been smaller than 0.05, we would reject the null hypothesis and conclude that the proportion of churners is significantly different from 15%.</p>
-<ol start="2" style="list-style-type: decimal">
-<li><p><strong>Confidence Interval</strong>:<br>
-The test output provides a <strong>95% confidence interval</strong> = [0.13, 0.15], which represents the plausible range for the true population proportion (<span class="math inline">\(\pi\)</span>). If the hypothesized value of 0.15 lies within this interval, it supports failing to reject <span class="math inline">\(H_0\)</span>. On the other hand, if 0.15 lies outside this interval, it strengthens the case for rejecting <span class="math inline">\(H_0\)</span>.</p></li>
-<li><p><strong>Sample Proportion</strong>:<br>
-The test also provides the <strong>sample proportion</strong> = 0.14, which is the point estimate for the population proportion (<span class="math inline">\(\pi\)</span>). This value represents the observed proportion of churners in the dataset, calculated directly from the sample.</p></li>
-</ol>
-<p>In summary, this hypothesis test helps determine whether the observed proportion of churners aligns with the company’s estimate of 15%. The confidence interval and sample proportion provide additional context, reinforcing the conclusion drawn from the p-value. Furthermore, the same approach can be extended to one-tailed tests (e.g., testing whether the churn rate is higher or lower than 15%) or used with different confidence levels depending on the application.</p>
+<p><span id="exm:ex-test-proportion" class="example"><strong>Example 5.4  </strong></span>A company assumes that 15% of its customers churn. To test whether the actual churn rate in the <em>churn</em> dataset differs from this assumption, we conduct a proportion test. The hypotheses are:</p>
+<p><span class="math display">\[
+\begin{cases}
+H_0: \pi  =   0.15 \\
+H_a: \pi \neq 0.15
+\end{cases}
+\]</span></p>
+<p>The test is performed in R using the <code><a href="https://rdrr.io/r/stats/prop.test.html">prop.test()</a></code> function. If you would like to explore the details of this function, you can type <code><a href="https://rdrr.io/r/stats/prop.test.html">?prop.test</a></code> in the R console.</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="chapter-statistics.html#cb108-1" tabindex="-1"></a>prop_test <span class="ot">&lt;-</span> <span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">sum</span>(churn<span class="sc">$</span>churn <span class="sc">==</span> <span class="st">"yes"</span>), </span>
+<span id="cb108-2"><a href="chapter-statistics.html#cb108-2" tabindex="-1"></a>                       <span class="at">n =</span> <span class="fu">nrow</span>(churn), </span>
+<span id="cb108-3"><a href="chapter-statistics.html#cb108-3" tabindex="-1"></a>                       <span class="at">p =</span> <span class="fl">0.15</span>)</span>
+<span id="cb108-4"><a href="chapter-statistics.html#cb108-4" tabindex="-1"></a>prop_test</span>
+<span id="cb108-5"><a href="chapter-statistics.html#cb108-5" tabindex="-1"></a>   </span>
+<span id="cb108-6"><a href="chapter-statistics.html#cb108-6" tabindex="-1"></a>    <span class="dv">1</span><span class="sc">-</span>sample proportions test with continuity correction</span>
+<span id="cb108-7"><a href="chapter-statistics.html#cb108-7" tabindex="-1"></a>   </span>
+<span id="cb108-8"><a href="chapter-statistics.html#cb108-8" tabindex="-1"></a>   data<span class="sc">:</span>  <span class="fu">sum</span>(churn<span class="sc">$</span>churn <span class="sc">==</span> <span class="st">"yes"</span>) out of <span class="fu">nrow</span>(churn), null probability <span class="fl">0.15</span></span>
+<span id="cb108-9"><a href="chapter-statistics.html#cb108-9" tabindex="-1"></a>   X<span class="sc">-</span>squared <span class="ot">=</span> <span class="fl">2.8333</span>, df <span class="ot">=</span> <span class="dv">1</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.09233</span></span>
+<span id="cb108-10"><a href="chapter-statistics.html#cb108-10" tabindex="-1"></a>   alternative hypothesis<span class="sc">:</span> true p is not equal to <span class="fl">0.15</span></span>
+<span id="cb108-11"><a href="chapter-statistics.html#cb108-11" tabindex="-1"></a>   <span class="dv">95</span> percent confidence interval<span class="sc">:</span></span>
+<span id="cb108-12"><a href="chapter-statistics.html#cb108-12" tabindex="-1"></a>    <span class="fl">0.1319201</span> <span class="fl">0.1514362</span></span>
+<span id="cb108-13"><a href="chapter-statistics.html#cb108-13" tabindex="-1"></a>   sample estimates<span class="sc">:</span></span>
+<span id="cb108-14"><a href="chapter-statistics.html#cb108-14" tabindex="-1"></a>        p </span>
+<span id="cb108-15"><a href="chapter-statistics.html#cb108-15" tabindex="-1"></a>   <span class="fl">0.1414</span></span></code></pre></div>
+<p>The output provides key results, including the <em>p</em>-value, confidence interval, and sample proportion. These results are interpreted as follows:</p>
+<p>The <em>p</em>-value indicates the probability of obtaining the observed sample proportion if the assumed population proportion were true. Since the <em>p</em>-value = 0.0923, and it is greater than <span class="math inline">\(\alpha = 0.05\)</span>, we do not reject the null hypothesis. This means there is insufficient evidence to conclude that the churn rate in the population differs from 15%. In this case, we report:<br><em>“There is no statistically significant evidence to suggest that the population proportion of churners deviates from 15%.”</em><br>
+If the <em>p</em>-value were smaller than 0.05, we would reject the null hypothesis, concluding that the churn rate is significantly different from 15%.</p>
+<p>The test also provides a <em>95% confidence interval</em>, [0.13, 0.15], which represents the plausible range for the true population proportion (<span class="math inline">\(\pi\)</span>). If 0.15 lies within this interval, it supports failing to reject <span class="math inline">\(H_0\)</span>. If 0.15 is outside the interval, it strengthens the evidence against <span class="math inline">\(H_0\)</span>.</p>
+<p>Additionally, the test reports the <em>sample proportion</em>, 0.14, which is the observed proportion of churners in the dataset. This value serves as an estimate of the true population proportion.</p>
 </div>
+<p>This test helps assess whether the observed churn rate aligns with the company’s expectation. The <em>p</em>-value determines statistical significance, while the confidence interval and sample proportion provide additional context for interpretation. By considering both statistical results and practical implications, businesses can evaluate whether their assumptions about churn are accurate or require adjustment.</p>
 </div>
-<div id="two-sample-t-test" class="section level3" number="5.3.3">
-<h3>
-<span class="header-section-number">5.3.3</span> Two-sample T-test<a class="anchor" aria-label="anchor" href="#two-sample-t-test"><i class="fas fa-link"></i></a>
-</h3>
-<p>The <strong>two-sample t-test</strong>, also known as Student’s t-test, is a statistical method used to compare the means of a numerical variable between two independent groups. It evaluates whether the observed difference between the group means is statistically significant or could simply be due to random variation. The test is named after <a href="https://en.wikipedia.org/wiki/William_Sealy_Gosset">William Sealy Gosset</a>, who worked at Guinness Brewery in Dublin. Gosset published his findings under the pseudonym “Student” because his employer wanted to maintain secrecy about their innovative use of statistics for quality control. This historical context highlights the t-test’s original application in solving practical, real-world problems, such as evaluating raw materials with small samples.</p>
-<p>In the context of the <em>churn</em> dataset, we can use the two-sample t-test to determine whether the number of international calls differs significantly between customers who churned and those who did not. Understanding such differences can help businesses identify potential predictors of churn and design effective interventions.</p>
-<p>To conduct a two-sample t-test, we first establish the hypotheses:</p>
-<ol style="list-style-type: decimal">
+<div id="two-sample-t-test" class="section level2" number="5.6">
+<h2>
+<span class="header-section-number">5.6</span> Two-sample T-test<a class="anchor" aria-label="anchor" href="#two-sample-t-test"><i class="fas fa-link"></i></a>
+</h2>
+<p>The <em>two-sample t-test</em>, also known as Student’s t-test, is a statistical method used to compare the means of a numerical variable between two independent groups. It assesses whether the observed difference between the group means is statistically significant or simply due to random variation. The test is named after <a href="https://en.wikipedia.org/wiki/William_Sealy_Gosset">William Sealy Gosset</a>, who worked at Guinness Brewery in Dublin and published under the pseudonym “Student” to maintain confidentiality regarding statistical quality control methods.</p>
+<p>In Section <a href="chapter-EDA.html#EDA-sec-numeric">4.5</a> of the previous chapter, we explored the relationship between <em>International Calls</em> (<code>intl.calls</code>) and churn status using visualizations like box plots and density plots. While visualizations help identify potential differences, statistical testing quantifies the likelihood that these differences are due to chance.</p>
+<p><img src="statistics_files/figure-html/unnamed-chunk-9-1.png" width="50%"><img src="statistics_files/figure-html/unnamed-chunk-9-2.png" width="50%"></p>
+<p>The boxplot (left) and density plot (right) illustrate the distributions of <code>intl.calls</code> for churners and non-churners. While the visualizations suggest only minor differences, we perform a two-sample t-test to assess whether these differences are statistically significant.</p>
+<p>To conduct the test, we first establish the hypotheses:</p>
+<ul>
 <li>
-<strong>Null Hypothesis (<span class="math inline">\(H_0\)</span>)</strong>: The mean number of international calls is the same for churners and non-churners (<span class="math inline">\(\mu_1 = \mu_2\)</span>).</li>
+<em>Null Hypothesis (<span class="math inline">\(H_0\)</span>)</em>: The mean number of international calls is the same for churners and non-churners (<span class="math inline">\(\mu_1 = \mu_2\)</span>).</li>
 <li>
-<strong>Alternative Hypothesis (<span class="math inline">\(H_a\)</span>)</strong>: The mean number of international calls differs between churners and non-churners (<span class="math inline">\(\mu_1 \neq \mu_2\)</span>).</li>
-</ol>
+<em>Alternative Hypothesis (<span class="math inline">\(H_a\)</span>)</em>: The mean number of international calls differs between churners and non-churners (<span class="math inline">\(\mu_1 \neq \mu_2\)</span>).</li>
+</ul>
 <p>This can also be expressed mathematically as:
 <span class="math display">\[
-\bigg\{
-\begin{matrix}
+\begin{cases}
     H_0: \mu_1 = \mu_2   \\
     H_a: \mu_1 \neq \mu_2
-\end{matrix}
+\end{cases}
 \]</span></p>
-<p>To begin, let’s visually explore the relationship between <em>International Calls</em> (<code>intl.calls</code>) and churn status using a boxplot:</p>
-<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">churn</span>, y <span class="op">=</span> <span class="va">intl.calls</span><span class="op">)</span>, fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"palevioletred1"</span>, <span class="st">"darkseagreen1"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="statistics_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;"></div>
-<p>The boxplot compares the distribution of international calls for churners and non-churners. If the medians or spreads differ substantially, this may indicate that the variable has predictive importance. In this case, the plot does not reveal strong visual evidence of a difference, but to formally assess this, we proceed with the two-sample t-test.</p>
-<p>To perform the test in <strong>R</strong>, we use the <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> function:</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="chapter-statistics.html#cb108-1" tabindex="-1"></a>t_test_calls <span class="ot">&lt;-</span> <span class="fu">t.test</span>(intl.calls <span class="sc">~</span> churn, <span class="at">data =</span> churn)</span>
-<span id="cb108-2"><a href="chapter-statistics.html#cb108-2" tabindex="-1"></a>t_test_calls</span>
-<span id="cb108-3"><a href="chapter-statistics.html#cb108-3" tabindex="-1"></a>   </span>
-<span id="cb108-4"><a href="chapter-statistics.html#cb108-4" tabindex="-1"></a>    Welch Two Sample t<span class="sc">-</span>test</span>
-<span id="cb108-5"><a href="chapter-statistics.html#cb108-5" tabindex="-1"></a>   </span>
-<span id="cb108-6"><a href="chapter-statistics.html#cb108-6" tabindex="-1"></a>   data<span class="sc">:</span>  intl.calls by churn</span>
-<span id="cb108-7"><a href="chapter-statistics.html#cb108-7" tabindex="-1"></a>   t <span class="ot">=</span> <span class="sc">-</span><span class="fl">3.2138</span>, df <span class="ot">=</span> <span class="fl">931.13</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.001355</span></span>
-<span id="cb108-8"><a href="chapter-statistics.html#cb108-8" tabindex="-1"></a>   alternative hypothesis<span class="sc">:</span> true difference <span class="cf">in</span> means between group yes and group no is not equal to <span class="dv">0</span></span>
-<span id="cb108-9"><a href="chapter-statistics.html#cb108-9" tabindex="-1"></a>   <span class="dv">95</span> percent confidence interval<span class="sc">:</span></span>
-<span id="cb108-10"><a href="chapter-statistics.html#cb108-10" tabindex="-1"></a>    <span class="sc">-</span><span class="fl">0.5324872</span> <span class="sc">-</span><span class="fl">0.1287201</span></span>
-<span id="cb108-11"><a href="chapter-statistics.html#cb108-11" tabindex="-1"></a>   sample estimates<span class="sc">:</span></span>
-<span id="cb108-12"><a href="chapter-statistics.html#cb108-12" tabindex="-1"></a>   mean <span class="cf">in</span> group yes  mean <span class="cf">in</span> group no </span>
-<span id="cb108-13"><a href="chapter-statistics.html#cb108-13" tabindex="-1"></a>            <span class="fl">4.151344</span>          <span class="fl">4.481947</span></span></code></pre></div>
-<p>This function evaluates the difference in means between the two groups (<code>churn = "yes"</code> vs. <code>churn = "no"</code>) and calculates a test statistic and corresponding p-value. Based on the output:</p>
-<ul>
-<li><p>The <strong>p-value</strong> = 0.0014. Since this value is less than the significance level (<span class="math inline">\(\alpha = 0.05\)</span>), we <strong>reject the null hypothesis (<span class="math inline">\(H_0\)</span>)</strong>. This indicates that the mean number of international calls differs significantly between churners and non-churners.</p></li>
-<li><p>The test also provides the <strong>95% confidence interval</strong> = [-0.53, -0.13] for the difference in means. Since this interval does not include zero, it reinforces the conclusion that the difference is statistically significant. The confidence interval also quantifies the magnitude of the difference between the two groups.</p></li>
-<li>
-<p>Additionally, the <strong>sample means</strong> for the two groups are reported in the output:</p>
-<ul>
-<li>Mean for churners = 4.15<br>
-</li>
-<li>Mean for non-churners = 4.48</li>
-</ul>
-</li>
-</ul>
-<p>These sample means allow us to directly compare the average number of international calls between churners and non-churners. For example, if churners made an average of 1.5 international calls while non-churners made 2.3 calls, this suggests that churners tend to make fewer international calls.</p>
-<p>The two-sample t-test assumes that the two groups are independent, and that the numerical variable being compared (e.g., <code>intl.calls</code>) follows an approximately normal distribution within each group. While the test is robust to minor deviations from normality, these assumptions should always be checked, especially for small sample sizes.</p>
-<p>From a practical standpoint, this result suggests that the number of international calls is a significant predictor of churn. Customers who churn tend to make fewer international calls on average. This insight can help businesses develop targeted strategies, such as offering discounts or improved international calling plans to customers who show low usage. Such interventions could potentially reduce churn rates by addressing factors associated with customer dissatisfaction.</p>
-<p>Finally, it’s worth noting that while this example uses a two-tailed test to detect any difference in means (higher or lower), one-tailed tests could be used if the research question specifies a directional hypothesis. For example, if the company specifically hypothesizes that churners make fewer international calls than non-churners, a one-tailed test could be performed to increase the test’s sensitivity.</p>
-<p>In summary, the two-sample t-test is a powerful and versatile tool for comparing group means and uncovering meaningful differences in data. By combining graphical exploration with statistical testing, we can make robust inferences and translate them into actionable business insights.</p>
+<p>We perform the test in R using the <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> function:</p>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="chapter-statistics.html#cb109-1" tabindex="-1"></a>t_test_calls <span class="ot">&lt;-</span> <span class="fu">t.test</span>(intl.calls <span class="sc">~</span> churn, <span class="at">data =</span> churn)</span>
+<span id="cb109-2"><a href="chapter-statistics.html#cb109-2" tabindex="-1"></a>t_test_calls</span>
+<span id="cb109-3"><a href="chapter-statistics.html#cb109-3" tabindex="-1"></a>   </span>
+<span id="cb109-4"><a href="chapter-statistics.html#cb109-4" tabindex="-1"></a>    Welch Two Sample t<span class="sc">-</span>test</span>
+<span id="cb109-5"><a href="chapter-statistics.html#cb109-5" tabindex="-1"></a>   </span>
+<span id="cb109-6"><a href="chapter-statistics.html#cb109-6" tabindex="-1"></a>   data<span class="sc">:</span>  intl.calls by churn</span>
+<span id="cb109-7"><a href="chapter-statistics.html#cb109-7" tabindex="-1"></a>   t <span class="ot">=</span> <span class="sc">-</span><span class="fl">3.2138</span>, df <span class="ot">=</span> <span class="fl">931.13</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.001355</span></span>
+<span id="cb109-8"><a href="chapter-statistics.html#cb109-8" tabindex="-1"></a>   alternative hypothesis<span class="sc">:</span> true difference <span class="cf">in</span> means between group yes and group no is not equal to <span class="dv">0</span></span>
+<span id="cb109-9"><a href="chapter-statistics.html#cb109-9" tabindex="-1"></a>   <span class="dv">95</span> percent confidence interval<span class="sc">:</span></span>
+<span id="cb109-10"><a href="chapter-statistics.html#cb109-10" tabindex="-1"></a>    <span class="sc">-</span><span class="fl">0.5324872</span> <span class="sc">-</span><span class="fl">0.1287201</span></span>
+<span id="cb109-11"><a href="chapter-statistics.html#cb109-11" tabindex="-1"></a>   sample estimates<span class="sc">:</span></span>
+<span id="cb109-12"><a href="chapter-statistics.html#cb109-12" tabindex="-1"></a>   mean <span class="cf">in</span> group yes  mean <span class="cf">in</span> group no </span>
+<span id="cb109-13"><a href="chapter-statistics.html#cb109-13" tabindex="-1"></a>            <span class="fl">4.151344</span>          <span class="fl">4.481947</span></span></code></pre></div>
+<p>The function evaluates the difference in means between the two groups (<code>churn = "yes"</code> vs. <code>churn = "no"</code>) and provides a <em>p</em>-value, confidence interval, and descriptive statistics.</p>
+<p>The <em>p</em>-value = 0.0014. Since this value is less than the significance level (<span class="math inline">\(\alpha = 0.05\)</span>), we reject the null hypothesis, concluding that the mean number of international calls differs significantly between churners and non-churners. The <em>95% confidence interval</em> = [-0.53, -0.13] provides a range of plausible values for the true difference in means. If the interval does not include zero, we have statistical evidence that the two groups differ significantly in their average number of international calls. The test output also provides the <em>sample means</em>:<br>
+- Mean for churners = 4.15<br>
+- Mean for non-churners = 4.48</p>
+<p>These values allow direct comparison of international call usage between churners and non-churners. For instance, if churners made an average of 1.5 international calls while non-churners made 2.3 calls, this suggests that churners tend to make fewer international calls.</p>
+<p>The two-sample t-test assumes that the two groups are independent and that the variable of interest is normally distributed within each group when sample sizes are small. For larger samples, the Central Limit Theorem ensures the validity of the test even if normality is not strictly met. While minor deviations from normality are generally acceptable, large departures may require alternative tests, such as the Mann-Whitney U test.</p>
+<p>From a business perspective, the test results suggest that international call frequency is a relevant factor in churn. Customers who churn tend to make fewer international calls. Companies may explore whether international call costs contribute to customer churn. If higher costs deter international calls, targeted discounts for low-usage customers could encourage engagement and improve retention. However, statistical significance does not always imply practical significance. Even if churners make fewer international calls on average, the actual impact on churn should be evaluated in conjunction with other variables.</p>
+<p>Although this example uses a two-tailed test to detect any difference in means, a one-tailed test could be used if the research question specifies a directional hypothesis. For instance, if a company hypothesizes that churners make fewer international calls than non-churners, a one-tailed test could increase the test’s sensitivity.</p>
+<p>The two-sample t-test is a powerful and widely used method for comparing group means. It provides a statistical foundation for validating insights suggested by exploratory data analysis. By integrating graphical exploration with hypothesis testing, analysts can make well-informed inferences and derive actionable business insights.</p>
 </div>
-<div id="two-sample-z-test" class="section level3" number="5.3.4">
-<h3>
-<span class="header-section-number">5.3.4</span> Two-Sample Z-test<a class="anchor" aria-label="anchor" href="#two-sample-z-test"><i class="fas fa-link"></i></a>
-</h3>
-<p>The <strong>two-sample Z-test</strong> is used to compare the proportions of two groups to determine whether the observed difference in proportions is statistically significant. It is particularly useful for binary categorical variables, where the goal is to evaluate whether the proportions of success (or presence) in one group differ from those in another.</p>
-<p>In the context of the <em>churn</em> dataset, we can apply the two-sample Z-test to investigate whether there is a relationship between the target variable <em>churn</em> and the variable <em>Voice Mail Plan</em> (<code>voice.plan</code>). Specifically, we aim to test whether the proportion of churners who have a Voice Mail Plan differs from the proportion of non-churners with the plan.</p>
-<p>First, let’s visualize the relationship between <em>Voice Mail Plan</em> and <em>churn</em> using bar plots:</p>
-<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">voice.plan</span>, fill <span class="op">=</span> <span class="va">churn</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"palevioletred1"</span>, <span class="st">"darkseagreen1"</span><span class="op">)</span><span class="op">)</span> </span>
-<span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">voice.plan</span>, fill <span class="op">=</span> <span class="va">churn</span><span class="op">)</span>, position <span class="op">=</span> <span class="st">"fill"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"palevioletred1"</span>, <span class="st">"darkseagreen1"</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
+<div id="two-sample-z-test" class="section level2" number="5.7">
+<h2>
+<span class="header-section-number">5.7</span> Two-Sample Z-Test<a class="anchor" aria-label="anchor" href="#two-sample-z-test"><i class="fas fa-link"></i></a>
+</h2>
+<p>In the previous section, we applied the <em>two-sample t-test</em> to compare the mean number of international calls between churners and non-churners. While the t-test is useful for assessing differences in numerical variables, many business and scientific questions involve categorical variables, where proportions rather than means are of interest. The <em>two-sample Z-test</em> is designed to compare the proportions of two independent groups, determining whether the observed difference in proportions is statistically significant. This test is particularly valuable when analyzing binary categorical variables, such as customer churn or subscription status.</p>
+<p>In Section <a href="chapter-EDA.html#chapter-EDA-categorical">4.4</a> of the previous chapter, we examined the relationship between the <em>Voice Mail Plan</em> (<code>voice.plan</code>) and churn status using bar plots. While visualizations suggest potential differences in churn rates between customers with and without a Voice Mail Plan, statistical testing quantifies whether these differences are statistically significant.</p>
 <p><img src="statistics_files/figure-html/unnamed-chunk-11-1.png" width="50%"><img src="statistics_files/figure-html/unnamed-chunk-11-2.png" width="50%"></p>
-<p>The first bar plot shows the raw counts of churners and non-churners across the two categories of <em>Voice Mail Plan</em> (Yes or No), while the second plot provides proportions, making it easier to compare the relative churn rates within each category. These visualizations suggest that the proportion of churners might differ based on whether they have a Voice Mail Plan, but a formal hypothesis test is needed to confirm this.</p>
-<p>To test whether the proportions are significantly different, we set up the following hypotheses:</p>
-<ol style="list-style-type: decimal">
-<li><p><strong>Null Hypothesis (<span class="math inline">\(H_0\)</span>)</strong>: <span class="math inline">\(\pi_1 = \pi_2\)</span><br>
+<p>The first bar plot (left) shows the raw counts of churners and non-churners across the two categories of <em>Voice Mail Plan</em> (Yes or No), while the second plot (right) displays proportions, allowing direct comparison of churn rates. These visualizations suggest that customers without a Voice Mail Plan may have a higher churn rate, but hypothesis testing is needed to confirm whether this difference is statistically meaningful.</p>
+<p>To formally test whether the proportion of churners with a Voice Mail Plan differs from the proportion of non-churners with the plan, we establish the following hypotheses:</p>
+<ul>
+<li><p><em>Null Hypothesis (<span class="math inline">\(H_0\)</span>)</em>: <span class="math inline">\(\pi_1 = \pi_2\)</span><br>
 (The proportions of customers with a Voice Mail Plan are the same for churners and non-churners.)</p></li>
-<li><p><strong>Alternative Hypothesis (<span class="math inline">\(H_a\)</span>)</strong>: <span class="math inline">\(\pi_1 \neq \pi_2\)</span><br>
+<li><p><em>Alternative Hypothesis (<span class="math inline">\(H_a\)</span>)</em>: <span class="math inline">\(\pi_1 \neq \pi_2\)</span><br>
 (The proportions of customers with a Voice Mail Plan differ between churners and non-churners.)</p></li>
-</ol>
+</ul>
 <p>These can also be expressed mathematically as:
 <span class="math display">\[
-\bigg\{
-\begin{matrix}
+\begin{cases}
     H_0: \pi_1 = \pi_2   \\
     H_a: \pi_1 \neq \pi_2
-\end{matrix}
+\end{cases}
 \]</span></p>
-<p>To perform the Z-test in R, we first create a contingency table to summarize the counts of customers with and without a Voice Mail Plan in the churner and non-churner groups. This can be done using the <code><a href="https://rdrr.io/r/base/table.html">table()</a></code> function:</p>
+<p>To perform the Z-test in R, we begin by creating a contingency table to summarize the counts of customers with and without a Voice Mail Plan in the churner and non-churner groups. This can be done using the <code><a href="https://rdrr.io/r/base/table.html">table()</a></code> function:</p>
 <div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="chapter-statistics.html#cb110-1" tabindex="-1"></a>table_plan <span class="ot">=</span> <span class="fu">table</span>(churn<span class="sc">$</span>churn, churn<span class="sc">$</span>voice.plan, <span class="at">dnn =</span> <span class="fu">c</span>(<span class="st">"churn"</span>, <span class="st">"voice.plan"</span>))</span>
 <span id="cb110-2"><a href="chapter-statistics.html#cb110-2" tabindex="-1"></a>table_plan</span>
 <span id="cb110-3"><a href="chapter-statistics.html#cb110-3" tabindex="-1"></a>        voice.plan</span>
 <span id="cb110-4"><a href="chapter-statistics.html#cb110-4" tabindex="-1"></a>   churn  yes   no</span>
 <span id="cb110-5"><a href="chapter-statistics.html#cb110-5" tabindex="-1"></a>     yes  <span class="dv">102</span>  <span class="dv">605</span></span>
 <span id="cb110-6"><a href="chapter-statistics.html#cb110-6" tabindex="-1"></a>     no  <span class="dv">1221</span> <span class="dv">3072</span></span></code></pre></div>
-<p>This table displays the count of customers for each combination of <em>churn</em> and <em>voice.plan</em>. For example, it might show how many churners and non-churners have subscribed to a Voice Mail Plan versus how many have not.</p>
-<p>Next, we apply the <code><a href="https://rdrr.io/r/stats/prop.test.html">prop.test()</a></code> function to conduct the two-sample Z-test for the difference in proportions:</p>
+<p>This table displays the count of churners and non-churners with and without a Voice Mail Plan. To conduct the Z-test, we use the <code><a href="https://rdrr.io/r/stats/prop.test.html">prop.test()</a></code> function:</p>
 <div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="chapter-statistics.html#cb111-1" tabindex="-1"></a>z_test <span class="ot">=</span> <span class="fu">prop.test</span>(table_plan)</span>
 <span id="cb111-2"><a href="chapter-statistics.html#cb111-2" tabindex="-1"></a>z_test</span>
 <span id="cb111-3"><a href="chapter-statistics.html#cb111-3" tabindex="-1"></a>   </span>
@@ -606,170 +549,287 @@ The test also provides the <strong>sample proportion</strong> = 0.14, which is t
 <span id="cb111-11"><a href="chapter-statistics.html#cb111-11" tabindex="-1"></a>   sample estimates<span class="sc">:</span></span>
 <span id="cb111-12"><a href="chapter-statistics.html#cb111-12" tabindex="-1"></a>      prop <span class="dv">1</span>    prop <span class="dv">2</span> </span>
 <span id="cb111-13"><a href="chapter-statistics.html#cb111-13" tabindex="-1"></a>   <span class="fl">0.1442716</span> <span class="fl">0.2844165</span></span></code></pre></div>
-<p>The output of the test provides the <strong>p-value</strong>, the estimated proportions for each group, and the confidence interval for the difference in proportions. Based on the result:</p>
-<ul>
-<li><p>If the <strong>p-value</strong> (0) is less than the significance level (<span class="math inline">\(\alpha = 0.05\)</span>), we reject the null hypothesis (<span class="math inline">\(H_0\)</span>). This indicates that the difference in proportions is statistically significant, meaning the proportion of customers with a Voice Mail Plan differs between churners and non-churners.</p></li>
-<li><p>The test also provides a <strong>95% confidence interval</strong> = [-0.1702, -0.1101] for the difference in proportions. If this interval does not contain zero, it further confirms that the proportions are significantly different.</p></li>
-</ul>
-<p>Additionally, the <strong>sample proportions</strong> for churners (0.1443) and non-churners (0.2844) are reported in the output. These represent the observed proportions of customers with a Voice Mail Plan in each group and allow for direct comparison.</p>
-<p>Since the p-value is less than 0.05, we reject <span class="math inline">\(H_0\)</span> and conclude that there is sufficient evidence to suggest that the proportion of Voice Mail Plan members differs between churners and non-churners. This result indicates that the variable <em>Voice Mail Plan</em> is indeed useful for predicting churn.</p>
-<p>From a business perspective, this insight suggests that customers without a Voice Mail Plan may be more likely to churn. Companies could leverage this information by promoting Voice Mail Plans to customers at risk of leaving or by investigating whether the feature is associated with improved customer satisfaction and retention.</p>
-<p>In summary, the two-sample Z-test provides a formal method for comparing proportions between two groups. By combining visual exploration with hypothesis testing, we can identify significant relationships and use these findings to inform business strategies or further statistical modeling.</p>
+<p>The output provides the <em>p</em>-value, confidence interval, and sample proportions. Since the <em>p</em>-value (0) is smaller than the significance level (<span class="math inline">\(\alpha = 0.05\)</span>), we reject the null hypothesis. This result suggests that the proportion of customers with a Voice Mail Plan differs significantly between churners and non-churners.</p>
+<p>The test also provides a <em>95% confidence interval</em> = [-0.1702, -0.1101] for the difference in proportions. Since this interval does not include zero, it reinforces the conclusion that the difference is statistically significant. Additionally, the sample proportions—0.1443 for churners and 0.2844 for non-churners—provide insight into the magnitude of this difference.</p>
+<p>From a business perspective, this finding suggests that customers without a Voice Mail Plan may be more likely to churn. Companies could leverage this information by encouraging Voice Mail Plan subscriptions among at-risk customers or investigating whether the plan improves customer satisfaction and retention. Companies could leverage this information by encouraging Voice Mail Plan subscriptions among at-risk customers or investigating whether the plan improves customer satisfaction and retention. Although the Z-test shows a statistically significant difference, businesses should evaluate whether promoting the Voice Mail Plan meaningfully reduces churn rates and justifies marketing investment.</p>
+<p>The two-sample Z-test provides a formal approach to comparing proportions between groups, complementing exploratory data analysis. By integrating statistical testing with business insights, companies can validate patterns and take targeted actions to reduce churn.</p>
 </div>
-<div id="chi-square-test" class="section level3" number="5.3.5">
-<h3>
-<span class="header-section-number">5.3.5</span> Chi-square Test<a class="anchor" aria-label="anchor" href="#chi-square-test"><i class="fas fa-link"></i></a>
-</h3>
-<p>The <strong>Chi-square test</strong> is used to evaluate whether there is an association between two categorical variables. It assesses whether the observed frequencies in each category differ significantly from what would be expected under the assumption of independence. This test is particularly useful for variables with more than two categories, and it derives its name from the Chi-square (<span class="math inline">\(\chi^2\)</span>) distribution on which it is based.</p>
-<p>To illustrate, let’s analyze whether there is a relationship between the variable <em>marital</em> and the target variable <em>deposit</em> in the <em>bank</em> dataset (available in the <strong>liver</strong> package). The variable <code>marital</code> has three categories: “divorced,” “married,” and “single,” while the target variable <code>deposit</code> has two categories: “yes” (customers who purchased a deposit) and “no” (customers who did not). Our goal is to determine whether the marital status of customers is associated with their decision to make a deposit.</p>
-<p>We start by visualizing the relationship between <code>marital</code> and <code>deposit</code> using bar plots:</p>
-<div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bank</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">marital</span>, fill <span class="op">=</span> <span class="va">deposit</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"palevioletred1"</span>, <span class="st">"darkseagreen1"</span><span class="op">)</span><span class="op">)</span> </span>
-<span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bank</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">marital</span>, fill <span class="op">=</span> <span class="va">deposit</span><span class="op">)</span>, position <span class="op">=</span> <span class="st">"fill"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"palevioletred1"</span>, <span class="st">"darkseagreen1"</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
+<div id="chi-square-test" class="section level2" number="5.8">
+<h2>
+<span class="header-section-number">5.8</span> Chi-square Test<a class="anchor" aria-label="anchor" href="#chi-square-test"><i class="fas fa-link"></i></a>
+</h2>
+<p>While the <em>two-sample Z-test</em> is effective for comparing proportions between two groups, many real-world analyses involve categorical variables with more than two levels. The <em>Chi-square test</em> allows us to assess whether multiple categorical groups are associated, providing a broader framework for understanding categorical relationships. This makes it particularly useful for understanding customer behaviors and business outcomes across multiple categories.</p>
+<p>Unlike the Z-test, which focuses on comparing proportions between two groups, the Chi-square test evaluates whether distributions across multiple categories differ significantly from what would be expected under independence. It provides a formal way to test relationships between categorical variables and is widely used in marketing analysis, customer segmentation, and business decision-making.</p>
+<p>To illustrate, we examine whether marital status is associated with purchasing a deposit in the <em>bank</em> dataset (available in the <strong>liver</strong> package). This dataset will be revisited in Chapters <a href="chapter-knn.html#chapter-knn">7</a> and <a href="chapter-nn.html#chapter-nn">12</a> for classification modeling. The variable <code>marital</code> has three categories: “divorced,” “married,” and “single,” while the target variable <code>deposit</code> has two categories: “yes” (customers who purchased a deposit) and “no” (customers who did not). Our goal is to determine whether marital status influences deposit purchases.</p>
+<p>We begin by visualizing the relationship between <code>marital</code> and <code>deposit</code> using bar plots:</p>
 <p><img src="statistics_files/figure-html/unnamed-chunk-14-1.png" width="50%"><img src="statistics_files/figure-html/unnamed-chunk-14-2.png" width="50%"></p>
-<p>The first bar plot shows the raw counts of deposits across marital categories, while the second plot shows the proportions within each marital group. These visualizations suggest that the marital status might influence the likelihood of making a deposit, but a formal hypothesis test is needed to confirm this.</p>
-<p>We create a contingency table to summarize the counts of observations across the categories of <code>marital</code> and <code>deposit</code>:</p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="chapter-statistics.html#cb113-1" tabindex="-1"></a>table_marital <span class="ot">&lt;-</span> <span class="fu">table</span>(bank<span class="sc">$</span>deposit, bank<span class="sc">$</span>marital, <span class="at">dnn =</span> <span class="fu">c</span>(<span class="st">"deposit"</span>, <span class="st">"marital"</span>))</span>
-<span id="cb113-2"><a href="chapter-statistics.html#cb113-2" tabindex="-1"></a>table_marital</span>
-<span id="cb113-3"><a href="chapter-statistics.html#cb113-3" tabindex="-1"></a>          marital</span>
-<span id="cb113-4"><a href="chapter-statistics.html#cb113-4" tabindex="-1"></a>   deposit divorced married single</span>
-<span id="cb113-5"><a href="chapter-statistics.html#cb113-5" tabindex="-1"></a>       no       <span class="dv">451</span>    <span class="dv">2520</span>   <span class="dv">1029</span></span>
-<span id="cb113-6"><a href="chapter-statistics.html#cb113-6" tabindex="-1"></a>       yes       <span class="dv">77</span>     <span class="dv">277</span>    <span class="dv">167</span></span></code></pre></div>
-<p>This table provides the observed frequencies of deposits (“yes” and “no”) across the marital categories. To test whether these proportions differ significantly, we use the Chi-square test with the following hypotheses:</p>
-<ol style="list-style-type: decimal">
-<li>
-<strong>Null Hypothesis (<span class="math inline">\(H_0\)</span>)</strong>: The proportions of deposits are the same across all marital categories.<br>
-Mathematically:<br><span class="math display">\[
-\pi_{divorced, \ yes} = \pi_{married, \ yes} = \pi_{single, \ yes}
-\]</span>
-</li>
-<li>
-<strong>Alternative Hypothesis (<span class="math inline">\(H_a\)</span>)</strong>: At least one of the proportions differs from the others.</li>
-</ol>
-<p>The hypotheses can also be expressed as:
-<span class="math display">\[
-\bigg\{
-\begin{matrix}
-    H_0: \text{Deposit rates are independent of marital status.} \\
-    H_a: \text{Deposit rates depend on marital status.}
-\end{matrix}
+<p>The first bar plot (left) displays the raw counts of deposit purchases across marital categories, while the second plot (right) presents the relative proportions. Visual inspection suggests differences in deposit purchase rates by marital status, but a statistical test is needed to confirm whether these differences are significant.</p>
+<p>We summarize the observed counts in a contingency table:</p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="chapter-statistics.html#cb112-1" tabindex="-1"></a>table_marital <span class="ot">&lt;-</span> <span class="fu">table</span>(bank<span class="sc">$</span>deposit, bank<span class="sc">$</span>marital, <span class="at">dnn =</span> <span class="fu">c</span>(<span class="st">"deposit"</span>, <span class="st">"marital"</span>))</span>
+<span id="cb112-2"><a href="chapter-statistics.html#cb112-2" tabindex="-1"></a>table_marital</span>
+<span id="cb112-3"><a href="chapter-statistics.html#cb112-3" tabindex="-1"></a>          marital</span>
+<span id="cb112-4"><a href="chapter-statistics.html#cb112-4" tabindex="-1"></a>   deposit divorced married single</span>
+<span id="cb112-5"><a href="chapter-statistics.html#cb112-5" tabindex="-1"></a>       no       <span class="dv">451</span>    <span class="dv">2520</span>   <span class="dv">1029</span></span>
+<span id="cb112-6"><a href="chapter-statistics.html#cb112-6" tabindex="-1"></a>       yes       <span class="dv">77</span>     <span class="dv">277</span>    <span class="dv">167</span></span></code></pre></div>
+<p>To formally test for independence, we define the hypotheses:</p>
+<p><span class="math display">\[
+\begin{cases}
+H_0: \text{Deposit purchases are independent of marital status.} \\
+H_a: \text{Deposit purchases depend on marital status.}
+\end{cases}
 \]</span></p>
-<p>We apply the Chi-square test using the <code><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test()</a></code> function in R:</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="chapter-statistics.html#cb114-1" tabindex="-1"></a>chisq_test <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(table_marital)</span>
-<span id="cb114-2"><a href="chapter-statistics.html#cb114-2" tabindex="-1"></a>chisq_test</span>
-<span id="cb114-3"><a href="chapter-statistics.html#cb114-3" tabindex="-1"></a>   </span>
-<span id="cb114-4"><a href="chapter-statistics.html#cb114-4" tabindex="-1"></a>    Pearson<span class="st">'s Chi-squared test</span></span>
-<span id="cb114-5"><a href="chapter-statistics.html#cb114-5" tabindex="-1"></a><span class="st">   </span></span>
-<span id="cb114-6"><a href="chapter-statistics.html#cb114-6" tabindex="-1"></a><span class="st">   data:  table_marital</span></span>
-<span id="cb114-7"><a href="chapter-statistics.html#cb114-7" tabindex="-1"></a><span class="st">   X-squared = 19.03, df = 2, p-value = 7.374e-05</span></span></code></pre></div>
-<p>The output provides the Chi-square test statistic, degrees of freedom, and the <strong>p-value</strong>. Here, the <strong>p-value</strong> = 7.3735354^{-5} is smaller than the significance level <span class="math inline">\(\alpha = 0.05\)</span>. Therefore, we reject the null hypothesis (<span class="math inline">\(H_0\)</span>) and conclude that there is a statistically significant association between marital status and deposit behavior. In other words, the proportion of deposits differs across the marital categories.</p>
-<p>Additionally, the output includes the expected frequencies under the null hypothesis, which can be compared with the observed frequencies to assess where the differences lie. These insights can guide further analysis, such as investigating which marital group contributes most to the association.</p>
-<p>From a business perspective, this result indicates that marital status is a useful predictor of whether a customer will purchase a deposit. Marketing strategies can leverage this information by tailoring campaigns or offers to specific marital groups to increase deposit adoption rates.</p>
-<p>In summary, the Chi-square test is a powerful tool for assessing relationships between categorical variables. By combining visualizations, contingency tables, and formal hypothesis testing, we can draw meaningful conclusions about the associations in our data and apply these insights to improve decision-making.</p>
+<p>The Chi-square test is applied using the <code><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test()</a></code> function:</p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="chapter-statistics.html#cb113-1" tabindex="-1"></a>chisq_test <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(table_marital)</span>
+<span id="cb113-2"><a href="chapter-statistics.html#cb113-2" tabindex="-1"></a>chisq_test</span>
+<span id="cb113-3"><a href="chapter-statistics.html#cb113-3" tabindex="-1"></a>   </span>
+<span id="cb113-4"><a href="chapter-statistics.html#cb113-4" tabindex="-1"></a>    Pearson<span class="st">'s Chi-squared test</span></span>
+<span id="cb113-5"><a href="chapter-statistics.html#cb113-5" tabindex="-1"></a><span class="st">   </span></span>
+<span id="cb113-6"><a href="chapter-statistics.html#cb113-6" tabindex="-1"></a><span class="st">   data:  table_marital</span></span>
+<span id="cb113-7"><a href="chapter-statistics.html#cb113-7" tabindex="-1"></a><span class="st">   X-squared = 19.03, df = 2, p-value = 7.374e-05</span></span></code></pre></div>
+<p>The output includes the <em>p</em>-value, Chi-square test statistic, degrees of freedom, and expected frequencies under <span class="math inline">\(H_0\)</span>. If the <em>p</em>-value = 7.3735354^{-5} is smaller than <span class="math inline">\(\alpha = 0.05\)</span>, we reject the null hypothesis, concluding that marital status and deposit purchases are not independent. This means that at least one marital group differs significantly from the others in deposit purchase rates.</p>
+<p>Examining the expected frequencies can reveal which marital groups contribute most to the observed association. If a particular group has a much higher or lower deposit purchase rate than expected, marketing efforts can be tailored accordingly.</p>
+<p>From a business perspective, these findings suggest that banks may benefit from personalizing their marketing strategies based on marital status. For example, if married customers are significantly more likely to purchase deposits, targeted promotional campaigns could emphasize financial planning for families. Conversely, if single customers exhibit lower deposit adoption rates, banks might develop incentive programs tailored to their financial goals.</p>
+<p>The Chi-square test is a powerful tool for identifying relationships between categorical variables. By integrating visual analysis, contingency tables, and statistical hypothesis testing, businesses can make data-driven decisions to optimize customer engagement and product offerings.</p>
 </div>
-<div id="analysis-of-variance-anova-test" class="section level3" number="5.3.6">
-<h3>
-<span class="header-section-number">5.3.6</span> Analysis of Variance (ANOVA) Test<a class="anchor" aria-label="anchor" href="#analysis-of-variance-anova-test"><i class="fas fa-link"></i></a>
-</h3>
-<p>The <strong>Analysis of Variance (ANOVA)</strong> test is used to compare the means of a numerical variable across more than two groups. It evaluates whether at least one group mean differs significantly from the others. ANOVA is especially useful when analyzing the relationship between a numerical variable and a categorical variable with multiple levels, providing a formal way to determine if the categorical variable impacts the numerical variable. The test relies on the F-distribution to assess whether the observed differences in means are statistically significant.</p>
-<p>To illustrate, let’s analyze the relationship between the variable <code>cut</code> and the target variable <code>price</code> in the popular <em>diamonds</em> dataset (available in the <strong>ggplot2</strong> package). The variable <code>cut</code> has five categories (“Fair,” “Good,” “Very Good,” “Premium,” and “Ideal”), while <code>price</code> is numerical. Our objective is to test whether the mean price of diamonds differs across the five cut categories.</p>
+<div id="analysis-of-variance-anova-test" class="section level2" number="5.9">
+<h2>
+<span class="header-section-number">5.9</span> Analysis of Variance (ANOVA) Test<a class="anchor" aria-label="anchor" href="#analysis-of-variance-anova-test"><i class="fas fa-link"></i></a>
+</h2>
+<p>In the previous sections, we explored hypothesis tests that compare two groups, such as the <em>two-sample t-test</em> and <em>Z-test</em>. However, in many real-world scenarios, categorical variables have more than two levels. In such cases, the <em>Analysis of Variance (ANOVA)</em> provides a systematic way to determine whether a numerical variable differs across multiple groups. It evaluates whether at least one group mean differs significantly from the others. ANOVA is especially useful when analyzing the relationship between a numerical variable and a categorical variable with multiple levels, providing a formal way to determine if the categorical variable impacts the numerical variable. The test relies on the F-distribution to assess whether the observed differences in means are statistically significant.</p>
+<p>To illustrate, let’s analyze the relationship between the variable <code>cut</code> and the target variable <code>price</code> in the popular <em>diamonds</em> dataset (available in the <strong>ggplot2</strong> package). See <em>Section X.X</em> for an overview of this dataset. The variable <code>cut</code> has five categories (“Fair,” “Good,” “Very Good,” “Premium,” and “Ideal”), while <code>price</code> is numerical. Our objective is to test whether the mean price of diamonds differs across the five cut categories.</p>
 <p>We begin with a box plot to visualize the distribution of diamond prices for each category of <code>cut</code>:</p>
-<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cut</span>, y <span class="op">=</span> <span class="va">price</span>, fill <span class="op">=</span> <span class="va">cut</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"palevioletred1"</span>, <span class="st">"darkseagreen1"</span>, <span class="st">"skyblue1"</span>, <span class="st">"gold1"</span>, <span class="st">"lightcoral"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="statistics_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;"></div>
-<p>The box plot displays the spread and median prices for diamonds in each cut category. If the distributions appear distinct—for example, with noticeable differences in medians or ranges—this suggests that the cut might influence the price. However, visual inspection alone is insufficient to confirm whether these differences are statistically significant, so we proceed with an ANOVA test.</p>
-<p>To formally test whether the mean prices differ by cut type, we set up the following hypotheses:</p>
-<ol style="list-style-type: decimal">
-<li><p><strong>Null Hypothesis (<span class="math inline">\(H_0\)</span>)</strong>: All group means are equal.<br>
-Mathematically:<br><span class="math display">\[
-\mu_1 = \mu_2 = \mu_3 = \mu_4 = \mu_5
-\]</span>
-(The average prices are the same across all cut types.)</p></li>
-<li><p><strong>Alternative Hypothesis (<span class="math inline">\(H_a\)</span>)</strong>: At least one group mean is different.<br>
-(Not all average prices are equal across the cut categories.)</p></li>
-</ol>
-<p>To conduct the ANOVA test in R, we use the <code><a href="https://rdrr.io/r/stats/aov.html">aov()</a></code> function as follows:</p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="chapter-statistics.html#cb116-1" tabindex="-1"></a><span class="co"># Perform ANOVA</span></span>
-<span id="cb116-2"><a href="chapter-statistics.html#cb116-2" tabindex="-1"></a>anova_test <span class="ot">&lt;-</span> <span class="fu">aov</span>(price <span class="sc">~</span> cut, <span class="at">data =</span> diamonds)</span>
-<span id="cb116-3"><a href="chapter-statistics.html#cb116-3" tabindex="-1"></a><span class="fu">summary</span>(anova_test)</span>
-<span id="cb116-4"><a href="chapter-statistics.html#cb116-4" tabindex="-1"></a>                  Df    Sum Sq   Mean Sq F value <span class="fu">Pr</span>(<span class="sc">&gt;</span>F)    </span>
-<span id="cb116-5"><a href="chapter-statistics.html#cb116-5" tabindex="-1"></a>   cut             <span class="dv">4</span> <span class="fl">1.104e+10</span> <span class="fl">2.760e+09</span>   <span class="fl">175.7</span> <span class="sc">&lt;</span><span class="fl">2e-16</span> <span class="sc">**</span><span class="er">*</span></span>
-<span id="cb116-6"><a href="chapter-statistics.html#cb116-6" tabindex="-1"></a>   Residuals   <span class="dv">53935</span> <span class="fl">8.474e+11</span> <span class="fl">1.571e+07</span>                   </span>
-<span id="cb116-7"><a href="chapter-statistics.html#cb116-7" tabindex="-1"></a>   <span class="sc">---</span></span>
-<span id="cb116-8"><a href="chapter-statistics.html#cb116-8" tabindex="-1"></a>   Signif. codes<span class="sc">:</span>  <span class="dv">0</span> <span class="st">'***'</span> <span class="fl">0.001</span> <span class="st">'**'</span> <span class="fl">0.01</span> <span class="st">'*'</span> <span class="fl">0.05</span> <span class="st">'.'</span> <span class="fl">0.1</span> <span class="st">' '</span> <span class="dv">1</span></span></code></pre></div>
-<p>The output provides the test statistic (F-value), degrees of freedom, and the <strong>p-value</strong>. If the <strong>p-value</strong> is smaller than the significance level (<span class="math inline">\(\alpha = 0.05\)</span>), we reject the null hypothesis (<span class="math inline">\(H_0\)</span>). For instance, if the <strong>p-value</strong> = 8.4283073^{-150}, we would reject <span class="math inline">\(H_0\)</span> and conclude that not all group means are equal. This indicates that the variable <code>cut</code> has a significant impact on the price of diamonds.</p>
-<p>It’s important to note that rejecting <span class="math inline">\(H_0\)</span> in ANOVA doesn’t identify which specific groups differ. To determine this, we can conduct <strong>post-hoc tests</strong>, such as Tukey’s Honestly Significant Difference (Tukey HSD) test, to pinpoint the pairs of categories that have significant differences in their means. In this example, we could apply Tukey’s test to identify which cut categories (e.g., “Ideal” vs. “Good”) drive the observed differences.</p>
-<p>In summary, the ANOVA test confirms whether a categorical variable with multiple levels influences a numerical variable. In this case, the relationship between <code>cut</code> and <code>price</code> suggests that diamond cut type is an important predictor of price, providing valuable insight into how quality impacts cost.</p>
+<p>The box plot displays the spread and median prices for diamonds in each cut category. While differences in medians and ranges suggest that cut quality might influence price, statistical testing is required to confirm whether these differences are significant. We apply an ANOVA test to formally assess this relationship.</p>
+<p>To test whether the mean prices differ by cut type, we set up the following hypotheses:</p>
+<p><span class="math display">\[
+\begin{cases}
+    H_0: \mu_1 = \mu_2 = \mu_3 = \mu_4 = \mu_5 \quad \text{(All group means are equal.)} \\
+    H_a: \text{At least one group mean differs from the others.}  
+\end{cases}
+\]</span></p>
+<p>To conduct the ANOVA test in R, we use the <code><a href="https://rdrr.io/r/stats/aov.html">aov()</a></code> function:</p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="chapter-statistics.html#cb115-1" tabindex="-1"></a>anova_test <span class="ot">&lt;-</span> <span class="fu">aov</span>(price <span class="sc">~</span> cut, <span class="at">data =</span> diamonds)</span>
+<span id="cb115-2"><a href="chapter-statistics.html#cb115-2" tabindex="-1"></a><span class="fu">summary</span>(anova_test)</span>
+<span id="cb115-3"><a href="chapter-statistics.html#cb115-3" tabindex="-1"></a>                  Df    Sum Sq   Mean Sq F value <span class="fu">Pr</span>(<span class="sc">&gt;</span>F)    </span>
+<span id="cb115-4"><a href="chapter-statistics.html#cb115-4" tabindex="-1"></a>   cut             <span class="dv">4</span> <span class="fl">1.104e+10</span> <span class="fl">2.760e+09</span>   <span class="fl">175.7</span> <span class="sc">&lt;</span><span class="fl">2e-16</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb115-5"><a href="chapter-statistics.html#cb115-5" tabindex="-1"></a>   Residuals   <span class="dv">53935</span> <span class="fl">8.474e+11</span> <span class="fl">1.571e+07</span>                   </span>
+<span id="cb115-6"><a href="chapter-statistics.html#cb115-6" tabindex="-1"></a>   <span class="sc">---</span></span>
+<span id="cb115-7"><a href="chapter-statistics.html#cb115-7" tabindex="-1"></a>   Signif. codes<span class="sc">:</span>  <span class="dv">0</span> <span class="st">'***'</span> <span class="fl">0.001</span> <span class="st">'**'</span> <span class="fl">0.01</span> <span class="st">'*'</span> <span class="fl">0.05</span> <span class="st">'.'</span> <span class="fl">0.1</span> <span class="st">' '</span> <span class="dv">1</span></span></code></pre></div>
+<p>The output provides the test statistic (F-value), degrees of freedom, and the <em>p</em>-value. Since the <em>p</em>-value is smaller than the significance level (<span class="math inline">\(\alpha = 0.05\)</span>), we reject the null hypothesis. This indicates that the variable <code>cut</code> has a significant impact on the price of diamonds.</p>
+<p>Rejecting <span class="math inline">\(H_0\)</span> in ANOVA does not specify which groups differ. To identify these differences, <em>post-hoc tests</em> such as Tukey’s Honestly Significant Difference (Tukey HSD) test are necessary. These tests control for multiple comparisons while pinpointing significant pairwise differences. In this example, we could apply Tukey’s test to determine which cut categories (e.g., “Ideal” vs. “Good”) drive the observed differences.</p>
+<p>Understanding the impact of diamond cut on price is crucial for pricing strategies and consumer insights. If higher-quality cuts command significantly higher prices, retailers may adjust marketing efforts accordingly. Conversely, if certain mid-tier cuts do not show meaningful price differences, companies might reconsider their pricing models to enhance competitiveness.</p>
+<p>The ANOVA test provides a structured approach to evaluating whether a categorical variable with multiple levels influences a numerical variable. In this case, the relationship between <code>cut</code> and <code>price</code> suggests that diamond cut type is an important predictor of price, offering valuable insights into how quality impacts cost. By integrating statistical testing with business insights, analysts can determine whether categorical variables have meaningful effects and use this knowledge to inform data-driven decisions.</p>
 </div>
-<div id="correlation-test" class="section level3" number="5.3.7">
-<h3>
-<span class="header-section-number">5.3.7</span> Correlation Test<a class="anchor" aria-label="anchor" href="#correlation-test"><i class="fas fa-link"></i></a>
-</h3>
-<p>The <strong>correlation test</strong> determines whether there is a significant linear relationship between two numerical variables by testing the null hypothesis that the population correlation coefficient (<span class="math inline">\(\rho\)</span>) is equal to zero. This test evaluates both the direction and strength of the relationship between the variables.</p>
-<p>In the diamonds dataset, let’s explore whether there is a significant relationship between the variable <strong><code>carat</code></strong> (diamond weight) and the target variable <strong><code>price</code></strong> (diamond price). Visualizing the relationship between these two variables is often the first step in correlation analysis. Below is a scatter plot illustrating their relationship:</p>
-<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
+<div id="correlation-test" class="section level2" number="5.10">
+<h2>
+<span class="header-section-number">5.10</span> Correlation Test<a class="anchor" aria-label="anchor" href="#correlation-test"><i class="fas fa-link"></i></a>
+</h2>
+<p>In the previous sections, we explored hypothesis tests for comparing means and proportions across groups. When analyzing relationships between two numerical variables, correlation testing provides a formal method to assess whether a significant linear association exists. The <em>correlation test</em> evaluates both the strength and direction of the relationship by testing the null hypothesis that the population correlation coefficient (<span class="math inline">\(\rho\)</span>) is equal to zero. This test is particularly useful in understanding how two continuous variables co-vary, which can inform business strategies, pricing models, and predictive analytics.</p>
+<p>To illustrate, we examine whether a significant relationship exists between <code>carat</code> (diamond weight) and <code>price</code> in the <em>diamonds</em> dataset (available in the <strong>ggplot2</strong> package). Since larger diamonds are generally more expensive, we expect a positive correlation between these variables. A scatter plot provides an initial visual assessment of the relationship:</p>
+<div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">carat</span>, y <span class="op">=</span> <span class="va">price</span><span class="op">)</span>, colour <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Carat"</span>, y <span class="op">=</span> <span class="st">"Price"</span><span class="op">)</span> </span></code></pre></div>
 <div class="inline-figure"><img src="statistics_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;"></div>
-<p>The scatter plot shows a clear upward trend, suggesting a positive relationship between <strong>carat</strong> and <strong>price</strong>—as the weight of the diamond increases, so does its price. To formally test whether this observed pattern is statistically significant, we establish the following hypotheses:</p>
-<ol style="list-style-type: decimal">
-<li>
-<strong>Null Hypothesis (<span class="math inline">\(H_0\)</span>)</strong>: <span class="math inline">\(\rho = 0\)</span> (There is no linear correlation between the variables.)</li>
-<li>
-<strong>Alternative Hypothesis (<span class="math inline">\(H_a\)</span>)</strong>: <span class="math inline">\(\rho \neq 0\)</span> (There is a significant linear correlation between the variables.)</li>
-</ol>
-<p>The hypotheses can be expressed as:
-<span class="math display">\[
-\bigg\{
-\begin{matrix}
-    H_0: \rho   =  0 \\
-    H_a: \rho \neq 0
-\end{matrix}
+<p>The scatter plot shows a clear upward trend, suggesting that as <em>carat</em> increases, so does <em>price</em>. However, visualizations alone do not confirm statistical significance. To formally test this relationship, we establish the following hypotheses:</p>
+<p><span class="math display">\[
+\begin{cases}
+    H_0: \rho   =  0 \quad \text{(There is no linear correlation between `carat` and `price`.)} \\
+    H_a: \rho \neq 0 \quad \text{(There is a significant linear correlation between `carat` and `price`.)}
+\end{cases}
 \]</span></p>
-<p>To perform the correlation test in R, we use the <code><a href="https://rdrr.io/r/stats/cor.test.html">cor.test()</a></code> function:</p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="chapter-statistics.html#cb118-1" tabindex="-1"></a>cor_test <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(diamonds<span class="sc">$</span>carat, diamonds<span class="sc">$</span>price)</span>
-<span id="cb118-2"><a href="chapter-statistics.html#cb118-2" tabindex="-1"></a>cor_test</span>
-<span id="cb118-3"><a href="chapter-statistics.html#cb118-3" tabindex="-1"></a>   </span>
-<span id="cb118-4"><a href="chapter-statistics.html#cb118-4" tabindex="-1"></a>    Pearson<span class="st">'s product-moment correlation</span></span>
-<span id="cb118-5"><a href="chapter-statistics.html#cb118-5" tabindex="-1"></a><span class="st">   </span></span>
-<span id="cb118-6"><a href="chapter-statistics.html#cb118-6" tabindex="-1"></a><span class="st">   data:  diamonds$carat and diamonds$price</span></span>
-<span id="cb118-7"><a href="chapter-statistics.html#cb118-7" tabindex="-1"></a><span class="st">   t = 551.41, df = 53938, p-value &lt; 2.2e-16</span></span>
-<span id="cb118-8"><a href="chapter-statistics.html#cb118-8" tabindex="-1"></a><span class="st">   alternative hypothesis: true correlation is not equal to 0</span></span>
-<span id="cb118-9"><a href="chapter-statistics.html#cb118-9" tabindex="-1"></a><span class="st">   95 percent confidence interval:</span></span>
-<span id="cb118-10"><a href="chapter-statistics.html#cb118-10" tabindex="-1"></a><span class="st">    0.9203098 0.9228530</span></span>
-<span id="cb118-11"><a href="chapter-statistics.html#cb118-11" tabindex="-1"></a><span class="st">   sample estimates:</span></span>
-<span id="cb118-12"><a href="chapter-statistics.html#cb118-12" tabindex="-1"></a><span class="st">         cor </span></span>
-<span id="cb118-13"><a href="chapter-statistics.html#cb118-13" tabindex="-1"></a><span class="st">   0.9215913</span></span></code></pre></div>
-<p>The output of the correlation test includes the <strong>p-value</strong>, which quantifies the evidence against the null hypothesis. If the p-value = 0 is smaller than the significance level (<span class="math inline">\(\alpha = 0.05\)</span>), we reject <span class="math inline">\(H_0\)</span>. In this case, the test result indicates strong evidence of a significant relationship between <strong><code>carat</code></strong> and <strong><code>price</code></strong>.</p>
-<p>The test output also provides additional insights:</p>
+<p>To conduct the correlation test in R, we use the <code><a href="https://rdrr.io/r/stats/cor.test.html">cor.test()</a></code> function:</p>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="chapter-statistics.html#cb117-1" tabindex="-1"></a>cor_test <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(diamonds<span class="sc">$</span>carat, diamonds<span class="sc">$</span>price)</span>
+<span id="cb117-2"><a href="chapter-statistics.html#cb117-2" tabindex="-1"></a>cor_test</span>
+<span id="cb117-3"><a href="chapter-statistics.html#cb117-3" tabindex="-1"></a>   </span>
+<span id="cb117-4"><a href="chapter-statistics.html#cb117-4" tabindex="-1"></a>    Pearson<span class="st">'s product-moment correlation</span></span>
+<span id="cb117-5"><a href="chapter-statistics.html#cb117-5" tabindex="-1"></a><span class="st">   </span></span>
+<span id="cb117-6"><a href="chapter-statistics.html#cb117-6" tabindex="-1"></a><span class="st">   data:  diamonds$carat and diamonds$price</span></span>
+<span id="cb117-7"><a href="chapter-statistics.html#cb117-7" tabindex="-1"></a><span class="st">   t = 551.41, df = 53938, p-value &lt; 2.2e-16</span></span>
+<span id="cb117-8"><a href="chapter-statistics.html#cb117-8" tabindex="-1"></a><span class="st">   alternative hypothesis: true correlation is not equal to 0</span></span>
+<span id="cb117-9"><a href="chapter-statistics.html#cb117-9" tabindex="-1"></a><span class="st">   95 percent confidence interval:</span></span>
+<span id="cb117-10"><a href="chapter-statistics.html#cb117-10" tabindex="-1"></a><span class="st">    0.9203098 0.9228530</span></span>
+<span id="cb117-11"><a href="chapter-statistics.html#cb117-11" tabindex="-1"></a><span class="st">   sample estimates:</span></span>
+<span id="cb117-12"><a href="chapter-statistics.html#cb117-12" tabindex="-1"></a><span class="st">         cor </span></span>
+<span id="cb117-13"><a href="chapter-statistics.html#cb117-13" tabindex="-1"></a><span class="st">   0.9215913</span></span></code></pre></div>
+<p>The output provides key results, including the <em>p</em>-value, correlation coefficient, and confidence interval:</p>
 <ul>
 <li>
-<strong>Correlation Coefficient</strong>: The correlation coefficient (<span class="math inline">\(r = 0.92\)</span>) measures the strength and direction of the relationship. A positive value near 1 indicates a strong positive correlation.</li>
+<strong>p-value</strong>: If the <em>p</em>-value = 0 is smaller than the significance level (<span class="math inline">\(\alpha = 0.05\)</span>), we reject <span class="math inline">\(H_0\)</span>, confirming that the correlation is statistically significant.</li>
 <li>
-<strong>95% Confidence Interval</strong>: The confidence interval [0.92, 0.92] provides a plausible range for the true population correlation (<span class="math inline">\(\rho\)</span>). If this interval does not include 0, it reinforces the rejection of <span class="math inline">\(H_0\)</span> and further confirms the presence of a significant correlation.</li>
+<strong>Correlation Coefficient</strong>: The correlation coefficient (<span class="math inline">\(r = 0.92\)</span>) quantifies the strength and direction of the relationship. A value close to 1 indicates a strong positive correlation, while a value near 0 suggests no linear association.</li>
+<li>
+<strong>Confidence Interval</strong>: The 95% confidence interval [0.92, 0.92] provides a plausible range for the true population correlation (<span class="math inline">\(\rho\)</span>). If this interval does not include 0, it further supports rejecting <span class="math inline">\(H_0\)</span> and confirms a meaningful association.</li>
 </ul>
-<p>The correlation coefficient of 0.92 indicates a strong positive linear relationship between <strong><code>carat</code></strong> and <strong><code>price</code></strong>. Larger diamonds are associated with higher prices, which aligns with intuition and business practices in the diamond industry. The small p-value confirms that this relationship is statistically significant, not due to random chance. Furthermore, the confidence interval highlights the precision of our estimate for the population correlation, offering a range of plausible values for <span class="math inline">\(\rho\)</span>.</p>
-<p>By combining visualization, hypothesis testing, and confidence intervals, we gain a comprehensive understanding of the relationship between <strong>carat</strong> and <strong>price</strong>, which can inform further analysis or predictive modeling.</p>
+<p>The correlation coefficient of 0.92 suggests a strong positive relationship between <em>carat</em> and <em>price</em>, meaning that larger diamonds tend to be more expensive. The small <em>p</em>-value confirms that this pattern is unlikely due to random variation, while the confidence interval provides an estimate of how precisely we can measure this correlation.</p>
+<p>Beyond statistical significance, this relationship has practical implications for diamond pricing strategies. If the correlation is particularly strong, pricing models could rely more on <em>carat</em> as a key determinant of value. However, if variability remains high despite a significant correlation, additional factors—such as diamond clarity, cut, or market conditions—may play an influential role. Further analysis could involve multivariate regression to assess how <em>carat</em> interacts with other attributes in predicting price.</p>
+<p>By integrating visualization, statistical inference, and business insights, the correlation test offers a robust framework for understanding numerical relationships. This approach ensures that observed trends are both statistically sound and practically meaningful, laying the foundation for more advanced modeling techniques.</p>
 </div>
-</div>
-<div id="wrapping-up" class="section level2" number="5.4">
+<div id="wrapping-up" class="section level2" number="5.11">
 <h2>
-<span class="header-section-number">5.4</span> Wrapping Up<a class="anchor" aria-label="anchor" href="#wrapping-up"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.11</span> Wrapping Up<a class="anchor" aria-label="anchor" href="#wrapping-up"><i class="fas fa-link"></i></a>
 </h2>
-<p>In this chapter, we laid the foundation for statistical inference, starting with <strong>estimation</strong>, where we explored how point estimates and confidence intervals provide valuable insights into population parameters while accounting for uncertainty. We then turned to <strong>hypothesis testing</strong>, learning how to formulate null and alternative hypotheses, calculate test statistics, and interpret p-values to make data-driven decisions. Through practical examples, we applied a variety of techniques, such as the t-test for comparing means, tests for evaluating proportions, ANOVA for assessing group differences, and the Chi-square test and correlation analysis for uncovering relationships between variables. Together, these tools form a robust framework for answering research questions and drawing meaningful conclusions from data.</p>
-<p>Statistical inference and hypothesis testing lie at the core of data analysis, offering a structured approach to distinguish meaningful patterns from random noise. These methods are indispensable for tasks like testing the effectiveness of a marketing strategy, evaluating the performance of a product, or predicting customer behavior. As you continue to apply these techniques, remember that the reliability of your results depends on <strong>checking assumptions</strong>, interpreting findings within the broader context of your data, and incorporating domain expertise to add depth to your conclusions.</p>
-<p>In the next chapter, we’ll build on these concepts as we prepare for machine learning by learning how to partition datasets effectively. To ensure that our partitions are valid and reliable, we will again rely on hypothesis testing. By connecting statistical inference to model-building, you’ll see how the techniques from this chapter form the foundation for creating and validating predictive models.</p>
+<p>This chapter provided a foundation for statistical inference, beginning with <em>estimation</em>, where we explored how point estimates and confidence intervals help quantify population parameters while accounting for uncertainty. We then introduced <em>hypothesis testing</em>, learning how to formulate null and alternative hypotheses, compute test statistics, and interpret <em>p</em>-values to make informed decisions. Through practical examples, we applied various statistical tests, including <em>t</em>-tests for comparing means, proportion tests for categorical data, ANOVA for assessing differences across multiple groups, and the Chi-square test and correlation analysis for uncovering relationships between variables. Together, these tools form a robust framework for extracting insights and answering key research questions.</p>
+<p>Statistical inference plays a critical role in data-driven decision-making, helping analysts distinguish meaningful patterns from random variation. These methods are widely used in business and research, from evaluating marketing strategies to predicting customer behavior. However, reliable conclusions require more than statistical significance. It is essential to check assumptions, contextualize results, and integrate domain knowledge to ensure findings are both accurate and actionable.<br>
+While statistical inference and hypothesis testing are essential tools in data science, they fall outside the scope of machine learning. If you are interested in exploring these topics further, we recommend introductory statistics textbooks such as <em>Intuitive Introductory Statistics</em> by Wolfe and Schneider.<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Douglas A Wolfe and Grant Schneider, &lt;em&gt;Intuitive Introductory Statistics&lt;/em&gt; (Springer, 2017).&lt;/p&gt;"><sup>5</sup></a></span></p>
+<p>In the next chapter, we transition from statistical inference to predictive modeling, focusing on how to partition datasets effectively. Just as hypothesis testing helps determine whether patterns in data are real, proper data partitioning ensures that machine learning models generalize well to unseen data. As we move forward, ensuring data validity and model robustness will be key to building reliable predictive systems.</p>
+</div>
+<div id="exercises-4" class="section level2" number="5.12">
+<h2>
+<span class="header-section-number">5.12</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-4"><i class="fas fa-link"></i></a>
+</h2>
+<div id="conceptual-questions-1" class="section level3 unnumbered">
+<h3>Conceptual Questions<a class="anchor" aria-label="anchor" href="#conceptual-questions-1"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p>Why is hypothesis testing important in data science? Explain its role in making data-driven decisions and how it complements exploratory data analysis.</p></li>
+<li><p>What is the difference between a confidence interval and a hypothesis test? How do they provide different ways of drawing conclusions about population parameters?</p></li>
+<li><p>The <em>p</em>-value represents the probability of observing the sample data, or something more extreme, assuming the null hypothesis is true. How should <em>p</em>-values be interpreted, and why is a <em>p</em>-value of 0.001 in a two-sample <em>t</em>-test not necessarily evidence of practical significance?**</p></li>
+<li><p>Explain the concepts of <em>Type I</em> and <em>Type II</em> errors in hypothesis testing. Why is it important to balance the risks of these errors when designing statistical tests?</p></li>
+<li><p>In a hypothesis test, failing to reject the null hypothesis does not imply that the null hypothesis is true. Explain why this is the case and discuss the implications of this result in practice.</p></li>
+<li><p>When working with small sample sizes, why is the <em>t</em>-distribution used instead of the normal distribution? How does the shape of the <em>t</em>-distribution change as the sample size increases?</p></li>
+<li><p>One-tailed and two-tailed hypothesis tests serve different purposes. When would a one-tailed test be more appropriate than a two-tailed test? Provide an example where each type of test would be applicable.</p></li>
+<li><p>Both the two-sample <em>Z</em>-test and the Chi-square test analyze categorical data but serve different purposes. How do they differ, and when would one be preferred over the other?</p></li>
+<li><p>The <em>Analysis of Variance</em> (ANOVA) test is designed to compare means across multiple groups. Why can’t multiple <em>t</em>-tests be used instead? What is the advantage of using ANOVA in this context?</p></li>
+</ol>
+</div>
+<div id="hands-on-practice-hypothesis-testing-in-r" class="section level3 unnumbered">
+<h3>Hands-On Practice: Hypothesis Testing in R<a class="anchor" aria-label="anchor" href="#hands-on-practice-hypothesis-testing-in-r"><i class="fas fa-link"></i></a>
+</h3>
+<p>For the following exercises, use the <em>churn</em>, <em>bank</em>, <em>marketing</em>, and <em>diamonds</em> datasets available in the <strong>liver</strong> and <strong>ggplot2</strong> packages. We have previously used the <em>churn</em>, <em>bank</em>, and <em>diamonds</em> datasets in this and earlier chapters. In Chapter <a href="chapter-regression.html#chapter-regression">10</a>, we will introduce the <em>marketing</em> dataset for regression analysis.</p>
+<p>To load the datasets, use the following commands:</p>
+<div class="sourceCode" id="cb118"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.uva.nl/profile/a.mohammadi">liver</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>   </span>
+<span></span>
+<span><span class="co"># To import the datasets</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">churn</span><span class="op">)</span>  </span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">bank</span><span class="op">)</span>  </span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">marketing</span>, package <span class="op">=</span> <span class="st">"liver"</span><span class="op">)</span>  </span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">diamonds</span><span class="op">)</span>  </span></code></pre></div>
+<ol start="10" style="list-style-type: decimal">
+<li>We are interested in knowing the 90% confidence interval for the population mean of the variable “<code>night.calls</code>” in the <em>churn</em> dataset. In <strong>R</strong>, we can obtain a confidence interval for the population mean using the <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> function as follows:</li>
+</ol>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="chapter-statistics.html#cb119-1" tabindex="-1"></a><span class="fu">t.test</span>(<span class="at">x =</span> churn<span class="sc">$</span>night.calls, <span class="at">conf.level =</span> <span class="fl">0.90</span>)<span class="sc">$</span><span class="st">"conf.int"</span></span>
+<span id="cb119-2"><a href="chapter-statistics.html#cb119-2" tabindex="-1"></a>   [<span class="dv">1</span>]  <span class="fl">99.45484</span> <span class="fl">100.38356</span></span>
+<span id="cb119-3"><a href="chapter-statistics.html#cb119-3" tabindex="-1"></a>   <span class="fu">attr</span>(,<span class="st">"conf.level"</span>)</span>
+<span id="cb119-4"><a href="chapter-statistics.html#cb119-4" tabindex="-1"></a>   [<span class="dv">1</span>] <span class="fl">0.9</span></span></code></pre></div>
+<p>Interpret the confidence interval in the context of customer service calls made at night. Report the 99% confidence interval for the population mean of “<code>night.calls</code>” and compare it with the 90% confidence interval. Which interval is wider, and what does this indicate about the precision of the estimates? Why does increasing the confidence level result in a wider interval, and how does this impact decision-making in a business context?</p>
+<ol start="11" style="list-style-type: decimal">
+<li>Subgroup analyses help identify behavioral patterns in specific customer segments. In the <em>churn</em> dataset, we focus on customers with both an <em>International Plan</em> and a <em>Voice Mail Plan</em> who make more than 220 daytime minutes of calls. To create this subset, we use:</li>
+</ol>
+<div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sub_churn</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">churn</span>, <span class="op">(</span><span class="va">intl.plan</span> <span class="op">==</span> <span class="st">"yes"</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">voice.plan</span> <span class="op">==</span> <span class="st">"yes"</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">day.mins</span> <span class="op">&gt;</span> <span class="fl">220</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
+<p>Next, we compute the 95% confidence interval for the proportion of churners in this subset using <code><a href="https://rdrr.io/r/stats/prop.test.html">prop.test()</a></code>:</p>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="chapter-statistics.html#cb121-1" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="fu">table</span>(sub_churn<span class="sc">$</span>churn), <span class="at">conf.level =</span> <span class="fl">0.95</span>)<span class="sc">$</span><span class="st">"conf.int"</span></span>
+<span id="cb121-2"><a href="chapter-statistics.html#cb121-2" tabindex="-1"></a>   [<span class="dv">1</span>] <span class="fl">0.2595701</span> <span class="fl">0.5911490</span></span>
+<span id="cb121-3"><a href="chapter-statistics.html#cb121-3" tabindex="-1"></a>   <span class="fu">attr</span>(,<span class="st">"conf.level"</span>)</span>
+<span id="cb121-4"><a href="chapter-statistics.html#cb121-4" tabindex="-1"></a>   [<span class="dv">1</span>] <span class="fl">0.95</span></span></code></pre></div>
+<p>Compare this confidence interval with the overall churn rate in the dataset (see Section <a href="chapter-statistics.html#statistics-confidence-interval">5.2</a>). What insights can be drawn about this customer segment, and how might they inform retention strategies?</p>
+<ol start="12" style="list-style-type: decimal">
+<li>In the <em>churn</em> dataset, we test whether the mean number of customer service calls (<code>customer.calls</code>) is greater than 1.5 at a significance level of 0.01. The right-tailed test is formulated as:</li>
+</ol>
+<p><span class="math display">\[
+\begin{cases}
+  H_0:  \mu \leq 1.5 \\
+  H_a:  \mu &gt; 1.5
+\end{cases}
+\]</span></p>
+<p>Since the level of significance is <span class="math inline">\(\alpha = 0.01\)</span>, the confidence level is <span class="math inline">\(1-\alpha = 0.99\)</span>. We perform the test using:</p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="chapter-statistics.html#cb122-1" tabindex="-1"></a><span class="fu">t.test</span>(<span class="at">x =</span> churn<span class="sc">$</span>customer.calls, </span>
+<span id="cb122-2"><a href="chapter-statistics.html#cb122-2" tabindex="-1"></a>        <span class="at">mu =</span> <span class="fl">1.5</span>, </span>
+<span id="cb122-3"><a href="chapter-statistics.html#cb122-3" tabindex="-1"></a>        <span class="at">alternative =</span> <span class="st">"greater"</span>, </span>
+<span id="cb122-4"><a href="chapter-statistics.html#cb122-4" tabindex="-1"></a>        <span class="at">conf.level =</span> <span class="fl">0.99</span>)</span>
+<span id="cb122-5"><a href="chapter-statistics.html#cb122-5" tabindex="-1"></a>   </span>
+<span id="cb122-6"><a href="chapter-statistics.html#cb122-6" tabindex="-1"></a>    One Sample t<span class="sc">-</span>test</span>
+<span id="cb122-7"><a href="chapter-statistics.html#cb122-7" tabindex="-1"></a>   </span>
+<span id="cb122-8"><a href="chapter-statistics.html#cb122-8" tabindex="-1"></a>   data<span class="sc">:</span>  churn<span class="sc">$</span>customer.calls</span>
+<span id="cb122-9"><a href="chapter-statistics.html#cb122-9" tabindex="-1"></a>   t <span class="ot">=</span> <span class="fl">3.8106</span>, df <span class="ot">=</span> <span class="dv">4999</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">7.015e-05</span></span>
+<span id="cb122-10"><a href="chapter-statistics.html#cb122-10" tabindex="-1"></a>   alternative hypothesis<span class="sc">:</span> true mean is greater than <span class="fl">1.5</span></span>
+<span id="cb122-11"><a href="chapter-statistics.html#cb122-11" tabindex="-1"></a>   <span class="dv">99</span> percent confidence interval<span class="sc">:</span></span>
+<span id="cb122-12"><a href="chapter-statistics.html#cb122-12" tabindex="-1"></a>    <span class="fl">1.527407</span>      <span class="cn">Inf</span></span>
+<span id="cb122-13"><a href="chapter-statistics.html#cb122-13" tabindex="-1"></a>   sample estimates<span class="sc">:</span></span>
+<span id="cb122-14"><a href="chapter-statistics.html#cb122-14" tabindex="-1"></a>   mean of x </span>
+<span id="cb122-15"><a href="chapter-statistics.html#cb122-15" tabindex="-1"></a>      <span class="fl">1.5704</span></span></code></pre></div>
+<p>Report the <em>p</em>-value and determine whether to reject the null hypothesis at <span class="math inline">\(\alpha=0.01\)</span>. Explain your decision and discuss its implications in the context of customer service interactions.</p>
+<ol start="13" style="list-style-type: decimal">
+<li>In the <em>churn</em> dataset, we test whether the proportion of churners (<span class="math inline">\(\pi\)</span>) is less than 0.14 at a significance level of <span class="math inline">\(\alpha=0.01\)</span>. The confidence level is <span class="math inline">\(99\%\)</span>, corresponding to <span class="math inline">\(1-\alpha = 0.99\)</span>. The test is conducted in <strong>R</strong> using:</li>
+</ol>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="chapter-statistics.html#cb123-1" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="fu">table</span>(churn<span class="sc">$</span>churn), </span>
+<span id="cb123-2"><a href="chapter-statistics.html#cb123-2" tabindex="-1"></a>           <span class="at">p =</span> <span class="fl">0.14</span>, </span>
+<span id="cb123-3"><a href="chapter-statistics.html#cb123-3" tabindex="-1"></a>           <span class="at">alternative =</span> <span class="st">"less"</span>, </span>
+<span id="cb123-4"><a href="chapter-statistics.html#cb123-4" tabindex="-1"></a>           <span class="at">conf.level =</span> <span class="fl">0.99</span>)</span>
+<span id="cb123-5"><a href="chapter-statistics.html#cb123-5" tabindex="-1"></a>   </span>
+<span id="cb123-6"><a href="chapter-statistics.html#cb123-6" tabindex="-1"></a>    <span class="dv">1</span><span class="sc">-</span>sample proportions test with continuity correction</span>
+<span id="cb123-7"><a href="chapter-statistics.html#cb123-7" tabindex="-1"></a>   </span>
+<span id="cb123-8"><a href="chapter-statistics.html#cb123-8" tabindex="-1"></a>   data<span class="sc">:</span>  <span class="fu">table</span>(churn<span class="sc">$</span>churn), null probability <span class="fl">0.14</span></span>
+<span id="cb123-9"><a href="chapter-statistics.html#cb123-9" tabindex="-1"></a>   X<span class="sc">-</span>squared <span class="ot">=</span> <span class="fl">0.070183</span>, df <span class="ot">=</span> <span class="dv">1</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.6045</span></span>
+<span id="cb123-10"><a href="chapter-statistics.html#cb123-10" tabindex="-1"></a>   alternative hypothesis<span class="sc">:</span> true p is less than <span class="fl">0.14</span></span>
+<span id="cb123-11"><a href="chapter-statistics.html#cb123-11" tabindex="-1"></a>   <span class="dv">99</span> percent confidence interval<span class="sc">:</span></span>
+<span id="cb123-12"><a href="chapter-statistics.html#cb123-12" tabindex="-1"></a>    <span class="fl">0.0000000</span> <span class="fl">0.1533547</span></span>
+<span id="cb123-13"><a href="chapter-statistics.html#cb123-13" tabindex="-1"></a>   sample estimates<span class="sc">:</span></span>
+<span id="cb123-14"><a href="chapter-statistics.html#cb123-14" tabindex="-1"></a>        p </span>
+<span id="cb123-15"><a href="chapter-statistics.html#cb123-15" tabindex="-1"></a>   <span class="fl">0.1414</span></span></code></pre></div>
+<p>State the null and alternative hypotheses. Report the <em>p</em>-value and determine whether to reject the null hypothesis at <span class="math inline">\(\alpha=0.01\)</span>. Explain your conclusion and its potential impact on customer retention strategies.</p>
+<ol start="14" style="list-style-type: decimal">
+<li>In the <em>churn</em> dataset, we examine whether the number of customer service calls (<code>customer.calls</code>) differs between churners and non-churners. To test this, we perform a two-sample <em>t</em>-test:</li>
+</ol>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="chapter-statistics.html#cb124-1" tabindex="-1"></a><span class="fu">t.test</span>(customer.calls <span class="sc">~</span> churn, <span class="at">data =</span> churn)</span>
+<span id="cb124-2"><a href="chapter-statistics.html#cb124-2" tabindex="-1"></a>   </span>
+<span id="cb124-3"><a href="chapter-statistics.html#cb124-3" tabindex="-1"></a>    Welch Two Sample t<span class="sc">-</span>test</span>
+<span id="cb124-4"><a href="chapter-statistics.html#cb124-4" tabindex="-1"></a>   </span>
+<span id="cb124-5"><a href="chapter-statistics.html#cb124-5" tabindex="-1"></a>   data<span class="sc">:</span>  customer.calls by churn</span>
+<span id="cb124-6"><a href="chapter-statistics.html#cb124-6" tabindex="-1"></a>   t <span class="ot">=</span> <span class="fl">11.292</span>, df <span class="ot">=</span> <span class="fl">804.21</span>, p<span class="sc">-</span>value <span class="sc">&lt;</span> <span class="fl">2.2e-16</span></span>
+<span id="cb124-7"><a href="chapter-statistics.html#cb124-7" tabindex="-1"></a>   alternative hypothesis<span class="sc">:</span> true difference <span class="cf">in</span> means between group yes and group no is not equal to <span class="dv">0</span></span>
+<span id="cb124-8"><a href="chapter-statistics.html#cb124-8" tabindex="-1"></a>   <span class="dv">95</span> percent confidence interval<span class="sc">:</span></span>
+<span id="cb124-9"><a href="chapter-statistics.html#cb124-9" tabindex="-1"></a>    <span class="fl">0.6583525</span> <span class="fl">0.9353976</span></span>
+<span id="cb124-10"><a href="chapter-statistics.html#cb124-10" tabindex="-1"></a>   sample estimates<span class="sc">:</span></span>
+<span id="cb124-11"><a href="chapter-statistics.html#cb124-11" tabindex="-1"></a>   mean <span class="cf">in</span> group yes  mean <span class="cf">in</span> group no </span>
+<span id="cb124-12"><a href="chapter-statistics.html#cb124-12" tabindex="-1"></a>            <span class="fl">2.254597</span>          <span class="fl">1.457722</span></span></code></pre></div>
+<p>State the null and alternative hypotheses. Determine whether to reject the null hypothesis at a significance level of <span class="math inline">\(\alpha=0.05\)</span>. Report the <em>p</em>-value and interpret the results, explaining whether there is evidence of a relationship between churn status and customer service call frequency.</p>
+<ol start="15" style="list-style-type: decimal">
+<li>In the <em>marketing</em> dataset, we test whether there is a <em>positive</em> relationship between <code>revenue</code> and <code>spend</code> at a significance level of <span class="math inline">\(\alpha = 0.025\)</span>. We perform a one-tailed correlation test using:</li>
+</ol>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="chapter-statistics.html#cb125-1" tabindex="-1"></a><span class="fu">cor.test</span>(<span class="at">x =</span> marketing<span class="sc">$</span>spend, </span>
+<span id="cb125-2"><a href="chapter-statistics.html#cb125-2" tabindex="-1"></a>         <span class="at">y =</span> marketing<span class="sc">$</span>revenue, </span>
+<span id="cb125-3"><a href="chapter-statistics.html#cb125-3" tabindex="-1"></a>         <span class="at">alternative =</span> <span class="st">"greater"</span>, </span>
+<span id="cb125-4"><a href="chapter-statistics.html#cb125-4" tabindex="-1"></a>         <span class="at">conf.level =</span> <span class="fl">0.975</span>)</span>
+<span id="cb125-5"><a href="chapter-statistics.html#cb125-5" tabindex="-1"></a>   </span>
+<span id="cb125-6"><a href="chapter-statistics.html#cb125-6" tabindex="-1"></a>    Pearson<span class="st">'s product-moment correlation</span></span>
+<span id="cb125-7"><a href="chapter-statistics.html#cb125-7" tabindex="-1"></a><span class="st">   </span></span>
+<span id="cb125-8"><a href="chapter-statistics.html#cb125-8" tabindex="-1"></a><span class="st">   data:  marketing$spend and marketing$revenue</span></span>
+<span id="cb125-9"><a href="chapter-statistics.html#cb125-9" tabindex="-1"></a><span class="st">   t = 7.9284, df = 38, p-value = 7.075e-10</span></span>
+<span id="cb125-10"><a href="chapter-statistics.html#cb125-10" tabindex="-1"></a><span class="st">   alternative hypothesis: true correlation is greater than 0</span></span>
+<span id="cb125-11"><a href="chapter-statistics.html#cb125-11" tabindex="-1"></a><span class="st">   97.5 percent confidence interval:</span></span>
+<span id="cb125-12"><a href="chapter-statistics.html#cb125-12" tabindex="-1"></a><span class="st">    0.6338152 1.0000000</span></span>
+<span id="cb125-13"><a href="chapter-statistics.html#cb125-13" tabindex="-1"></a><span class="st">   sample estimates:</span></span>
+<span id="cb125-14"><a href="chapter-statistics.html#cb125-14" tabindex="-1"></a><span class="st">        cor </span></span>
+<span id="cb125-15"><a href="chapter-statistics.html#cb125-15" tabindex="-1"></a><span class="st">   0.789455</span></span></code></pre></div>
+<p>State the null and alternative hypotheses. Report the <em>p</em>-value and determine whether to reject the null hypothesis. Explain your decision and discuss its implications for understanding the relationship between marketing spend and revenue.</p>
+<ol start="16" style="list-style-type: decimal">
+<li><p>In the <em>churn</em> dataset, for the variable “<code>day.mins</code>”, test whether the mean number of “Day Minutes” is greater than 180. Set the level of significance to be 0.05.</p></li>
+<li><p>In the <em>churn</em> dataset, for the variable “<code>intl.plan</code>” test at <span class="math inline">\(\alpha=0.05\)</span> weather the proportion of customers who have international plan is less than 0.15.</p></li>
+<li><p>In the <em>churn</em> dataset, test whether there is a relationship between the target variable “<code>churn</code>” and the variable “<code>intl.charge</code>” with <span class="math inline">\(\alpha=0.05\)</span>.</p></li>
+<li><p>In the <em>bank</em> dataset, test whether there is a relationship between the target variable “<code>deposit</code>” and the variable “<code>education</code>” with <span class="math inline">\(\alpha=0.05\)</span>.</p></li>
+<li><p>Compute the proportion of customers in the <em>churn</em> dataset who have an International Plan (<code>intl.plan</code>). Construct a 95% confidence interval for this proportion using R, and interpret the confidence interval in the context of customer subscriptions.</p></li>
+<li><p>Using the <em>churn</em> dataset, test whether the average number of daytime minutes (<code>day.mins</code>) for churners differs significantly from 200 minutes. Conduct a one-sample <em>t</em>-test in R and interpret the results in relation to customer behavior.</p></li>
+<li><p>Compare the average number of international calls (<code>intl.calls</code>) between churners and non-churners. Perform a two-sample <em>t</em>-test and evaluate whether the observed differences in means are statistically significant.</p></li>
+<li><p>Test whether the proportion of customers with a Voice Mail Plan (<code>voice.plan</code>) differs between churners and non-churners. Use a two-sample <em>Z</em>-test in R and interpret the results, considering the implications for customer retention strategies.</p></li>
+<li><p>Investigate whether marital status (<code>marital</code>) is associated with deposit subscription (<code>deposit</code>) in the <em>bank</em> dataset. Construct a contingency table and perform a Chi-square test to assess whether marital status has a significant impact on deposit purchasing behavior.</p></li>
+<li><p>Using the <em>diamonds</em> dataset, test whether the mean price of diamonds differs across different diamond cuts (<code>cut</code>). Conduct an ANOVA test and interpret the results. If the test finds significant differences, discuss how post-hoc tests could be used to further explore the findings.</p></li>
+<li><p>Assess the correlation between <code>carat</code> and <code>price</code> in the <em>diamonds</em> dataset. Perform a correlation test in R and visualize the relationship using a scatter plot. Interpret the results in the context of diamond pricing.</p></li>
+<li><p>Construct a 95% confidence interval for the mean number of customer service calls (<code>customer.calls</code>) among churners. Explain how the confidence interval helps quantify uncertainty and how it might inform business decisions regarding customer support.</p></li>
+<li><p>Take a random sample of 100 observations from the <em>churn</em> dataset and test whether the average <code>eve.mins</code> differs from 200. Repeat the test using a sample of 1000 observations. Compare the results and discuss how sample size affects hypothesis testing and statistical power.</p></li>
+<li><p>Suppose a hypothesis test indicates that customers with a Voice Mail Plan are significantly less likely to churn (<em>p</em> &lt; 0.01). What are some potential business strategies a company could implement based on this finding? Beyond statistical significance, what additional factors should be considered before making marketing decisions?</p></li>
+</ol>
+</div>
+</div>
+</div>
 
-</div>
-</div>
   <div class="chapter-nav">
 <div class="prev"><a href="chapter-EDA.html"><span class="header-section-number">4</span> Exploratory Data Analysis</a></div>
 <div class="next"><a href="chapter-modeling.html"><span class="header-section-number">6</span> Preparing Data for Modeling</a></div>
@@ -778,19 +838,27 @@ Mathematically:<br><span class="math display">\[
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#chapter-statistics"><span class="header-section-number">5</span> Statistical Inference and Hypothesis Testing</a></li>
 <li><a class="nav-link" href="#estimation-using-data-to-make-predictions"><span class="header-section-number">5.1</span> Estimation: Using Data to Make Predictions</a></li>
-<li><a class="nav-link" href="#quantifying-uncertainty-confidence-intervals"><span class="header-section-number">5.2</span> Quantifying Uncertainty: Confidence Intervals</a></li>
+<li><a class="nav-link" href="#statistics-confidence-interval"><span class="header-section-number">5.2</span> Quantifying Uncertainty: Confidence Intervals</a></li>
 <li>
 <a class="nav-link" href="#hypothesis-testing"><span class="header-section-number">5.3</span> Hypothesis Testing</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#one-sample-t-test"><span class="header-section-number">5.3.1</span> One-sample T-test</a></li>
-<li><a class="nav-link" href="#hypothesis-testing-for-proportion"><span class="header-section-number">5.3.2</span> Hypothesis Testing for Proportion</a></li>
-<li><a class="nav-link" href="#two-sample-t-test"><span class="header-section-number">5.3.3</span> Two-sample T-test</a></li>
-<li><a class="nav-link" href="#two-sample-z-test"><span class="header-section-number">5.3.4</span> Two-Sample Z-test</a></li>
-<li><a class="nav-link" href="#chi-square-test"><span class="header-section-number">5.3.5</span> Chi-square Test</a></li>
-<li><a class="nav-link" href="#analysis-of-variance-anova-test"><span class="header-section-number">5.3.6</span> Analysis of Variance (ANOVA) Test</a></li>
-<li><a class="nav-link" href="#correlation-test"><span class="header-section-number">5.3.7</span> Correlation Test</a></li>
+<li><a class="nav-link" href="#types-of-hypothesis-tests"><span class="header-section-number">5.3.1</span> Types of Hypothesis Tests</a></li>
+<li><a class="nav-link" href="#common-hypothesis-tests">Common Hypothesis Tests</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#wrapping-up"><span class="header-section-number">5.4</span> Wrapping Up</a></li>
+<li><a class="nav-link" href="#one-sample-t-test"><span class="header-section-number">5.4</span> One-sample t-test</a></li>
+<li><a class="nav-link" href="#hypothesis-testing-for-proportion"><span class="header-section-number">5.5</span> Hypothesis Testing for Proportion</a></li>
+<li><a class="nav-link" href="#two-sample-t-test"><span class="header-section-number">5.6</span> Two-sample T-test</a></li>
+<li><a class="nav-link" href="#two-sample-z-test"><span class="header-section-number">5.7</span> Two-Sample Z-Test</a></li>
+<li><a class="nav-link" href="#chi-square-test"><span class="header-section-number">5.8</span> Chi-square Test</a></li>
+<li><a class="nav-link" href="#analysis-of-variance-anova-test"><span class="header-section-number">5.9</span> Analysis of Variance (ANOVA) Test</a></li>
+<li><a class="nav-link" href="#correlation-test"><span class="header-section-number">5.10</span> Correlation Test</a></li>
+<li><a class="nav-link" href="#wrapping-up"><span class="header-section-number">5.11</span> Wrapping Up</a></li>
+<li>
+<a class="nav-link" href="#exercises-4"><span class="header-section-number">5.12</span> Exercises</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#conceptual-questions-1">Conceptual Questions</a></li>
+<li><a class="nav-link" href="#hands-on-practice-hypothesis-testing-in-r">Hands-On Practice: Hypothesis Testing in R</a></li>
+</ul>
+</li>
 </ul>
 
       <div class="book-extra">
@@ -808,7 +876,7 @@ Mathematically:<br><span class="math display">\[
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Uncovering Data Science with R</strong>" was written by Reza Mohammadi. It was last built on 2025-02-09.</p>
+    <p>"<strong>Uncovering Data Science with R</strong>" was written by Reza Mohammadi. It was last built on 2025-02-12.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

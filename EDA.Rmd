@@ -1,94 +1,118 @@
-```{r, echo = F}
-# To use this link: 
-# https://rafalab.dfci.harvard.edu/dsbook-part-1/dataviz/intro-dataviz.html
-# https://r4ds.hadley.nz/eda
-# https://bookdown.org/ronsarafian/IntrotoDS/eda.html
-# https://www.modernstatisticswithr.com/eda.html#clustering
-```
+# Exploratory Data Analysis {#chapter-EDA}  
 
-# Exploratory Data Analysis {#chapter-EDA} 
+Exploratory Data Analysis (EDA) is a fundamental step in data science that helps uncover insights, detect patterns, and understand relationships within a dataset. Before applying statistical models or machine learning algorithms, it is essential to explore and visualize data to identify inconsistencies, anomalies, and potential predictors. EDA provides a structured yet flexible approach to data exploration, allowing data scientists to make informed decisions before proceeding with modeling.
 
-*Exploratory Data Analysis (EDA)* is the process of examining and exploring data to gain insights, identify patterns, and understand relationships between variables—all before applying formal hypotheses or machine learning algorithms. This critical step allows us to “get to know” the data, using a mix of summary statistics, visualizations, and preliminary analysis to reveal structure and potential insights. EDA is foundational to data science because it helps generate hypotheses and informs the decisions we’ll make in later stages of analysis.
+EDA is an iterative process rather than a rigid sequence of steps. It encourages curiosity and adaptability, as different datasets may present unique challenges or insights. Some exploratory paths may lead to inconclusive findings, while others uncover valuable patterns that shape the direction of analysis. As familiarity with the data increases, analysts can refine their focus, identifying the most relevant features and variables for modeling.
 
-EDA is not a rigid process with strict rules; rather, it is a flexible, iterative approach that encourages curiosity and open-ended exploration. At this stage, it’s important to remain open to investigating any ideas that arise. Some explorations may lead to dead ends, but others can uncover valuable insights that guide the rest of the project. Over time, as you become more familiar with the data, you’ll naturally focus on the most promising leads, which will help shape your final analysis and conclusions.
+The primary goal of EDA is to explore and summarize data rather than to perform hypothesis testing or confirm specific relationships. By using summary statistics, visualizations, and preliminary correlation analysis, EDA provides a foundational understanding of the dataset. However, these insights remain preliminary and require further validation through statistical testing or predictive modeling. Recognizing this distinction ensures that exploratory findings are interpreted cautiously and do not lead to premature conclusions.
 
-EDA is primarily about exploration and discovery—it’s a way to find clues and patterns in the data rather than proving any particular theory. Using tools like summary statistics, visualizations, and basic correlations, we can generate hypotheses and start to understand the underlying structure of the data. However, these insights are just preliminary observations, not formal conclusions; they provide direction for further analysis, where more rigorous testing can confirm or refine what we uncover during EDA.
+Another key consideration in EDA is balancing statistical significance with practical relevance. Large datasets often reveal statistically significant relationships that may lack meaningful real-world implications. For example, a weak correlation between customer engagement and churn might be statistically significant yet offer little actionable insight for business decision-making. EDA encourages analysts to integrate domain expertise and practical considerations when interpreting patterns in data.
 
-When interpreting patterns in EDA, it’s essential to balance statistical significance with practical relevance. In large datasets, even small correlations or patterns may be statistically significant, but they might not have meaningful implications for the problem at hand. For example, a variable might show a slight but statistically significant association with churn; however, if this association is weak, it may not be actionable in a real-world context. EDA encourages us to consider both perspectives: while statistical tests can highlight interesting relationships, we also need to interpret these findings in a way that aligns with practical goals and domain knowledge.
+EDA also plays a crucial role in data cleaning and preparation. Missing values, inconsistencies, and outliers often become apparent during exploration, requiring careful handling to ensure data quality. While data cleaning is a distinct process, it is closely linked to EDA, as identifying and resolving data issues early helps establish a solid foundation for further analysis and modeling.
 
-EDA also overlaps significantly with data preparation and cleaning. For example, you may notice missing values during EDA and decide to address them by imputing or removing data points. While this is technically part of data cleaning, it’s also an aspect of exploration, as we examine the data to make the best decision for handling these issues. Identifying these issues early on allows us to refine the data and set a strong foundation for analysis.
+Selecting appropriate tools and techniques for EDA depends on the nature of the dataset and the specific analytical questions. Histograms and box plots help visualize distributions, while scatter plots and correlation matrices assess relationships between variables. The following sections will demonstrate these techniques through practical applications, including an in-depth analysis of the churn dataset to illustrate how EDA can uncover patterns relevant to customer retention.
 
-EDA involves choosing the appropriate tools and techniques to answer each question we pose about the data. The choice of visualization or statistical summary depends on the type of data and the specific aspect of the data we’re examining. For example, histograms and box plots are helpful for understanding distributions of individual variables, while scatter plots and correlation matrices are better for exploring relationships between pairs of variables. In the following sections, we’ll see examples of visualizations and summaries that help answer different types of questions within EDA. We’ll also apply these techniques to our churn dataset, which will help illustrate how to use EDA to uncover patterns relevant to customer retention.
+The key objectives of EDA are:  
 
-## Key Areas of Focus in EDA
+1. **Understanding the structure of the data** – Determine data types, variable ranges, the number of observations, and the presence of missing values or anomalies.  
+2. **Analyzing individual variable distributions** – Examine numerical and categorical variables to assess their distribution, central tendency, and spread.  
+3. **Exploring relationships between variables** – Identify correlations, dependencies, or interactions that may influence predictive modeling.  
+4. **Detecting patterns and outliers** – Identify unusual data points and assess whether they result from data errors or represent meaningful trends.  
 
-During EDA, our primary goals are to:
-    
-1. **Understand the structure of the data**: Determine the data types, range, and number of observations, and identify any missing values or anomalies.
-2. **Analyze individual variable distributions**: Explore each variable to understand its distribution, central tendency, and spread.
-3. **Explore relationships between variables**: Identify correlations, dependencies, or interactions that may exist between features.
-4. **Identify patterns and outliers**: Spot unusual data points and decide whether they require special handling or removal.
+These objectives ensure a comprehensive understanding of the dataset, forming a strong foundation for subsequent modeling and analysis.
 
-These objectives serve as a guide to ensure that we gain a comprehensive understanding of the dataset before moving on to modeling. 
+## Guiding Questions for EDA
 
-## Types of EDA Questions
+Exploratory data analysis is most effective when structured around key questions that help uncover meaningful patterns and relationships. These questions generally fall into two broad categories: univariate and multivariate analysis.
 
-When performing exploratory data analysis, it is useful to approach the dataset with structured questions. These questions generally fall into two broad categories: **univariate analysis** and **multivariate analysis**.
-
-Univariate analysis focuses on individual variables, examining their distributions and characteristics. Typical questions include:  
+Univariate analysis examines individual variables to assess their distributions, central tendencies, variability, and potential data quality issues such as missing values or outliers. Typical univariate questions include:  
 
 - What is the distribution of the target variable?  
-- How are numerical variables such as age, income, or education distributed?  
-- Are there missing values, and how are they distributed across variables?  
+- How are numerical variables, such as income or age, distributed?  
+- Are there missing values, and how are they distributed across the dataset?  
 
-This type of analysis helps identify skewness, outliers, and data ranges. The most commonly used tools include histograms, box plots, and summary statistics such as mean, median, quartiles, and standard deviation.
+This analysis helps detect skewness, irregularities, and unexpected patterns that may impact later modeling. Common tools for univariate analysis include histograms, box plots, and summary statistics such as the mean, median, quartiles, and standard deviation.  
 
-Multivariate analysis explores relationships between multiple variables. Some relevant questions include:  
+Multivariate analysis explores relationships between two or more variables, identifying dependencies, interactions, or correlations that could influence predictive modeling. Key multivariate questions include:  
 
-- What is the relationship between the target variable and predictor variables?  
-- Are certain predictors correlated, indicating potential multicollinearity?  
-- Is there an interaction between categorical and numerical variables?  
+- How does the target variable relate to predictor variables?  
+- Are some predictors highly correlated, suggesting potential multicollinearity?  
+- How do categorical and numerical variables interact?  
 
-To answer these, scatter plots, correlation matrices, and pairwise comparisons are frequently employed. These techniques help detect dependencies between features and provide insights for feature selection in predictive modeling.
+To analyze these relationships, data scientists commonly use scatter plots, correlation matrices, and pairwise comparisons, which help visualize dependencies between variables and guide feature selection.
 
-A common challenge in exploratory data analysis is selecting the most appropriate visualization or summary statistic. The choice depends on the type of data and the specific question being explored. The following table summarizes the most effective tools for various exploratory tasks:
+A common challenge in EDA is choosing the most appropriate visualization or statistical summary for a given analysis. The selection depends on both the type of data and the insight being sought. The table below provides a structured guide to selecting the most effective tools for various exploratory tasks:
 
-| Question | Data Type | Recommended EDA Tools |
-|--------------------------|--------------------------|------------------------------------------------------|
-| Distribution of a numerical variable | Numerical (continuous or discrete) | Histogram, Box Plot, Density Plot, Summary Statistics |
-| Distribution of a categorical variable | Categorical | Bar Chart, Frequency Table |
-| Detection of outliers | Numerical | Box Plot, Histogram, Z-Score Analysis |
-| Presence of missing values | Any | Missing Data Heatmap, Summary Statistics |
-| Relationship between two numerical variables | Numerical & Numerical | Scatter Plot, Correlation Coefficient |
-| Relationship between a categorical and numerical variable | Categorical & Numerical | Box Plot, Violin Plot, Grouped Bar Chart |
-| Interaction between two categorical variables | Categorical & Categorical | Stacked Bar Chart, Mosaic Plot, Contingency Table |
-| Correlation among numerical variables | Multiple Numerical | Correlation Matrix, Pair Plot (Scatterplot Matrix) |
-| Interactions among multiple variables | Multiple Variables | Facet Grid, Regression Plot, Principal Component Analysis (PCA) |
+```{r EDA-table-tools, echo=FALSE}
+eda_tools <- data.frame(
+  "EDA Objective" = c(
+    "Understand the distribution of a variable",
+    "Examine a categorical variable's distribution",
+    "Identify outliers",
+    "Detect missing values",
+    "Analyze the relationship between two numerical variables",
+    "Compare a numerical variable across categories",
+    "Explore interactions between two categorical variables",
+    "Assess correlation among multiple numerical variables",
+    "Investigate complex multivariate relationships"
+  ),
+  "Data Type" = c(
+    "Numerical (continuous/discrete)",
+    "Categorical",
+    "Numerical",
+    "Any",
+    "Numerical & numerical",
+    "Categorical & numerical",
+    "Categorical & categorical",
+    "Multiple numerical",
+    "Multiple variables"
+  ),
+  "Recommended Tools" = c(
+    "Histogram, box plot, density plot, summary statistics",
+    "Bar chart, frequency table",
+    "Box plot, histogram, Z-score analysis",
+    "Heatmap, summary statistics, missing data patterns",
+    "Scatter plot, correlation coefficient, regression line",
+    "Box plot, violin plot, grouped bar chart",
+    "Stacked bar chart, mosaic plot, contingency table",
+    "Correlation matrix, pair plot (scatterplot matrix)",
+    "Facet grid, parallel coordinates, principal component analysis (PCA)"
+  )
+)
 
-As seen in the table, different types of exploratory analysis require different tools. The selection of the appropriate technique depends on whether the goal is to examine a single variable, compare distributions, detect relationships, or explore interactions.
+kable(eda_tools, caption = "EDA Tool Selection Guide.", booktabs = TRUE)
+```
 
-The subsequent sections provide practical applications of these tools using real-world datasets, including the churn dataset. This structured approach ensures that exploratory data analysis is not just an initial step but a continuous process that refines the understanding of data before statistical modeling and machine learning are applied.
+By systematically addressing these univariate and multivariate questions with appropriate EDA techniques, we gain a deeper understanding of the dataset’s structure and key patterns. This process not only improves data quality but also provides valuable insights that inform subsequent modeling and decision-making.
    
-## EDA as Data Storytelling
+## EDA as Data Storytelling  
 
-EDA is not only a technical exercise but also a form of **data storytelling**. Data storytelling combines data, visuals, and narrative to communicate insights in a structured, compelling way. This skill is invaluable in data science, as it enables you to present complex findings to audiences in an accessible manner.
+Exploratory Data Analysis is more than just a technical step; it is a way to uncover and communicate meaningful insights from data. Beyond summarizing numbers and visualizing patterns, EDA helps shape the narrative hidden within the data. Effective data storytelling integrates data, visuals, and context, making findings more accessible and actionable. Whether communicating with data scientists, business professionals, or decision-makers, presenting insights clearly is essential.  
 
-Many scientific reports, journalistic pieces, and public presentations rely on data storytelling to convey insights effectively. Figures like the ones below demonstrate how data visualization can bring a narrative to life:
-    
-- **Figure \@ref(fig:EDA-fig-1)** illustrates global mean surface temperature changes over the Common Era, using visual cues to communicate a story about temperature anomalies over time. This visualization, taken from @neukom2019consistent, shows how data can be transformed into a compelling visual narrative.
+While summary statistics provide an overview, visualizations reveal patterns, relationships, and anomalies that might otherwise go unnoticed. Different types of visualizations serve distinct purposes. Scatter plots and correlation matrices highlight relationships between numerical variables, while histograms and box plots illustrate distributions and potential skewness. Categorical data is best explored with bar charts or stacked visualizations, allowing comparisons across different groups. Choosing the right visualization ensures insights are both accurate and intuitive.  
 
-```{r EDA-fig-1, echo = FALSE, out.width = "100%", fig.align = 'center', fig.cap = "Global mean surface temperature history over the Common Era. Temperature anomalies with respect to 1961–1990 CE. The coloured lines represent 30-year low-pass-filtered ensemble medians for the individual reconstruction methods."}
+A strong narrative connects data insights with real-world significance. Rather than simply presenting a correlation coefficient or a distribution plot, a well-structured EDA report explains why a pattern matters and how it informs decision-making. Instead of stating that customers with high daytime phone usage have a higher churn rate, it is more impactful to provide context:  
+
+*"Customers with extensive daytime usage are significantly more likely to churn, possibly due to pricing concerns or dissatisfaction with service quality. Targeted retention strategies, such as customized discounts or flexible pricing plans, may help mitigate this risk."*  
+
+This approach goes beyond numerical reporting, framing insights as actionable strategies.
+
+Data storytelling is widely used in business, scientific research, and journalism. Consider the following examples that illustrate how visual storytelling enhances understanding.  
+
+One example comes from climate science. Figure \@ref(fig:EDA-fig-1) presents global mean surface temperature changes over the Common Era, highlighting long-term warming trends. Adapted from @neukom2019no, this visualization provides a historical perspective on climate change, illustrating temperature anomalies over time.  
+
+```{r EDA-fig-1, echo = FALSE, out.width = "100%", fig.align = 'center', fig.cap = "Global mean surface temperature history over the Common Era. Temperature anomalies with respect to 1961–1990 CE. The colored lines represent 30-year low-pass-filtered ensemble medians for different reconstruction methods."}
 knitr::include_graphics("images/EDA_fig_1.png")
 ```
 
-- **Figure \@ref(fig:EDA-fig-2)** shows an animated scatter plot of fertility rate versus life expectancy at birth for different world regions between 1960 and 2015. Adapted from Hans Rosling’s TED Talk ["New insights on poverty"](https://www.ted.com/talks/hans_rosling_new_insights_on_poverty?subtitle=en), this visualization effectively illustrates trends in global health and demography through dynamic, multi-dimensional storytelling.
+Another example focuses on global health and demographics. Figure \@ref(fig:EDA-fig-2) illustrates the relationship between fertility rate and life expectancy across world regions from 1960 to 2015. Adapted from Hans Rosling’s TED Talk ["New insights on poverty"](https://www.ted.com/talks/hans_rosling_new_insights_on_poverty), this visualization effectively conveys trends in population health and economic development over time.
 
-```{r EDA-fig-2, echo = FALSE, out.width = "100%", fig.cap = "Animated scatter plot of fertility rate and life expectancy at birth for different regions of the world from 1960 to 2015."}
+```{r EDA-fig-2, echo = FALSE, out.width = "100%", fig.cap = "Animated scatter plot of fertility rate and life expectancy at birth for different world regions from 1960 to 2015."}
 # Animation Code Block
-library(ggplot2)   # To load "ggplot2" package
-library(forcats)  # For the "fct_collapse()" function
-library(dplyr)    # for mutate function
-library(dslabs)   # for gapminder dataset
+library(ggplot2)
+library(forcats)
+library(dplyr)
+library(dslabs)
 
 The_West = c("Western Europe", "Northern Europe", "Southern Europe",
              "Northern America", "Australia and New Zealand")
@@ -117,136 +141,87 @@ if(knitr::is_html_output()) {
         ggtitle('{frame_time}') +
         transition_time(year) +   
         ease_aes('linear') + 
-        theme(title = element_text( size = 14, face = "bold" ),
-              legend.title = element_blank(), plot.margin = unit(c(-.19, 0, .03, .1), "null"),
-              plot.title = element_text(hjust = 1, vjust = -5, color = "#eddee4", size = 60, 
-                                        face = "bold.italic"))
+        theme_minimal()
     
-    animate(p, fps = 7, end_pause = 25) #, rewind = TRUE)
-}else{
-    years <- c(1962, 2015)
-    p <- filter(gapminder, year %in% years & !is.na(group) & 
-                    !is.na(fertility) & !is.na(life_expectancy)) |>
-        ggplot(aes(x = fertility, y = life_expectancy, col = group, size = population / 10 ^ 6)) +
-        geom_point(alpha = 0.8) +
-        guides(size = "none") +
-        theme(plot.title = element_blank(), legend.title = element_blank()) + 
-        coord_cartesian(ylim = c(30, 85)) + 
-        xlab("Fertility rate (births per woman)") +
-        ylab("Life Expectancy") + 
-        geom_text(aes(x = 6, y = 80, label = year), cex = 17, color = "#eddee4") +
-        facet_grid(. ~ year) 
-    
-    p + theme(strip.background = element_blank(),
-              strip.text.x = element_blank(),
-              strip.text.y = element_blank(),
-              legend.position = "top")
+    animate(p, fps = 7, end_pause = 25)
 }
 ```
 
-By learning to interpret and create such visualizations, you’ll be better equipped to uncover key insights and communicate your findings persuasively.
+These examples highlight how well-designed visualizations can make complex data more accessible and engaging.  
 
-## EDA in Practice: Working with the *Churn* Dataset
+When conducting EDA, it is essential to consider the broader narrative. Instead of just reporting statistical results, think about what a trend reveals, why it is relevant, and how it can inform decision-making. Integrating storytelling techniques ensures that EDA serves not only as a data exploration step but also as a communication tool that connects technical analysis with practical application.
 
-In this book, we will use the **churn** dataset to illustrate the EDA process. The churn dataset contains information on customer behavior, including whether a customer has "churned" (i.e., left the service) and various demographic and behavioral attributes.
+## EDA in Practice: The *Churn* Dataset {#EDA-sec-churn}
 
-Through EDA, we aim to:
-    
-1. Uncover patterns related to customer churn.
-2. Identify important predictors that influence customer retention.
-3. Gain insights into the structure of the data that will guide us in building predictive models.
+To illustrate the exploratory data analysis process, we will use the *churn* dataset, which contains information about customer behavior, including whether a customer has churned (i.e., left the service) and various demographic and behavioral attributes.  
 
-In the next sections, we’ll walk through specific techniques for exploring the churn dataset, from calculating summary statistics to creating visualizations. By following these steps, you’ll be able to turn raw data into actionable insights, building a strong foundation for further analysis and modeling. But before we shortly the frist and second steps of Data Science workflow.
+EDA will help us understand this dataset by identifying patterns related to customer churn, determining which features influence retention, and establishing a structured approach for predictive modeling. By examining summary statistics and visualizations, we can extract meaningful insights before moving on to machine learning techniques in later chapters.
 
-### Problem/Business Understanding
+### Problem Understanding  {-}
 
-Companies are interested to know who is gonna get churned so they can proactively go to the customer to provide them better services and turn customers' decisions in the opposite direction. Companies are interested to know:
+Companies seek to minimize customer churn by identifying factors that influence customer decisions. Key business questions include:  
 
-* **Why** are we losing them?
-* **What** are the causes or reasons of losing customers?
-* **How** do we stop them from leaving the company?
+- **Why** are customers leaving?  
+- **What** are the primary factors contributing to churn?  
+- **How** can we take action to improve retention?  
 
-EDA will help us to answer these questions and provide insights to the company to take actions. In Chapter \@ref{chapter-knn} we will use the churn dataset to build a predictive model that can identify customers likely to churn. But before we build the model, we need to understand the data and identify patterns that may help predict customer behavior. This is where EDA comes in.
+EDA helps answer these questions by uncovering trends and patterns in customer behavior. In Chapter \@ref(chapter-knn), we will build a predictive model to identify customers likely to churn. Before doing so, it is essential to explore the data and understand its structure.
 
-### Data Understanding 
+### Data Understanding  {-}
 
-This dataset comes from IBM Sample Data Sets. The data set contains 5000 rows (customers) and 20 columns (features). The "churn" column is our target which indicates whether the customer churned (left the company) or not.
-The 20 variables are:
+The *churn* dataset comes from IBM Sample Data Sets and contains 5000 customer records across 20 variables. This dataset is available in the **liver** package. The target variable, `churn`, indicates whether a customer has left the company. The dataset includes a mix of categorical and numerical variables:
 
-> 1. `state`: Categorical, for the 51 states and the District of Columbia.
-> 2. `area.code`: Categorical.
-> 3. `account.length`: count, how long account has been active.
-> 4. `voice.plan`: Categorical, yes or no, voice mail plan.
-> 5. `voice.messages`: Count, number of voice mail messages.
-> 6. `intl.plan`: Categorical, yes or no, international plan.
-> 7. `intl.mins`: Continuous, minutes customer used service to make international calls.
-> 8. `intl.calls`: Count, total number of international calls.
-> 9. `intl.charge`: Continuous, total international charge.
-> 10. `day.mins`: Continuous, minutes customer used service during the day.
-> 11. `day.calls`: Count, total number of calls during the day.
-> 12. `day.charge`: Continuous, total charge during the day.
-> 13. `eve.mins`: Continuous, minutes customer used service during the evening.
-> 14. `eve.calls`: Count, total number of calls during the evening.
-> 15. `eve.charge`: Continuous, total charge during the evening.
-> 16. `night.mins`: Continuous, minutes customer used service during the night.
-> 17. `night.calls`: Count, total number of calls during the night.
-> 18. `night.charge`: Continuous, total charge during the night.
-> 19. `customer.calls`: Count, number of calls to customer service.
-> 20. `churn`: Categorical, yes or no. Indicator of whether the customer has left the company (yes or no).
+- `state`          : Categorical, state in the U.S. (51 states + D.C.).
+- `area.code`      : Categorical, area code assigned to the customer.
+- `account.length` : Numerical (discrete), duration of account activity (days).
+- `voice.plan`     : Categorical (binary), subscription to a voice mail plan (yes/no).
+- `voice.messages` : Numerical (discrete), number of voice mail messages.
+- `intl.plan`      : Categorical (binary), subscription to an international calling plan (yes/no).
+- `intl.mins`      : Numerical (continuous), total international call minutes.
+- `intl.calls`     : Numerical (discrete), total international calls made.
+- `intl.charge`    : Numerical (continuous), total international call charges.
+- `day.mins`       : Numerical (continuous), total daytime call minutes.
+- `day.calls`      : Numerical (discrete), total daytime calls made.
+- `day.charge`     : Numerical (continuous), total daytime call charges.
+- `eve.mins`       : Numerical (continuous), total evening call minutes.
+- `eve.calls`      : Numerical (discrete), total evening calls made.
+- `eve.charge`     : Numerical (continuous), total evening call charges.
+- `night.mins`     : Numerical (continuous), total nighttime call minutes.
+- `night.calls`    : Numerical (discrete), total nighttime calls made.
+- `night.charge`   : Numerical (continuous), total nighttime call charges.
+- `customer.calls` : Numerical (discrete), number of customer service calls made.
+- `churn`          : Categorical (binary), indicates whether the customer churned (yes/no).
+  
+To use this dataset, we first load the **liver** package and then import the dataset into **R**:
 
-We import the dataset in **R** as follows:
 ```{r}
 library(liver)
-
-data(churn) # load the "churn" dataset
-``` 
-
-To see the overview of the dataset in **R** we are using function `str()` as follows:
-```{r}
-str(churn)   # Compactly display the structure of the data
+data(churn)  
 ```
 
-It shows that data are as a *data.frame* object in **R** with `r nrow(churn)` observations and `r ncol(churn)` variables. The last column (with name *churn*) is the *target variable* that indicates whether customers churned (left the company) or not.
+To examine the structure of the dataset, we use:
 
-By using the function `summary()` in **R**, we can see the summary of the dataset as follows
+```{r}
+str(churn)  
+```
+
+This command reveals that the dataset is stored as a `data.frame` with `r nrow(churn)` observations and `r ncol(churn)` variables. The target variable, `churn`, categorizes whether a customer has left the service.
+
+To summarize the dataset, we use:
 
 ```{r}
 summary(churn)
-# skim(churn)
 ```
 
-It shows the summary of all the `r ncol(churn)` variables. The dataset has `r ncol(churn) - 1` predictors along with the target variable `churn`. The type of variables are as follows:
+This function provides a high-level overview of all variables, including their distributions and any potential missing values. The dataset is clean and ready for exploratory data analysis. In the next sections, we will explore its structure using visualizations and statistical summaries. This will help us identify key variables influencing churn and ensure the dataset is well-prepared for predictive modeling.
 
-|     Variable     |  R Datatype  |  Statistical Datatype   |
-|        :-        |      :-:     |          :-             |
-| `state`          | `Factor`     | categorical - nominal   |
-| `area.code`      | `Factor`     | categorical - nominal   |
-| `account.length` | `int`        | numerical - discrete    |
-| `voice.plan`     | `Factor`     | categorical - binary    |
-| `voice.messages` | `int`        | numerical - discrete    |
-| `intl.plan`      | `Factor`     | categorical - binary    |
-| `intl.mins`      | `num`        | numerical - continuous  |
-| `intl.calls`     | `int`        | numerical - discrete    |
-| `intl.charge`    | `num`        | numerical - continuous  |
-| `day.mins`       | `num`        | numerical - continuous  |
-| `day.calls`      | `int`        | numerical - discrete    |
-| `day.charge`     | `num`        | numerical - continuous  |
-| `eve.mins`       | `num`        | numerical - continuous  |
-| `eve.calls`      | `int`        | numerical - discrete    |
-| `eve.charge`     | `num`        | numerical - continuous  |
-| `night.mins`     | `num`        | numerical - continuous  |
-| `night.calls`    | `int`        | numerical - discrete    |
-| `night.charge`   | `num`        | numerical - continuous  |
-| `customer.calls` | `int`        | numerical - discrete    |
-| `churn`          | `Factor`     | categorical - binary    |
-
-This dataset is clean and ready for EDA. In the upcoming chapter, we’ll dive into Exploratory Data Analysis (EDA), where we’ll use visualizations and summary statistics to gain insights into the structure and relationships within the data. By combining the prepared data with EDA techniques, we can better understand which features may hold predictive value for our model and set the stage for successful machine learning outcomes.
-
-We wonder how it can be that there are `r length(table(churn$state))` states in the dataset with just `r length(table(churn$area.code))` area codes! We are still just getting to know the data set. 
+One notable observation is that there are `r length(table(churn$state))` unique states represented in the dataset, yet only `r length(table(churn$area.code))` unique area codes. This suggests that area codes do not correspond directly to state locations, which is worth investigating further.
 
 ## Investigating Categorical Variables {#chapter-EDA-categorical}
 
-Categorical variables are those that represent discrete values, such as names, labels, or categories. In the churn dataset, the variables `state`, `area.code`, `voice.plan`, and `intl.plan` are categorical. To explore these variables, we can use bar plots, pie charts, and frequency tables to visualize their distributions. Here we start with the target variable `churn` as follows:
+Categorical variables represent discrete values such as labels, names, or binary indicators. In the *churn* dataset, key categorical features include `state`, `area.code`, `voice.plan`, and `intl.plan`. Understanding their distributions and relationships with the target variable helps uncover trends that may influence customer retention.  
+
+To begin, we examine the distribution of the target variable `churn` to determine whether the dataset is balanced:
 
 ```{r}
 ggplot(data = churn, aes(x = churn, label = scales::percent(prop.table(stat(count))))) +
@@ -254,11 +229,11 @@ ggplot(data = churn, aes(x = churn, label = scales::percent(prop.table(stat(coun
   geom_text(stat = 'count', vjust = 0.2, size = 6)
 ```
 
-The bar plot above presents the distribution of the target variable `churn`, which indicates whether a customer has churned (left the company). The plot reveals that the dataset is imbalanced, with more customers staying (`churn = "no"`) than leaving (`churn = "yes"`); It presents that the proportion of churner (`churn = "yes"`) is `r round(summary(churn$churn)[1] / nrow(churn), 2) * 10` percent while the proportion of non-churner (`churn = "yes"`) is `r round(summary(churn$churn)[2] / nrow(churn), 2) * 10` percent. This information is crucial for building predictive models, as imbalance can affect model performance and accuracy. Besides, one of our objective is _to reduce the proportion of churners_. For this we need _to identify patterns in the data related to customer churn_, so we need to investigate the relationship between the target variable and other predictors. 
+The bar plot reveals that the dataset is imbalanced, with more customers staying (`churn = "no"`) than leaving (`churn = "yes"`). The proportion of churners is approximately `r round(summary(churn$churn)[1] / nrow(churn), 2) * 10` percent, while the proportion of non-churners is `r round(summary(churn$churn)[2] / nrow(churn), 2) * 10` percent. Since imbalanced data can impact predictive modeling, understanding churn patterns is essential for improving retention strategies.
 
-The primary purpose of exploratory data analysis (EDA) is to gain a thorough understanding of the variables in the dataset by examining the distributions of categorical variables, analyzing histograms of numerical variables, and exploring relationships between variables. While EDA focuses on uncovering patterns and understanding data structure, our ultimate goal for this data mining project is to develop a predictive model that identifies customers likely to churn, or switch to a competitor. Today’s data analysis tools allow us to familiarize ourselves with the dataset and investigate potential associations with churn, helping us explore the data while keeping the project’s objective in mind. We begin by examining the categorical variables and their relationship to churn, as this foundational analysis will guide us in building an effective predictive model.
+### Relationship Between Churn and Subscription Plans  {-}
 
-We begin our analysis with the `intl.plan` (International Plan) variable, which indicates whether a customer has subscribed to an international calling plan. As a binary variable, it provides two categories—those with an international plan and those without. To explore the relationship between this feature and customer churn, we can use bar plots to visualize the distribution of churners and non-churners based on the international plan selection:
+We first analyze `intl.plan`, which indicates whether a customer has an international calling plan. As a binary variable, it allows for a straightforward comparison of churn rates between subscribed and non-subscribed customers.  
 
 ```{r fig.align = 'default', fig.show = "hold", out.width = "50%"}
 ggplot(data = churn) + 
@@ -270,25 +245,20 @@ ggplot(data = churn) +
   scale_fill_manual(values = c("palevioletred1", "darkseagreen1")) 
 ```
 
-The first plot (on the left) shows the distribution of churners and non-churners across the two categories of the international plan. This plot allows us to directly compare the raw counts of churners and non-churners among customers with and without the plan. The second plot (on the right) displays the proportions of churners and non-churners within each category, with the y-axis scaled from 0 to 1. This proportion plot is particularly useful for comparing churn rates, as it normalizes for differences in group sizes. From these plots, we observe that customers with the international plan have a noticeably higher churn rate than those without it, suggesting a potential link between the international plan and customer attrition.
+The first plot (left) compares the raw counts of churners and non-churners among customers with and without an international plan. The second plot (right) normalizes the proportions, revealing that customers with an international plan have a significantly higher churn rate.
 
-To quantify this relationship, we can examine a contingency table, which provides a detailed breakdown of churners and non-churners by international plan status. Since both `intl.plan` and `churn` are categorical variables, this table helps us summarize and compare the distribution across categories:
+To quantify this relationship, we generate a contingency table:
 
 ```{r}
 addmargins(table(churn$churn, churn$intl.plan, 
                  dnn = c("Churn", "International Plan")))
 ```
 
-This contingency table shows the count of churners and non-churners for customers with and without the international plan. If we wish to view these counts as proportions, we can use the `prop.table()` function, which converts the counts into percentages and provides a clearer view of the relative churn rates within each category.
+The results confirm that churn is more prevalent among customers subscribed to an international plan. This suggests that international service offerings may not be meeting customer expectations, leading to higher attrition. Companies may need to investigate whether pricing, service quality, or competition is influencing this trend.
 
-In summary, our exploratory analysis of the International Plan variable suggests two key takeaways:
+### Relationship Between Churn and Voice Mail Plan {-}
 
-1. There is a clear association between having an international plan and an increased likelihood of churn. This may warrant further investigation to understand what aspects of the international plan could be driving customers away.
-2. We can expect that the international plan variable will likely play an important role in any predictive model for churn, as it shows a strong relationship with the target variable. Whatever data mining algorithm we choose, it’s probable that the model will include this feature as a significant predictor of customer churn.
-
-By examining the relationship between the international plan and churn, we’ve taken an important first step toward understanding the dataset and identifying potential predictors of customer attrition. This initial analysis lays the groundwork for building predictive models that can help companies proactively address factors influencing churn and ultimately improve customer retention.
-
-Next, we’ll continue our exploration by investigating the `voice.plan` (Voice Mail Plan) variable and its relationship to churn. Applying a similar approach—visualizing and summarizing the data—will provide additional insights into customer behavior and allow us to refine our understanding of the dataset. To start, we visualize the distribution of churners and non-churners based on the Voice Mail Plan with the following bar plots:
+Next, we examine `voice.plan`, which indicates whether a customer has subscribed to a voice mail plan.
 
 ```{r fig.align = 'default', fig.show = "hold", out.width = "50%"}
 ggplot(data = churn) + 
@@ -300,26 +270,29 @@ ggplot(data = churn) +
   scale_fill_manual(values = c("palevioletred1", "darkseagreen1")) 
 ```
 
-The first plot (on the left) shows the raw counts of churners and non-churners among customers with and without a Voice Mail Plan, while the second plot (on the right) displays the proportions. From these plots, we observe that customers without a Voice Mail Plan appear more likely to churn than those who have opted in for this feature. 
-
-To quantify this observation, we can create a contingency table to summarize the counts of churners and non-churners by Voice Mail Plan status:
+Customers without a voice mail plan appear to churn at a slightly higher rate. This is confirmed using a contingency table:
 
 ```{r}
 addmargins(table(churn$churn, churn$voice.plan, dnn = c("Churn", "Voice Mail Plan")))
 ```
 
-This table shows the number of churners and non-churners for customers with and without a Voice Mail Plan. For example, it reveals that `r table(churn$churn, churn$voice.plan)[1, 1]` customers with a Voice Mail Plan did not churn, while `r table(churn$churn, churn$voice.plan)[2, 1]` did. Similarly, we can see the counts for customers without a Voice Mail Plan. The higher proportion of churners among those without a Voice Mail Plan suggests that this feature may indeed be a relevant predictor of customer attrition.
+While the difference is less pronounced than for `intl.plan`, it suggests that customers who actively use voice mail services may be more engaged and therefore less likely to leave.
 
-In summary, this EDA on the Voice Mail Plan variable suggests two key takeaways:
+#### Key Insights {-} 
 
-1. Enhancing the Voice Mail Plan or encouraging more customers to subscribe to it may help improve customer retention, as the plan seems to be associated with lower churn rates.
-2. We can expect that the Voice Mail Plan variable will likely contribute meaningfully to any predictive model we develop for churn, though its influence may not be as strong as that of the International Plan.
+- Customers subscribed to an international plan have a **significantly higher** churn rate, indicating a potential issue with service expectations, pricing, or customer satisfaction. This variable is likely to be an important predictor in churn models.
+- Customers with a voice mail plan have a **slightly lower** churn rate, suggesting that engagement with additional services may contribute to customer retention.
+- These insights highlight the importance of investigating product-specific factors when analyzing churn, as different subscription plans may have varying impacts on customer behavior.
 
-These insights reinforce the importance of EDA in uncovering patterns that inform both strategic decisions and model-building efforts, helping companies address churn more effectively.
+By exploring categorical variables in this way, we uncover actionable insights that can inform both predictive modeling and business decisions aimed at reducing customer churn. In the next section, we will examine numerical variables to further refine our understanding of customer behavior.
 
 ## Investigating Numerical Variables {#EDA-sec-numeric}
 
-Next, we turn to an exploration of the numeric predictive variables. Refer back to summary statistics of the various predictors. We start with the variable `service.calls` (Customer Service Calls), which represents the number of calls made to customer service. This variable is numerical and discrete, making it suitable for histogram analysis. We can use histograms to visualize the distribution of customer service calls as follows:
+We now turn to numerical variables in the churn dataset, examining their distributions and relationships with the target variable. Summary statistics provide an initial understanding, but visualizations such as histograms, box plots, and density plots help reveal patterns and potential predictors of churn.
+
+### Customer Service Calls and Churn {-}
+
+The variable `customer.calls` represents the number of calls a customer makes to customer service. Since this is a discrete numerical variable, we use a histogram to examine its distribution:
 
 ```{r, out.width = "70%"}
 ggplot(data = churn) +
@@ -327,9 +300,9 @@ ggplot(data = churn) +
                  bins = 10, fill = "skyblue", color = "black")
 ```
 
-The histogram above displays the distribution of customer service calls, with the x-axis representing the number of calls and the y-axis showing the count of customers. This visualization allows us to observe the frequency of different call counts. For example, we can see that the range of calls is between `r min(churn$customer.calls)` and maximum `r max(churn$customer.calls)` with the majority of customers calls to customer service `r mode(churn$customer.calls)` times and that the distribution is right-skewed, with a long tail to the right. This skewness indicates that a few customers made a large number of calls, potentially signaling dissatisfaction or issues that need to be addressed.  
+The histogram shows that most customers make only a few service calls, while a smaller group contacts customer service frequently. The right-skewed distribution suggests that a few customers make an unusually high number of calls, potentially signaling dissatisfaction.  
 
-The initial histogram gives a basic overview of the distribution of customer service calls, but to investigate its association with churn, we need to incorporate the target variable in the visualization. Overlaying the histogram with the target variable provides a clearer picture of how this predictor relates to churn. By coloring the histogram bars according to churn status, we can better discern patterns that might suggest a relationship between customer service calls and the likelihood of churn. Here’s the code to create these overlay histograms:
+To further investigate, we overlay churn status:
 
 ```{r fig.align = 'default', fig.show = "hold", out.width = "50%"}
 ggplot(data = churn) +
@@ -341,17 +314,18 @@ ggplot(data = churn) +
   scale_fill_manual(values = c("palevioletred1", "darkseagreen1")) 
 ```
 
-The first plot (left) shows the distribution of churners and non-churners for each level of customer service calls, while the second plot (right) presents these values as proportions within each call count. In the left plot, there is a suggestion that churn is more prevalent among customers with higher call counts, but the pattern isn't immediately clear. The normalized histogram on the right, however, makes the relationship much more apparent by standardizing each bar to a height of 1, allowing us to easily compare the relative proportions of churners within each call level.
+The normalized histogram (right) reveals a striking trend: customers making *four or more* service calls have a significantly higher churn rate. This suggests that frequent service interactions may indicate unresolved issues, leading to customer dissatisfaction.
 
-From the normalized plot, we can see a striking pattern: customers who have made three or fewer calls to customer service have a notably lower churn rate than those who have made four or more calls. This visualization indicates that frequent customer service interactions are a strong indicator of churn risk.
+Key Insights and Business Implications: 
 
-This analysis of the customer service calls variable suggests the following actionable insights:
-    
-1. **Customer Retention Strategy**: Monitor the number of customer service calls closely. By the third call, it may be beneficial to offer specialized retention incentives, as the likelihood of churn increases significantly after the fourth call.
-2. **Predictive Modeling**: We should expect that the number of customer service calls will be an important predictor in any model designed to forecast churn, as it appears to be highly indicative of customer dissatisfaction.
+- Customers making frequent service calls are at higher risk of churning.  
+- Companies could implement proactive retention strategies when a customer makes multiple calls, such as escalating issues or offering incentives after the third call.  
+- This variable is likely to be a strong predictor in churn models and should be included in further analysis.  
 
-Let’s now examine the remaining numerical variables in the dataset, starting with `day.mins` (Day Minutes). Since `day.mins` is a continuous variable, we can visualize its distribution using both a box plot and a density plot, each providing different insights. Below, we present these two plots side by side:
-    
+### Daytime Minutes and Churn {-} 
+
+Next, we examine `day.mins`, which represents the number of minutes a customer spends on daytime calls. We use box plots and density plots to compare distributions between churners and non-churners.
+
 ```{r fig.align = 'default', fig.show = "hold", out.width = "50%"}
 ggplot(data = churn) +
     geom_boxplot(aes(x = churn, y = day.mins), 
@@ -361,20 +335,18 @@ ggplot(data = churn) +
     geom_density(aes(x = day.mins, fill = churn), alpha = 0.3)
 ```
 
-The box plot on the left allows us to compare the distribution of `day.mins` between churners and non-churners, highlighting any differences in median, spread, and potential outliers. The density plot on the right provides a smooth visualization of the distribution, making it easier to spot patterns in day usage across both groups.
+The box plot (left) shows that customers who churn tend to have higher daytime call usage. The density plot (right) confirms this, with a noticeable peak in churners at higher `day.mins` values.
 
-From these plots, we observe that high day-minute users are more likely to churn. The density plot, in particular, shows a noticeable peak among churners at higher `day.mins` values, suggesting that heavy daytime usage may be linked to customer dissatisfaction or unmet needs.
+Key Insights and Business Implications:
 
-This analysis suggests the following actions:
-    
-1. **Monitor High Day-Minute Users**: Track customers whose day-minute usage exceeds 200 minutes, as these high-usage customers appear to be at greater risk of churning.
-2. **Investigate Reasons for Churn Among Heavy Users**: Explore why heavy daytime users are more inclined to leave. Are they experiencing issues with service quality, pricing, or value?
-3. **Include `day.mins` in Churn Prediction Models**: Given its apparent predictive power, `day.mins` should be considered as a key feature in any churn prediction model, as it may help identify high-risk customers.
+- High `day.mins` usage is associated with increased churn.  
+- Customers with extensive daytime usage may be dissatisfied with pricing or service quality.  
+- Targeted retention offers, such as flexible rate plans for heavy users, could help mitigate churn.  
 
-In summary, analyzing `day.mins` has provided valuable insights into customer behavior, highlighting an opportunity to improve customer retention by focusing on heavy daytime users. By including this variable in predictive models, we can enhance the model’s accuracy and take proactive steps to reduce churn among high-usage customers.
+### Evening and Nighttime Minutes {-} 
 
-To examine the relationship between the `eve.mins` (Evening Minutes) variable and churn, we can use both a box plot and a density plot to visualize the distribution of evening minutes for churners and non-churners:
-    
+To investigate whether evening and nighttime call patterns also relate to churn, we plot `eve.mins` and `night.mins`.
+
 ```{r fig.align = 'default', fig.show = "hold", out.width = "50%"}
 ggplot(data = churn) +
     geom_boxplot(aes(x = churn, y = eve.mins), fill = c("palevioletred1", "darkseagreen1"))
@@ -383,14 +355,8 @@ ggplot(data = churn) +
     geom_density(aes(x = eve.mins, fill = churn), alpha = 0.3)
 ```
 
-The box plot (left) and density plot (right) offer different perspectives on the distribution of evening minutes across the churn and non-churn groups. The box plot provides a summary of the median, interquartile range, and potential outliers, while the density plot shows the overall shape of the distribution for each group.
+While a slight trend suggests that churners have higher `eve.mins`, the effect is weaker than for `day.mins`. Similarly, analysis of `night.mins` does not reveal a clear distinction between churners and non-churners.
 
-From these plots, we observe a slight tendency for customers with higher evening minutes to have a greater likelihood of churning. However, this pattern is subtle, and the graphical evidence alone is not strong enough to make a definitive conclusion about the relationship between evening usage and churn. In situations like this, where the visual trends are ambiguous, it’s prudent to withhold policy recommendations until we have more robust evidence from statistical analyses or predictive models.
-
-In summary, while there may be an association between evening usage and churn, we need additional evidence before drawing conclusions. Proceeding with caution is essential in data analysis, particularly when visual trends are weak or uncertain. A data-driven approach will allow us to validate these findings before making any data-backed recommendations for policy or customer retention strategies.
-
-To explore the relationship between `night.mins` (Night Minutes) and churn, we can visualize the data using a box plot and a density plot:
-    
 ```{r fig.align = 'default', fig.show = "hold", out.width = "50%"}
 ggplot(data = churn) +
     geom_boxplot(aes(x = churn, y = night.mins), fill = c("palevioletred1", "darkseagreen1"))
@@ -399,24 +365,48 @@ ggplot(data = churn) +
     geom_density(aes(x = night.mins, fill = churn), alpha = 0.3)
 ```
 
-The box plot (on the left) and density plot (on the right) both suggest that there is little to no discernible association between churn and night minutes. The distributions of night minutes for churners and non-churners are quite similar, with no significant differences in median, spread, or overall shape. This lack of variation implies that `night.mins` may not be a strong predictor of customer churn.
+The similar distributions suggest that nighttime call usage is not a strong churn indicator.
 
-In fact, this pattern of minimal association with churn appears to hold for several of the remaining numeric variables in the dataset. While we have examined only a subset of variables in detail, you may wish to further investigate others to confirm whether they exhibit any meaningful relationship with churn. Identifying variables with little or no predictive value is a valuable part of the EDA process, as it allows us to focus on features that are more likely to enhance our model’s accuracy.
+Key Insights and Business Implications:
 
-Ultimately, EDA serves as a guide to prioritize which features are worth closer examination and inclusion in predictive modeling. For features like `night.mins`, where EDA indicates no obvious link to churn, we might consider excluding them from our final model or keeping them as secondary variables.
+- Unlike daytime calls, evening and nighttime minutes do not strongly predict churn.  
+- Focusing on daytime usage and service call patterns may yield better predictive power.  
+- Further statistical testing (e.g., t-tests or logistic regression) could confirm whether subtle differences exist.  
 
-**Note:** The absence of an obvious association between a predictor and the target variable during EDA is not, on its own, a sufficient reason to exclude that predictor from our model. For instance, although the box plot and density plot for `night.mins` (Night Minutes) show no clear visual relationship with churn, this does not necessarily mean that `night.mins` lacks predictive value. Data mining models may still uncover useful patterns involving this variable, particularly if it interacts with other features or contributes to complex, higher-dimensional associations. Therefore, unless there is a compelling reason to discard a variable outright, it is generally best to include it in the initial stages of modeling and allow the model itself to determine its predictive importance.
+Your subsection is **well-structured** and provides a **clear** overview of the analysis. However, there are a few **areas for improvement** in terms of **clarity, conciseness, and flow**. Below is an improved version that maintains the **same structure and meaning** while enhancing **readability and coherence**.
 
-As an example, while `night.mins` does not display a strong association with churn in the EDA visuals, further analysis using statistical tests may reveal otherwise. A t-test, for instance, could show a statistically significant difference in the mean number of Night Minutes between churners and non-churners (see Chapter 3 for details). This finding would suggest that `night.mins` may indeed have predictive power for identifying churn, even though this was not immediately apparent in the visualizations. Excluding the variable based solely on its lack of obvious association at the EDA stage could lead to a less accurate model, as subtle but meaningful patterns might go unrecognized.
+### International Calls and Churn {-}
 
-To confirm whether any observed differences are statistically significant, we will delve into hypothesis testing and other statistical techniques in the next chapter. These methods fall under the domain of statistical inference and model building, extending beyond the scope of exploratory data analysis. We mention them here to emphasize that EDA is only one step in the modeling process; some variables may reveal their importance only under more formal analysis. For this reason, it’s essential not to prematurely discard predictors simply because their relationship with the target variable isn’t immediately apparent in EDA.
+We now examine `intl.calls`, which represents the total number of international calls made by customers. To explore its relationship with churn, we visualize the distribution using box plots and density plots.
 
-## Envestigating Multivarate Relationships {#EDA-sec-multivariate}
+```{r fig.align = 'default', fig.show = "hold", out.width = "50%"}
+ggplot(data = churn) +
+    geom_boxplot(aes(x = churn, y = intl.calls), 
+                 fill = c("palevioletred1", "darkseagreen1"))
 
-We examine potential multivariate associations between numeric variables and churn using scatter plots. While univariate exploration gives us insights into individual variables, multivariate graphics can reveal interaction effects that may not be apparent when examining variables in isolation.
+ggplot(data = churn) +
+    geom_density(aes(x = intl.calls, fill = churn), alpha = 0.3)
+```
 
-For instance, consider the scatter plot of `day.mins` (Day Minutes) versus `eve.mins` (Evening Minutes), with churn overlaid:
-    
+The box plot (left) indicates that churners (`churn=yes`) tend to make slightly fewer international calls than non-churners. The density plot (right) further supports this, showing a minor difference in distribution between the two groups.
+
+Although there is a slight trend suggesting that churners make fewer international calls on average, the difference does not appear substantial. This suggests that `intl.calls` is not a strong predictor of churn. To confirm whether this relationship is statistically significant, further testing—such as a two-sample t-test or logistic regression—would be required. In Section \@ref(two-sample-t-test) of the next chapter, we demonstrate how to formally test this relationship using statistical methods.
+
+#### Final Takeaways {-}
+
+- `customer.calls` and `day.mins` are *strongly associated* with churn and should be key predictors in churn models.  
+- *Customers making four or more service calls* are at high risk of leaving.  
+- *High daytime minute usage* is another important churn indicator, possibly due to pricing concerns.  
+- Evening and nighttime call usage shows *no strong relationship* with churn, suggesting it may not be an essential predictive feature.  
+
+By focusing on service calls and daytime minutes, companies can take targeted action to reduce churn, such as optimizing customer support escalation processes and offering personalized rate plans. These findings also guide the feature selection process for future predictive modeling efforts.
+
+## Investigating Multivariate Relationships {#EDA-sec-multivariate}
+
+While univariate analysis provides insights into individual variables, multivariate analysis helps uncover interactions that may influence churn. Examining variable relationships can reveal behavioral patterns that might not be evident when analyzing each feature in isolation.
+
+A useful example is the relationship between `day.mins` (Day Minutes) and `eve.mins` (Evening Minutes), visualized in the scatter plot below:
+
 ```{r}
 ggplot(data = churn) +
     geom_point(aes(x = eve.mins, y = day.mins, color = churn), size = 0.7, alpha = 0.8) +
@@ -424,16 +414,16 @@ ggplot(data = churn) +
     geom_abline(intercept = 400, slope = -0.6, color = "blue", size = 1)
 ```
 
-Notice the diagonal line partitioning the plot. This line, represented by the equation:
-    
+The diagonal line, represented by the equation:
+
 \[
 \text{day.mins} = 400 - 0.6 \times \text{eve.mins}
 \]
 
-separates the upper-right section of the graph, where we observe a higher concentration of churners. This region, encompassing customers with both high day minutes and high evening minutes, appears to be a high-churn zone compared to the rest of the data. 
+separates the dataset into two regions. Customers in the upper-right region, where both day and evening minutes are high, exhibit a noticeably higher churn rate. This pattern was not apparent in the univariate analysis of `eve.mins`, demonstrating how feature interactions can provide deeper insights.
 
-To further investigate, we isolate this high-churn region and visualize the churn distribution within it:
-    
+To quantify this effect, we isolate the high-churn segment:
+
 ```{r}
 sub_churn = subset(churn, (day.mins > 400 - 0.6 * eve.mins))
 
@@ -442,11 +432,9 @@ ggplot(data = sub_churn, aes(x = churn, label = scales::percent(prop.table(stat(
     geom_text(stat = 'count', vjust = 0.2, size = 6)
 ```
 
-In this high-churn subset, the churn rate is approximately `r round(summary(sub_churn$churn)[2] / nrow(sub_churn), 2) * 100`%, which is significantly higher than the churn rate of `r round(summary(churn$churn)[2] / nrow(churn), 2) * 100`% observed across the entire dataset—around five times the overall churn rate. This stark increase in churn rate among customers with both high day and evening usage suggests a strong interaction effect that wasn't fully apparent in the univariate analyses.
+Within this subset, the churn rate is significantly higher than in the overall dataset, reinforcing the importance of considering variable interactions. The combination of high day and evening usage may indicate a specific customer behavior pattern that correlates with dissatisfaction.
 
-Interestingly, while the univariate exploration of `eve.mins` alone did not clearly indicate a high churn rate, this multivariate analysis reveals that evening minutes do play a role in churn—particularly when combined with high day minutes. This demonstrates the value of multivariate exploration in uncovering hidden patterns and interactions, providing us with more nuanced insights into the factors influencing customer churn.
-
-We can further investigate multivariate relationships by examining the scatter plot of `customer.calls` versus `day.mins`, with churn status overlaid:
+Another key relationship exists between `customer.calls` and `day.mins`:
 
 ```{r}
 ggplot(data = churn) +
@@ -454,24 +442,24 @@ ggplot(data = churn) +
   scale_color_manual(values = c("palevioletred1", "darkseagreen1"))
 ```
 
-This plot reveals an interesting high-churn region in the upper left section, where customers have made numerous calls to customer service but have relatively low day minutes. This group of customers, characterized by frequent customer service interactions yet low usage, might represent a dissatisfied segment prone to leaving. Such insights would be difficult to uncover through univariate analysis alone, as they stem from the interaction between two variables rather than the behavior of any one variable in isolation.
+This scatter plot reveals an interesting high-churn region in the upper left, where customers make frequent customer service calls but have low day-minute usage. This group may represent dissatisfied customers who are not heavy users but are still experiencing service-related frustrations. By contrast, high-minute users who also make frequent service calls show a lower churn rate, possibly indicating that engaged customers are more tolerant of service issues.
 
-In summary, our previous univariate analysis showed that customers who make many calls to customer service tend to have a higher churn rate. However, this scatter plot adds nuance to that finding. Among the high-call customers, those with high day minutes seem somewhat “protected” from churning—they are more likely to stay compared to those with lower day minutes. In other words, the upper right area of the plot, where day minutes are high and customer calls are also high, shows a lower churn rate than the upper left, where high customer calls coincide with low day minutes. 
+#### Key Takeaways {-}
 
-This interaction suggests that high usage (indicated by high day minutes) may offset the negative effect of frequent customer service calls, perhaps reflecting a more engaged or "sticky" customer segment. But how do we quantify these observations from the scatter plot? 
+- Multivariate analysis reveals that customers with both high day and evening call usage have a much higher churn rate.
+- Customers making frequent customer service calls but using few daytime minutes are also at a higher risk of leaving.
+- The interaction between frequent customer service calls and high call usage suggests that dissatisfaction alone does not always drive churn—usage patterns also play a role.
+- Identifying customers in high-churn regions of these scatter plots can help in targeted retention efforts.
 
-In the next chapter, we’ll delve into statistical techniques that allow us to rigorously test and quantify these multivariate relationships, determining whether they have significant predictive value for our churn model. This will help us transition from exploratory insights to actionable, data-driven decisions.
+In Chapter \@ref(chapter-statistics), we will move from exploratory insights to formal statistical analysis, applying techniques to quantify these relationships and assess their predictive value.
 
-### Investigating Correlated Variables
+### Investigating Correlated Variables  
 
-In data analysis, **correlation** measures the relationship between two variables—specifically, the extent to which one variable changes in relation to another. Correlation helps us understand whether increases or decreases in one variable are associated with increases or decreases in another. There are three main types of correlation outcomes: **positive correlation** (both variables move in the same direction), **negative correlation** (one variable increases as the other decreases), and **no correlation** (no clear relationship between the variables).
+Correlation measures the degree to which two variables move together. A positive correlation means that as one variable increases, the other also increases. A negative correlation indicates that when one variable rises, the other decreases. If two variables have no correlation, changes in one provide no information about changes in the other.  
 
-For example, if you've ever wondered whether the number of hours you study is related to your exam scores, you’re thinking about correlation. A positive correlation would mean that more hours of studying are associated with higher scores, while a negative correlation would imply that more studying is associated with lower scores (which would be unusual, but not impossible). Correlation doesn’t imply causation, but it can reveal interesting associations worth exploring.
+A common misconception is that correlation implies causation. For example, if an analysis finds that customers who make more calls to customer service tend to have higher churn rates, it does not necessarily mean that calling customer service causes churn. It could be that dissatisfied customers are more likely to call for assistance before leaving, making the number of service calls a symptom rather than a cause.  
 
-The strength and direction of a linear relationship between two variables \( x \) and \( y \) can be quantified using the **correlation coefficient** \( r \). This value ranges from -1 to 1:
-- **\( r = 1 \)** indicates a perfect positive correlation, where increases in \( x \) are always associated with proportional increases in \( y \).
-- **\( r = -1 \)** indicates a perfect negative correlation, where increases in \( x \) are always associated with proportional decreases in \( y \).
-- **\( r = 0 \)** suggests no linear relationship between \( x \) and \( y \).
+The strength and direction of a correlation are measured by the correlation coefficient, denoted as \( r \), which ranges from -1 to 1. A value of 1 indicates a perfect positive relationship, while -1 represents a perfect negative correlation. A value near zero suggests no linear relationship. In large datasets, even small correlations may be statistically significant, but practical significance must also be considered. A correlation of 0.05 might be significant in a dataset with thousands of observations, but it is unlikely to provide meaningful predictive power.  
 
 Below, Figure \@ref(fig:correlation) shows examples of different correlation coefficients.
 
@@ -479,30 +467,12 @@ Below, Figure \@ref(fig:correlation) shows examples of different correlation coe
 knitr::include_graphics("images/correlation.png")
 ```
 
-In large datasets—common in data science—even small values of \( r \) may be statistically significant. For datasets with over 1000 records, weak correlations (e.g., \( -0.1 \leq r \leq 0.1 \)) can still hold statistical significance, though they may not always have practical importance. When evaluating correlations during exploratory data analysis (EDA), it’s essential to consider both statistical and practical implications.
+When multiple variables are highly correlated, redundancy can become a problem. Including both variables in a model may not add much new information and can lead to instability, particularly in regression-based models where multicollinearity makes it difficult to determine the effect of individual predictors. Instead of automatically removing correlated variables, a more thoughtful approach involves assessing their practical relevance and whether they provide distinct information.  
 
-Using highly correlated predictors in a model can lead to several issues:
-- **Overemphasis on Certain Data Patterns**: Strongly correlated predictors can cause certain patterns in the data to dominate the model’s learning, potentially leading to biased outcomes.
-- **Instability and Multicollinearity**: Highly correlated predictors introduce redundancy, which can destabilize models and make interpretation difficult. This problem, known as **multicollinearity**, is especially problematic in linear models and can result in unreliable coefficient estimates.
-
-However, just because two variables are correlated doesn’t mean that one should be automatically excluded from the model. Instead, during EDA, it’s helpful to adopt a systematic approach for managing correlated variables.
-
-To handle correlated variables effectively during EDA, consider the following strategies:
-    
-1. **Identify Perfectly Correlated Variables**: If two variables have a perfect correlation (i.e., \( r = 1.0 \) or \( r = -1.0 \)), they contain identical information. Including both in the model would be redundant, so retaining only one is sufficient.
-
-2. **Group Highly Correlated Variables**: Identify clusters of variables that are strongly correlated with each other. Later, during the modeling phase, you can apply **dimension reduction** techniques, such as **Principal Component Analysis (PCA)**, to combine these correlated variables into a smaller set of uncorrelated components. This approach reduces redundancy while retaining essential information.
-
-3. **Consider Practical Relevance**: Correlation alone should not dictate variable inclusion or exclusion. For example, if two predictors are highly correlated but both have practical significance (e.g., `age` and `years of experience`), you may choose to retain both and evaluate their impact during the modeling phase.
-
-> **Note**: This strategy applies to correlations among predictor variables, not between predictors and the target variable. Strong correlations between a predictor and the target variable are often desirable, as they suggest that the predictor may be informative for modeling the target.
-
-By following these steps, you can reduce the risk of multicollinearity and redundancy, helping to ensure that your models are both reliable and interpretable. This approach allows EDA to inform a thoughtful, data-driven selection of variables as you move into the modeling phase.
-
-Let’s apply this process to our dataset. For each of the categories **day**, **evening**, **night**, and **international**, we have three variables: **minutes**, **calls**, and **charge**. According to the data description, the **charge** variables are likely calculated based on **minutes** and **calls** for each time period, which would naturally result in high correlations between them. To verify this, we’ll compute the correlation matrix for these variables and visualize it using a correlation plot.
+To examine correlations in the churn dataset, we compute the correlation matrix for the numerical variables and visualize it using a heatmap.  
 
 ```{r out.width = "100%"}
-library(ggcorrplot) # For correlation plots (ggcorrplot)
+library(ggcorrplot)  
 variable_list = c("intl.mins",  "intl.calls",  "intl.charge", 
                   "day.mins",   "day.calls",   "day.charge",
                   "eve.mins",   "eve.calls",   "eve.charge",
@@ -513,58 +483,50 @@ cor_matrix = cor(churn[, variable_list])
 ggcorrplot(cor_matrix, type = "lower", lab = TRUE, lab_size = 3)
 ```
 
-The correlation matrix reveals several key insights:
-    - **Perfect Correlations**: We observe perfect correlations (r = 1) between `day.mins` and `day.charge`, `eve.mins` and `eve.charge`, `night.mins` and `night.charge`, and `intl.mins` and `intl.charge`. This indicates that each **charge** variable is a direct linear function of the corresponding **minutes** variable.
-- **No Correlation Between Minutes and Calls**: Interestingly, there is no significant correlation between **minutes** and **calls** within each time period (e.g., `day.mins` and `day.calls` are uncorrelated). While one might expect that customers making more calls would also spend more minutes on the phone, the data does not support this assumption.
+The correlation matrix highlights some key relationships. The charge variables are perfectly correlated with their corresponding minutes variables because charges are calculated directly from call duration. Including both would introduce redundancy. To avoid this, the charge variables should be removed, keeping only the minutes variables.  
 
-Since `day.charge`, `eve.charge`, `night.charge`, and `intl.charge` are perfectly correlated with their respective **minutes** variables, we should remove one of each pair to avoid redundancy. We’ll retain the **minutes** variables and eliminate the **charge** variables, thus reducing the number of predictors from 20 to 16. This helps prevent issues with multicollinearity and reduces the dimensionality of the data, which can improve model efficiency.
+Another notable observation is that the number of calls within each time period is not strongly correlated with total minutes. One might expect that customers who make more calls would also spend more time on the phone, but the data does not support this assumption. This suggests that call frequency and call duration may capture different aspects of customer behavior, making it valuable to retain both types of variables for modeling.  
 
-Had we proceeded to the modeling phase without identifying and addressing these correlations, our models could have produced unreliable results due to multicollinearity. High multicollinearity can distort the relationships between variables in a model, making it challenging to determine the true effect of each predictor. By removing redundant variables, we streamline the model and focus on the most meaningful predictors, leading to more stable and interpretable results.
+By addressing correlations during exploratory data analysis, the dataset can be refined to ensure that only the most informative variables are used in predictive modeling. Removing redundant features reduces complexity while retaining meaningful signals, improving the interpretability and performance of models.
 
-> **Important Note on Correlation vs. Causation**: Remember that correlation does not imply causation. Just because two variables are correlated does not mean that one causes the other. Causation implies that changes in one variable directly result in changes in the other, while correlation simply indicates an association. Always be cautious in interpreting correlations, especially when considering them for causal inferences.
+## Key Findings and Insights  
 
-In summary, by carefully investigating and addressing correlated variables during EDA, we enhance the reliability and interpretability of our models. This approach ensures that our modeling process is both data-driven and thoughtful, setting a solid foundation for the analyses and insights that follow.
+The exploratory data analysis of the churn dataset has provided a deeper understanding of the factors influencing customer attrition. By examining individual variables and their interactions, we identified several key trends that will inform predictive modeling and business strategy.  
 
-## Key Findings and Insights
+One of the most striking findings is the role of customer service interactions in churn. Customers who have made four or more calls to customer service are significantly more likely to leave. This suggests that frequent interactions may indicate unresolved complaints, leading to dissatisfaction. Additionally, customers with both high daytime and evening call usage exhibit churn rates up to six times higher than average, indicating that high usage may correlate with dissatisfaction—perhaps due to service quality concerns or pricing issues.  
 
-Through a thorough exploratory data analysis (EDA) of the churn dataset, we have gained valuable insights into the factors that may influence customer attrition. By examining each variable individually and in combination with others, we identified patterns and relationships that could inform predictive modeling and guide potential strategies for reducing churn. Here are the key takeaways from our analysis:
-    
-1. **Redundant Variables**: 
-- The **charge** fields (day, evening, night, and international) are perfectly correlated with their respective **minute** fields, as they are linear functions of those variables. To avoid redundancy and multicollinearity, we should exclude the charge fields from our analysis, retaining only the minute variables.
-- The **area code** and **state** fields appear to add little value and may be redundant or anomalous. Unless further clarification on their purpose is obtained, these fields should be omitted from the model.
+The international calling plan also appears to be a strong predictor of churn. Customers who subscribe to this plan are leaving at a much higher rate, suggesting that the plan may not be delivering sufficient value. In contrast, customers with a voice mail plan show a lower churn rate, indicating that this feature may contribute to customer retention.  
 
-2. **Churn Insights**:
-- **International Plan**: Customers who have subscribed to the International Plan show a significantly higher churn rate. This suggests that the plan may not be meeting customer expectations, or it may be attracting a customer segment that is more prone to switching providers.
-- **Voice Mail Plan**: In contrast, customers with a Voice Mail Plan tend to churn less frequently, indicating that this service may enhance customer loyalty.
-- **Customer Service Calls**: A high number of customer service calls (four or more) is strongly associated with higher churn. Customers who have had to contact customer service multiple times may be experiencing unresolved issues or dissatisfaction, which ultimately leads them to leave.
-- **High Day and Evening Minutes**: Customers who have both high day minutes and high evening minutes churn at an elevated rate—up to six times the overall churn rate. This suggests that heavy usage during these time periods may correlate with dissatisfaction, possibly due to cost or quality issues.
-- **Combination of Low Day Minutes and High Customer Service Calls**: Customers who make frequent customer service calls but have relatively low day minutes also display a higher churn rate. This may indicate dissatisfaction among lower-usage customers who still face issues requiring support.
-- **International Calls**: Interestingly, customers with fewer international calls tend to churn more frequently than those who make more international calls. This could suggest that international usage may be a valuable service differentiator for certain customer segments.
+Several variables, while not directly linked to churn in univariate analysis, could still provide value when combined with other features in predictive modeling. For example, customers with relatively low daytime usage but frequent customer service calls show a higher likelihood of leaving, a pattern that suggests service dissatisfaction among lower-usage customers.  
 
-3. **Other Variables**:
-- For the remaining predictors, no obvious association with churn was identified through EDA. However, these variables are retained as potential inputs for downstream data mining models, as they may still contain useful predictive information in combination with other variables or within specific subsets of the data.
+From a modeling perspective, some variables introduce redundancy. The charge variables (day, evening, night, and international) are perfectly correlated with their corresponding minute variables, as they are derived directly from them. Retaining only the minute variables will avoid multicollinearity while preserving all relevant information. Similarly, the area code and state fields may not contribute much to predictive power, as they do not show strong relationships with churn in this dataset.  
 
-This exploratory analysis has highlighted the power of EDA in uncovering actionable insights before applying advanced modeling techniques. Without any sophisticated data mining algorithms, we have already identified several customer behaviors and attributes that correlate with churn. These findings provide a solid foundation for the next steps in our analysis, which will involve applying predictive modeling techniques to confirm and quantify the relationships we observed.
+### Strategic Recommendations {-}
 
-Additionally, the insights from EDA can be translated into actionable recommendations. For instance:
-- The company could investigate the International Plan to understand why it correlates with higher churn and consider adjustments to make it more appealing.
-- Specialized retention strategies could be deployed for customers who make frequent customer service calls, potentially offering tailored support to resolve their issues before they decide to leave.
-- High-usage customers, particularly those with high day and evening minutes, could be targeted with incentives or loyalty programs to address any dissatisfaction related to cost or service quality.
+These findings present opportunities for targeted interventions to improve customer retention. Given that frequent customer service calls are a strong indicator of churn, companies should implement proactive escalation strategies. Customers making their third service call should receive priority attention, potentially with issue resolution specialists or targeted retention offers.  
 
-By identifying and understanding these patterns, the company can take proactive steps to reduce churn and improve customer satisfaction, ultimately leading to a more loyal customer base.
+For high-usage customers, personalized plans and loyalty incentives could help reduce churn. Offering flexible pricing or additional benefits for high daytime and evening callers may address concerns that drive them to switch providers. Similarly, a review of the international plan is necessary to assess whether its pricing, service quality, or features are leading to dissatisfaction.  
 
+While some variables, such as night minutes and certain demographic features, do not show strong direct correlations with churn, they may still contribute when combined with other predictors in a machine learning model. Further analysis will determine their importance in a predictive framework.  
 
+By identifying these churn-related patterns early, businesses can take proactive steps to improve customer satisfaction and reduce attrition, strengthening overall retention efforts before relying on predictive modeling. These insights will serve as a foundation for the next stage of analysis, where machine learning models will be applied to quantify these relationships more precisely.  
 
-## Exercises 
+## Exercises  
 
-### Conceptual Questions {-} 
+### Conceptual Questions {-}  
 
 1. Why is it important to perform exploratory data analysis before proceeding to the modeling phase? What are the potential risks of skipping EDA and directly applying data mining techniques?  
+
 2. If a predictor does not exhibit a clear relationship with the target variable during exploratory data analysis, should it be omitted from the modeling stage? Justify your answer by considering potential interactions, hidden patterns, and the role of feature selection.  
+
 3. What does it mean for two variables to be correlated? Explain the concept of correlation, including its direction and strength, and discuss how it differs from causation. Provide an example to illustrate your explanation.  
+
 4. How can you identify and address correlated variables during exploratory data analysis? Describe the steps you would take to manage correlated predictors effectively and explain the benefits of this approach for predictive modeling.  
+
 5. What are the consequences of including highly correlated variables in a predictive model? Discuss the impact of multicollinearity on model performance, interpretability, and stability, and explain how it can be detected and addressed.  
+
 6. Is it always advisable to remove one of two correlated predictors from a model? Discuss the advantages and drawbacks of this approach, and explain under what circumstances keeping both predictors might be beneficial.  
+
 7. For each of the following descriptive methods, determine whether it applies to categorical data, continuous numerical data, or both. Provide a brief explanation of how each method is used in exploratory data analysis.  
 
    - Histograms  
@@ -578,33 +540,64 @@ By identifying and understanding these patterns, the company can take proactive 
    - Heatmaps  
 
 8. A telecommunications company is analyzing customer data to identify factors influencing churn. During exploratory data analysis, they discover that customers with both high day minutes and high evening minutes have a significantly higher churn rate. What actionable insights could the company derive from this finding, and how might they use this information to reduce customer attrition?  
+
 9. Suppose you are conducting exploratory data analysis on a dataset with 20 predictor variables. After examining the correlation matrix, you find that several pairs of variables are highly correlated (r > 0.9). How would you address these correlations to ensure the reliability and interpretability of your predictive models? Describe the steps you would take to manage these correlated variables effectively.  
+
 10. Discuss the importance of considering both statistical and practical implications when evaluating correlations during exploratory data analysis. Provide an example of a statistically significant correlation that may not have real-world significance, and explain why it is essential to consider both aspects in data analysis.  
 
-### Hands-On Practice: Exploring the Bank Dataset {-} 
+11. Why is it important to investigate multivariate relationships rather than relying only on univariate analysis? Provide an example where an interaction between two variables reveals a pattern that would be missed in separate univariate analyses.  
 
-For hands-on practice, we will explore the *bank* dataset available in the **R** package **liver**. The *bank* dataset is related to direct marketing campaigns of a Portuguese banking institution. The campaigns were conducted via phone calls, with multiple contacts sometimes needed to determine whether a client would subscribe to a term deposit. The goal of this dataset is to predict whether a client will subscribe to a term deposit, which will be explored using classification techniques in later chapters.  
+12. How does data visualization aid in the exploratory data analysis process? Discuss at least two specific examples where visualizations provide insights that summary statistics alone cannot reveal.  
+
+13. Suppose you discover that customers who have high daytime call usage and make frequent customer service calls are more likely to churn. What business actions could be taken based on this insight?  
+
+14. Outliers can be influential in statistical modeling. What are some possible causes of outliers in a dataset? How would you decide whether to keep, modify, or remove an outlier?  
+
+15. In the context of exploratory data analysis, explain why missing values are a critical issue. What are the different strategies for handling missing values, and under what circumstances would each be appropriate?  
+
+### Hands-On Practice: Exploring the Bank Dataset {-}  
+
+For hands-on practice, we will explore the *bank* dataset available in the **R** package **liver**. The *bank* dataset is related to direct marketing campaigns of a Portuguese banking institution. The campaigns were conducted via phone calls, with multiple contacts sometimes needed to determine whether a client would subscribe to a term deposit. The goal of this dataset is to predict whether a client will subscribe to a term deposit, which will be explored using classification techniques in Chapters \@ref(chapter-knn) and \@ref(chapter-nn).  
 
 More details on this dataset can be found at: [https://rdrr.io/cran/liver/man/bank.html](https://rdrr.io/cran/liver/man/bank.html).  
 
 We can import the dataset in **R** as follows:  
-```r
+```{r}
 library(liver)
 data(bank)      
 ```
 To examine the dataset’s structure, we use:
-```r
+```{r}
 str(bank)
 ```
 
-11. **Dataset Overview**: Report the summary statistics of the dataset, including the types of variables. What can you infer from the structure of the data?  
-12. **Target Variable Analysis**: Generate a bar plot for the target variable `deposit` using the `ggplot()` function from **ggplot2**. What is the proportion of clients who subscribed to a term deposit?  
-13. **Binary Variable Exploration**: Investigate the binary categorical variables `default`, `housing`, and `loan`. Create contingency tables and bar plots to visualize their distributions. What insights can you draw from these variables?  
-14. **Exploring Numerical Variables**: Analyze the numerical variables in the dataset. Create histograms and box plots to visualize their distributions. Identify any patterns, skewness, or unusual observations.  
-15. **Outlier Detection**: Identify whether any numerical variables contain outliers. How would you handle these outliers to maintain data integrity while ensuring robust analysis?  
-16. **Correlation Analysis**: Compute the correlation matrix for the numerical variables. Identify pairs of highly correlated variables. What strategies would you use to handle these correlations to avoid redundancy and multicollinearity in predictive modeling?  
-17. **Key EDA Findings**: Summarize the key findings from your exploratory data analysis based on the exercises above. If you were preparing a formal report, how would you highlight notable patterns, relationships, or anomalies?  
-18. **Business Implications**: Based on your findings, what actionable insights could the bank derive from this exploratory analysis? How could these insights help in optimizing marketing strategies and improving customer targeting?
-19. **Multivariate Analysis**: Investigate the relationship between the number of previous marketing campaign contacts (`campaign`) and term deposit subscriptions (`deposit`). Does higher contact frequency correlate with increased subscriptions? Use a box plot or bar chart to support your findings.  
-20. **Feature Engineering Insight**: Based on your EDA, propose at least one new feature that could improve the predictive power of a classification model for term deposit subscriptions. Justify your reasoning.  
+16. *Dataset Overview*: Report the summary statistics of the dataset, including the types of variables. What can you infer from the structure of the data?  
 
+17. *Target Variable Analysis*: Generate a bar plot for the target variable `deposit` using the `ggplot()` function from **ggplot2**. What is the proportion of clients who subscribed to a term deposit?  
+
+18. *Binary Variable Exploration*: Investigate the binary categorical variables `default`, `housing`, and `loan`. Create contingency tables and bar plots to visualize their distributions. What insights can you draw from these variables?  
+
+19. *Exploring Numerical Variables*: Analyze the numerical variables in the dataset. Create histograms and box plots to visualize their distributions. Identify any patterns, skewness, or unusual observations.  
+
+20. *Outlier Detection*: Identify whether any numerical variables contain outliers. How would you handle these outliers to maintain data integrity while ensuring robust analysis?  
+
+21. *Correlation Analysis*: Compute the correlation matrix for the numerical variables. Identify pairs of highly correlated variables. What strategies would you use to handle these correlations to avoid redundancy and multicollinearity in predictive modeling?  
+
+22. *Key EDA Findings*: Summarize the key findings from your exploratory data analysis based on the exercises above. If you were preparing a formal report, how would you highlight notable patterns, relationships, or anomalies?  
+
+23. *Business Implications*: Based on your findings, what actionable insights could the bank derive from this exploratory analysis? How could these insights help in optimizing marketing strategies and improving customer targeting?  
+
+24. *Multivariate Analysis*: Investigate the relationship between the number of previous marketing campaign contacts (`campaign`) and term deposit subscriptions (`deposit`). Does higher contact frequency correlate with increased subscriptions? Use a box plot or bar chart to support your findings.  
+
+25. *Feature Engineering Insight*: Based on your EDA, propose at least one new feature that could improve the predictive power of a classification model for term deposit subscriptions. Justify your reasoning.  
+
+26. *Seasonality Effects*: Investigate whether the time of year influences term deposit subscriptions by analyzing the `month` variable. Do certain months have a higher success rate? Visualize this pattern and discuss its potential business implications.  
+
+27. *Effect of Employment Type*: Examine how the `job` variable relates to term deposit subscriptions. Which job categories have higher success rates? Present your findings using a suitable visualization and discuss how banks could use this insight for targeted marketing.  
+
+28. *Interaction Effects*: Analyze whether interactions between different predictors, such as `education` and `job`, influence the likelihood of subscribing to a term deposit. Use appropriate visualizations or statistical summaries to support your findings.  
+
+29. *Effect of Contact Duration*: Investigate whether the duration of the last contact (`duration` variable) has a strong relationship with term deposit subscription. Visualize the distribution and discuss whether longer calls are associated with higher success rates.  
+
+30. *Comparison of Campaign Outcomes*: Compare the subscription rates (`deposit` variable) across different types of marketing campaigns (`campaign` variable). What trends emerge, and how could they inform future marketing strategies?  
+  

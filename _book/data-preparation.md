@@ -33,7 +33,7 @@ From a business perspective, understanding diamond pricing can provide valuable 
 
 Clearly defining these objectives ensures that our data preparation efforts align with the intended analytical approach, whether for exploratory insights or building robust predictive models that generalize well to unseen data. This structured problem framing will guide decisions during data cleaning, transformation, and feature engineering, ensuring that our analysis remains focused and actionable.  
 
-## diamonds Dataset Overview
+## diamonds Dataset Overview {#Data-pre-diamonds}
 
 The *diamonds* dataset, included in the **ggplot2** package, provides structured information on various characteristics of diamonds. Each row represents a unique diamond, with 54,940 entries in total, and contains 10 descriptive variables, including *price*, *carat*, *cut*, *clarity*, and *color*. The goal of our analysis is to gain deeper insights into the factors that influence diamond pricing, understand the distribution of data across these attributes, and explore both quantitative and qualitative relationships between variables.
 

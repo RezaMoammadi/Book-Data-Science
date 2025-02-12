@@ -1,7 +1,7 @@
 ---
 title: "Uncovering Data Science with R"
 author: "Reza Mohammadi"
-date: "2025-02-09"
+date: "2025-02-12"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
