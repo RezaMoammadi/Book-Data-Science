@@ -961,7 +961,7 @@ For further learning:
 
 By leveraging R Markdown, data scientists can produce high-quality, reproducible reports that enhance collaboration and communication.
 
-## Exercises  
+## Exercises {#intro-R-exercises}
 
 This section provides hands-on exercises to reinforce your understanding of the fundamental concepts covered in this chapter.  
 

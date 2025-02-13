@@ -256,7 +256,6 @@ In summary, balancing the training dataset can improve model performance, especi
 ### Conceptual Questions {-}
 
 1. Why is partitioning the dataset crucial before training a machine learning model? Explain its role in ensuring generalization.  
-
 2. What is the main risk of training a model without separating the dataset into training and testing subsets? Provide an example where this could lead to misleading results.  
 
 3. Explain the difference between *overfitting* and *underfitting*. How does proper partitioning help address these issues?  

@@ -159,20 +159,20 @@ P(A|B) = P(A) \cdot \frac{P(B|A)}{P(B)}
 <p>To see Bayes’ Theorem in action, consider a practical example from the <code>risk</code> dataset in the <strong>liver</strong> package. Below, we calculate the probability of a customer having a good risk profile (<span class="math inline">\(A\)</span>) given they have a mortgage (<span class="math inline">\(B\)</span>).</p>
 <div class="example">
 <p><span id="exm:ex-bayes-risk" class="example"><strong>Example 9.1  </strong></span>Suppose we are tasked with estimating the probability of a customer having good risk if they have a mortgage. The <code>risk</code> dataset contains the relevant information:</p>
-<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="chapter-bayes.html#cb151-1" tabindex="-1"></a><span class="fu">data</span>(risk)</span>
-<span id="cb151-2"><a href="chapter-bayes.html#cb151-2" tabindex="-1"></a></span>
-<span id="cb151-3"><a href="chapter-bayes.html#cb151-3" tabindex="-1"></a><span class="fu">xtabs</span>(<span class="sc">~</span> risk <span class="sc">+</span> mortgage, <span class="at">data =</span> risk)</span>
-<span id="cb151-4"><a href="chapter-bayes.html#cb151-4" tabindex="-1"></a>              mortgage</span>
-<span id="cb151-5"><a href="chapter-bayes.html#cb151-5" tabindex="-1"></a>   risk        yes no</span>
-<span id="cb151-6"><a href="chapter-bayes.html#cb151-6" tabindex="-1"></a>     good risk  <span class="dv">81</span> <span class="dv">42</span></span>
-<span id="cb151-7"><a href="chapter-bayes.html#cb151-7" tabindex="-1"></a>     bad risk   <span class="dv">94</span> <span class="dv">29</span></span></code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="chapter-bayes.html#cb152-1" tabindex="-1"></a><span class="fu">data</span>(risk)</span>
+<span id="cb152-2"><a href="chapter-bayes.html#cb152-2" tabindex="-1"></a></span>
+<span id="cb152-3"><a href="chapter-bayes.html#cb152-3" tabindex="-1"></a><span class="fu">xtabs</span>(<span class="sc">~</span> risk <span class="sc">+</span> mortgage, <span class="at">data =</span> risk)</span>
+<span id="cb152-4"><a href="chapter-bayes.html#cb152-4" tabindex="-1"></a>              mortgage</span>
+<span id="cb152-5"><a href="chapter-bayes.html#cb152-5" tabindex="-1"></a>   risk        yes no</span>
+<span id="cb152-6"><a href="chapter-bayes.html#cb152-6" tabindex="-1"></a>     good risk  <span class="dv">81</span> <span class="dv">42</span></span>
+<span id="cb152-7"><a href="chapter-bayes.html#cb152-7" tabindex="-1"></a>     bad risk   <span class="dv">94</span> <span class="dv">29</span></span></code></pre></div>
 <p>Adding margins to the contingency table for clarity:</p>
-<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="chapter-bayes.html#cb152-1" tabindex="-1"></a><span class="fu">addmargins</span>(<span class="fu">xtabs</span>(<span class="sc">~</span> risk <span class="sc">+</span> mortgage, <span class="at">data =</span> risk))</span>
-<span id="cb152-2"><a href="chapter-bayes.html#cb152-2" tabindex="-1"></a>              mortgage</span>
-<span id="cb152-3"><a href="chapter-bayes.html#cb152-3" tabindex="-1"></a>   risk        yes  no Sum</span>
-<span id="cb152-4"><a href="chapter-bayes.html#cb152-4" tabindex="-1"></a>     good risk  <span class="dv">81</span>  <span class="dv">42</span> <span class="dv">123</span></span>
-<span id="cb152-5"><a href="chapter-bayes.html#cb152-5" tabindex="-1"></a>     bad risk   <span class="dv">94</span>  <span class="dv">29</span> <span class="dv">123</span></span>
-<span id="cb152-6"><a href="chapter-bayes.html#cb152-6" tabindex="-1"></a>     Sum       <span class="dv">175</span>  <span class="dv">71</span> <span class="dv">246</span></span></code></pre></div>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="chapter-bayes.html#cb153-1" tabindex="-1"></a><span class="fu">addmargins</span>(<span class="fu">xtabs</span>(<span class="sc">~</span> risk <span class="sc">+</span> mortgage, <span class="at">data =</span> risk))</span>
+<span id="cb153-2"><a href="chapter-bayes.html#cb153-2" tabindex="-1"></a>              mortgage</span>
+<span id="cb153-3"><a href="chapter-bayes.html#cb153-3" tabindex="-1"></a>   risk        yes  no Sum</span>
+<span id="cb153-4"><a href="chapter-bayes.html#cb153-4" tabindex="-1"></a>     good risk  <span class="dv">81</span>  <span class="dv">42</span> <span class="dv">123</span></span>
+<span id="cb153-5"><a href="chapter-bayes.html#cb153-5" tabindex="-1"></a>     bad risk   <span class="dv">94</span>  <span class="dv">29</span> <span class="dv">123</span></span>
+<span id="cb153-6"><a href="chapter-bayes.html#cb153-6" tabindex="-1"></a>     Sum       <span class="dv">175</span>  <span class="dv">71</span> <span class="dv">246</span></span></code></pre></div>
 <p>Now, define the events:</p>
 <ul>
 <li>
@@ -219,14 +219,14 @@ P(\text{Good Risk} | \text{Mortgage = Yes}) &amp; = \frac{P(\text{Good Risk} \ca
 </h2>
 <p>The “naive” in Naive Bayes reflects the algorithm’s <strong>simplifying assumption</strong> that all features are <strong>conditionally independent</strong> of each other, given the target class. In reality, features are often correlated (e.g., income and age), but this assumption dramatically simplifies the computations, making the algorithm both efficient and scalable.</p>
 <p>To illustrate, consider the <code>risk</code> dataset from the <strong>liver</strong> package:</p>
-<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="chapter-bayes.html#cb153-1" tabindex="-1"></a><span class="fu">str</span>(risk)</span>
-<span id="cb153-2"><a href="chapter-bayes.html#cb153-2" tabindex="-1"></a>   <span class="st">'data.frame'</span><span class="sc">:</span>    <span class="dv">246</span> obs. of  <span class="dv">6</span> variables<span class="sc">:</span></span>
-<span id="cb153-3"><a href="chapter-bayes.html#cb153-3" tabindex="-1"></a>    <span class="er">$</span> age     <span class="sc">:</span> int  <span class="dv">34</span> <span class="dv">37</span> <span class="dv">29</span> <span class="dv">33</span> <span class="dv">39</span> <span class="dv">28</span> <span class="dv">28</span> <span class="dv">25</span> <span class="dv">41</span> <span class="dv">26</span> ...</span>
-<span id="cb153-4"><a href="chapter-bayes.html#cb153-4" tabindex="-1"></a>    <span class="sc">$</span> marital <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">3</span> levels <span class="st">"single"</span>,<span class="st">"married"</span>,..<span class="sc">:</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> ...</span>
-<span id="cb153-5"><a href="chapter-bayes.html#cb153-5" tabindex="-1"></a>    <span class="sc">$</span> income  <span class="sc">:</span> num  <span class="dv">28061</span> <span class="dv">28009</span> <span class="dv">27615</span> <span class="dv">27287</span> <span class="dv">26954</span> ...</span>
-<span id="cb153-6"><a href="chapter-bayes.html#cb153-6" tabindex="-1"></a>    <span class="sc">$</span> mortgage<span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"yes"</span>,<span class="st">"no"</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> ...</span>
-<span id="cb153-7"><a href="chapter-bayes.html#cb153-7" tabindex="-1"></a>    <span class="sc">$</span> nr.loans<span class="sc">:</span> int  <span class="dv">3</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> ...</span>
-<span id="cb153-8"><a href="chapter-bayes.html#cb153-8" tabindex="-1"></a>    <span class="sc">$</span> risk    <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"good risk"</span>,<span class="st">"bad risk"</span><span class="sc">:</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> ...</span></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="chapter-bayes.html#cb154-1" tabindex="-1"></a><span class="fu">str</span>(risk)</span>
+<span id="cb154-2"><a href="chapter-bayes.html#cb154-2" tabindex="-1"></a>   <span class="st">'data.frame'</span><span class="sc">:</span>    <span class="dv">246</span> obs. of  <span class="dv">6</span> variables<span class="sc">:</span></span>
+<span id="cb154-3"><a href="chapter-bayes.html#cb154-3" tabindex="-1"></a>    <span class="er">$</span> age     <span class="sc">:</span> int  <span class="dv">34</span> <span class="dv">37</span> <span class="dv">29</span> <span class="dv">33</span> <span class="dv">39</span> <span class="dv">28</span> <span class="dv">28</span> <span class="dv">25</span> <span class="dv">41</span> <span class="dv">26</span> ...</span>
+<span id="cb154-4"><a href="chapter-bayes.html#cb154-4" tabindex="-1"></a>    <span class="sc">$</span> marital <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">3</span> levels <span class="st">"single"</span>,<span class="st">"married"</span>,..<span class="sc">:</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> ...</span>
+<span id="cb154-5"><a href="chapter-bayes.html#cb154-5" tabindex="-1"></a>    <span class="sc">$</span> income  <span class="sc">:</span> num  <span class="dv">28061</span> <span class="dv">28009</span> <span class="dv">27615</span> <span class="dv">27287</span> <span class="dv">26954</span> ...</span>
+<span id="cb154-6"><a href="chapter-bayes.html#cb154-6" tabindex="-1"></a>    <span class="sc">$</span> mortgage<span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"yes"</span>,<span class="st">"no"</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> ...</span>
+<span id="cb154-7"><a href="chapter-bayes.html#cb154-7" tabindex="-1"></a>    <span class="sc">$</span> nr.loans<span class="sc">:</span> int  <span class="dv">3</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> ...</span>
+<span id="cb154-8"><a href="chapter-bayes.html#cb154-8" tabindex="-1"></a>    <span class="sc">$</span> risk    <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"good risk"</span>,<span class="st">"bad risk"</span><span class="sc">:</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> ...</span></code></pre></div>
 <p>As you can see this dataset includes features such as <strong>age</strong>, <strong>income</strong>, <strong>marital status</strong>, <strong>mortgage</strong>, and <strong>number of loans</strong>. Naive Bayes assumes that these features are independent when conditioned on the target class (<code>risk</code>), which can be either <code>good risk</code> or <code>bad risk</code>. Let’s express this mathematically. The target variable <span class="math inline">\(Y\)</span> represents <code>risk</code>, with possible values <span class="math inline">\(y_1 = \text{good risk}\)</span> and <span class="math inline">\(y_2 = \text{bad risk}\)</span>, while the predictors are <span class="math inline">\(X_1, X_2, \dots, X_5\)</span>. Using Bayes’ Theorem (Equation <a href="chapter-bayes.html#eq:bayes-theorem">(9.1)</a>), the probability of <span class="math inline">\(Y = y_1\)</span> given all the features is:</p>
 <p><span class="math display">\[
 P(Y = y_1 | X_1 \cap \dots \cap X_5) = \frac{P(Y = y_1) \cdot P(X_1 \cap \dots \cap X_5 | Y = y_1)}{P(X_1 \cap \dots \cap X_5)}
@@ -266,7 +266,7 @@ P(\text{bad risk} | \text{married}) = \frac{\text{count}(\text{bad risk} \cap \t
 </ul>
 <p>This guarantees that every feature-class combination has a small, non-zero probability, thus preventing zero probabilities from dominating predictions.</p>
 <p>In R, the <strong><code>naivebayes</code></strong> package provides the <code>laplace</code> argument to apply Laplace smoothing. By default, <code>laplace = 0</code>, meaning no smoothing is applied. To apply smoothing, simply set <code>laplace = 1</code>. For instance:</p>
-<div class="sourceCode" id="cb155"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb156"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/majkamichal/naivebayes">naivebayes</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Fit Naive Bayes with Laplace smoothing</span></span>
@@ -297,16 +297,16 @@ P(\text{bad risk} | \text{married}) = \frac{\text{count}(\text{bad risk} \cap \t
 <h3>Overview of the Dataset<a class="anchor" aria-label="anchor" href="#overview-of-the-dataset-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>We start by loading the dataset and examining its structure:</p>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="chapter-bayes.html#cb156-1" tabindex="-1"></a><span class="fu">data</span>(risk)</span>
-<span id="cb156-2"><a href="chapter-bayes.html#cb156-2" tabindex="-1"></a></span>
-<span id="cb156-3"><a href="chapter-bayes.html#cb156-3" tabindex="-1"></a><span class="fu">str</span>(risk)</span>
-<span id="cb156-4"><a href="chapter-bayes.html#cb156-4" tabindex="-1"></a>   <span class="st">'data.frame'</span><span class="sc">:</span>    <span class="dv">246</span> obs. of  <span class="dv">6</span> variables<span class="sc">:</span></span>
-<span id="cb156-5"><a href="chapter-bayes.html#cb156-5" tabindex="-1"></a>    <span class="er">$</span> age     <span class="sc">:</span> int  <span class="dv">34</span> <span class="dv">37</span> <span class="dv">29</span> <span class="dv">33</span> <span class="dv">39</span> <span class="dv">28</span> <span class="dv">28</span> <span class="dv">25</span> <span class="dv">41</span> <span class="dv">26</span> ...</span>
-<span id="cb156-6"><a href="chapter-bayes.html#cb156-6" tabindex="-1"></a>    <span class="sc">$</span> marital <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">3</span> levels <span class="st">"single"</span>,<span class="st">"married"</span>,..<span class="sc">:</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> ...</span>
-<span id="cb156-7"><a href="chapter-bayes.html#cb156-7" tabindex="-1"></a>    <span class="sc">$</span> income  <span class="sc">:</span> num  <span class="dv">28061</span> <span class="dv">28009</span> <span class="dv">27615</span> <span class="dv">27287</span> <span class="dv">26954</span> ...</span>
-<span id="cb156-8"><a href="chapter-bayes.html#cb156-8" tabindex="-1"></a>    <span class="sc">$</span> mortgage<span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"yes"</span>,<span class="st">"no"</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> ...</span>
-<span id="cb156-9"><a href="chapter-bayes.html#cb156-9" tabindex="-1"></a>    <span class="sc">$</span> nr.loans<span class="sc">:</span> int  <span class="dv">3</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> ...</span>
-<span id="cb156-10"><a href="chapter-bayes.html#cb156-10" tabindex="-1"></a>    <span class="sc">$</span> risk    <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"good risk"</span>,<span class="st">"bad risk"</span><span class="sc">:</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> ...</span></code></pre></div>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="chapter-bayes.html#cb157-1" tabindex="-1"></a><span class="fu">data</span>(risk)</span>
+<span id="cb157-2"><a href="chapter-bayes.html#cb157-2" tabindex="-1"></a></span>
+<span id="cb157-3"><a href="chapter-bayes.html#cb157-3" tabindex="-1"></a><span class="fu">str</span>(risk)</span>
+<span id="cb157-4"><a href="chapter-bayes.html#cb157-4" tabindex="-1"></a>   <span class="st">'data.frame'</span><span class="sc">:</span>    <span class="dv">246</span> obs. of  <span class="dv">6</span> variables<span class="sc">:</span></span>
+<span id="cb157-5"><a href="chapter-bayes.html#cb157-5" tabindex="-1"></a>    <span class="er">$</span> age     <span class="sc">:</span> int  <span class="dv">34</span> <span class="dv">37</span> <span class="dv">29</span> <span class="dv">33</span> <span class="dv">39</span> <span class="dv">28</span> <span class="dv">28</span> <span class="dv">25</span> <span class="dv">41</span> <span class="dv">26</span> ...</span>
+<span id="cb157-6"><a href="chapter-bayes.html#cb157-6" tabindex="-1"></a>    <span class="sc">$</span> marital <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">3</span> levels <span class="st">"single"</span>,<span class="st">"married"</span>,..<span class="sc">:</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> ...</span>
+<span id="cb157-7"><a href="chapter-bayes.html#cb157-7" tabindex="-1"></a>    <span class="sc">$</span> income  <span class="sc">:</span> num  <span class="dv">28061</span> <span class="dv">28009</span> <span class="dv">27615</span> <span class="dv">27287</span> <span class="dv">26954</span> ...</span>
+<span id="cb157-8"><a href="chapter-bayes.html#cb157-8" tabindex="-1"></a>    <span class="sc">$</span> mortgage<span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"yes"</span>,<span class="st">"no"</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> ...</span>
+<span id="cb157-9"><a href="chapter-bayes.html#cb157-9" tabindex="-1"></a>    <span class="sc">$</span> nr.loans<span class="sc">:</span> int  <span class="dv">3</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> ...</span>
+<span id="cb157-10"><a href="chapter-bayes.html#cb157-10" tabindex="-1"></a>    <span class="sc">$</span> risk    <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"good risk"</span>,<span class="st">"bad risk"</span><span class="sc">:</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> ...</span></code></pre></div>
 <p>The <code>risk</code> dataset is a <code>data.frame</code> with 6 variables and 246 observations. It contains 5 predictors and a target variable <code>risk</code>, which is a binary factor with two levels: “<code>good risk</code>” and “<code>bad risk</code>.” The predictors in this dataset are:</p>
 <ul>
 <li>
@@ -333,7 +333,7 @@ P(\text{bad risk} | \text{married}) = \frac{\text{count}(\text{bad risk} \cap \t
 <h3>Data Preparation<a class="anchor" aria-label="anchor" href="#data-preparation-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>To evaluate the model’s performance, we partition the dataset into <strong>training</strong> and <strong>testing</strong> sets, using an 80/20 split. This ensures that the classifier is trained on one subset and tested on unseen data:</p>
-<div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb158"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">data_sets</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/liver/man/partition.html">partition</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">risk</span>, ratio <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.8</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span>
@@ -344,12 +344,12 @@ P(\text{bad risk} | \text{married}) = \frac{\text{count}(\text{bad risk} \cap \t
 <span><span class="va">actual_test</span> <span class="op">=</span> <span class="va">test_set</span><span class="op">$</span><span class="va">risk</span></span></code></pre></div>
 <p>The <code><a href="https://rdrr.io/r/base/Random.html">set.seed()</a></code> function ensures reproducibility of the data split.</p>
 <p>To validate the partitioning, we test whether the proportions of the <code>marital</code> variable are similar in the training and testing sets. We use a chi-squared test to compare the proportions across the three categories of <code>marital</code>:</p>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="chapter-bayes.html#cb158-1" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="at">x =</span> <span class="fu">table</span>(train_set<span class="sc">$</span>marital), <span class="at">y =</span> <span class="fu">table</span>(test_set<span class="sc">$</span>marital))</span>
-<span id="cb158-2"><a href="chapter-bayes.html#cb158-2" tabindex="-1"></a>   </span>
-<span id="cb158-3"><a href="chapter-bayes.html#cb158-3" tabindex="-1"></a>    Pearson<span class="st">'s Chi-squared test</span></span>
-<span id="cb158-4"><a href="chapter-bayes.html#cb158-4" tabindex="-1"></a><span class="st">   </span></span>
-<span id="cb158-5"><a href="chapter-bayes.html#cb158-5" tabindex="-1"></a><span class="st">   data:  table(train_set$marital) and table(test_set$marital)</span></span>
-<span id="cb158-6"><a href="chapter-bayes.html#cb158-6" tabindex="-1"></a><span class="st">   X-squared = 6, df = 4, p-value = 0.1991</span></span></code></pre></div>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="chapter-bayes.html#cb159-1" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="at">x =</span> <span class="fu">table</span>(train_set<span class="sc">$</span>marital), <span class="at">y =</span> <span class="fu">table</span>(test_set<span class="sc">$</span>marital))</span>
+<span id="cb159-2"><a href="chapter-bayes.html#cb159-2" tabindex="-1"></a>   </span>
+<span id="cb159-3"><a href="chapter-bayes.html#cb159-3" tabindex="-1"></a>    Pearson<span class="st">'s Chi-squared test</span></span>
+<span id="cb159-4"><a href="chapter-bayes.html#cb159-4" tabindex="-1"></a><span class="st">   </span></span>
+<span id="cb159-5"><a href="chapter-bayes.html#cb159-5" tabindex="-1"></a><span class="st">   data:  table(train_set$marital) and table(test_set$marital)</span></span>
+<span id="cb159-6"><a href="chapter-bayes.html#cb159-6" tabindex="-1"></a><span class="st">   X-squared = 6, df = 4, p-value = 0.1991</span></span></code></pre></div>
 <p>The hypotheses for this test are:<br><span class="math display">\[
 \begin{aligned}
 H_0 &amp;: \text{The proportions of `marital` categories are the same in the training and test sets.} \\
@@ -362,96 +362,96 @@ H_a &amp;: \text{At least one category has a different proportion.}
 <h3>Applying the Naive Bayes Classifier<a class="anchor" aria-label="anchor" href="#applying-the-naive-bayes-classifier"><i class="fas fa-link"></i></a>
 </h3>
 <p>We specify the model formula, with <code>risk</code> as the target variable and all other predictors as features:</p>
-<div class="sourceCode" id="cb159"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb160"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">formula</span> <span class="op">=</span> <span class="va">risk</span> <span class="op">~</span> <span class="va">age</span> <span class="op">+</span> <span class="va">income</span> <span class="op">+</span> <span class="va">mortgage</span> <span class="op">+</span> <span class="va">nr.loans</span> <span class="op">+</span> <span class="va">marital</span></span></code></pre></div>
 <p>Using the <strong><code>naivebayes</code></strong> package, we train the Naive Bayes classifier on the training data:</p>
-<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="chapter-bayes.html#cb160-1" tabindex="-1"></a><span class="fu">library</span>(naivebayes)</span>
-<span id="cb160-2"><a href="chapter-bayes.html#cb160-2" tabindex="-1"></a></span>
-<span id="cb160-3"><a href="chapter-bayes.html#cb160-3" tabindex="-1"></a>naive_bayes <span class="ot">=</span> <span class="fu">naive_bayes</span>(formula, <span class="at">data =</span> train_set)</span>
-<span id="cb160-4"><a href="chapter-bayes.html#cb160-4" tabindex="-1"></a></span>
-<span id="cb160-5"><a href="chapter-bayes.html#cb160-5" tabindex="-1"></a>naive_bayes</span>
-<span id="cb160-6"><a href="chapter-bayes.html#cb160-6" tabindex="-1"></a>   </span>
-<span id="cb160-7"><a href="chapter-bayes.html#cb160-7" tabindex="-1"></a>   <span class="sc">==</span><span class="er">===============================</span> Naive Bayes <span class="sc">==</span><span class="er">================================</span></span>
-<span id="cb160-8"><a href="chapter-bayes.html#cb160-8" tabindex="-1"></a>   </span>
-<span id="cb160-9"><a href="chapter-bayes.html#cb160-9" tabindex="-1"></a>   Call<span class="sc">:</span></span>
-<span id="cb160-10"><a href="chapter-bayes.html#cb160-10" tabindex="-1"></a>   <span class="fu">naive_bayes.formula</span>(<span class="at">formula =</span> formula, <span class="at">data =</span> train_set)</span>
-<span id="cb160-11"><a href="chapter-bayes.html#cb160-11" tabindex="-1"></a>   </span>
-<span id="cb160-12"><a href="chapter-bayes.html#cb160-12" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
-<span id="cb160-13"><a href="chapter-bayes.html#cb160-13" tabindex="-1"></a>    </span>
-<span id="cb160-14"><a href="chapter-bayes.html#cb160-14" tabindex="-1"></a>   Laplace smoothing<span class="sc">:</span> <span class="dv">0</span></span>
-<span id="cb160-15"><a href="chapter-bayes.html#cb160-15" tabindex="-1"></a>   </span>
-<span id="cb160-16"><a href="chapter-bayes.html#cb160-16" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
-<span id="cb160-17"><a href="chapter-bayes.html#cb160-17" tabindex="-1"></a>    </span>
-<span id="cb160-18"><a href="chapter-bayes.html#cb160-18" tabindex="-1"></a>   A priori probabilities<span class="sc">:</span> </span>
-<span id="cb160-19"><a href="chapter-bayes.html#cb160-19" tabindex="-1"></a>   </span>
-<span id="cb160-20"><a href="chapter-bayes.html#cb160-20" tabindex="-1"></a>   good risk  bad risk </span>
-<span id="cb160-21"><a href="chapter-bayes.html#cb160-21" tabindex="-1"></a>   <span class="fl">0.4923858</span> <span class="fl">0.5076142</span> </span>
-<span id="cb160-22"><a href="chapter-bayes.html#cb160-22" tabindex="-1"></a>   </span>
-<span id="cb160-23"><a href="chapter-bayes.html#cb160-23" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
-<span id="cb160-24"><a href="chapter-bayes.html#cb160-24" tabindex="-1"></a>    </span>
-<span id="cb160-25"><a href="chapter-bayes.html#cb160-25" tabindex="-1"></a>   Tables<span class="sc">:</span> </span>
-<span id="cb160-26"><a href="chapter-bayes.html#cb160-26" tabindex="-1"></a>   </span>
-<span id="cb160-27"><a href="chapter-bayes.html#cb160-27" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
-<span id="cb160-28"><a href="chapter-bayes.html#cb160-28" tabindex="-1"></a>   <span class="er">::</span> <span class="fu">age</span> (Gaussian) </span>
-<span id="cb160-29"><a href="chapter-bayes.html#cb160-29" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
-<span id="cb160-30"><a href="chapter-bayes.html#cb160-30" tabindex="-1"></a>         </span>
-<span id="cb160-31"><a href="chapter-bayes.html#cb160-31" tabindex="-1"></a>   age    good risk  bad risk</span>
-<span id="cb160-32"><a href="chapter-bayes.html#cb160-32" tabindex="-1"></a>     mean <span class="fl">46.453608</span> <span class="fl">35.470000</span></span>
-<span id="cb160-33"><a href="chapter-bayes.html#cb160-33" tabindex="-1"></a>     sd    <span class="fl">8.563513</span>  <span class="fl">9.542520</span></span>
-<span id="cb160-34"><a href="chapter-bayes.html#cb160-34" tabindex="-1"></a>   </span>
-<span id="cb160-35"><a href="chapter-bayes.html#cb160-35" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
-<span id="cb160-36"><a href="chapter-bayes.html#cb160-36" tabindex="-1"></a>   <span class="er">::</span> <span class="fu">income</span> (Gaussian) </span>
-<span id="cb160-37"><a href="chapter-bayes.html#cb160-37" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
-<span id="cb160-38"><a href="chapter-bayes.html#cb160-38" tabindex="-1"></a>         </span>
-<span id="cb160-39"><a href="chapter-bayes.html#cb160-39" tabindex="-1"></a>   income good risk  bad risk</span>
-<span id="cb160-40"><a href="chapter-bayes.html#cb160-40" tabindex="-1"></a>     mean <span class="fl">48888.987</span> <span class="fl">27309.560</span></span>
-<span id="cb160-41"><a href="chapter-bayes.html#cb160-41" tabindex="-1"></a>     sd    <span class="fl">9986.962</span>  <span class="fl">7534.639</span></span>
-<span id="cb160-42"><a href="chapter-bayes.html#cb160-42" tabindex="-1"></a>   </span>
-<span id="cb160-43"><a href="chapter-bayes.html#cb160-43" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
-<span id="cb160-44"><a href="chapter-bayes.html#cb160-44" tabindex="-1"></a>   <span class="er">::</span> <span class="fu">mortgage</span> (Bernoulli) </span>
-<span id="cb160-45"><a href="chapter-bayes.html#cb160-45" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
-<span id="cb160-46"><a href="chapter-bayes.html#cb160-46" tabindex="-1"></a>           </span>
-<span id="cb160-47"><a href="chapter-bayes.html#cb160-47" tabindex="-1"></a>   mortgage good risk  bad risk</span>
-<span id="cb160-48"><a href="chapter-bayes.html#cb160-48" tabindex="-1"></a>        yes <span class="fl">0.6804124</span> <span class="fl">0.7400000</span></span>
-<span id="cb160-49"><a href="chapter-bayes.html#cb160-49" tabindex="-1"></a>        no  <span class="fl">0.3195876</span> <span class="fl">0.2600000</span></span>
-<span id="cb160-50"><a href="chapter-bayes.html#cb160-50" tabindex="-1"></a>   </span>
-<span id="cb160-51"><a href="chapter-bayes.html#cb160-51" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
-<span id="cb160-52"><a href="chapter-bayes.html#cb160-52" tabindex="-1"></a>   <span class="er">::</span> <span class="fu">nr.loans</span> (Gaussian) </span>
-<span id="cb160-53"><a href="chapter-bayes.html#cb160-53" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
-<span id="cb160-54"><a href="chapter-bayes.html#cb160-54" tabindex="-1"></a>           </span>
-<span id="cb160-55"><a href="chapter-bayes.html#cb160-55" tabindex="-1"></a>   nr.loans good risk  bad risk</span>
-<span id="cb160-56"><a href="chapter-bayes.html#cb160-56" tabindex="-1"></a>       mean <span class="fl">1.0309278</span> <span class="fl">1.6600000</span></span>
-<span id="cb160-57"><a href="chapter-bayes.html#cb160-57" tabindex="-1"></a>       sd   <span class="fl">0.7282057</span> <span class="fl">0.7550503</span></span>
-<span id="cb160-58"><a href="chapter-bayes.html#cb160-58" tabindex="-1"></a>   </span>
-<span id="cb160-59"><a href="chapter-bayes.html#cb160-59" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
-<span id="cb160-60"><a href="chapter-bayes.html#cb160-60" tabindex="-1"></a>   <span class="er">::</span> <span class="fu">marital</span> (Categorical) </span>
-<span id="cb160-61"><a href="chapter-bayes.html#cb160-61" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
-<span id="cb160-62"><a href="chapter-bayes.html#cb160-62" tabindex="-1"></a>            </span>
-<span id="cb160-63"><a href="chapter-bayes.html#cb160-63" tabindex="-1"></a>   marital    good risk   bad risk</span>
-<span id="cb160-64"><a href="chapter-bayes.html#cb160-64" tabindex="-1"></a>     single  <span class="fl">0.38144330</span> <span class="fl">0.49000000</span></span>
-<span id="cb160-65"><a href="chapter-bayes.html#cb160-65" tabindex="-1"></a>     married <span class="fl">0.52577320</span> <span class="fl">0.11000000</span></span>
-<span id="cb160-66"><a href="chapter-bayes.html#cb160-66" tabindex="-1"></a>     other   <span class="fl">0.09278351</span> <span class="fl">0.40000000</span></span>
-<span id="cb160-67"><a href="chapter-bayes.html#cb160-67" tabindex="-1"></a>   </span>
-<span id="cb160-68"><a href="chapter-bayes.html#cb160-68" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span></span></code></pre></div>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="chapter-bayes.html#cb161-1" tabindex="-1"></a><span class="fu">library</span>(naivebayes)</span>
+<span id="cb161-2"><a href="chapter-bayes.html#cb161-2" tabindex="-1"></a></span>
+<span id="cb161-3"><a href="chapter-bayes.html#cb161-3" tabindex="-1"></a>naive_bayes <span class="ot">=</span> <span class="fu">naive_bayes</span>(formula, <span class="at">data =</span> train_set)</span>
+<span id="cb161-4"><a href="chapter-bayes.html#cb161-4" tabindex="-1"></a></span>
+<span id="cb161-5"><a href="chapter-bayes.html#cb161-5" tabindex="-1"></a>naive_bayes</span>
+<span id="cb161-6"><a href="chapter-bayes.html#cb161-6" tabindex="-1"></a>   </span>
+<span id="cb161-7"><a href="chapter-bayes.html#cb161-7" tabindex="-1"></a>   <span class="sc">==</span><span class="er">===============================</span> Naive Bayes <span class="sc">==</span><span class="er">================================</span></span>
+<span id="cb161-8"><a href="chapter-bayes.html#cb161-8" tabindex="-1"></a>   </span>
+<span id="cb161-9"><a href="chapter-bayes.html#cb161-9" tabindex="-1"></a>   Call<span class="sc">:</span></span>
+<span id="cb161-10"><a href="chapter-bayes.html#cb161-10" tabindex="-1"></a>   <span class="fu">naive_bayes.formula</span>(<span class="at">formula =</span> formula, <span class="at">data =</span> train_set)</span>
+<span id="cb161-11"><a href="chapter-bayes.html#cb161-11" tabindex="-1"></a>   </span>
+<span id="cb161-12"><a href="chapter-bayes.html#cb161-12" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
+<span id="cb161-13"><a href="chapter-bayes.html#cb161-13" tabindex="-1"></a>    </span>
+<span id="cb161-14"><a href="chapter-bayes.html#cb161-14" tabindex="-1"></a>   Laplace smoothing<span class="sc">:</span> <span class="dv">0</span></span>
+<span id="cb161-15"><a href="chapter-bayes.html#cb161-15" tabindex="-1"></a>   </span>
+<span id="cb161-16"><a href="chapter-bayes.html#cb161-16" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
+<span id="cb161-17"><a href="chapter-bayes.html#cb161-17" tabindex="-1"></a>    </span>
+<span id="cb161-18"><a href="chapter-bayes.html#cb161-18" tabindex="-1"></a>   A priori probabilities<span class="sc">:</span> </span>
+<span id="cb161-19"><a href="chapter-bayes.html#cb161-19" tabindex="-1"></a>   </span>
+<span id="cb161-20"><a href="chapter-bayes.html#cb161-20" tabindex="-1"></a>   good risk  bad risk </span>
+<span id="cb161-21"><a href="chapter-bayes.html#cb161-21" tabindex="-1"></a>   <span class="fl">0.4923858</span> <span class="fl">0.5076142</span> </span>
+<span id="cb161-22"><a href="chapter-bayes.html#cb161-22" tabindex="-1"></a>   </span>
+<span id="cb161-23"><a href="chapter-bayes.html#cb161-23" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
+<span id="cb161-24"><a href="chapter-bayes.html#cb161-24" tabindex="-1"></a>    </span>
+<span id="cb161-25"><a href="chapter-bayes.html#cb161-25" tabindex="-1"></a>   Tables<span class="sc">:</span> </span>
+<span id="cb161-26"><a href="chapter-bayes.html#cb161-26" tabindex="-1"></a>   </span>
+<span id="cb161-27"><a href="chapter-bayes.html#cb161-27" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
+<span id="cb161-28"><a href="chapter-bayes.html#cb161-28" tabindex="-1"></a>   <span class="er">::</span> <span class="fu">age</span> (Gaussian) </span>
+<span id="cb161-29"><a href="chapter-bayes.html#cb161-29" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
+<span id="cb161-30"><a href="chapter-bayes.html#cb161-30" tabindex="-1"></a>         </span>
+<span id="cb161-31"><a href="chapter-bayes.html#cb161-31" tabindex="-1"></a>   age    good risk  bad risk</span>
+<span id="cb161-32"><a href="chapter-bayes.html#cb161-32" tabindex="-1"></a>     mean <span class="fl">46.453608</span> <span class="fl">35.470000</span></span>
+<span id="cb161-33"><a href="chapter-bayes.html#cb161-33" tabindex="-1"></a>     sd    <span class="fl">8.563513</span>  <span class="fl">9.542520</span></span>
+<span id="cb161-34"><a href="chapter-bayes.html#cb161-34" tabindex="-1"></a>   </span>
+<span id="cb161-35"><a href="chapter-bayes.html#cb161-35" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
+<span id="cb161-36"><a href="chapter-bayes.html#cb161-36" tabindex="-1"></a>   <span class="er">::</span> <span class="fu">income</span> (Gaussian) </span>
+<span id="cb161-37"><a href="chapter-bayes.html#cb161-37" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
+<span id="cb161-38"><a href="chapter-bayes.html#cb161-38" tabindex="-1"></a>         </span>
+<span id="cb161-39"><a href="chapter-bayes.html#cb161-39" tabindex="-1"></a>   income good risk  bad risk</span>
+<span id="cb161-40"><a href="chapter-bayes.html#cb161-40" tabindex="-1"></a>     mean <span class="fl">48888.987</span> <span class="fl">27309.560</span></span>
+<span id="cb161-41"><a href="chapter-bayes.html#cb161-41" tabindex="-1"></a>     sd    <span class="fl">9986.962</span>  <span class="fl">7534.639</span></span>
+<span id="cb161-42"><a href="chapter-bayes.html#cb161-42" tabindex="-1"></a>   </span>
+<span id="cb161-43"><a href="chapter-bayes.html#cb161-43" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
+<span id="cb161-44"><a href="chapter-bayes.html#cb161-44" tabindex="-1"></a>   <span class="er">::</span> <span class="fu">mortgage</span> (Bernoulli) </span>
+<span id="cb161-45"><a href="chapter-bayes.html#cb161-45" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
+<span id="cb161-46"><a href="chapter-bayes.html#cb161-46" tabindex="-1"></a>           </span>
+<span id="cb161-47"><a href="chapter-bayes.html#cb161-47" tabindex="-1"></a>   mortgage good risk  bad risk</span>
+<span id="cb161-48"><a href="chapter-bayes.html#cb161-48" tabindex="-1"></a>        yes <span class="fl">0.6804124</span> <span class="fl">0.7400000</span></span>
+<span id="cb161-49"><a href="chapter-bayes.html#cb161-49" tabindex="-1"></a>        no  <span class="fl">0.3195876</span> <span class="fl">0.2600000</span></span>
+<span id="cb161-50"><a href="chapter-bayes.html#cb161-50" tabindex="-1"></a>   </span>
+<span id="cb161-51"><a href="chapter-bayes.html#cb161-51" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
+<span id="cb161-52"><a href="chapter-bayes.html#cb161-52" tabindex="-1"></a>   <span class="er">::</span> <span class="fu">nr.loans</span> (Gaussian) </span>
+<span id="cb161-53"><a href="chapter-bayes.html#cb161-53" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
+<span id="cb161-54"><a href="chapter-bayes.html#cb161-54" tabindex="-1"></a>           </span>
+<span id="cb161-55"><a href="chapter-bayes.html#cb161-55" tabindex="-1"></a>   nr.loans good risk  bad risk</span>
+<span id="cb161-56"><a href="chapter-bayes.html#cb161-56" tabindex="-1"></a>       mean <span class="fl">1.0309278</span> <span class="fl">1.6600000</span></span>
+<span id="cb161-57"><a href="chapter-bayes.html#cb161-57" tabindex="-1"></a>       sd   <span class="fl">0.7282057</span> <span class="fl">0.7550503</span></span>
+<span id="cb161-58"><a href="chapter-bayes.html#cb161-58" tabindex="-1"></a>   </span>
+<span id="cb161-59"><a href="chapter-bayes.html#cb161-59" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
+<span id="cb161-60"><a href="chapter-bayes.html#cb161-60" tabindex="-1"></a>   <span class="er">::</span> <span class="fu">marital</span> (Categorical) </span>
+<span id="cb161-61"><a href="chapter-bayes.html#cb161-61" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span> </span>
+<span id="cb161-62"><a href="chapter-bayes.html#cb161-62" tabindex="-1"></a>            </span>
+<span id="cb161-63"><a href="chapter-bayes.html#cb161-63" tabindex="-1"></a>   marital    good risk   bad risk</span>
+<span id="cb161-64"><a href="chapter-bayes.html#cb161-64" tabindex="-1"></a>     single  <span class="fl">0.38144330</span> <span class="fl">0.49000000</span></span>
+<span id="cb161-65"><a href="chapter-bayes.html#cb161-65" tabindex="-1"></a>     married <span class="fl">0.52577320</span> <span class="fl">0.11000000</span></span>
+<span id="cb161-66"><a href="chapter-bayes.html#cb161-66" tabindex="-1"></a>     other   <span class="fl">0.09278351</span> <span class="fl">0.40000000</span></span>
+<span id="cb161-67"><a href="chapter-bayes.html#cb161-67" tabindex="-1"></a>   </span>
+<span id="cb161-68"><a href="chapter-bayes.html#cb161-68" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span></span></code></pre></div>
 <p>The <code><a href="https://majkamichal.github.io/naivebayes/reference/naive_bayes.html">naive_bayes()</a></code> function computes the conditional probabilities for each feature given the target class. For categorical predictors (e.g., <code>marital</code>, <code>mortgage</code>), it calculates class-conditional probabilities. For continuous predictors (e.g., <code>age</code>, <code>income</code>, <code>nr.loans</code>), it assumes a Gaussian distribution and calculates the mean and standard deviation for each class.</p>
-<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="chapter-bayes.html#cb161-1" tabindex="-1"></a><span class="fu">summary</span>(naive_bayes)</span>
-<span id="cb161-2"><a href="chapter-bayes.html#cb161-2" tabindex="-1"></a>   </span>
-<span id="cb161-3"><a href="chapter-bayes.html#cb161-3" tabindex="-1"></a>   <span class="sc">==</span><span class="er">===============================</span> Naive Bayes <span class="sc">==</span><span class="er">================================</span> </span>
-<span id="cb161-4"><a href="chapter-bayes.html#cb161-4" tabindex="-1"></a>    </span>
-<span id="cb161-5"><a href="chapter-bayes.html#cb161-5" tabindex="-1"></a>   <span class="sc">-</span> Call<span class="sc">:</span> <span class="fu">naive_bayes.formula</span>(<span class="at">formula =</span> formula, <span class="at">data =</span> train_set) </span>
-<span id="cb161-6"><a href="chapter-bayes.html#cb161-6" tabindex="-1"></a>   <span class="sc">-</span> Laplace<span class="sc">:</span> <span class="dv">0</span> </span>
-<span id="cb161-7"><a href="chapter-bayes.html#cb161-7" tabindex="-1"></a>   <span class="sc">-</span> Classes<span class="sc">:</span> <span class="dv">2</span> </span>
-<span id="cb161-8"><a href="chapter-bayes.html#cb161-8" tabindex="-1"></a>   <span class="sc">-</span> Samples<span class="sc">:</span> <span class="dv">197</span> </span>
-<span id="cb161-9"><a href="chapter-bayes.html#cb161-9" tabindex="-1"></a>   <span class="sc">-</span> Features<span class="sc">:</span> <span class="dv">5</span> </span>
-<span id="cb161-10"><a href="chapter-bayes.html#cb161-10" tabindex="-1"></a>   <span class="sc">-</span> Conditional distributions<span class="sc">:</span> </span>
-<span id="cb161-11"><a href="chapter-bayes.html#cb161-11" tabindex="-1"></a>       <span class="sc">-</span> Bernoulli<span class="sc">:</span> <span class="dv">1</span></span>
-<span id="cb161-12"><a href="chapter-bayes.html#cb161-12" tabindex="-1"></a>       <span class="sc">-</span> Categorical<span class="sc">:</span> <span class="dv">1</span></span>
-<span id="cb161-13"><a href="chapter-bayes.html#cb161-13" tabindex="-1"></a>       <span class="sc">-</span> Gaussian<span class="sc">:</span> <span class="dv">3</span></span>
-<span id="cb161-14"><a href="chapter-bayes.html#cb161-14" tabindex="-1"></a>   <span class="sc">-</span> Prior probabilities<span class="sc">:</span> </span>
-<span id="cb161-15"><a href="chapter-bayes.html#cb161-15" tabindex="-1"></a>       <span class="sc">-</span> good risk<span class="sc">:</span> <span class="fl">0.4924</span></span>
-<span id="cb161-16"><a href="chapter-bayes.html#cb161-16" tabindex="-1"></a>       <span class="sc">-</span> bad risk<span class="sc">:</span> <span class="fl">0.5076</span></span>
-<span id="cb161-17"><a href="chapter-bayes.html#cb161-17" tabindex="-1"></a>   </span>
-<span id="cb161-18"><a href="chapter-bayes.html#cb161-18" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span></span></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="chapter-bayes.html#cb162-1" tabindex="-1"></a><span class="fu">summary</span>(naive_bayes)</span>
+<span id="cb162-2"><a href="chapter-bayes.html#cb162-2" tabindex="-1"></a>   </span>
+<span id="cb162-3"><a href="chapter-bayes.html#cb162-3" tabindex="-1"></a>   <span class="sc">==</span><span class="er">===============================</span> Naive Bayes <span class="sc">==</span><span class="er">================================</span> </span>
+<span id="cb162-4"><a href="chapter-bayes.html#cb162-4" tabindex="-1"></a>    </span>
+<span id="cb162-5"><a href="chapter-bayes.html#cb162-5" tabindex="-1"></a>   <span class="sc">-</span> Call<span class="sc">:</span> <span class="fu">naive_bayes.formula</span>(<span class="at">formula =</span> formula, <span class="at">data =</span> train_set) </span>
+<span id="cb162-6"><a href="chapter-bayes.html#cb162-6" tabindex="-1"></a>   <span class="sc">-</span> Laplace<span class="sc">:</span> <span class="dv">0</span> </span>
+<span id="cb162-7"><a href="chapter-bayes.html#cb162-7" tabindex="-1"></a>   <span class="sc">-</span> Classes<span class="sc">:</span> <span class="dv">2</span> </span>
+<span id="cb162-8"><a href="chapter-bayes.html#cb162-8" tabindex="-1"></a>   <span class="sc">-</span> Samples<span class="sc">:</span> <span class="dv">197</span> </span>
+<span id="cb162-9"><a href="chapter-bayes.html#cb162-9" tabindex="-1"></a>   <span class="sc">-</span> Features<span class="sc">:</span> <span class="dv">5</span> </span>
+<span id="cb162-10"><a href="chapter-bayes.html#cb162-10" tabindex="-1"></a>   <span class="sc">-</span> Conditional distributions<span class="sc">:</span> </span>
+<span id="cb162-11"><a href="chapter-bayes.html#cb162-11" tabindex="-1"></a>       <span class="sc">-</span> Bernoulli<span class="sc">:</span> <span class="dv">1</span></span>
+<span id="cb162-12"><a href="chapter-bayes.html#cb162-12" tabindex="-1"></a>       <span class="sc">-</span> Categorical<span class="sc">:</span> <span class="dv">1</span></span>
+<span id="cb162-13"><a href="chapter-bayes.html#cb162-13" tabindex="-1"></a>       <span class="sc">-</span> Gaussian<span class="sc">:</span> <span class="dv">3</span></span>
+<span id="cb162-14"><a href="chapter-bayes.html#cb162-14" tabindex="-1"></a>   <span class="sc">-</span> Prior probabilities<span class="sc">:</span> </span>
+<span id="cb162-15"><a href="chapter-bayes.html#cb162-15" tabindex="-1"></a>       <span class="sc">-</span> good risk<span class="sc">:</span> <span class="fl">0.4924</span></span>
+<span id="cb162-16"><a href="chapter-bayes.html#cb162-16" tabindex="-1"></a>       <span class="sc">-</span> bad risk<span class="sc">:</span> <span class="fl">0.5076</span></span>
+<span id="cb162-17"><a href="chapter-bayes.html#cb162-17" tabindex="-1"></a>   </span>
+<span id="cb162-18"><a href="chapter-bayes.html#cb162-18" tabindex="-1"></a>   <span class="sc">--------------------------------------------------------------------------------</span></span></code></pre></div>
 <p>The summary output provides the following details:</p>
 <ul>
 <li>
@@ -466,20 +466,20 @@ H_a &amp;: \text{At least one category has a different proportion.}
 <h3>Prediction and Model Evaluation<a class="anchor" aria-label="anchor" href="#prediction-and-model-evaluation"><i class="fas fa-link"></i></a>
 </h3>
 <p>We now use the trained model to predict the <strong>posterior probabilities</strong> for the test set:</p>
-<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="chapter-bayes.html#cb162-1" tabindex="-1"></a>prob_naive_bayes <span class="ot">=</span> <span class="fu">predict</span>(naive_bayes, test_set, <span class="at">type =</span> <span class="st">"prob"</span>)</span>
-<span id="cb162-2"><a href="chapter-bayes.html#cb162-2" tabindex="-1"></a></span>
-<span id="cb162-3"><a href="chapter-bayes.html#cb162-3" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">head</span>(prob_naive_bayes, <span class="at">n =</span> <span class="dv">10</span>), <span class="dv">3</span>)</span>
-<span id="cb162-4"><a href="chapter-bayes.html#cb162-4" tabindex="-1"></a>         good risk bad risk</span>
-<span id="cb162-5"><a href="chapter-bayes.html#cb162-5" tabindex="-1"></a>    [<span class="dv">1</span>,]     <span class="fl">0.001</span>    <span class="fl">0.999</span></span>
-<span id="cb162-6"><a href="chapter-bayes.html#cb162-6" tabindex="-1"></a>    [<span class="dv">2</span>,]     <span class="fl">0.013</span>    <span class="fl">0.987</span></span>
-<span id="cb162-7"><a href="chapter-bayes.html#cb162-7" tabindex="-1"></a>    [<span class="dv">3</span>,]     <span class="fl">0.000</span>    <span class="fl">1.000</span></span>
-<span id="cb162-8"><a href="chapter-bayes.html#cb162-8" tabindex="-1"></a>    [<span class="dv">4</span>,]     <span class="fl">0.184</span>    <span class="fl">0.816</span></span>
-<span id="cb162-9"><a href="chapter-bayes.html#cb162-9" tabindex="-1"></a>    [<span class="dv">5</span>,]     <span class="fl">0.614</span>    <span class="fl">0.386</span></span>
-<span id="cb162-10"><a href="chapter-bayes.html#cb162-10" tabindex="-1"></a>    [<span class="dv">6</span>,]     <span class="fl">0.193</span>    <span class="fl">0.807</span></span>
-<span id="cb162-11"><a href="chapter-bayes.html#cb162-11" tabindex="-1"></a>    [<span class="dv">7</span>,]     <span class="fl">0.002</span>    <span class="fl">0.998</span></span>
-<span id="cb162-12"><a href="chapter-bayes.html#cb162-12" tabindex="-1"></a>    [<span class="dv">8</span>,]     <span class="fl">0.002</span>    <span class="fl">0.998</span></span>
-<span id="cb162-13"><a href="chapter-bayes.html#cb162-13" tabindex="-1"></a>    [<span class="dv">9</span>,]     <span class="fl">0.378</span>    <span class="fl">0.622</span></span>
-<span id="cb162-14"><a href="chapter-bayes.html#cb162-14" tabindex="-1"></a>   [<span class="dv">10</span>,]     <span class="fl">0.283</span>    <span class="fl">0.717</span></span></code></pre></div>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="chapter-bayes.html#cb163-1" tabindex="-1"></a>prob_naive_bayes <span class="ot">=</span> <span class="fu">predict</span>(naive_bayes, test_set, <span class="at">type =</span> <span class="st">"prob"</span>)</span>
+<span id="cb163-2"><a href="chapter-bayes.html#cb163-2" tabindex="-1"></a></span>
+<span id="cb163-3"><a href="chapter-bayes.html#cb163-3" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">head</span>(prob_naive_bayes, <span class="at">n =</span> <span class="dv">10</span>), <span class="dv">3</span>)</span>
+<span id="cb163-4"><a href="chapter-bayes.html#cb163-4" tabindex="-1"></a>         good risk bad risk</span>
+<span id="cb163-5"><a href="chapter-bayes.html#cb163-5" tabindex="-1"></a>    [<span class="dv">1</span>,]     <span class="fl">0.001</span>    <span class="fl">0.999</span></span>
+<span id="cb163-6"><a href="chapter-bayes.html#cb163-6" tabindex="-1"></a>    [<span class="dv">2</span>,]     <span class="fl">0.013</span>    <span class="fl">0.987</span></span>
+<span id="cb163-7"><a href="chapter-bayes.html#cb163-7" tabindex="-1"></a>    [<span class="dv">3</span>,]     <span class="fl">0.000</span>    <span class="fl">1.000</span></span>
+<span id="cb163-8"><a href="chapter-bayes.html#cb163-8" tabindex="-1"></a>    [<span class="dv">4</span>,]     <span class="fl">0.184</span>    <span class="fl">0.816</span></span>
+<span id="cb163-9"><a href="chapter-bayes.html#cb163-9" tabindex="-1"></a>    [<span class="dv">5</span>,]     <span class="fl">0.614</span>    <span class="fl">0.386</span></span>
+<span id="cb163-10"><a href="chapter-bayes.html#cb163-10" tabindex="-1"></a>    [<span class="dv">6</span>,]     <span class="fl">0.193</span>    <span class="fl">0.807</span></span>
+<span id="cb163-11"><a href="chapter-bayes.html#cb163-11" tabindex="-1"></a>    [<span class="dv">7</span>,]     <span class="fl">0.002</span>    <span class="fl">0.998</span></span>
+<span id="cb163-12"><a href="chapter-bayes.html#cb163-12" tabindex="-1"></a>    [<span class="dv">8</span>,]     <span class="fl">0.002</span>    <span class="fl">0.998</span></span>
+<span id="cb163-13"><a href="chapter-bayes.html#cb163-13" tabindex="-1"></a>    [<span class="dv">9</span>,]     <span class="fl">0.378</span>    <span class="fl">0.622</span></span>
+<span id="cb163-14"><a href="chapter-bayes.html#cb163-14" tabindex="-1"></a>   [<span class="dv">10</span>,]     <span class="fl">0.283</span>    <span class="fl">0.717</span></span></code></pre></div>
 <p>The output contains the predicted probabilities for each class:</p>
 <ul>
 <li>The first column shows the probability of “<code>good risk</code>.”<br>
@@ -491,17 +491,17 @@ H_a &amp;: \text{At least one category has a different proportion.}
 <h4>Confusion Matrix<a class="anchor" aria-label="anchor" href="#confusion-matrix-1"><i class="fas fa-link"></i></a>
 </h4>
 <p>To evaluate the classification performance, we compute the confusion matrix using a cutoff of 0.5:</p>
-<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="chapter-bayes.html#cb163-1" tabindex="-1"></a>prob_naive_bayes <span class="ot">=</span> prob_naive_bayes[, <span class="dv">1</span>] <span class="co"># Probability of "good risk"</span></span>
-<span id="cb163-2"><a href="chapter-bayes.html#cb163-2" tabindex="-1"></a></span>
-<span id="cb163-3"><a href="chapter-bayes.html#cb163-3" tabindex="-1"></a><span class="fu">conf.mat</span>(prob_naive_bayes, actual_test, <span class="at">cutoff =</span> <span class="fl">0.5</span>, </span>
-<span id="cb163-4"><a href="chapter-bayes.html#cb163-4" tabindex="-1"></a>         <span class="at">reference =</span> <span class="st">"good risk"</span>)</span>
-<span id="cb163-5"><a href="chapter-bayes.html#cb163-5" tabindex="-1"></a>              Actual</span>
-<span id="cb163-6"><a href="chapter-bayes.html#cb163-6" tabindex="-1"></a>   Predict     good risk bad risk</span>
-<span id="cb163-7"><a href="chapter-bayes.html#cb163-7" tabindex="-1"></a>     good risk        <span class="dv">24</span>        <span class="dv">3</span></span>
-<span id="cb163-8"><a href="chapter-bayes.html#cb163-8" tabindex="-1"></a>     bad risk          <span class="dv">2</span>       <span class="dv">20</span></span>
-<span id="cb163-9"><a href="chapter-bayes.html#cb163-9" tabindex="-1"></a></span>
-<span id="cb163-10"><a href="chapter-bayes.html#cb163-10" tabindex="-1"></a><span class="fu">conf.mat.plot</span>(prob_naive_bayes, actual_test, <span class="at">cutoff =</span> <span class="fl">0.5</span>, </span>
-<span id="cb163-11"><a href="chapter-bayes.html#cb163-11" tabindex="-1"></a>              <span class="at">reference =</span> <span class="st">"good risk"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="chapter-bayes.html#cb164-1" tabindex="-1"></a>prob_naive_bayes <span class="ot">=</span> prob_naive_bayes[, <span class="dv">1</span>] <span class="co"># Probability of "good risk"</span></span>
+<span id="cb164-2"><a href="chapter-bayes.html#cb164-2" tabindex="-1"></a></span>
+<span id="cb164-3"><a href="chapter-bayes.html#cb164-3" tabindex="-1"></a><span class="fu">conf.mat</span>(prob_naive_bayes, actual_test, <span class="at">cutoff =</span> <span class="fl">0.5</span>, </span>
+<span id="cb164-4"><a href="chapter-bayes.html#cb164-4" tabindex="-1"></a>         <span class="at">reference =</span> <span class="st">"good risk"</span>)</span>
+<span id="cb164-5"><a href="chapter-bayes.html#cb164-5" tabindex="-1"></a>              Actual</span>
+<span id="cb164-6"><a href="chapter-bayes.html#cb164-6" tabindex="-1"></a>   Predict     good risk bad risk</span>
+<span id="cb164-7"><a href="chapter-bayes.html#cb164-7" tabindex="-1"></a>     good risk        <span class="dv">24</span>        <span class="dv">3</span></span>
+<span id="cb164-8"><a href="chapter-bayes.html#cb164-8" tabindex="-1"></a>     bad risk          <span class="dv">2</span>       <span class="dv">20</span></span>
+<span id="cb164-9"><a href="chapter-bayes.html#cb164-9" tabindex="-1"></a></span>
+<span id="cb164-10"><a href="chapter-bayes.html#cb164-10" tabindex="-1"></a><span class="fu">conf.mat.plot</span>(prob_naive_bayes, actual_test, <span class="at">cutoff =</span> <span class="fl">0.5</span>, </span>
+<span id="cb164-11"><a href="chapter-bayes.html#cb164-11" tabindex="-1"></a>              <span class="at">reference =</span> <span class="st">"good risk"</span>)</span></code></pre></div>
 <div class="inline-figure"><img src="bayes_files/figure-html/unnamed-chunk-16-1.png" width="65%" style="display: block; margin: auto;"></div>
 <p>The confusion matrix summarizes the model’s predictions:</p>
 <ul>
@@ -523,23 +523,23 @@ H_a &amp;: \text{At least one category has a different proportion.}
 <h4>ROC Curve and AUC<a class="anchor" aria-label="anchor" href="#roc-curve-and-auc-1"><i class="fas fa-link"></i></a>
 </h4>
 <p>To further evaluate the model, we compute the <strong>ROC curve</strong> and <strong>AUC</strong> value:</p>
-<div class="sourceCode" id="cb164"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb165"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">roc_naive_bayes</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">actual_test</span>, <span class="va">prob_naive_bayes</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/pROC/man/ggroc.html">ggroc</a></span><span class="op">(</span><span class="va">roc_naive_bayes</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="bayes_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>The ROC curve illustrates the trade-off between sensitivity and specificity at different thresholds. The closer the curve is to the top-left corner, the better the model’s performance.</p>
 <p>Finally, we calculate the <strong>AUC</strong> value:</p>
-<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="chapter-bayes.html#cb165-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">auc</span>(roc_naive_bayes), <span class="dv">3</span>)</span>
-<span id="cb165-2"><a href="chapter-bayes.html#cb165-2" tabindex="-1"></a>   [<span class="dv">1</span>] <span class="fl">0.957</span></span></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="chapter-bayes.html#cb166-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">auc</span>(roc_naive_bayes), <span class="dv">3</span>)</span>
+<span id="cb166-2"><a href="chapter-bayes.html#cb166-2" tabindex="-1"></a>   [<span class="dv">1</span>] <span class="fl">0.957</span></span></code></pre></div>
 <p>The AUC value, 0.957, quantifies the model’s ability to rank positive instances higher than negative ones. A value closer to 1 indicates excellent performance, while a value of 0.5 represents random guessing.</p>
 <p>By applying the Naive Bayes classifier to the <code>risk</code> dataset, we demonstrated its ability to efficiently classify customers as “<code>good risk</code>” or “<code>bad risk</code>.” Through metrics such as the confusion matrix, ROC curve, and AUC, we evaluated the model’s predictive power and identified its strengths and limitations. This process highlights the simplicity and interpretability of Naive Bayes, making it a practical choice for many real-world classification problems.</p>
 </div>
 </div>
 </div>
-<div id="exercises-7" class="section level2" number="9.6">
+<div id="exercises-6" class="section level2" number="9.6">
 <h2>
-<span class="header-section-number">9.6</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-7"><i class="fas fa-link"></i></a>
+<span class="header-section-number">9.6</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-6"><i class="fas fa-link"></i></a>
 </h2>
 <p>To do ..</p>
 
@@ -576,7 +576,7 @@ H_a &amp;: \text{At least one category has a different proportion.}
 <li><a class="nav-link" href="#prediction-and-model-evaluation">Prediction and Model Evaluation</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#exercises-7"><span class="header-section-number">9.6</span> Exercises</a></li>
+<li><a class="nav-link" href="#exercises-6"><span class="header-section-number">9.6</span> Exercises</a></li>
 </ul>
 
       <div class="book-extra">
@@ -594,7 +594,7 @@ H_a &amp;: \text{At least one category has a different proportion.}
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Uncovering Data Science with R</strong>" was written by Reza Mohammadi. It was last built on 2025-02-12.</p>
+    <p>"<strong>Uncovering Data Science with R</strong>" was written by Reza Mohammadi. It was last built on 2025-02-13.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
