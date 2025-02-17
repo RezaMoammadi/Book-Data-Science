@@ -1,6 +1,6 @@
 # Classification using k-Nearest Neighbors {#chapter-knn}
 
-**Classification** is one of the fundamental tasks in machine learning, enabling models to categorize data into predefined groups. From detecting spam emails to predicting customer churn, classification algorithms are widely used across various domains. In this chapter, we will first explore the concept of classification, discussing its applications, key principles, and commonly used algorithms. 
+*Classification* is one of the fundamental tasks in machine learning, enabling models to categorize data into predefined groups. From detecting spam emails to predicting customer churn, classification algorithms are widely used across various domains. In this chapter, we will first explore the concept of classification, discussing its applications, key principles, and commonly used algorithms. 
 
 Once we have a solid understanding of classification, we will introduce *k-Nearest Neighbors (kNN)*, a simple yet effective algorithm based on the idea of similarity between data points. kNN is widely used for classification due to its intuitive approach and ease of implementation. We will delve into the details of how kNN works, demonstrate its implementation in R, and discuss its strengths, limitations, and real-world applications. 
 
@@ -488,8 +488,7 @@ Evaluating model performance is crucial to ensure that the kNN algorithm general
 
 
 ```r
-conf.mat(kNN_predict, actual_test)
-   Setting levels: reference = "yes", case = "no"
+conf.mat(kNN_predict, actual_test, reference = "yes")
           Actual
    Predict yes  no
        yes  54   7
@@ -497,9 +496,6 @@ conf.mat(kNN_predict, actual_test)
 ```
 
 
-```
-   Setting levels: reference = "yes", case = "no"
-```
 
 From the confusion matrix, we see that the model correctly classified 910 instances, while 90 instances were misclassified. This summary helps assess model performance and identify areas for improvement.
     

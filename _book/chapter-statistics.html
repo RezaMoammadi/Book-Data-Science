@@ -571,14 +571,14 @@ If the <em>p</em>-value were smaller than 0.05, we would reject the null hypothe
 <span id="cb112-4"><a href="chapter-statistics.html#cb112-4" tabindex="-1"></a>   deposit divorced married single</span>
 <span id="cb112-5"><a href="chapter-statistics.html#cb112-5" tabindex="-1"></a>       no       <span class="dv">451</span>    <span class="dv">2520</span>   <span class="dv">1029</span></span>
 <span id="cb112-6"><a href="chapter-statistics.html#cb112-6" tabindex="-1"></a>       yes       <span class="dv">77</span>     <span class="dv">277</span>    <span class="dv">167</span></span></code></pre></div>
-<p>To formally test for independence, we define the hypotheses:</p>
-<p><span class="math display">\[
+<p>To formally test for independence, we define the hypotheses:
+<span class="math display">\[
 \begin{cases}
-H_0: \text{Deposit purchases are independent of marital status.} \\
-H_a: \text{Deposit purchases depend on marital status.}
+    H_0: \pi_{divorced, \ yes} = \pi_{married, \ yes} = \pi_{single, \ yes}  \\
+    H_a: At \ least \ one \ of \ the \ claims \ in \ H_0 \ is \ wrong.
 \end{cases}
-\]</span></p>
-<p>The Chi-square test is applied using the <code><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test()</a></code> function:</p>
+\]</span>
+The Chi-square test is applied using the <code><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test()</a></code> function:</p>
 <div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="chapter-statistics.html#cb113-1" tabindex="-1"></a>chisq_test <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(table_marital)</span>
 <span id="cb113-2"><a href="chapter-statistics.html#cb113-2" tabindex="-1"></a>chisq_test</span>
 <span id="cb113-3"><a href="chapter-statistics.html#cb113-3" tabindex="-1"></a>   </span>
@@ -876,7 +876,7 @@ While statistical inference and hypothesis testing are essential tools in data s
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Uncovering Data Science with R</strong>" was written by Reza Mohammadi. It was last built on 2025-02-13.</p>
+    <p>"<strong>Uncovering Data Science with R</strong>" was written by Reza Mohammadi. It was last built on 2025-02-17.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -492,14 +492,12 @@ table_marital
 ```
 
 To formally test for independence, we define the hypotheses:
-
-\[
+$$
 \begin{cases}
-H_0: \text{Deposit purchases are independent of marital status.} \\ 
-H_a: \text{Deposit purchases depend on marital status.}
+    H_0: \pi_{divorced, \ yes} = \pi_{married, \ yes} = \pi_{single, \ yes}  \\
+    H_a: At \ least \ one \ of \ the \ claims \ in \ H_0 \ is \ wrong.
 \end{cases}
-\]
-
+$$
 The Chi-square test is applied using the `chisq.test()` function:
 
 

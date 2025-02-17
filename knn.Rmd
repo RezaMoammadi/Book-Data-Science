@@ -1,6 +1,6 @@
 # Classification using k-Nearest Neighbors {#chapter-knn}
 
-**Classification** is one of the fundamental tasks in machine learning, enabling models to categorize data into predefined groups. From detecting spam emails to predicting customer churn, classification algorithms are widely used across various domains. In this chapter, we will first explore the concept of classification, discussing its applications, key principles, and commonly used algorithms. 
+*Classification* is one of the fundamental tasks in machine learning, enabling models to categorize data into predefined groups. From detecting spam emails to predicting customer churn, classification algorithms are widely used across various domains. In this chapter, we will first explore the concept of classification, discussing its applications, key principles, and commonly used algorithms. 
 
 Once we have a solid understanding of classification, we will introduce *k-Nearest Neighbors (kNN)*, a simple yet effective algorithm based on the idea of similarity between data points. kNN is widely used for classification due to its intuitive approach and ease of implementation. We will delve into the details of how kNN works, demonstrate its implementation in R, and discuss its strengths, limitations, and real-world applications. 
 
@@ -499,12 +499,12 @@ The `kNN()` function automates the kNN classification process by computing dista
 
 Evaluating model performance is crucial to ensure that the kNN algorithm generalizes well to unseen data and makes reliable predictions. A confusion matrix provides a summary of correct and incorrect predictions by comparing the predicted labels to the actual labels in the test set. We compute it using the `conf.mat()` function from the **liver** package:
 
-```{r}
-conf.mat(kNN_predict, actual_test)
+```{r message=FALSE}
+conf.mat(kNN_predict, actual_test, reference = "yes")
 ```
 
-```{r echo=FALSE}
-conf_max_knn_churn = conf.mat(kNN_predict, actual_test)
+```{r echo=FALSE, message=FALSE}
+conf_max_knn_churn = conf.mat(kNN_predict, actual_test, reference = "yes")
 ```
 
 From the confusion matrix, we see that the model correctly classified `r conf_max_knn_churn[1, 1] + conf_max_knn_churn[2, 2]` instances, while `r conf_max_knn_churn[1, 2] + conf_max_knn_churn[2, 1]` instances were misclassified. This summary helps assess model performance and identify areas for improvement.

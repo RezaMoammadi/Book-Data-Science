@@ -46,9 +46,9 @@
     }
   </style>
 <link rel="stylesheet" href="style.css">
-<meta name="description" content="As we progress through the Data Science Process, introduced in Chapter 2 and illustrated in Figure 2.3, we’ve already completed the first five phases of the Data Science Workflow: Problem...">
-<meta property="og:description" content="As we progress through the Data Science Process, introduced in Chapter 2 and illustrated in Figure 2.3, we’ve already completed the first five phases of the Data Science Workflow: Problem...">
-<meta name="twitter:description" content="As we progress through the Data Science Process, introduced in Chapter 2 and illustrated in Figure 2.3, we’ve already completed the first five phases of the Data Science Workflow: Problem...">
+<meta name="description" content="As we progress through the Data Science Workflow, introduced in Chapter 2 and illustrated in Figure 2.3, we have already completed the first five phases: Problem Understanding: Defining the...">
+<meta property="og:description" content="As we progress through the Data Science Workflow, introduced in Chapter 2 and illustrated in Figure 2.3, we have already completed the first five phases: Problem Understanding: Defining the...">
+<meta name="twitter:description" content="As we progress through the Data Science Workflow, introduced in Chapter 2 and illustrated in Figure 2.3, we have already completed the first five phases: Problem Understanding: Defining the...">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -95,7 +95,7 @@
 <h1>
 <span class="header-section-number">8</span> Model Evaluation<a class="anchor" aria-label="anchor" href="#chapter-evaluation"><i class="fas fa-link"></i></a>
 </h1>
-<p>As we progress through the Data Science Process, introduced in Chapter <a href="chapter-intro-DS.html#chapter-intro-DS">2</a> and illustrated in Figure <a href="chapter-intro-DS.html#fig:CRISP-DM">2.3</a>, we’ve already completed the first five phases of the Data Science Workflow:</p>
+<p>As we progress through the Data Science Workflow, introduced in Chapter <a href="chapter-intro-DS.html#chapter-intro-DS">2</a> and illustrated in Figure <a href="chapter-intro-DS.html#fig:CRISP-DM">2.3</a>, we have already completed the first five phases:</p>
 <ol style="list-style-type: decimal">
 <li>
 <strong>Problem Understanding</strong>: Defining the problem we aim to solve.<br>
@@ -107,104 +107,108 @@
 <strong>Exploratory Data Analysis (EDA)</strong>: Gaining insights and uncovering patterns in the data.<br>
 </li>
 <li>
-<strong>Preparing Data to Model</strong>: Setting up the data for modeling by scaling, encoding, and partitioning.<br>
+<strong>Preparing Data for Modeling</strong>: Setting up the data for modeling by scaling, encoding, and partitioning.<br>
 </li>
 <li>
 <strong>Modeling</strong>: Applying algorithms to make predictions or extract insights—such as the kNN classification method we explored in the previous chapter.</li>
 </ol>
-<p>Now, we arrive at the <strong>Model Evaluation</strong> phase, a pivotal step in the Data Science Process. This phase answers the critical question: <em>How well does our model perform?</em></p>
+<p>Now, we arrive at the <strong>Model Evaluation</strong> phase, a pivotal step in the Data Science Workflow. This phase answers the critical question: <em>How well does our model perform?</em></p>
+<p>Building a model is just the beginning. Without evaluation, we have no way of knowing whether our model generalizes well to new data or if it is simply memorizing patterns from the training set. A model that performs well during training but fails in real-world applications is of little practical value. Model evaluation ensures that our predictions are reliable and that the model effectively captures underlying patterns rather than just noise.</p>
+<p>This chapter will introduce key evaluation techniques and metrics to assess the performance of classification and regression models, helping us make informed decisions about model selection and improvement.</p>
 <div id="why-is-model-evaluation-important" class="section level3 unnumbered">
 <h3>Why Is Model Evaluation Important?<a class="anchor" aria-label="anchor" href="#why-is-model-evaluation-important"><i class="fas fa-link"></i></a>
 </h3>
-<p>Building a model is just the beginning. The true test of a model lies in its ability to generalize to <strong>new, unseen data</strong>. Without proper evaluation, a model may appear successful during development but fail in real-world applications.</p>
+<p>Building a model is just the beginning. The real test of its effectiveness lies in its ability to generalize to <em>new, unseen data</em>. Without proper evaluation, a model may seem successful during development but fail when applied in real-world scenarios.</p>
 <p>Consider this example:<br>
-You’ve built a model to detect fraudulent credit card transactions, and it achieves 95% accuracy. Impressive, right? But if only 1% of the transactions are actually fraudulent, your model might simply classify every transaction as legitimate, ignoring all fraud cases. This highlights a crucial point: <strong>accuracy alone can be misleading, especially in imbalanced datasets</strong>.</p>
-<p>Model evaluation goes beyond simplistic metrics like accuracy. It provides a nuanced understanding of a model’s:</p>
+You develop a model to detect fraudulent credit card transactions, and it achieves 95% accuracy. Sounds impressive, right? But if only 1% of the transactions are actually fraudulent, your model might simply classify every transaction as legitimate to achieve high accuracy—completely ignoring all fraud cases. This highlights a crucial point: <strong>accuracy alone can be misleading, especially in imbalanced datasets</strong>.</p>
+<p>Model evaluation provides a more comprehensive understanding of a model’s performance by assessing:</p>
 <ul>
 <li>
-<strong>Strengths</strong>: What the model does well (e.g., detecting true positives).<br>
+<em>Strengths</em>: What the model does well (e.g., correctly detecting fraud).<br>
 </li>
 <li>
-<strong>Weaknesses</strong>: Where it falls short (e.g., missing fraud cases or generating false alarms).<br>
+<em>Weaknesses</em>: Where it falls short (e.g., missing fraudulent cases or flagging too many legitimate transactions as fraud).<br>
 </li>
 <li>
-<strong>Trade-offs</strong>: The balance between competing priorities, such as sensitivity vs. specificity or precision vs. recall.</li>
+<em>Trade-offs</em>: The balance between competing priorities, such as sensitivity vs. specificity or precision vs. recall.</li>
 </ul>
-<p>In short, model evaluation ensures that a model aligns with the real-world goals of the problem. It helps answer questions such as:</p>
+<p>A well-evaluated model aligns with real-world objectives. It helps answer key questions such as:</p>
 <ul>
 <li>How well does the model handle imbalanced datasets?<br>
 </li>
-<li>Is it good at identifying true positives (e.g., detecting cancer)?<br>
+<li>Is it good at identifying true positives (e.g., detecting cancer in medical diagnoses)?<br>
 </li>
-<li>Does it minimize false positives (e.g., incorrectly flagging legitimate emails as spam)?</li>
+<li>Does it minimize false positives (e.g., avoiding mistakenly flagging legitimate emails as spam)?</li>
 </ul>
-<p>As George Box famously said, <em>“All models are wrong, but some are useful.”</em> A model is always a simplification of reality. It cannot capture every nuance or complexity, but if properly evaluated, it can provide actionable insights and guide decisions effectively. Evaluation metrics help us judge whether a model is “useful enough” to meet the needs of the problem we’re solving.</p>
-<p>In this chapter, we’ll explore how to evaluate classification models, starting with <strong>binary classification</strong>, where the target variable has two categories (e.g., spam vs. not spam). We’ll then discuss metrics for <strong>multi-class classification</strong>, where there are more than two categories (e.g., types of vehicles: car, truck, bike). Finally, we’ll touch on evaluation metrics for <strong>regression models</strong>, where the target variable is continuous (e.g., predicting house prices).</p>
-<p>Our goal is to build a strong foundation in model evaluation, helping you confidently assess model performance and make data-driven decisions. Let’s begin with the cornerstone of classification evaluation: the <strong>Confusion Matrix</strong>.</p>
+<p>As <a href="https://en.wikipedia.org/wiki/George_E._P._Box">George Box</a>, a renowned statistician, famously said, <em>“All models are wrong, but some are useful.”</em> A model is always a simplification of reality—it cannot capture every nuance or complexity. However, through proper evaluation, we can determine whether a model is <em>useful enough</em> to make reliable predictions and guide decision-making.</p>
+<p>In this chapter, we will explore the evaluation of classification models, starting with <em>binary classification</em>, where the target variable has two categories (e.g., spam vs. not spam). We will then discuss evaluation metrics for <em>multi-class classification</em>, where there are more than two categories (e.g., types of vehicles: car, truck, bike). Finally, we will introduce evaluation metrics for <em>regression models</em>, where the target variable is continuous (e.g., predicting house prices).</p>
+<p>Our goal is to establish a strong foundation in model evaluation, enabling you to assess model performance effectively and make data-driven decisions. Let’s begin with one of the most fundamental tools in classification evaluation: the <em>Confusion Matrix</em>.</p>
 </div>
 <div id="confusion-matrix" class="section level2" number="8.1">
 <h2>
 <span class="header-section-number">8.1</span> Confusion Matrix<a class="anchor" aria-label="anchor" href="#confusion-matrix"><i class="fas fa-link"></i></a>
 </h2>
-<p>The <strong>confusion matrix</strong> is the cornerstone of evaluating classification models. It provides a detailed snapshot of how well a model’s predictions align with actual outcomes by categorizing predictions into four distinct groups. For binary classification problems, the confusion matrix is typically organized as shown in Table <a href="chapter-evaluation.html#tab:confusion-matrix">8.1</a>.</p>
-<p>In classification tasks, we often focus on the model’s ability to distinguish one class of interest (the <strong>positive class</strong>) from another (the <strong>negative class</strong>). For instance, in a fraud detection scenario, fraudulent transactions might be the positive class, while legitimate ones are the negative class.</p>
+<p>The <em>confusion matrix</em> is a fundamental tool for evaluating classification models. It provides a detailed breakdown of a model’s predictions by categorizing them into four distinct groups based on actual versus predicted values. For binary classification problems, the confusion matrix is structured as shown in Table <a href="chapter-evaluation.html#tab:confusion-matrix">8.1</a>.</p>
+<p>In classification tasks, one class is typically designated as the <em>positive class</em> (the class of interest), while the other is the <em>negative class</em>. For instance, in fraud detection, fraudulent transactions might be considered the positive class, while legitimate transactions are the negative class.</p>
 <div class="inline-table"><table class="table table-sm">
 <caption>
-<span id="tab:confusion-matrix">Table 8.1: </span> Confusion matrix summarizing correct and incorrect predictions for binary classification problems. The <strong>positive class</strong> refers to the class of interest, while the <strong>negative class</strong> represents the other category.</caption>
+<span id="tab:confusion-matrix">Table 8.1: </span> Confusion matrix summarizing correct and incorrect predictions for binary classification problems. The <em>positive class</em> refers to the class of interest, while the <em>negative class</em> represents the other category.</caption>
 <colgroup>
 <col width="45%">
 <col width="27%">
 <col width="27%">
 </colgroup>
 <thead><tr>
-<th><strong>Predicted</strong></th>
+<th><em>Predicted</em></th>
 <th>Positive</th>
 <th>Negative</th>
 </tr></thead>
 <tbody>
 <tr>
-<td><strong>Actual Positive</strong></td>
+<td><em>Actual Positive</em></td>
 <td><span style="color: green;"> True Positive (TP) </span></td>
 <td><span style="color: red;"> False Negative (FN) </span></td>
 </tr>
 <tr>
-<td><strong>Actual Negative</strong></td>
+<td><em>Actual Negative</em></td>
 <td><span style="color: red;"> False Positive (FP) </span></td>
 <td><span style="color: green;"> True Negative (TN) </span></td>
 </tr>
 </tbody>
 </table></div>
-<p>Let’s break down these terms:</p>
+<p>Each element in the confusion matrix corresponds to one of four possible prediction outcomes:</p>
 <ul>
 <li>
-<strong>True Positives (TP)</strong>: Cases where the model correctly predicts the positive class (e.g., fraud detected as fraud).<br>
+<strong>True Positives (TP)</strong>: The model correctly predicts the positive class (e.g., fraud detected as fraud).<br>
 </li>
 <li>
-<strong>False Positives (FP)</strong>: Cases where the model incorrectly predicts the positive class (e.g., legitimate transactions flagged as fraud).<br>
+<strong>False Positives (FP)</strong>: The model incorrectly predicts the positive class (e.g., legitimate transactions falsely flagged as fraud).<br>
 </li>
 <li>
-<strong>True Negatives (TN)</strong>: Cases where the model correctly predicts the negative class (e.g., legitimate transactions classified as legitimate).<br>
+<strong>True Negatives (TN)</strong>: The model correctly predicts the negative class (e.g., legitimate transactions classified correctly).<br>
 </li>
 <li>
-<strong>False Negatives (FN)</strong>: Cases where the model fails to predict the positive class (e.g., fraud classified as legitimate).</li>
+<strong>False Negatives (FN)</strong>: The model incorrectly predicts the negative class (e.g., fraudulent transactions classified as legitimate).</li>
 </ul>
-<p>If this structure feels familiar, it’s because it mirrors the concept of <strong>type I and type II errors</strong> introduced in Chapter <a href="chapter-statistics.html#chapter-statistics">5</a> on hypothesis testing. The diagonal elements of the confusion matrix (TP and TN) represent correct predictions, while the off-diagonal elements (FP and FN) capture incorrect ones.</p>
+<p>If this structure feels familiar, it mirrors the concept of <em>Type I and Type II errors</em> introduced in Chapter <a href="chapter-statistics.html#chapter-statistics">5</a> on hypothesis testing. The diagonal elements (TP and TN) represent correct predictions, while the off-diagonal elements (FP and FN) represent incorrect ones.</p>
 <div id="calculating-key-metrics" class="section level3 unnumbered">
 <h3>Calculating Key Metrics<a class="anchor" aria-label="anchor" href="#calculating-key-metrics"><i class="fas fa-link"></i></a>
 </h3>
-<p>Using the counts from the confusion matrix, we can calculate basic performance metrics for the model, such as <strong>accuracy</strong> (also know as <strong>success rate</strong>) and <strong>error rate</strong>:</p>
-<p><span class="math display">\[
-\text{Accuracy} = \frac{\text{TP} + \text{TN}}{\text{TP} + \text{FP} + \text{FN} + \text{TN}}
+<p>Using the values from the confusion matrix, we can derive key performance metrics for the model, such as <em>accuracy</em> (also known as <em>success rate</em>) and <em>error rate</em>:
+<span class="math display">\[
+\text{Accuracy} = \frac{\text{TP} + \text{TN}}{\text{Total Predictions}} = \frac{\text{TP} + \text{TN}}{\text{TP} + \text{FP} + \text{FN} + \text{TN}}
+\]</span>
+<span class="math display">\[
+\text{Error Rate} = 1 - \text{Accuracy} = \frac{\text{FP} + \text{FN}}{\text{Total Predictions}}
 \]</span></p>
-<p><span class="math display">\[
-\text{Error Rate} = 1 - \text{Accuracy} = \frac{\text{FP} + \text{FN}}{\text{TP} + \text{FP} + \text{FN} + \text{TN}}
-\]</span></p>
-<p><strong>Accuracy</strong> is the proportion of correct predictions (both TP and TN) among all predictions made by the model. It gives a general sense of how well the model performs. And conversely, the <strong>Error Rate</strong> is the proportion of incorrect predictions (FP and FN) among all predictions. While accuracy gives an overall sense of model performance, it does not differentiate between types of errors. For example, in imbalanced datasets where one class dominates, accuracy may appear high even if the model performs poorly at detecting the minority class. This is why we need more nuanced metrics, such as sensitivity, specificity, precision, and recall, which we’ll explore in later sections.</p>
+<p>Accuracy represents the proportion of correct predictions (TP and TN) among all predictions, providing an overall assessment of model performance. Conversely, the <em>error rate</em> measures the proportion of incorrect predictions (FP and FN) among all predictions.</p>
+<p>While accuracy provides a high-level assessment of performance, it does not distinguish between different types of errors, such as false positives and false negatives. For example, in an imbalanced dataset where one class significantly outnumbers the other, accuracy may appear high even if the model performs poorly at detecting the minority class. This is why we need additional metrics, such as sensitivity, specificity, precision, and recall, which we will explore in later sections.</p>
 <div class="example">
-<p><span id="exm:ex-confusion-matrix-kNN" class="example"><strong>Example 8.1  </strong></span>Let’s revisit the k-Nearest Neighbors (kNN) model we built in Chapter <a href="chapter-knn.html#chapter-knn">7</a> to classify the <code>churn</code> dataset. Using the confusion matrix, we can evaluate how well this model performs on the test data.</p>
-<p>Here’s how we apply the kNN model and generate the confusion matrix for its predictions:</p>
-<div class="sourceCode" id="cb143"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Load the churn dataset</span></span>
+<p><span id="exm:ex-confusion-matrix-kNN" class="example"><strong>Example 8.1  </strong></span>Let’s revisit the <em>k-Nearest Neighbors (kNN)</em> model from Chapter <a href="chapter-knn.html#chapter-knn">7</a>, where we built a classifier to predict customer churn using the <code>churn</code> dataset. We will now evaluate its performance using the confusion matrix.</p>
+<p>First, we apply the kNN model and generate predictions:</p>
+<div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.uva.nl/profile/a.mohammadi">liver</a></span><span class="op">)</span>  </span>
+<span><span class="co"># Load the churn dataset</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">churn</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Partition the data into training and testing sets</span></span>
@@ -223,197 +227,249 @@ You’ve built a model to detect fraudulent credit card transactions, and it ach
 <span></span>
 <span><span class="va">kNN_predict</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/liver/man/kNN.html">kNN</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="va">formula</span>, train <span class="op">=</span> <span class="va">train_set</span>, </span>
 <span>                  test <span class="op">=</span> <span class="va">test_set</span>, k <span class="op">=</span> <span class="fl">5</span>, scaler <span class="op">=</span> <span class="st">"minmax"</span><span class="op">)</span></span></code></pre></div>
-<p>For more details on how the kNN model was built, refer to Section <a href="chapter-knn.html#sec-kNN-churn">7.6</a>.</p>
-<p>Now, we’ll generate the confusion matrix for the predictions using the <code><a href="https://rdrr.io/pkg/liver/man/conf.mat.html">conf.mat()</a></code> function from the <strong>liver</strong> package:</p>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="chapter-evaluation.html#cb144-1" tabindex="-1"></a><span class="fu">conf.mat</span>(kNN_predict, actual_test)</span>
-<span id="cb144-2"><a href="chapter-evaluation.html#cb144-2" tabindex="-1"></a>   Setting levels<span class="sc">:</span> reference <span class="ot">=</span> <span class="st">"yes"</span>, case <span class="ot">=</span> <span class="st">"no"</span></span>
-<span id="cb144-3"><a href="chapter-evaluation.html#cb144-3" tabindex="-1"></a>          Actual</span>
-<span id="cb144-4"><a href="chapter-evaluation.html#cb144-4" tabindex="-1"></a>   Predict yes  no</span>
-<span id="cb144-5"><a href="chapter-evaluation.html#cb144-5" tabindex="-1"></a>       yes  <span class="dv">54</span>   <span class="dv">7</span></span>
-<span id="cb144-6"><a href="chapter-evaluation.html#cb144-6" tabindex="-1"></a>       no   <span class="dv">83</span> <span class="dv">856</span></span></code></pre></div>
-<pre><code>   Setting levels: reference = "yes", case = "no"</code></pre>
-<p>The confusion matrix summarizes the model’s performance. For example:</p>
+<p>For details on how this kNN model was built, refer to Section <a href="chapter-knn.html#sec-kNN-churn">7.6</a>. Now, we generate the confusion matrix for the predictions using the <code><a href="https://rdrr.io/pkg/liver/man/conf.mat.html">conf.mat()</a></code> function from the <strong>liver</strong> package:</p>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="chapter-evaluation.html#cb143-1" tabindex="-1"></a><span class="fu">conf.mat</span>(kNN_predict, actual_test, <span class="at">reference =</span> <span class="st">"yes"</span>)</span>
+<span id="cb143-2"><a href="chapter-evaluation.html#cb143-2" tabindex="-1"></a>          Actual</span>
+<span id="cb143-3"><a href="chapter-evaluation.html#cb143-3" tabindex="-1"></a>   Predict yes  no</span>
+<span id="cb143-4"><a href="chapter-evaluation.html#cb143-4" tabindex="-1"></a>       yes  <span class="dv">54</span>   <span class="dv">7</span></span>
+<span id="cb143-5"><a href="chapter-evaluation.html#cb143-5" tabindex="-1"></a>       no   <span class="dv">83</span> <span class="dv">856</span></span></code></pre></div>
+<p>Here, we set <code>reference = "yes"</code> to specify that <code>churn = yes</code> is the positive class, aligning the confusion matrix with our problem focus—correctly identifying customers who actually churned. The confusion matrix summarizes the model’s performance as follows:</p>
 <ul>
 <li>
-<strong>True Positives (TP)</strong>: 54 cases where churn was correctly predicted.<br>
+<em>True Positives (TP)</em>: 54 correctly predicted churn cases.<br>
 </li>
 <li>
-<strong>True Negatives (TN)</strong>: 856 cases where non-churn was correctly predicted.<br>
+<em>True Negatives (TN)</em>: 856 correctly predicted non-churn cases.<br>
 </li>
 <li>
-<strong>False Positives (FP)</strong>: 83 cases where the model falsely predicted churn.<br>
+<em>False Positives (FP)</em>: 83 incorrectly predicted churn when customers did not churn.<br>
 </li>
 <li>
-<strong>False Negatives (FN)</strong>: 7 cases where churn was missed.</li>
+<em>False Negatives (FN)</em>: 7 missed churn cases, predicting them as non-churn.</li>
 </ul>
-<p>We can also visualize the confusion matrix using the <code><a href="https://rdrr.io/pkg/liver/man/conf.mat.plot.html">conf.mat.plot()</a></code> function from the <strong>liver</strong> package:</p>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="chapter-evaluation.html#cb146-1" tabindex="-1"></a><span class="fu">conf.mat.plot</span>(kNN_predict, actual_test)</span>
-<span id="cb146-2"><a href="chapter-evaluation.html#cb146-2" tabindex="-1"></a>   Setting levels<span class="sc">:</span> reference <span class="ot">=</span> <span class="st">"yes"</span>, case <span class="ot">=</span> <span class="st">"no"</span></span></code></pre></div>
-<div class="inline-figure"><img src="evaluation_files/figure-html/unnamed-chunk-5-1.png" width="65%" style="display: block; margin: auto;"></div>
-<p>Using the confusion matrix, we can calculate the following metrics for our kNN model:</p>
+<p>We can also visualize the confusion matrix using the <code><a href="https://rdrr.io/pkg/liver/man/conf.mat.plot.html">conf.mat.plot()</a></code> function:</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="chapter-evaluation.html#cb144-1" tabindex="-1"></a><span class="fu">conf.mat.plot</span>(kNN_predict, actual_test)</span>
+<span id="cb144-2"><a href="chapter-evaluation.html#cb144-2" tabindex="-1"></a>   Setting levels<span class="sc">:</span> reference <span class="ot">=</span> <span class="st">"yes"</span>, case <span class="ot">=</span> <span class="st">"no"</span></span></code></pre></div>
+<div class="inline-figure"><img src="evaluation_files/figure-html/unnamed-chunk-4-1.png" width="60%" style="display: block; margin: auto;"></div>
+<p>From the confusion matrix, we compute accuracy and error rate:</p>
 <p><span class="math display">\[
 \text{Accuracy} = \frac{\text{TP} + \text{TN}}{\text{Total Predictions}} = \frac{54 + 856}{1000} = 0.91
 \]</span></p>
 <p><span class="math display">\[
 \text{Error Rate} = \frac{\text{FP} + \text{FN}}{\text{Total Predictions}} = \frac{83 + 7}{1000} = 0.09
 \]</span></p>
-<p>These values give us a sense of the overall performance of the model. However, accuracy and error rate don’t provide insights into specific errors, such as how well the model detects true positives or avoids false positives. For these insights, we need to explore additional metrics like sensitivity, specificity, precision, and recall, which we’ll cover next.</p>
+<p>The accuracy indicates that the model correctly classified 91% of the test set, while 9% of predictions were incorrect.</p>
 </div>
+<p>While accuracy provides a useful summary of overall performance, it does not account for <em>imbalanced datasets</em> or <em>misclassification costs</em>. For example, in customer churn prediction, false negatives (missed churners) might be more costly than false positives (incorrectly predicted churners). Therefore, additional evaluation metrics are necessary to provide a deeper understanding of model performance.</p>
+<p>To gain deeper insights into model performance, we now turn to <em>sensitivity</em>, <em>specificity</em>, <em>precision</em>, and <em>recall</em>—metrics that provide a more detailed evaluation of classification outcomes.</p>
 </div>
 </div>
 <div id="sensitivity-and-specificity" class="section level2" number="8.2">
 <h2>
 <span class="header-section-number">8.2</span> Sensitivity and Specificity<a class="anchor" aria-label="anchor" href="#sensitivity-and-specificity"><i class="fas fa-link"></i></a>
 </h2>
-<p>In classification, it’s important to evaluate not just how many predictions are correct overall, but how well the model identifies specific classes. <strong>Sensitivity</strong> and <strong>Specificity</strong> are two complementary metrics that focus on the model’s ability to distinguish between positive and negative classes.</p>
+<p>In classification, it’s important to evaluate not just how many predictions are correct overall, but how well the model identifies specific classes. <em>Sensitivity</em> and <em>Specificity</em> are two complementary metrics that focus on the model’s ability to distinguish between positive and negative classes.</p>
+<p>These metrics are particularly valuable in cases where class distribution is imbalanced. For example, in fraud detection or rare disease diagnosis, the majority of cases belong to the negative class, which can lead to misleadingly high accuracy. Sensitivity and specificity allow us to separately assess how well the model detects each class.</p>
 <div id="sensitivity" class="section level3 unnumbered">
 <h3>Sensitivity<a class="anchor" aria-label="anchor" href="#sensitivity"><i class="fas fa-link"></i></a>
 </h3>
-<p><strong>Sensitivity</strong> (also called <strong>Recall</strong> in some fields, like information retrieval) measures the model’s ability to correctly identify positive cases. It answers the question:</p>
+<p><em>Sensitivity</em> (also called <em>Recall</em> in some fields, like information retrieval) measures the model’s ability to correctly identify positive cases. It answers the question:</p>
 <blockquote>
 <p><em>“Out of all the actual positives, how many did the model correctly predict?”</em></p>
 </blockquote>
-<p>Mathematically, sensitivity is defined as:</p>
-<p><span class="math display">\[
+<p>Mathematically, sensitivity is defined as:<br><span class="math display">\[
 \text{Sensitivity} = \frac{\text{True Positives (TP)}}{\text{True Positives (TP)} + \text{False Negatives (FN)}}
 \]</span></p>
-<p>Let’s compute sensitivity for the <strong>k-Nearest Neighbors (kNN)</strong> model built in Chapter <a href="chapter-knn.html#chapter-knn">7</a>, where we predicted whether customers churned (<code>churn = yes</code>). Sensitivity in this case reflects the percentage of churners correctly identified by the model. Using the confusion matrix from Example <a href="chapter-evaluation.html#exm:ex-confusion-matrix-kNN">8.1</a>:</p>
-<p><span class="math display">\[
+<p>Let’s compute sensitivity for the <em>k-Nearest Neighbors (kNN)</em> model built in Chapter <a href="chapter-knn.html#chapter-knn">7</a>, where we predicted whether customers churned (<code>churn = yes</code>). Sensitivity in this case reflects the percentage of churners correctly identified by the model. Using the confusion matrix from Example <a href="chapter-evaluation.html#exm:ex-confusion-matrix-kNN">8.1</a>:<br><span class="math display">\[
 \text{Sensitivity} = \frac{\text{TP}}{\text{TP} + \text{FN}} = \frac{54}{54 + 7} = 0.885
 \]</span></p>
 <p>This means that our model has correctly identified 88.5% of actual churners.</p>
-<p>A <strong>perfect model</strong> would achieve a sensitivity of <strong>1.0 (100%)</strong>, meaning it correctly identifies all positive cases. However, it’s important to note that even a naïve model that classifies <em>all</em> customers as churners would also achieve 100% sensitivity. This illustrates that sensitivity alone isn’t enough to evaluate a model’s performance—it must be paired with other metrics to capture the full picture.</p>
+<p>A <em>perfect model</em> would achieve a sensitivity of <em>1.0 (100%)</em>, meaning it correctly identifies all positive cases. However, it’s important to note that even a naïve model that classifies <em>all</em> customers as churners would also achieve 100% sensitivity. This illustrates that sensitivity alone isn’t enough to evaluate a model’s performance—it must be paired with other metrics to capture the full picture.</p>
 </div>
 <div id="specificity" class="section level3 unnumbered">
 <h3>Specificity<a class="anchor" aria-label="anchor" href="#specificity"><i class="fas fa-link"></i></a>
 </h3>
-<p>While sensitivity focuses on the positive class, <strong>Specificity</strong> measures the model’s ability to correctly identify negative cases. It answers the question:</p>
+<p>While sensitivity focuses on the positive class, <em>Specificity</em> measures the model’s ability to correctly identify negative cases. It answers the question:</p>
 <blockquote>
 <p><em>“Out of all the actual negatives, how many did the model correctly predict?”</em></p>
 </blockquote>
-<p>Specificity is particularly important in situations where avoiding false positives is critical. For example, in spam detection, incorrectly marking a legitimate email as spam (a false positive) can have more severe consequences than missing a few spam messages. Mathematically, specificity is defined as:</p>
-<p><span class="math display">\[
+<p>Specificity is particularly important in situations where avoiding false positives is critical. For example, in spam detection, incorrectly marking a legitimate email as spam (a false positive) can have more severe consequences than missing a few spam messages. Mathematically, specificity is defined as:<br><span class="math display">\[
 \text{Specificity} = \frac{\text{True Negatives (TN)}}{\text{True Negatives (TN)} + \text{False Positives (FP)}}
 \]</span></p>
-<p>Using the kNN model and the confusion matrix from Example <a href="chapter-evaluation.html#exm:ex-confusion-matrix-kNN">8.1</a>, let’s calculate the specificity for identifying non-churners (<code>churn = no</code>):</p>
-<p><span class="math display">\[
+<p>Using the kNN model and the confusion matrix from Example <a href="chapter-evaluation.html#exm:ex-confusion-matrix-kNN">8.1</a>, let’s calculate the specificity for identifying non-churners (<code>churn = no</code>):<br><span class="math display">\[
 \text{Specificity} = \frac{\text{TN}}{\text{TN} + \text{FP}} = \frac{856}{856 + 83} = 0.912
 \]</span></p>
 <p>This means the model correctly classified 91.2% of the actual non-churners as not leaving the company.</p>
-<p>A good classification model should ideally achieve <strong>high sensitivity and high specificity</strong>, but the relative importance of these metrics depends on the problem domain. For example, in medical diagnostics, sensitivity is often prioritized to ensure no disease cases are missed, while in credit scoring, specificity might take precedence to avoid mistakenly classifying reliable customers as risks. For the kNN model in Example <a href="chapter-evaluation.html#exm:ex-confusion-matrix-kNN">8.1</a>, sensitivity is 0.885 while specificity is 0.912. This trade-off may be acceptable in this instance, as identifying churners (sensitivity) might be more critical than avoiding false positives (specificity). In the next section, we’ll explore metrics like precision and recall, which further refine model evaluation.</p>
+<p>A good classification model should ideally achieve <em>high sensitivity and high specificity</em>, but the relative importance of these metrics depends on the problem domain. For example, in medical diagnostics, sensitivity is often prioritized to ensure no disease cases are missed, while in credit scoring, specificity might take precedence to avoid mistakenly classifying reliable customers as risks.</p>
+<p>For the kNN model in Example <a href="chapter-evaluation.html#exm:ex-confusion-matrix-kNN">8.1</a>, sensitivity is 0.885, while specificity is 0.912. This trade-off may be acceptable in this instance, as identifying churners (sensitivity) might be more critical than avoiding false positives (specificity).</p>
+</div>
+<div id="sensitivity-vs.-specificity-a-balancing-act" class="section level3 unnumbered">
+<h3>Sensitivity vs. Specificity: A Balancing Act<a class="anchor" aria-label="anchor" href="#sensitivity-vs.-specificity-a-balancing-act"><i class="fas fa-link"></i></a>
+</h3>
+<p>The trade-off between sensitivity and specificity is often an essential consideration in model evaluation. In many cases, improving one comes at the cost of the other:</p>
+<ul>
+<li>Increasing <em>sensitivity</em> (recall) often leads to more false positives, lowering specificity.</li>
+<li>Increasing <em>specificity</em> reduces false positives but can increase false negatives, lowering sensitivity.</li>
+</ul>
+<p>For example, in <strong>medical screening</strong>, missing a serious disease (false negative) can have severe consequences, so a model with <strong>high sensitivity</strong> is preferred—even if it results in more false positives (low specificity). In contrast, in <strong>email spam filtering</strong>, a high false positive rate (flagging important emails as spam) can be frustrating for users. Therefore, a model with <strong>high specificity</strong> is preferable, even if it occasionally misses spam emails.</p>
+<p>This balance is one of the core challenges in classification. The optimal trade-off depends on the business or domain priorities.</p>
+<p>In the next section, we will refine this evaluation further by introducing <em>precision</em> and <em>recall</em>. These metrics extend sensitivity and specificity by focusing on the reliability of positive predictions and the ability to capture all relevant positive cases.</p>
 </div>
 </div>
 <div id="precision-recall-and-f1-score" class="section level2" number="8.3">
 <h2>
 <span class="header-section-number">8.3</span> Precision, Recall, and F1-Score<a class="anchor" aria-label="anchor" href="#precision-recall-and-f1-score"><i class="fas fa-link"></i></a>
 </h2>
-<p>In addition to sensitivity and specificity, <strong>Precision</strong>, <strong>Recall</strong>, and the <strong>F1-Score</strong> offer deeper insights into a classification model’s performance. These metrics are particularly valuable in scenarios with imbalanced datasets, where simple accuracy can be misleading.</p>
-<p><strong>Precision</strong> (also called the <strong>positive predictive value</strong>) measures how many of the model’s predicted positives are actually positive. It answers the question: <em>“When the model predicts positive, how often is it correct?”</em> The formula is:<br><span class="math display">\[
+<p>In addition to sensitivity and specificity, precision, recall, and the F1-score offer deeper insights into a classification model’s performance. These metrics are particularly valuable in scenarios with imbalanced datasets, where accuracy alone can be misleading.<br>
+Precision, also known as <em>positive predictive value</em>, measures how many of the model’s predicted positives are actually positive. It answers the question:</p>
+<blockquote>
+<p><em>“When the model predicts positive, how often is it correct?”</em><br>
+Mathematically, precision is defined as:<br><span class="math display">\[
 \text{Precision} = \frac{\text{TP}}{\text{TP} + \text{FP}}
 \]</span>
 Precision is especially important in applications where false positives are costly. For example, in fraud detection, flagging legitimate transactions as fraudulent can lead to customer dissatisfaction and unnecessary investigations.</p>
-<p><strong>Recall</strong> (which is equivalent to sensitivity) measures the model’s ability to identify positive cases. It answers the question: <em>“Out of all the actual positives, how many did the model correctly predict?”</em> The formula is:<br><span class="math display">\[
+</blockquote>
+<p>Recall (equivalent to sensitivity) measures the model’s ability to identify positive cases. It answers the question:</p>
+<blockquote>
+<p><em>“Out of all the actual positives, how many did the model correctly predict?”</em><br>
+Mathematically, recall is defined as:<br><span class="math display">\[
 \text{Recall} = \frac{\text{TP}}{\text{TP} + \text{FN}}
 \]</span>
-While recall is often used interchangeably with sensitivity in medical diagnostics, it is more commonly referred to as recall in areas like information retrieval, spam detection, and text classification. Recall is particularly useful in cases where missing positive cases (false negatives) could have serious consequences, such as failing to diagnose a disease or missing spam emails.</p>
-<p>There is an inherent trade-off between precision and recall: increasing one often decreases the other. For example, a model with high recall might correctly flag most fraudulent transactions but could also mislabel many legitimate transactions as fraud (low precision). Conversely, a model with high precision might flag only a few transactions as fraud (mostly correct), but it could miss many actual fraud cases (low recall).</p>
-<p>To balance this trade-off, the <strong>F1-Score</strong> combines precision and recall into a single metric. It is the harmonic mean of precision and recall, emphasizing their balance:<br><span class="math display">\[
+Recall is particularly useful when missing positive cases (false negatives) has serious consequences, such as failing to diagnose a disease or missing fraudulent transactions. While recall is often used interchangeably with sensitivity in medical diagnostics, it is more commonly referred to as recall in areas like information retrieval, spam detection, and text classification.</p>
+</blockquote>
+<div id="precision-vs.-recall-a-trade-off" class="section level3 unnumbered">
+<h3>Precision vs. Recall: A Trade-Off<a class="anchor" aria-label="anchor" href="#precision-vs.-recall-a-trade-off"><i class="fas fa-link"></i></a>
+</h3>
+<p>There is an inherent trade-off between precision and recall:</p>
+<ul>
+<li>Increasing precision makes the model more selective, reducing false positives but potentially missing true positives (lower recall).<br>
+</li>
+<li>Increasing recall allows the model to capture more positive cases, reducing false negatives but potentially misclassifying negatives as positives (lower precision).</li>
+</ul>
+<p>For example, a medical test for cancer screening should prioritize high recall to ensure that no patient with cancer is missed. However, in email spam detection, precision might be more important to avoid mistakenly classifying important emails as spam.</p>
+</div>
+<div id="the-f1-score-balancing-precision-and-recall" class="section level3 unnumbered">
+<h3>The F1-Score: Balancing Precision and Recall<a class="anchor" aria-label="anchor" href="#the-f1-score-balancing-precision-and-recall"><i class="fas fa-link"></i></a>
+</h3>
+<p>To balance this trade-off, the F1-score combines precision and recall into a single metric. It is the harmonic mean of precision and recall, emphasizing their balance:
+<span class="math display">\[
 F1 = 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}
    = \frac{2 \cdot \text{TP}}{2 \cdot \text{TP} + \text{FP} + \text{FN}}
 \]</span>
-The F1-Score is particularly useful in cases of imbalanced datasets, where one class dominates the other. Unlike accuracy, it considers both false positives and false negatives, providing a more balanced evaluation of the model’s predictive performance.</p>
-<p>Let’s calculate precision, recall, and the F1-Score for the <strong>k-Nearest Neighbors (kNN)</strong> model from Example <a href="chapter-evaluation.html#exm:ex-confusion-matrix-kNN">8.1</a>, which predicts customer churn (<code>churn = yes</code>). First, precision quantifies how often the model’s predicted churners were actual churners:
-<span class="math display">\[
+The F1-score is particularly useful in imbalanced datasets, where one class significantly outnumbers the other. Unlike accuracy, it considers both false positives and false negatives, providing a more informative evaluation of a model’s predictive performance.</p>
+<p>Now, let’s apply these concepts to the k-Nearest Neighbors (kNN) model from Example <a href="chapter-evaluation.html#exm:ex-confusion-matrix-kNN">8.1</a>, which predicts customer churn (<code>churn = yes</code>).</p>
+<p>First, precision quantifies how often the model’s predicted churners were actual churners:<br><span class="math display">\[
 \text{Precision} = \frac{\text{TP}}{\text{TP} + \text{FP}} = \frac{54}{54 + 83} = 0.394
 \]</span>
-This means that when the model predicts churn, it is correct 39.4% of the time.</p>
+This means that when the model predicts churn, it is correct in 39.4% of cases.</p>
 <p>Next, recall measures how many of the actual churners were correctly identified by the model:
 <span class="math display">\[
 \text{Recall} = \frac{\text{TP}}{\text{TP} + \text{FN}} = \frac{54}{54 + 7} = 0.885
 \]</span>
-This shows that the model successfully identifies 88.5% of the actual churners.</p>
-<p>Finally, the F1-Score provides a single measure that balances precision and recall:
+This shows that the model successfully identifies 88.5% of actual churners.</p>
+<p>Finally, the F1-score provides a single measure that balances precision and recall:
 <span class="math display">\[
 F1 = \frac{2 \cdot 54}{2 \cdot 54 + 83 + 7} = 0.545
 \]</span>
-The F1-Score indicates how well the model balances precision and recall, offering a comprehensive evaluation of its ability to correctly identify churners while minimizing false predictions. This balance makes the F1-Score especially useful when comparing multiple models, as it provides a single number summarizing performance.</p>
-<p>While the F1-Score is a valuable metric, it assumes that precision and recall are equally important, which may not always align with the priorities of a particular problem. For instance, in medical diagnostics, recall (ensuring no cases are missed) might be more critical than precision, whereas in spam filtering, precision (avoiding false positives) might take precedence. As such, the F1-Score should be used alongside other metrics to fully understand a model’s strengths and weaknesses. For a more comprehensive evaluation, we now turn to metrics that assess performance across thresholds, as described in the coming sections.</p>
+The F1-score provides a summary measure of a model’s ability to correctly identify churners while minimizing false predictions.</p>
+</div>
+<div id="choosing-the-right-metric" class="section level3 unnumbered">
+<h3>Choosing the Right Metric<a class="anchor" aria-label="anchor" href="#choosing-the-right-metric"><i class="fas fa-link"></i></a>
+</h3>
+<p>While the F1-score is a valuable metric, it assumes that precision and recall are equally important, which may not always align with the priorities of a particular problem. In medical diagnostics, recall (ensuring no cases are missed) might be more critical than precision. In spam filtering, precision (avoiding false positives) might take precedence to prevent misclassifying important emails.</p>
+<p>For a more comprehensive evaluation, we now turn to metrics that assess performance across different classification thresholds. Instead of relying on a fixed decision threshold, these metrics analyze how the model behaves when the classification cutoff changes. This leads us to the Receiver Operating Characteristic (ROC) curve and Area Under the Curve (AUC), which provide insights into how well the model distinguishes between positive and negative cases.</p>
+</div>
 </div>
 <div id="taking-uncertainty-into-account" class="section level2" number="8.4">
 <h2>
 <span class="header-section-number">8.4</span> Taking Uncertainty into Account<a class="anchor" aria-label="anchor" href="#taking-uncertainty-into-account"><i class="fas fa-link"></i></a>
 </h2>
-<p>When evaluating a classification model, the confusion matrix and derived metrics like precision, recall, and F1-score provide valuable insights into its performance. However, these metrics are based on discrete predictions, where the model has already classified observations as either positive or negative. In doing so, we lose a critical layer of information: the <strong>uncertainty</strong> or <strong>confidence</strong> behind each prediction. Most classification models, including <strong>k-Nearest Neighbors (kNN)</strong>, can provide probabilities for each class instead of binary predictions. These probabilities quantify how confident the model is in its predictions, offering a powerful tool for fine-tuning its behavior to better align with the requirements of the task.</p>
-<p>Making a prediction can be viewed as <strong>thresholding</strong> the model’s probability output. By default, a threshold of 0.5 is used: if the probability of belonging to the positive class is 50% or greater, the model predicts the positive class. Otherwise, it predicts the negative class. While this default threshold works in many cases, it is not universal. Adjusting the threshold can significantly impact the model’s performance, allowing it to better align with <strong>business goals</strong> or <strong>domain-specific needs</strong>. For example, in some applications, false negatives may be far more costly than false positives—or vice versa. By experimenting with different thresholds, we can explore the trade-offs between sensitivity, specificity, precision, and recall to optimize the model’s performance.</p>
+<p>When evaluating a classification model, metrics such as precision, recall, and F1-score provide valuable insights into its performance. However, these metrics are based on discrete predictions, where each observation is classified as either positive or negative. This approach overlooks an important factor: <em>uncertainty</em>. Many classification models, including k-Nearest Neighbors (kNN), can output probability scores instead of fixed labels, offering a measure of confidence for each prediction.</p>
+<p>These probability scores allow us to fine-tune how decisions are made by adjusting the <em>classification threshold</em>. By default, a threshold of 0.5 is commonly used, meaning that if a model assigns a probability of 50% or higher to the positive class, the instance is classified as positive; otherwise, it is classified as negative. However, this default may not always be ideal. Adjusting the threshold can significantly impact model performance, allowing it to better align with <em>business goals</em> or <em>domain-specific needs</em>. For example, in some applications, missing true positives (false negatives) is far costlier than misclassifying negatives as positives—or vice versa. By experimenting with different thresholds, we can explore trade-offs between sensitivity, specificity, precision, and recall to optimize model decisions.</p>
 <div class="example">
-<p><span id="exm:ex-confusion-matrix-kNN-prob" class="example"><strong>Example 8.2  </strong></span>Let’s revisit the <strong>k-Nearest Neighbors (kNN)</strong> model from Example <a href="chapter-evaluation.html#exm:ex-confusion-matrix-kNN">8.1</a> to predict customer churn (<code>churn = yes</code>). This time, instead of making discrete predictions, we’ll obtain probabilities for the positive class by setting the <code>type</code> parameter to <code>"prob"</code> in the <code><a href="https://rdrr.io/pkg/liver/man/kNN.html">kNN()</a></code> function:</p>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="chapter-evaluation.html#cb147-1" tabindex="-1"></a>kNN_prob <span class="ot">=</span> <span class="fu">kNN</span>(<span class="at">formula =</span> formula, <span class="at">train =</span> train_set, </span>
-<span id="cb147-2"><a href="chapter-evaluation.html#cb147-2" tabindex="-1"></a>               <span class="at">test =</span> test_set, <span class="at">k =</span> <span class="dv">5</span>, <span class="at">scaler =</span> <span class="st">"minmax"</span>,</span>
-<span id="cb147-3"><a href="chapter-evaluation.html#cb147-3" tabindex="-1"></a>               <span class="at">type =</span> <span class="st">"prob"</span>)</span>
-<span id="cb147-4"><a href="chapter-evaluation.html#cb147-4" tabindex="-1"></a>kNN_prob[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, ]</span>
-<span id="cb147-5"><a href="chapter-evaluation.html#cb147-5" tabindex="-1"></a>      yes  no</span>
-<span id="cb147-6"><a href="chapter-evaluation.html#cb147-6" tabindex="-1"></a>   <span class="dv">6</span>  <span class="fl">0.4</span> <span class="fl">0.6</span></span>
-<span id="cb147-7"><a href="chapter-evaluation.html#cb147-7" tabindex="-1"></a>   <span class="dv">10</span> <span class="fl">0.2</span> <span class="fl">0.8</span></span>
-<span id="cb147-8"><a href="chapter-evaluation.html#cb147-8" tabindex="-1"></a>   <span class="dv">17</span> <span class="fl">0.0</span> <span class="fl">1.0</span></span>
-<span id="cb147-9"><a href="chapter-evaluation.html#cb147-9" tabindex="-1"></a>   <span class="dv">19</span> <span class="fl">0.0</span> <span class="fl">1.0</span></span>
-<span id="cb147-10"><a href="chapter-evaluation.html#cb147-10" tabindex="-1"></a>   <span class="dv">21</span> <span class="fl">0.0</span> <span class="fl">1.0</span></span>
-<span id="cb147-11"><a href="chapter-evaluation.html#cb147-11" tabindex="-1"></a>   <span class="dv">23</span> <span class="fl">0.2</span> <span class="fl">0.8</span></span>
-<span id="cb147-12"><a href="chapter-evaluation.html#cb147-12" tabindex="-1"></a>   <span class="dv">29</span> <span class="fl">0.0</span> <span class="fl">1.0</span></span>
-<span id="cb147-13"><a href="chapter-evaluation.html#cb147-13" tabindex="-1"></a>   <span class="dv">31</span> <span class="fl">0.0</span> <span class="fl">1.0</span></span>
-<span id="cb147-14"><a href="chapter-evaluation.html#cb147-14" tabindex="-1"></a>   <span class="dv">36</span> <span class="fl">0.0</span> <span class="fl">1.0</span></span>
-<span id="cb147-15"><a href="chapter-evaluation.html#cb147-15" tabindex="-1"></a>   <span class="dv">40</span> <span class="fl">0.0</span> <span class="fl">1.0</span></span></code></pre></div>
-<p>The output lists the first 10 probabilities for each class: the first column corresponds to the positive class (<code>churn = yes</code>), while the second column corresponds to the negative class (<code>churn = no</code>). For example, for the first row, a probability of 0.4 indicates that the model is 40% confident that the customer will churn, while a probability of 0.6 suggests a 60% confidence that the customer will not churn. By modifying the threshold for classification, we can adjust how the model determines whether a prediction is positive or negative.</p>
-<p>Now, let’s calculate the confusion matrix for the model at two different thresholds: 0.5 (the default) and 0.7:</p>
-<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="chapter-evaluation.html#cb148-1" tabindex="-1"></a><span class="fu">conf.mat</span>(kNN_prob[, <span class="dv">1</span>], actual_test, <span class="at">cutoff =</span> <span class="fl">0.5</span>)</span>
-<span id="cb148-2"><a href="chapter-evaluation.html#cb148-2" tabindex="-1"></a>   Setting levels<span class="sc">:</span> reference <span class="ot">=</span> <span class="st">"yes"</span>, case <span class="ot">=</span> <span class="st">"no"</span></span>
-<span id="cb148-3"><a href="chapter-evaluation.html#cb148-3" tabindex="-1"></a>          Actual</span>
-<span id="cb148-4"><a href="chapter-evaluation.html#cb148-4" tabindex="-1"></a>   Predict yes  no</span>
-<span id="cb148-5"><a href="chapter-evaluation.html#cb148-5" tabindex="-1"></a>       yes  <span class="dv">54</span>   <span class="dv">7</span></span>
-<span id="cb148-6"><a href="chapter-evaluation.html#cb148-6" tabindex="-1"></a>       no   <span class="dv">83</span> <span class="dv">856</span></span>
-<span id="cb148-7"><a href="chapter-evaluation.html#cb148-7" tabindex="-1"></a><span class="fu">conf.mat</span>(kNN_prob[, <span class="dv">1</span>], actual_test, <span class="at">cutoff =</span> <span class="fl">0.7</span>)</span>
-<span id="cb148-8"><a href="chapter-evaluation.html#cb148-8" tabindex="-1"></a>   Setting levels<span class="sc">:</span> reference <span class="ot">=</span> <span class="st">"yes"</span>, case <span class="ot">=</span> <span class="st">"no"</span></span>
-<span id="cb148-9"><a href="chapter-evaluation.html#cb148-9" tabindex="-1"></a>          Actual</span>
-<span id="cb148-10"><a href="chapter-evaluation.html#cb148-10" tabindex="-1"></a>   Predict yes  no</span>
-<span id="cb148-11"><a href="chapter-evaluation.html#cb148-11" tabindex="-1"></a>       yes  <span class="dv">22</span>   <span class="dv">1</span></span>
-<span id="cb148-12"><a href="chapter-evaluation.html#cb148-12" tabindex="-1"></a>       no  <span class="dv">115</span> <span class="dv">862</span></span></code></pre></div>
-<p>At a threshold of 0.5, the model classifies a customer as a churner if the probability of churn is at least 50%. For this threshold, the confusion matrix will match the one in Example <a href="chapter-evaluation.html#exm:ex-confusion-matrix-kNN">8.1</a>, as both use the same default cutoff. By raising the threshold to 0.7, the model requires at least 70% confidence to classify a customer as a churner. This change shifts the balance between true positives, true negatives, false positives, and false negatives. For example:</p>
+<p><span id="exm:ex-confusion-matrix-kNN-prob" class="example"><strong>Example 8.2  </strong></span>Let’s revisit the kNN model from Example <a href="chapter-evaluation.html#exm:ex-confusion-matrix-kNN">8.1</a>, which predicts customer churn (<code>churn = yes</code>). This time, instead of making discrete predictions, we will obtain probability scores for the positive class (<code>churn = yes</code>) by setting the <code>type</code> parameter to <code>"prob"</code> in the <code><a href="https://rdrr.io/pkg/liver/man/kNN.html">kNN()</a></code> function:</p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="chapter-evaluation.html#cb145-1" tabindex="-1"></a>kNN_prob <span class="ot">=</span> <span class="fu">kNN</span>(<span class="at">formula =</span> formula, <span class="at">train =</span> train_set, </span>
+<span id="cb145-2"><a href="chapter-evaluation.html#cb145-2" tabindex="-1"></a>               <span class="at">test =</span> test_set, <span class="at">k =</span> <span class="dv">5</span>, <span class="at">scaler =</span> <span class="st">"minmax"</span>,</span>
+<span id="cb145-3"><a href="chapter-evaluation.html#cb145-3" tabindex="-1"></a>               <span class="at">type =</span> <span class="st">"prob"</span>)</span>
+<span id="cb145-4"><a href="chapter-evaluation.html#cb145-4" tabindex="-1"></a>kNN_prob[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, ]</span>
+<span id="cb145-5"><a href="chapter-evaluation.html#cb145-5" tabindex="-1"></a>      yes  no</span>
+<span id="cb145-6"><a href="chapter-evaluation.html#cb145-6" tabindex="-1"></a>   <span class="dv">6</span>  <span class="fl">0.4</span> <span class="fl">0.6</span></span>
+<span id="cb145-7"><a href="chapter-evaluation.html#cb145-7" tabindex="-1"></a>   <span class="dv">10</span> <span class="fl">0.2</span> <span class="fl">0.8</span></span>
+<span id="cb145-8"><a href="chapter-evaluation.html#cb145-8" tabindex="-1"></a>   <span class="dv">17</span> <span class="fl">0.0</span> <span class="fl">1.0</span></span>
+<span id="cb145-9"><a href="chapter-evaluation.html#cb145-9" tabindex="-1"></a>   <span class="dv">19</span> <span class="fl">0.0</span> <span class="fl">1.0</span></span>
+<span id="cb145-10"><a href="chapter-evaluation.html#cb145-10" tabindex="-1"></a>   <span class="dv">21</span> <span class="fl">0.0</span> <span class="fl">1.0</span></span>
+<span id="cb145-11"><a href="chapter-evaluation.html#cb145-11" tabindex="-1"></a>   <span class="dv">23</span> <span class="fl">0.2</span> <span class="fl">0.8</span></span>
+<span id="cb145-12"><a href="chapter-evaluation.html#cb145-12" tabindex="-1"></a>   <span class="dv">29</span> <span class="fl">0.0</span> <span class="fl">1.0</span></span>
+<span id="cb145-13"><a href="chapter-evaluation.html#cb145-13" tabindex="-1"></a>   <span class="dv">31</span> <span class="fl">0.0</span> <span class="fl">1.0</span></span>
+<span id="cb145-14"><a href="chapter-evaluation.html#cb145-14" tabindex="-1"></a>   <span class="dv">36</span> <span class="fl">0.0</span> <span class="fl">1.0</span></span>
+<span id="cb145-15"><a href="chapter-evaluation.html#cb145-15" tabindex="-1"></a>   <span class="dv">40</span> <span class="fl">0.0</span> <span class="fl">1.0</span></span></code></pre></div>
+<p>The output displays the first 10 probability scores for each class: the first column corresponds to <code>churn = yes</code>, while the second column corresponds to <code>churn = no</code>. For instance, if the first row has a probability of 0.4, the model is 40% confident that the customer will churn, while a probability of 0.6 suggests a 60% confidence that the customer will not churn.</p>
+<p>To demonstrate the impact of threshold selection, we compute confusion matrices at two different thresholds: the default 0.5 and a stricter 0.7 threshold.</p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="chapter-evaluation.html#cb146-1" tabindex="-1"></a><span class="fu">conf.mat</span>(kNN_prob[, <span class="dv">1</span>], actual_test, <span class="at">reference =</span> <span class="st">"yes"</span>, <span class="at">cutoff =</span> <span class="fl">0.5</span>)</span>
+<span id="cb146-2"><a href="chapter-evaluation.html#cb146-2" tabindex="-1"></a>          Actual</span>
+<span id="cb146-3"><a href="chapter-evaluation.html#cb146-3" tabindex="-1"></a>   Predict yes  no</span>
+<span id="cb146-4"><a href="chapter-evaluation.html#cb146-4" tabindex="-1"></a>       yes  <span class="dv">54</span>   <span class="dv">7</span></span>
+<span id="cb146-5"><a href="chapter-evaluation.html#cb146-5" tabindex="-1"></a>       no   <span class="dv">83</span> <span class="dv">856</span></span>
+<span id="cb146-6"><a href="chapter-evaluation.html#cb146-6" tabindex="-1"></a><span class="fu">conf.mat</span>(kNN_prob[, <span class="dv">1</span>], actual_test, <span class="at">reference =</span> <span class="st">"yes"</span>, <span class="at">cutoff =</span> <span class="fl">0.7</span>)</span>
+<span id="cb146-7"><a href="chapter-evaluation.html#cb146-7" tabindex="-1"></a>          Actual</span>
+<span id="cb146-8"><a href="chapter-evaluation.html#cb146-8" tabindex="-1"></a>   Predict yes  no</span>
+<span id="cb146-9"><a href="chapter-evaluation.html#cb146-9" tabindex="-1"></a>       yes  <span class="dv">22</span>   <span class="dv">1</span></span>
+<span id="cb146-10"><a href="chapter-evaluation.html#cb146-10" tabindex="-1"></a>       no  <span class="dv">115</span> <span class="dv">862</span></span></code></pre></div>
+<p>At a threshold of 0.5, the model classifies a customer as a churner if the probability of churn is at least 50%. This confusion matrix aligns with the one in Example <a href="chapter-evaluation.html#exm:ex-confusion-matrix-kNN">8.1</a>. However, when we raise the threshold to 0.7, the model becomes more conservative, requiring at least 70% confidence before classifying an instance as churn. This shifts the balance between true positives, false positives, and false negatives:</p>
 <ul>
-<li>Lowering the threshold increases <strong>sensitivity</strong>, allowing the model to catch more true positives but potentially leading to more false positives.<br>
+<li>Lowering the threshold increases sensitivity, catching more true positives but potentially leading to more false positives.<br>
 </li>
-<li>Raising the threshold increases <strong>specificity</strong>, reducing false positives but potentially missing more true positives.</li>
+<li>Raising the threshold increases specificity, reducing false positives but at the risk of missing more true positives.</li>
 </ul>
-<p>Adjusting the threshold is especially important when the costs of false positives and false negatives differ. For instance, in <strong>spam detection</strong>, false positives (marking legitimate emails as spam) can frustrate users, so raising the threshold to prioritize specificity may be preferable. Conversely, in <strong>fraud detection</strong>, missing a fraudulent transaction (false negatives) may be far more costly, so lowering the threshold to prioritize sensitivity would make sense.</p>
+<p>Adjusting the threshold is particularly useful in cases where the cost of false positives and false negatives is not equal. For example, in <em>fraud detection</em>, false negatives (missing fraudulent transactions) can be costly, so lowering the threshold to prioritize recall (sensitivity) might be preferable. Conversely, in <em>spam detection</em>, false positives (flagging legitimate emails as spam) are undesirable, so a higher threshold might be used to prioritize precision.</p>
 </div>
-<p>Fine-tuning the threshold allows us to align the model’s behavior with <strong>business objectives</strong> or <strong>application-specific goals</strong>. Suppose we require a sensitivity of 90%. By iteratively adjusting the threshold and recalculating sensitivity, we can identify the value that meets this target. This process is known as defining an <strong>operating point</strong> for the model.</p>
-<p>However, adjusting the threshold always involves trade-offs. A threshold that maximizes sensitivity may lower precision, as more false positives are classified as positive. Similarly, a threshold that maximizes specificity may reduce recall, as more true positives are misclassified as negative. For example, setting a threshold of 0.9 may result in extremely high specificity but at the cost of missing most true positives.</p>
-<p>Ultimately, the choice of threshold depends on the context of the problem and the specific priorities of the application. Whether the focus is on minimizing errors, achieving regulatory compliance, or balancing precision and recall, the threshold should be tailored to meet these objectives. By experimenting with different thresholds, we can optimize the model’s performance to best suit the needs of the task at hand. In the next section, we’ll explore tools like the <strong>Receiver Operating Characteristic (ROC) curve</strong> and <strong>Area Under the Curve (AUC)</strong>, which provide a systematic way to evaluate model performance across a range of thresholds.</p>
+<div id="choosing-an-optimal-threshold" class="section level3 unnumbered">
+<h3>Choosing an Optimal Threshold<a class="anchor" aria-label="anchor" href="#choosing-an-optimal-threshold"><i class="fas fa-link"></i></a>
+</h3>
+<p>Fine-tuning the threshold allows us to align model behavior with business or domain-specific requirements. Suppose we need a sensitivity of at least 90% to ensure that most churners are detected. By iteratively adjusting the threshold and recalculating sensitivity, we can determine the cutoff that achieves this goal. This process is known as setting an <em>operating point</em> for the model.</p>
+<p>However, threshold adjustments always involve trade-offs. A lower threshold improves recall but may reduce precision by increasing false positives. Conversely, a higher threshold increases precision but may lower recall by missing true positives. For instance, setting a threshold of 0.9 might achieve near-perfect specificity but could miss most actual churners.</p>
+<p>While manually tuning the threshold can be helpful, a more systematic approach is needed to evaluate model performance across all possible thresholds. This leads us to the <em>Receiver Operating Characteristic (ROC) curve</em> and <em>Area Under the Curve (AUC)</em>, which provide a comprehensive way to assess a model’s ability to distinguish between classes.</p>
+</div>
 </div>
 <div id="roc-curve-and-auc" class="section level2" number="8.5">
 <h2>
 <span class="header-section-number">8.5</span> ROC Curve and AUC<a class="anchor" aria-label="anchor" href="#roc-curve-and-auc"><i class="fas fa-link"></i></a>
 </h2>
-<p>Manually experimenting with thresholds is insightful but often impractical. Additionally, while metrics like sensitivity, specificity, precision, and recall attempt to summarize a model’s performance, they only provide snapshots at specific thresholds. What we need is a way to evaluate how a model performs across a <strong>range of thresholds</strong>, offering a broader view of its behavior. Models often vary in how they achieve their accuracy; two models with similar overall accuracy may excel in entirely different aspects of prediction. For example, one model might identify most positives but misclassify many negatives, while another might do the opposite. To systematically evaluate a model’s performance across all thresholds, we use the <strong>Receiver Operating Characteristic (ROC) curve</strong> and its associated metric, the <strong>Area Under the Curve (AUC)</strong>. These tools provide both a visual and quantitative way to assess a model’s ability to distinguish between positive and negative classes.</p>
-<p>The <strong>ROC curve</strong> is a graphical representation of the trade-off between sensitivity (true positive rate) and specificity (true negative rate) across different thresholds. It plots the <strong>True Positive Rate (Sensitivity)</strong> against the <strong>False Positive Rate (1 - Specificity)</strong>. This concept originated in World War II to measure radar receiver performance, distinguishing between true signals and false alarms. In modern machine learning, it’s an invaluable tool for evaluating classifier effectiveness.</p>
-<p>The characteristics of an ROC curve are illustrated in Figure <a href="chapter-evaluation.html#fig:roc-curve">8.1</a>. On the vertical axis, the <strong>True Positive Rate (Sensitivity)</strong> is plotted, while the <strong>False Positive Rate (1 - Specificity)</strong> is plotted on the horizontal axis. Several key scenarios are highlighted in the figure:<br>
-- <strong>Optimal Performance (Green Curve)</strong>: A model with near-perfect performance passes through the top-left corner, achieving both high sensitivity and high specificity.<br>
-- <strong>Good Performance (Blue Curve)</strong>: A model with decent but not perfect performance has a curve that remains closer to the top-left corner than to the diagonal line.<br>
-- <strong>Random Classifier (Diagonal Line)</strong>: The diagonal line (gray dashed) represents a model with no predictive value, classifying purely at random. A classifier close to this line offers little utility.</p>
+<p>While adjusting classification thresholds provides valuable insights, it is often impractical for systematically comparing models. Additionally, sensitivity, specificity, precision, and recall evaluate a model at a fixed threshold, offering only a snapshot of performance. Instead, we need a way to assess performance across a range of thresholds, revealing broader trends in model behavior. Models with similar overall accuracy may perform differently—one might excel at detecting positive cases but misclassify many negatives, while another might do the opposite. To systematically evaluate a model’s ability to distinguish between positive and negative cases across all thresholds, we use the <em>Receiver Operating Characteristic (ROC) curve</em> and its associated metric, the <em>Area Under the Curve (AUC)</em>.</p>
+<p>The <em>ROC curve</em> visually represents the trade-off between sensitivity (true positive rate) and specificity (true negative rate) at various classification thresholds. It plots the <em>True Positive Rate (Sensitivity)</em> against the <em>False Positive Rate (1 - Specificity)</em>. Originally developed for radar signal detection during World War II, the ROC curve is now widely used in machine learning to assess classifier effectiveness.</p>
+<p>Figure <a href="chapter-evaluation.html#fig:roc-curve">8.1</a> illustrates key ROC curve characteristics. The vertical axis represents <em>True Positive Rate (Sensitivity)</em>, while the horizontal axis represents <em>False Positive Rate (1 - Specificity)</em>. Three scenarios are highlighted:</p>
+<ul>
+<li>
+<em>Optimal Performance (Green Curve)</em>: A model with near-perfect performance passes through the top-left corner, achieving both high sensitivity and high specificity.<br>
+</li>
+<li>
+<em>Good Performance (Blue Curve)</em>: A well-performing but imperfect model remains closer to the top-left corner than to the diagonal line.<br>
+</li>
+<li>
+<em>Random Classifier (Diagonal Line)</em>: The gray dashed diagonal represents a model with no predictive power, classifying randomly. A model close to this line provides little practical utility.</li>
+</ul>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:roc-curve"></span>
 <img src="images/roc-curve.png" alt="The ROC curve illustrates the trade-off between sensitivity and specificity at different thresholds. The diagonal line represents a classifier with no predictive value (gray dashed line), while the curves represent varying levels of performance: green for optimal and blue for good." width="60%"><p class="caption">
 Figure 8.1: The ROC curve illustrates the trade-off between sensitivity and specificity at different thresholds. The diagonal line represents a classifier with no predictive value (gray dashed line), while the curves represent varying levels of performance: green for optimal and blue for good.
 </p>
 </div>
-<p>Each point on the ROC curve corresponds to a specific threshold. As thresholds vary, the <strong>True Positive Rate (Sensitivity)</strong> and <strong>False Positive Rate (1 - Specificity)</strong> change, tracing the curve. The closer the curve is to the top-left corner, the better the model’s performance in distinguishing between classes.</p>
+<p>Each point on the ROC curve corresponds to a specific threshold. As the threshold varies, the <em>True Positive Rate (Sensitivity)</em> and <em>False Positive Rate (1 - Specificity)</em> change, tracing the curve. A curve that remains close to the top-left corner indicates better performance, as the model achieves high sensitivity while minimizing false positives. However, moving along the curve reflects different trade-offs between sensitivity and specificity. Choosing an optimal threshold depends on the application:</p>
+<ul>
+<li>In <em>medical diagnostics</em>, maximizing sensitivity ensures no cases are missed, even if it results in some false positives.<br>
+</li>
+<li>In <em>fraud detection</em>, prioritizing specificity prevents legitimate transactions from being falsely flagged.</li>
+</ul>
 <p>To construct the ROC curve, a classifier’s predictions are sorted by their estimated probabilities for the positive class. Starting from the origin, each prediction’s impact on sensitivity and specificity is plotted. Correct predictions (true positives) result in vertical movements, while incorrect predictions (false positives) lead to horizontal shifts.</p>
-<p>Let’s apply this concept to the <strong>k-Nearest Neighbors (kNN)</strong> model from Example <a href="chapter-evaluation.html#exm:ex-confusion-matrix-kNN-prob">8.2</a>, where we obtained probabilities for the positive class (<code>churn = yes</code>). We’ll use these probabilities to generate the ROC curve for the model. The <strong>pROC</strong> package in R simplifies this process. Ensure the package is installed using <code>install.packages("pROC")</code> before proceeding.</p>
-<p>To create an ROC curve, two inputs are needed: the estimated probabilities for the positive class and the actual class labels. Using the <code><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc()</a></code> function from the <strong>pROC</strong> package, we can create the ROC curve object as follows:</p>
-<div class="sourceCode" id="cb149"><pre class="downlit sourceCode r">
+<div class="example">
+<p><span id="exm:ex-roc-curve-kNN" class="example"><strong>Example 8.3  </strong></span>Let’s apply this concept to the <em>k-Nearest Neighbors (kNN)</em> model from Example <a href="chapter-evaluation.html#exm:ex-confusion-matrix-kNN-prob">8.2</a>, where we obtained probabilities for the positive class (<code>churn = yes</code>). We’ll use these probabilities to generate the ROC curve for the model. The <strong>pROC</strong> package in R simplifies this process. Ensure the package is installed using <code>install.packages("pROC")</code> before proceeding.</p>
+<p>To create an ROC curve, two inputs are needed: the estimated probabilities for the positive class and the actual class labels. Using the <code><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc()</a></code> function from the <strong>pROC</strong> package, we generate the ROC curve object:</p>
+<div class="sourceCode" id="cb147"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://xrobin.github.io/pROC/">pROC</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">roc_knn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span>response <span class="op">=</span> <span class="va">actual_test</span>, predictor <span class="op">=</span> <span class="va">kNN_prob</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <p>We can then visualize the ROC curve using the <code><a href="https://rdrr.io/pkg/pROC/man/ggroc.html">ggroc()</a></code> function from the <strong>ggplot2</strong> package or the <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function for a basic display. Here’s the ROC curve for the kNN model:</p>
-<div class="sourceCode" id="cb150"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/pROC/man/ggroc.html">ggroc</a></span><span class="op">(</span><span class="va">roc_knn</span>, colour <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"ROC curve for KNN with k = 5, based on churn data"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
@@ -422,94 +478,240 @@ Figure 8.1: The ROC curve illustrates the trade-off between sensitivity and spec
 Figure 8.2: ROC curve for KNN with k = 5, based on churn data.
 </p>
 </div>
-<p>The ROC curve visually demonstrates the model’s performance across different thresholds. A curve closer to the top-left corner indicates better performance, as it achieves high sensitivity and specificity. The diagonal line represents a random classifier, providing the baseline for comparison. In this case, the kNN model’s ROC curve is much closer to the top-left corner, suggesting strong performance in distinguishing between churners and non-churners.</p>
-<p>Another critical metric derived from the ROC curve is the <strong>Area Under the Curve (AUC)</strong>. The AUC quantifies the overall performance of the model, summarizing the ROC curve into a single number. The AUC value represents the probability that a randomly chosen positive instance will have a higher predicted score than a randomly chosen negative instance.</p>
+<p>The ROC curve visually demonstrates the model’s performance across different thresholds. A curve closer to the top-left corner indicates better performance, as it achieves high sensitivity and specificity. The diagonal line represents a random classifier, serving as a baseline for comparison. In this case, the kNN model’s ROC curve is much closer to the top-left corner, suggesting strong performance in distinguishing between churners and non-churners.</p>
+</div>
+<div id="area-under-the-curve-auc" class="section level3 unnumbered">
+<h3>Area Under the Curve (AUC)<a class="anchor" aria-label="anchor" href="#area-under-the-curve-auc"><i class="fas fa-link"></i></a>
+</h3>
+<p>Another critical metric derived from the ROC curve is the <em>Area Under the Curve (AUC)</em>, which quantifies the overall performance of the model. AUC represents the probability that a randomly chosen positive instance will have a higher predicted score than a randomly chosen negative instance. Mathematically, AUC is computed as:</p>
+<p><span class="math display">\[
+\text{AUC} = \int_{0}^{1} \text{TPR}(t) \, d\text{FPR}(t)
+\]</span></p>
+<p>where <span class="math inline">\(t\)</span> represents the threshold, reinforcing that AUC measures the model’s ability to rank positive cases above negative ones across all possible thresholds.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:auc"></span>
 <img src="images/auc.png" alt="The AUC summarizes the ROC curve into a single number, representing the model’s ability to rank positive cases higher than negative ones. AUC = 1: Perfect model. AUC = 0.5: No better than random guessing." width="45%"><p class="caption">
 Figure 8.3: The AUC summarizes the ROC curve into a single number, representing the model’s ability to rank positive cases higher than negative ones. AUC = 1: Perfect model. AUC = 0.5: No better than random guessing.
 </p>
 </div>
-<p>Here’s how AUC values are interpreted:</p>
-<ul>
-<li>
-<strong>AUC = 1</strong>: Perfect classifier.<br>
-</li>
-<li>
-<strong>AUC = 0.5</strong>: No better than random guessing.</li>
-</ul>
-<p>For the kNN model, we can calculate the AUC as follows:</p>
-<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="chapter-evaluation.html#cb151-1" tabindex="-1"></a><span class="fu">auc</span>(roc_knn)</span>
-<span id="cb151-2"><a href="chapter-evaluation.html#cb151-2" tabindex="-1"></a>   Area under the curve<span class="sc">:</span> <span class="fl">0.8494</span></span></code></pre></div>
-<p>The AUC value for this model is 0.849, indicating that the model ranks positive cases higher than negative ones with a probability of 0.849.</p>
-<p>The ROC curve and AUC offer a comprehensive and systematic way to evaluate classification models, enabling comparisons between models and helping identify the optimal threshold for specific tasks. These tools are particularly valuable when working with imbalanced datasets, as they account for the trade-offs between sensitivity and specificity across all thresholds. By combining these insights with metrics like precision, recall, and F1-score, we can develop a deeper understanding of model performance and select the best approach for the problem at hand.</p>
+<p>AUC values range from 0 to 1, where a value of 1 indicates a perfect classifier with ideal discrimination between classes, while a value of 0.5 suggests no better performance than random guessing. AUC values between 0.5 and 1 represent varying levels of model performance, with higher values reflecting better separation between positive and negative cases.</p>
+<p>For the kNN model, we compute the AUC using the <code><a href="https://rdrr.io/pkg/pROC/man/auc.html">auc()</a></code> function from the <strong>pROC</strong> package:</p>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="chapter-evaluation.html#cb149-1" tabindex="-1"></a><span class="fu">auc</span>(roc_knn)</span>
+<span id="cb149-2"><a href="chapter-evaluation.html#cb149-2" tabindex="-1"></a>   Area under the curve<span class="sc">:</span> <span class="fl">0.8494</span></span></code></pre></div>
+<p>The AUC value for this model is 0.849, meaning the model ranks positive cases higher than negative ones with a probability of 0.849.</p>
+<p>In summary, the ROC curve and AUC provide a comprehensive way to evaluate classification models, enabling comparisons across multiple models and identifying optimal thresholds for specific tasks. These tools are particularly valuable for <em>imbalanced datasets</em>, as they capture the trade-offs between sensitivity and specificity across all classification thresholds. By combining these insights with metrics like precision, recall, and the F1-score, we can develop a deeper understanding of model performance and select the best approach for the given problem.</p>
+<p>In the next section, we extend our discussion to <em>multi-class classification</em>, where the target variable has more than two possible categories, requiring modifications to standard evaluation metrics.</p>
+</div>
 </div>
 <div id="metrics-for-multi-class-classification" class="section level2" number="8.6">
 <h2>
 <span class="header-section-number">8.6</span> Metrics for Multi-Class Classification<a class="anchor" aria-label="anchor" href="#metrics-for-multi-class-classification"><i class="fas fa-link"></i></a>
 </h2>
-<p>So far, we’ve focused on binary classification, where the target variable has two categories. However, many real-world problems involve <strong>multi-class classification</strong>, where the target variable can belong to three or more categories. Examples include classifying species in ecological studies or identifying different types of vehicles. Evaluating such models requires extending metrics to handle multiple categories effectively.</p>
-<p>The confusion matrix for multi-class classification expands to include all classes, with each row representing the actual class and each column representing the predicted class. Correct predictions appear on the diagonal, while off-diagonal elements indicate misclassifications. This structure highlights which classes the model struggles to distinguish.</p>
-<p>Metrics like <strong>Accuracy</strong>, <strong>Precision</strong>, <strong>Recall</strong>, and <strong>F1-Score</strong> can be adapted for multi-class problems. For each class, the model is evaluated as if that class were the “positive” class and all others were “negative.” Precision, Recall, and F1-Score are then calculated per class. To summarize overall performance, we compute averages such as:</p>
+<p>So far, we have focused on binary classification, where the target variable has two categories. However, many real-world problems involve <em>multi-class classification</em>, where the target variable can belong to three or more categories. Examples include classifying species in ecological studies or identifying different types of vehicles. Evaluating such models requires extending performance metrics to handle multiple categories effectively.</p>
+<p>In multi-class classification, the confusion matrix expands to include all classes, with each row representing the actual class and each column representing the predicted class. Correct predictions appear along the diagonal, while off-diagonal elements indicate misclassifications. This structure highlights which classes the model struggles to distinguish.</p>
+<p>Metrics such as accuracy, precision, recall, and F1-score can be adapted for multi-class problems. Instead of evaluating a single positive class, we assess each class as if it were the positive class while treating all other classes as negative. This one-vs-all (also known as one-vs-rest) approach allows the calculation of precision, recall, and F1-score for each class separately. To summarize overall performance, different averaging techniques are used:</p>
 <ul>
 <li>
-<strong>Macro-Average</strong>: Treats all classes equally by taking the unweighted mean of metrics across classes.<br>
+<em>Macro-average</em>: Computes the unweighted mean of the metric across all classes, treating each class equally. This is useful when all classes are of equal importance, regardless of their frequency in the dataset.<br>
 </li>
 <li>
-<strong>Micro-Average</strong>: Aggregates predictions across all classes, giving more weight to larger classes.<br>
+<em>Micro-average</em>: Aggregates predictions across all classes before computing the metric, giving more weight to larger classes. This is particularly useful when the dataset has an uneven class distribution, as it provides a more representative measure of overall model performance.<br>
 </li>
 <li>
-<strong>Weighted-Average</strong>: Weights each class’s metric by its frequency in the dataset.</li>
+<em>Weighted-average</em>: Similar to macro-averaging but weights each class’s metric by its frequency in the dataset. This ensures that larger classes contribute proportionally while preventing minority classes from being overshadowed.</li>
 </ul>
-<p>These metrics ensure a balanced evaluation, especially when dealing with imbalanced datasets, where some classes may have significantly fewer samples than others.</p>
-<p>While metrics like the ROC curve and AUC are designed for binary classification, they can be adapted to multi-class problems using techniques like one-vs-all (evaluating each class against all others). However, for most applications, metrics like macro-averaged F1-Score provide a clear and practical summary of a multi-class model’s performance.</p>
-<p>By using these metrics, we can evaluate how well the model performs across all categories, identify weaknesses in specific classes, and ensure that the model aligns with the requirements of the task.</p>
+<p>These averaging methods ensure a fair evaluation, particularly in imbalanced datasets where some classes may have significantly fewer samples than others.</p>
+<p>While metrics such as the ROC curve and AUC are primarily designed for binary classification, they can be extended to multi-class problems using strategies like one-vs-all, where an ROC curve is generated for each class against the others. However, in most practical applications, macro-averaged or weighted-averaged F1-score provides a concise and meaningful summary of multi-class model performance.</p>
+<p>By applying these metrics, we can assess how well the model performs across all categories, identify weaknesses in specific classes, and ensure that the evaluation aligns with the problem’s objectives. The next section explores evaluation metrics for <em>regression models</em>, where the target variable is continuous rather than categorical.</p>
 </div>
 <div id="evaluation-metrics-for-continuous-targets" class="section level2" number="8.7">
 <h2>
 <span class="header-section-number">8.7</span> Evaluation Metrics for Continuous Targets<a class="anchor" aria-label="anchor" href="#evaluation-metrics-for-continuous-targets"><i class="fas fa-link"></i></a>
 </h2>
-<p>While we’ve focused on evaluating classification models so far, many real-world problems involve predicting continuous target variables, such as house prices, stock market trends, or weather forecasts. These problems require <strong>regression models</strong>, which are assessed using metrics designed for continuous data.</p>
-<p>One of the most common evaluation metrics for regression models is the <strong>Mean Squared Error (MSE)</strong>:
+<p>So far, we have focused on evaluating classification models, which predict discrete categories. However, many real-world problems involve predicting continuous target variables, such as house prices, stock market trends, or weather forecasts. These tasks require <em>regression models</em>, which are assessed using metrics specifically designed for continuous data.</p>
+<p>A widely used evaluation metric for regression models is the <em>Mean Squared Error (MSE)</em>:
 <span class="math display">\[
 \text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2
 \]</span>
-Here, <span class="math inline">\(y_i\)</span> represents the actual value, <span class="math inline">\(\hat{y}_i\)</span> is the predicted value, and <span class="math inline">\(n\)</span> is the number of observations. The MSE measures the average squared difference between predicted and actual values, penalizing larger errors more heavily. Lower MSE values indicate better model performance, with zero representing a perfect fit.</p>
-<p>Although widely used, MSE has some limitations, particularly its sensitivity to outliers. For a more robust evaluation, we can use the <strong>Mean Absolute Error (MAE)</strong>, which calculates the average absolute difference between predicted and actual values:
+where <span class="math inline">\(y_i\)</span> represents the actual value, <span class="math inline">\(\hat{y}_i\)</span> is the predicted value, and <span class="math inline">\(n\)</span> is the number of observations. MSE calculates the average squared difference between predicted and actual values, with larger errors contributing disproportionately due to squaring. As a result, MSE is particularly sensitive to outliers. Lower values indicate better model performance, with zero representing a perfect fit.</p>
+<p>While MSE is useful, its sensitivity to large errors may not always be desirable. A more robust alternative is the <em>Mean Absolute Error (MAE)</em>, which measures the average absolute difference between predicted and actual values:
 <span class="math display">\[
 \text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i|
 \]</span>
-Unlike MSE, the MAE treats all errors equally, making it less sensitive to extreme values and more interpretable in certain contexts. It’s particularly useful when the target variable has a skewed distribution or when outliers are present.</p>
-<p>Another widely used metric for regression models is the <strong><span class="math inline">\(R^2\)</span> score</strong>, or <strong>coefficient of determination</strong>. The <span class="math inline">\(R^2\)</span> score measures the proportion of variance in the target variable that the model explains. It ranges from 0 to 1, where higher values indicate a better fit. An <span class="math inline">\(R^2\)</span> of 1 implies the model perfectly predicts the target variable, while a value of 0 suggests the model provides no better predictions than the mean.</p>
-<p>These metrics provide a starting point for evaluating regression models, but the choice of metric depends on the specific problem and goals. For instance, when prioritizing interpretability, MAE might be more meaningful, whereas MSE is more useful when larger errors must be penalized. We will explore these metrics in greater depth in Chapter <a href="chapter-regression.html#chapter-regression">10</a>, where we dive into regression modeling techniques.</p>
+Unlike MSE, MAE treats all errors equally, making it less sensitive to extreme values and easier to interpret. It is particularly useful when the target variable has a skewed distribution or when outliers are present.</p>
+<p>Another key metric for evaluating regression models is the <em><span class="math inline">\(R^2\)</span> score</em>, or <em>coefficient of determination</em>. The <span class="math inline">\(R^2\)</span> score measures the proportion of variance in the target variable that the model explains. It is defined as:
+<span class="math display">\[
+R^2 = 1 - \frac{\sum (y_i - \hat{y}_i)^2}{\sum (y_i - \bar{y})^2}
+\]</span>
+where <span class="math inline">\(\bar{y}\)</span> is the mean of the actual values. The <span class="math inline">\(R^2\)</span> score ranges from 0 to 1, where higher values indicate a better fit. An <span class="math inline">\(R^2\)</span> value of 1 means the model perfectly predicts the target variable, while a value of 0 suggests the model performs no better than simply predicting the mean of the target variable.</p>
+<p>These metrics provide different perspectives on model performance. MSE is useful when penalizing larger errors is important, MAE is preferable for interpretability and robustness to outliers, and <span class="math inline">\(R^2\)</span> helps quantify how well the model explains variability in the data. The choice of metric depends on the specific problem and goals. In Chapter <a href="chapter-regression.html#chapter-regression">10</a>, we will explore these evaluation metrics in greater depth, alongside various regression modeling techniques.</p>
 </div>
-<div id="summary" class="section level2" number="8.8">
+<div id="key-takeaways-from-model-evaluation" class="section level2" number="8.8">
 <h2>
-<span class="header-section-number">8.8</span> Summary<a class="anchor" aria-label="anchor" href="#summary"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.8</span> Key Takeaways from Model Evaluation<a class="anchor" aria-label="anchor" href="#key-takeaways-from-model-evaluation"><i class="fas fa-link"></i></a>
 </h2>
-<p>In this chapter, we explored the critical step of <strong>Model Evaluation</strong>, which determines how well a model performs and whether it meets the requirements of the problem at hand. Starting with the foundational concepts, we examined metrics for evaluating classification models, including <strong>binary</strong>, <strong>multi-class</strong>, and <strong>regression</strong> models.</p>
+<p>In this chapter, we explored the critical step of model evaluation, which determines how well a model performs and whether it meets the requirements of the problem at hand. Starting with foundational concepts, we examined metrics for evaluating classification models, including binary, multi-class, and regression models.</p>
 <div id="key-takeaways-1" class="section level3 unnumbered">
 <h3>Key Takeaways<a class="anchor" aria-label="anchor" href="#key-takeaways-1"><i class="fas fa-link"></i></a>
 </h3>
 <ul>
 <li><p><strong>Binary Classification Metrics</strong>:<br>
-We began by understanding the <strong>confusion matrix</strong>, which categorizes predictions into true positives, true negatives, false positives, and false negatives. From this, we derived metrics like <strong>accuracy</strong>, <strong>sensitivity (recall)</strong>, <strong>specificity</strong>, <strong>precision</strong>, and the <strong>F1-Score</strong> to evaluate the trade-offs between different types of errors.</p></li>
+We began by understanding the confusion matrix, which categorizes predictions into true positives, true negatives, false positives, and false negatives. From this, we derived key metrics such as accuracy, sensitivity (recall), specificity, precision, and the F1-score, each offering different perspectives on model performance.</p></li>
 <li><p><strong>Threshold Tuning</strong>:<br>
 Recognizing the impact of probability thresholds on model predictions, we discussed how adjusting thresholds can help align a model with specific goals, such as maximizing sensitivity for critical applications or prioritizing specificity to avoid false positives.</p></li>
 <li><p><strong>ROC Curve and AUC</strong>:<br>
-To evaluate model performance across all possible thresholds, we introduced the <strong>Receiver Operating Characteristic (ROC) curve</strong> and the <strong>Area Under the Curve (AUC)</strong>. These tools provide a systematic and visual way to assess a model’s ability to distinguish between classes, particularly useful for comparing multiple models.</p></li>
+To evaluate model performance across all possible thresholds, we introduced the Receiver Operating Characteristic (ROC) curve and the Area Under the Curve (AUC). These tools provide a systematic and visual way to assess a model’s ability to distinguish between classes, making them particularly useful for comparing multiple models.</p></li>
 <li><p><strong>Multi-Class Classification</strong>:<br>
-For multi-class problems, we extended metrics like precision, recall, and F1-Score by calculating per-class metrics and aggregating them using methods such as <strong>macro-average</strong>, <strong>micro-average</strong>, and <strong>weighted-average</strong>. This ensures a balanced evaluation, even for imbalanced datasets.</p></li>
+For classification problems involving more than two classes, we extended metrics such as precision, recall, and the F1-score by calculating per-class metrics and aggregating them using methods such as macro-average, micro-average, and weighted-average. These approaches ensure a balanced evaluation, especially when dealing with imbalanced datasets.</p></li>
 <li><p><strong>Regression Metrics</strong>:<br>
-Finally, we covered metrics for evaluating regression models, such as <strong>Mean Squared Error (MSE)</strong>, <strong>Mean Absolute Error (MAE)</strong>, and the <strong><span class="math inline">\(R^2\)</span> score</strong>, which measure the accuracy of predictions for continuous target variables. These metrics offer flexibility depending on whether minimizing large errors or achieving interpretability is more important.</p></li>
+For problems involving continuous target variables, we introduced evaluation metrics such as mean squared error (MSE), mean absolute error (MAE), and the <span class="math inline">\(R^2\)</span> score. These metrics allow for assessing prediction accuracy while accounting for trade-offs between penalizing large errors (MSE) and ensuring interpretability (MAE).</p></li>
 </ul>
 </div>
 <div id="closing-thoughts" class="section level3 unnumbered">
 <h3>Closing Thoughts<a class="anchor" aria-label="anchor" href="#closing-thoughts"><i class="fas fa-link"></i></a>
 </h3>
-<p>This chapter emphasized that no single metric can capture the full picture of a model’s performance. Instead, evaluation should consider the specific goals and constraints of the problem, whether minimizing errors, handling imbalanced data, or aligning with business objectives. Proper evaluation ensures that a model is not only accurate but also actionable and reliable in real-world applications.</p>
+<p>This chapter emphasized that no single metric can fully capture a model’s performance. Instead, evaluation should be guided by the specific goals and constraints of the problem, balancing trade-offs such as accuracy versus interpretability and false positives versus false negatives. Proper evaluation ensures that a model is not only accurate but also actionable and reliable in real-world applications.</p>
 <p>By mastering these evaluation techniques, you are now equipped to critically assess model performance, optimize thresholds, and select the right model for the task at hand. In the following chapters, we will build on this foundation to explore advanced modeling techniques and their evaluation in greater detail.</p>
-
+</div>
+</div>
+<div id="exercises-6" class="section level2" number="8.9">
+<h2>
+<span class="header-section-number">8.9</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-6"><i class="fas fa-link"></i></a>
+</h2>
+<div id="conceptual-questions-4" class="section level3 unnumbered">
+<h3>Conceptual Questions<a class="anchor" aria-label="anchor" href="#conceptual-questions-4"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>Why is model evaluation important in machine learning?<br>
+</li>
+<li>Explain the difference between training accuracy and test accuracy.<br>
+</li>
+<li>What is a confusion matrix, and why is it useful?<br>
+</li>
+<li>How does the choice of the positive class impact evaluation metrics?<br>
+</li>
+<li>What is the difference between sensitivity and specificity?<br>
+</li>
+<li>When would you prioritize sensitivity over specificity? Provide an example.<br>
+</li>
+<li>What is precision, and how does it differ from recall?<br>
+</li>
+<li>Why do we use the F1-score instead of relying solely on accuracy?<br>
+</li>
+<li>Explain the trade-off between precision and recall. How does changing the classification threshold impact them?<br>
+</li>
+<li>What is an ROC curve, and how does it help compare different models?<br>
+</li>
+<li>What does the Area Under the Curve (AUC) represent? How do you interpret different AUC values?<br>
+</li>
+<li>How can adjusting classification thresholds optimize model performance for a specific business need?<br>
+</li>
+<li>Why is accuracy often misleading for imbalanced datasets? What alternative metrics can be used?<br>
+</li>
+<li>What are macro-average and micro-average F1-scores, and when should each be used?<br>
+</li>
+<li>Explain how multi-class classification evaluation differs from binary classification.<br>
+</li>
+<li>What is Mean Squared Error (MSE), and why is it used in regression models?<br>
+</li>
+<li>How does Mean Absolute Error (MAE) compare to MSE? When would you prefer one over the other?<br>
+</li>
+<li>What is the <span class="math inline">\(R^2\)</span> score in regression, and what does it indicate?<br>
+</li>
+<li>Can an <span class="math inline">\(R^2\)</span> score be negative? What does it mean if this happens?<br>
+</li>
+<li>Why is it important to evaluate models using multiple metrics instead of relying on a single one?</li>
+</ol>
+</div>
+<div id="hands-on-practice-evaluating-models-with-the-bank-dataset" class="section level3 unnumbered">
+<h3>Hands-On Practice: Evaluating Models with the <em>Bank</em> Dataset<a class="anchor" aria-label="anchor" href="#hands-on-practice-evaluating-models-with-the-bank-dataset"><i class="fas fa-link"></i></a>
+</h3>
+<p>For these exercises, we will use the <em>bank</em> dataset from the <strong>liver</strong> package. The dataset contains information on customer demographics and financial details, with the target variable <em>deposit</em> indicating whether a customer subscribed to a term deposit.</p>
+<p>Load the necessary package and dataset:</p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="chapter-evaluation.html#cb150-1" tabindex="-1"></a><span class="fu">library</span>(liver)</span>
+<span id="cb150-2"><a href="chapter-evaluation.html#cb150-2" tabindex="-1"></a></span>
+<span id="cb150-3"><a href="chapter-evaluation.html#cb150-3" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
+<span id="cb150-4"><a href="chapter-evaluation.html#cb150-4" tabindex="-1"></a><span class="fu">data</span>(bank)</span>
+<span id="cb150-5"><a href="chapter-evaluation.html#cb150-5" tabindex="-1"></a></span>
+<span id="cb150-6"><a href="chapter-evaluation.html#cb150-6" tabindex="-1"></a><span class="co"># View the structure of the dataset</span></span>
+<span id="cb150-7"><a href="chapter-evaluation.html#cb150-7" tabindex="-1"></a><span class="fu">str</span>(bank)</span>
+<span id="cb150-8"><a href="chapter-evaluation.html#cb150-8" tabindex="-1"></a>   <span class="st">'data.frame'</span><span class="sc">:</span>    <span class="dv">4521</span> obs. of  <span class="dv">17</span> variables<span class="sc">:</span></span>
+<span id="cb150-9"><a href="chapter-evaluation.html#cb150-9" tabindex="-1"></a>    <span class="er">$</span> age      <span class="sc">:</span> int  <span class="dv">30</span> <span class="dv">33</span> <span class="dv">35</span> <span class="dv">30</span> <span class="dv">59</span> <span class="dv">35</span> <span class="dv">36</span> <span class="dv">39</span> <span class="dv">41</span> <span class="dv">43</span> ...</span>
+<span id="cb150-10"><a href="chapter-evaluation.html#cb150-10" tabindex="-1"></a>    <span class="sc">$</span> job      <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">12</span> levels <span class="st">"admin."</span>,<span class="st">"blue-collar"</span>,..<span class="sc">:</span> <span class="dv">11</span> <span class="dv">8</span> <span class="dv">5</span> <span class="dv">5</span> <span class="dv">2</span> <span class="dv">5</span> <span class="dv">7</span> <span class="dv">10</span> <span class="dv">3</span> <span class="dv">8</span> ...</span>
+<span id="cb150-11"><a href="chapter-evaluation.html#cb150-11" tabindex="-1"></a>    <span class="sc">$</span> marital  <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">3</span> levels <span class="st">"divorced"</span>,<span class="st">"married"</span>,..<span class="sc">:</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> ...</span>
+<span id="cb150-12"><a href="chapter-evaluation.html#cb150-12" tabindex="-1"></a>    <span class="sc">$</span> education<span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">4</span> levels <span class="st">"primary"</span>,<span class="st">"secondary"</span>,..<span class="sc">:</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">1</span> ...</span>
+<span id="cb150-13"><a href="chapter-evaluation.html#cb150-13" tabindex="-1"></a>    <span class="sc">$</span> default  <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"no"</span>,<span class="st">"yes"</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> ...</span>
+<span id="cb150-14"><a href="chapter-evaluation.html#cb150-14" tabindex="-1"></a>    <span class="sc">$</span> balance  <span class="sc">:</span> int  <span class="dv">1787</span> <span class="dv">4789</span> <span class="dv">1350</span> <span class="dv">1476</span> <span class="dv">0</span> <span class="dv">747</span> <span class="dv">307</span> <span class="dv">147</span> <span class="dv">221</span> <span class="sc">-</span><span class="dv">88</span> ...</span>
+<span id="cb150-15"><a href="chapter-evaluation.html#cb150-15" tabindex="-1"></a>    <span class="sc">$</span> housing  <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"no"</span>,<span class="st">"yes"</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> ...</span>
+<span id="cb150-16"><a href="chapter-evaluation.html#cb150-16" tabindex="-1"></a>    <span class="sc">$</span> loan     <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"no"</span>,<span class="st">"yes"</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> ...</span>
+<span id="cb150-17"><a href="chapter-evaluation.html#cb150-17" tabindex="-1"></a>    <span class="sc">$</span> contact  <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">3</span> levels <span class="st">"cellular"</span>,<span class="st">"telephone"</span>,..<span class="sc">:</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">1</span> ...</span>
+<span id="cb150-18"><a href="chapter-evaluation.html#cb150-18" tabindex="-1"></a>    <span class="sc">$</span> day      <span class="sc">:</span> int  <span class="dv">19</span> <span class="dv">11</span> <span class="dv">16</span> <span class="dv">3</span> <span class="dv">5</span> <span class="dv">23</span> <span class="dv">14</span> <span class="dv">6</span> <span class="dv">14</span> <span class="dv">17</span> ...</span>
+<span id="cb150-19"><a href="chapter-evaluation.html#cb150-19" tabindex="-1"></a>    <span class="sc">$</span> month    <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">12</span> levels <span class="st">"apr"</span>,<span class="st">"aug"</span>,<span class="st">"dec"</span>,..<span class="sc">:</span> <span class="dv">11</span> <span class="dv">9</span> <span class="dv">1</span> <span class="dv">7</span> <span class="dv">9</span> <span class="dv">4</span> <span class="dv">9</span> <span class="dv">9</span> <span class="dv">9</span> <span class="dv">1</span> ...</span>
+<span id="cb150-20"><a href="chapter-evaluation.html#cb150-20" tabindex="-1"></a>    <span class="sc">$</span> duration <span class="sc">:</span> int  <span class="dv">79</span> <span class="dv">220</span> <span class="dv">185</span> <span class="dv">199</span> <span class="dv">226</span> <span class="dv">141</span> <span class="dv">341</span> <span class="dv">151</span> <span class="dv">57</span> <span class="dv">313</span> ...</span>
+<span id="cb150-21"><a href="chapter-evaluation.html#cb150-21" tabindex="-1"></a>    <span class="sc">$</span> campaign <span class="sc">:</span> int  <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">4</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> ...</span>
+<span id="cb150-22"><a href="chapter-evaluation.html#cb150-22" tabindex="-1"></a>    <span class="sc">$</span> pdays    <span class="sc">:</span> int  <span class="sc">-</span><span class="dv">1</span> <span class="dv">339</span> <span class="dv">330</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">-</span><span class="dv">1</span> <span class="dv">176</span> <span class="dv">330</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">-</span><span class="dv">1</span> <span class="dv">147</span> ...</span>
+<span id="cb150-23"><a href="chapter-evaluation.html#cb150-23" tabindex="-1"></a>    <span class="sc">$</span> previous <span class="sc">:</span> int  <span class="dv">0</span> <span class="dv">4</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">2</span> ...</span>
+<span id="cb150-24"><a href="chapter-evaluation.html#cb150-24" tabindex="-1"></a>    <span class="sc">$</span> poutcome <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">4</span> levels <span class="st">"failure"</span>,<span class="st">"other"</span>,..<span class="sc">:</span> <span class="dv">4</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">4</span> <span class="dv">4</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">4</span> <span class="dv">4</span> <span class="dv">1</span> ...</span>
+<span id="cb150-25"><a href="chapter-evaluation.html#cb150-25" tabindex="-1"></a>    <span class="sc">$</span> deposit  <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"no"</span>,<span class="st">"yes"</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> ...</span></code></pre></div>
+<div id="data-preparation-1" class="section level4 unnumbered">
+<h4>Data Preparation<a class="anchor" aria-label="anchor" href="#data-preparation-1"><i class="fas fa-link"></i></a>
+</h4>
+<ol start="21" style="list-style-type: decimal">
+<li>Load the <em>bank</em> dataset and identify the target variable and predictor variables.<br>
+</li>
+<li>Check for class imbalance in the target variable (<em>deposit</em>). How many customers subscribed to a term deposit versus those who did not?<br>
+</li>
+<li>Apply one-hot encoding to categorical variables using <code><a href="https://rdrr.io/pkg/liver/man/one.hot.html">one.hot()</a></code>.<br>
+</li>
+<li>Partition the dataset into 80% training and 20% test sets using <code><a href="https://rdrr.io/pkg/liver/man/partition.html">partition()</a></code>.<br>
+</li>
+<li>Validate the partitioning by comparing the class distribution of <em>deposit</em> in the training and test sets.<br>
+</li>
+<li>Apply min-max scaling to numerical variables to ensure fair distance calculations in kNN models.</li>
+</ol>
+</div>
+</div>
+<div id="model-training-and-evaluation" class="section level3 unnumbered">
+<h3>Model Training and Evaluation<a class="anchor" aria-label="anchor" href="#model-training-and-evaluation"><i class="fas fa-link"></i></a>
+</h3>
+<ol start="27" style="list-style-type: decimal">
+<li>Train a kNN model using the training set and predict <em>deposit</em> for the test set.<br>
+</li>
+<li>Generate a confusion matrix for the test set predictions using <code><a href="https://rdrr.io/pkg/liver/man/conf.mat.html">conf.mat()</a></code>. Interpret the results.<br>
+</li>
+<li>Compute the accuracy, sensitivity, and specificity of the kNN model.<br>
+</li>
+<li>Calculate precision, recall, and the F1-score for the model.<br>
+</li>
+<li>Use <code><a href="https://rdrr.io/pkg/liver/man/conf.mat.plot.html">conf.mat.plot()</a></code> to visualize the confusion matrix.<br>
+</li>
+<li>Experiment with different values of <span class="math inline">\(k\)</span> (e.g., 3, 7, 15) and compare the evaluation metrics.<br>
+</li>
+<li>Plot the ROC curve for the kNN model using the <strong>pROC</strong> package.<br>
+</li>
+<li>Compute the AUC for the model. What does the value indicate about performance?<br>
+</li>
+<li>Adjust the classification threshold (e.g., from 0.5 to 0.7) and analyze how it impacts sensitivity and specificity.</li>
+</ol>
+</div>
+<div id="critical-thinking-and-real-world-applications-1" class="section level3 unnumbered">
+<h3>Critical Thinking and Real-World Applications<a class="anchor" aria-label="anchor" href="#critical-thinking-and-real-world-applications-1"><i class="fas fa-link"></i></a>
+</h3>
+<ol start="36" style="list-style-type: decimal">
+<li>Suppose a bank wants to minimize false positives (incorrectly predicting a customer will subscribe). How should the classification threshold be adjusted?<br>
+</li>
+<li>If detecting potential subscribers is the priority, should the model prioritize precision or recall? Why?<br>
+</li>
+<li>If the dataset were highly imbalanced, what strategies could be used to improve model evaluation?<br>
+</li>
+<li>Consider a fraud detection system where false negatives (missed fraud cases) are extremely costly. How would you adjust the evaluation approach?<br>
+</li>
+<li>Imagine you are comparing two models: one has high accuracy but low recall, and the other has slightly lower accuracy but high recall. How would you decide which to use?<br>
+</li>
+<li>If a new marketing campaign resulted in a large increase in term deposit subscriptions, how might that affect the evaluation metrics?<br>
+</li>
+<li>Given the evaluation results from your model, what business recommendations would you make to a financial institution?</li>
+</ol>
 </div>
 </div>
 </div>
@@ -529,17 +731,36 @@ Finally, we covered metrics for evaluating regression models, such as <strong>Me
 <a class="nav-link" href="#sensitivity-and-specificity"><span class="header-section-number">8.2</span> Sensitivity and Specificity</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#sensitivity">Sensitivity</a></li>
 <li><a class="nav-link" href="#specificity">Specificity</a></li>
+<li><a class="nav-link" href="#sensitivity-vs.-specificity-a-balancing-act">Sensitivity vs. Specificity: A Balancing Act</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#precision-recall-and-f1-score"><span class="header-section-number">8.3</span> Precision, Recall, and F1-Score</a></li>
-<li><a class="nav-link" href="#taking-uncertainty-into-account"><span class="header-section-number">8.4</span> Taking Uncertainty into Account</a></li>
-<li><a class="nav-link" href="#roc-curve-and-auc"><span class="header-section-number">8.5</span> ROC Curve and AUC</a></li>
+<li>
+<a class="nav-link" href="#precision-recall-and-f1-score"><span class="header-section-number">8.3</span> Precision, Recall, and F1-Score</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#precision-vs.-recall-a-trade-off">Precision vs. Recall: A Trade-Off</a></li>
+<li><a class="nav-link" href="#the-f1-score-balancing-precision-and-recall">The F1-Score: Balancing Precision and Recall</a></li>
+<li><a class="nav-link" href="#choosing-the-right-metric">Choosing the Right Metric</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#taking-uncertainty-into-account"><span class="header-section-number">8.4</span> Taking Uncertainty into Account</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#choosing-an-optimal-threshold">Choosing an Optimal Threshold</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#roc-curve-and-auc"><span class="header-section-number">8.5</span> ROC Curve and AUC</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#area-under-the-curve-auc">Area Under the Curve (AUC)</a></li></ul>
+</li>
 <li><a class="nav-link" href="#metrics-for-multi-class-classification"><span class="header-section-number">8.6</span> Metrics for Multi-Class Classification</a></li>
 <li><a class="nav-link" href="#evaluation-metrics-for-continuous-targets"><span class="header-section-number">8.7</span> Evaluation Metrics for Continuous Targets</a></li>
 <li>
-<a class="nav-link" href="#summary"><span class="header-section-number">8.8</span> Summary</a><ul class="nav navbar-nav">
+<a class="nav-link" href="#key-takeaways-from-model-evaluation"><span class="header-section-number">8.8</span> Key Takeaways from Model Evaluation</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#key-takeaways-1">Key Takeaways</a></li>
 <li><a class="nav-link" href="#closing-thoughts">Closing Thoughts</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#exercises-6"><span class="header-section-number">8.9</span> Exercises</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#conceptual-questions-4">Conceptual Questions</a></li>
+<li><a class="nav-link" href="#hands-on-practice-evaluating-models-with-the-bank-dataset">Hands-On Practice: Evaluating Models with the Bank Dataset</a></li>
+<li><a class="nav-link" href="#model-training-and-evaluation">Model Training and Evaluation</a></li>
+<li><a class="nav-link" href="#critical-thinking-and-real-world-applications-1">Critical Thinking and Real-World Applications</a></li>
 </ul>
 </li>
 </ul>
@@ -559,7 +780,7 @@ Finally, we covered metrics for evaluating regression models, such as <strong>Me
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Uncovering Data Science with R</strong>" was written by Reza Mohammadi. It was last built on 2025-02-13.</p>
+    <p>"<strong>Uncovering Data Science with R</strong>" was written by Reza Mohammadi. It was last built on 2025-02-17.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
