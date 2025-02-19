@@ -459,9 +459,6 @@ This chapter emphasized that no single metric can fully capture a model’s perf
 
 By mastering these evaluation techniques, you are now equipped to critically assess model performance, optimize thresholds, and select the right model for the task at hand. In the following chapters, we will build on this foundation to explore advanced modeling techniques and their evaluation in greater detail.  
 
-
-
-
 ## Exercises  
 
 ### Conceptual Questions {-}  

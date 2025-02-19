@@ -14,19 +14,6 @@ editor_options:
     wrap: sentence
 ---
 
-```{r, echo = F}
-# Possible name for book:
-#    Mastering Machine Learning: A Hands-On Approach with R
-#.   From Data to Decisions: A Guide to Machine Learning with R
-#    Data Science Foundations and Machine Learning Using R
-#    Data Science and Machine Learning with R
-# link for book: https://uncovering-data-science.netlify.app
-
-#<a href="https://CRAN.R-project.org/package=liver"><img src="images/logo.png" alt="Book cover" width="250" height="250" align="right" style="margin: 0 1em 0 1em"/></a>
-
-
-```
-
 # Preface {.unnumbered}  
 
 **Data science is transforming the way we solve problems, make decisions, and uncover insights from data.** Whether you're a beginner or an experienced professional, *Uncovering Data Science with R* provides an intuitive and practical introduction to this exciting field—no prior analytics or programming experience required.  

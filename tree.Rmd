@@ -1,10 +1,3 @@
-```{r, echo = F}
-# To use this link: 
-# 
-
-```
-
-
 ```{r include = FALSE, message = FALSE, warning = FALSE}
 library(rpart)         # For "CART" algorithm
 library(rpart.plot)    # To plot decision trees

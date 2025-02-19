@@ -265,75 +265,96 @@
 \contentsline {subsubsection}{Data preparation}{233}{section*.154}%
 \contentsline {subsection}{Training and evaluating the Naive Bayes classifier}{233}{section*.155}%
 \contentsline {subsection}{Real-world application and critical thinking}{234}{section*.156}%
-\contentsline {chapter}{\numberline {10}Regression Modeling: From Basics to Advanced Techniques}{235}{chapter.10}%
+\contentsline {chapter}{\numberline {10}Regression Analysis: Foundations and Applications}{235}{chapter.10}%
 \contentsline {section}{\numberline {10.1}Simple Linear Regression}{236}{section.10.1}%
-\contentsline {subsection}{Fitting a Simple Linear Regression Model}{237}{section*.157}%
-\contentsline {subsection}{Estimating the Model in R}{238}{section*.158}%
-\contentsline {subsection}{Interpreting the Regression Line}{239}{section*.159}%
-\contentsline {subsection}{Residuals and Model Fit}{240}{section*.160}%
-\contentsline {subsection}{Key Insights}{240}{section*.161}%
-\contentsline {section}{\numberline {10.2}Hypothesis Testing in Simple Linear Regression}{241}{section.10.2}%
-\contentsline {section}{\numberline {10.3}Measuring the Quality of a Regression Model}{243}{section.10.3}%
-\contentsline {section}{\numberline {10.4}Multiple Linear Regression}{245}{section.10.4}%
-\contentsline {section}{\numberline {10.5}Generalized Linear Models (GLMs)}{248}{section.10.5}%
-\contentsline {subsection}{\numberline {10.5.1}Logistic Regression}{248}{subsection.10.5.1}%
-\contentsline {subsection}{\numberline {10.5.2}Logistic Regression in R}{248}{subsection.10.5.2}%
-\contentsline {subsection}{\numberline {10.5.3}Poisson Regression}{250}{subsection.10.5.3}%
-\contentsline {subsection}{\numberline {10.5.4}Poisson Regression in R}{250}{subsection.10.5.4}%
-\contentsline {section}{\numberline {10.6}Model Selection Using Stepwise Regression}{252}{section.10.6}%
-\contentsline {section}{\numberline {10.7}Extending Linear Models to Capture Non-Linear Relationships}{258}{section.10.7}%
-\contentsline {subsection}{The Need for Non-Linear Regression}{258}{section*.162}%
-\contentsline {subsection}{\numberline {10.7.1}Polynomial Regression}{259}{subsection.10.7.1}%
-\contentsline {subsection}{\numberline {10.7.2}Example: Polynomial Regression on the \emph {House} Dataset}{260}{subsection.10.7.2}%
-\contentsline {subsubsection}{Fitting Simple Linear Regression}{260}{section*.163}%
-\contentsline {subsubsection}{Fitting Polynomial Regression}{261}{section*.164}%
-\contentsline {section}{\numberline {10.8}Diagnosing and Validating Regression Models}{262}{section.10.8}%
-\contentsline {subsection}{\numberline {10.8.1}Example: Diagnosing the Regression Model for the \emph {Marketing} Dataset}{263}{subsection.10.8.1}%
-\contentsline {section}{\numberline {10.9}\textbf {Exercises}}{265}{section.10.9}%
-\contentsline {chapter}{\numberline {11}Decision Trees and Random Forests}{267}{chapter.11}%
-\contentsline {section}{\numberline {11.1}How Decision Trees Work}{268}{section.11.1}%
-\contentsline {section}{\numberline {11.2}Classification and Regression Trees (CART)}{272}{section.11.2}%
-\contentsline {section}{\numberline {11.3}The C5.0 Algorithm for Building Decision Trees}{273}{section.11.3}%
-\contentsline {section}{\numberline {11.4}Random Forests: An Ensemble Approach}{276}{section.11.4}%
-\contentsline {section}{\numberline {11.5}Case Study: Who Can Earn More Than \$50K Per Year?}{278}{section.11.5}%
-\contentsline {subsection}{Overview of the Dataset}{278}{section*.165}%
-\contentsline {subsection}{Data Cleaning and Preparation}{279}{section*.166}%
-\contentsline {subsection}{Decision Tree with CART}{280}{section*.167}%
-\contentsline {subsection}{Decision Tree with C5.0}{281}{section*.168}%
-\contentsline {subsection}{Random Forest}{282}{section*.169}%
-\contentsline {subsection}{Model Evaluation}{283}{section*.170}%
-\contentsline {subsubsection}{CART:}{283}{section*.171}%
-\contentsline {subsubsection}{C5.0:}{283}{section*.172}%
-\contentsline {subsubsection}{Random Forest:}{284}{section*.173}%
-\contentsline {section}{\numberline {11.6}Exercises}{286}{section.11.6}%
-\contentsline {chapter}{\numberline {12}Neural Networks: The Building Blocks of Artificial Intelligence}{287}{chapter.12}%
-\contentsline {subsection}{Why Neural Networks Are Powerful}{288}{section*.174}%
-\contentsline {subsection}{What's Ahead}{289}{section*.175}%
-\contentsline {section}{\numberline {12.1}Neural Networks: Inspired by Biological Neurons}{289}{section.12.1}%
-\contentsline {section}{\numberline {12.2}How Neural Networks Work}{291}{section.12.2}%
-\contentsline {subsection}{Key Characteristics of Neural Networks}{293}{section*.176}%
-\contentsline {section}{\numberline {12.3}Activation Functions}{294}{section.12.3}%
-\contentsline {subsection}{The Sigmoid Activation Function}{295}{section*.177}%
-\contentsline {subsection}{Other Common Activation Functions}{295}{section*.178}%
-\contentsline {subsection}{Choosing the Right Activation Function}{296}{section*.179}%
-\contentsline {section}{\numberline {12.4}Network Architecture}{297}{section.12.4}%
-\contentsline {section}{\numberline {12.5}How Neural Networks Learn}{299}{section.12.5}%
-\contentsline {section}{\numberline {12.6}Case Study: Bank Marketing}{300}{section.12.6}%
-\contentsline {subsection}{Business Context}{301}{section*.180}%
-\contentsline {subsection}{Overview of the Dataset}{301}{section*.181}%
-\contentsline {subsection}{Data Cleaning and Preparation}{302}{section*.182}%
-\contentsline {subsection}{Applying the Neural Network Algorithm}{305}{section*.183}%
-\contentsline {subsection}{Prediction and Model Evaluation}{307}{section*.184}%
-\contentsline {section}{\numberline {12.7}Exercises}{308}{section.12.7}%
-\contentsline {chapter}{\numberline {13}Clustering}{309}{chapter.13}%
-\contentsline {section}{\numberline {13.1}K-means Clustering}{311}{section.13.1}%
-\contentsline {section}{\numberline {13.2}Choosing the Number of Clusters}{315}{section.13.2}%
-\contentsline {section}{\numberline {13.3}Case Study: Clustering Cereal Data}{317}{section.13.3}%
-\contentsline {subsection}{\numberline {13.3.1}Dataset Overview}{317}{subsection.13.3.1}%
-\contentsline {subsection}{\numberline {13.3.2}Data Preprocessing}{318}{subsection.13.3.2}%
-\contentsline {subsection}{\numberline {13.3.3}Applying K-means Clustering}{321}{subsection.13.3.3}%
-\contentsline {subsubsection}{Choosing the Optimal Number of Clusters}{321}{section*.185}%
-\contentsline {subsubsection}{Performing K-means Clustering}{322}{section*.186}%
-\contentsline {subsubsection}{Visualizing the Clusters}{322}{section*.187}%
-\contentsline {subsubsection}{Interpreting the Results}{323}{section*.188}%
-\contentsline {section}{\numberline {13.4}Exercises}{324}{section.13.4}%
+\contentsline {subsection}{Exploring Relationships in the Data}{237}{section*.157}%
+\contentsline {subsection}{Fitting a Simple Linear Regression Model}{238}{section*.158}%
+\contentsline {subsection}{Estimating the Model in R}{240}{section*.159}%
+\contentsline {subsection}{Interpreting the Regression Line}{241}{section*.160}%
+\contentsline {subsection}{Residuals and Model Fit}{242}{section*.161}%
+\contentsline {section}{Hypothesis Testing in Simple Linear Regression}{243}{section*.162}%
+\contentsline {section}{Measuring the Quality of a Regression Model}{245}{section*.163}%
+\contentsline {subsection}{Residual Standard Error (RSE)}{245}{section*.164}%
+\contentsline {subsection}{R-squared (\(R^2\))}{246}{section*.165}%
+\contentsline {subsection}{Relationship Between \(R^2\) and the Correlation Coefficient}{247}{section*.166}%
+\contentsline {subsection}{Adjusted R-squared}{247}{section*.167}%
+\contentsline {subsection}{Interpreting Model Quality}{247}{section*.168}%
+\contentsline {section}{\numberline {10.2}Multiple Linear Regression}{248}{section.10.2}%
+\contentsline {subsection}{Fitting the Multiple Regression Model}{248}{section*.169}%
+\contentsline {subsection}{Making Predictions}{249}{section*.170}%
+\contentsline {subsection}{Evaluating Model Performance}{250}{section*.171}%
+\contentsline {subsection}{Key Takeaways}{250}{section*.172}%
+\contentsline {section}{\numberline {10.3}Generalized Linear Models (GLMs)}{250}{section.10.3}%
+\contentsline {section}{\numberline {10.4}Logistic Regression}{251}{section.10.4}%
+\contentsline {subsection}{Logistic Regression in R}{251}{section*.173}%
+\contentsline {section}{\numberline {10.5}Poisson Regression}{253}{section.10.5}%
+\contentsline {subsection}{Poisson Regression in R}{254}{section*.174}%
+\contentsline {section}{\numberline {10.6}Model Selection Using Stepwise Regression}{256}{section.10.6}%
+\contentsline {subsection}{The Role of AIC in Model Selection}{256}{section*.175}%
+\contentsline {subsection}{Implementing Stepwise Regression in R}{256}{section*.176}%
+\contentsline {subsection}{Strengths, Limitations, and Considerations for Stepwise Regression}{260}{section*.177}%
+\contentsline {section}{\numberline {10.7}Extending Linear Models to Capture Non-Linear Relationships}{261}{section.10.7}%
+\contentsline {subsection}{The Need for Non-Linear Regression}{262}{section*.178}%
+\contentsline {section}{\numberline {10.8}Polynomial Regression}{263}{section.10.8}%
+\contentsline {section}{\numberline {10.9}Diagnosing and Validating Regression Models}{266}{section.10.9}%
+\contentsline {section}{\numberline {10.10}Exercises}{268}{section.10.10}%
+\contentsline {subsection}{Simple and Multiple Linear Regression (House, Insurance, and Cereal Datasets)}{268}{section*.179}%
+\contentsline {subsubsection}{Conceptual Questions}{268}{section*.180}%
+\contentsline {subsubsection}{Practical Exercises Using the House Dataset}{268}{section*.181}%
+\contentsline {subsubsection}{Practical Exercises Using the Insurance Dataset}{269}{section*.182}%
+\contentsline {subsubsection}{Practical Exercises Using the Cereal Dataset}{269}{section*.183}%
+\contentsline {subsection}{Polynomial Regression (House Dataset)}{269}{section*.184}%
+\contentsline {subsubsection}{Conceptual Questions}{269}{section*.185}%
+\contentsline {subsubsection}{Practical Exercises Using the House Dataset}{270}{section*.186}%
+\contentsline {subsection}{Logistic Regression (Bank Dataset)}{270}{section*.187}%
+\contentsline {subsubsection}{Conceptual Questions}{270}{section*.188}%
+\contentsline {subsubsection}{Practical Exercises Using the Bank Dataset}{270}{section*.189}%
+\contentsline {subsection}{Stepwise Regression (House Dataset)}{270}{section*.190}%
+\contentsline {subsection}{Model Diagnostics and Validation}{271}{section*.191}%
+\contentsline {chapter}{\numberline {11}Decision Trees and Random Forests}{273}{chapter.11}%
+\contentsline {section}{\numberline {11.1}How Decision Trees Work}{274}{section.11.1}%
+\contentsline {section}{\numberline {11.2}Classification and Regression Trees (CART)}{278}{section.11.2}%
+\contentsline {section}{\numberline {11.3}The C5.0 Algorithm for Building Decision Trees}{279}{section.11.3}%
+\contentsline {section}{\numberline {11.4}Random Forests: An Ensemble Approach}{282}{section.11.4}%
+\contentsline {section}{\numberline {11.5}Case Study: Who Can Earn More Than \$50K Per Year?}{284}{section.11.5}%
+\contentsline {subsection}{Overview of the Dataset}{284}{section*.192}%
+\contentsline {subsection}{Data Cleaning and Preparation}{285}{section*.193}%
+\contentsline {subsection}{Decision Tree with CART}{286}{section*.194}%
+\contentsline {subsection}{Decision Tree with C5.0}{287}{section*.195}%
+\contentsline {subsection}{Random Forest}{288}{section*.196}%
+\contentsline {subsection}{Model Evaluation}{289}{section*.197}%
+\contentsline {subsubsection}{CART:}{289}{section*.198}%
+\contentsline {subsubsection}{C5.0:}{289}{section*.199}%
+\contentsline {subsubsection}{Random Forest:}{290}{section*.200}%
+\contentsline {section}{\numberline {11.6}Exercises}{292}{section.11.6}%
+\contentsline {chapter}{\numberline {12}Neural Networks: The Building Blocks of Artificial Intelligence}{293}{chapter.12}%
+\contentsline {subsection}{Why Neural Networks Are Powerful}{294}{section*.201}%
+\contentsline {subsection}{What's Ahead}{295}{section*.202}%
+\contentsline {section}{\numberline {12.1}Neural Networks: Inspired by Biological Neurons}{295}{section.12.1}%
+\contentsline {section}{\numberline {12.2}How Neural Networks Work}{297}{section.12.2}%
+\contentsline {subsection}{Key Characteristics of Neural Networks}{299}{section*.203}%
+\contentsline {section}{\numberline {12.3}Activation Functions}{300}{section.12.3}%
+\contentsline {subsection}{The Sigmoid Activation Function}{301}{section*.204}%
+\contentsline {subsection}{Other Common Activation Functions}{301}{section*.205}%
+\contentsline {subsection}{Choosing the Right Activation Function}{302}{section*.206}%
+\contentsline {section}{\numberline {12.4}Network Architecture}{303}{section.12.4}%
+\contentsline {section}{\numberline {12.5}How Neural Networks Learn}{305}{section.12.5}%
+\contentsline {section}{\numberline {12.6}Case Study: Bank Marketing}{306}{section.12.6}%
+\contentsline {subsection}{Business Context}{307}{section*.207}%
+\contentsline {subsection}{Overview of the Dataset}{307}{section*.208}%
+\contentsline {subsection}{Data Cleaning and Preparation}{308}{section*.209}%
+\contentsline {subsection}{Applying the Neural Network Algorithm}{311}{section*.210}%
+\contentsline {subsection}{Prediction and Model Evaluation}{313}{section*.211}%
+\contentsline {section}{\numberline {12.7}Exercises}{314}{section.12.7}%
+\contentsline {chapter}{\numberline {13}Clustering}{315}{chapter.13}%
+\contentsline {section}{\numberline {13.1}K-means Clustering}{317}{section.13.1}%
+\contentsline {section}{\numberline {13.2}Choosing the Number of Clusters}{321}{section.13.2}%
+\contentsline {section}{\numberline {13.3}Case Study: Clustering Cereal Data}{323}{section.13.3}%
+\contentsline {subsection}{\numberline {13.3.1}Dataset Overview}{323}{subsection.13.3.1}%
+\contentsline {subsection}{\numberline {13.3.2}Data Preprocessing}{324}{subsection.13.3.2}%
+\contentsline {subsection}{\numberline {13.3.3}Applying K-means Clustering}{327}{subsection.13.3.3}%
+\contentsline {subsubsection}{Choosing the Optimal Number of Clusters}{327}{section*.212}%
+\contentsline {subsubsection}{Performing K-means Clustering}{328}{section*.213}%
+\contentsline {subsubsection}{Visualizing the Clusters}{328}{section*.214}%
+\contentsline {subsubsection}{Interpreting the Results}{329}{section*.215}%
+\contentsline {section}{\numberline {13.4}Exercises}{330}{section.13.4}%

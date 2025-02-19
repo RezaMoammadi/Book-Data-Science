@@ -1,12 +1,3 @@
-```{r include = FALSE, message = FALSE, warning = FALSE}
-library(liver)
-library(ggplot2)   
-
-data(churn) 
-data(bank)
-data(diamonds)
-```
-
 # Statistical Inference and Hypothesis Testing {#chapter-statistics}  
 
 Statistical inference bridges the gap between *what we observe in a sample* and *what we want to understand about the population*. While exploratory data analysis (EDA) helps us identify patterns and relationships, statistical inference allows us to determine whether these patterns hold beyond our sample—or whether they could have arisen by chance. In this chapter, we transition from *exploring* data to *validating* insights through estimation, hypothesis testing, and quantifying uncertainty.
@@ -46,6 +37,9 @@ Let’s explore some examples:
 To estimate the *proportion of churners* in the dataset, we use the *sample proportion* as a point estimate for the population proportion. Here’s how to calculate it in R:  
 
 ```{r}
+library(liver)
+data(churn) 
+
 prop.table(table(churn$churn))["yes"]
 ```
 
@@ -303,7 +297,6 @@ Additionally, the test reports the *sample proportion*, `r round(prop_test$estim
 
 This test helps assess whether the observed churn rate aligns with the company’s expectation. The *p*-value determines statistical significance, while the confidence interval and sample proportion provide additional context for interpretation. By considering both statistical results and practical implications, businesses can evaluate whether their assumptions about churn are accurate or require adjustment.
 
-
 ## Two-sample T-test {#two-sample-t-test}  
 
 The *two-sample t-test*, also known as Student’s t-test, is a statistical method used to compare the means of a numerical variable between two independent groups. It assesses whether the observed difference between the group means is statistically significant or simply due to random variation. The test is named after [William Sealy Gosset](https://en.wikipedia.org/wiki/William_Sealy_Gosset), who worked at Guinness Brewery in Dublin and published under the pseudonym “Student” to maintain confidentiality regarding statistical quality control methods.
@@ -311,6 +304,8 @@ The *two-sample t-test*, also known as Student’s t-test, is a statistical meth
 In Section \@ref(EDA-sec-numeric) of the previous chapter, we explored the relationship between *International Calls* (`intl.calls`) and churn status using visualizations like box plots and density plots. While visualizations help identify potential differences, statistical testing quantifies the likelihood that these differences are due to chance.
 
 ```{r echo = FALSE, fig.align = 'default', fig.show = "hold", out.width = "50%"}
+library(ggplot2)   
+
 ggplot(data = churn) +
     geom_boxplot(aes(x = churn, y = intl.calls), 
                  fill = c("palevioletred1", "darkseagreen1"))
@@ -425,6 +420,8 @@ To illustrate, we examine whether marital status is associated with purchasing a
 We begin by visualizing the relationship between `marital` and `deposit` using bar plots:
 
 ```{r echo = FALSE, fig.align = 'default', fig.show = "hold", out.width = "50%"}
+data(bank)
+
 ggplot(data = bank) + 
     geom_bar(aes(x = marital, fill = deposit)) +
     scale_fill_manual(values = c("palevioletred1", "darkseagreen1")) 
@@ -474,6 +471,8 @@ To illustrate, let’s analyze the relationship between the variable `cut` and t
 We begin with a box plot to visualize the distribution of diamond prices for each category of `cut`:
 
 ```{r}
+data(diamonds)   
+
 ggplot(data = diamonds) + 
   geom_boxplot(aes(x = cut, y = price, fill = cut)) +
   scale_fill_manual(values = c("palevioletred1", "darkseagreen1", "skyblue1", "gold1", "lightcoral"))
