@@ -1,7 +1,7 @@
 ---
 title: "Uncovering Data Science with R"
 author: "Reza Mohammadi"
-date: "2025-02-19"
+date: "2025-02-25"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
@@ -123,12 +123,12 @@ Table \@ref(tab:data-table) lists the datasets used in this book. These real-wor
   <tr>
    <td style="text-align:left;font-weight: bold;color: black !important;"> bank </td>
    <td style="text-align:left;width: 20em; "> Direct marketing data from a Portuguese bank. </td>
-   <td style="text-align:left;"> Chapter 7, 12 </td>
+   <td style="text-align:left;"> Chapters 7, 12 </td>
   </tr>
   <tr>
    <td style="text-align:left;font-weight: bold;color: black !important;"> adult </td>
    <td style="text-align:left;width: 20em; "> US Census data for income prediction. </td>
-   <td style="text-align:left;"> Chapter 11 </td>
+   <td style="text-align:left;"> Chapters 3, 11 </td>
   </tr>
   <tr>
    <td style="text-align:left;font-weight: bold;color: black !important;"> risk </td>

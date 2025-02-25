@@ -22,29 +22,6 @@
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
-<style type="text/css">
-    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-    div.csl-bib-body { }
-    div.csl-entry {
-      clear: both;
-          margin-bottom: 0em;
-        }
-    .hanging div.csl-entry {
-      margin-left:2em;
-      text-indent:-2em;
-    }
-    div.csl-left-margin {
-      min-width:2em;
-      float:left;
-    }
-    div.csl-right-inline {
-      margin-left:2em;
-      padding-left:1em;
-    }
-    div.csl-indent {
-      margin-left: 2em;
-    }
-  </style>
 <link rel="stylesheet" href="style.css">
 <meta name="description" content="For centuries, humans have dreamed of creating machines capable of mimicking human intelligence. Philosophers, scientists, and storytellers have long grappled with the possibilities and...">
 <meta property="og:description" content="For centuries, humans have dreamed of creating machines capable of mimicking human intelligence. Philosophers, scientists, and storytellers have long grappled with the possibilities and...">
@@ -69,22 +46,7 @@
 </form>
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
-        <ul class="book-toc list-unstyled">
-<li><a class="" href="index.html">Preface</a></li>
-<li><a class="" href="chapter-into-R.html"><span class="header-section-number">1</span> The Basics for R</a></li>
-<li><a class="" href="chapter-intro-DS.html"><span class="header-section-number">2</span> Introduction to Data Science</a></li>
-<li><a class="" href="chapter-data-prep.html"><span class="header-section-number">3</span> Data Preparation</a></li>
-<li><a class="" href="chapter-EDA.html"><span class="header-section-number">4</span> Exploratory Data Analysis</a></li>
-<li><a class="" href="chapter-statistics.html"><span class="header-section-number">5</span> Statistical Inference and Hypothesis Testing</a></li>
-<li><a class="" href="chapter-modeling.html"><span class="header-section-number">6</span> Preparing Data for Modeling</a></li>
-<li><a class="" href="chapter-knn.html"><span class="header-section-number">7</span> Classification using k-Nearest Neighbors</a></li>
-<li><a class="" href="chapter-evaluation.html"><span class="header-section-number">8</span> Model Evaluation</a></li>
-<li><a class="" href="chapter-bayes.html"><span class="header-section-number">9</span> Naive Bayes Classifier</a></li>
-<li><a class="" href="chapter-regression.html"><span class="header-section-number">10</span> Regression Analysis: Foundations and Applications</a></li>
-<li><a class="" href="chapter-tree.html"><span class="header-section-number">11</span> Decision Trees and Random Forests</a></li>
-<li><a class="active" href="chapter-nn.html"><span class="header-section-number">12</span> Neural Networks: The Building Blocks of Artificial Intelligence</a></li>
-<li><a class="" href="chapter-cluster.html"><span class="header-section-number">13</span> Clustering</a></li>
-</ul>
+        <ul class="book-toc list-unstyled"><li><a class="" href="index.html"><span class="header-section-number">Chapter 12</span> Neural Networks: The Building Blocks of Artificial Intelligence</a></li></ul>
 
         <div class="book-extra">
           <p><a id="book-repo" href="https://github.com/RezaMoammadi/Book-Data-Science">View book source <i class="fab fa-github"></i></a></p>
@@ -209,10 +171,10 @@ Figure 12.4: Visualization of a multilayer neural network model with two hidden 
 <div id="key-characteristics-of-neural-networks" class="section level3 unnumbered">
 <h3>Key Characteristics of Neural Networks<a class="anchor" aria-label="anchor" href="#key-characteristics-of-neural-networks"><i class="fas fa-link"></i></a>
 </h3>
-<p>Despite the diversity of neural network architectures, all neural networks share three key characteristics that define their functionality (see Figure <a href="chapter-nn.html#fig:net-1">12.2</a>):</p>
-<ol style="list-style-type: decimal">
-<li><p><strong>Activation Functions</strong>:<br>
-The activation function transforms a neuron’s net input into an output signal that is passed to the next layer. Activation functions introduce non-linearity, which is critical for modeling complex relationships in data. Examples include the sigmoid function, ReLU (Rectified Linear Unit), and hyperbolic tangent (tanh).</p></li>
+<p>Despite the diversity of neural network architectures, all neural networks share three key characteristics that define their functionality (see Figure <a href="chapter-nn.html#fig:net-1">12.2</a>):<br>
+1. <strong>Activation Functions</strong>:<br>
+The activation function transforms a neuron’s net input into an output signal that is passed to the next layer. Activation functions introduce non-linearity, which is critical for modeling complex relationships in data. Examples include the sigmoid function, ReLU (Rectified Linear Unit), and hyperbolic tangent (tanh).</p>
+<ol start="2" style="list-style-type: decimal">
 <li><p><strong>Network Architecture</strong>:<br>
 The architecture defines the overall structure of the neural network, including the number of layers, the number of nodes in each layer, and the way the nodes are connected. For instance, a <strong>deep neural network</strong> has many hidden layers, enabling it to learn hierarchical and abstract representations from data.</p></li>
 <li><p><strong>Training Algorithm</strong>:<br>
@@ -381,27 +343,29 @@ Figure 12.7: Comparison of common activation functions: Sigmoid, tanh, and Gauss
 </h3>
 <p>The dataset, sourced from <a href="https://rdrr.io/cran/liver/man/bank.html">this repository</a>, includes information on direct phone-based marketing campaigns. Some customers were contacted multiple times during the same campaign. The goal is to classify whether a customer subscribed to a term deposit (<code>deposit = "yes"</code> or <code>"no"</code>).</p>
 <p>We load and inspect the dataset:</p>
-<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="chapter-nn.html#cb209-1" tabindex="-1"></a><span class="fu">data</span>(bank)   <span class="co"># Load the bank marketing dataset </span></span>
-<span id="cb209-2"><a href="chapter-nn.html#cb209-2" tabindex="-1"></a></span>
-<span id="cb209-3"><a href="chapter-nn.html#cb209-3" tabindex="-1"></a><span class="fu">str</span>(bank)</span>
-<span id="cb209-4"><a href="chapter-nn.html#cb209-4" tabindex="-1"></a>   <span class="st">'data.frame'</span><span class="sc">:</span>    <span class="dv">4521</span> obs. of  <span class="dv">17</span> variables<span class="sc">:</span></span>
-<span id="cb209-5"><a href="chapter-nn.html#cb209-5" tabindex="-1"></a>    <span class="er">$</span> age      <span class="sc">:</span> int  <span class="dv">30</span> <span class="dv">33</span> <span class="dv">35</span> <span class="dv">30</span> <span class="dv">59</span> <span class="dv">35</span> <span class="dv">36</span> <span class="dv">39</span> <span class="dv">41</span> <span class="dv">43</span> ...</span>
-<span id="cb209-6"><a href="chapter-nn.html#cb209-6" tabindex="-1"></a>    <span class="sc">$</span> job      <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">12</span> levels <span class="st">"admin."</span>,<span class="st">"blue-collar"</span>,..<span class="sc">:</span> <span class="dv">11</span> <span class="dv">8</span> <span class="dv">5</span> <span class="dv">5</span> <span class="dv">2</span> <span class="dv">5</span> <span class="dv">7</span> <span class="dv">10</span> <span class="dv">3</span> <span class="dv">8</span> ...</span>
-<span id="cb209-7"><a href="chapter-nn.html#cb209-7" tabindex="-1"></a>    <span class="sc">$</span> marital  <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">3</span> levels <span class="st">"divorced"</span>,<span class="st">"married"</span>,..<span class="sc">:</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> ...</span>
-<span id="cb209-8"><a href="chapter-nn.html#cb209-8" tabindex="-1"></a>    <span class="sc">$</span> education<span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">4</span> levels <span class="st">"primary"</span>,<span class="st">"secondary"</span>,..<span class="sc">:</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">1</span> ...</span>
-<span id="cb209-9"><a href="chapter-nn.html#cb209-9" tabindex="-1"></a>    <span class="sc">$</span> default  <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"no"</span>,<span class="st">"yes"</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> ...</span>
-<span id="cb209-10"><a href="chapter-nn.html#cb209-10" tabindex="-1"></a>    <span class="sc">$</span> balance  <span class="sc">:</span> int  <span class="dv">1787</span> <span class="dv">4789</span> <span class="dv">1350</span> <span class="dv">1476</span> <span class="dv">0</span> <span class="dv">747</span> <span class="dv">307</span> <span class="dv">147</span> <span class="dv">221</span> <span class="sc">-</span><span class="dv">88</span> ...</span>
-<span id="cb209-11"><a href="chapter-nn.html#cb209-11" tabindex="-1"></a>    <span class="sc">$</span> housing  <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"no"</span>,<span class="st">"yes"</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> ...</span>
-<span id="cb209-12"><a href="chapter-nn.html#cb209-12" tabindex="-1"></a>    <span class="sc">$</span> loan     <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"no"</span>,<span class="st">"yes"</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> ...</span>
-<span id="cb209-13"><a href="chapter-nn.html#cb209-13" tabindex="-1"></a>    <span class="sc">$</span> contact  <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">3</span> levels <span class="st">"cellular"</span>,<span class="st">"telephone"</span>,..<span class="sc">:</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">1</span> ...</span>
-<span id="cb209-14"><a href="chapter-nn.html#cb209-14" tabindex="-1"></a>    <span class="sc">$</span> day      <span class="sc">:</span> int  <span class="dv">19</span> <span class="dv">11</span> <span class="dv">16</span> <span class="dv">3</span> <span class="dv">5</span> <span class="dv">23</span> <span class="dv">14</span> <span class="dv">6</span> <span class="dv">14</span> <span class="dv">17</span> ...</span>
-<span id="cb209-15"><a href="chapter-nn.html#cb209-15" tabindex="-1"></a>    <span class="sc">$</span> month    <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">12</span> levels <span class="st">"apr"</span>,<span class="st">"aug"</span>,<span class="st">"dec"</span>,..<span class="sc">:</span> <span class="dv">11</span> <span class="dv">9</span> <span class="dv">1</span> <span class="dv">7</span> <span class="dv">9</span> <span class="dv">4</span> <span class="dv">9</span> <span class="dv">9</span> <span class="dv">9</span> <span class="dv">1</span> ...</span>
-<span id="cb209-16"><a href="chapter-nn.html#cb209-16" tabindex="-1"></a>    <span class="sc">$</span> duration <span class="sc">:</span> int  <span class="dv">79</span> <span class="dv">220</span> <span class="dv">185</span> <span class="dv">199</span> <span class="dv">226</span> <span class="dv">141</span> <span class="dv">341</span> <span class="dv">151</span> <span class="dv">57</span> <span class="dv">313</span> ...</span>
-<span id="cb209-17"><a href="chapter-nn.html#cb209-17" tabindex="-1"></a>    <span class="sc">$</span> campaign <span class="sc">:</span> int  <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">4</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> ...</span>
-<span id="cb209-18"><a href="chapter-nn.html#cb209-18" tabindex="-1"></a>    <span class="sc">$</span> pdays    <span class="sc">:</span> int  <span class="sc">-</span><span class="dv">1</span> <span class="dv">339</span> <span class="dv">330</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">-</span><span class="dv">1</span> <span class="dv">176</span> <span class="dv">330</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">-</span><span class="dv">1</span> <span class="dv">147</span> ...</span>
-<span id="cb209-19"><a href="chapter-nn.html#cb209-19" tabindex="-1"></a>    <span class="sc">$</span> previous <span class="sc">:</span> int  <span class="dv">0</span> <span class="dv">4</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">2</span> ...</span>
-<span id="cb209-20"><a href="chapter-nn.html#cb209-20" tabindex="-1"></a>    <span class="sc">$</span> poutcome <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">4</span> levels <span class="st">"failure"</span>,<span class="st">"other"</span>,..<span class="sc">:</span> <span class="dv">4</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">4</span> <span class="dv">4</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">4</span> <span class="dv">4</span> <span class="dv">1</span> ...</span>
-<span id="cb209-21"><a href="chapter-nn.html#cb209-21" tabindex="-1"></a>    <span class="sc">$</span> deposit  <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"no"</span>,<span class="st">"yes"</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> ...</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="chapter-nn.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(liver)   <span class="co"># Load the liver package</span></span>
+<span id="cb1-2"><a href="chapter-nn.html#cb1-2" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="chapter-nn.html#cb1-3" tabindex="-1"></a><span class="fu">data</span>(bank)   <span class="co"># Load the bank marketing dataset </span></span>
+<span id="cb1-4"><a href="chapter-nn.html#cb1-4" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="chapter-nn.html#cb1-5" tabindex="-1"></a><span class="fu">str</span>(bank)</span>
+<span id="cb1-6"><a href="chapter-nn.html#cb1-6" tabindex="-1"></a>   <span class="st">'data.frame'</span><span class="sc">:</span>    <span class="dv">4521</span> obs. of  <span class="dv">17</span> variables<span class="sc">:</span></span>
+<span id="cb1-7"><a href="chapter-nn.html#cb1-7" tabindex="-1"></a>    <span class="er">$</span> age      <span class="sc">:</span> int  <span class="dv">30</span> <span class="dv">33</span> <span class="dv">35</span> <span class="dv">30</span> <span class="dv">59</span> <span class="dv">35</span> <span class="dv">36</span> <span class="dv">39</span> <span class="dv">41</span> <span class="dv">43</span> ...</span>
+<span id="cb1-8"><a href="chapter-nn.html#cb1-8" tabindex="-1"></a>    <span class="sc">$</span> job      <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">12</span> levels <span class="st">"admin."</span>,<span class="st">"blue-collar"</span>,..<span class="sc">:</span> <span class="dv">11</span> <span class="dv">8</span> <span class="dv">5</span> <span class="dv">5</span> <span class="dv">2</span> <span class="dv">5</span> <span class="dv">7</span> <span class="dv">10</span> <span class="dv">3</span> <span class="dv">8</span> ...</span>
+<span id="cb1-9"><a href="chapter-nn.html#cb1-9" tabindex="-1"></a>    <span class="sc">$</span> marital  <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">3</span> levels <span class="st">"divorced"</span>,<span class="st">"married"</span>,..<span class="sc">:</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> ...</span>
+<span id="cb1-10"><a href="chapter-nn.html#cb1-10" tabindex="-1"></a>    <span class="sc">$</span> education<span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">4</span> levels <span class="st">"primary"</span>,<span class="st">"secondary"</span>,..<span class="sc">:</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">1</span> ...</span>
+<span id="cb1-11"><a href="chapter-nn.html#cb1-11" tabindex="-1"></a>    <span class="sc">$</span> default  <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"no"</span>,<span class="st">"yes"</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> ...</span>
+<span id="cb1-12"><a href="chapter-nn.html#cb1-12" tabindex="-1"></a>    <span class="sc">$</span> balance  <span class="sc">:</span> int  <span class="dv">1787</span> <span class="dv">4789</span> <span class="dv">1350</span> <span class="dv">1476</span> <span class="dv">0</span> <span class="dv">747</span> <span class="dv">307</span> <span class="dv">147</span> <span class="dv">221</span> <span class="sc">-</span><span class="dv">88</span> ...</span>
+<span id="cb1-13"><a href="chapter-nn.html#cb1-13" tabindex="-1"></a>    <span class="sc">$</span> housing  <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"no"</span>,<span class="st">"yes"</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> ...</span>
+<span id="cb1-14"><a href="chapter-nn.html#cb1-14" tabindex="-1"></a>    <span class="sc">$</span> loan     <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"no"</span>,<span class="st">"yes"</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> ...</span>
+<span id="cb1-15"><a href="chapter-nn.html#cb1-15" tabindex="-1"></a>    <span class="sc">$</span> contact  <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">3</span> levels <span class="st">"cellular"</span>,<span class="st">"telephone"</span>,..<span class="sc">:</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">1</span> ...</span>
+<span id="cb1-16"><a href="chapter-nn.html#cb1-16" tabindex="-1"></a>    <span class="sc">$</span> day      <span class="sc">:</span> int  <span class="dv">19</span> <span class="dv">11</span> <span class="dv">16</span> <span class="dv">3</span> <span class="dv">5</span> <span class="dv">23</span> <span class="dv">14</span> <span class="dv">6</span> <span class="dv">14</span> <span class="dv">17</span> ...</span>
+<span id="cb1-17"><a href="chapter-nn.html#cb1-17" tabindex="-1"></a>    <span class="sc">$</span> month    <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">12</span> levels <span class="st">"apr"</span>,<span class="st">"aug"</span>,<span class="st">"dec"</span>,..<span class="sc">:</span> <span class="dv">11</span> <span class="dv">9</span> <span class="dv">1</span> <span class="dv">7</span> <span class="dv">9</span> <span class="dv">4</span> <span class="dv">9</span> <span class="dv">9</span> <span class="dv">9</span> <span class="dv">1</span> ...</span>
+<span id="cb1-18"><a href="chapter-nn.html#cb1-18" tabindex="-1"></a>    <span class="sc">$</span> duration <span class="sc">:</span> int  <span class="dv">79</span> <span class="dv">220</span> <span class="dv">185</span> <span class="dv">199</span> <span class="dv">226</span> <span class="dv">141</span> <span class="dv">341</span> <span class="dv">151</span> <span class="dv">57</span> <span class="dv">313</span> ...</span>
+<span id="cb1-19"><a href="chapter-nn.html#cb1-19" tabindex="-1"></a>    <span class="sc">$</span> campaign <span class="sc">:</span> int  <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">4</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> ...</span>
+<span id="cb1-20"><a href="chapter-nn.html#cb1-20" tabindex="-1"></a>    <span class="sc">$</span> pdays    <span class="sc">:</span> int  <span class="sc">-</span><span class="dv">1</span> <span class="dv">339</span> <span class="dv">330</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">-</span><span class="dv">1</span> <span class="dv">176</span> <span class="dv">330</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">-</span><span class="dv">1</span> <span class="dv">147</span> ...</span>
+<span id="cb1-21"><a href="chapter-nn.html#cb1-21" tabindex="-1"></a>    <span class="sc">$</span> previous <span class="sc">:</span> int  <span class="dv">0</span> <span class="dv">4</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">2</span> ...</span>
+<span id="cb1-22"><a href="chapter-nn.html#cb1-22" tabindex="-1"></a>    <span class="sc">$</span> poutcome <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">4</span> levels <span class="st">"failure"</span>,<span class="st">"other"</span>,..<span class="sc">:</span> <span class="dv">4</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">4</span> <span class="dv">4</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">4</span> <span class="dv">4</span> <span class="dv">1</span> ...</span>
+<span id="cb1-23"><a href="chapter-nn.html#cb1-23" tabindex="-1"></a>    <span class="sc">$</span> deposit  <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"no"</span>,<span class="st">"yes"</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> ...</span></code></pre></div>
 <p>The dataset contains 4521 observations and 17 variables. It includes 16 predictors and one target variable (<code>deposit</code>). Below is a summary of the key variables:</p>
 <p><strong>Demographic Features</strong>:<br>
 - <code>age</code>: Age of the customer (numeric).<br>
@@ -423,67 +387,69 @@ Figure 12.7: Comparison of common activation functions: Sigmoid, tanh, and Gauss
 <p><strong>Target Variable</strong>:<br>
 - <code>deposit</code>: Indicates whether the customer subscribed to a term deposit (binary: “yes”, “no”).</p>
 </div>
-<div id="data-cleaning-and-preparation-1" class="section level3 unnumbered">
-<h3>Data Cleaning and Preparation<a class="anchor" aria-label="anchor" href="#data-cleaning-and-preparation-1"><i class="fas fa-link"></i></a>
+<div id="data-cleaning-and-preparation" class="section level3 unnumbered">
+<h3>Data Cleaning and Preparation<a class="anchor" aria-label="anchor" href="#data-cleaning-and-preparation"><i class="fas fa-link"></i></a>
 </h3>
-<p>To prepare the dataset for the Neural Network algorithm, all variables must be scaled to a range between 0 and 1. We apply <strong>min-max normalization</strong> using the <code><a href="https://rdrr.io/pkg/liver/man/minmax.html">minmax()</a></code> function from the <strong>liver</strong> package:</p>
-<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="chapter-nn.html#cb210-1" tabindex="-1"></a>bank_mm <span class="ot">=</span> <span class="fu">minmax</span>(bank, <span class="at">col =</span> <span class="st">"all"</span>)</span>
-<span id="cb210-2"><a href="chapter-nn.html#cb210-2" tabindex="-1"></a><span class="fu">str</span>(bank_mm)</span>
-<span id="cb210-3"><a href="chapter-nn.html#cb210-3" tabindex="-1"></a>   <span class="st">'data.frame'</span><span class="sc">:</span>    <span class="dv">4521</span> obs. of  <span class="dv">17</span> variables<span class="sc">:</span></span>
-<span id="cb210-4"><a href="chapter-nn.html#cb210-4" tabindex="-1"></a>    <span class="er">$</span> age      <span class="sc">:</span> num  <span class="fl">0.162</span> <span class="fl">0.206</span> <span class="fl">0.235</span> <span class="fl">0.162</span> <span class="fl">0.588</span> ...</span>
-<span id="cb210-5"><a href="chapter-nn.html#cb210-5" tabindex="-1"></a>    <span class="sc">$</span> job      <span class="sc">:</span> num  <span class="fl">0.9091</span> <span class="fl">0.6364</span> <span class="fl">0.3636</span> <span class="fl">0.3636</span> <span class="fl">0.0909</span> ...</span>
-<span id="cb210-6"><a href="chapter-nn.html#cb210-6" tabindex="-1"></a>    <span class="sc">$</span> marital  <span class="sc">:</span> num  <span class="fl">0.5</span> <span class="fl">0.5</span> <span class="dv">1</span> <span class="fl">0.5</span> <span class="fl">0.5</span> <span class="dv">1</span> <span class="fl">0.5</span> <span class="fl">0.5</span> <span class="fl">0.5</span> <span class="fl">0.5</span> ...</span>
-<span id="cb210-7"><a href="chapter-nn.html#cb210-7" tabindex="-1"></a>    <span class="sc">$</span> education<span class="sc">:</span> num  <span class="dv">0</span> <span class="fl">0.333</span> <span class="fl">0.667</span> <span class="fl">0.667</span> <span class="fl">0.333</span> ...</span>
-<span id="cb210-8"><a href="chapter-nn.html#cb210-8" tabindex="-1"></a>    <span class="sc">$</span> default  <span class="sc">:</span> num  <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> ...</span>
-<span id="cb210-9"><a href="chapter-nn.html#cb210-9" tabindex="-1"></a>    <span class="sc">$</span> balance  <span class="sc">:</span> num  <span class="fl">0.0685</span> <span class="fl">0.1088</span> <span class="fl">0.0626</span> <span class="fl">0.0643</span> <span class="fl">0.0445</span> ...</span>
-<span id="cb210-10"><a href="chapter-nn.html#cb210-10" tabindex="-1"></a>    <span class="sc">$</span> housing  <span class="sc">:</span> num  <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> ...</span>
-<span id="cb210-11"><a href="chapter-nn.html#cb210-11" tabindex="-1"></a>    <span class="sc">$</span> loan     <span class="sc">:</span> num  <span class="dv">0</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> ...</span>
-<span id="cb210-12"><a href="chapter-nn.html#cb210-12" tabindex="-1"></a>    <span class="sc">$</span> contact  <span class="sc">:</span> num  <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">0</span> ...</span>
-<span id="cb210-13"><a href="chapter-nn.html#cb210-13" tabindex="-1"></a>    <span class="sc">$</span> day      <span class="sc">:</span> num  <span class="fl">0.6</span> <span class="fl">0.3333</span> <span class="fl">0.5</span> <span class="fl">0.0667</span> <span class="fl">0.1333</span> ...</span>
-<span id="cb210-14"><a href="chapter-nn.html#cb210-14" tabindex="-1"></a>    <span class="sc">$</span> month    <span class="sc">:</span> num  <span class="fl">0.909</span> <span class="fl">0.727</span> <span class="dv">0</span> <span class="fl">0.545</span> <span class="fl">0.727</span> ...</span>
-<span id="cb210-15"><a href="chapter-nn.html#cb210-15" tabindex="-1"></a>    <span class="sc">$</span> duration <span class="sc">:</span> num  <span class="fl">0.0248</span> <span class="fl">0.0715</span> <span class="fl">0.0599</span> <span class="fl">0.0645</span> <span class="fl">0.0735</span> ...</span>
-<span id="cb210-16"><a href="chapter-nn.html#cb210-16" tabindex="-1"></a>    <span class="sc">$</span> campaign <span class="sc">:</span> num  <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="fl">0.0612</span> <span class="dv">0</span> ...</span>
-<span id="cb210-17"><a href="chapter-nn.html#cb210-17" tabindex="-1"></a>    <span class="sc">$</span> pdays    <span class="sc">:</span> num  <span class="dv">0</span> <span class="fl">0.39</span> <span class="fl">0.38</span> <span class="dv">0</span> <span class="dv">0</span> ...</span>
-<span id="cb210-18"><a href="chapter-nn.html#cb210-18" tabindex="-1"></a>    <span class="sc">$</span> previous <span class="sc">:</span> num  <span class="dv">0</span> <span class="fl">0.16</span> <span class="fl">0.04</span> <span class="dv">0</span> <span class="dv">0</span> <span class="fl">0.12</span> <span class="fl">0.08</span> <span class="dv">0</span> <span class="dv">0</span> <span class="fl">0.08</span> ...</span>
-<span id="cb210-19"><a href="chapter-nn.html#cb210-19" tabindex="-1"></a>    <span class="sc">$</span> poutcome <span class="sc">:</span> num  <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span> ...</span>
-<span id="cb210-20"><a href="chapter-nn.html#cb210-20" tabindex="-1"></a>    <span class="sc">$</span> deposit  <span class="sc">:</span> num  <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> ...</span></code></pre></div>
+<p>To prepare the dataset for the Neural Network algorithm, all variables must be scaled to a range between 0 and 1. We apply <strong>min-max normalization</strong> using the <code>minmax()</code> function from the <strong>liver</strong> package:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="chapter-nn.html#cb2-1" tabindex="-1"></a>bank_mm <span class="ot">=</span> <span class="fu">minmax</span>(bank, <span class="at">col =</span> <span class="st">"all"</span>)</span>
+<span id="cb2-2"><a href="chapter-nn.html#cb2-2" tabindex="-1"></a><span class="fu">str</span>(bank_mm)</span>
+<span id="cb2-3"><a href="chapter-nn.html#cb2-3" tabindex="-1"></a>   <span class="st">'data.frame'</span><span class="sc">:</span>    <span class="dv">4521</span> obs. of  <span class="dv">17</span> variables<span class="sc">:</span></span>
+<span id="cb2-4"><a href="chapter-nn.html#cb2-4" tabindex="-1"></a>    <span class="er">$</span> age      <span class="sc">:</span> num  <span class="fl">0.162</span> <span class="fl">0.206</span> <span class="fl">0.235</span> <span class="fl">0.162</span> <span class="fl">0.588</span> ...</span>
+<span id="cb2-5"><a href="chapter-nn.html#cb2-5" tabindex="-1"></a>    <span class="sc">$</span> job      <span class="sc">:</span> num  <span class="fl">0.9091</span> <span class="fl">0.6364</span> <span class="fl">0.3636</span> <span class="fl">0.3636</span> <span class="fl">0.0909</span> ...</span>
+<span id="cb2-6"><a href="chapter-nn.html#cb2-6" tabindex="-1"></a>    <span class="sc">$</span> marital  <span class="sc">:</span> num  <span class="fl">0.5</span> <span class="fl">0.5</span> <span class="dv">1</span> <span class="fl">0.5</span> <span class="fl">0.5</span> <span class="dv">1</span> <span class="fl">0.5</span> <span class="fl">0.5</span> <span class="fl">0.5</span> <span class="fl">0.5</span> ...</span>
+<span id="cb2-7"><a href="chapter-nn.html#cb2-7" tabindex="-1"></a>    <span class="sc">$</span> education<span class="sc">:</span> num  <span class="dv">0</span> <span class="fl">0.333</span> <span class="fl">0.667</span> <span class="fl">0.667</span> <span class="fl">0.333</span> ...</span>
+<span id="cb2-8"><a href="chapter-nn.html#cb2-8" tabindex="-1"></a>    <span class="sc">$</span> default  <span class="sc">:</span> num  <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> ...</span>
+<span id="cb2-9"><a href="chapter-nn.html#cb2-9" tabindex="-1"></a>    <span class="sc">$</span> balance  <span class="sc">:</span> num  <span class="fl">0.0685</span> <span class="fl">0.1088</span> <span class="fl">0.0626</span> <span class="fl">0.0643</span> <span class="fl">0.0445</span> ...</span>
+<span id="cb2-10"><a href="chapter-nn.html#cb2-10" tabindex="-1"></a>    <span class="sc">$</span> housing  <span class="sc">:</span> num  <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> ...</span>
+<span id="cb2-11"><a href="chapter-nn.html#cb2-11" tabindex="-1"></a>    <span class="sc">$</span> loan     <span class="sc">:</span> num  <span class="dv">0</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> ...</span>
+<span id="cb2-12"><a href="chapter-nn.html#cb2-12" tabindex="-1"></a>    <span class="sc">$</span> contact  <span class="sc">:</span> num  <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">0</span> ...</span>
+<span id="cb2-13"><a href="chapter-nn.html#cb2-13" tabindex="-1"></a>    <span class="sc">$</span> day      <span class="sc">:</span> num  <span class="fl">0.6</span> <span class="fl">0.3333</span> <span class="fl">0.5</span> <span class="fl">0.0667</span> <span class="fl">0.1333</span> ...</span>
+<span id="cb2-14"><a href="chapter-nn.html#cb2-14" tabindex="-1"></a>    <span class="sc">$</span> month    <span class="sc">:</span> num  <span class="fl">0.909</span> <span class="fl">0.727</span> <span class="dv">0</span> <span class="fl">0.545</span> <span class="fl">0.727</span> ...</span>
+<span id="cb2-15"><a href="chapter-nn.html#cb2-15" tabindex="-1"></a>    <span class="sc">$</span> duration <span class="sc">:</span> num  <span class="fl">0.0248</span> <span class="fl">0.0715</span> <span class="fl">0.0599</span> <span class="fl">0.0645</span> <span class="fl">0.0735</span> ...</span>
+<span id="cb2-16"><a href="chapter-nn.html#cb2-16" tabindex="-1"></a>    <span class="sc">$</span> campaign <span class="sc">:</span> num  <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="fl">0.0612</span> <span class="dv">0</span> ...</span>
+<span id="cb2-17"><a href="chapter-nn.html#cb2-17" tabindex="-1"></a>    <span class="sc">$</span> pdays    <span class="sc">:</span> num  <span class="dv">0</span> <span class="fl">0.39</span> <span class="fl">0.38</span> <span class="dv">0</span> <span class="dv">0</span> ...</span>
+<span id="cb2-18"><a href="chapter-nn.html#cb2-18" tabindex="-1"></a>    <span class="sc">$</span> previous <span class="sc">:</span> num  <span class="dv">0</span> <span class="fl">0.16</span> <span class="fl">0.04</span> <span class="dv">0</span> <span class="dv">0</span> <span class="fl">0.12</span> <span class="fl">0.08</span> <span class="dv">0</span> <span class="dv">0</span> <span class="fl">0.08</span> ...</span>
+<span id="cb2-19"><a href="chapter-nn.html#cb2-19" tabindex="-1"></a>    <span class="sc">$</span> poutcome <span class="sc">:</span> num  <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span> ...</span>
+<span id="cb2-20"><a href="chapter-nn.html#cb2-20" tabindex="-1"></a>    <span class="sc">$</span> deposit  <span class="sc">:</span> num  <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> ...</span></code></pre></div>
 <p>Before and after applying min-max normalization, we can compare the distribution of <code>age</code> as an example:</p>
-<div class="sourceCode" id="cb211"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bank</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">age</span><span class="op">)</span>, colour <span class="op">=</span> <span class="st">"darkblue"</span>, fill <span class="op">=</span> <span class="st">"lightblue"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Variable 'age' before normalization"</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">bank</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_histogram</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">age</span><span class="op">)</span>, colour <span class="op">=</span> <span class="st">"darkblue"</span>, fill <span class="op">=</span> <span class="st">"lightblue"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Variable 'age' before normalization"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bank_mm</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">age</span><span class="op">)</span>, colour <span class="op">=</span> <span class="st">"darkblue"</span>, fill <span class="op">=</span> <span class="st">"lightblue"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Variable 'age' after normalization"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="nn_files/figure-html/unnamed-chunk-5-1.png" width="50%"><img src="nn_files/figure-html/unnamed-chunk-5-2.png" width="50%"></p>
-<p>Next, we partition the dataset into training (80%) and test (20%) subsets using the <code><a href="https://rdrr.io/pkg/liver/man/partition.html">partition()</a></code> function:</p>
-<div class="sourceCode" id="cb212"><pre class="downlit sourceCode r">
+<span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">bank_mm</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_histogram</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">age</span><span class="op">)</span>, colour <span class="op">=</span> <span class="st">"darkblue"</span>, fill <span class="op">=</span> <span class="st">"lightblue"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Variable 'age' after normalization"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="nn_files/figure-html/unnamed-chunk-3-1.png" width="50%"><img src="nn_files/figure-html/unnamed-chunk-3-2.png" width="50%"></p>
+<p>Next, we partition the dataset into training (80%) and test (20%) subsets using the <code>partition()</code> function:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">500</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">data_sets</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/liver/man/partition.html">partition</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bank_mm</span>, ratio <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.8</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">data_sets</span> <span class="op">=</span> <span class="fu">partition</span><span class="op">(</span>data <span class="op">=</span> <span class="va">bank_mm</span>, ratio <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.8</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
 <span><span class="va">train_set</span> <span class="op">=</span> <span class="va">data_sets</span><span class="op">$</span><span class="va">part1</span></span>
 <span><span class="va">test_set</span>  <span class="op">=</span> <span class="va">data_sets</span><span class="op">$</span><span class="va">part2</span></span>
+<span></span>
 <span><span class="va">actual_test</span> <span class="op">=</span> <span class="va">test_set</span><span class="op">$</span><span class="va">deposit</span></span></code></pre></div>
 <p>To validate this split, we compare the proportion of <code>deposit = "yes"</code> in the training and test sets using a two-sample Z-test:</p>
-<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="chapter-nn.html#cb213-1" tabindex="-1"></a>x1 <span class="ot">=</span> <span class="fu">sum</span>(train_set<span class="sc">$</span>deposit <span class="sc">==</span> <span class="dv">1</span>)</span>
-<span id="cb213-2"><a href="chapter-nn.html#cb213-2" tabindex="-1"></a>x2 <span class="ot">=</span> <span class="fu">sum</span>(test_set<span class="sc">$</span>deposit <span class="sc">==</span> <span class="dv">1</span>)</span>
-<span id="cb213-3"><a href="chapter-nn.html#cb213-3" tabindex="-1"></a></span>
-<span id="cb213-4"><a href="chapter-nn.html#cb213-4" tabindex="-1"></a>n1 <span class="ot">=</span> <span class="fu">nrow</span>(train_set)</span>
-<span id="cb213-5"><a href="chapter-nn.html#cb213-5" tabindex="-1"></a>n2 <span class="ot">=</span> <span class="fu">nrow</span>(test_set)</span>
-<span id="cb213-6"><a href="chapter-nn.html#cb213-6" tabindex="-1"></a></span>
-<span id="cb213-7"><a href="chapter-nn.html#cb213-7" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(x1, x2), <span class="at">n =</span> <span class="fu">c</span>(n1, n2))</span>
-<span id="cb213-8"><a href="chapter-nn.html#cb213-8" tabindex="-1"></a>   </span>
-<span id="cb213-9"><a href="chapter-nn.html#cb213-9" tabindex="-1"></a>    <span class="dv">2</span><span class="sc">-</span>sample test <span class="cf">for</span> equality of proportions with continuity correction</span>
-<span id="cb213-10"><a href="chapter-nn.html#cb213-10" tabindex="-1"></a>   </span>
-<span id="cb213-11"><a href="chapter-nn.html#cb213-11" tabindex="-1"></a>   data<span class="sc">:</span>  <span class="fu">c</span>(x1, x2) out of <span class="fu">c</span>(n1, n2)</span>
-<span id="cb213-12"><a href="chapter-nn.html#cb213-12" tabindex="-1"></a>   X<span class="sc">-</span>squared <span class="ot">=</span> <span class="fl">0.0014152</span>, df <span class="ot">=</span> <span class="dv">1</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.97</span></span>
-<span id="cb213-13"><a href="chapter-nn.html#cb213-13" tabindex="-1"></a>   alternative hypothesis<span class="sc">:</span> two.sided</span>
-<span id="cb213-14"><a href="chapter-nn.html#cb213-14" tabindex="-1"></a>   <span class="dv">95</span> percent confidence interval<span class="sc">:</span></span>
-<span id="cb213-15"><a href="chapter-nn.html#cb213-15" tabindex="-1"></a>    <span class="sc">-</span><span class="fl">0.02516048</span>  <span class="fl">0.02288448</span></span>
-<span id="cb213-16"><a href="chapter-nn.html#cb213-16" tabindex="-1"></a>   sample estimates<span class="sc">:</span></span>
-<span id="cb213-17"><a href="chapter-nn.html#cb213-17" tabindex="-1"></a>      prop <span class="dv">1</span>    prop <span class="dv">2</span> </span>
-<span id="cb213-18"><a href="chapter-nn.html#cb213-18" tabindex="-1"></a>   <span class="fl">0.1150124</span> <span class="fl">0.1161504</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="chapter-nn.html#cb5-1" tabindex="-1"></a>x1 <span class="ot">=</span> <span class="fu">sum</span>(train_set<span class="sc">$</span>deposit <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb5-2"><a href="chapter-nn.html#cb5-2" tabindex="-1"></a>x2 <span class="ot">=</span> <span class="fu">sum</span>(test_set<span class="sc">$</span>deposit <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb5-3"><a href="chapter-nn.html#cb5-3" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="chapter-nn.html#cb5-4" tabindex="-1"></a>n1 <span class="ot">=</span> <span class="fu">nrow</span>(train_set)</span>
+<span id="cb5-5"><a href="chapter-nn.html#cb5-5" tabindex="-1"></a>n2 <span class="ot">=</span> <span class="fu">nrow</span>(test_set)</span>
+<span id="cb5-6"><a href="chapter-nn.html#cb5-6" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="chapter-nn.html#cb5-7" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(x1, x2), <span class="at">n =</span> <span class="fu">c</span>(n1, n2))</span>
+<span id="cb5-8"><a href="chapter-nn.html#cb5-8" tabindex="-1"></a>   </span>
+<span id="cb5-9"><a href="chapter-nn.html#cb5-9" tabindex="-1"></a>    <span class="dv">2</span><span class="sc">-</span>sample test <span class="cf">for</span> equality of proportions with continuity correction</span>
+<span id="cb5-10"><a href="chapter-nn.html#cb5-10" tabindex="-1"></a>   </span>
+<span id="cb5-11"><a href="chapter-nn.html#cb5-11" tabindex="-1"></a>   data<span class="sc">:</span>  <span class="fu">c</span>(x1, x2) out of <span class="fu">c</span>(n1, n2)</span>
+<span id="cb5-12"><a href="chapter-nn.html#cb5-12" tabindex="-1"></a>   X<span class="sc">-</span>squared <span class="ot">=</span> <span class="fl">0.0014152</span>, df <span class="ot">=</span> <span class="dv">1</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.97</span></span>
+<span id="cb5-13"><a href="chapter-nn.html#cb5-13" tabindex="-1"></a>   alternative hypothesis<span class="sc">:</span> two.sided</span>
+<span id="cb5-14"><a href="chapter-nn.html#cb5-14" tabindex="-1"></a>   <span class="dv">95</span> percent confidence interval<span class="sc">:</span></span>
+<span id="cb5-15"><a href="chapter-nn.html#cb5-15" tabindex="-1"></a>    <span class="sc">-</span><span class="fl">0.02516048</span>  <span class="fl">0.02288448</span></span>
+<span id="cb5-16"><a href="chapter-nn.html#cb5-16" tabindex="-1"></a>   sample estimates<span class="sc">:</span></span>
+<span id="cb5-17"><a href="chapter-nn.html#cb5-17" tabindex="-1"></a>      prop <span class="dv">1</span>    prop <span class="dv">2</span> </span>
+<span id="cb5-18"><a href="chapter-nn.html#cb5-18" tabindex="-1"></a>   <span class="fl">0.1150124</span> <span class="fl">0.1161504</span></span></code></pre></div>
 <p>The test confirms that the proportions in both subsets are statistically similar (<em>p</em>-value &gt; 0.05), validating our split.</p>
 <p>Here’s the improved version of your subsection:</p>
 </div>
@@ -494,13 +460,13 @@ Figure 12.7: Comparison of common activation functions: Sigmoid, tanh, and Gauss
 <p><code>age</code>, <code>default</code>, <code>balance</code>, <code>housing</code>, <code>loan</code>, <code>duration</code>, <code>campaign</code>, <code>pdays</code>, and <code>previous</code>.</p>
 <p>To implement a neural network, we use the <a href="https://CRAN.R-project.org/package=neuralnet"><strong>neuralnet</strong></a> package in <em>R</em>. This package offers a straightforward and flexible way to build neural networks and provides functionality for visualizing the network topology. While <strong>neuralnet</strong> is a great learning tool, it is also powerful enough for practical applications.</p>
 <p>If you haven’t already installed the <strong>neuralnet</strong> package, you can do so by typing:</p>
-<div class="sourceCode" id="cb214"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"neuralnet"</span><span class="op">)</span></span></code></pre></div>
 <p>Once installed, load it into your session:</p>
-<div class="sourceCode" id="cb215"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bips-hb/neuralnet">neuralnet</a></span><span class="op">)</span></span></code></pre></div>
 <p>Next, we apply the <code><a href="https://rdrr.io/pkg/neuralnet/man/neuralnet.html">neuralnet()</a></code> function to the training dataset to build our model:</p>
-<div class="sourceCode" id="cb216"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">formula</span> <span class="op">=</span> <span class="va">deposit</span> <span class="op">~</span> <span class="va">age</span> <span class="op">+</span> <span class="va">default</span> <span class="op">+</span> <span class="va">balance</span> <span class="op">+</span> <span class="va">housing</span> <span class="op">+</span> <span class="va">loan</span> <span class="op">+</span> <span class="va">duration</span> <span class="op">+</span> </span>
 <span>                    <span class="va">campaign</span> <span class="op">+</span> <span class="va">pdays</span> <span class="op">+</span> <span class="va">previous</span></span>
 <span></span>
@@ -529,9 +495,9 @@ Figure 12.7: Comparison of common activation functions: Sigmoid, tanh, and Gauss
 <strong><code>linear.output</code></strong>: Ensures a nonlinear activation function for the output layer, appropriate for classification tasks.</li>
 </ul>
 <p>After training, we visualize the network to examine its topology:</p>
-<div class="sourceCode" id="cb217"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">neuralnet_bank</span>, rep <span class="op">=</span> <span class="st">"best"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="nn_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="nn_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>This visualization shows that the network consists of:<br>
 - <strong>9 input nodes</strong>, corresponding to the 9 predictors,<br>
 - <strong>1 hidden layer</strong> containing a single node, and<br>
@@ -539,87 +505,58 @@ Figure 12.7: Comparison of common activation functions: Sigmoid, tanh, and Gauss
 <p>The training process converged after 2578 steps, with a final error rate of 142.97. Upon analyzing the weights of the network, it was found that the <strong><code>duration</code></strong> predictor had the greatest influence on the model’s output, making it the most significant factor in determining whether a customer is likely to subscribe to the term deposit.</p>
 <p>This straightforward setup demonstrates how neural networks process input data through multiple layers and extract meaningful patterns to make predictions. In the next section, we will evaluate the model’s performance and interpret its results.</p>
 </div>
-<div id="prediction-and-model-evaluation-1" class="section level3 unnumbered">
-<h3>Prediction and Model Evaluation<a class="anchor" aria-label="anchor" href="#prediction-and-model-evaluation-1"><i class="fas fa-link"></i></a>
+<div id="prediction-and-model-evaluation-2" class="section level3 unnumbered">
+<h3>Prediction and Model Evaluation<a class="anchor" aria-label="anchor" href="#prediction-and-model-evaluation-2"><i class="fas fa-link"></i></a>
 </h3>
 <p>We use the trained Neural Network to predict the outcomes on the test dataset:</p>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="chapter-nn.html#cb218-1" tabindex="-1"></a>prob_nn <span class="ot">=</span> <span class="fu">predict</span>(neuralnet_bank, test_set)</span>
-<span id="cb218-2"><a href="chapter-nn.html#cb218-2" tabindex="-1"></a><span class="fu">head</span>(prob_nn)</span>
-<span id="cb218-3"><a href="chapter-nn.html#cb218-3" tabindex="-1"></a>            [,<span class="dv">1</span>]</span>
-<span id="cb218-4"><a href="chapter-nn.html#cb218-4" tabindex="-1"></a>   <span class="dv">12</span> <span class="fl">0.01460510</span></span>
-<span id="cb218-5"><a href="chapter-nn.html#cb218-5" tabindex="-1"></a>   <span class="dv">16</span> <span class="fl">0.02158387</span></span>
-<span id="cb218-6"><a href="chapter-nn.html#cb218-6" tabindex="-1"></a>   <span class="dv">17</span> <span class="fl">0.11371069</span></span>
-<span id="cb218-7"><a href="chapter-nn.html#cb218-7" tabindex="-1"></a>   <span class="dv">19</span> <span class="fl">0.02391761</span></span>
-<span id="cb218-8"><a href="chapter-nn.html#cb218-8" tabindex="-1"></a>   <span class="dv">32</span> <span class="fl">0.03149115</span></span>
-<span id="cb218-9"><a href="chapter-nn.html#cb218-9" tabindex="-1"></a>   <span class="dv">38</span> <span class="fl">0.01552204</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="chapter-nn.html#cb10-1" tabindex="-1"></a>prob_nn <span class="ot">=</span> <span class="fu">predict</span>(neuralnet_bank, test_set)</span>
+<span id="cb10-2"><a href="chapter-nn.html#cb10-2" tabindex="-1"></a><span class="fu">head</span>(prob_nn)</span>
+<span id="cb10-3"><a href="chapter-nn.html#cb10-3" tabindex="-1"></a>            [,<span class="dv">1</span>]</span>
+<span id="cb10-4"><a href="chapter-nn.html#cb10-4" tabindex="-1"></a>   <span class="dv">12</span> <span class="fl">0.01460510</span></span>
+<span id="cb10-5"><a href="chapter-nn.html#cb10-5" tabindex="-1"></a>   <span class="dv">16</span> <span class="fl">0.02158387</span></span>
+<span id="cb10-6"><a href="chapter-nn.html#cb10-6" tabindex="-1"></a>   <span class="dv">17</span> <span class="fl">0.11371069</span></span>
+<span id="cb10-7"><a href="chapter-nn.html#cb10-7" tabindex="-1"></a>   <span class="dv">19</span> <span class="fl">0.02391761</span></span>
+<span id="cb10-8"><a href="chapter-nn.html#cb10-8" tabindex="-1"></a>   <span class="dv">32</span> <span class="fl">0.03149115</span></span>
+<span id="cb10-9"><a href="chapter-nn.html#cb10-9" tabindex="-1"></a>   <span class="dv">38</span> <span class="fl">0.01552204</span></span></code></pre></div>
 <p>We evaluate the predictions using a <strong>confusion matrix</strong> with a cutoff value of 0.5:</p>
-<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="chapter-nn.html#cb219-1" tabindex="-1"></a><span class="fu">conf.mat</span>(prob_nn, actual_test, <span class="at">cutoff =</span> <span class="fl">0.5</span>)</span>
-<span id="cb219-2"><a href="chapter-nn.html#cb219-2" tabindex="-1"></a>   Setting levels<span class="sc">:</span> reference <span class="ot">=</span> <span class="st">"0"</span>, case <span class="ot">=</span> <span class="st">"1"</span></span>
-<span id="cb219-3"><a href="chapter-nn.html#cb219-3" tabindex="-1"></a>          Actual</span>
-<span id="cb219-4"><a href="chapter-nn.html#cb219-4" tabindex="-1"></a>   Predict   <span class="dv">0</span>   <span class="dv">1</span></span>
-<span id="cb219-5"><a href="chapter-nn.html#cb219-5" tabindex="-1"></a>         <span class="dv">0</span>  <span class="dv">16</span>  <span class="dv">22</span></span>
-<span id="cb219-6"><a href="chapter-nn.html#cb219-6" tabindex="-1"></a>         <span class="dv">1</span> <span class="dv">783</span>  <span class="dv">83</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="chapter-nn.html#cb11-1" tabindex="-1"></a><span class="fu">conf.mat</span>(prob_nn, actual_test, <span class="at">cutoff =</span> <span class="fl">0.5</span>)</span>
+<span id="cb11-2"><a href="chapter-nn.html#cb11-2" tabindex="-1"></a>   Setting levels<span class="sc">:</span> reference <span class="ot">=</span> <span class="st">"0"</span>, case <span class="ot">=</span> <span class="st">"1"</span></span>
+<span id="cb11-3"><a href="chapter-nn.html#cb11-3" tabindex="-1"></a>          Actual</span>
+<span id="cb11-4"><a href="chapter-nn.html#cb11-4" tabindex="-1"></a>   Predict   <span class="dv">0</span>   <span class="dv">1</span></span>
+<span id="cb11-5"><a href="chapter-nn.html#cb11-5" tabindex="-1"></a>         <span class="dv">0</span>  <span class="dv">16</span>  <span class="dv">22</span></span>
+<span id="cb11-6"><a href="chapter-nn.html#cb11-6" tabindex="-1"></a>         <span class="dv">1</span> <span class="dv">783</span>  <span class="dv">83</span></span></code></pre></div>
 <p>This confusion matrix reveals the number of correct and incorrect predictions (e.g., true positives, false positives). Finally, we assess the model’s performance by plotting the ROC curve and calculating the AUC:</p>
-<div class="sourceCode" id="cb220"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">roc_nn</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">actual_test</span>, <span class="va">prob_nn</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://xrobin.github.io/pROC/">pROC</a></span><span class="op">)</span>   <span class="co"># For ROC curve</span></span>
+<span></span>
+<span><span class="va">roc_nn</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">actual_test</span>, <span class="va">prob_nn</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/pROC/man/ggroc.html">ggroc</a></span><span class="op">(</span><span class="va">roc_nn</span>, size <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"ROC for Neural Network Algorithm"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>, legend.position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">.7</span>, <span class="fl">.3</span><span class="op">)</span>, text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">17</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="nn_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;"></div>
+<span>  <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"ROC for Neural Network Algorithm"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme</span><span class="op">(</span>legend.title <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>, legend.position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">.7</span>, <span class="fl">.3</span><span class="op">)</span>, text <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">17</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="nn_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>The ROC curve illustrates the model’s ability to distinguish between the two classes. A high AUC score indicates strong predictive performance.</p>
 </div>
 </div>
-<div id="exercises-9" class="section level2" number="12.7">
+<div id="exercises-8" class="section level2" number="12.7">
 <h2>
-<span class="header-section-number">12.7</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-9"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.7</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-8"><i class="fas fa-link"></i></a>
 </h2>
 <p>To do …</p>
 
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="chapter-tree.html"><span class="header-section-number">11</span> Decision Trees and Random Forests</a></div>
-<div class="next"><a href="chapter-cluster.html"><span class="header-section-number">13</span> Clustering</a></div>
+<div class="empty"></div>
+<div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav">
-<li>
-<a class="nav-link" href="#chapter-nn"><span class="header-section-number">12</span> Neural Networks: The Building Blocks of Artificial Intelligence</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#why-neural-networks-are-powerful">Why Neural Networks Are Powerful</a></li>
-<li><a class="nav-link" href="#whats-ahead">What’s Ahead</a></li>
-</ul>
-</li>
-<li><a class="nav-link" href="#neural-networks-inspired-by-biological-neurons"><span class="header-section-number">12.1</span> Neural Networks: Inspired by Biological Neurons</a></li>
-<li>
-<a class="nav-link" href="#how-neural-networks-work"><span class="header-section-number">12.2</span> How Neural Networks Work</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#key-characteristics-of-neural-networks">Key Characteristics of Neural Networks</a></li></ul>
-</li>
-<li>
-<a class="nav-link" href="#activation-functions"><span class="header-section-number">12.3</span> Activation Functions</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#the-sigmoid-activation-function">The Sigmoid Activation Function</a></li>
-<li><a class="nav-link" href="#other-common-activation-functions">Other Common Activation Functions</a></li>
-<li><a class="nav-link" href="#choosing-the-right-activation-function">Choosing the Right Activation Function</a></li>
-</ul>
-</li>
-<li><a class="nav-link" href="#network-architecture"><span class="header-section-number">12.4</span> Network Architecture</a></li>
-<li><a class="nav-link" href="#how-neural-networks-learn"><span class="header-section-number">12.5</span> How Neural Networks Learn</a></li>
-<li>
-<a class="nav-link" href="#case-study-bank-marketing"><span class="header-section-number">12.6</span> Case Study: Bank Marketing</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#business-context">Business Context</a></li>
-<li><a class="nav-link" href="#overview-of-the-dataset-2">Overview of the Dataset</a></li>
-<li><a class="nav-link" href="#data-cleaning-and-preparation-1">Data Cleaning and Preparation</a></li>
-<li><a class="nav-link" href="#applying-the-neural-network-algorithm">Applying the Neural Network Algorithm</a></li>
-<li><a class="nav-link" href="#prediction-and-model-evaluation-1">Prediction and Model Evaluation</a></li>
-</ul>
-</li>
-<li><a class="nav-link" href="#exercises-9"><span class="header-section-number">12.7</span> Exercises</a></li>
-</ul>
+      <div id="book-on-this-page"></div>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/RezaMoammadi/Book-Data-Science/blob/master/nn.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/RezaMoammadi/Book-Data-Science/edit/master/nn.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+          
         </ul>
 </div>
     </nav>
@@ -631,7 +568,7 @@ Figure 12.7: Comparison of common activation functions: Sigmoid, tanh, and Gauss
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Uncovering Data Science with R</strong>" was written by Reza Mohammadi. It was last built on 2025-02-19.</p>
+    <p>"<strong>Uncovering Data Science with R</strong>" was written by Reza Mohammadi. It was last built on 2025-02-25.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

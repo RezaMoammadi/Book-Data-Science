@@ -197,7 +197,8 @@ classification-and-regression-trees-cart
 the-c5.0-algorithm-for-building-decision-trees
 random-forests-an-ensemble-approach
 tree-case-study
-exercises-8
+tree-exercises
+data-preparation-and-partitioning
 chapter-nn
 neural-networks-inspired-by-biological-neurons
 how-neural-networks-work
@@ -205,7 +206,7 @@ activation-functions
 network-architecture
 how-neural-networks-learn
 case-study-bank-marketing
-exercises-9
+exercises-8
 chapter-cluster
 kmeans
 kmeans-choose
@@ -213,4 +214,5 @@ kmeans-cereal
 dataset-overview
 data-preprocessing
 applying-k-means-clustering
-exercises-10
+exercises-9
+cluster-what

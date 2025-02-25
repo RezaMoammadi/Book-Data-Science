@@ -1,8 +1,3 @@
-
-
-
-
-
 # Neural Networks: The Building Blocks of Artificial Intelligence {#chapter-nn}  
 
 For centuries, humans have dreamed of creating machines capable of mimicking human intelligence. Philosophers, scientists, and storytellers have long grappled with the possibilities and consequences of such creations, weaving them into myths, fiction, and philosophical discourse. The roots of this fascination can be traced as far back as ancient Greece, where inventors like Daedalus and Hero of Alexandria were said to have constructed mechanical devices that could write, generate sounds, and even play music. Today, in the 21st century, these age-old dreams are no longer confined to the realm of imagination. They have become reality in the form of **Artificial Intelligence (AI)**, a transformative force now deeply integrated into our daily lives. From **ChatGPT** and **generative AI (GenAI)** to self-driving cars and digital assistants like Siri or Alexa, AI has revolutionized the way we work, interact, and make decisions. This unprecedented progress has been driven by advancements in computational power, the availability of vast datasets, and breakthroughs in algorithm design.
@@ -107,7 +102,6 @@ The **activation function** plays a vital role in introducing non-linearity to t
 ### Key Characteristics of Neural Networks {-}  
 
 Despite the diversity of neural network architectures, all neural networks share three key characteristics that define their functionality (see Figure \@ref(fig:net-1)):  
-
 1. **Activation Functions**:  
    The activation function transforms a neuron’s net input into an output signal that is passed to the next layer. Activation functions introduce non-linearity, which is critical for modeling complex relationships in data. Examples include the sigmoid function, ReLU (Rectified Linear Unit), and hyperbolic tangent (tanh).  
 
@@ -271,6 +265,8 @@ We load and inspect the dataset:
   
 
 ```r
+library(liver)   # Load the liver package
+
 data(bank)   # Load the bank marketing dataset 
 
 str(bank)
@@ -360,7 +356,7 @@ ggplot(data = bank_mm) +
   ggtitle("Variable 'age' after normalization")
 ```
 
-<img src="nn_files/figure-html/unnamed-chunk-5-1.png" width="50%" /><img src="nn_files/figure-html/unnamed-chunk-5-2.png" width="50%" />
+<img src="nn_files/figure-html/unnamed-chunk-3-1.png" width="50%" /><img src="nn_files/figure-html/unnamed-chunk-3-2.png" width="50%" />
 
 Next, we partition the dataset into training (80%) and test (20%) subsets using the `partition()` function:  
   
@@ -369,8 +365,10 @@ Next, we partition the dataset into training (80%) and test (20%) subsets using 
 set.seed(500)
 
 data_sets = partition(data = bank_mm, ratio = c(0.8, 0.2))
+
 train_set = data_sets$part1
 test_set  = data_sets$part2
+
 actual_test = test_set$deposit
 ```
 
@@ -450,7 +448,7 @@ After training, we visualize the network to examine its topology:
 plot(neuralnet_bank, rep = "best")
 ```
 
-<img src="nn_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="nn_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" />
 
 This visualization shows that the network consists of:  
 - **9 input nodes**, corresponding to the 9 predictors,  
@@ -494,6 +492,8 @@ This confusion matrix reveals the number of correct and incorrect predictions (e
   
 
 ```r
+library(pROC)   # For ROC curve
+
 roc_nn = roc(actual_test, prob_nn)
 
 ggroc(roc_nn, size = 0.8) + 
@@ -502,7 +502,7 @@ ggroc(roc_nn, size = 0.8) +
   theme(legend.title = element_blank(), legend.position = c(.7, .3), text = element_text(size = 17))
 ```
 
-<img src="nn_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="nn_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" />
 
 The ROC curve illustrates the model's ability to distinguish between the two classes. A high AUC score indicates strong predictive performance.  
 

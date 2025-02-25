@@ -508,11 +508,11 @@ Categorical variables often contain a large number of unique values, making them
 
 The `native.country` variable contains `r length(levels(adult$native.country))` distinct countries. To make it more manageable, we categorize countries into broader geographical regions:  
 
-- **Europe**: England, France, Germany, Greece, Netherlands, Hungary, Ireland, Italy, Poland, Portugal, Scotland, Yugoslavia  
-- **Asia**: China, Hong Kong, India, Iran, Cambodia, Japan, Laos, Philippines, Vietnam, Taiwan, Thailand  
-- **North America**: Canada, United States, Puerto Rico  
-- **South America**: Colombia, Cuba, Dominican Republic, Ecuador, El Salvador, Guatemala, Haiti, Honduras, Mexico, Nicaragua, Outlying US territories, Peru, Jamaica, Trinidad & Tobago  
-- **Other**: This includes the ambiguous "South" category, as its meaning is unclear in the dataset documentation.  
+- *Europe*: England, France, Germany, Greece, Netherlands, Hungary, Ireland, Italy, Poland, Portugal, Scotland, Yugoslavia  
+- *Asia*: China, Hong Kong, India, Iran, Cambodia, Japan, Laos, Philippines, Vietnam, Taiwan, Thailand  
+- *North America*: Canada, United States, Puerto Rico  
+- *South America*: Colombia, Cuba, Dominican Republic, Ecuador, El Salvador, Guatemala, Haiti, Honduras, Mexico, Nicaragua, Outlying US territories, Peru, Jamaica, Trinidad & Tobago  
+- *Other*: This includes the ambiguous "South" category, as its meaning is unclear in the dataset documentation.  
 We use the `fct_collapse()` function from the **forcats** package to reassign categories:
 ```{r message = FALSE}
 library(forcats)  # Load package for categorical variable transformation

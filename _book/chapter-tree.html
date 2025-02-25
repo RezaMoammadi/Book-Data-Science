@@ -46,9 +46,9 @@
     }
   </style>
 <link rel="stylesheet" href="style.css">
-<meta name="description" content="As part of the Data Science workflow, we have already explored several powerful algorithms for classification and regression. These include k-Nearest Neighbors and Naive Bayes for classification,...">
-<meta property="og:description" content="As part of the Data Science workflow, we have already explored several powerful algorithms for classification and regression. These include k-Nearest Neighbors and Naive Bayes for classification,...">
-<meta name="twitter:description" content="As part of the Data Science workflow, we have already explored several powerful algorithms for classification and regression. These include k-Nearest Neighbors and Naive Bayes for classification,...">
+<meta name="description" content="Imagine a bank evaluating loan applications. Given details such as income, age, credit history, and debt-to-income ratio, how does the bank decide whether to approve or reject a loan? Similarly,...">
+<meta property="og:description" content="Imagine a bank evaluating loan applications. Given details such as income, age, credit history, and debt-to-income ratio, how does the bank decide whether to approve or reject a loan? Similarly,...">
+<meta name="twitter:description" content="Imagine a bank evaluating loan applications. Given details such as income, age, credit history, and debt-to-income ratio, how does the bank decide whether to approve or reject a loan? Similarly,...">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -95,289 +95,366 @@
 <h1>
 <span class="header-section-number">11</span> Decision Trees and Random Forests<a class="anchor" aria-label="anchor" href="#chapter-tree"><i class="fas fa-link"></i></a>
 </h1>
-<p>As part of the Data Science workflow, we have already explored several powerful algorithms for classification and regression. These include <strong>k-Nearest Neighbors</strong> and <strong>Naive Bayes</strong> for classification, as well as <strong>linear regression models</strong> for both continuous outcomes and classification tasks. In this chapter, we introduce two additional and widely-used techniques: <strong>Decision Trees</strong> and <strong>Random Forests</strong>. These algorithms are highly versatile, capable of tackling both classification and regression problems, and they are built around the idea of making a series of hierarchical decisions to classify data or predict outcomes.</p>
-<p>At their core, <strong>Decision Trees</strong> employ simple decision-making rules to split the dataset into smaller, more homogeneous subsets, resulting in a tree-like structure of decisions. This step-by-step partitioning allows trees to capture complex relationships in the data while remaining interpretable and intuitive. <strong>Random Forests</strong>, an extension of Decision Trees, enhance their predictive power by combining the outputs of multiple trees. This ensemble learning approach improves accuracy, reduces overfitting, and provides a more robust solution compared to a single tree.</p>
-<p>To illustrate the concept, consider the simple <strong>Decision Tree</strong> shown in Figure <a href="chapter-tree.html#fig:tree-0">11.1</a>, which predicts whether a customer’s credit risk is classified as “good” or “bad” based on features such as <code>age</code> and <code>income</code>. This example uses the <code>risk</code> dataset introduced in Chapter <a href="chapter-bayes.html#chapter-bayes">9</a>. Each node in the tree represents a question, such as “Is yearly income is lower than 36K? (<code>income &lt; 36e+3</code>)” or “Is age &gt;= 29?”, while the terminal nodes, also known as <strong>leaves</strong>, represent the final predictions (e.g., “Good risk” or “Bad risk”). Along with the predictions, the tree also provides uncertainty values. The process begins at the <strong>root node</strong>, and the data is iteratively split into branches based on feature values until it reaches the terminal nodes.</p>
+<p>Imagine a bank evaluating loan applications. Given details such as income, age, credit history, and debt-to-income ratio, how does the bank decide whether to approve or reject a loan? Similarly, how do online retailers recommend products based on customer preferences? These decisions, which mimic human reasoning, are often powered by <em>decision trees</em>—a simple yet powerful machine learning technique that classifies data by following a series of logical rules.</p>
+<p>Decision trees are widely used in various domains, from medical diagnosis and fraud detection to customer segmentation and automated decision-making. Their intuitive nature makes them highly interpretable, enabling data-driven decision-making without requiring deep mathematical expertise. However, while individual trees are easy to understand, they are prone to overfitting, capturing noise in the data rather than general patterns. <em>Random forests</em> address this limitation by combining multiple decision trees to produce a more accurate and stable model.</p>
+<p>To see decision trees in action, consider the example in Figure <a href="chapter-tree.html#fig:tree-0">11.1</a>, which predicts whether a customer’s credit risk is classified as “good” or “bad” based on features such as <code>age</code> and <code>income</code>. This tree is trained on the <code>risk</code> dataset, introduced in Chapter <a href="chapter-bayes.html#chapter-bayes">9</a>, and consists of decision nodes representing yes/no questions, such as whether yearly income is below €36,000 (<code>income &lt; 36e+3</code>) or whether age is greater than 29. The final classification is determined at the terminal nodes, also known as leaves.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:tree-0"></span>
-<img src="tree_files/figure-html/tree-0-1.png" alt="Decision tree for predicting credit risk based on age and income." width="65%"><p class="caption">
+<img src="tree_files/figure-html/tree-0-1.png" alt="Decision tree for predicting credit risk based on age and income." width="75%"><p class="caption">
 Figure 11.1: Decision tree for predicting credit risk based on age and income.
 </p>
 </div>
-<p>As shown in Figure <a href="chapter-tree.html#fig:tree-0">11.1</a>, decision trees provide a visually intuitive and interpretable structure that does not require advanced statistical knowledge. This makes them especially valuable in business contexts, where simplicity, interpretability, and actionable insights are critical. Whether it’s customer segmentation, risk assessment, or process optimization, decision trees serve as a user-friendly tool for deriving insights and informing decisions.</p>
-<p>By the end of this chapter, you will gain:</p>
+<p>Decision trees are highly interpretable, making them especially valuable in domains such as finance, healthcare, and marketing, where understanding model decisions is as important as accuracy. Their structured form allows for easy visualization of decision pathways, helping businesses with customer segmentation, risk assessment, and process optimization.</p>
+<p>In this chapter, we explore how decision trees and random forests work, their strengths and limitations, and how they can be applied to solve real-world problems. By the end of the chapter, you will learn:</p>
 <ul>
-<li>A deep understanding of the mechanics behind <strong>Decision Trees</strong> and <strong>Random Forests</strong>,<br>
+<li>The mechanics behind <em>decision trees</em> and <em>random forests</em>.<br>
 </li>
-<li>Practical knowledge of building, evaluating, and tuning Decision Trees using algorithms like <strong>CART</strong> and <strong>C5.0</strong>, and<br>
+<li>How to build, evaluate, and fine-tune decision trees using algorithms such as <em>CART</em> and <em>C5.0</em>.<br>
 </li>
-<li>The ability to leverage <strong>Random Forests</strong> for solving real-world problems, such as identifying risky loans, detecting fraudulent transactions, or classifying images.</li>
+<li>How random forests improve predictive accuracy and generalization through ensemble learning.</li>
 </ul>
-<p>We will start by exploring how Decision Trees are constructed, learning about their key concepts and algorithms. Then, we will delve into <strong>Random Forests</strong>, a powerful ensemble learning method that builds upon the strengths of Decision Trees to deliver state-of-the-art performance across a wide range of applications.</p>
+<p>We begin by examining the core principles of decision trees, including how they make predictions and how their performance can be optimized.</p>
 <div id="how-decision-trees-work" class="section level2" number="11.1">
 <h2>
 <span class="header-section-number">11.1</span> How Decision Trees Work<a class="anchor" aria-label="anchor" href="#how-decision-trees-work"><i class="fas fa-link"></i></a>
 </h2>
-<p>Decision Trees classify data or predict outcomes by recursively dividing a dataset into smaller subsets based on feature values. This <strong>divide and conquer</strong> approach aims to maximize the homogeneity of the subsets at each step, creating groups that are as similar as possible. At each split, the algorithm identifies the feature and threshold that best separate the data, using criteria such as the <strong>Gini Index</strong>, <strong>Entropy</strong>, or <strong>Variance Reduction</strong>, depending on whether the task is classification or regression. The process continues until one of the following conditions is met:</p>
-<ol style="list-style-type: decimal">
-<li>The tree reaches a predefined maximum depth,<br>
-</li>
-<li>All observations in a subset belong to the same class (for classification) or share the same value (for regression), or<br>
-</li>
-<li>Further splits fail to improve the model’s performance.</li>
-</ol>
-<p>This iterative process creates a <strong>binary tree</strong>, where each <strong>node</strong> represents a decision test (e.g., “Is <span class="math inline">\(x_1 &lt; 10\)</span>?”), and each <strong>leaf</strong> represents the final prediction (e.g., “Class A” or “Class B”). Decision Trees are highly interpretable, as their structure visually represents the decision-making process, making them particularly useful for understanding how predictions are made.</p>
-<p>To better understand how Decision Trees work, consider a toy dataset with two features (<span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>) and two classes (Class A and Class B), as shown in Figure <a href="chapter-tree.html#fig:tree-1">11.2</a>. The dataset contains 50 data points, and the goal is to classify these points into their respective classes using a Decision Tree.</p>
+<p>A decision tree classifies or predicts outcomes by systematically dividing a dataset into smaller, more uniform groups based on feature values. Each split refines the classification or prediction, creating a structured, tree-like model. This <em>divide-and-conquer</em> approach is widely used in classification and regression due to its intuitive nature and ability to model complex decision-making processes.</p>
+<p>At each step, the algorithm selects the feature and threshold that best separate the data. This decision is based on metrics such as the <em>Gini Index</em>, <em>Entropy</em>, or <em>Variance Reduction</em>, depending on the problem type. The tree continues growing until it meets a stopping criterion, such as reaching a predefined maximum depth, forming perfectly homogeneous subsets, or when further splits no longer improve performance.</p>
+<p>To see this process in action, consider a simple dataset with two features (<span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>) and two classes (Class A and Class B), as shown in Figure <a href="chapter-tree.html#fig:tree-1">11.2</a>. The dataset consists of 50 data points, and the goal is to classify them into their respective categories.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:tree-1"></span>
-<img src="images/ex_tree_1.png" alt="A two-dimensional toy dataset (50 observations) with two classes (Class A and Class B), used to illustrate how to build Decision Trees." width="65%"><p class="caption">
+<img src="images/ex_tree_1.png" alt="A two-dimensional toy dataset (50 observations) with two classes (Class A and Class B), used to illustrate how to build Decision Trees." width="70%"><p class="caption">
 Figure 11.2: A two-dimensional toy dataset (50 observations) with two classes (Class A and Class B), used to illustrate how to build Decision Trees.
 </p>
 </div>
-<p>The process starts by identifying the feature and threshold that best separate the two classes. The algorithm evaluates all possible thresholds for each feature and selects the split that maximizes homogeneity in the resulting subsets. For this dataset, the best split is based on the feature <span class="math inline">\(x_1\)</span>, with a decision boundary at <span class="math inline">\(x_1 = 10\)</span>.</p>
-<p>As shown in Figure <a href="chapter-tree.html#fig:tree-2">11.3</a>, this split divides the dataset into two regions:</p>
+<p>The process begins by identifying the feature and threshold that best separate the two classes. The algorithm evaluates all possible splits and selects the one that maximizes homogeneity in the resulting subsets. For this dataset, the optimal split occurs at <span class="math inline">\(x_1 = 10\)</span>, dividing the dataset into two regions:</p>
 <ul>
-<li>
-<strong>Left region</strong>: Data points where <span class="math inline">\(x_1 &lt; 10\)</span>, which are 80% Class A and 20% Class B.<br>
-</li>
-<li>
-<strong>Right region</strong>: Data points where <span class="math inline">\(x_1 \geq 10\)</span>, which are 28% Class A and 72% Class B.</li>
+<li>The left region contains data points where <span class="math inline">\(x_1 &lt; 10\)</span>, with 80% belonging to Class A and 20% to Class B.</li>
+<li>The right region contains data points where <span class="math inline">\(x_1 \geq 10\)</span>, with 28% in Class A and 72% in Class B.</li>
 </ul>
-<p>The test <span class="math inline">\(x_1 &lt; 10\)</span> forms the <strong>root node</strong> of the tree, and the two regions correspond to the left and right branches of the tree.</p>
+<p>This first split is illustrated in Figure <a href="chapter-tree.html#fig:tree-2">11.3</a>, where the decision boundary is drawn at <span class="math inline">\(x_1 = 10\)</span>.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:tree-2"></span>
-<img src="images/ex_tree_2.png" alt="Left: Decision boundary for a tree with depth 1. Right: The corresponding Decision Tree." width="90%"><p class="caption">
+<img src="images/ex_tree_2.png" alt="Left: Decision boundary for a tree with depth 1. Right: The corresponding Decision Tree." width="100%"><p class="caption">
 Figure 11.3: Left: Decision boundary for a tree with depth 1. Right: The corresponding Decision Tree.
 </p>
 </div>
-<p>Although the first split significantly separates the two classes, both regions still contain points from both classes. To further improve classification accuracy, the algorithm recursively evaluates additional splits within each region.</p>
-<p>In Figure <a href="chapter-tree.html#fig:tree-3">11.4</a>, the second split is made using the feature <span class="math inline">\(x_2\)</span>. For the left region (<span class="math inline">\(x_1 &lt; 10\)</span>), the optimal threshold is <span class="math inline">\(x_2 = 6\)</span>, while for the right region (<span class="math inline">\(x_1 \geq 10\)</span>), the threshold is <span class="math inline">\(x_2 = 8\)</span>. These additional splits refine the boundaries of the feature space, creating smaller and more homogeneous regions.</p>
+<p>Although this split improves class separation, some overlap remains, suggesting that further refinement is needed. The tree-building process continues by introducing additional splits based on <span class="math inline">\(x_2\)</span>, creating smaller, more homogeneous groups.</p>
+<p>In Figure <a href="chapter-tree.html#fig:tree-3">11.4</a>, the algorithm identifies new thresholds: <span class="math inline">\(x_2 = 6\)</span> for the left region and <span class="math inline">\(x_2 = 8\)</span> for the right region. These additional splits refine the classification process, improving the model’s ability to distinguish between the two classes.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:tree-3"></span>
-<img src="images/ex_tree_3.png" alt="Left: Decision boundary for a tree with depth 2. Right: The corresponding Decision Tree." width="90%"><p class="caption">
+<img src="images/ex_tree_3.png" alt="Left: Decision boundary for a tree with depth 2. Right: The corresponding Decision Tree." width="100%"><p class="caption">
 Figure 11.4: Left: Decision boundary for a tree with depth 2. Right: The corresponding Decision Tree.
 </p>
 </div>
-<p>The splitting process continues until the tree meets a stopping condition, such as reaching a maximum depth or producing pure leaf nodes (regions containing data points from only one class). Figure <a href="chapter-tree.html#fig:tree-4">11.5</a> shows the final tree, grown to a depth of 5. The decision boundaries on the left illustrate how the feature space is partitioned into regions, each associated with a specific class.</p>
+<p>This recursive process continues until the tree reaches a stopping criterion. Figure <a href="chapter-tree.html#fig:tree-4">11.5</a> shows a fully grown tree with a depth of 5, demonstrating how decision trees create increasingly refined decision boundaries.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:tree-4"></span>
-<img src="images/ex_tree_4.png" alt="Left: Decision boundary for a tree with depth 5. Right: The corresponding Decision Tree." width="90%"><p class="caption">
+<img src="images/ex_tree_4.png" alt="Left: Decision boundary for a tree with depth 5. Right: The corresponding Decision Tree." width="100%"><p class="caption">
 Figure 11.5: Left: Decision boundary for a tree with depth 5. Right: The corresponding Decision Tree.
 </p>
 </div>
-<p>At this depth, the tree has created highly specific decision boundaries that closely match the training data. However, this specificity often leads to <strong>overfitting</strong>, where the model captures noise or outliers in the data instead of general patterns. Overfitted trees may perform poorly on unseen data.</p>
-<p>To make predictions with a Decision Tree, the algorithm evaluates the test conditions at each node and follows the corresponding branch until it reaches a leaf. The prediction depends on the type of task:</p>
-<ul>
-<li>
-<strong>For classification</strong>, the predicted class is the majority class of the points in the leaf.</li>
-<li>
-<strong>For regression</strong>, the predicted value is the mean of the target variable for all points in the leaf.</li>
-</ul>
-<p>For example, in Figure <a href="chapter-tree.html#fig:tree-3">11.4</a>, a new data point with <span class="math inline">\(x_1 = 8\)</span> and <span class="math inline">\(x_2 = 4\)</span> would traverse to the left region (<span class="math inline">\(x_1 &lt; 10\)</span>), then to the bottom-left region (<span class="math inline">\(x_2 &lt; 6\)</span>), ultimately landing in a leaf labeled as Class A with 80% confidence and a 20% error rate.</p>
-<p>Decision Trees can also handle regression tasks by following the same splitting process but minimizing the <strong>variance</strong> of the target variable instead of maximizing class homogeneity. For regression, the prediction for a new data point is the average target value of all training points in the corresponding leaf. This allows Decision Trees to model non-linear relationships effectively.</p>
-<p>Controlling the complexity of a Decision Tree is crucial to prevent overfitting. Fully growing a tree until all leaves are pure often results in a highly complex model that perfectly fits the training data but performs poorly on unseen data. This can be observed in Figure <a href="chapter-tree.html#fig:tree-4">11.5</a>, where the decision boundaries overfit the training set, capturing outliers and noise.</p>
-<p>To address this, two strategies are commonly used:</p>
+<p>At this depth, the tree has created highly specific decision boundaries that closely match the training data. While this deep tree perfectly classifies the training data, it may not generalize well to new observations. The model has likely captured not just meaningful patterns but also noise, a problem known as <em>overfitting</em>. Overfitted trees perform well on training data but struggle to make accurate predictions on unseen data.</p>
+<div id="making-predictions-with-a-decision-tree" class="section level3 unnumbered">
+<h3>Making Predictions with a Decision Tree<a class="anchor" aria-label="anchor" href="#making-predictions-with-a-decision-tree"><i class="fas fa-link"></i></a>
+</h3>
+<p>After a decision tree is built, making predictions involves following the decision rules from the root node down to a leaf. Each split refines the prediction until a final classification or numerical estimate is reached.</p>
+<p>For classification tasks, the tree assigns a new observation to the most common class in the leaf where it ends up. For regression tasks, the predicted outcome is the average target value of the data points in that leaf.</p>
+<p>To illustrate, consider a new data point with <span class="math inline">\(x_1 = 8\)</span> and <span class="math inline">\(x_2 = 4\)</span> in Figure <a href="chapter-tree.html#fig:tree-3">11.4</a>. The tree classifies it by following these steps:</p>
 <ol style="list-style-type: decimal">
-<li>
-<strong>Pre-pruning</strong>: Stop the tree-building process early based on criteria such as limiting the maximum depth, the number of leaf nodes, or the minimum number of points required to split a node.<br>
+<li>Since <span class="math inline">\(x_1 = 8\)</span>, the point moves to the left branch (<span class="math inline">\(x_1 &lt; 10\)</span>).<br>
 </li>
-<li>
-<strong>Post-pruning</strong>: Build the full tree and then simplify it by removing or collapsing nodes that provide little additional value.</li>
+<li>Since <span class="math inline">\(x_2 = 4\)</span>, the point moves to the lower-left region (<span class="math inline">\(x_2 &lt; 6\)</span>).<br>
+</li>
+<li>The final leaf node assigns the point to Class A with 80% confidence.</li>
 </ol>
-<p>The effectiveness of these strategies depends on the dataset and the application. The choice of the split criterion—such as the <strong>Gini Index</strong>, <strong>Entropy</strong>, or <strong>Variance Reduction</strong>—also plays a crucial role in determining the tree’s performance. These criteria are foundational to the two most widely used Decision Tree algorithms, <strong>CART</strong> and <strong>C5.0</strong>, which will be explored in the following sections.</p>
+<p>This step-by-step traversal of the tree ensures that predictions remain interpretable, making decision trees particularly useful in applications where understanding how a prediction was made is as important as accuracy.</p>
+</div>
+<div id="controlling-tree-complexity" class="section level3 unnumbered">
+<h3>Controlling Tree Complexity<a class="anchor" aria-label="anchor" href="#controlling-tree-complexity"><i class="fas fa-link"></i></a>
+</h3>
+<p>While decision trees are powerful, they can easily grow too complex, capturing noise rather than meaningful patterns. To improve generalization, various techniques help regulate tree complexity and prevent overfitting.</p>
+<p>One approach is <strong>pre-pruning</strong>, which restricts tree growth during training by enforcing stopping criteria. These may include setting a maximum tree depth, requiring a minimum number of samples per node, or enforcing a minimum improvement in information gain at each split. By stopping early, pre-pruning prevents the tree from fitting the data too closely, reducing the risk of overfitting.</p>
+<p>Alternatively, <strong>post-pruning</strong> allows the tree to grow fully before simplifying it. Once the tree is built, unnecessary nodes that contribute little to predictive accuracy are removed or merged. This approach often improves interpretability while maintaining performance.</p>
+<p>The choice between pre-pruning and post-pruning depends on the dataset and problem at hand. Additionally, the way splits are chosen—using criteria such as <em>Gini Index</em>, <em>Entropy</em>, or <em>Variance Reduction</em>—plays a crucial role in determining tree performance. These will be explored in later sections.</p>
+</div>
 </div>
 <div id="classification-and-regression-trees-cart" class="section level2" number="11.2">
 <h2>
 <span class="header-section-number">11.2</span> Classification and Regression Trees (CART)<a class="anchor" aria-label="anchor" href="#classification-and-regression-trees-cart"><i class="fas fa-link"></i></a>
 </h2>
-<p>The <strong>Classification and Regression Trees (CART)</strong> algorithm, introduced by Breiman et al. in 1984,<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;L Breiman et al., &lt;span&gt;“Classification and Regression Trees,”&lt;/span&gt; 1984.&lt;/p&gt;"><sup>10</sup></a></span> is one of the most widely used methods for constructing decision trees. CART generates <strong>binary trees</strong>, meaning that each decision node splits the data into exactly two branches. It recursively partitions the training dataset into subsets of records that share similar values for the target variable. This partitioning is guided by a splitting criterion designed to minimize impurity in the resulting subsets. For classification tasks, CART employs measures such as the <strong>Gini Index</strong> or <strong>Entropy</strong> to evaluate splits, while for regression tasks, it minimizes the <strong>Variance</strong> of the target variable.</p>
-<p>As an example, the <strong>Gini Index</strong> is commonly used to measure impurity in classification tasks. The Gini Index for a node is calculated as:</p>
+<p>The classification and regression trees (CART) algorithm, introduced by Breiman et al. in 1984,<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;L Breiman et al., &lt;span&gt;“Classification and Regression Trees,”&lt;/span&gt; 1984.&lt;/p&gt;"><sup>10</sup></a></span> is one of the most widely used methods for constructing decision trees. CART generates binary trees, meaning that each decision node splits the data into exactly two branches. It recursively partitions the training dataset into subsets of records that share similar values for the target variable. This partitioning is guided by a splitting criterion designed to minimize impurity in the resulting subsets. For classification tasks, CART employs measures such as the Gini index or entropy to evaluate splits, while for regression tasks, it minimizes the variance of the target variable.</p>
+<p>The Gini index is commonly used to measure impurity in classification tasks. It is calculated as:</p>
 <p><span class="math display">\[
 Gini = 1 - \sum_{i=1}^k p_i^2
 \]</span></p>
-<p>where <span class="math inline">\(p_i\)</span> represents the proportion of samples in the node that belong to class <span class="math inline">\(i\)</span>, and <span class="math inline">\(k\)</span> is the total number of classes. A node is considered “pure” when all the data points in it belong to a single class, resulting in a Gini Index of 0. During tree construction, CART selects the feature and threshold that result in the largest reduction in impurity, splitting the data to create two more homogeneous child nodes.</p>
-<p>The recursive nature of CART can result in highly detailed trees that perfectly fit the training data. While this ensures the lowest possible error rate on the training set, it can lead to <strong>overfitting</strong>, where the tree becomes overly complex and fails to generalize to unseen data. To mitigate this, CART employs a technique called <strong>pruning</strong> to simplify the tree.</p>
-<p>Pruning involves cutting back branches of the tree that do not contribute meaningfully to its predictive accuracy on a validation set. This is achieved by finding an adjusted error rate that penalizes overly complex trees with too many leaf nodes. The goal of pruning is to strike a balance between accuracy and simplicity, enhancing the tree’s ability to generalize to new data. The pruning process is described in detail by Breiman et al..<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Breiman et al.&lt;/p&gt;"><sup>11</sup></a></span></p>
-<p>Despite its simplicity, CART is a powerful algorithm that has been widely adopted in practice. Its key strengths include:</p>
-<ul>
-<li>
-<strong>Interpretability:</strong> The tree structure is intuitive and easy to visualize, making CART models highly explainable.<br>
-</li>
-<li>
-<strong>Versatility:</strong> CART can handle both classification and regression tasks effectively.<br>
-</li>
-<li>
-<strong>Ability to handle mixed data types:</strong> CART works seamlessly with datasets containing both numerical and categorical variables.</li>
-</ul>
-<p>However, CART also has limitations. The algorithm tends to produce deep trees that may overfit the training data, especially when the dataset is small or noisy. Additionally, CART’s reliance on greedy splitting can result in suboptimal splits, as it evaluates one split at a time rather than considering all possible combinations.</p>
-<p>To address these shortcomings, more advanced algorithms have been developed, such as <strong>C5.0</strong>, which incorporates improvements in splitting and pruning techniques, and <strong>Random Forests</strong>, which combine multiple decision trees to create more robust models. These approaches build on the foundations of CART, improving its performance and reducing its susceptibility to overfitting. We will explore these methods in subsequent sections.</p>
+<p>where <span class="math inline">\(p_i\)</span> represents the proportion of samples in the node that belong to class <span class="math inline">\(i\)</span>, and <span class="math inline">\(k\)</span> is the total number of classes. A node is considered pure when all data points in it belong to a single class, resulting in a Gini index of zero. During tree construction, CART selects the feature and threshold that result in the largest reduction in impurity, splitting the data to create two more homogeneous child nodes.</p>
+<p>The recursive nature of CART can lead to highly detailed trees that fit the training data perfectly. While this minimizes the error rate on the training set, it often results in overfitting, where the tree becomes overly complex and fails to generalize to unseen data. To mitigate this, CART employs pruning techniques to simplify the tree.</p>
+<p>Pruning involves trimming branches that do not contribute meaningfully to predictive accuracy on a validation set. This is achieved by finding an adjusted error rate that penalizes overly complex trees with too many leaf nodes. The goal of pruning is to balance accuracy and simplicity, enhancing the tree’s ability to generalize to new data. The pruning process is discussed in detail by Breiman et al..<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Breiman et al.&lt;/p&gt;"><sup>11</sup></a></span></p>
+<p>Despite its simplicity, CART is widely used in practice due to its interpretability, versatility, and ability to handle both classification and regression tasks. The tree structure provides an intuitive way to visualize decision-making, making it highly explainable. Additionally, CART works well with both numerical and categorical data, making it applicable across a range of domains.</p>
+<p>However, CART has limitations. The algorithm tends to produce deep trees that may overfit the training data, particularly when the dataset is small or noisy. Its reliance on greedy splitting can also result in suboptimal splits, as it evaluates one feature at a time rather than considering all possible combinations.</p>
+<p>To address these shortcomings, more advanced algorithms have been developed, such as C5.0, which incorporates improvements in splitting and pruning techniques, and random forests, which combine multiple decision trees to create more robust models. These approaches build on the foundations of CART, improving performance and reducing susceptibility to overfitting. The following sections explore these methods in detail.</p>
 </div>
 <div id="the-c5.0-algorithm-for-building-decision-trees" class="section level2" number="11.3">
 <h2>
 <span class="header-section-number">11.3</span> The C5.0 Algorithm for Building Decision Trees<a class="anchor" aria-label="anchor" href="#the-c5.0-algorithm-for-building-decision-trees"><i class="fas fa-link"></i></a>
 </h2>
-<p>The <strong>C5.0 algorithm</strong> is one of the most well-known and widely used decision tree implementations. Developed by J. Ross Quinlan, C5.0 is an advanced iteration of his earlier algorithms, <strong>C4.5</strong> and <strong>ID3</strong> (Iterative Dichotomiser 3). Building upon the strengths of its predecessors, C5.0 introduces several improvements in efficiency, flexibility, and accuracy, making it a popular choice for both academic and commercial applications. While Quinlan offers a commercial version of C5.0 (available at <a href="http://www.rulequest.com/">RuleQuest</a>), a single-threaded implementation has been made publicly available and has been incorporated into open-source tools such as R.</p>
-<p>C5.0 differs from other decision tree algorithms, such as CART, in several key ways. Unlike CART, which only produces binary trees, C5.0 allows for more flexible tree structures with non-binary splits. For categorical attributes, C5.0 can create separate branches for each unique value of the attribute, which can lead to highly “bushy” trees if the attribute has many categories. Another major distinction lies in the way node homogeneity is measured. While CART uses metrics like the Gini Index or Variance Reduction, C5.0 employs <strong>Entropy</strong> and <strong>Information Gain</strong>, concepts rooted in information theory, to evaluate the optimal splits.</p>
-<p>Entropy measures the level of disorder or randomness in a dataset. High entropy indicates a dataset with high diversity (e.g., a mix of classes), whereas low entropy signifies greater homogeneity (e.g., all samples belong to the same class). The goal of the C5.0 algorithm is to identify splits that reduce entropy, creating purer subsets of data at each step of the tree-building process. Formally, entropy for a variable <span class="math inline">\(x\)</span> with <span class="math inline">\(k\)</span> classes is defined as:</p>
+<p>The C5.0 algorithm, developed by J. Ross Quinlan, is an advanced iteration of earlier decision tree models, including C4.5 and ID3 (Iterative Dichotomiser 3). It introduces improvements in efficiency, flexibility, and accuracy, making it a widely used approach in both academic research and practical applications. While a commercial version is available through <a href="http://www.rulequest.com/">RuleQuest</a>, an open-source implementation is integrated into R and other machine learning tools.</p>
+<p>C5.0 differs from other decision tree algorithms, such as CART, in several ways. Unlike CART, which constructs strictly binary trees, C5.0 allows for multi-way splits, particularly for categorical attributes. This can lead to more compact and interpretable trees when dealing with variables that have many distinct categories. Another key distinction lies in how the algorithm evaluates node purity. While CART uses measures such as the Gini index or variance reduction, C5.0 relies on entropy and information gain, concepts derived from information theory.</p>
+<p>Entropy measures the degree of disorder in a dataset. Higher entropy indicates greater diversity among classes, while lower entropy suggests more homogeneous groups. The goal of C5.0 is to identify feature splits that reduce entropy, leading to purer subsets at each step of tree construction. The entropy for a variable <span class="math inline">\(x\)</span> with <span class="math inline">\(k\)</span> classes is defined as:</p>
 <p><span class="math display">\[
 Entropy(x) = - \sum_{i=1}^k p_i \log_2(p_i)
 \]</span></p>
-<p>Here, <span class="math inline">\(p_i\)</span> is the proportion of samples belonging to class <span class="math inline">\(i\)</span>. For example, if a dataset contains an even split between two classes, the entropy is at its maximum. Conversely, if all samples belong to a single class, entropy is zero. This concept extends naturally to the calculation of <strong>Information Gain</strong>, which quantifies the reduction in entropy achieved by splitting the data on a particular feature. Given a candidate split <span class="math inline">\(S\)</span> that divides a dataset <span class="math inline">\(T\)</span> into subsets <span class="math inline">\(T_1, T_2, \dots, T_c\)</span>, the entropy after the split is calculated as a weighted sum of the entropies of the subsets:</p>
+<p>where <span class="math inline">\(p_i\)</span> represents the proportion of samples in class <span class="math inline">\(i\)</span>. A dataset with equal distribution among classes has maximum entropy, whereas a dataset with all samples belonging to the same class has entropy equal to zero. Using this measure, the algorithm calculates information gain, which quantifies the reduction in entropy resulting from a particular split. Given a candidate split <span class="math inline">\(S\)</span> that divides dataset <span class="math inline">\(T\)</span> into subsets <span class="math inline">\(T_1, T_2, \dots, T_c\)</span>, the entropy after splitting is computed as:</p>
 <p><span class="math display">\[
 H_S(T) = \sum_{i=1}^c \frac{|T_i|}{|T|} \cdot Entropy(T_i)
 \]</span></p>
-<p>The <strong>Information Gain</strong> for the split <span class="math inline">\(S\)</span> is then:</p>
+<p>The information gain from the split is then:</p>
 <p><span class="math display">\[
 gain(S) = H(T) - H_S(T)
 \]</span></p>
-<p>where <span class="math inline">\(H(T)\)</span> represents the entropy of the dataset before the split. At each decision node, the C5.0 algorithm evaluates all possible splits and selects the one that maximizes information gain. This process ensures that the splits lead to progressively purer subsets, improving the accuracy of the model.</p>
-<p>To illustrate the C5.0 algorithm, consider its application to the <code>risk</code> dataset, which predicts credit risk (“good” or “bad”) based on features like <code>age</code> and <code>income</code>. Figure <a href="chapter-tree.html#fig:tree-C50">11.6</a> shows the resulting decision tree, created using the <code>C5.0</code> function from the <code>C50</code> package in R. Each node in the tree represents a decision based on a feature value, and the branches lead to subsets of data that become progressively more homogeneous.</p>
+<p>where <span class="math inline">\(H(T)\)</span> represents the entropy before the split. The algorithm evaluates all potential splits and selects the one that maximizes information gain, ensuring that each decision step results in purer subsets.</p>
+<p>To illustrate how C5.0 constructs decision trees, consider its application to the <code>risk</code> dataset, which classifies a customer’s credit risk as good or bad based on features such as <code>age</code> and <code>income</code>. Figure <a href="chapter-tree.html#fig:tree-C50">11.6</a> shows a decision tree trained using the <code>C5.0</code> function from the <code>C50</code> package in R.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:tree-C50"></span>
 <img src="tree_files/figure-html/tree-C50-1.png" alt="C5.0 Decision Tree for predicting credit risk based on age and income." width="65%"><p class="caption">
 Figure 11.6: C5.0 Decision Tree for predicting credit risk based on age and income.
 </p>
 </div>
-<p>The tree in Figure <a href="chapter-tree.html#fig:tree-C50">11.6</a> demonstrates how the algorithm uses entropy and information gain to construct splits that best separate the classes. Unlike the strictly binary splits produced by CART, C5.0 allows for multi-way splits when working with categorical attributes, which can create trees with variable shapes. This flexibility often leads to more compact trees that are easier to interpret, especially for datasets with categorical variables.</p>
-<p>C5.0 offers several advantages over other decision tree algorithms. It is computationally efficient, making it suitable for large datasets, and its flexibility in handling non-binary splits allows for more nuanced tree structures. Additionally, C5.0 incorporates advanced features such as <strong>feature weighting</strong>, which allows the algorithm to prioritize more relevant features during the tree-building process. This can improve model performance by focusing on the most important predictors.</p>
-<p>Despite its strengths, the C5.0 algorithm is not without limitations. Trees generated by C5.0 can become overly complex or “bushy,” particularly when working with categorical attributes that have many unique values. This complexity can make the trees harder to interpret and may lead to overfitting. To address these issues, pruning techniques can be applied to simplify the tree and improve its generalizability. Additionally, the computational cost of evaluating multiple splits for categorical features may increase for large datasets with high cardinality, although this is mitigated by C5.0’s overall efficiency.</p>
-<p>In summary, the C5.0 algorithm is a powerful and versatile tool for building decision trees. By leveraging concepts like entropy and information gain, it constructs models that are both accurate and interpretable. While it shares many similarities with CART, its ability to handle multi-way splits and its use of information theory make it a distinct and valuable alternative. The C5.0 algorithm is widely used in fields such as finance, healthcare, and marketing, where decision tree models provide actionable insights and transparent decision-making processes. In the next section, we will explore <strong>Random Forests</strong>, an ensemble learning technique that builds upon decision trees to further enhance accuracy and robustness.</p>
+<p>The tree demonstrates how C5.0 selects splits to separate classes. Unlike CART, which only allows binary splits, C5.0 enables multi-way splits when dealing with categorical features. This flexibility can lead to trees that are more concise and easier to interpret, particularly in datasets where categorical variables play a significant role.</p>
+<p>C5.0 has several advantages over other decision tree algorithms. It is computationally efficient, making it well-suited for large datasets, and its ability to handle multi-way splits enables more nuanced decision-making. Additionally, it incorporates feature weighting, prioritizing the most informative predictors, which can improve model accuracy.</p>
+<p>However, C5.0 is not without limitations. The trees it generates can become overly complex, particularly when categorical attributes contain many unique values, increasing the risk of overfitting. To mitigate this, pruning techniques can be applied to simplify the tree while preserving accuracy. Another challenge is the computational cost of evaluating multiple splits for categorical variables, which can increase processing time for large datasets, though C5.0’s optimizations help reduce this impact.</p>
+<p>In summary, C5.0 builds upon earlier decision tree models by leveraging entropy and information gain to construct accurate and interpretable decision rules. Its ability to create multi-way splits makes it particularly effective for categorical data, while its efficiency allows it to scale well. In the next section, we explore random forests, an ensemble learning technique that enhances decision tree models by combining multiple trees for improved accuracy and robustness.</p>
 </div>
 <div id="random-forests-an-ensemble-approach" class="section level2" number="11.4">
 <h2>
-<span class="header-section-number">11.4</span> Random Forests: An Ensemble Approach<a class="anchor" aria-label="anchor" href="#random-forests-an-ensemble-approach"><i class="fas fa-link"></i></a>
+<span class="header-section-number">11.4</span> Random forests: an ensemble approach<a class="anchor" aria-label="anchor" href="#random-forests-an-ensemble-approach"><i class="fas fa-link"></i></a>
 </h2>
-<p>While Decision Trees are powerful and intuitive, they are prone to overfitting, particularly when grown to their full depth. <strong>Random Forests</strong><span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Leo Breiman, &lt;span&gt;“Random Forests,”&lt;/span&gt; &lt;em&gt;Machine Learning&lt;/em&gt; 45 (2001): 5–32.&lt;/p&gt;"><sup>12</sup></a></span> address this limitation by adopting an ensemble approach that combines the predictions of multiple Decision Trees to produce a more robust and accurate model. Instead of relying on a single tree, Random Forests aggregate the predictions of many trees, reducing overfitting and enhancing performance on complex datasets.</p>
-<p>The Random Forest algorithm introduces two key elements of randomness to improve model diversity:</p>
-<ol style="list-style-type: decimal">
+<p>Decision trees are effective models, but they tend to overfit, particularly when grown to their full depth. Random forests address this limitation by combining multiple decision trees into an ensemble, producing a more accurate and robust model. Instead of relying on a single tree, random forests aggregate the predictions of many trees, reducing overfitting and improving performance on complex datasets.</p>
+<p>The algorithm introduces two key elements of randomness to enhance model diversity:</p>
+<ul>
 <li>
-<strong>Bootstrap Aggregation (Bagging):</strong> Each tree is trained on a random subset of the training data, created by sampling with replacement. This means that some observations appear multiple times in a tree’s training data, while others may be excluded. This diversity ensures that each tree learns slightly different patterns.<br>
+<strong>Bootstrap aggregation (bagging):</strong> Each tree is trained on a random subset of the training data, created by sampling with replacement. This means some observations appear multiple times in a tree’s training data, while others may be excluded. This diversity ensures that each tree learns slightly different patterns.<br>
 </li>
 <li>
-<strong>Random Feature Selection:</strong> At each split, the algorithm considers a random subset of features instead of evaluating all features. This further decorrelates the trees, as each tree is forced to rely on different combinations of features to make decisions.</li>
-</ol>
+<strong>Random feature selection:</strong> At each split, the algorithm considers a random subset of features instead of evaluating all features. This decorrelates the trees, forcing them to rely on different combinations of features.</li>
+</ul>
 <p>Once the forest is built, the predictions from all trees are aggregated to produce the final output:</p>
 <ul>
-<li>For <strong>classification</strong>, the final prediction is determined by <strong>majority voting</strong>, where each tree votes for a class, and the most common class is selected.<br>
+<li>For classification, the final prediction is determined by majority voting, where each tree votes for a class, and the most common class is selected.<br>
 </li>
-<li>For <strong>regression</strong>, the final output is the average of the predictions from all trees.</li>
+<li>For regression, the final output is the average of the predictions from all trees.</li>
 </ul>
-<p>The strength of Random Forests lies in the principle of the <strong>“wisdom of the crowd.”</strong> Individually, each tree is a weak learner, as it is trained on a limited subset of data and features. However, when combined, their collective predictions form a strong learner. By leveraging the diversity of individual trees, Random Forests reduce the likelihood that errors made by any single tree will dominate the overall model.</p>
-<p>Additionally, the randomness introduced through feature selection ensures that no single feature dominates the model, making Random Forests particularly effective for datasets with <strong>correlated</strong> or <strong>redundant features</strong>. This feature-level decorrelation enhances the ensemble’s ability to generalize to unseen data.</p>
-<p>Random Forests have several notable advantages:</p>
+<p>The strength of random forests lies in their ability to leverage diversity. Individually, each tree is trained on a limited subset of data and features, making it a weak learner. However, when combined, their collective predictions form a stronger model. By aggregating multiple trees, random forests reduce the risk of errors from any single tree dominating the overall prediction.</p>
+<p>Additionally, the randomness introduced through feature selection ensures that no single feature dominates the model, making random forests particularly effective for datasets with correlated or redundant features. This feature-level decorrelation enhances their ability to generalize to unseen data.</p>
+<div id="advantages-and-limitations-of-random-forests" class="section level3 unnumbered">
+<h3>Advantages and limitations of random forests<a class="anchor" aria-label="anchor" href="#advantages-and-limitations-of-random-forests"><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>Advantages</strong></p>
 <ul>
-<li>
-<strong>Reduced Overfitting:</strong> By averaging the predictions of multiple trees, Random Forests smooth out the noise and variance present in individual trees, leading to better generalization.<br>
+<li>Reduced overfitting: By averaging predictions from multiple trees, random forests smooth out noise and variance, leading to better generalization.<br>
 </li>
-<li>
-<strong>High Accuracy:</strong> Random Forests perform well on both classification and regression tasks, particularly for datasets with non-linear relationships or high-dimensional feature spaces.<br>
+<li>High accuracy: They perform well on both classification and regression tasks, particularly for datasets with non-linear relationships or high-dimensional feature spaces.<br>
 </li>
-<li>
-<strong>Feature Importance:</strong> The algorithm provides <strong>feature importance scores</strong>, enabling us to identify the most influential predictors. This is especially useful for feature selection and gaining insights into the underlying data.<br>
+<li>Feature importance ranking: The algorithm provides feature importance scores, helping to identify the most influential predictors.<br>
 </li>
-<li>
-<strong>Robustness:</strong> Random Forests are resilient to noise and outliers, as the ensemble effect reduces the impact of anomalies on the final prediction.<br>
+<li>Robustness: They are resilient to noise and outliers, as the ensemble effect reduces the impact of anomalies on the final prediction.<br>
 </li>
-<li>
-<strong>Flexibility:</strong> Random Forests can handle both numerical and categorical data and adapt well to diverse types of problems.</li>
+<li>Flexibility: Random forests can handle both numerical and categorical data and adapt well to different types of problems.</li>
 </ul>
-<p>Despite their strengths, Random Forests have some limitations:</p>
+<p><strong>Limitations</strong></p>
 <ul>
-<li>
-<strong>Computational Complexity:</strong> Training hundreds or thousands of trees can be computationally intensive, especially on large datasets. However, this can be mitigated through parallel processing, as each tree is built independently.<br>
+<li>Computational complexity: Training hundreds or thousands of trees can be computationally intensive, especially on large datasets. However, this can be mitigated through parallel processing, as each tree is built independently.<br>
 </li>
-<li>
-<strong>Reduced Interpretability:</strong> While individual Decision Trees are highly interpretable, the ensemble nature of Random Forests makes it difficult to understand the collective decision-making process of the model.<br>
+<li>Reduced interpretability: While individual decision trees are easy to interpret, the ensemble nature of random forests makes it difficult to understand how individual features contribute to predictions.<br>
 </li>
-<li>
-<strong>Bias-Variance Tradeoff:</strong> Although Random Forests reduce variance through bagging, they may sometimes smooth over complex relationships in the data that a single, well-tuned Decision Tree could capture.</li>
+<li>Potential loss of fine details: Although random forests reduce variance, they may smooth over intricate relationships that a well-tuned single decision tree could capture.</li>
 </ul>
-<p>Random Forests strike a balance between accuracy and robustness, addressing many of the weaknesses of individual Decision Trees while retaining their strengths. They are well-suited for both classification and regression tasks and are particularly effective in scenarios with noisy or high-dimensional data. Moreover, their ability to compute feature importance scores provides valuable insights into the drivers of the model’s predictions, making them not only a predictive tool but also an exploratory one.</p>
-<p>Random Forests have become one of the most widely used machine learning algorithms due to their versatility, reliability, and strong performance across a variety of applications. In the next section, we will apply Random Forests, along with Decision Trees, to the <strong>adult dataset</strong> to explore the question: <em>Who can earn more than $50K per year?</em> This case study will provide a practical demonstration of how these models work and how they can be evaluated and compared in a real-world scenario.</p>
+<p>Random forests balance accuracy and robustness, addressing many of the weaknesses of individual decision trees while retaining their strengths. They are particularly effective in scenarios with noisy or high-dimensional data. Their ability to compute feature importance scores also provides valuable insights into the drivers of model predictions, making them useful for both predictive modeling and exploratory data analysis.</p>
+<p>Random forests have become one of the most widely used machine learning algorithms due to their versatility, reliability, and strong performance across a variety of applications. In the next section, we apply random forests, along with decision trees, to a case study predicting income levels. This practical example demonstrates how these models work and how they can be evaluated in real-world scenarios.</p>
+</div>
 </div>
 <div id="tree-case-study" class="section level2" number="11.5">
 <h2>
 <span class="header-section-number">11.5</span> Case Study: Who Can Earn More Than $50K Per Year?<a class="anchor" aria-label="anchor" href="#tree-case-study"><i class="fas fa-link"></i></a>
 </h2>
-<p>To demonstrate the practical application of Decision Trees and Random Forests, we use the <em>adult</em> dataset, which provides demographic and income information about individuals. This dataset, sourced from the <a href="https://www.census.gov">US Census Bureau</a>, is widely used to predict whether an individual earns more than $50,000 per year based on features such as education, hours worked per week, marital status, and more. The objective of this binary classification problem is to categorize individuals into one of two income groups: <code>&lt;=50K</code> or <code>&gt;50K</code>, with the features serving as predictors and the target variable being <code>income</code>.</p>
+<p>Predicting income levels is an important task in fields such as finance, marketing, and public policy. Banks use income models to assess creditworthiness, employers analyze salary trends for compensation planning, and governments rely on income predictions for taxation and social welfare policies. In this case study, we explore how decision trees and random forests can be applied to classify individuals based on their likelihood of earning more than $50,000 per year.</p>
+<p>For this analysis, we use the <em>adult</em> dataset, a well-known benchmark dataset sourced from the <a href="https://www.census.gov">US Census Bureau</a> and available in the <strong>liver</strong> package. This dataset was previously introduced in Section <a href="chapter-data-prep.html#Data-pre-adult">3.9</a> as part of the data preparation chapter (<a href="chapter-data-prep.html#chapter-data-prep">3</a>). It contains demographic and employment-related attributes, such as education, working hours, marital status, and occupation, all of which influence earning potential. The goal is to build a classification model that predicts whether an individual belongs to one of two income groups: <code>&lt;=50K</code> or <code>&gt;50K</code>, treating <code>income</code> as the target variable.</p>
 <div id="overview-of-the-dataset-1" class="section level3 unnumbered">
 <h3>Overview of the Dataset<a class="anchor" aria-label="anchor" href="#overview-of-the-dataset-1"><i class="fas fa-link"></i></a>
 </h3>
-<p>We begin by loading the dataset and examining its structure:</p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="chapter-tree.html#cb198-1" tabindex="-1"></a><span class="fu">data</span>(adult)</span>
+<p>The <em>adult</em> dataset, available in the <strong>liver</strong> package, provides demographic and employment-related attributes to predict income levels. We can load it directly into R and examine its summary using the following commands:</p>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="chapter-tree.html#cb198-1" tabindex="-1"></a><span class="fu">library</span>(liver)</span>
 <span id="cb198-2"><a href="chapter-tree.html#cb198-2" tabindex="-1"></a></span>
-<span id="cb198-3"><a href="chapter-tree.html#cb198-3" tabindex="-1"></a><span class="fu">str</span>(adult)</span>
-<span id="cb198-4"><a href="chapter-tree.html#cb198-4" tabindex="-1"></a>   <span class="st">'data.frame'</span><span class="sc">:</span>    <span class="dv">48598</span> obs. of  <span class="dv">15</span> variables<span class="sc">:</span></span>
-<span id="cb198-5"><a href="chapter-tree.html#cb198-5" tabindex="-1"></a>    <span class="er">$</span> age           <span class="sc">:</span> int  <span class="dv">25</span> <span class="dv">38</span> <span class="dv">28</span> <span class="dv">44</span> <span class="dv">18</span> <span class="dv">34</span> <span class="dv">29</span> <span class="dv">63</span> <span class="dv">24</span> <span class="dv">55</span> ...</span>
-<span id="cb198-6"><a href="chapter-tree.html#cb198-6" tabindex="-1"></a>    <span class="sc">$</span> workclass     <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">6</span> levels <span class="st">"?"</span>,<span class="st">"Gov"</span>,<span class="st">"Never-worked"</span>,..<span class="sc">:</span> <span class="dv">4</span> <span class="dv">4</span> <span class="dv">2</span> <span class="dv">4</span> <span class="dv">1</span> <span class="dv">4</span> <span class="dv">1</span> <span class="dv">5</span> <span class="dv">4</span> <span class="dv">4</span> ...</span>
-<span id="cb198-7"><a href="chapter-tree.html#cb198-7" tabindex="-1"></a>    <span class="sc">$</span> demogweight   <span class="sc">:</span> int  <span class="dv">226802</span> <span class="dv">89814</span> <span class="dv">336951</span> <span class="dv">160323</span> <span class="dv">103497</span> <span class="dv">198693</span> <span class="dv">227026</span> <span class="dv">104626</span> <span class="dv">369667</span> <span class="dv">104996</span> ...</span>
-<span id="cb198-8"><a href="chapter-tree.html#cb198-8" tabindex="-1"></a>    <span class="sc">$</span> education     <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">16</span> levels <span class="st">"10th"</span>,<span class="st">"11th"</span>,..<span class="sc">:</span> <span class="dv">2</span> <span class="dv">12</span> <span class="dv">8</span> <span class="dv">16</span> <span class="dv">16</span> <span class="dv">1</span> <span class="dv">12</span> <span class="dv">15</span> <span class="dv">16</span> <span class="dv">6</span> ...</span>
-<span id="cb198-9"><a href="chapter-tree.html#cb198-9" tabindex="-1"></a>    <span class="sc">$</span> education.num <span class="sc">:</span> int  <span class="dv">7</span> <span class="dv">9</span> <span class="dv">12</span> <span class="dv">10</span> <span class="dv">10</span> <span class="dv">6</span> <span class="dv">9</span> <span class="dv">15</span> <span class="dv">10</span> <span class="dv">4</span> ...</span>
-<span id="cb198-10"><a href="chapter-tree.html#cb198-10" tabindex="-1"></a>    <span class="sc">$</span> marital.status<span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">5</span> levels <span class="st">"Divorced"</span>,<span class="st">"Married"</span>,..<span class="sc">:</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">2</span> ...</span>
-<span id="cb198-11"><a href="chapter-tree.html#cb198-11" tabindex="-1"></a>    <span class="sc">$</span> occupation    <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">15</span> levels <span class="st">"?"</span>,<span class="st">"Adm-clerical"</span>,..<span class="sc">:</span> <span class="dv">8</span> <span class="dv">6</span> <span class="dv">12</span> <span class="dv">8</span> <span class="dv">1</span> <span class="dv">9</span> <span class="dv">1</span> <span class="dv">11</span> <span class="dv">9</span> <span class="dv">4</span> ...</span>
-<span id="cb198-12"><a href="chapter-tree.html#cb198-12" tabindex="-1"></a>    <span class="sc">$</span> relationship  <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">6</span> levels <span class="st">"Husband"</span>,<span class="st">"Not-in-family"</span>,..<span class="sc">:</span> <span class="dv">4</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">4</span> <span class="dv">2</span> <span class="dv">5</span> <span class="dv">1</span> <span class="dv">5</span> <span class="dv">1</span> ...</span>
-<span id="cb198-13"><a href="chapter-tree.html#cb198-13" tabindex="-1"></a>    <span class="sc">$</span> race          <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">5</span> levels <span class="st">"Amer-Indian-Eskimo"</span>,..<span class="sc">:</span> <span class="dv">3</span> <span class="dv">5</span> <span class="dv">5</span> <span class="dv">3</span> <span class="dv">5</span> <span class="dv">5</span> <span class="dv">3</span> <span class="dv">5</span> <span class="dv">5</span> <span class="dv">5</span> ...</span>
-<span id="cb198-14"><a href="chapter-tree.html#cb198-14" tabindex="-1"></a>    <span class="sc">$</span> gender        <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"Female"</span>,<span class="st">"Male"</span><span class="sc">:</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">2</span> ...</span>
-<span id="cb198-15"><a href="chapter-tree.html#cb198-15" tabindex="-1"></a>    <span class="sc">$</span> capital.gain  <span class="sc">:</span> int  <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">7688</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">3103</span> <span class="dv">0</span> <span class="dv">0</span> ...</span>
-<span id="cb198-16"><a href="chapter-tree.html#cb198-16" tabindex="-1"></a>    <span class="sc">$</span> capital.loss  <span class="sc">:</span> int  <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> ...</span>
-<span id="cb198-17"><a href="chapter-tree.html#cb198-17" tabindex="-1"></a>    <span class="sc">$</span> hours.per.week<span class="sc">:</span> int  <span class="dv">40</span> <span class="dv">50</span> <span class="dv">40</span> <span class="dv">40</span> <span class="dv">30</span> <span class="dv">30</span> <span class="dv">40</span> <span class="dv">32</span> <span class="dv">40</span> <span class="dv">10</span> ...</span>
-<span id="cb198-18"><a href="chapter-tree.html#cb198-18" tabindex="-1"></a>    <span class="sc">$</span> native.country<span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">42</span> levels <span class="st">"?"</span>,<span class="st">"Cambodia"</span>,..<span class="sc">:</span> <span class="dv">40</span> <span class="dv">40</span> <span class="dv">40</span> <span class="dv">40</span> <span class="dv">40</span> <span class="dv">40</span> <span class="dv">40</span> <span class="dv">40</span> <span class="dv">40</span> <span class="dv">40</span> ...</span>
-<span id="cb198-19"><a href="chapter-tree.html#cb198-19" tabindex="-1"></a>    <span class="sc">$</span> income        <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">2</span> levels <span class="st">"&lt;=50K"</span>,<span class="st">"&gt;50K"</span><span class="sc">:</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">1</span> ...</span></code></pre></div>
-<p>The dataset contains 48598 records and 15 variables. Of these, 14 are predictors, while the target variable, <code>income</code>, is a binary categorical variable with two levels: <code>&lt;=50K</code> and <code>&gt;50K</code>. The features include both numerical and categorical variables:</p>
+<span id="cb198-3"><a href="chapter-tree.html#cb198-3" tabindex="-1"></a><span class="fu">data</span>(adult)</span>
+<span id="cb198-4"><a href="chapter-tree.html#cb198-4" tabindex="-1"></a></span>
+<span id="cb198-5"><a href="chapter-tree.html#cb198-5" tabindex="-1"></a><span class="fu">summary</span>(adult)</span>
+<span id="cb198-6"><a href="chapter-tree.html#cb198-6" tabindex="-1"></a>         age              workclass      demogweight             education    </span>
+<span id="cb198-7"><a href="chapter-tree.html#cb198-7" tabindex="-1"></a>    Min.   <span class="sc">:</span><span class="fl">17.0</span>   ?           <span class="sc">:</span> <span class="dv">2794</span>   Min.   <span class="sc">:</span>  <span class="dv">12285</span>   HS<span class="sc">-</span>grad     <span class="sc">:</span><span class="dv">15750</span>  </span>
+<span id="cb198-8"><a href="chapter-tree.html#cb198-8" tabindex="-1"></a>    <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">28.0</span>   Gov         <span class="sc">:</span> <span class="dv">6536</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span> <span class="dv">117550</span>   Some<span class="sc">-</span>college<span class="sc">:</span><span class="dv">10860</span>  </span>
+<span id="cb198-9"><a href="chapter-tree.html#cb198-9" tabindex="-1"></a>    Median <span class="sc">:</span><span class="fl">37.0</span>   Never<span class="sc">-</span>worked<span class="sc">:</span>   <span class="dv">10</span>   Median <span class="sc">:</span> <span class="dv">178215</span>   Bachelors   <span class="sc">:</span> <span class="dv">7962</span>  </span>
+<span id="cb198-10"><a href="chapter-tree.html#cb198-10" tabindex="-1"></a>    Mean   <span class="sc">:</span><span class="fl">38.6</span>   Private     <span class="sc">:</span><span class="dv">33780</span>   Mean   <span class="sc">:</span> <span class="dv">189685</span>   Masters     <span class="sc">:</span> <span class="dv">2627</span>  </span>
+<span id="cb198-11"><a href="chapter-tree.html#cb198-11" tabindex="-1"></a>    <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">48.0</span>   Self<span class="sc">-</span>emp    <span class="sc">:</span> <span class="dv">5457</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span> <span class="dv">237713</span>   Assoc<span class="sc">-</span>voc   <span class="sc">:</span> <span class="dv">2058</span>  </span>
+<span id="cb198-12"><a href="chapter-tree.html#cb198-12" tabindex="-1"></a>    Max.   <span class="sc">:</span><span class="fl">90.0</span>   Without<span class="sc">-</span>pay <span class="sc">:</span>   <span class="dv">21</span>   Max.   <span class="sc">:</span><span class="dv">1490400</span>   <span class="dv">11</span>th        <span class="sc">:</span> <span class="dv">1812</span>  </span>
+<span id="cb198-13"><a href="chapter-tree.html#cb198-13" tabindex="-1"></a>                                                          (Other)     <span class="sc">:</span> <span class="dv">7529</span>  </span>
+<span id="cb198-14"><a href="chapter-tree.html#cb198-14" tabindex="-1"></a>    education.num         marital.status            occupation   </span>
+<span id="cb198-15"><a href="chapter-tree.html#cb198-15" tabindex="-1"></a>    Min.   <span class="sc">:</span> <span class="fl">1.00</span>   Divorced     <span class="sc">:</span> <span class="dv">6613</span>   Craft<span class="sc">-</span>repair   <span class="sc">:</span> <span class="dv">6096</span>  </span>
+<span id="cb198-16"><a href="chapter-tree.html#cb198-16" tabindex="-1"></a>    <span class="dv">1</span>st Qu.<span class="sc">:</span> <span class="fl">9.00</span>   Married      <span class="sc">:</span><span class="dv">22847</span>   Prof<span class="sc">-</span>specialty <span class="sc">:</span> <span class="dv">6071</span>  </span>
+<span id="cb198-17"><a href="chapter-tree.html#cb198-17" tabindex="-1"></a>    Median <span class="sc">:</span><span class="fl">10.00</span>   Never<span class="sc">-</span>married<span class="sc">:</span><span class="dv">16096</span>   Exec<span class="sc">-</span>managerial<span class="sc">:</span> <span class="dv">6019</span>  </span>
+<span id="cb198-18"><a href="chapter-tree.html#cb198-18" tabindex="-1"></a>    Mean   <span class="sc">:</span><span class="fl">10.06</span>   Separated    <span class="sc">:</span> <span class="dv">1526</span>   Adm<span class="sc">-</span>clerical   <span class="sc">:</span> <span class="dv">5603</span>  </span>
+<span id="cb198-19"><a href="chapter-tree.html#cb198-19" tabindex="-1"></a>    <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">12.00</span>   Widowed      <span class="sc">:</span> <span class="dv">1516</span>   Sales          <span class="sc">:</span> <span class="dv">5470</span>  </span>
+<span id="cb198-20"><a href="chapter-tree.html#cb198-20" tabindex="-1"></a>    Max.   <span class="sc">:</span><span class="fl">16.00</span>                         Other<span class="sc">-</span>service  <span class="sc">:</span> <span class="dv">4920</span>  </span>
+<span id="cb198-21"><a href="chapter-tree.html#cb198-21" tabindex="-1"></a>                                          (Other)        <span class="sc">:</span><span class="dv">14419</span>  </span>
+<span id="cb198-22"><a href="chapter-tree.html#cb198-22" tabindex="-1"></a>            relationship                   race          gender     </span>
+<span id="cb198-23"><a href="chapter-tree.html#cb198-23" tabindex="-1"></a>    Husband       <span class="sc">:</span><span class="dv">19537</span>   Amer<span class="sc">-</span>Indian<span class="sc">-</span>Eskimo<span class="sc">:</span>  <span class="dv">470</span>   Female<span class="sc">:</span><span class="dv">16156</span>  </span>
+<span id="cb198-24"><a href="chapter-tree.html#cb198-24" tabindex="-1"></a>    Not<span class="sc">-</span><span class="cf">in</span><span class="sc">-</span>family <span class="sc">:</span><span class="dv">12546</span>   Asian<span class="sc">-</span>Pac<span class="sc">-</span>Islander<span class="sc">:</span> <span class="dv">1504</span>   Male  <span class="sc">:</span><span class="dv">32442</span>  </span>
+<span id="cb198-25"><a href="chapter-tree.html#cb198-25" tabindex="-1"></a>    Other<span class="sc">-</span>relative<span class="sc">:</span> <span class="dv">1506</span>   Black             <span class="sc">:</span> <span class="dv">4675</span>                 </span>
+<span id="cb198-26"><a href="chapter-tree.html#cb198-26" tabindex="-1"></a>    Own<span class="sc">-</span>child     <span class="sc">:</span> <span class="dv">7577</span>   Other             <span class="sc">:</span>  <span class="dv">403</span>                 </span>
+<span id="cb198-27"><a href="chapter-tree.html#cb198-27" tabindex="-1"></a>    Unmarried     <span class="sc">:</span> <span class="dv">5118</span>   White             <span class="sc">:</span><span class="dv">41546</span>                 </span>
+<span id="cb198-28"><a href="chapter-tree.html#cb198-28" tabindex="-1"></a>    Wife          <span class="sc">:</span> <span class="dv">2314</span>                                            </span>
+<span id="cb198-29"><a href="chapter-tree.html#cb198-29" tabindex="-1"></a>                                                                    </span>
+<span id="cb198-30"><a href="chapter-tree.html#cb198-30" tabindex="-1"></a>     capital.gain      capital.loss     hours.per.week        native.country </span>
+<span id="cb198-31"><a href="chapter-tree.html#cb198-31" tabindex="-1"></a>    Min.   <span class="sc">:</span>    <span class="fl">0.0</span>   Min.   <span class="sc">:</span>   <span class="fl">0.00</span>   Min.   <span class="sc">:</span> <span class="fl">1.00</span>   United<span class="sc">-</span>States<span class="sc">:</span><span class="dv">43613</span>  </span>
+<span id="cb198-32"><a href="chapter-tree.html#cb198-32" tabindex="-1"></a>    <span class="dv">1</span>st Qu.<span class="sc">:</span>    <span class="fl">0.0</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span>   <span class="fl">0.00</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">40.00</span>   Mexico       <span class="sc">:</span>  <span class="dv">949</span>  </span>
+<span id="cb198-33"><a href="chapter-tree.html#cb198-33" tabindex="-1"></a>    Median <span class="sc">:</span>    <span class="fl">0.0</span>   Median <span class="sc">:</span>   <span class="fl">0.00</span>   Median <span class="sc">:</span><span class="fl">40.00</span>   ?            <span class="sc">:</span>  <span class="dv">847</span>  </span>
+<span id="cb198-34"><a href="chapter-tree.html#cb198-34" tabindex="-1"></a>    Mean   <span class="sc">:</span>  <span class="fl">582.4</span>   Mean   <span class="sc">:</span>  <span class="fl">87.94</span>   Mean   <span class="sc">:</span><span class="fl">40.37</span>   Philippines  <span class="sc">:</span>  <span class="dv">292</span>  </span>
+<span id="cb198-35"><a href="chapter-tree.html#cb198-35" tabindex="-1"></a>    <span class="dv">3</span>rd Qu.<span class="sc">:</span>    <span class="fl">0.0</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span>   <span class="fl">0.00</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">45.00</span>   Germany      <span class="sc">:</span>  <span class="dv">206</span>  </span>
+<span id="cb198-36"><a href="chapter-tree.html#cb198-36" tabindex="-1"></a>    Max.   <span class="sc">:</span><span class="fl">41310.0</span>   Max.   <span class="sc">:</span><span class="fl">4356.00</span>   Max.   <span class="sc">:</span><span class="fl">99.00</span>   Puerto<span class="sc">-</span>Rico  <span class="sc">:</span>  <span class="dv">184</span>  </span>
+<span id="cb198-37"><a href="chapter-tree.html#cb198-37" tabindex="-1"></a>                                                        (Other)      <span class="sc">:</span> <span class="dv">2507</span>  </span>
+<span id="cb198-38"><a href="chapter-tree.html#cb198-38" tabindex="-1"></a>      income     </span>
+<span id="cb198-39"><a href="chapter-tree.html#cb198-39" tabindex="-1"></a>    <span class="sc">&lt;=</span><span class="dv">50</span>K<span class="sc">:</span><span class="dv">37155</span>  </span>
+<span id="cb198-40"><a href="chapter-tree.html#cb198-40" tabindex="-1"></a>    <span class="sc">&gt;</span><span class="dv">50</span>K <span class="sc">:</span><span class="dv">11443</span>  </span>
+<span id="cb198-41"><a href="chapter-tree.html#cb198-41" tabindex="-1"></a>                 </span>
+<span id="cb198-42"><a href="chapter-tree.html#cb198-42" tabindex="-1"></a>                 </span>
+<span id="cb198-43"><a href="chapter-tree.html#cb198-43" tabindex="-1"></a>                 </span>
+<span id="cb198-44"><a href="chapter-tree.html#cb198-44" tabindex="-1"></a>                 </span>
+<span id="cb198-45"><a href="chapter-tree.html#cb198-45" tabindex="-1"></a>   </span></code></pre></div>
+<p>The dataset consists of 48598 records and 15 variables. The target variable, <code>income</code>, is binary, with two categories: <code>&lt;=50K</code> and <code>&gt;50K</code>. The remaining 14 variables serve as predictors, encompassing demographic, occupational, and financial characteristics.</p>
+<p>The predictors can be categorized as follows:</p>
+<ul>
+<li>
+<strong>Demographic attributes</strong>
 <ul>
 <li>
 <code>age</code>: Age in years (numerical).<br>
 </li>
 <li>
-<code>workclass</code>: Type of employment (categorical, 6 levels).<br>
-</li>
-<li>
-<code>demogweight</code>: Demographic weight (categorical).<br>
-</li>
-<li>
-<code>education</code>: Highest education level (categorical, 16 levels).<br>
-</li>
-<li>
-<code>education.num</code>: Years of education (numerical).<br>
-</li>
-<li>
-<code>marital.status</code>: Marital status (categorical, 5 levels).<br>
-</li>
-<li>
-<code>occupation</code>: Type of occupation (categorical, 15 levels).<br>
-</li>
-<li>
-<code>relationship</code>: Type of relationship (categorical, 6 levels).<br>
+<code>gender</code>: Gender (categorical, Male/Female).<br>
 </li>
 <li>
 <code>race</code>: Race (categorical, 5 levels).<br>
 </li>
 <li>
-<code>gender</code>: Gender (categorical, Male/Female).<br>
-</li>
-<li>
-<code>capital.gain</code>: Capital gains (numerical).<br>
-</li>
-<li>
-<code>capital.loss</code>: Capital losses (numerical).<br>
-</li>
-<li>
-<code>hours.per.week</code>: Weekly hours worked (numerical).<br>
-</li>
-<li>
-<code>native.country</code>: Country of origin (categorical, 42 levels).<br>
-</li>
-<li>
-<code>income</code>: Target variable, representing annual income (<code>&lt;=50K</code> or <code>&gt;50K</code>).</li>
+<code>native.country</code>: Country of origin (categorical, 42 levels).</li>
 </ul>
-<p>For additional details about the dataset, visit the <a href="https://www.rdocumentation.org/packages/liver/versions/1.3/topics/adult">documentation</a>.</p>
+</li>
+<li>
+<strong>Education and employment details</strong>
+<ul>
+<li>
+<code>education</code>: Highest education level attained (categorical, 16 levels).<br>
+</li>
+<li>
+<code>education.num</code>: Years of education (numerical).<br>
+</li>
+<li>
+<code>workclass</code>: Type of employment (categorical, 6 levels).<br>
+</li>
+<li>
+<code>occupation</code>: Job category (categorical, 15 levels).<br>
+</li>
+<li>
+<code>hours.per.week</code>: Weekly hours worked (numerical).</li>
+</ul>
+</li>
+<li>
+<strong>Financial attributes</strong>
+<ul>
+<li>
+<code>capital.gain</code>: Income from capital gains (numerical).<br>
+</li>
+<li>
+<code>capital.loss</code>: Losses from investments (numerical).</li>
+</ul>
+</li>
+<li>
+<strong>Household and relationship details</strong>
+<ul>
+<li>
+<code>marital.status</code>: Marital status (categorical, 5 levels).<br>
+</li>
+<li>
+<code>relationship</code>: Family role (categorical, 6 levels).</li>
+</ul>
+</li>
+</ul>
+<p>This dataset provides a diverse set of features that influence income levels, making it suitable for building predictive models. For further details, refer to the <a href="https://www.rdocumentation.org/packages/liver/versions/1.3/topics/adult">dataset documentation</a>.</p>
 </div>
-<div id="data-cleaning-and-preparation" class="section level3 unnumbered">
-<h3>Data Cleaning and Preparation<a class="anchor" aria-label="anchor" href="#data-cleaning-and-preparation"><i class="fas fa-link"></i></a>
+<div id="data-preparation-3" class="section level3 unnumbered">
+<h3>Data Preparation<a class="anchor" aria-label="anchor" href="#data-preparation-3"><i class="fas fa-link"></i></a>
 </h3>
-<p>The dataset includes missing values represented by the character <code>"?"</code>. For simplicity, we rely on prior data cleaning steps (see Chapter <a href="chapter-data-prep.html#chapter-data-prep">3</a>) to handle these issues. These steps include recoding categorical variables, grouping country-level data into broader regions, and imputing missing values, as demonstrated below:</p>
-<p>We then partition the cleaned dataset into <strong>training</strong> (80%) and <strong>testing</strong> (20%) subsets to ensure that the models are evaluated on unseen data:</p>
+<p>Before building models, we must clean and preprocess the dataset to handle missing values and transform categorical variables. The <em>adult</em> dataset includes missing values represented by <code>"?"</code>, which need to be addressed. Additionally, categorical variables such as <code>native.country</code>, <code>workclass</code>, and <code>race</code> have multiple levels that can be grouped to improve interpretability.</p>
+<p>Since data preparation is covered in detail in Section <a href="chapter-data-prep.html#Data-pre-adult">3.9</a> as part of the data preparation chapter (<a href="chapter-data-prep.html#chapter-data-prep">3</a>), we summarize the necessary preprocessing steps here.</p>
+<div id="handling-missing-values" class="section level4 unnumbered">
+<h4>Handling Missing Values<a class="anchor" aria-label="anchor" href="#handling-missing-values"><i class="fas fa-link"></i></a>
+</h4>
+<p>The dataset encodes missing values as <code>"?"</code>. We first replace them with <code>NA</code>, remove unused factor levels, and apply imputation for categorical variables using random sampling from existing categories.</p>
 <div class="sourceCode" id="cb199"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://hbiostat.org/R/Hmisc/">Hmisc</a></span><span class="op">)</span>    <span class="co"># For handling missing values</span></span>
+<span></span>
+<span><span class="co"># Replace "?" with NA</span></span>
+<span><span class="va">adult</span><span class="op">[</span><span class="va">adult</span> <span class="op">==</span> <span class="st">"?"</span><span class="op">]</span> <span class="op">=</span> <span class="cn">NA</span></span>
+<span></span>
+<span><span class="co"># Remove unused factor levels</span></span>
+<span><span class="va">adult</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/droplevels.html">droplevels</a></span><span class="op">(</span><span class="va">adult</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Impute missing values using random sampling from existing categories</span></span>
+<span><span class="va">adult</span><span class="op">$</span><span class="va">workclass</span>      <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/Hmisc/man/impute.html">impute</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">adult</span><span class="op">$</span><span class="va">workclass</span><span class="op">)</span>, <span class="st">'random'</span><span class="op">)</span></span>
+<span><span class="va">adult</span><span class="op">$</span><span class="va">native.country</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/Hmisc/man/impute.html">impute</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">adult</span><span class="op">$</span><span class="va">native.country</span><span class="op">)</span>, <span class="st">'random'</span><span class="op">)</span></span>
+<span><span class="va">adult</span><span class="op">$</span><span class="va">occupation</span>     <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/Hmisc/man/impute.html">impute</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">adult</span><span class="op">$</span><span class="va">occupation</span><span class="op">)</span>, <span class="st">'random'</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="transforming-categorical-variables" class="section level4 unnumbered">
+<h4>Transforming Categorical Variables<a class="anchor" aria-label="anchor" href="#transforming-categorical-variables"><i class="fas fa-link"></i></a>
+</h4>
+<p>Some categorical variables contain too many levels, making them difficult to interpret and model efficiently. To simplify these variables, we group related categories.</p>
+<p>The dataset originally contains 42 unique country values in <code>native.country</code>. We reduce dimensionality by categorizing them into broader regions.</p>
+<div class="sourceCode" id="cb200"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://forcats.tidyverse.org/">forcats</a></span><span class="op">)</span>  <span class="co"># For categorical variable transformation</span></span>
+<span></span>
+<span><span class="va">Europe</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"England"</span>, <span class="st">"France"</span>, <span class="st">"Germany"</span>, <span class="st">"Greece"</span>, <span class="st">"Holand-Netherlands"</span>, <span class="st">"Hungary"</span>, </span>
+<span>           <span class="st">"Ireland"</span>, <span class="st">"Italy"</span>, <span class="st">"Poland"</span>, <span class="st">"Portugal"</span>, <span class="st">"Scotland"</span>, <span class="st">"Yugoslavia"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">Asia</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"China"</span>, <span class="st">"Hong"</span>, <span class="st">"India"</span>, <span class="st">"Iran"</span>, <span class="st">"Cambodia"</span>, <span class="st">"Japan"</span>, <span class="st">"Laos"</span>, </span>
+<span>         <span class="st">"Philippines"</span>, <span class="st">"Vietnam"</span>, <span class="st">"Taiwan"</span>, <span class="st">"Thailand"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">N.America</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Canada"</span>, <span class="st">"United-States"</span>, <span class="st">"Puerto-Rico"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">S.America</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Columbia"</span>, <span class="st">"Cuba"</span>, <span class="st">"Dominican-Republic"</span>, <span class="st">"Ecuador"</span>, <span class="st">"El-Salvador"</span>, </span>
+<span>              <span class="st">"Guatemala"</span>, <span class="st">"Haiti"</span>, <span class="st">"Honduras"</span>, <span class="st">"Mexico"</span>, <span class="st">"Nicaragua"</span>, </span>
+<span>              <span class="st">"Outlying-US(Guam-USVI-etc)"</span>, <span class="st">"Peru"</span>, <span class="st">"Jamaica"</span>, <span class="st">"Trinadad&amp;Tobago"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Reclassify `native.country` into broader regions</span></span>
+<span><span class="va">adult</span><span class="op">$</span><span class="va">native.country</span> <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_collapse.html">fct_collapse</a></span><span class="op">(</span><span class="va">adult</span><span class="op">$</span><span class="va">native.country</span>, </span>
+<span>                                    <span class="st">"Europe"</span>    <span class="op">=</span> <span class="va">Europe</span>,</span>
+<span>                                    <span class="st">"Asia"</span>      <span class="op">=</span> <span class="va">Asia</span>,</span>
+<span>                                    <span class="st">"N.America"</span> <span class="op">=</span> <span class="va">N.America</span>,</span>
+<span>                                    <span class="st">"S.America"</span> <span class="op">=</span> <span class="va">S.America</span>,</span>
+<span>                                    <span class="st">"Other"</span>     <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"South"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>The <code>workclass</code> variable contains categories that indicate a lack of formal employment. We consolidate <code>"Never-worked"</code> and <code>"Without-pay"</code> into <code>"Unemployed"</code>.</p>
+<div class="sourceCode" id="cb201"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">adult</span><span class="op">$</span><span class="va">workclass</span> <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_collapse.html">fct_collapse</a></span><span class="op">(</span><span class="va">adult</span><span class="op">$</span><span class="va">workclass</span>, <span class="st">"Unemployed"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Never-worked"</span>, <span class="st">"Without-pay"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>To maintain consistency, we simplify the <code>race</code> variable.</p>
+<div class="sourceCode" id="cb202"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">adult</span><span class="op">$</span><span class="va">race</span> <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_recode.html">fct_recode</a></span><span class="op">(</span><span class="va">adult</span><span class="op">$</span><span class="va">race</span>, <span class="st">"Amer-Indian"</span> <span class="op">=</span> <span class="st">"Amer-Indian-Eskimo"</span>, </span>
+<span>                                    <span class="st">"Asian"</span> <span class="op">=</span> <span class="st">"Asian-Pac-Islander"</span><span class="op">)</span></span></code></pre></div>
+<p>These preprocessing steps ensure that the dataset is clean and ready for modeling. In the next section, we partition the dataset into training and testing sets for model evaluation.</p>
+</div>
+</div>
+<div id="preparing-data-for-modeling-2" class="section level3 unnumbered">
+<h3>Preparing Data for Modeling<a class="anchor" aria-label="anchor" href="#preparing-data-for-modeling-2"><i class="fas fa-link"></i></a>
+</h3>
+<p>Before training tree-based models, we need to split the dataset into training and testing sets. This step ensures that we can evaluate how well the models generalize to unseen data. We use an 80/20 split, allocating 80% of the data for training and 20% for testing. To maintain consistency with previous chapters, we apply the <code><a href="https://rdrr.io/pkg/liver/man/partition.html">partition()</a></code> function from the <strong>liver</strong> package:</p>
+<div class="sourceCode" id="cb203"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">6</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">data_sets</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/liver/man/partition.html">partition</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adult</span>, ratio <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.8</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span>
@@ -385,137 +462,170 @@ Figure 11.6: C5.0 Decision Tree for predicting credit risk based on age and inco
 <span><span class="va">train_set</span> <span class="op">=</span> <span class="va">data_sets</span><span class="op">$</span><span class="va">part1</span></span>
 <span><span class="va">test_set</span>  <span class="op">=</span> <span class="va">data_sets</span><span class="op">$</span><span class="va">part2</span></span>
 <span></span>
-<span><span class="va">actual_test</span> <span class="op">=</span> <span class="va">test_set</span><span class="op">$</span><span class="va">income</span></span></code></pre></div>
-<p>The use of <code><a href="https://rdrr.io/r/base/Random.html">set.seed()</a></code> ensures reproducibility.</p>
+<span><span class="va">test_labels</span> <span class="op">=</span> <span class="va">test_set</span><span class="op">$</span><span class="va">income</span></span></code></pre></div>
+<p>The <code><a href="https://rdrr.io/r/base/Random.html">set.seed()</a></code> function ensures reproducibility by fixing the random seed. We use <code>train_set</code> to train the classification models, while <code>test_set</code> serves as unseen data for evaluation. The <code>test_labels</code> vector contains the true class labels for <code>test_set</code>, which we will compare against the model’s predictions. This allows us to assess the performance of the CART, C5.0, and Random Forest models.</p>
+<p>In practice, it is important to verify that the training and test sets are representative of the original dataset. One way to do this is by examining the distribution of <code>income</code> in both sets. We performed this validation and found the partition to be valid. We do not report it here but refer to Section <a href="chapter-modeling.html#sec-validate-partition">6.4</a> for details on how to validate partitions.</p>
+<p>To predict whether an individual’s income exceeds $50K, we use the following predictors:</p>
+<p><code>age</code>, <code>workclass</code>, <code>education.num</code>, <code>marital.status</code>, <code>occupation</code>, <code>race</code>, <code>gender</code>, <code>capital.gain</code>, <code>capital.loss</code>, <code>hours.per.week</code>, and <code>native.country</code>.</p>
+<p>We exclude <code>demogweight</code>, <code>education</code>, and <code>relationship</code> for the following reasons:<br>
+- <code>demogweight</code> is treated as an ID variable and does not provide meaningful predictive information.<br>
+- <code>education</code> is removed because <code>education.num</code> represents the same information in a numerical format.<br>
+- <code>relationship</code> is highly correlated with <code>marital.status</code> and does not provide additional independent information.</p>
+<p>These selected predictors are used in the following formula:</p>
+<div class="sourceCode" id="cb204"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">formula</span> <span class="op">=</span> <span class="va">income</span> <span class="op">~</span> <span class="va">age</span> <span class="op">+</span> <span class="va">workclass</span> <span class="op">+</span> <span class="va">education.num</span> <span class="op">+</span> <span class="va">marital.status</span> <span class="op">+</span> <span class="va">occupation</span> <span class="op">+</span> <span class="va">race</span> <span class="op">+</span> <span class="va">gender</span> <span class="op">+</span> <span class="va">capital.gain</span> <span class="op">+</span> <span class="va">capital.loss</span> <span class="op">+</span> <span class="va">hours.per.week</span> <span class="op">+</span> <span class="va">native.country</span></span></code></pre></div>
+<p>This formula will be used to train decision tree models using the CART and C5.0 algorithms, as well as the Random Forest algorithm. In the next section, we demonstrate how to build, evaluate, and compare these models using the <em>adult</em> dataset.</p>
 </div>
 <div id="decision-tree-with-cart" class="section level3 unnumbered">
 <h3>Decision Tree with CART<a class="anchor" aria-label="anchor" href="#decision-tree-with-cart"><i class="fas fa-link"></i></a>
 </h3>
-<p>To predict whether an individual’s income exceeds $50K, we fit a Decision Tree using the <strong>CART algorithm</strong>. The following predictors are used:</p>
-<p><code>age</code>, <code>education.num</code>, <code>capital.gain</code>, <code>capital.loss</code>, <code>hours.per.week</code>, <code>marital.status</code>, <code>workclass</code>, <code>race</code>, and <code>gender</code>.</p>
-<p>The tree is built using the <code>rpart()</code> function from the <strong>rpart</strong> package:</p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="chapter-tree.html#cb200-1" tabindex="-1"></a>formula <span class="ot">=</span> income <span class="sc">~</span> age <span class="sc">+</span> education.num <span class="sc">+</span> capital.gain <span class="sc">+</span> capital.loss <span class="sc">+</span> </span>
-<span id="cb200-2"><a href="chapter-tree.html#cb200-2" tabindex="-1"></a>                   hours.per.week <span class="sc">+</span> marital.status <span class="sc">+</span> workclass <span class="sc">+</span> race <span class="sc">+</span> gender</span>
-<span id="cb200-3"><a href="chapter-tree.html#cb200-3" tabindex="-1"></a></span>
-<span id="cb200-4"><a href="chapter-tree.html#cb200-4" tabindex="-1"></a>tree_cart <span class="ot">=</span> <span class="fu">rpart</span>(<span class="at">formula =</span> formula, <span class="at">data =</span> train_set, <span class="at">method =</span> <span class="st">"class"</span>)</span>
-<span id="cb200-5"><a href="chapter-tree.html#cb200-5" tabindex="-1"></a></span>
-<span id="cb200-6"><a href="chapter-tree.html#cb200-6" tabindex="-1"></a><span class="fu">print</span>(tree_cart)</span>
-<span id="cb200-7"><a href="chapter-tree.html#cb200-7" tabindex="-1"></a>   n<span class="ot">=</span> <span class="dv">38878</span> </span>
-<span id="cb200-8"><a href="chapter-tree.html#cb200-8" tabindex="-1"></a>   </span>
-<span id="cb200-9"><a href="chapter-tree.html#cb200-9" tabindex="-1"></a>   node<span class="er">)</span>, split, n, loss, yval, (yprob)</span>
-<span id="cb200-10"><a href="chapter-tree.html#cb200-10" tabindex="-1"></a>         <span class="sc">*</span> denotes terminal node</span>
-<span id="cb200-11"><a href="chapter-tree.html#cb200-11" tabindex="-1"></a>   </span>
-<span id="cb200-12"><a href="chapter-tree.html#cb200-12" tabindex="-1"></a>    <span class="dv">1</span><span class="er">)</span> root <span class="dv">38878</span> <span class="dv">9217</span> <span class="sc">&lt;=</span><span class="dv">50</span><span class="fu">K</span> (<span class="fl">0.76292505</span> <span class="fl">0.23707495</span>)  </span>
-<span id="cb200-13"><a href="chapter-tree.html#cb200-13" tabindex="-1"></a>      <span class="dv">2</span><span class="er">)</span> marital.status<span class="ot">=</span>Divorced,Never<span class="sc">-</span>married,Separated,Widowed <span class="dv">20580</span> <span class="dv">1282</span> <span class="sc">&lt;=</span><span class="dv">50</span><span class="fu">K</span> (<span class="fl">0.93770651</span> <span class="fl">0.06229349</span>)  </span>
-<span id="cb200-14"><a href="chapter-tree.html#cb200-14" tabindex="-1"></a>        <span class="dv">4</span><span class="er">)</span> capital.gain<span class="sc">&lt;</span> <span class="fl">7055.5</span> <span class="dv">20261</span>  <span class="dv">978</span> <span class="sc">&lt;=</span><span class="dv">50</span><span class="fu">K</span> (<span class="fl">0.95172992</span> <span class="fl">0.04827008</span>) <span class="sc">*</span></span>
-<span id="cb200-15"><a href="chapter-tree.html#cb200-15" tabindex="-1"></a>        <span class="dv">5</span><span class="er">)</span> capital.gain<span class="sc">&gt;=</span><span class="fl">7055.5</span> <span class="dv">319</span>   <span class="dv">15</span> <span class="sc">&gt;</span><span class="dv">50</span><span class="fu">K</span> (<span class="fl">0.04702194</span> <span class="fl">0.95297806</span>) <span class="sc">*</span></span>
-<span id="cb200-16"><a href="chapter-tree.html#cb200-16" tabindex="-1"></a>      <span class="dv">3</span><span class="er">)</span> marital.status<span class="ot">=</span>Married <span class="dv">18298</span> <span class="dv">7935</span> <span class="sc">&lt;=</span><span class="dv">50</span><span class="fu">K</span> (<span class="fl">0.56634605</span> <span class="fl">0.43365395</span>)  </span>
-<span id="cb200-17"><a href="chapter-tree.html#cb200-17" tabindex="-1"></a>        <span class="dv">6</span><span class="er">)</span> education.num<span class="sc">&lt;</span> <span class="fl">12.5</span> <span class="dv">12944</span> <span class="dv">4163</span> <span class="sc">&lt;=</span><span class="dv">50</span><span class="fu">K</span> (<span class="fl">0.67838381</span> <span class="fl">0.32161619</span>)  </span>
-<span id="cb200-18"><a href="chapter-tree.html#cb200-18" tabindex="-1"></a>         <span class="dv">12</span><span class="er">)</span> capital.gain<span class="sc">&lt;</span> <span class="fl">5095.5</span> <span class="dv">12350</span> <span class="dv">3582</span> <span class="sc">&lt;=</span><span class="dv">50</span><span class="fu">K</span> (<span class="fl">0.70995951</span> <span class="fl">0.29004049</span>)  </span>
-<span id="cb200-19"><a href="chapter-tree.html#cb200-19" tabindex="-1"></a>           <span class="dv">24</span><span class="er">)</span> education.num<span class="sc">&lt;</span> <span class="fl">8.5</span> <span class="dv">2159</span>  <span class="dv">231</span> <span class="sc">&lt;=</span><span class="dv">50</span><span class="fu">K</span> (<span class="fl">0.89300602</span> <span class="fl">0.10699398</span>) <span class="sc">*</span></span>
-<span id="cb200-20"><a href="chapter-tree.html#cb200-20" tabindex="-1"></a>           <span class="dv">25</span><span class="er">)</span> education.num<span class="sc">&gt;=</span><span class="fl">8.5</span> <span class="dv">10191</span> <span class="dv">3351</span> <span class="sc">&lt;=</span><span class="dv">50</span><span class="fu">K</span> (<span class="fl">0.67118045</span> <span class="fl">0.32881955</span>)  </span>
-<span id="cb200-21"><a href="chapter-tree.html#cb200-21" tabindex="-1"></a>             <span class="dv">50</span><span class="er">)</span> capital.loss<span class="sc">&lt;</span> <span class="dv">1846</span> <span class="dv">9813</span> <span class="dv">3059</span> <span class="sc">&lt;=</span><span class="dv">50</span><span class="fu">K</span> (<span class="fl">0.68827066</span> <span class="fl">0.31172934</span>) <span class="sc">*</span></span>
-<span id="cb200-22"><a href="chapter-tree.html#cb200-22" tabindex="-1"></a>             <span class="dv">51</span><span class="er">)</span> capital.loss<span class="sc">&gt;=</span><span class="dv">1846</span> <span class="dv">378</span>   <span class="dv">86</span> <span class="sc">&gt;</span><span class="dv">50</span><span class="fu">K</span> (<span class="fl">0.22751323</span> <span class="fl">0.77248677</span>) <span class="sc">*</span></span>
-<span id="cb200-23"><a href="chapter-tree.html#cb200-23" tabindex="-1"></a>         <span class="dv">13</span><span class="er">)</span> capital.gain<span class="sc">&gt;=</span><span class="fl">5095.5</span> <span class="dv">594</span>   <span class="dv">13</span> <span class="sc">&gt;</span><span class="dv">50</span><span class="fu">K</span> (<span class="fl">0.02188552</span> <span class="fl">0.97811448</span>) <span class="sc">*</span></span>
-<span id="cb200-24"><a href="chapter-tree.html#cb200-24" tabindex="-1"></a>        <span class="dv">7</span><span class="er">)</span> education.num<span class="sc">&gt;=</span><span class="fl">12.5</span> <span class="dv">5354</span> <span class="dv">1582</span> <span class="sc">&gt;</span><span class="dv">50</span><span class="fu">K</span> (<span class="fl">0.29548001</span> <span class="fl">0.70451999</span>) <span class="sc">*</span></span></code></pre></div>
-<p>The resulting tree is visualized using the <code>rpart.plot()</code> function:</p>
-<div class="sourceCode" id="cb201"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">rpart.plot</span><span class="op">(</span><span class="va">tree_cart</span>, type <span class="op">=</span> <span class="fl">4</span>, extra <span class="op">=</span> <span class="fl">104</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="tree_files/figure-html/unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto;"></div>
-<p>The tree identifies <strong><code>marital.status</code></strong> as the most important predictor, followed by <code>capital.gain</code>, <code>education.num</code>, and <code>capital.loss</code>. The tree contains 6 decision nodes and 7 leaves, providing interpretable insights into the predictors.</p>
+<p>To fit a decision tree using the CART algorithm in <strong>R</strong>, we use the <a href="https://CRAN.R-project.org/package=rpart"><strong>rpart</strong></a> package (Recursive Partitioning and Regression Trees), which provides a widely used implementation of CART. This package includes functions for building, visualizing, and evaluating decision trees.</p>
+<p>If the <strong>rpart</strong> package is not installed, you can install it using the <code>install.packages("rpart")</code> command. Then, you can load it into your R session:</p>
+<div class="sourceCode" id="cb205"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bethatkinson/rpart">rpart</a></span><span class="op">)</span></span></code></pre></div>
+<p>The decision tree is built using the <code><a href="https://rdrr.io/pkg/rpart/man/rpart.html">rpart()</a></code> function, which constructs a classification tree when <code>method = "class"</code> is specified:</p>
+<div class="sourceCode" id="cb206"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tree_cart</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/rpart/man/rpart.html">rpart</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="va">formula</span>, data <span class="op">=</span> <span class="va">train_set</span>, method <span class="op">=</span> <span class="st">"class"</span><span class="op">)</span></span></code></pre></div>
+<ul>
+<li>The <code>formula</code> argument defines the relationship between the target variable (<code>income</code>) and the predictors.</li>
+<li>The <code>data</code> argument specifies the training dataset.</li>
+<li>The <code>method = "class"</code> argument ensures that the model performs classification rather than regression.</li>
+</ul>
+<div id="visualizing-the-decision-tree" class="section level4 unnumbered">
+<h4>Visualizing the Decision Tree<a class="anchor" aria-label="anchor" href="#visualizing-the-decision-tree"><i class="fas fa-link"></i></a>
+</h4>
+<p>To visualize the tree, we use the <a href="https://CRAN.R-project.org/package=rpart.plot"><strong>rpart.plot</strong></a> package, which provides tools for graphical representation of <strong>rpart</strong> models. If not installed, it can be added with the <code>install.packages("rpart.plot")</code> command. Then, it is loaded as follows:</p>
+<div class="sourceCode" id="cb207"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.milbo.org/rpart-plot/index.html">rpart.plot</a></span><span class="op">)</span></span></code></pre></div>
+<p>The tree is displayed using:</p>
+<div class="sourceCode" id="cb208"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/rpart.plot/man/rpart.plot.html">rpart.plot</a></span><span class="op">(</span><span class="va">tree_cart</span>, type <span class="op">=</span> <span class="fl">4</span>, extra <span class="op">=</span> <span class="fl">104</span><span class="op">)</span></span></code></pre></div>
+<p><img src="tree_files/figure-html/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;">
+- The <code>type = 4</code> argument specifies a split-labeling style where decision rules appear inside the nodes.
+- The <code>extra = 104</code> argument displays both the predicted class and the probability of the most probable class in each terminal node.</p>
+<p>If the tree is too large to fit within a single plot, the structure can also be examined using:</p>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="chapter-tree.html#cb209-1" tabindex="-1"></a><span class="fu">print</span>(tree_cart)</span>
+<span id="cb209-2"><a href="chapter-tree.html#cb209-2" tabindex="-1"></a>   n<span class="ot">=</span> <span class="dv">38878</span> </span>
+<span id="cb209-3"><a href="chapter-tree.html#cb209-3" tabindex="-1"></a>   </span>
+<span id="cb209-4"><a href="chapter-tree.html#cb209-4" tabindex="-1"></a>   node<span class="er">)</span>, split, n, loss, yval, (yprob)</span>
+<span id="cb209-5"><a href="chapter-tree.html#cb209-5" tabindex="-1"></a>         <span class="sc">*</span> denotes terminal node</span>
+<span id="cb209-6"><a href="chapter-tree.html#cb209-6" tabindex="-1"></a>   </span>
+<span id="cb209-7"><a href="chapter-tree.html#cb209-7" tabindex="-1"></a>    <span class="dv">1</span><span class="er">)</span> root <span class="dv">38878</span> <span class="dv">9217</span> <span class="sc">&lt;=</span><span class="dv">50</span><span class="fu">K</span> (<span class="fl">0.76292505</span> <span class="fl">0.23707495</span>)  </span>
+<span id="cb209-8"><a href="chapter-tree.html#cb209-8" tabindex="-1"></a>      <span class="dv">2</span><span class="er">)</span> marital.status<span class="ot">=</span>Divorced,Never<span class="sc">-</span>married,Separated,Widowed <span class="dv">20580</span> <span class="dv">1282</span> <span class="sc">&lt;=</span><span class="dv">50</span><span class="fu">K</span> (<span class="fl">0.93770651</span> <span class="fl">0.06229349</span>)  </span>
+<span id="cb209-9"><a href="chapter-tree.html#cb209-9" tabindex="-1"></a>        <span class="dv">4</span><span class="er">)</span> capital.gain<span class="sc">&lt;</span> <span class="fl">7055.5</span> <span class="dv">20261</span>  <span class="dv">978</span> <span class="sc">&lt;=</span><span class="dv">50</span><span class="fu">K</span> (<span class="fl">0.95172992</span> <span class="fl">0.04827008</span>) <span class="sc">*</span></span>
+<span id="cb209-10"><a href="chapter-tree.html#cb209-10" tabindex="-1"></a>        <span class="dv">5</span><span class="er">)</span> capital.gain<span class="sc">&gt;=</span><span class="fl">7055.5</span> <span class="dv">319</span>   <span class="dv">15</span> <span class="sc">&gt;</span><span class="dv">50</span><span class="fu">K</span> (<span class="fl">0.04702194</span> <span class="fl">0.95297806</span>) <span class="sc">*</span></span>
+<span id="cb209-11"><a href="chapter-tree.html#cb209-11" tabindex="-1"></a>      <span class="dv">3</span><span class="er">)</span> marital.status<span class="ot">=</span>Married <span class="dv">18298</span> <span class="dv">7935</span> <span class="sc">&lt;=</span><span class="dv">50</span><span class="fu">K</span> (<span class="fl">0.56634605</span> <span class="fl">0.43365395</span>)  </span>
+<span id="cb209-12"><a href="chapter-tree.html#cb209-12" tabindex="-1"></a>        <span class="dv">6</span><span class="er">)</span> education.num<span class="sc">&lt;</span> <span class="fl">12.5</span> <span class="dv">12944</span> <span class="dv">4163</span> <span class="sc">&lt;=</span><span class="dv">50</span><span class="fu">K</span> (<span class="fl">0.67838381</span> <span class="fl">0.32161619</span>)  </span>
+<span id="cb209-13"><a href="chapter-tree.html#cb209-13" tabindex="-1"></a>         <span class="dv">12</span><span class="er">)</span> capital.gain<span class="sc">&lt;</span> <span class="fl">5095.5</span> <span class="dv">12350</span> <span class="dv">3582</span> <span class="sc">&lt;=</span><span class="dv">50</span><span class="fu">K</span> (<span class="fl">0.70995951</span> <span class="fl">0.29004049</span>) <span class="sc">*</span></span>
+<span id="cb209-14"><a href="chapter-tree.html#cb209-14" tabindex="-1"></a>         <span class="dv">13</span><span class="er">)</span> capital.gain<span class="sc">&gt;=</span><span class="fl">5095.5</span> <span class="dv">594</span>   <span class="dv">13</span> <span class="sc">&gt;</span><span class="dv">50</span><span class="fu">K</span> (<span class="fl">0.02188552</span> <span class="fl">0.97811448</span>) <span class="sc">*</span></span>
+<span id="cb209-15"><a href="chapter-tree.html#cb209-15" tabindex="-1"></a>        <span class="dv">7</span><span class="er">)</span> education.num<span class="sc">&gt;=</span><span class="fl">12.5</span> <span class="dv">5354</span> <span class="dv">1582</span> <span class="sc">&gt;</span><span class="dv">50</span><span class="fu">K</span> (<span class="fl">0.29548001</span> <span class="fl">0.70451999</span>) <span class="sc">*</span></span></code></pre></div>
+<p>This prints a text-based version of the tree, showing nodes, splits, and predictions in a scrollable format.</p>
+</div>
+<div id="interpreting-the-decision-tree" class="section level4 unnumbered">
+<h4>Interpreting the Decision Tree<a class="anchor" aria-label="anchor" href="#interpreting-the-decision-tree"><i class="fas fa-link"></i></a>
+</h4>
+<p>The CART model produces a binary tree with four decision nodes and five leaves. Among the 12 predictors, the algorithm selects three—<code>marital.status</code>, <code>capital.gain</code>, and <code>education.num</code>—as the most relevant for predicting income. The most influential predictor, <code>marital.status</code>, appears at the root node, meaning that marital status is the first split in the tree.</p>
+<p>The model categorizes individuals into five distinct groups, each represented by a terminal leaf. The blue leaves indicate those predicted to earn less than $50,000 (<code>income &lt;= 50K</code>), while the green leaves represent those earning more than $50,000 (<code>income &gt; 50K</code>).</p>
+<p>As an example, the rightmost leaf corresponds to individuals who are married and have at least 13 years of education (<code>education.num &gt;= 13</code>). This group represents 14% of the dataset, with 70% of them earning more than $50,000 annually. The error rate for this leaf is 0.30, calculated as <span class="math inline">\(1 - 0.70\)</span>.</p>
+</div>
 </div>
 <div id="decision-tree-with-c5.0" class="section level3 unnumbered">
 <h3>Decision Tree with C5.0<a class="anchor" aria-label="anchor" href="#decision-tree-with-c5.0"><i class="fas fa-link"></i></a>
 </h3>
-<p>We next use the C5.0 algorithm to build a Decision Tree, starting with the same predictors. The tree is constructed using the <code>C5.0()</code> function from the <strong>C50</strong> package:</p>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="chapter-tree.html#cb202-1" tabindex="-1"></a>tree_C50 <span class="ot">=</span> <span class="fu">C5.0</span>(formula, <span class="at">data =</span> train_set) </span>
-<span id="cb202-2"><a href="chapter-tree.html#cb202-2" tabindex="-1"></a></span>
-<span id="cb202-3"><a href="chapter-tree.html#cb202-3" tabindex="-1"></a><span class="fu">print</span>(tree_C50)</span>
-<span id="cb202-4"><a href="chapter-tree.html#cb202-4" tabindex="-1"></a>   </span>
-<span id="cb202-5"><a href="chapter-tree.html#cb202-5" tabindex="-1"></a>   Call<span class="sc">:</span></span>
-<span id="cb202-6"><a href="chapter-tree.html#cb202-6" tabindex="-1"></a>   <span class="fu">C5.0.formula</span>(<span class="at">formula =</span> formula, <span class="at">data =</span> train_set)</span>
-<span id="cb202-7"><a href="chapter-tree.html#cb202-7" tabindex="-1"></a>   </span>
-<span id="cb202-8"><a href="chapter-tree.html#cb202-8" tabindex="-1"></a>   Classification Tree</span>
-<span id="cb202-9"><a href="chapter-tree.html#cb202-9" tabindex="-1"></a>   Number of samples<span class="sc">:</span> <span class="dv">38878</span> </span>
-<span id="cb202-10"><a href="chapter-tree.html#cb202-10" tabindex="-1"></a>   Number of predictors<span class="sc">:</span> <span class="dv">9</span> </span>
-<span id="cb202-11"><a href="chapter-tree.html#cb202-11" tabindex="-1"></a>   </span>
-<span id="cb202-12"><a href="chapter-tree.html#cb202-12" tabindex="-1"></a>   Tree size<span class="sc">:</span> <span class="dv">93</span> </span>
-<span id="cb202-13"><a href="chapter-tree.html#cb202-13" tabindex="-1"></a>   </span>
-<span id="cb202-14"><a href="chapter-tree.html#cb202-14" tabindex="-1"></a>   Non<span class="sc">-</span>standard options<span class="sc">:</span> attempt to group attributes</span></code></pre></div>
-<p>The output provides a summary of the tree. While the full tree visualization is omitted here, it highlights the importance of <code>marital.status</code> as the root node, consistent with the CART results.</p>
+<p>To fit a decision tree using the C5.0 algorithm in <strong>R</strong>, we use the <a href="https://CRAN.R-project.org/package=C50"><strong>C50</strong></a> package. If the <strong>C50</strong> package is not installed, you can install it using the <code>install.packages("C50")</code> command. Then, you can load it into your R session:</p>
+<div class="sourceCode" id="cb210"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://topepo.github.io/C5.0/">C50</a></span><span class="op">)</span></span></code></pre></div>
+<p>The tree is constructed using the <code><a href="https://topepo.github.io/C5.0/reference/C5.0.html">C5.0()</a></code> function:</p>
+<div class="sourceCode" id="cb211"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tree_C50</span> <span class="op">=</span> <span class="fu"><a href="https://topepo.github.io/C5.0/reference/C5.0.html">C5.0</a></span><span class="op">(</span><span class="va">formula</span>, data <span class="op">=</span> <span class="va">train_set</span><span class="op">)</span> </span></code></pre></div>
+<p>The <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function can be used to visualize the tree, while the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function provides a detailed description of the model. Since the tree output is too large to display here, we print a summary of the model using:</p>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="chapter-tree.html#cb212-1" tabindex="-1"></a><span class="fu">print</span>(tree_C50)</span>
+<span id="cb212-2"><a href="chapter-tree.html#cb212-2" tabindex="-1"></a>   </span>
+<span id="cb212-3"><a href="chapter-tree.html#cb212-3" tabindex="-1"></a>   Call<span class="sc">:</span></span>
+<span id="cb212-4"><a href="chapter-tree.html#cb212-4" tabindex="-1"></a>   <span class="fu">C5.0.formula</span>(<span class="at">formula =</span> formula, <span class="at">data =</span> train_set)</span>
+<span id="cb212-5"><a href="chapter-tree.html#cb212-5" tabindex="-1"></a>   </span>
+<span id="cb212-6"><a href="chapter-tree.html#cb212-6" tabindex="-1"></a>   Classification Tree</span>
+<span id="cb212-7"><a href="chapter-tree.html#cb212-7" tabindex="-1"></a>   Number of samples<span class="sc">:</span> <span class="dv">38878</span> </span>
+<span id="cb212-8"><a href="chapter-tree.html#cb212-8" tabindex="-1"></a>   Number of predictors<span class="sc">:</span> <span class="dv">11</span> </span>
+<span id="cb212-9"><a href="chapter-tree.html#cb212-9" tabindex="-1"></a>   </span>
+<span id="cb212-10"><a href="chapter-tree.html#cb212-10" tabindex="-1"></a>   Tree size<span class="sc">:</span> <span class="dv">120</span> </span>
+<span id="cb212-11"><a href="chapter-tree.html#cb212-11" tabindex="-1"></a>   </span>
+<span id="cb212-12"><a href="chapter-tree.html#cb212-12" tabindex="-1"></a>   Non<span class="sc">-</span>standard options<span class="sc">:</span> attempt to group attributes</span></code></pre></div>
+<p>The output includes key information about the model, such as the function call used to generate the tree, the number of predictors, and the number of observations used for training. It also reports a tree size of 74, indicating that the tree consists of 74 decision nodes—substantially larger than the tree produced by CART in this case.</p>
 </div>
 <div id="random-forest" class="section level3 unnumbered">
 <h3>Random Forest<a class="anchor" aria-label="anchor" href="#random-forest"><i class="fas fa-link"></i></a>
 </h3>
-<p>The <strong>Random Forest</strong> algorithm is used to build an ensemble of Decision Trees, aggregating their predictions. Using the same predictors, we construct a Random Forest model with 100 trees using the <code>randomForest()</code> function:</p>
-<div class="sourceCode" id="cb203"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">random_forest</span> <span class="op">=</span> <span class="fu">randomForest</span><span class="op">(</span>formula <span class="op">=</span> <span class="va">formula</span>, data <span class="op">=</span> <span class="va">train_set</span>, ntree <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></code></pre></div>
-<p>We can visualize the variable importance and the error rate of the Random Forest model:</p>
-<div class="sourceCode" id="cb204"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">varImpPlot</span><span class="op">(</span><span class="va">random_forest</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">random_forest</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tree_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;"><img src="tree_files/figure-html/unnamed-chunk-9-2.png" width="70%" style="display: block; margin: auto;"></p>
+<p>Random forests are implemented in <strong>R</strong> using the <a href="https://CRAN.R-project.org/package=randomForest"><strong>randomForest</strong></a> package, which builds classification and regression models based on an ensemble of decision trees with randomly selected inputs. While multiple packages in R support random forest modeling, <strong>randomForest</strong> is one of the most widely used implementations due to its reliability and compatibility with the <strong>caret</strong> package for automated tuning.</p>
+<p>If the <strong>randomForest</strong> package is not installed, you can install it using the <code>install.packages("randomForest")</code> command. Then, load it into your R session:</p>
+<div class="sourceCode" id="cb213"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.stat.berkeley.edu/~breiman/RandomForests/">randomForest</a></span><span class="op">)</span></span></code></pre></div>
+<p>Using the same predictors as in the previous models, we construct a random forest model with 100 decision trees:</p>
+<div class="sourceCode" id="cb214"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">random_forest</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/randomForest/man/randomForest.html">randomForest</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="va">formula</span>, data <span class="op">=</span> <span class="va">train_set</span>, ntree <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></code></pre></div>
+<ul>
+<li>The <code>formula</code> argument specifies the relationship between the target variable (<code>income</code>) and the predictors.<br>
+</li>
+<li>The <code>data</code> argument defines the training dataset.<br>
+</li>
+<li>The <code>ntree = 100</code> argument sets the number of decision trees in the forest. A higher number of trees generally improves accuracy but increases computation time.</li>
+</ul>
+<p>We can evaluate the importance of predictors using the <code><a href="https://rdrr.io/pkg/randomForest/man/varImpPlot.html">varImpPlot()</a></code> function:</p>
+<div class="sourceCode" id="cb215"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/randomForest/man/varImpPlot.html">varImpPlot</a></span><span class="op">(</span><span class="va">random_forest</span><span class="op">)</span></span></code></pre></div>
+<p><img src="tree_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;">
+This plot ranks predictors based on their contribution to model accuracy. In this case, <code>marital.status</code> appears as the most important predictor, followed by <code>capital.gain</code> and <code>education.num</code>.</p>
+<p>To assess how the error rate changes as the number of trees increases, we use:</p>
+<div class="sourceCode" id="cb216"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">random_forest</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure">
+<img src="tree_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;">
+This plot shows classification error as a function of the number of trees. The error rate stabilizes after approximately 40 trees, indicating that adding more trees beyond this point does not significantly improve accuracy.</div>
+<p>Random forests provide a robust alternative to single decision trees by reducing overfitting and improving predictive performance through aggregation. The next section compares the performance of the CART, C5.0, and Random Forest models using evaluation metrics.</p>
 </div>
-<div id="model-evaluation" class="section level3 unnumbered">
-<h3>Model Evaluation<a class="anchor" aria-label="anchor" href="#model-evaluation"><i class="fas fa-link"></i></a>
+<div id="prediction-and-model-evaluation-1" class="section level3 unnumbered">
+<h3>Prediction and Model Evaluation<a class="anchor" aria-label="anchor" href="#prediction-and-model-evaluation-1"><i class="fas fa-link"></i></a>
 </h3>
-<p>To evaluate model performance, we calculate the <strong>confusion matrix</strong>, <strong>ROC curve</strong>, and <strong>AUC</strong> for all three models (CART, C5.0, and Random Forest):</p>
-<div id="cart" class="section level4 unnumbered">
-<h4>CART:<a class="anchor" aria-label="anchor" href="#cart"><i class="fas fa-link"></i></a>
-</h4>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="chapter-tree.html#cb205-1" tabindex="-1"></a>predict_cart <span class="ot">=</span> <span class="fu">predict</span>(tree_cart, test_set, <span class="at">type =</span> <span class="st">"class"</span>)</span>
-<span id="cb205-2"><a href="chapter-tree.html#cb205-2" tabindex="-1"></a></span>
-<span id="cb205-3"><a href="chapter-tree.html#cb205-3" tabindex="-1"></a><span class="fu">conf.mat</span>(predict_cart, actual_test)</span>
-<span id="cb205-4"><a href="chapter-tree.html#cb205-4" tabindex="-1"></a>   Setting levels<span class="sc">:</span> reference <span class="ot">=</span> <span class="st">"&lt;=50K"</span>, case <span class="ot">=</span> <span class="st">"&gt;50K"</span></span>
-<span id="cb205-5"><a href="chapter-tree.html#cb205-5" tabindex="-1"></a>          Actual</span>
-<span id="cb205-6"><a href="chapter-tree.html#cb205-6" tabindex="-1"></a>   Predict <span class="sc">&lt;=</span><span class="dv">50</span>K <span class="sc">&gt;</span><span class="dv">50</span>K</span>
-<span id="cb205-7"><a href="chapter-tree.html#cb205-7" tabindex="-1"></a>     <span class="sc">&lt;=</span><span class="dv">50</span>K  <span class="dv">7061</span> <span class="dv">1035</span></span>
-<span id="cb205-8"><a href="chapter-tree.html#cb205-8" tabindex="-1"></a>     <span class="sc">&gt;</span><span class="dv">50</span>K    <span class="dv">433</span> <span class="dv">1191</span></span>
-<span id="cb205-9"><a href="chapter-tree.html#cb205-9" tabindex="-1"></a><span class="fu">conf.mat.plot</span>(predict_cart, actual_test)</span>
-<span id="cb205-10"><a href="chapter-tree.html#cb205-10" tabindex="-1"></a>   Setting levels<span class="sc">:</span> reference <span class="ot">=</span> <span class="st">"&lt;=50K"</span>, case <span class="ot">=</span> <span class="st">"&gt;50K"</span></span></code></pre></div>
-<div class="inline-figure"><img src="tree_files/figure-html/unnamed-chunk-10-1.png" width="30%" style="display: block; margin: auto;"></div>
-</div>
-<div id="c5.0" class="section level4 unnumbered">
-<h4>C5.0:<a class="anchor" aria-label="anchor" href="#c5.0"><i class="fas fa-link"></i></a>
-</h4>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="chapter-tree.html#cb206-1" tabindex="-1"></a>predict_C50 <span class="ot">=</span> <span class="fu">predict</span>(tree_C50, test_set, <span class="at">type =</span> <span class="st">"class"</span>)</span>
-<span id="cb206-2"><a href="chapter-tree.html#cb206-2" tabindex="-1"></a></span>
-<span id="cb206-3"><a href="chapter-tree.html#cb206-3" tabindex="-1"></a><span class="fu">conf.mat</span>(predict_C50, actual_test)</span>
-<span id="cb206-4"><a href="chapter-tree.html#cb206-4" tabindex="-1"></a>   Setting levels<span class="sc">:</span> reference <span class="ot">=</span> <span class="st">"&lt;=50K"</span>, case <span class="ot">=</span> <span class="st">"&gt;50K"</span></span>
-<span id="cb206-5"><a href="chapter-tree.html#cb206-5" tabindex="-1"></a>          Actual</span>
-<span id="cb206-6"><a href="chapter-tree.html#cb206-6" tabindex="-1"></a>   Predict <span class="sc">&lt;=</span><span class="dv">50</span>K <span class="sc">&gt;</span><span class="dv">50</span>K</span>
-<span id="cb206-7"><a href="chapter-tree.html#cb206-7" tabindex="-1"></a>     <span class="sc">&lt;=</span><span class="dv">50</span>K  <span class="dv">7089</span>  <span class="dv">887</span></span>
-<span id="cb206-8"><a href="chapter-tree.html#cb206-8" tabindex="-1"></a>     <span class="sc">&gt;</span><span class="dv">50</span>K    <span class="dv">405</span> <span class="dv">1339</span></span>
-<span id="cb206-9"><a href="chapter-tree.html#cb206-9" tabindex="-1"></a><span class="fu">conf.mat.plot</span>(predict_C50, actual_test)</span>
-<span id="cb206-10"><a href="chapter-tree.html#cb206-10" tabindex="-1"></a>   Setting levels<span class="sc">:</span> reference <span class="ot">=</span> <span class="st">"&lt;=50K"</span>, case <span class="ot">=</span> <span class="st">"&gt;50K"</span></span></code></pre></div>
-<div class="inline-figure"><img src="tree_files/figure-html/unnamed-chunk-11-1.png" width="30%" style="display: block; margin: auto;"></div>
-</div>
-<div id="random-forest-1" class="section level4 unnumbered">
-<h4>Random Forest:<a class="anchor" aria-label="anchor" href="#random-forest-1"><i class="fas fa-link"></i></a>
-</h4>
-<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="chapter-tree.html#cb207-1" tabindex="-1"></a>predict_random_forest <span class="ot">=</span> <span class="fu">predict</span>(random_forest, test_set)</span>
-<span id="cb207-2"><a href="chapter-tree.html#cb207-2" tabindex="-1"></a></span>
-<span id="cb207-3"><a href="chapter-tree.html#cb207-3" tabindex="-1"></a><span class="fu">conf.mat</span>(predict_random_forest, actual_test)</span>
-<span id="cb207-4"><a href="chapter-tree.html#cb207-4" tabindex="-1"></a>   Setting levels<span class="sc">:</span> reference <span class="ot">=</span> <span class="st">"&lt;=50K"</span>, case <span class="ot">=</span> <span class="st">"&gt;50K"</span></span>
-<span id="cb207-5"><a href="chapter-tree.html#cb207-5" tabindex="-1"></a>          Actual</span>
-<span id="cb207-6"><a href="chapter-tree.html#cb207-6" tabindex="-1"></a>   Predict <span class="sc">&lt;=</span><span class="dv">50</span>K <span class="sc">&gt;</span><span class="dv">50</span>K</span>
-<span id="cb207-7"><a href="chapter-tree.html#cb207-7" tabindex="-1"></a>     <span class="sc">&lt;=</span><span class="dv">50</span>K  <span class="dv">7069</span>  <span class="dv">913</span></span>
-<span id="cb207-8"><a href="chapter-tree.html#cb207-8" tabindex="-1"></a>     <span class="sc">&gt;</span><span class="dv">50</span>K    <span class="dv">425</span> <span class="dv">1313</span></span>
-<span id="cb207-9"><a href="chapter-tree.html#cb207-9" tabindex="-1"></a><span class="fu">conf.mat.plot</span>(predict_random_forest, actual_test)</span>
-<span id="cb207-10"><a href="chapter-tree.html#cb207-10" tabindex="-1"></a>   Setting levels<span class="sc">:</span> reference <span class="ot">=</span> <span class="st">"&lt;=50K"</span>, case <span class="ot">=</span> <span class="st">"&gt;50K"</span></span></code></pre></div>
-<div class="inline-figure"><img src="tree_files/figure-html/unnamed-chunk-12-1.png" width="30%" style="display: block; margin: auto;"></div>
-<p>Finally, the ROC curves and AUC for the models are compared:</p>
-<div class="sourceCode" id="cb208"><pre class="downlit sourceCode r">
+<p>After training the models (CART, C5.0, and Random Forest), we evaluate their performance on the test set, which contains individuals unseen during training. The objective is to compare the predicted probabilities with the actual class labels stored in <code>test_labels</code>.</p>
+<p>To obtain predicted class probabilities, we use the <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> function for each model. For all three algorithms, we specify <code>type = "prob"</code> to extract probabilities instead of discrete class labels:</p>
+<div class="sourceCode" id="cb217"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">prob_cart</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">tree_cart</span>, <span class="va">test_set</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span></span>
 <span><span class="va">prob_C50</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">tree_C50</span>, <span class="va">test_set</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span></span>
-<span><span class="va">prob_random_forest</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">random_forest</span>, <span class="va">test_set</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span></span>
-<span></span>
-<span><span class="va">roc_cart</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">actual_test</span>, <span class="va">prob_cart</span><span class="op">)</span></span>
-<span><span class="va">roc_C50</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">actual_test</span>, <span class="va">prob_C50</span><span class="op">)</span></span>
-<span><span class="va">roc_random_forest</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">actual_test</span>, <span class="va">prob_random_forest</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/pROC/man/ggroc.html">ggroc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">roc_cart</span>, <span class="va">roc_C50</span>, <span class="va">roc_random_forest</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span> </span>
+<span><span class="va">prob_random_forest</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">random_forest</span>, <span class="va">test_set</span>, type <span class="op">=</span> <span class="st">"prob"</span><span class="op">)</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span></span></code></pre></div>
+<p>The <code>[ , 1 ]</code> index extracts the probability of the “<code>&lt;=50K</code>” class, as class labels are stored in alphabetical order.</p>
+<div id="confusion-matrix-and-classification-errors" class="section level4 unnumbered">
+<h4>Confusion Matrix and Classification Errors<a class="anchor" aria-label="anchor" href="#confusion-matrix-and-classification-errors"><i class="fas fa-link"></i></a>
+</h4>
+<p>A confusion matrix summarizes model performance by displaying the number of true positives, true negatives, false positives, and false negatives. We generate confusion matrices for each model using the <code><a href="https://rdrr.io/pkg/liver/man/conf.mat.plot.html">conf.mat.plot()</a></code> function from the <strong>liver</strong> package, which provides a graphical representation. The <code><a href="https://rdrr.io/pkg/liver/man/conf.mat.html">conf.mat()</a></code> function can also be used to display numeric values:</p>
+<div class="sourceCode" id="cb218"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/liver/man/conf.mat.plot.html">conf.mat.plot</a></span><span class="op">(</span><span class="va">prob_cart</span>, <span class="va">test_labels</span>, cutoff <span class="op">=</span> <span class="fl">0.5</span>, reference <span class="op">=</span> <span class="st">"&lt;=50K"</span>, main <span class="op">=</span> <span class="st">"CART Prediction"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/liver/man/conf.mat.plot.html">conf.mat.plot</a></span><span class="op">(</span><span class="va">prob_C50</span>, <span class="va">test_labels</span>, cutoff <span class="op">=</span> <span class="fl">0.5</span>, reference <span class="op">=</span> <span class="st">"&lt;=50K"</span>, main <span class="op">=</span> <span class="st">"C5.0 Prediction"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/liver/man/conf.mat.plot.html">conf.mat.plot</a></span><span class="op">(</span><span class="va">prob_random_forest</span>, <span class="va">test_labels</span>, cutoff <span class="op">=</span> <span class="fl">0.5</span>, reference <span class="op">=</span> <span class="st">"&lt;=50K"</span>, main <span class="op">=</span> <span class="st">"Random Forest Prediction"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="tree_files/figure-html/unnamed-chunk-22-1.png" width="33%"><img src="tree_files/figure-html/unnamed-chunk-22-2.png" width="33%"><img src="tree_files/figure-html/unnamed-chunk-22-3.png" width="33%"></p>
+<p>The confusion matrices indicate the number of correctly classified instances for each model:</p>
+<ul>
+<li>CART: “7091 + 1111 = 8202” correct classifications.<br>
+</li>
+<li>C5.0: “7084 + 1360 = 8444” correct classifications.<br>
+</li>
+<li>Random Forest: “7053 + 1335 = 8388” correct classifications.</li>
+</ul>
+<p>Among the three models, C5.0 has the highest accuracy, making the fewest misclassifications.</p>
+</div>
+<div id="roc-curve-and-auc-2" class="section level4 unnumbered">
+<h4>ROC Curve and AUC<a class="anchor" aria-label="anchor" href="#roc-curve-and-auc-2"><i class="fas fa-link"></i></a>
+</h4>
+<p>The Receiver Operating Characteristic (ROC) curve and the Area Under the Curve (AUC) value provide a comprehensive assessment of the model’s ability to distinguish between income classes across different classification thresholds. These metrics are computed using the <strong>pROC</strong> package. If the <strong>pROC</strong> package is not installed, it can be added using <code>install.packages("pROC")</code>. Then, it can be loaded into the R session:</p>
+<div class="sourceCode" id="cb219"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://xrobin.github.io/pROC/">pROC</a></span><span class="op">)</span></span></code></pre></div>
+<p>To generate the ROC curve, we compute the true positive rate and false positive rate for different threshold values using the <code><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc()</a></code> function:</p>
+<div class="sourceCode" id="cb220"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">roc_cart</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">test_labels</span>, <span class="va">prob_cart</span><span class="op">)</span></span>
+<span><span class="va">roc_C50</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">test_labels</span>, <span class="va">prob_C50</span><span class="op">)</span></span>
+<span><span class="va">roc_random_forest</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">test_labels</span>, <span class="va">prob_random_forest</span><span class="op">)</span></span></code></pre></div>
+<p>We then visualize the ROC curves for all three models using <code><a href="https://rdrr.io/pkg/pROC/man/ggroc.html">ggroc()</a></code>:</p>
+<div class="sourceCode" id="cb221"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/pROC/man/ggroc.html">ggroc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">roc_cart</span>, <span class="va">roc_C50</span>, <span class="va">roc_random_forest</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"ROC Curves with AUC for Three Models"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, </span>
 <span>    labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"CART; AUC="</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pROC/man/auc.html">auc</a></span><span class="op">(</span><span class="va">roc_cart</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>, </span>
@@ -523,17 +633,242 @@ Figure 11.6: C5.0 Decision Tree for predicting credit risk based on age and inco
 <span>                <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Random Forest; AUC="</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pROC/man/auc.html">auc</a></span><span class="op">(</span><span class="va">roc_random_forest</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">.7</span>, <span class="fl">.3</span><span class="op">)</span>, text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">17</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="tree_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;"></div>
-<p>The <strong>black</strong> curve represents CART, the <span style="color:red"><strong>red</strong></span> curve represents C5.0, and the <span style="color:green"><strong>green</strong></span> curve represents Random Forest. Based on AUC values, C5.0 performs slightly better, but all three models show comparable accuracy, making them reliable for this classification task.</p>
+<p><img src="tree_files/figure-html/unnamed-chunk-26-1.png" width="90%" style="display: block; margin: auto;">
+In the ROC plot, the <em>black</em> curve represents CART, the <span style="color:red"><em>red</em></span> curve represents C5.0, and the <span style="color:green"><em>green</em></span> curve represents Random Forest. The ROC curves suggest that both C5.0 and Random Forest outperform CART. However, distinguishing between C5.0 and Random Forest based on the ROC curve alone is challenging. Note that in the above ROC plots we also report the AUC values for each model, by using the <code><a href="https://rdrr.io/pkg/pROC/man/auc.html">auc()</a></code> function from the <strong>pROC</strong> package. The AUC values provide further insight:</p>
+<ul>
+<li>CART: AUC = 0.841,<br>
+</li>
+<li>C5.0: AUC = 0.903,</li>
+<li>Random Forest: AUC = 0.899,</li>
+</ul>
+<p>Based on AUC values, C5.0 performs slightly better than the other two models, but all three demonstrate comparable accuracy, making them reliable for this classification task.</p>
 </div>
 </div>
 </div>
-<div id="exercises-8" class="section level2" number="11.6">
+<div id="tree-exercises" class="section level2" number="11.6">
 <h2>
-<span class="header-section-number">11.6</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-8"><i class="fas fa-link"></i></a>
+<span class="header-section-number">11.6</span> Exercises<a class="anchor" aria-label="anchor" href="#tree-exercises"><i class="fas fa-link"></i></a>
 </h2>
-<p>To do …</p>
-
+<p>These exercises test theoretical understanding, interpretation of Decision Trees and Random Forests outputs, and practical implementation in <strong>R</strong> using datasets from the <strong>liver</strong> package.</p>
+<div id="decision-trees-conceptual-questions" class="section level3 unnumbered">
+<h3>Decision Trees: Conceptual Questions<a class="anchor" aria-label="anchor" href="#decision-trees-conceptual-questions"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>Explain the basic structure of a Decision Tree and how it makes predictions.<br>
+</li>
+<li>What are the key differences between <em>classification trees</em> and <em>regression trees</em>?<br>
+</li>
+<li>What is the purpose of <em>splitting criteria</em> in Decision Trees? Describe the <em>Gini Index</em>, <em>Entropy</em>, and <em>Variance Reduction</em>.<br>
+</li>
+<li>Why are <em>Decision Trees prone to overfitting</em>? What techniques can be used to prevent overfitting?<br>
+</li>
+<li>Define <em>pre-pruning</em> and <em>post-pruning</em> in Decision Trees. How do they differ?<br>
+</li>
+<li>Explain the <em>bias-variance tradeoff</em> in Decision Trees.<br>
+</li>
+<li>What are the advantages and disadvantages of Decision Trees compared to <em>logistic regression</em> for classification problems?<br>
+</li>
+<li>What is the role of the <em>maximum depth</em> parameter in a Decision Tree? How does it affect model performance?<br>
+</li>
+<li>Why might a Decision Tree <em>favor continuous variables</em> over categorical variables when constructing splits?<br>
+</li>
+<li>Explain the difference between <em>CART (Classification and Regression Trees)</em> and <em>C5.0 Decision Trees</em>.</li>
+</ol>
+</div>
+<div id="practical-exercises-using-the-churn-dataset-classification-tasks" class="section level3 unnumbered">
+<h3>Practical Exercises Using the Churn Dataset (Classification Tasks)<a class="anchor" aria-label="anchor" href="#practical-exercises-using-the-churn-dataset-classification-tasks"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <em>churn</em> dataset contains information about customer churn behavior in a telecommunications company. The goal is to predict whether a customer will churn based on various attributes.</p>
+<div id="data-preparation-and-partitioning" class="section level4" number="11.6.0.1">
+<h4>
+<span class="header-section-number">11.6.0.1</span> Data Preparation and Partitioning<a class="anchor" aria-label="anchor" href="#data-preparation-and-partitioning"><i class="fas fa-link"></i></a>
+</h4>
+<p>Load the dataset and partition it into a <em>training set</em> (80%) and a <em>test set</em> (20%) using the <code><a href="https://rdrr.io/pkg/liver/man/partition.html">partition()</a></code> function from the <strong>liver</strong> package.</p>
+<div class="sourceCode" id="cb222"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">churn</span>, package <span class="op">=</span> <span class="st">"liver"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">6</span><span class="op">)</span></span>
+<span><span class="va">data_sets</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/liver/man/partition.html">partition</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">churn</span>, ratio <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.8</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">train_set</span> <span class="op">=</span> <span class="va">data_sets</span><span class="op">$</span><span class="va">part1</span></span>
+<span><span class="va">test_set</span>  <span class="op">=</span> <span class="va">data_sets</span><span class="op">$</span><span class="va">part2</span></span>
+<span></span>
+<span><span class="va">test_labels</span> <span class="op">=</span> <span class="va">test_set</span><span class="op">$</span><span class="va">churn</span></span></code></pre></div>
+<ol start="11" style="list-style-type: decimal">
+<li>Fit a <em>Decision Tree</em> using <code>churn</code> as the response variable and <code>day.mins</code>, <code>eve.mins</code>, <code>intl.mins</code>, <code>customer.calls</code>, and <code>voice.plan</code> as predictors.<br>
+</li>
+<li>Visualize the fitted Decision Tree using <code><a href="https://rdrr.io/pkg/rpart.plot/man/rpart.plot.html">rpart.plot()</a></code>. Interpret the tree structure and identify the key decision rules.<br>
+</li>
+<li>Identify the <em>most important predictors</em> in the Decision Tree.<br>
+</li>
+<li>Compute the <em>confusion matrix</em> and evaluate model performance.<br>
+</li>
+<li>Generate the <em>ROC curve</em> and compute the <em>AUC</em> for the Decision Tree model.<br>
+</li>
+<li>Evaluate the effect of <em>pruning</em> on the Decision Tree by adjusting the complexity parameter (<code>cp</code>).<br>
+</li>
+<li>Fit a <em>C5.0 Decision Tree</em> to the same data and compare its performance with the CART model.<br>
+</li>
+<li>Use the <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> function to estimate the probability of churn for a <em>new customer</em> with the following attributes:
+<ul>
+<li>
+<code>day.mins = 200</code><br>
+</li>
+<li>
+<code>eve.mins = 150</code><br>
+</li>
+<li>
+<code>intl.mins = 10</code><br>
+</li>
+<li>
+<code>customer.calls = 3</code><br>
+</li>
+<li>
+<code>voice.plan = "yes"</code><br>
+</li>
+</ul>
+</li>
+<li>Compare the <em>confusion matrix and classification accuracy</em> between CART and C5.0 models.<br>
+</li>
+<li>Implement <em>cross-validation</em> to assess model performance.</li>
+</ol>
+</div>
+</div>
+<div id="random-forests-conceptual-questions" class="section level3 unnumbered">
+<h3>Random Forests: Conceptual Questions<a class="anchor" aria-label="anchor" href="#random-forests-conceptual-questions"><i class="fas fa-link"></i></a>
+</h3>
+<ol start="21" style="list-style-type: decimal">
+<li>What is the fundamental difference between <em>Decision Trees</em> and <em>Random Forests</em>?<br>
+</li>
+<li>How does <em>bagging (Bootstrap Aggregation)</em> improve Random Forest models?<br>
+</li>
+<li>Explain how <em>majority voting</em> works in a Random Forest classification model.<br>
+</li>
+<li>Why does Random Forest tend to <em>outperform a single Decision Tree</em>?<br>
+</li>
+<li>How can we determine <em>feature importance</em> in a Random Forest model?<br>
+</li>
+<li>Explain the <em>limitations of Random Forests</em>.<br>
+</li>
+<li>How does increasing the number of trees (<code>ntree</code>) in a Random Forest affect model performance?</li>
+</ol>
+</div>
+<div id="practical-exercises-using-the-churn-dataset-random-forests-for-classification-tasks" class="section level3 unnumbered">
+<h3>Practical Exercises Using the Churn Dataset (Random Forests for Classification Tasks)<a class="anchor" aria-label="anchor" href="#practical-exercises-using-the-churn-dataset-random-forests-for-classification-tasks"><i class="fas fa-link"></i></a>
+</h3>
+<div id="fitting-and-evaluating-a-random-forest-model" class="section level4 unnumbered">
+<h4>Fitting and Evaluating a Random Forest Model<a class="anchor" aria-label="anchor" href="#fitting-and-evaluating-a-random-forest-model"><i class="fas fa-link"></i></a>
+</h4>
+<ol start="28" style="list-style-type: decimal">
+<li>Fit a <em>Random Forest model</em> using <code>churn</code> as the response and <code>day.mins</code>, <code>eve.mins</code>, <code>intl.mins</code>, <code>customer.calls</code>, and <code>voice.plan</code> as predictors.<br>
+</li>
+<li>Identify the <em>most important variables</em> using <code><a href="https://rdrr.io/pkg/randomForest/man/varImpPlot.html">varImpPlot()</a></code>.<br>
+</li>
+<li>Compare the <em>accuracy of Random Forest</em> with the <em>Decision Tree models (CART and C5.0)</em>.<br>
+</li>
+<li>Compute the <em>confusion matrix</em> for the Random Forest model.<br>
+</li>
+<li>Compute the <em>ROC curve and AUC</em> for the Random Forest model.<br>
+</li>
+<li>Adjust the number of trees (<code>ntree = 200</code>) and evaluate whether increasing the number of trees improves model accuracy.<br>
+</li>
+<li>Use the <code><a href="https://rdrr.io/pkg/randomForest/man/tuneRF.html">tuneRF()</a></code> function to find the optimal value for <code>mtry</code> (number of predictors to consider at each split).<br>
+</li>
+<li>Predict churn probabilities for a <em>new customer</em> using the Random Forest model.<br>
+</li>
+<li>Perform <em>feature selection</em> by training a Random Forest model with <em>only the top 3 most important features</em>.<br>
+</li>
+<li>Evaluate whether the <em>simplified model performs comparably</em> to the full model.</li>
+</ol>
+</div>
+</div>
+<div id="regression-trees-and-random-forests-redwines-dataset" class="section level3 unnumbered">
+<h3>Regression Trees and Random Forests (redWines Dataset)<a class="anchor" aria-label="anchor" href="#regression-trees-and-random-forests-redwines-dataset"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <em>redWines</em> dataset contains wine quality scores (<code>quantity</code>, a score between 0 and 10) and 11 chemical attributes. The goal is to predict <code>quantity</code> using regression trees and Random Forests.</p>
+<div id="data-preparation-and-partitioning-1" class="section level4 unnumbered">
+<h4>Data Preparation and Partitioning<a class="anchor" aria-label="anchor" href="#data-preparation-and-partitioning-1"><i class="fas fa-link"></i></a>
+</h4>
+<p>Load the dataset and partition it into a <em>training set</em> (80%) and a <em>test set</em> (20%) using the <code><a href="https://rdrr.io/pkg/liver/man/partition.html">partition()</a></code> function from the <strong>liver</strong> package.</p>
+<div class="sourceCode" id="cb223"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">redWines</span>, package <span class="op">=</span> <span class="st">"liver"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">6</span><span class="op">)</span></span>
+<span><span class="va">data_sets</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/liver/man/partition.html">partition</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">redWines</span>, ratio <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.8</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">train_set</span> <span class="op">=</span> <span class="va">data_sets</span><span class="op">$</span><span class="va">part1</span></span>
+<span><span class="va">test_set</span>  <span class="op">=</span> <span class="va">data_sets</span><span class="op">$</span><span class="va">part2</span></span>
+<span></span>
+<span><span class="va">test_labels</span> <span class="op">=</span> <span class="va">test_set</span><span class="op">$</span><span class="va">quantity</span></span></code></pre></div>
+</div>
+<div id="conceptual-questions-9" class="section level4 unnumbered">
+<h4>Conceptual Questions<a class="anchor" aria-label="anchor" href="#conceptual-questions-9"><i class="fas fa-link"></i></a>
+</h4>
+<ol start="38" style="list-style-type: decimal">
+<li>How does a <em>regression tree</em> differ from a <em>classification tree</em>?<br>
+</li>
+<li>How is the <em>Mean Squared Error (MSE)</em> used to evaluate regression trees?<br>
+</li>
+<li>Explain why <em>Random Forest regression is generally preferred over a single regression tree</em>.</li>
+</ol>
+</div>
+<div id="practical-exercises-using-the-redwines-dataset" class="section level4 unnumbered">
+<h4>Practical Exercises Using the redWines Dataset<a class="anchor" aria-label="anchor" href="#practical-exercises-using-the-redwines-dataset"><i class="fas fa-link"></i></a>
+</h4>
+<ol start="41" style="list-style-type: decimal">
+<li>Fit a <em>regression tree</em> predicting <code>quantity</code> based on all 11 predictors.<br>
+</li>
+<li>Visualize the tree and interpret the splits. What are the most important variables?<br>
+</li>
+<li>Compute the <em>Mean Squared Error (MSE)</em> of the regression tree.<br>
+</li>
+<li>Fit a <em>Random Forest regression model</em> to predict <code>quantity</code> and compare its performance with the single regression tree.<br>
+</li>
+<li>Compare the <em>MSE of the Random Forest model</em> with that of the regression tree.<br>
+</li>
+<li>Identify the <em>top 3 most important features</em> in the Random Forest model.<br>
+</li>
+<li>Use the trained Random Forest model to predict wine quality for a <em>new observation</em> with the following attributes:
+<ul>
+<li>
+<code>fixed.acidity = 8.5</code><br>
+</li>
+<li>
+<code>volatile.acidity = 0.4</code><br>
+</li>
+<li>
+<code>citric.acid = 0.3</code><br>
+</li>
+<li>
+<code>residual.sugar = 2.0</code><br>
+</li>
+<li>
+<code>chlorides = 0.08</code><br>
+</li>
+<li>
+<code>free.sulfur.dioxide = 30</code><br>
+</li>
+<li>
+<code>total.sulfur.dioxide = 100</code><br>
+</li>
+<li>
+<code>density = 0.995</code><br>
+</li>
+<li>
+<code>pH = 3.2</code><br>
+</li>
+<li>
+<code>sulphates = 0.6</code><br>
+</li>
+<li><code>alcohol = 10.5</code></li>
+</ul>
+</li>
+<li>Use <em>cross-validation</em> to compare the Random Forest model with the regression tree.<br>
+</li>
+<li>Interpret whether Random Forest significantly improves prediction accuracy compared to the single Decision Tree.</li>
+</ol>
+</div>
+</div>
 </div>
 </div>
 
@@ -544,21 +879,37 @@ Figure 11.6: C5.0 Decision Tree for predicting credit risk based on age and inco
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#chapter-tree"><span class="header-section-number">11</span> Decision Trees and Random Forests</a></li>
-<li><a class="nav-link" href="#how-decision-trees-work"><span class="header-section-number">11.1</span> How Decision Trees Work</a></li>
+<li>
+<a class="nav-link" href="#how-decision-trees-work"><span class="header-section-number">11.1</span> How Decision Trees Work</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#making-predictions-with-a-decision-tree">Making Predictions with a Decision Tree</a></li>
+<li><a class="nav-link" href="#controlling-tree-complexity">Controlling Tree Complexity</a></li>
+</ul>
+</li>
 <li><a class="nav-link" href="#classification-and-regression-trees-cart"><span class="header-section-number">11.2</span> Classification and Regression Trees (CART)</a></li>
 <li><a class="nav-link" href="#the-c5.0-algorithm-for-building-decision-trees"><span class="header-section-number">11.3</span> The C5.0 Algorithm for Building Decision Trees</a></li>
-<li><a class="nav-link" href="#random-forests-an-ensemble-approach"><span class="header-section-number">11.4</span> Random Forests: An Ensemble Approach</a></li>
+<li>
+<a class="nav-link" href="#random-forests-an-ensemble-approach"><span class="header-section-number">11.4</span> Random forests: an ensemble approach</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#advantages-and-limitations-of-random-forests">Advantages and limitations of random forests</a></li></ul>
+</li>
 <li>
 <a class="nav-link" href="#tree-case-study"><span class="header-section-number">11.5</span> Case Study: Who Can Earn More Than $50K Per Year?</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#overview-of-the-dataset-1">Overview of the Dataset</a></li>
-<li><a class="nav-link" href="#data-cleaning-and-preparation">Data Cleaning and Preparation</a></li>
+<li><a class="nav-link" href="#data-preparation-3">Data Preparation</a></li>
+<li><a class="nav-link" href="#preparing-data-for-modeling-2">Preparing Data for Modeling</a></li>
 <li><a class="nav-link" href="#decision-tree-with-cart">Decision Tree with CART</a></li>
 <li><a class="nav-link" href="#decision-tree-with-c5.0">Decision Tree with C5.0</a></li>
 <li><a class="nav-link" href="#random-forest">Random Forest</a></li>
-<li><a class="nav-link" href="#model-evaluation">Model Evaluation</a></li>
+<li><a class="nav-link" href="#prediction-and-model-evaluation-1">Prediction and Model Evaluation</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#exercises-8"><span class="header-section-number">11.6</span> Exercises</a></li>
+<li>
+<a class="nav-link" href="#tree-exercises"><span class="header-section-number">11.6</span> Exercises</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#decision-trees-conceptual-questions">Decision Trees: Conceptual Questions</a></li>
+<li><a class="nav-link" href="#practical-exercises-using-the-churn-dataset-classification-tasks">Practical Exercises Using the Churn Dataset (Classification Tasks)</a></li>
+<li><a class="nav-link" href="#random-forests-conceptual-questions">Random Forests: Conceptual Questions</a></li>
+<li><a class="nav-link" href="#practical-exercises-using-the-churn-dataset-random-forests-for-classification-tasks">Practical Exercises Using the Churn Dataset (Random Forests for Classification Tasks)</a></li>
+<li><a class="nav-link" href="#regression-trees-and-random-forests-redwines-dataset">Regression Trees and Random Forests (redWines Dataset)</a></li>
+</ul>
+</li>
 </ul>
 
       <div class="book-extra">
@@ -576,7 +927,7 @@ Figure 11.6: C5.0 Decision Tree for predicting credit risk based on age and inco
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Uncovering Data Science with R</strong>" was written by Reza Mohammadi. It was last built on 2025-02-19.</p>
+    <p>"<strong>Uncovering Data Science with R</strong>" was written by Reza Mohammadi. It was last built on 2025-02-25.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

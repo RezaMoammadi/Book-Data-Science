@@ -281,7 +281,7 @@ summary(risk)
 
 This summary provides an overview of variable distributions and identifies any missing values or potential anomalies. Since the dataset appears clean and well-structured, we can proceed to data preparation before training the Naive Bayes classifier.  
 
-### Data Preparation for Modeling {-}  
+### Preparing Data for Modeling {-}  
 
 Before training the Naive Bayes classifier, we need to split the dataset into training and testing sets. This step ensures that we can evaluate how well the model generalizes to unseen data. We use an 80/20 split, allocating 80% of the data for training and 20% for testing. To maintain consistency with previous chapters, we apply the `partition()` function from the **liver** package:
 
@@ -329,8 +329,8 @@ Several R packages provide implementations of Naive Bayes, with two commonly use
 
 Unlike the k-NN algorithm in the previous chapter, which classifies new data without an explicit training phase, Naive Bayes follows a two-step process:  
 
-1. **Training phase** – The model learns probability distributions from the training data.  
-2. **Prediction phase** – The trained model is used to classify new data points based on the learned probabilities.  
+1. *Training phase* – The model learns probability distributions from the training data.  
+2. *Prediction phase* – The trained model is used to classify new data points based on the learned probabilities.  
 
 To train the model, we define a formula where `risk` is the target variable, and all other features serve as predictors:  
 

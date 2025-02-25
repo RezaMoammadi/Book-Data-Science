@@ -102,7 +102,7 @@
 
 \title{Uncovering Data Science with R}
 \author{Reza Mohammadi}
-\date{2025-02-19}
+\date{2025-02-25}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -286,8 +286,8 @@ Table \ref{tab:data-table} lists the datasets used in this book. These real-worl
 Name & Description & Chapter\\
 \midrule
 \textcolor{black}{\textbf{churn}} & Customer churn dataset. & Chapters 4, 6, 7, 8, 10\\
-\textcolor{black}{\textbf{bank}} & Direct marketing data from a Portuguese bank. & Chapter 7, 12\\
-\textcolor{black}{\textbf{adult}} & US Census data for income prediction. & Chapter 11\\
+\textcolor{black}{\textbf{bank}} & Direct marketing data from a Portuguese bank. & Chapters 7, 12\\
+\textcolor{black}{\textbf{adult}} & US Census data for income prediction. & Chapters 3, 11\\
 \textcolor{black}{\textbf{risk}} & Credit risk dataset. & Chapter 9\\
 \textcolor{black}{\textbf{marketing}} & Marketing campaign performance data. & Chapter 10\\
 \addlinespace
@@ -2688,15 +2688,15 @@ The \passthrough{\lstinline!native.country!} variable contains 41 distinct count
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Europe}: England, France, Germany, Greece, Netherlands, Hungary, Ireland, Italy, Poland, Portugal, Scotland, Yugoslavia\\
+  \emph{Europe}: England, France, Germany, Greece, Netherlands, Hungary, Ireland, Italy, Poland, Portugal, Scotland, Yugoslavia\\
 \item
-  \textbf{Asia}: China, Hong Kong, India, Iran, Cambodia, Japan, Laos, Philippines, Vietnam, Taiwan, Thailand\\
+  \emph{Asia}: China, Hong Kong, India, Iran, Cambodia, Japan, Laos, Philippines, Vietnam, Taiwan, Thailand\\
 \item
-  \textbf{North America}: Canada, United States, Puerto Rico\\
+  \emph{North America}: Canada, United States, Puerto Rico\\
 \item
-  \textbf{South America}: Colombia, Cuba, Dominican Republic, Ecuador, El Salvador, Guatemala, Haiti, Honduras, Mexico, Nicaragua, Outlying US territories, Peru, Jamaica, Trinidad \& Tobago\\
+  \emph{South America}: Colombia, Cuba, Dominican Republic, Ecuador, El Salvador, Guatemala, Haiti, Honduras, Mexico, Nicaragua, Outlying US territories, Peru, Jamaica, Trinidad \& Tobago\\
 \item
-  \textbf{Other}: This includes the ambiguous ``South'' category, as its meaning is unclear in the dataset documentation.\\
+  \emph{Other}: This includes the ambiguous ``South'' category, as its meaning is unclear in the dataset documentation.\\
   We use the \passthrough{\lstinline!fct\_collapse()!} function from the \textbf{forcats} package to reassign categories:
 \end{itemize}
 
@@ -6348,7 +6348,7 @@ library(pROC)
 roc_knn <- roc(response = actual_test, predictor = kNN_prob[, 1])
 \end{lstlisting}
 
-We can then visualize the ROC curve using the \passthrough{\lstinline!ggroc()!} function from the \textbf{ggplot2} package or the \passthrough{\lstinline!plot()!} function for a basic display. Here's the ROC curve for the kNN model:
+We can then visualize the ROC curve using the \passthrough{\lstinline!ggroc()!} function from the \textbf{pROC} package or the \passthrough{\lstinline!plot()!} function for a basic display. Here's the ROC curve for the kNN model:
 
 \begin{lstlisting}[language=R]
 ggroc(roc_knn, colour = "blue") +
@@ -7026,8 +7026,8 @@ summary(risk)
 
 This summary provides an overview of variable distributions and identifies any missing values or potential anomalies. Since the dataset appears clean and well-structured, we can proceed to data preparation before training the Naive Bayes classifier.
 
-\subsection*{Data Preparation for Modeling}\label{data-preparation-for-modeling}
-\addcontentsline{toc}{subsection}{Data Preparation for Modeling}
+\subsection*{Preparing Data for Modeling}\label{preparing-data-for-modeling-1}
+\addcontentsline{toc}{subsection}{Preparing Data for Modeling}
 
 Before training the Naive Bayes classifier, we need to split the dataset into training and testing sets. This step ensures that we can evaluate how well the model generalizes to unseen data. We use an 80/20 split, allocating 80\% of the data for training and 20\% for testing. To maintain consistency with previous chapters, we apply the \passthrough{\lstinline!partition()!} function from the \textbf{liver} package:
 
@@ -7093,9 +7093,9 @@ Unlike the k-NN algorithm in the previous chapter, which classifies new data wit
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  \textbf{Training phase} -- The model learns probability distributions from the training data.\\
+  \emph{Training phase} -- The model learns probability distributions from the training data.\\
 \item
-  \textbf{Prediction phase} -- The trained model is used to classify new data points based on the learned probabilities.
+  \emph{Prediction phase} -- The trained model is used to classify new data points based on the learned probabilities.
 \end{enumerate}
 
 To train the model, we define a formula where \passthrough{\lstinline!risk!} is the target variable, and all other features serve as predictors:
@@ -8825,202 +8825,183 @@ data(bank, package = "liver")
 
 \chapter{Decision Trees and Random Forests}\label{chapter-tree}
 
-As part of the Data Science workflow, we have already explored several powerful algorithms for classification and regression. These include \textbf{k-Nearest Neighbors} and \textbf{Naive Bayes} for classification, as well as \textbf{linear regression models} for both continuous outcomes and classification tasks. In this chapter, we introduce two additional and widely-used techniques: \textbf{Decision Trees} and \textbf{Random Forests}. These algorithms are highly versatile, capable of tackling both classification and regression problems, and they are built around the idea of making a series of hierarchical decisions to classify data or predict outcomes.
+Imagine a bank evaluating loan applications. Given details such as income, age, credit history, and debt-to-income ratio, how does the bank decide whether to approve or reject a loan? Similarly, how do online retailers recommend products based on customer preferences? These decisions, which mimic human reasoning, are often powered by \emph{decision trees}---a simple yet powerful machine learning technique that classifies data by following a series of logical rules.
 
-At their core, \textbf{Decision Trees} employ simple decision-making rules to split the dataset into smaller, more homogeneous subsets, resulting in a tree-like structure of decisions. This step-by-step partitioning allows trees to capture complex relationships in the data while remaining interpretable and intuitive. \textbf{Random Forests}, an extension of Decision Trees, enhance their predictive power by combining the outputs of multiple trees. This ensemble learning approach improves accuracy, reduces overfitting, and provides a more robust solution compared to a single tree.
+Decision trees are widely used in various domains, from medical diagnosis and fraud detection to customer segmentation and automated decision-making. Their intuitive nature makes them highly interpretable, enabling data-driven decision-making without requiring deep mathematical expertise. However, while individual trees are easy to understand, they are prone to overfitting, capturing noise in the data rather than general patterns. \emph{Random forests} address this limitation by combining multiple decision trees to produce a more accurate and stable model.
 
-To illustrate the concept, consider the simple \textbf{Decision Tree} shown in Figure \ref{fig:tree-0}, which predicts whether a customer's credit risk is classified as ``good'' or ``bad'' based on features such as \passthrough{\lstinline!age!} and \passthrough{\lstinline!income!}. This example uses the \passthrough{\lstinline!risk!} dataset introduced in Chapter \ref{chapter-bayes}. Each node in the tree represents a question, such as ``Is yearly income is lower than 36K? (\passthrough{\lstinline!income < 36e+3!})'' or ``Is age \textgreater= 29?'', while the terminal nodes, also known as \textbf{leaves}, represent the final predictions (e.g., ``Good risk'' or ``Bad risk''). Along with the predictions, the tree also provides uncertainty values. The process begins at the \textbf{root node}, and the data is iteratively split into branches based on feature values until it reaches the terminal nodes.
+To see decision trees in action, consider the example in Figure \ref{fig:tree-0}, which predicts whether a customer's credit risk is classified as ``good'' or ``bad'' based on features such as \passthrough{\lstinline!age!} and \passthrough{\lstinline!income!}. This tree is trained on the \passthrough{\lstinline!risk!} dataset, introduced in Chapter \ref{chapter-bayes}, and consists of decision nodes representing yes/no questions, such as whether yearly income is below €36,000 (\passthrough{\lstinline!income < 36e+3!}) or whether age is greater than 29. The final classification is determined at the terminal nodes, also known as leaves.
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.65\linewidth]{tree_files/figure-latex/tree-0-1} 
+{\centering \includegraphics[width=0.75\linewidth]{tree_files/figure-latex/tree-0-1} 
 
 }
 
 \caption{Decision tree for predicting credit risk based on age and income.}\label{fig:tree-0}
 \end{figure}
 
-As shown in Figure \ref{fig:tree-0}, decision trees provide a visually intuitive and interpretable structure that does not require advanced statistical knowledge. This makes them especially valuable in business contexts, where simplicity, interpretability, and actionable insights are critical. Whether it's customer segmentation, risk assessment, or process optimization, decision trees serve as a user-friendly tool for deriving insights and informing decisions.
+Decision trees are highly interpretable, making them especially valuable in domains such as finance, healthcare, and marketing, where understanding model decisions is as important as accuracy. Their structured form allows for easy visualization of decision pathways, helping businesses with customer segmentation, risk assessment, and process optimization.
 
-By the end of this chapter, you will gain:
+In this chapter, we explore how decision trees and random forests work, their strengths and limitations, and how they can be applied to solve real-world problems. By the end of the chapter, you will learn:
 
 \begin{itemize}
 \tightlist
 \item
-  A deep understanding of the mechanics behind \textbf{Decision Trees} and \textbf{Random Forests},\\
+  The mechanics behind \emph{decision trees} and \emph{random forests}.\\
 \item
-  Practical knowledge of building, evaluating, and tuning Decision Trees using algorithms like \textbf{CART} and \textbf{C5.0}, and\\
+  How to build, evaluate, and fine-tune decision trees using algorithms such as \emph{CART} and \emph{C5.0}.\\
 \item
-  The ability to leverage \textbf{Random Forests} for solving real-world problems, such as identifying risky loans, detecting fraudulent transactions, or classifying images.
+  How random forests improve predictive accuracy and generalization through ensemble learning.
 \end{itemize}
 
-We will start by exploring how Decision Trees are constructed, learning about their key concepts and algorithms. Then, we will delve into \textbf{Random Forests}, a powerful ensemble learning method that builds upon the strengths of Decision Trees to deliver state-of-the-art performance across a wide range of applications.
+We begin by examining the core principles of decision trees, including how they make predictions and how their performance can be optimized.
 
 \section{How Decision Trees Work}\label{how-decision-trees-work}
 
-Decision Trees classify data or predict outcomes by recursively dividing a dataset into smaller subsets based on feature values. This \textbf{divide and conquer} approach aims to maximize the homogeneity of the subsets at each step, creating groups that are as similar as possible. At each split, the algorithm identifies the feature and threshold that best separate the data, using criteria such as the \textbf{Gini Index}, \textbf{Entropy}, or \textbf{Variance Reduction}, depending on whether the task is classification or regression. The process continues until one of the following conditions is met:
+A decision tree classifies or predicts outcomes by systematically dividing a dataset into smaller, more uniform groups based on feature values. Each split refines the classification or prediction, creating a structured, tree-like model. This \emph{divide-and-conquer} approach is widely used in classification and regression due to its intuitive nature and ability to model complex decision-making processes.
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  The tree reaches a predefined maximum depth,\\
-\item
-  All observations in a subset belong to the same class (for classification) or share the same value (for regression), or\\
-\item
-  Further splits fail to improve the model's performance.
-\end{enumerate}
+At each step, the algorithm selects the feature and threshold that best separate the data. This decision is based on metrics such as the \emph{Gini Index}, \emph{Entropy}, or \emph{Variance Reduction}, depending on the problem type. The tree continues growing until it meets a stopping criterion, such as reaching a predefined maximum depth, forming perfectly homogeneous subsets, or when further splits no longer improve performance.
 
-This iterative process creates a \textbf{binary tree}, where each \textbf{node} represents a decision test (e.g., ``Is \(x_1 < 10\)?''), and each \textbf{leaf} represents the final prediction (e.g., ``Class A'' or ``Class B''). Decision Trees are highly interpretable, as their structure visually represents the decision-making process, making them particularly useful for understanding how predictions are made.
-
-To better understand how Decision Trees work, consider a toy dataset with two features (\(x_1\) and \(x_2\)) and two classes (Class A and Class B), as shown in Figure \ref{fig:tree-1}. The dataset contains 50 data points, and the goal is to classify these points into their respective classes using a Decision Tree.
+To see this process in action, consider a simple dataset with two features (\(x_1\) and \(x_2\)) and two classes (Class A and Class B), as shown in Figure \ref{fig:tree-1}. The dataset consists of 50 data points, and the goal is to classify them into their respective categories.
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.65\linewidth]{images/ex_tree_1} 
+{\centering \includegraphics[width=0.7\linewidth]{images/ex_tree_1} 
 
 }
 
 \caption{A two-dimensional toy dataset (50 observations) with two classes (Class A and Class B), used to illustrate how to build Decision Trees.}\label{fig:tree-1}
 \end{figure}
 
-The process starts by identifying the feature and threshold that best separate the two classes. The algorithm evaluates all possible thresholds for each feature and selects the split that maximizes homogeneity in the resulting subsets. For this dataset, the best split is based on the feature \(x_1\), with a decision boundary at \(x_1 = 10\).
-
-As shown in Figure \ref{fig:tree-2}, this split divides the dataset into two regions:
+The process begins by identifying the feature and threshold that best separate the two classes. The algorithm evaluates all possible splits and selects the one that maximizes homogeneity in the resulting subsets. For this dataset, the optimal split occurs at \(x_1 = 10\), dividing the dataset into two regions:
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Left region}: Data points where \(x_1 < 10\), which are 80\% Class A and 20\% Class B.\\
+  The left region contains data points where \(x_1 < 10\), with 80\% belonging to Class A and 20\% to Class B.
 \item
-  \textbf{Right region}: Data points where \(x_1 \geq 10\), which are 28\% Class A and 72\% Class B.
+  The right region contains data points where \(x_1 \geq 10\), with 28\% in Class A and 72\% in Class B.
 \end{itemize}
 
-The test \(x_1 < 10\) forms the \textbf{root node} of the tree, and the two regions correspond to the left and right branches of the tree.
+This first split is illustrated in Figure \ref{fig:tree-2}, where the decision boundary is drawn at \(x_1 = 10\).
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.9\linewidth]{images/ex_tree_2} 
+{\centering \includegraphics[width=1\linewidth]{images/ex_tree_2} 
 
 }
 
 \caption{Left: Decision boundary for a tree with depth 1. Right: The corresponding Decision Tree.}\label{fig:tree-2}
 \end{figure}
 
-Although the first split significantly separates the two classes, both regions still contain points from both classes. To further improve classification accuracy, the algorithm recursively evaluates additional splits within each region.
+Although this split improves class separation, some overlap remains, suggesting that further refinement is needed. The tree-building process continues by introducing additional splits based on \(x_2\), creating smaller, more homogeneous groups.
 
-In Figure \ref{fig:tree-3}, the second split is made using the feature \(x_2\). For the left region (\(x_1 < 10\)), the optimal threshold is \(x_2 = 6\), while for the right region (\(x_1 \geq 10\)), the threshold is \(x_2 = 8\). These additional splits refine the boundaries of the feature space, creating smaller and more homogeneous regions.
+In Figure \ref{fig:tree-3}, the algorithm identifies new thresholds: \(x_2 = 6\) for the left region and \(x_2 = 8\) for the right region. These additional splits refine the classification process, improving the model's ability to distinguish between the two classes.
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.9\linewidth]{images/ex_tree_3} 
+{\centering \includegraphics[width=1\linewidth]{images/ex_tree_3} 
 
 }
 
 \caption{Left: Decision boundary for a tree with depth 2. Right: The corresponding Decision Tree.}\label{fig:tree-3}
 \end{figure}
 
-The splitting process continues until the tree meets a stopping condition, such as reaching a maximum depth or producing pure leaf nodes (regions containing data points from only one class). Figure \ref{fig:tree-4} shows the final tree, grown to a depth of 5. The decision boundaries on the left illustrate how the feature space is partitioned into regions, each associated with a specific class.
+This recursive process continues until the tree reaches a stopping criterion. Figure \ref{fig:tree-4} shows a fully grown tree with a depth of 5, demonstrating how decision trees create increasingly refined decision boundaries.
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.9\linewidth]{images/ex_tree_4} 
+{\centering \includegraphics[width=1\linewidth]{images/ex_tree_4} 
 
 }
 
 \caption{Left: Decision boundary for a tree with depth 5. Right: The corresponding Decision Tree.}\label{fig:tree-4}
 \end{figure}
 
-At this depth, the tree has created highly specific decision boundaries that closely match the training data. However, this specificity often leads to \textbf{overfitting}, where the model captures noise or outliers in the data instead of general patterns. Overfitted trees may perform poorly on unseen data.
+At this depth, the tree has created highly specific decision boundaries that closely match the training data. While this deep tree perfectly classifies the training data, it may not generalize well to new observations. The model has likely captured not just meaningful patterns but also noise, a problem known as \emph{overfitting}. Overfitted trees perform well on training data but struggle to make accurate predictions on unseen data.
 
-To make predictions with a Decision Tree, the algorithm evaluates the test conditions at each node and follows the corresponding branch until it reaches a leaf. The prediction depends on the type of task:
+\subsection*{Making Predictions with a Decision Tree}\label{making-predictions-with-a-decision-tree}
+\addcontentsline{toc}{subsection}{Making Predictions with a Decision Tree}
 
-\begin{itemize}
-\tightlist
-\item
-  \textbf{For classification}, the predicted class is the majority class of the points in the leaf.
-\item
-  \textbf{For regression}, the predicted value is the mean of the target variable for all points in the leaf.
-\end{itemize}
+After a decision tree is built, making predictions involves following the decision rules from the root node down to a leaf. Each split refines the prediction until a final classification or numerical estimate is reached.
 
-For example, in Figure \ref{fig:tree-3}, a new data point with \(x_1 = 8\) and \(x_2 = 4\) would traverse to the left region (\(x_1 < 10\)), then to the bottom-left region (\(x_2 < 6\)), ultimately landing in a leaf labeled as Class A with 80\% confidence and a 20\% error rate.
+For classification tasks, the tree assigns a new observation to the most common class in the leaf where it ends up. For regression tasks, the predicted outcome is the average target value of the data points in that leaf.
 
-Decision Trees can also handle regression tasks by following the same splitting process but minimizing the \textbf{variance} of the target variable instead of maximizing class homogeneity. For regression, the prediction for a new data point is the average target value of all training points in the corresponding leaf. This allows Decision Trees to model non-linear relationships effectively.
-
-Controlling the complexity of a Decision Tree is crucial to prevent overfitting. Fully growing a tree until all leaves are pure often results in a highly complex model that perfectly fits the training data but performs poorly on unseen data. This can be observed in Figure \ref{fig:tree-4}, where the decision boundaries overfit the training set, capturing outliers and noise.
-
-To address this, two strategies are commonly used:
+To illustrate, consider a new data point with \(x_1 = 8\) and \(x_2 = 4\) in Figure \ref{fig:tree-3}. The tree classifies it by following these steps:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  \textbf{Pre-pruning}: Stop the tree-building process early based on criteria such as limiting the maximum depth, the number of leaf nodes, or the minimum number of points required to split a node.\\
+  Since \(x_1 = 8\), the point moves to the left branch (\(x_1 < 10\)).\\
 \item
-  \textbf{Post-pruning}: Build the full tree and then simplify it by removing or collapsing nodes that provide little additional value.
+  Since \(x_2 = 4\), the point moves to the lower-left region (\(x_2 < 6\)).\\
+\item
+  The final leaf node assigns the point to Class A with 80\% confidence.
 \end{enumerate}
 
-The effectiveness of these strategies depends on the dataset and the application. The choice of the split criterion---such as the \textbf{Gini Index}, \textbf{Entropy}, or \textbf{Variance Reduction}---also plays a crucial role in determining the tree's performance. These criteria are foundational to the two most widely used Decision Tree algorithms, \textbf{CART} and \textbf{C5.0}, which will be explored in the following sections.
+This step-by-step traversal of the tree ensures that predictions remain interpretable, making decision trees particularly useful in applications where understanding how a prediction was made is as important as accuracy.
+
+\subsection*{Controlling Tree Complexity}\label{controlling-tree-complexity}
+\addcontentsline{toc}{subsection}{Controlling Tree Complexity}
+
+While decision trees are powerful, they can easily grow too complex, capturing noise rather than meaningful patterns. To improve generalization, various techniques help regulate tree complexity and prevent overfitting.
+
+One approach is \textbf{pre-pruning}, which restricts tree growth during training by enforcing stopping criteria. These may include setting a maximum tree depth, requiring a minimum number of samples per node, or enforcing a minimum improvement in information gain at each split. By stopping early, pre-pruning prevents the tree from fitting the data too closely, reducing the risk of overfitting.
+
+Alternatively, \textbf{post-pruning} allows the tree to grow fully before simplifying it. Once the tree is built, unnecessary nodes that contribute little to predictive accuracy are removed or merged. This approach often improves interpretability while maintaining performance.
+
+The choice between pre-pruning and post-pruning depends on the dataset and problem at hand. Additionally, the way splits are chosen---using criteria such as \emph{Gini Index}, \emph{Entropy}, or \emph{Variance Reduction}---plays a crucial role in determining tree performance. These will be explored in later sections.
 
 \section{Classification and Regression Trees (CART)}\label{classification-and-regression-trees-cart}
 
-The \textbf{Classification and Regression Trees (CART)} algorithm, introduced by Breiman et al.~in 1984 \citep{breiman1984classification}, is one of the most widely used methods for constructing decision trees. CART generates \textbf{binary trees}, meaning that each decision node splits the data into exactly two branches. It recursively partitions the training dataset into subsets of records that share similar values for the target variable. This partitioning is guided by a splitting criterion designed to minimize impurity in the resulting subsets. For classification tasks, CART employs measures such as the \textbf{Gini Index} or \textbf{Entropy} to evaluate splits, while for regression tasks, it minimizes the \textbf{Variance} of the target variable.
+The classification and regression trees (CART) algorithm, introduced by Breiman et al.~in 1984 \citep{breiman1984classification}, is one of the most widely used methods for constructing decision trees. CART generates binary trees, meaning that each decision node splits the data into exactly two branches. It recursively partitions the training dataset into subsets of records that share similar values for the target variable. This partitioning is guided by a splitting criterion designed to minimize impurity in the resulting subsets. For classification tasks, CART employs measures such as the Gini index or entropy to evaluate splits, while for regression tasks, it minimizes the variance of the target variable.
 
-As an example, the \textbf{Gini Index} is commonly used to measure impurity in classification tasks. The Gini Index for a node is calculated as:
+The Gini index is commonly used to measure impurity in classification tasks. It is calculated as:
 
 \[
 Gini = 1 - \sum_{i=1}^k p_i^2
 \]
 
-where \(p_i\) represents the proportion of samples in the node that belong to class \(i\), and \(k\) is the total number of classes. A node is considered ``pure'' when all the data points in it belong to a single class, resulting in a Gini Index of 0. During tree construction, CART selects the feature and threshold that result in the largest reduction in impurity, splitting the data to create two more homogeneous child nodes.
+where \(p_i\) represents the proportion of samples in the node that belong to class \(i\), and \(k\) is the total number of classes. A node is considered pure when all data points in it belong to a single class, resulting in a Gini index of zero. During tree construction, CART selects the feature and threshold that result in the largest reduction in impurity, splitting the data to create two more homogeneous child nodes.
 
-The recursive nature of CART can result in highly detailed trees that perfectly fit the training data. While this ensures the lowest possible error rate on the training set, it can lead to \textbf{overfitting}, where the tree becomes overly complex and fails to generalize to unseen data. To mitigate this, CART employs a technique called \textbf{pruning} to simplify the tree.
+The recursive nature of CART can lead to highly detailed trees that fit the training data perfectly. While this minimizes the error rate on the training set, it often results in overfitting, where the tree becomes overly complex and fails to generalize to unseen data. To mitigate this, CART employs pruning techniques to simplify the tree.
 
-Pruning involves cutting back branches of the tree that do not contribute meaningfully to its predictive accuracy on a validation set. This is achieved by finding an adjusted error rate that penalizes overly complex trees with too many leaf nodes. The goal of pruning is to strike a balance between accuracy and simplicity, enhancing the tree's ability to generalize to new data. The pruning process is described in detail by Breiman et al. \citep{breiman1984classification}.
+Pruning involves trimming branches that do not contribute meaningfully to predictive accuracy on a validation set. This is achieved by finding an adjusted error rate that penalizes overly complex trees with too many leaf nodes. The goal of pruning is to balance accuracy and simplicity, enhancing the tree's ability to generalize to new data. The pruning process is discussed in detail by Breiman et al. \citep{breiman1984classification}.
 
-Despite its simplicity, CART is a powerful algorithm that has been widely adopted in practice. Its key strengths include:
+Despite its simplicity, CART is widely used in practice due to its interpretability, versatility, and ability to handle both classification and regression tasks. The tree structure provides an intuitive way to visualize decision-making, making it highly explainable. Additionally, CART works well with both numerical and categorical data, making it applicable across a range of domains.
 
-\begin{itemize}
-\tightlist
-\item
-  \textbf{Interpretability:} The tree structure is intuitive and easy to visualize, making CART models highly explainable.\\
-\item
-  \textbf{Versatility:} CART can handle both classification and regression tasks effectively.\\
-\item
-  \textbf{Ability to handle mixed data types:} CART works seamlessly with datasets containing both numerical and categorical variables.
-\end{itemize}
+However, CART has limitations. The algorithm tends to produce deep trees that may overfit the training data, particularly when the dataset is small or noisy. Its reliance on greedy splitting can also result in suboptimal splits, as it evaluates one feature at a time rather than considering all possible combinations.
 
-However, CART also has limitations. The algorithm tends to produce deep trees that may overfit the training data, especially when the dataset is small or noisy. Additionally, CART's reliance on greedy splitting can result in suboptimal splits, as it evaluates one split at a time rather than considering all possible combinations.
-
-To address these shortcomings, more advanced algorithms have been developed, such as \textbf{C5.0}, which incorporates improvements in splitting and pruning techniques, and \textbf{Random Forests}, which combine multiple decision trees to create more robust models. These approaches build on the foundations of CART, improving its performance and reducing its susceptibility to overfitting. We will explore these methods in subsequent sections.
+To address these shortcomings, more advanced algorithms have been developed, such as C5.0, which incorporates improvements in splitting and pruning techniques, and random forests, which combine multiple decision trees to create more robust models. These approaches build on the foundations of CART, improving performance and reducing susceptibility to overfitting. The following sections explore these methods in detail.
 
 \section{The C5.0 Algorithm for Building Decision Trees}\label{the-c5.0-algorithm-for-building-decision-trees}
 
-The \textbf{C5.0 algorithm} is one of the most well-known and widely used decision tree implementations. Developed by J. Ross Quinlan, C5.0 is an advanced iteration of his earlier algorithms, \textbf{C4.5} and \textbf{ID3} (Iterative Dichotomiser 3). Building upon the strengths of its predecessors, C5.0 introduces several improvements in efficiency, flexibility, and accuracy, making it a popular choice for both academic and commercial applications. While Quinlan offers a commercial version of C5.0 (available at \href{http://www.rulequest.com/}{RuleQuest}), a single-threaded implementation has been made publicly available and has been incorporated into open-source tools such as R.
+The C5.0 algorithm, developed by J. Ross Quinlan, is an advanced iteration of earlier decision tree models, including C4.5 and ID3 (Iterative Dichotomiser 3). It introduces improvements in efficiency, flexibility, and accuracy, making it a widely used approach in both academic research and practical applications. While a commercial version is available through \href{http://www.rulequest.com/}{RuleQuest}, an open-source implementation is integrated into R and other machine learning tools.
 
-C5.0 differs from other decision tree algorithms, such as CART, in several key ways. Unlike CART, which only produces binary trees, C5.0 allows for more flexible tree structures with non-binary splits. For categorical attributes, C5.0 can create separate branches for each unique value of the attribute, which can lead to highly ``bushy'' trees if the attribute has many categories. Another major distinction lies in the way node homogeneity is measured. While CART uses metrics like the Gini Index or Variance Reduction, C5.0 employs \textbf{Entropy} and \textbf{Information Gain}, concepts rooted in information theory, to evaluate the optimal splits.
+C5.0 differs from other decision tree algorithms, such as CART, in several ways. Unlike CART, which constructs strictly binary trees, C5.0 allows for multi-way splits, particularly for categorical attributes. This can lead to more compact and interpretable trees when dealing with variables that have many distinct categories. Another key distinction lies in how the algorithm evaluates node purity. While CART uses measures such as the Gini index or variance reduction, C5.0 relies on entropy and information gain, concepts derived from information theory.
 
-Entropy measures the level of disorder or randomness in a dataset. High entropy indicates a dataset with high diversity (e.g., a mix of classes), whereas low entropy signifies greater homogeneity (e.g., all samples belong to the same class). The goal of the C5.0 algorithm is to identify splits that reduce entropy, creating purer subsets of data at each step of the tree-building process. Formally, entropy for a variable \(x\) with \(k\) classes is defined as:
+Entropy measures the degree of disorder in a dataset. Higher entropy indicates greater diversity among classes, while lower entropy suggests more homogeneous groups. The goal of C5.0 is to identify feature splits that reduce entropy, leading to purer subsets at each step of tree construction. The entropy for a variable \(x\) with \(k\) classes is defined as:
 
 \[
 Entropy(x) = - \sum_{i=1}^k p_i \log_2(p_i)
 \]
 
-Here, \(p_i\) is the proportion of samples belonging to class \(i\). For example, if a dataset contains an even split between two classes, the entropy is at its maximum. Conversely, if all samples belong to a single class, entropy is zero. This concept extends naturally to the calculation of \textbf{Information Gain}, which quantifies the reduction in entropy achieved by splitting the data on a particular feature. Given a candidate split \(S\) that divides a dataset \(T\) into subsets \(T_1, T_2, \dots, T_c\), the entropy after the split is calculated as a weighted sum of the entropies of the subsets:
+where \(p_i\) represents the proportion of samples in class \(i\). A dataset with equal distribution among classes has maximum entropy, whereas a dataset with all samples belonging to the same class has entropy equal to zero. Using this measure, the algorithm calculates information gain, which quantifies the reduction in entropy resulting from a particular split. Given a candidate split \(S\) that divides dataset \(T\) into subsets \(T_1, T_2, \dots, T_c\), the entropy after splitting is computed as:
 
 \[
 H_S(T) = \sum_{i=1}^c \frac{|T_i|}{|T|} \cdot Entropy(T_i)
 \]
 
-The \textbf{Information Gain} for the split \(S\) is then:
+The information gain from the split is then:
 
 \[
 gain(S) = H(T) - H_S(T)
 \]
 
-where \(H(T)\) represents the entropy of the dataset before the split. At each decision node, the C5.0 algorithm evaluates all possible splits and selects the one that maximizes information gain. This process ensures that the splits lead to progressively purer subsets, improving the accuracy of the model.
+where \(H(T)\) represents the entropy before the split. The algorithm evaluates all potential splits and selects the one that maximizes information gain, ensuring that each decision step results in purer subsets.
 
-To illustrate the C5.0 algorithm, consider its application to the \passthrough{\lstinline!risk!} dataset, which predicts credit risk (``good'' or ``bad'') based on features like \passthrough{\lstinline!age!} and \passthrough{\lstinline!income!}. Figure \ref{fig:tree-C50} shows the resulting decision tree, created using the \passthrough{\lstinline!C5.0!} function from the \passthrough{\lstinline!C50!} package in R. Each node in the tree represents a decision based on a feature value, and the branches lead to subsets of data that become progressively more homogeneous.
+To illustrate how C5.0 constructs decision trees, consider its application to the \passthrough{\lstinline!risk!} dataset, which classifies a customer's credit risk as good or bad based on features such as \passthrough{\lstinline!age!} and \passthrough{\lstinline!income!}. Figure \ref{fig:tree-C50} shows a decision tree trained using the \passthrough{\lstinline!C5.0!} function from the \passthrough{\lstinline!C50!} package in R.
 
 \begin{figure}
 
@@ -9031,150 +9012,273 @@ To illustrate the C5.0 algorithm, consider its application to the \passthrough{\
 \caption{C5.0 Decision Tree for predicting credit risk based on age and income.}\label{fig:tree-C50}
 \end{figure}
 
-The tree in Figure \ref{fig:tree-C50} demonstrates how the algorithm uses entropy and information gain to construct splits that best separate the classes. Unlike the strictly binary splits produced by CART, C5.0 allows for multi-way splits when working with categorical attributes, which can create trees with variable shapes. This flexibility often leads to more compact trees that are easier to interpret, especially for datasets with categorical variables.
+The tree demonstrates how C5.0 selects splits to separate classes. Unlike CART, which only allows binary splits, C5.0 enables multi-way splits when dealing with categorical features. This flexibility can lead to trees that are more concise and easier to interpret, particularly in datasets where categorical variables play a significant role.
 
-C5.0 offers several advantages over other decision tree algorithms. It is computationally efficient, making it suitable for large datasets, and its flexibility in handling non-binary splits allows for more nuanced tree structures. Additionally, C5.0 incorporates advanced features such as \textbf{feature weighting}, which allows the algorithm to prioritize more relevant features during the tree-building process. This can improve model performance by focusing on the most important predictors.
+C5.0 has several advantages over other decision tree algorithms. It is computationally efficient, making it well-suited for large datasets, and its ability to handle multi-way splits enables more nuanced decision-making. Additionally, it incorporates feature weighting, prioritizing the most informative predictors, which can improve model accuracy.
 
-Despite its strengths, the C5.0 algorithm is not without limitations. Trees generated by C5.0 can become overly complex or ``bushy,'' particularly when working with categorical attributes that have many unique values. This complexity can make the trees harder to interpret and may lead to overfitting. To address these issues, pruning techniques can be applied to simplify the tree and improve its generalizability. Additionally, the computational cost of evaluating multiple splits for categorical features may increase for large datasets with high cardinality, although this is mitigated by C5.0's overall efficiency.
+However, C5.0 is not without limitations. The trees it generates can become overly complex, particularly when categorical attributes contain many unique values, increasing the risk of overfitting. To mitigate this, pruning techniques can be applied to simplify the tree while preserving accuracy. Another challenge is the computational cost of evaluating multiple splits for categorical variables, which can increase processing time for large datasets, though C5.0's optimizations help reduce this impact.
 
-In summary, the C5.0 algorithm is a powerful and versatile tool for building decision trees. By leveraging concepts like entropy and information gain, it constructs models that are both accurate and interpretable. While it shares many similarities with CART, its ability to handle multi-way splits and its use of information theory make it a distinct and valuable alternative. The C5.0 algorithm is widely used in fields such as finance, healthcare, and marketing, where decision tree models provide actionable insights and transparent decision-making processes. In the next section, we will explore \textbf{Random Forests}, an ensemble learning technique that builds upon decision trees to further enhance accuracy and robustness.
+In summary, C5.0 builds upon earlier decision tree models by leveraging entropy and information gain to construct accurate and interpretable decision rules. Its ability to create multi-way splits makes it particularly effective for categorical data, while its efficiency allows it to scale well. In the next section, we explore random forests, an ensemble learning technique that enhances decision tree models by combining multiple trees for improved accuracy and robustness.
 
-\section{Random Forests: An Ensemble Approach}\label{random-forests-an-ensemble-approach}
+\section{Random forests: an ensemble approach}\label{random-forests-an-ensemble-approach}
 
-While Decision Trees are powerful and intuitive, they are prone to overfitting, particularly when grown to their full depth. \textbf{Random Forests} \citep{breiman2001random} address this limitation by adopting an ensemble approach that combines the predictions of multiple Decision Trees to produce a more robust and accurate model. Instead of relying on a single tree, Random Forests aggregate the predictions of many trees, reducing overfitting and enhancing performance on complex datasets.
+Decision trees are effective models, but they tend to overfit, particularly when grown to their full depth. Random forests address this limitation by combining multiple decision trees into an ensemble, producing a more accurate and robust model. Instead of relying on a single tree, random forests aggregate the predictions of many trees, reducing overfitting and improving performance on complex datasets.
 
-The Random Forest algorithm introduces two key elements of randomness to improve model diversity:
+The algorithm introduces two key elements of randomness to enhance model diversity:
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
+\begin{itemize}
 \tightlist
 \item
-  \textbf{Bootstrap Aggregation (Bagging):} Each tree is trained on a random subset of the training data, created by sampling with replacement. This means that some observations appear multiple times in a tree's training data, while others may be excluded. This diversity ensures that each tree learns slightly different patterns.\\
+  \textbf{Bootstrap aggregation (bagging):} Each tree is trained on a random subset of the training data, created by sampling with replacement. This means some observations appear multiple times in a tree's training data, while others may be excluded. This diversity ensures that each tree learns slightly different patterns.\\
 \item
-  \textbf{Random Feature Selection:} At each split, the algorithm considers a random subset of features instead of evaluating all features. This further decorrelates the trees, as each tree is forced to rely on different combinations of features to make decisions.
-\end{enumerate}
+  \textbf{Random feature selection:} At each split, the algorithm considers a random subset of features instead of evaluating all features. This decorrelates the trees, forcing them to rely on different combinations of features.
+\end{itemize}
 
 Once the forest is built, the predictions from all trees are aggregated to produce the final output:
 
 \begin{itemize}
 \tightlist
 \item
-  For \textbf{classification}, the final prediction is determined by \textbf{majority voting}, where each tree votes for a class, and the most common class is selected.\\
+  For classification, the final prediction is determined by majority voting, where each tree votes for a class, and the most common class is selected.\\
 \item
-  For \textbf{regression}, the final output is the average of the predictions from all trees.
+  For regression, the final output is the average of the predictions from all trees.
 \end{itemize}
 
-The strength of Random Forests lies in the principle of the \textbf{``wisdom of the crowd.''} Individually, each tree is a weak learner, as it is trained on a limited subset of data and features. However, when combined, their collective predictions form a strong learner. By leveraging the diversity of individual trees, Random Forests reduce the likelihood that errors made by any single tree will dominate the overall model.
+The strength of random forests lies in their ability to leverage diversity. Individually, each tree is trained on a limited subset of data and features, making it a weak learner. However, when combined, their collective predictions form a stronger model. By aggregating multiple trees, random forests reduce the risk of errors from any single tree dominating the overall prediction.
 
-Additionally, the randomness introduced through feature selection ensures that no single feature dominates the model, making Random Forests particularly effective for datasets with \textbf{correlated} or \textbf{redundant features}. This feature-level decorrelation enhances the ensemble's ability to generalize to unseen data.
+Additionally, the randomness introduced through feature selection ensures that no single feature dominates the model, making random forests particularly effective for datasets with correlated or redundant features. This feature-level decorrelation enhances their ability to generalize to unseen data.
 
-Random Forests have several notable advantages:
+\subsection*{Advantages and limitations of random forests}\label{advantages-and-limitations-of-random-forests}
+\addcontentsline{toc}{subsection}{Advantages and limitations of random forests}
+
+\textbf{Advantages}
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Reduced Overfitting:} By averaging the predictions of multiple trees, Random Forests smooth out the noise and variance present in individual trees, leading to better generalization.\\
+  Reduced overfitting: By averaging predictions from multiple trees, random forests smooth out noise and variance, leading to better generalization.\\
 \item
-  \textbf{High Accuracy:} Random Forests perform well on both classification and regression tasks, particularly for datasets with non-linear relationships or high-dimensional feature spaces.\\
+  High accuracy: They perform well on both classification and regression tasks, particularly for datasets with non-linear relationships or high-dimensional feature spaces.\\
 \item
-  \textbf{Feature Importance:} The algorithm provides \textbf{feature importance scores}, enabling us to identify the most influential predictors. This is especially useful for feature selection and gaining insights into the underlying data.\\
+  Feature importance ranking: The algorithm provides feature importance scores, helping to identify the most influential predictors.\\
 \item
-  \textbf{Robustness:} Random Forests are resilient to noise and outliers, as the ensemble effect reduces the impact of anomalies on the final prediction.\\
+  Robustness: They are resilient to noise and outliers, as the ensemble effect reduces the impact of anomalies on the final prediction.\\
 \item
-  \textbf{Flexibility:} Random Forests can handle both numerical and categorical data and adapt well to diverse types of problems.
+  Flexibility: Random forests can handle both numerical and categorical data and adapt well to different types of problems.
 \end{itemize}
 
-Despite their strengths, Random Forests have some limitations:
+\textbf{Limitations}
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Computational Complexity:} Training hundreds or thousands of trees can be computationally intensive, especially on large datasets. However, this can be mitigated through parallel processing, as each tree is built independently.\\
+  Computational complexity: Training hundreds or thousands of trees can be computationally intensive, especially on large datasets. However, this can be mitigated through parallel processing, as each tree is built independently.\\
 \item
-  \textbf{Reduced Interpretability:} While individual Decision Trees are highly interpretable, the ensemble nature of Random Forests makes it difficult to understand the collective decision-making process of the model.\\
+  Reduced interpretability: While individual decision trees are easy to interpret, the ensemble nature of random forests makes it difficult to understand how individual features contribute to predictions.\\
 \item
-  \textbf{Bias-Variance Tradeoff:} Although Random Forests reduce variance through bagging, they may sometimes smooth over complex relationships in the data that a single, well-tuned Decision Tree could capture.
+  Potential loss of fine details: Although random forests reduce variance, they may smooth over intricate relationships that a well-tuned single decision tree could capture.
 \end{itemize}
 
-Random Forests strike a balance between accuracy and robustness, addressing many of the weaknesses of individual Decision Trees while retaining their strengths. They are well-suited for both classification and regression tasks and are particularly effective in scenarios with noisy or high-dimensional data. Moreover, their ability to compute feature importance scores provides valuable insights into the drivers of the model's predictions, making them not only a predictive tool but also an exploratory one.
+Random forests balance accuracy and robustness, addressing many of the weaknesses of individual decision trees while retaining their strengths. They are particularly effective in scenarios with noisy or high-dimensional data. Their ability to compute feature importance scores also provides valuable insights into the drivers of model predictions, making them useful for both predictive modeling and exploratory data analysis.
 
-Random Forests have become one of the most widely used machine learning algorithms due to their versatility, reliability, and strong performance across a variety of applications. In the next section, we will apply Random Forests, along with Decision Trees, to the \textbf{adult dataset} to explore the question: \emph{Who can earn more than \$50K per year?} This case study will provide a practical demonstration of how these models work and how they can be evaluated and compared in a real-world scenario.
+Random forests have become one of the most widely used machine learning algorithms due to their versatility, reliability, and strong performance across a variety of applications. In the next section, we apply random forests, along with decision trees, to a case study predicting income levels. This practical example demonstrates how these models work and how they can be evaluated in real-world scenarios.
 
 \section{Case Study: Who Can Earn More Than \$50K Per Year?}\label{tree-case-study}
 
-To demonstrate the practical application of Decision Trees and Random Forests, we use the \emph{adult} dataset, which provides demographic and income information about individuals. This dataset, sourced from the \href{https://www.census.gov}{US Census Bureau}, is widely used to predict whether an individual earns more than \$50,000 per year based on features such as education, hours worked per week, marital status, and more. The objective of this binary classification problem is to categorize individuals into one of two income groups: \passthrough{\lstinline!<=50K!} or \passthrough{\lstinline!>50K!}, with the features serving as predictors and the target variable being \passthrough{\lstinline!income!}.
+Predicting income levels is an important task in fields such as finance, marketing, and public policy. Banks use income models to assess creditworthiness, employers analyze salary trends for compensation planning, and governments rely on income predictions for taxation and social welfare policies. In this case study, we explore how decision trees and random forests can be applied to classify individuals based on their likelihood of earning more than \$50,000 per year.
+
+For this analysis, we use the \emph{adult} dataset, a well-known benchmark dataset sourced from the \href{https://www.census.gov}{US Census Bureau} and available in the \textbf{liver} package. This dataset was previously introduced in Section \ref{Data-pre-adult} as part of the data preparation chapter (\ref{chapter-data-prep}). It contains demographic and employment-related attributes, such as education, working hours, marital status, and occupation, all of which influence earning potential. The goal is to build a classification model that predicts whether an individual belongs to one of two income groups: \passthrough{\lstinline!<=50K!} or \passthrough{\lstinline!>50K!}, treating \passthrough{\lstinline!income!} as the target variable.
 
 \subsection*{Overview of the Dataset}\label{overview-of-the-dataset-1}
 \addcontentsline{toc}{subsection}{Overview of the Dataset}
 
-We begin by loading the dataset and examining its structure:
+The \emph{adult} dataset, available in the \textbf{liver} package, provides demographic and employment-related attributes to predict income levels. We can load it directly into R and examine its summary using the following commands:
 
 \begin{lstlisting}[language=R]
+library(liver)
+
 data(adult)
 
-str(adult)
-   'data.frame':    48598 obs. of  15 variables:
-    $ age           : int  25 38 28 44 18 34 29 63 24 55 ...
-    $ workclass     : Factor w/ 6 levels "?","Gov","Never-worked",..: 4 4 2 4 1 4 1 5 4 4 ...
-    $ demogweight   : int  226802 89814 336951 160323 103497 198693 227026 104626 369667 104996 ...
-    $ education     : Factor w/ 16 levels "10th","11th",..: 2 12 8 16 16 1 12 15 16 6 ...
-    $ education.num : int  7 9 12 10 10 6 9 15 10 4 ...
-    $ marital.status: Factor w/ 5 levels "Divorced","Married",..: 3 2 2 2 3 3 3 2 3 2 ...
-    $ occupation    : Factor w/ 15 levels "?","Adm-clerical",..: 8 6 12 8 1 9 1 11 9 4 ...
-    $ relationship  : Factor w/ 6 levels "Husband","Not-in-family",..: 4 1 1 1 4 2 5 1 5 1 ...
-    $ race          : Factor w/ 5 levels "Amer-Indian-Eskimo",..: 3 5 5 3 5 5 3 5 5 5 ...
-    $ gender        : Factor w/ 2 levels "Female","Male": 2 2 2 2 1 2 2 2 1 2 ...
-    $ capital.gain  : int  0 0 0 7688 0 0 0 3103 0 0 ...
-    $ capital.loss  : int  0 0 0 0 0 0 0 0 0 0 ...
-    $ hours.per.week: int  40 50 40 40 30 30 40 32 40 10 ...
-    $ native.country: Factor w/ 42 levels "?","Cambodia",..: 40 40 40 40 40 40 40 40 40 40 ...
-    $ income        : Factor w/ 2 levels "<=50K",">50K": 1 1 2 2 1 1 1 2 1 1 ...
+summary(adult)
+         age              workclass      demogweight             education    
+    Min.   :17.0   ?           : 2794   Min.   :  12285   HS-grad     :15750  
+    1st Qu.:28.0   Gov         : 6536   1st Qu.: 117550   Some-college:10860  
+    Median :37.0   Never-worked:   10   Median : 178215   Bachelors   : 7962  
+    Mean   :38.6   Private     :33780   Mean   : 189685   Masters     : 2627  
+    3rd Qu.:48.0   Self-emp    : 5457   3rd Qu.: 237713   Assoc-voc   : 2058  
+    Max.   :90.0   Without-pay :   21   Max.   :1490400   11th        : 1812  
+                                                          (Other)     : 7529  
+    education.num         marital.status            occupation   
+    Min.   : 1.00   Divorced     : 6613   Craft-repair   : 6096  
+    1st Qu.: 9.00   Married      :22847   Prof-specialty : 6071  
+    Median :10.00   Never-married:16096   Exec-managerial: 6019  
+    Mean   :10.06   Separated    : 1526   Adm-clerical   : 5603  
+    3rd Qu.:12.00   Widowed      : 1516   Sales          : 5470  
+    Max.   :16.00                         Other-service  : 4920  
+                                          (Other)        :14419  
+            relationship                   race          gender     
+    Husband       :19537   Amer-Indian-Eskimo:  470   Female:16156  
+    Not-in-family :12546   Asian-Pac-Islander: 1504   Male  :32442  
+    Other-relative: 1506   Black             : 4675                 
+    Own-child     : 7577   Other             :  403                 
+    Unmarried     : 5118   White             :41546                 
+    Wife          : 2314                                            
+                                                                    
+     capital.gain      capital.loss     hours.per.week        native.country 
+    Min.   :    0.0   Min.   :   0.00   Min.   : 1.00   United-States:43613  
+    1st Qu.:    0.0   1st Qu.:   0.00   1st Qu.:40.00   Mexico       :  949  
+    Median :    0.0   Median :   0.00   Median :40.00   ?            :  847  
+    Mean   :  582.4   Mean   :  87.94   Mean   :40.37   Philippines  :  292  
+    3rd Qu.:    0.0   3rd Qu.:   0.00   3rd Qu.:45.00   Germany      :  206  
+    Max.   :41310.0   Max.   :4356.00   Max.   :99.00   Puerto-Rico  :  184  
+                                                        (Other)      : 2507  
+      income     
+    <=50K:37155  
+    >50K :11443  
+                 
+                 
+                 
+                 
+   
 \end{lstlisting}
 
-The dataset contains 48598 records and 15 variables. Of these, 14 are predictors, while the target variable, \passthrough{\lstinline!income!}, is a binary categorical variable with two levels: \passthrough{\lstinline!<=50K!} and \passthrough{\lstinline!>50K!}. The features include both numerical and categorical variables:
+The dataset consists of 48598 records and 15 variables. The target variable, \passthrough{\lstinline!income!}, is binary, with two categories: \passthrough{\lstinline!<=50K!} and \passthrough{\lstinline!>50K!}. The remaining 14 variables serve as predictors, encompassing demographic, occupational, and financial characteristics.
+
+The predictors can be categorized as follows:
 
 \begin{itemize}
 \tightlist
 \item
-  \passthrough{\lstinline!age!}: Age in years (numerical).\\
+  \textbf{Demographic attributes}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \passthrough{\lstinline!age!}: Age in years (numerical).\\
+  \item
+    \passthrough{\lstinline!gender!}: Gender (categorical, Male/Female).\\
+  \item
+    \passthrough{\lstinline!race!}: Race (categorical, 5 levels).\\
+  \item
+    \passthrough{\lstinline!native.country!}: Country of origin (categorical, 42 levels).
+  \end{itemize}
 \item
-  \passthrough{\lstinline!workclass!}: Type of employment (categorical, 6 levels).\\
+  \textbf{Education and employment details}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \passthrough{\lstinline!education!}: Highest education level attained (categorical, 16 levels).\\
+  \item
+    \passthrough{\lstinline!education.num!}: Years of education (numerical).\\
+  \item
+    \passthrough{\lstinline!workclass!}: Type of employment (categorical, 6 levels).\\
+  \item
+    \passthrough{\lstinline!occupation!}: Job category (categorical, 15 levels).\\
+  \item
+    \passthrough{\lstinline!hours.per.week!}: Weekly hours worked (numerical).
+  \end{itemize}
 \item
-  \passthrough{\lstinline!demogweight!}: Demographic weight (categorical).\\
+  \textbf{Financial attributes}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \passthrough{\lstinline!capital.gain!}: Income from capital gains (numerical).\\
+  \item
+    \passthrough{\lstinline!capital.loss!}: Losses from investments (numerical).
+  \end{itemize}
 \item
-  \passthrough{\lstinline!education!}: Highest education level (categorical, 16 levels).\\
-\item
-  \passthrough{\lstinline!education.num!}: Years of education (numerical).\\
-\item
-  \passthrough{\lstinline!marital.status!}: Marital status (categorical, 5 levels).\\
-\item
-  \passthrough{\lstinline!occupation!}: Type of occupation (categorical, 15 levels).\\
-\item
-  \passthrough{\lstinline!relationship!}: Type of relationship (categorical, 6 levels).\\
-\item
-  \passthrough{\lstinline!race!}: Race (categorical, 5 levels).\\
-\item
-  \passthrough{\lstinline!gender!}: Gender (categorical, Male/Female).\\
-\item
-  \passthrough{\lstinline!capital.gain!}: Capital gains (numerical).\\
-\item
-  \passthrough{\lstinline!capital.loss!}: Capital losses (numerical).\\
-\item
-  \passthrough{\lstinline!hours.per.week!}: Weekly hours worked (numerical).\\
-\item
-  \passthrough{\lstinline!native.country!}: Country of origin (categorical, 42 levels).\\
-\item
-  \passthrough{\lstinline!income!}: Target variable, representing annual income (\passthrough{\lstinline!<=50K!} or \passthrough{\lstinline!>50K!}).
+  \textbf{Household and relationship details}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \passthrough{\lstinline!marital.status!}: Marital status (categorical, 5 levels).\\
+  \item
+    \passthrough{\lstinline!relationship!}: Family role (categorical, 6 levels).
+  \end{itemize}
 \end{itemize}
 
-For additional details about the dataset, visit the \href{https://www.rdocumentation.org/packages/liver/versions/1.3/topics/adult}{documentation}.
+This dataset provides a diverse set of features that influence income levels, making it suitable for building predictive models. For further details, refer to the \href{https://www.rdocumentation.org/packages/liver/versions/1.3/topics/adult}{dataset documentation}.
 
-\subsection*{Data Cleaning and Preparation}\label{data-cleaning-and-preparation}
-\addcontentsline{toc}{subsection}{Data Cleaning and Preparation}
+\subsection*{Data Preparation}\label{data-preparation-3}
+\addcontentsline{toc}{subsection}{Data Preparation}
 
-The dataset includes missing values represented by the character \passthrough{\lstinline!"?"!}. For simplicity, we rely on prior data cleaning steps (see Chapter \ref{chapter-data-prep}) to handle these issues. These steps include recoding categorical variables, grouping country-level data into broader regions, and imputing missing values, as demonstrated below:
+Before building models, we must clean and preprocess the dataset to handle missing values and transform categorical variables. The \emph{adult} dataset includes missing values represented by \passthrough{\lstinline!"?"!}, which need to be addressed. Additionally, categorical variables such as \passthrough{\lstinline!native.country!}, \passthrough{\lstinline!workclass!}, and \passthrough{\lstinline!race!} have multiple levels that can be grouped to improve interpretability.
 
-We then partition the cleaned dataset into \textbf{training} (80\%) and \textbf{testing} (20\%) subsets to ensure that the models are evaluated on unseen data:
+Since data preparation is covered in detail in Section \ref{Data-pre-adult} as part of the data preparation chapter (\ref{chapter-data-prep}), we summarize the necessary preprocessing steps here.
+
+\subsubsection*{Handling Missing Values}\label{handling-missing-values}
+\addcontentsline{toc}{subsubsection}{Handling Missing Values}
+
+The dataset encodes missing values as \passthrough{\lstinline!"?"!}. We first replace them with \passthrough{\lstinline!NA!}, remove unused factor levels, and apply imputation for categorical variables using random sampling from existing categories.
+
+\begin{lstlisting}[language=R]
+library(Hmisc)    # For handling missing values
+
+# Replace "?" with NA
+adult[adult == "?"] = NA
+
+# Remove unused factor levels
+adult = droplevels(adult)
+
+# Impute missing values using random sampling from existing categories
+adult$workclass      = impute(factor(adult$workclass), 'random')
+adult$native.country = impute(factor(adult$native.country), 'random')
+adult$occupation     = impute(factor(adult$occupation), 'random')
+\end{lstlisting}
+
+\subsubsection*{Transforming Categorical Variables}\label{transforming-categorical-variables}
+\addcontentsline{toc}{subsubsection}{Transforming Categorical Variables}
+
+Some categorical variables contain too many levels, making them difficult to interpret and model efficiently. To simplify these variables, we group related categories.
+
+The dataset originally contains 42 unique country values in \passthrough{\lstinline!native.country!}. We reduce dimensionality by categorizing them into broader regions.
+
+\begin{lstlisting}[language=R]
+library(forcats)  # For categorical variable transformation
+
+Europe = c("England", "France", "Germany", "Greece", "Holand-Netherlands", "Hungary", 
+           "Ireland", "Italy", "Poland", "Portugal", "Scotland", "Yugoslavia")
+
+Asia = c("China", "Hong", "India", "Iran", "Cambodia", "Japan", "Laos", 
+         "Philippines", "Vietnam", "Taiwan", "Thailand")
+
+N.America = c("Canada", "United-States", "Puerto-Rico")
+
+S.America = c("Columbia", "Cuba", "Dominican-Republic", "Ecuador", "El-Salvador", 
+              "Guatemala", "Haiti", "Honduras", "Mexico", "Nicaragua", 
+              "Outlying-US(Guam-USVI-etc)", "Peru", "Jamaica", "Trinadad&Tobago")
+
+# Reclassify `native.country` into broader regions
+adult$native.country = fct_collapse(adult$native.country, 
+                                    "Europe"    = Europe,
+                                    "Asia"      = Asia,
+                                    "N.America" = N.America,
+                                    "S.America" = S.America,
+                                    "Other"     = c("South"))
+\end{lstlisting}
+
+The \passthrough{\lstinline!workclass!} variable contains categories that indicate a lack of formal employment. We consolidate \passthrough{\lstinline!"Never-worked"!} and \passthrough{\lstinline!"Without-pay"!} into \passthrough{\lstinline!"Unemployed"!}.
+
+\begin{lstlisting}[language=R]
+adult$workclass = fct_collapse(adult$workclass, "Unemployed" = c("Never-worked", "Without-pay"))
+\end{lstlisting}
+
+To maintain consistency, we simplify the \passthrough{\lstinline!race!} variable.
+
+\begin{lstlisting}[language=R]
+adult$race = fct_recode(adult$race, "Amer-Indian" = "Amer-Indian-Eskimo", 
+                                    "Asian" = "Asian-Pac-Islander")
+\end{lstlisting}
+
+These preprocessing steps ensure that the dataset is clean and ready for modeling. In the next section, we partition the dataset into training and testing sets for model evaluation.
+
+\subsection*{Preparing Data for Modeling}\label{preparing-data-for-modeling-2}
+\addcontentsline{toc}{subsection}{Preparing Data for Modeling}
+
+Before training tree-based models, we need to split the dataset into training and testing sets. This step ensures that we can evaluate how well the models generalize to unseen data. We use an 80/20 split, allocating 80\% of the data for training and 20\% for testing. To maintain consistency with previous chapters, we apply the \passthrough{\lstinline!partition()!} function from the \textbf{liver} package:
 
 \begin{lstlisting}[language=R]
 set.seed(6)
@@ -9184,26 +9288,85 @@ data_sets = partition(data = adult, ratio = c(0.8, 0.2))
 train_set = data_sets$part1
 test_set  = data_sets$part2
 
-actual_test = test_set$income
+test_labels = test_set$income
 \end{lstlisting}
 
-The use of \passthrough{\lstinline!set.seed()!} ensures reproducibility.
+The \passthrough{\lstinline!set.seed()!} function ensures reproducibility by fixing the random seed. We use \passthrough{\lstinline!train\_set!} to train the classification models, while \passthrough{\lstinline!test\_set!} serves as unseen data for evaluation. The \passthrough{\lstinline!test\_labels!} vector contains the true class labels for \passthrough{\lstinline!test\_set!}, which we will compare against the model's predictions. This allows us to assess the performance of the CART, C5.0, and Random Forest models.
+
+In practice, it is important to verify that the training and test sets are representative of the original dataset. One way to do this is by examining the distribution of \passthrough{\lstinline!income!} in both sets. We performed this validation and found the partition to be valid. We do not report it here but refer to Section \ref{sec-validate-partition} for details on how to validate partitions.
+
+To predict whether an individual's income exceeds \$50K, we use the following predictors:
+
+\passthrough{\lstinline!age!}, \passthrough{\lstinline!workclass!}, \passthrough{\lstinline!education.num!}, \passthrough{\lstinline!marital.status!}, \passthrough{\lstinline!occupation!}, \passthrough{\lstinline!race!}, \passthrough{\lstinline!gender!}, \passthrough{\lstinline!capital.gain!}, \passthrough{\lstinline!capital.loss!}, \passthrough{\lstinline!hours.per.week!}, and \passthrough{\lstinline!native.country!}.
+
+We exclude \passthrough{\lstinline!demogweight!}, \passthrough{\lstinline!education!}, and \passthrough{\lstinline!relationship!} for the following reasons:\\
+- \passthrough{\lstinline!demogweight!} is treated as an ID variable and does not provide meaningful predictive information.\\
+- \passthrough{\lstinline!education!} is removed because \passthrough{\lstinline!education.num!} represents the same information in a numerical format.\\
+- \passthrough{\lstinline!relationship!} is highly correlated with \passthrough{\lstinline!marital.status!} and does not provide additional independent information.
+
+These selected predictors are used in the following formula:
+
+\begin{lstlisting}[language=R]
+formula = income ~ age + workclass + education.num + marital.status + occupation + race + gender + capital.gain + capital.loss + hours.per.week + native.country
+\end{lstlisting}
+
+This formula will be used to train decision tree models using the CART and C5.0 algorithms, as well as the Random Forest algorithm. In the next section, we demonstrate how to build, evaluate, and compare these models using the \emph{adult} dataset.
 
 \subsection*{Decision Tree with CART}\label{decision-tree-with-cart}
 \addcontentsline{toc}{subsection}{Decision Tree with CART}
 
-To predict whether an individual's income exceeds \$50K, we fit a Decision Tree using the \textbf{CART algorithm}. The following predictors are used:
+To fit a decision tree using the CART algorithm in \textbf{R}, we use the \href{https://CRAN.R-project.org/package=rpart}{\textbf{rpart}} package (Recursive Partitioning and Regression Trees), which provides a widely used implementation of CART. This package includes functions for building, visualizing, and evaluating decision trees.
 
-\passthrough{\lstinline!age!}, \passthrough{\lstinline!education.num!}, \passthrough{\lstinline!capital.gain!}, \passthrough{\lstinline!capital.loss!}, \passthrough{\lstinline!hours.per.week!}, \passthrough{\lstinline!marital.status!}, \passthrough{\lstinline!workclass!}, \passthrough{\lstinline!race!}, and \passthrough{\lstinline!gender!}.
-
-The tree is built using the \passthrough{\lstinline!rpart()!} function from the \textbf{rpart} package:
+If the \textbf{rpart} package is not installed, you can install it using the \passthrough{\lstinline!install.packages("rpart")!} command. Then, you can load it into your R session:
 
 \begin{lstlisting}[language=R]
-formula = income ~ age + education.num + capital.gain + capital.loss + 
-                   hours.per.week + marital.status + workclass + race + gender
+library(rpart)
+\end{lstlisting}
 
+The decision tree is built using the \passthrough{\lstinline!rpart()!} function, which constructs a classification tree when \passthrough{\lstinline!method = "class"!} is specified:
+
+\begin{lstlisting}[language=R]
 tree_cart = rpart(formula = formula, data = train_set, method = "class")
+\end{lstlisting}
 
+\begin{itemize}
+\tightlist
+\item
+  The \passthrough{\lstinline!formula!} argument defines the relationship between the target variable (\passthrough{\lstinline!income!}) and the predictors.
+\item
+  The \passthrough{\lstinline!data!} argument specifies the training dataset.
+\item
+  The \passthrough{\lstinline!method = "class"!} argument ensures that the model performs classification rather than regression.
+\end{itemize}
+
+\subsubsection*{Visualizing the Decision Tree}\label{visualizing-the-decision-tree}
+\addcontentsline{toc}{subsubsection}{Visualizing the Decision Tree}
+
+To visualize the tree, we use the \href{https://CRAN.R-project.org/package=rpart.plot}{\textbf{rpart.plot}} package, which provides tools for graphical representation of \textbf{rpart} models. If not installed, it can be added with the \passthrough{\lstinline!install.packages("rpart.plot")!} command. Then, it is loaded as follows:
+
+\begin{lstlisting}[language=R]
+library(rpart.plot)
+\end{lstlisting}
+
+The tree is displayed using:
+
+\begin{lstlisting}[language=R]
+rpart.plot(tree_cart, type = 4, extra = 104)
+\end{lstlisting}
+
+\begin{center}\includegraphics[width=1\linewidth]{tree_files/figure-latex/unnamed-chunk-12-1} \end{center}
+
+\begin{itemize}
+\tightlist
+\item
+  The \passthrough{\lstinline!type = 4!} argument specifies a split-labeling style where decision rules appear inside the nodes.
+\item
+  The \passthrough{\lstinline!extra = 104!} argument displays both the predicted class and the probability of the most probable class in each terminal node.
+\end{itemize}
+
+If the tree is too large to fit within a single plot, the structure can also be examined using:
+
+\begin{lstlisting}[language=R]
 print(tree_cart)
    n= 38878 
    
@@ -9216,33 +9379,40 @@ print(tree_cart)
         5) capital.gain>=7055.5 319   15 >50K (0.04702194 0.95297806) *
       3) marital.status=Married 18298 7935 <=50K (0.56634605 0.43365395)  
         6) education.num< 12.5 12944 4163 <=50K (0.67838381 0.32161619)  
-         12) capital.gain< 5095.5 12350 3582 <=50K (0.70995951 0.29004049)  
-           24) education.num< 8.5 2159  231 <=50K (0.89300602 0.10699398) *
-           25) education.num>=8.5 10191 3351 <=50K (0.67118045 0.32881955)  
-             50) capital.loss< 1846 9813 3059 <=50K (0.68827066 0.31172934) *
-             51) capital.loss>=1846 378   86 >50K (0.22751323 0.77248677) *
+         12) capital.gain< 5095.5 12350 3582 <=50K (0.70995951 0.29004049) *
          13) capital.gain>=5095.5 594   13 >50K (0.02188552 0.97811448) *
         7) education.num>=12.5 5354 1582 >50K (0.29548001 0.70451999) *
 \end{lstlisting}
 
-The resulting tree is visualized using the \passthrough{\lstinline!rpart.plot()!} function:
+This prints a text-based version of the tree, showing nodes, splits, and predictions in a scrollable format.
 
-\begin{lstlisting}[language=R]
-rpart.plot(tree_cart, type = 4, extra = 104)
-\end{lstlisting}
+\subsubsection*{Interpreting the Decision Tree}\label{interpreting-the-decision-tree}
+\addcontentsline{toc}{subsubsection}{Interpreting the Decision Tree}
 
-\begin{center}\includegraphics[width=1\linewidth]{tree_files/figure-latex/unnamed-chunk-6-1} \end{center}
+The CART model produces a binary tree with four decision nodes and five leaves. Among the 12 predictors, the algorithm selects three---\passthrough{\lstinline!marital.status!}, \passthrough{\lstinline!capital.gain!}, and \passthrough{\lstinline!education.num!}---as the most relevant for predicting income. The most influential predictor, \passthrough{\lstinline!marital.status!}, appears at the root node, meaning that marital status is the first split in the tree.
 
-The tree identifies \textbf{\passthrough{\lstinline!marital.status!}} as the most important predictor, followed by \passthrough{\lstinline!capital.gain!}, \passthrough{\lstinline!education.num!}, and \passthrough{\lstinline!capital.loss!}. The tree contains 6 decision nodes and 7 leaves, providing interpretable insights into the predictors.
+The model categorizes individuals into five distinct groups, each represented by a terminal leaf. The blue leaves indicate those predicted to earn less than \$50,000 (\passthrough{\lstinline!income <= 50K!}), while the green leaves represent those earning more than \$50,000 (\passthrough{\lstinline!income > 50K!}).
+
+As an example, the rightmost leaf corresponds to individuals who are married and have at least 13 years of education (\passthrough{\lstinline!education.num >= 13!}). This group represents 14\% of the dataset, with 70\% of them earning more than \$50,000 annually. The error rate for this leaf is 0.30, calculated as \(1 - 0.70\).
 
 \subsection*{Decision Tree with C5.0}\label{decision-tree-with-c5.0}
 \addcontentsline{toc}{subsection}{Decision Tree with C5.0}
 
-We next use the C5.0 algorithm to build a Decision Tree, starting with the same predictors. The tree is constructed using the \passthrough{\lstinline!C5.0()!} function from the \textbf{C50} package:
+To fit a decision tree using the C5.0 algorithm in \textbf{R}, we use the \href{https://CRAN.R-project.org/package=C50}{\textbf{C50}} package. If the \textbf{C50} package is not installed, you can install it using the \passthrough{\lstinline!install.packages("C50")!} command. Then, you can load it into your R session:
+
+\begin{lstlisting}[language=R]
+library(C50)
+\end{lstlisting}
+
+The tree is constructed using the \passthrough{\lstinline!C5.0()!} function:
 
 \begin{lstlisting}[language=R]
 tree_C50 = C5.0(formula, data = train_set) 
+\end{lstlisting}
 
+The \passthrough{\lstinline!plot()!} function can be used to visualize the tree, while the \passthrough{\lstinline!summary()!} function provides a detailed description of the model. Since the tree output is too large to display here, we print a summary of the model using:
+
+\begin{lstlisting}[language=R]
 print(tree_C50)
    
    Call:
@@ -9250,104 +9420,126 @@ print(tree_C50)
    
    Classification Tree
    Number of samples: 38878 
-   Number of predictors: 9 
+   Number of predictors: 11 
    
-   Tree size: 93 
+   Tree size: 120 
    
    Non-standard options: attempt to group attributes
 \end{lstlisting}
 
-The output provides a summary of the tree. While the full tree visualization is omitted here, it highlights the importance of \passthrough{\lstinline!marital.status!} as the root node, consistent with the CART results.
+The output includes key information about the model, such as the function call used to generate the tree, the number of predictors, and the number of observations used for training. It also reports a tree size of 74, indicating that the tree consists of 74 decision nodes---substantially larger than the tree produced by CART in this case.
 
 \subsection*{Random Forest}\label{random-forest}
 \addcontentsline{toc}{subsection}{Random Forest}
 
-The \textbf{Random Forest} algorithm is used to build an ensemble of Decision Trees, aggregating their predictions. Using the same predictors, we construct a Random Forest model with 100 trees using the \passthrough{\lstinline!randomForest()!} function:
+Random forests are implemented in \textbf{R} using the \href{https://CRAN.R-project.org/package=randomForest}{\textbf{randomForest}} package, which builds classification and regression models based on an ensemble of decision trees with randomly selected inputs. While multiple packages in R support random forest modeling, \textbf{randomForest} is one of the most widely used implementations due to its reliability and compatibility with the \textbf{caret} package for automated tuning.
+
+If the \textbf{randomForest} package is not installed, you can install it using the \passthrough{\lstinline!install.packages("randomForest")!} command. Then, load it into your R session:
+
+\begin{lstlisting}[language=R]
+library(randomForest)
+\end{lstlisting}
+
+Using the same predictors as in the previous models, we construct a random forest model with 100 decision trees:
 
 \begin{lstlisting}[language=R]
 random_forest = randomForest(formula = formula, data = train_set, ntree = 100)
 \end{lstlisting}
 
-We can visualize the variable importance and the error rate of the Random Forest model:
+\begin{itemize}
+\tightlist
+\item
+  The \passthrough{\lstinline!formula!} argument specifies the relationship between the target variable (\passthrough{\lstinline!income!}) and the predictors.\\
+\item
+  The \passthrough{\lstinline!data!} argument defines the training dataset.\\
+\item
+  The \passthrough{\lstinline!ntree = 100!} argument sets the number of decision trees in the forest. A higher number of trees generally improves accuracy but increases computation time.
+\end{itemize}
+
+We can evaluate the importance of predictors using the \passthrough{\lstinline!varImpPlot()!} function:
 
 \begin{lstlisting}[language=R]
 varImpPlot(random_forest)
+\end{lstlisting}
 
+\begin{center}\includegraphics[width=0.7\linewidth]{tree_files/figure-latex/unnamed-chunk-19-1} \end{center}
+
+This plot ranks predictors based on their contribution to model accuracy. In this case, \passthrough{\lstinline!marital.status!} appears as the most important predictor, followed by \passthrough{\lstinline!capital.gain!} and \passthrough{\lstinline!education.num!}.
+
+To assess how the error rate changes as the number of trees increases, we use:
+
+\begin{lstlisting}[language=R]
 plot(random_forest)
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{tree_files/figure-latex/unnamed-chunk-9-1} \includegraphics[width=0.7\linewidth]{tree_files/figure-latex/unnamed-chunk-9-2} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{tree_files/figure-latex/unnamed-chunk-20-1} \end{center}
 
-\subsection*{Model Evaluation}\label{model-evaluation}
-\addcontentsline{toc}{subsection}{Model Evaluation}
+This plot shows classification error as a function of the number of trees. The error rate stabilizes after approximately 40 trees, indicating that adding more trees beyond this point does not significantly improve accuracy.
 
-To evaluate model performance, we calculate the \textbf{confusion matrix}, \textbf{ROC curve}, and \textbf{AUC} for all three models (CART, C5.0, and Random Forest):
+Random forests provide a robust alternative to single decision trees by reducing overfitting and improving predictive performance through aggregation. The next section compares the performance of the CART, C5.0, and Random Forest models using evaluation metrics.
 
-\subsubsection*{CART:}\label{cart}
-\addcontentsline{toc}{subsubsection}{CART:}
+\subsection*{Prediction and Model Evaluation}\label{prediction-and-model-evaluation-1}
+\addcontentsline{toc}{subsection}{Prediction and Model Evaluation}
 
-\begin{lstlisting}[language=R]
-predict_cart = predict(tree_cart, test_set, type = "class")
+After training the models (CART, C5.0, and Random Forest), we evaluate their performance on the test set, which contains individuals unseen during training. The objective is to compare the predicted probabilities with the actual class labels stored in \passthrough{\lstinline!test\_labels!}.
 
-conf.mat(predict_cart, actual_test)
-   Setting levels: reference = "<=50K", case = ">50K"
-          Actual
-   Predict <=50K >50K
-     <=50K  7061 1035
-     >50K    433 1191
-conf.mat.plot(predict_cart, actual_test)
-   Setting levels: reference = "<=50K", case = ">50K"
-\end{lstlisting}
-
-\begin{center}\includegraphics[width=0.3\linewidth]{tree_files/figure-latex/unnamed-chunk-10-1} \end{center}
-
-\subsubsection*{C5.0:}\label{c5.0}
-\addcontentsline{toc}{subsubsection}{C5.0:}
-
-\begin{lstlisting}[language=R]
-predict_C50 = predict(tree_C50, test_set, type = "class")
-
-conf.mat(predict_C50, actual_test)
-   Setting levels: reference = "<=50K", case = ">50K"
-          Actual
-   Predict <=50K >50K
-     <=50K  7089  887
-     >50K    405 1339
-conf.mat.plot(predict_C50, actual_test)
-   Setting levels: reference = "<=50K", case = ">50K"
-\end{lstlisting}
-
-\begin{center}\includegraphics[width=0.3\linewidth]{tree_files/figure-latex/unnamed-chunk-11-1} \end{center}
-
-\subsubsection*{Random Forest:}\label{random-forest-1}
-\addcontentsline{toc}{subsubsection}{Random Forest:}
-
-\begin{lstlisting}[language=R]
-predict_random_forest = predict(random_forest, test_set)
-
-conf.mat(predict_random_forest, actual_test)
-   Setting levels: reference = "<=50K", case = ">50K"
-          Actual
-   Predict <=50K >50K
-     <=50K  7069  913
-     >50K    425 1313
-conf.mat.plot(predict_random_forest, actual_test)
-   Setting levels: reference = "<=50K", case = ">50K"
-\end{lstlisting}
-
-\begin{center}\includegraphics[width=0.3\linewidth]{tree_files/figure-latex/unnamed-chunk-12-1} \end{center}
-
-Finally, the ROC curves and AUC for the models are compared:
+To obtain predicted class probabilities, we use the \passthrough{\lstinline!predict()!} function for each model. For all three algorithms, we specify \passthrough{\lstinline!type = "prob"!} to extract probabilities instead of discrete class labels:
 
 \begin{lstlisting}[language=R]
 prob_cart = predict(tree_cart, test_set, type = "prob")[, 1]
 prob_C50 = predict(tree_C50, test_set, type = "prob")[, 1]
 prob_random_forest = predict(random_forest, test_set, type = "prob")[, 1]
+\end{lstlisting}
 
-roc_cart = roc(actual_test, prob_cart)
-roc_C50 = roc(actual_test, prob_C50)
-roc_random_forest = roc(actual_test, prob_random_forest)
+The \passthrough{\lstinline![ , 1 ]!} index extracts the probability of the ``\passthrough{\lstinline!<=50K!}'' class, as class labels are stored in alphabetical order.
 
+\subsubsection*{Confusion Matrix and Classification Errors}\label{confusion-matrix-and-classification-errors}
+\addcontentsline{toc}{subsubsection}{Confusion Matrix and Classification Errors}
+
+A confusion matrix summarizes model performance by displaying the number of true positives, true negatives, false positives, and false negatives. We generate confusion matrices for each model using the \passthrough{\lstinline!conf.mat.plot()!} function from the \textbf{liver} package, which provides a graphical representation. The \passthrough{\lstinline!conf.mat()!} function can also be used to display numeric values:
+
+\begin{lstlisting}[language=R]
+conf.mat.plot(prob_cart, test_labels, cutoff = 0.5, reference = "<=50K", main = "CART Prediction")
+conf.mat.plot(prob_C50, test_labels, cutoff = 0.5, reference = "<=50K", main = "C5.0 Prediction")
+conf.mat.plot(prob_random_forest, test_labels, cutoff = 0.5, reference = "<=50K", main = "Random Forest Prediction")
+\end{lstlisting}
+
+\includegraphics[width=0.33\linewidth]{tree_files/figure-latex/unnamed-chunk-22-1} \includegraphics[width=0.33\linewidth]{tree_files/figure-latex/unnamed-chunk-22-2} \includegraphics[width=0.33\linewidth]{tree_files/figure-latex/unnamed-chunk-22-3}
+
+The confusion matrices indicate the number of correctly classified instances for each model:
+
+\begin{itemize}
+\tightlist
+\item
+  CART: ``7091 + 1111 = 8202'' correct classifications.\\
+\item
+  C5.0: ``7084 + 1360 = 8444'' correct classifications.\\
+\item
+  Random Forest: ``7053 + 1335 = 8388'' correct classifications.
+\end{itemize}
+
+Among the three models, C5.0 has the highest accuracy, making the fewest misclassifications.
+
+\subsubsection*{ROC Curve and AUC}\label{roc-curve-and-auc-2}
+\addcontentsline{toc}{subsubsection}{ROC Curve and AUC}
+
+The Receiver Operating Characteristic (ROC) curve and the Area Under the Curve (AUC) value provide a comprehensive assessment of the model's ability to distinguish between income classes across different classification thresholds. These metrics are computed using the \textbf{pROC} package. If the \textbf{pROC} package is not installed, it can be added using \passthrough{\lstinline!install.packages("pROC")!}. Then, it can be loaded into the R session:
+
+\begin{lstlisting}[language=R]
+library(pROC)
+\end{lstlisting}
+
+To generate the ROC curve, we compute the true positive rate and false positive rate for different threshold values using the \passthrough{\lstinline!roc()!} function:
+
+\begin{lstlisting}[language=R]
+roc_cart = roc(test_labels, prob_cart)
+roc_C50 = roc(test_labels, prob_C50)
+roc_random_forest = roc(test_labels, prob_random_forest)
+\end{lstlisting}
+
+We then visualize the ROC curves for all three models using \passthrough{\lstinline!ggroc()!}:
+
+\begin{lstlisting}[language=R]
 ggroc(list(roc_cart, roc_C50, roc_random_forest), size = 0.8) + 
     theme_minimal() + ggtitle("ROC Curves with AUC for Three Models") +
   scale_color_manual(values = 1:3, 
@@ -9358,13 +9550,259 @@ ggroc(list(roc_cart, roc_C50, roc_random_forest), size = 0.8) +
   theme(legend.position = c(.7, .3), text = element_text(size = 17))
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{tree_files/figure-latex/unnamed-chunk-13-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{tree_files/figure-latex/unnamed-chunk-26-1} \end{center}
 
-The \textbf{black} curve represents CART, the {\textbf{red}} curve represents C5.0, and the {\textbf{green}} curve represents Random Forest. Based on AUC values, C5.0 performs slightly better, but all three models show comparable accuracy, making them reliable for this classification task.
+In the ROC plot, the \emph{black} curve represents CART, the {\emph{red}} curve represents C5.0, and the {\emph{green}} curve represents Random Forest. The ROC curves suggest that both C5.0 and Random Forest outperform CART. However, distinguishing between C5.0 and Random Forest based on the ROC curve alone is challenging. Note that in the above ROC plots we also report the AUC values for each model, by using the \passthrough{\lstinline!auc()!} function from the \textbf{pROC} package. The AUC values provide further insight:
 
-\section{Exercises}\label{exercises-8}
+\begin{itemize}
+\tightlist
+\item
+  CART: AUC = 0.841,\\
+\item
+  C5.0: AUC = 0.903,
+\item
+  Random Forest: AUC = 0.899,
+\end{itemize}
 
-To do \ldots{}
+Based on AUC values, C5.0 performs slightly better than the other two models, but all three demonstrate comparable accuracy, making them reliable for this classification task.
+
+\section{Exercises}\label{tree-exercises}
+
+These exercises test theoretical understanding, interpretation of Decision Trees and Random Forests outputs, and practical implementation in \textbf{R} using datasets from the \textbf{liver} package.
+
+\subsection*{Decision Trees: Conceptual Questions}\label{decision-trees-conceptual-questions}
+\addcontentsline{toc}{subsection}{Decision Trees: Conceptual Questions}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Explain the basic structure of a Decision Tree and how it makes predictions.\\
+\item
+  What are the key differences between \emph{classification trees} and \emph{regression trees}?\\
+\item
+  What is the purpose of \emph{splitting criteria} in Decision Trees? Describe the \emph{Gini Index}, \emph{Entropy}, and \emph{Variance Reduction}.\\
+\item
+  Why are \emph{Decision Trees prone to overfitting}? What techniques can be used to prevent overfitting?\\
+\item
+  Define \emph{pre-pruning} and \emph{post-pruning} in Decision Trees. How do they differ?\\
+\item
+  Explain the \emph{bias-variance tradeoff} in Decision Trees.\\
+\item
+  What are the advantages and disadvantages of Decision Trees compared to \emph{logistic regression} for classification problems?\\
+\item
+  What is the role of the \emph{maximum depth} parameter in a Decision Tree? How does it affect model performance?\\
+\item
+  Why might a Decision Tree \emph{favor continuous variables} over categorical variables when constructing splits?\\
+\item
+  Explain the difference between \emph{CART (Classification and Regression Trees)} and \emph{C5.0 Decision Trees}.
+\end{enumerate}
+
+\subsection*{Practical Exercises Using the Churn Dataset (Classification Tasks)}\label{practical-exercises-using-the-churn-dataset-classification-tasks}
+\addcontentsline{toc}{subsection}{Practical Exercises Using the Churn Dataset (Classification Tasks)}
+
+The \emph{churn} dataset contains information about customer churn behavior in a telecommunications company. The goal is to predict whether a customer will churn based on various attributes.
+
+\subsubsection{Data Preparation and Partitioning}\label{data-preparation-and-partitioning}
+
+Load the dataset and partition it into a \emph{training set} (80\%) and a \emph{test set} (20\%) using the \passthrough{\lstinline!partition()!} function from the \textbf{liver} package.
+
+\begin{lstlisting}[language=R]
+data(churn, package = "liver")
+
+set.seed(6)
+data_sets = partition(data = churn, ratio = c(0.8, 0.2))
+
+train_set = data_sets$part1
+test_set  = data_sets$part2
+
+test_labels = test_set$churn
+\end{lstlisting}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{10}
+\tightlist
+\item
+  Fit a \emph{Decision Tree} using \passthrough{\lstinline!churn!} as the response variable and \passthrough{\lstinline!day.mins!}, \passthrough{\lstinline!eve.mins!}, \passthrough{\lstinline!intl.mins!}, \passthrough{\lstinline!customer.calls!}, and \passthrough{\lstinline!voice.plan!} as predictors.\\
+\item
+  Visualize the fitted Decision Tree using \passthrough{\lstinline!rpart.plot()!}. Interpret the tree structure and identify the key decision rules.\\
+\item
+  Identify the \emph{most important predictors} in the Decision Tree.\\
+\item
+  Compute the \emph{confusion matrix} and evaluate model performance.\\
+\item
+  Generate the \emph{ROC curve} and compute the \emph{AUC} for the Decision Tree model.\\
+\item
+  Evaluate the effect of \emph{pruning} on the Decision Tree by adjusting the complexity parameter (\passthrough{\lstinline!cp!}).\\
+\item
+  Fit a \emph{C5.0 Decision Tree} to the same data and compare its performance with the CART model.\\
+\item
+  Use the \passthrough{\lstinline!predict()!} function to estimate the probability of churn for a \emph{new customer} with the following attributes:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \passthrough{\lstinline!day.mins = 200!}\strut \\
+  \item
+    \passthrough{\lstinline!eve.mins = 150!}\strut \\
+  \item
+    \passthrough{\lstinline!intl.mins = 10!}\strut \\
+  \item
+    \passthrough{\lstinline!customer.calls = 3!}\strut \\
+  \item
+    \passthrough{\lstinline!voice.plan = "yes"!}\strut \\
+  \end{itemize}
+\item
+  Compare the \emph{confusion matrix and classification accuracy} between CART and C5.0 models.\\
+\item
+  Implement \emph{cross-validation} to assess model performance.
+\end{enumerate}
+
+\subsection*{Random Forests: Conceptual Questions}\label{random-forests-conceptual-questions}
+\addcontentsline{toc}{subsection}{Random Forests: Conceptual Questions}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{20}
+\tightlist
+\item
+  What is the fundamental difference between \emph{Decision Trees} and \emph{Random Forests}?\\
+\item
+  How does \emph{bagging (Bootstrap Aggregation)} improve Random Forest models?\\
+\item
+  Explain how \emph{majority voting} works in a Random Forest classification model.\\
+\item
+  Why does Random Forest tend to \emph{outperform a single Decision Tree}?\\
+\item
+  How can we determine \emph{feature importance} in a Random Forest model?\\
+\item
+  Explain the \emph{limitations of Random Forests}.\\
+\item
+  How does increasing the number of trees (\passthrough{\lstinline!ntree!}) in a Random Forest affect model performance?
+\end{enumerate}
+
+\subsection*{Practical Exercises Using the Churn Dataset (Random Forests for Classification Tasks)}\label{practical-exercises-using-the-churn-dataset-random-forests-for-classification-tasks}
+\addcontentsline{toc}{subsection}{Practical Exercises Using the Churn Dataset (Random Forests for Classification Tasks)}
+
+\subsubsection*{Fitting and Evaluating a Random Forest Model}\label{fitting-and-evaluating-a-random-forest-model}
+\addcontentsline{toc}{subsubsection}{Fitting and Evaluating a Random Forest Model}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{27}
+\tightlist
+\item
+  Fit a \emph{Random Forest model} using \passthrough{\lstinline!churn!} as the response and \passthrough{\lstinline!day.mins!}, \passthrough{\lstinline!eve.mins!}, \passthrough{\lstinline!intl.mins!}, \passthrough{\lstinline!customer.calls!}, and \passthrough{\lstinline!voice.plan!} as predictors.\\
+\item
+  Identify the \emph{most important variables} using \passthrough{\lstinline!varImpPlot()!}.\\
+\item
+  Compare the \emph{accuracy of Random Forest} with the \emph{Decision Tree models (CART and C5.0)}.\\
+\item
+  Compute the \emph{confusion matrix} for the Random Forest model.\\
+\item
+  Compute the \emph{ROC curve and AUC} for the Random Forest model.\\
+\item
+  Adjust the number of trees (\passthrough{\lstinline!ntree = 200!}) and evaluate whether increasing the number of trees improves model accuracy.\\
+\item
+  Use the \passthrough{\lstinline!tuneRF()!} function to find the optimal value for \passthrough{\lstinline!mtry!} (number of predictors to consider at each split).\\
+\item
+  Predict churn probabilities for a \emph{new customer} using the Random Forest model.\\
+\item
+  Perform \emph{feature selection} by training a Random Forest model with \emph{only the top 3 most important features}.\\
+\item
+  Evaluate whether the \emph{simplified model performs comparably} to the full model.
+\end{enumerate}
+
+\subsection*{Regression Trees and Random Forests (redWines Dataset)}\label{regression-trees-and-random-forests-redwines-dataset}
+\addcontentsline{toc}{subsection}{Regression Trees and Random Forests (redWines Dataset)}
+
+The \emph{redWines} dataset contains wine quality scores (\passthrough{\lstinline!quantity!}, a score between 0 and 10) and 11 chemical attributes. The goal is to predict \passthrough{\lstinline!quantity!} using regression trees and Random Forests.
+
+\subsubsection*{Data Preparation and Partitioning}\label{data-preparation-and-partitioning-1}
+\addcontentsline{toc}{subsubsection}{Data Preparation and Partitioning}
+
+Load the dataset and partition it into a \emph{training set} (80\%) and a \emph{test set} (20\%) using the \passthrough{\lstinline!partition()!} function from the \textbf{liver} package.
+
+\begin{lstlisting}[language=R]
+data(redWines, package = "liver")
+
+set.seed(6)
+data_sets = partition(data = redWines, ratio = c(0.8, 0.2))
+
+train_set = data_sets$part1
+test_set  = data_sets$part2
+
+test_labels = test_set$quantity
+\end{lstlisting}
+
+\subsubsection*{Conceptual Questions}\label{conceptual-questions-9}
+\addcontentsline{toc}{subsubsection}{Conceptual Questions}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{37}
+\tightlist
+\item
+  How does a \emph{regression tree} differ from a \emph{classification tree}?\\
+\item
+  How is the \emph{Mean Squared Error (MSE)} used to evaluate regression trees?\\
+\item
+  Explain why \emph{Random Forest regression is generally preferred over a single regression tree}.
+\end{enumerate}
+
+\subsubsection*{Practical Exercises Using the redWines Dataset}\label{practical-exercises-using-the-redwines-dataset}
+\addcontentsline{toc}{subsubsection}{Practical Exercises Using the redWines Dataset}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{40}
+\tightlist
+\item
+  Fit a \emph{regression tree} predicting \passthrough{\lstinline!quantity!} based on all 11 predictors.\\
+\item
+  Visualize the tree and interpret the splits. What are the most important variables?\\
+\item
+  Compute the \emph{Mean Squared Error (MSE)} of the regression tree.\\
+\item
+  Fit a \emph{Random Forest regression model} to predict \passthrough{\lstinline!quantity!} and compare its performance with the single regression tree.\\
+\item
+  Compare the \emph{MSE of the Random Forest model} with that of the regression tree.\\
+\item
+  Identify the \emph{top 3 most important features} in the Random Forest model.\\
+\item
+  Use the trained Random Forest model to predict wine quality for a \emph{new observation} with the following attributes:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \passthrough{\lstinline!fixed.acidity = 8.5!}\strut \\
+  \item
+    \passthrough{\lstinline!volatile.acidity = 0.4!}\strut \\
+  \item
+    \passthrough{\lstinline!citric.acid = 0.3!}\strut \\
+  \item
+    \passthrough{\lstinline!residual.sugar = 2.0!}\strut \\
+  \item
+    \passthrough{\lstinline!chlorides = 0.08!}\strut \\
+  \item
+    \passthrough{\lstinline!free.sulfur.dioxide = 30!}\strut \\
+  \item
+    \passthrough{\lstinline!total.sulfur.dioxide = 100!}\strut \\
+  \item
+    \passthrough{\lstinline!density = 0.995!}\strut \\
+  \item
+    \passthrough{\lstinline!pH = 3.2!}\strut \\
+  \item
+    \passthrough{\lstinline!sulphates = 0.6!}\strut \\
+  \item
+    \passthrough{\lstinline!alcohol = 10.5!}
+  \end{itemize}
+\item
+  Use \emph{cross-validation} to compare the Random Forest model with the regression tree.\\
+\item
+  Interpret whether Random Forest significantly improves prediction accuracy compared to the single Decision Tree.
+\end{enumerate}
 
 \chapter{Neural Networks: The Building Blocks of Artificial Intelligence}\label{chapter-nn}
 
@@ -9779,7 +10217,7 @@ The dataset contains 4521 observations and 17 variables. It includes 16 predicto
 \textbf{Target Variable}:\\
 - \passthrough{\lstinline!deposit!}: Indicates whether the customer subscribed to a term deposit (binary: ``yes'', ``no'').
 
-\subsection*{Data Cleaning and Preparation}\label{data-cleaning-and-preparation-1}
+\subsection*{Data Cleaning and Preparation}\label{data-cleaning-and-preparation}
 \addcontentsline{toc}{subsection}{Data Cleaning and Preparation}
 
 To prepare the dataset for the Neural Network algorithm, all variables must be scaled to a range between 0 and 1. We apply \textbf{min-max normalization} using the \passthrough{\lstinline!minmax()!} function from the \textbf{liver} package:
@@ -9928,7 +10366,7 @@ The training process converged after 2578 steps, with a final error rate of 142.
 
 This straightforward setup demonstrates how neural networks process input data through multiple layers and extract meaningful patterns to make predictions. In the next section, we will evaluate the model's performance and interpret its results.
 
-\subsection*{Prediction and Model Evaluation}\label{prediction-and-model-evaluation-1}
+\subsection*{Prediction and Model Evaluation}\label{prediction-and-model-evaluation-2}
 \addcontentsline{toc}{subsection}{Prediction and Model Evaluation}
 
 We use the trained Neural Network to predict the outcomes on the test dataset:
@@ -9971,7 +10409,7 @@ ggroc(roc_nn, size = 0.8) +
 
 The ROC curve illustrates the model's ability to distinguish between the two classes. A high AUC score indicates strong predictive performance.
 
-\section{Exercises}\label{exercises-9}
+\section{Exercises}\label{exercises-8}
 
 To do \ldots{}
 
@@ -10432,7 +10870,7 @@ This case study demonstrated how \emph{K-means clustering} can segment cereals i
 
 In this chapter, we explored the fundamentals of clustering, the mechanics of the K-means algorithm, and methods for choosing the optimal number of clusters. We then applied these concepts to a real-world dataset, demonstrating how K-means can extract meaningful insights. Clustering remains a powerful tool across various domains, from marketing to bioinformatics, making it an essential technique in the modern data science toolkit.
 
-\section{Exercises}\label{exercises-10}
+\section{Exercises}\label{exercises-9}
 
 To do \ldots{}
 

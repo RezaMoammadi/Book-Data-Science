@@ -375,7 +375,7 @@ library(pROC)
 roc_knn <- roc(response = actual_test, predictor = kNN_prob[, 1])
 ```
 
-We can then visualize the ROC curve using the `ggroc()` function from the **ggplot2** package or the `plot()` function for a basic display. Here’s the ROC curve for the kNN model:
+We can then visualize the ROC curve using the `ggroc()` function from the **pROC** package or the `plot()` function for a basic display. Here’s the ROC curve for the kNN model:
 
 
 ```r
@@ -421,8 +421,6 @@ In summary, the ROC curve and AUC provide a comprehensive way to evaluate classi
 
 In the next section, we extend our discussion to *multi-class classification*, where the target variable has more than two possible categories, requiring modifications to standard evaluation metrics.
 
-
-
 ## Metrics for Multi-Class Classification  
 
 So far, we have focused on binary classification, where the target variable has two categories. However, many real-world problems involve *multi-class classification*, where the target variable can belong to three or more categories. Examples include classifying species in ecological studies or identifying different types of vehicles. Evaluating such models requires extending performance metrics to handle multiple categories effectively.
@@ -440,13 +438,6 @@ These averaging methods ensure a fair evaluation, particularly in imbalanced dat
 While metrics such as the ROC curve and AUC are primarily designed for binary classification, they can be extended to multi-class problems using strategies like one-vs-all, where an ROC curve is generated for each class against the others. However, in most practical applications, macro-averaged or weighted-averaged F1-score provides a concise and meaningful summary of multi-class model performance.
 
 By applying these metrics, we can assess how well the model performs across all categories, identify weaknesses in specific classes, and ensure that the evaluation aligns with the problem’s objectives. The next section explores evaluation metrics for *regression models*, where the target variable is continuous rather than categorical.  
-
-
-
-
-
-
-
 
 ## Evaluation Metrics for Continuous Targets  
 

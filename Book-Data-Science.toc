@@ -253,7 +253,7 @@
 \contentsline {section}{\numberline {9.5}Case Study: Predicting Financial Risk with Naive Bayes}{220}{section.9.5}%
 \contentsline {subsection}{Problem Understanding}{220}{section*.144}%
 \contentsline {subsection}{Data Understanding}{221}{section*.145}%
-\contentsline {subsection}{Data Preparation for Modeling}{222}{section*.146}%
+\contentsline {subsection}{Preparing Data for Modeling}{222}{section*.146}%
 \contentsline {subsection}{Applying the Naive Bayes Classifier}{223}{section*.147}%
 \contentsline {subsection}{Prediction and Model Evaluation}{227}{section*.148}%
 \contentsline {subsubsection}{Confusion Matrix}{228}{section*.149}%
@@ -313,48 +313,65 @@
 \contentsline {subsection}{Model Diagnostics and Validation}{271}{section*.191}%
 \contentsline {chapter}{\numberline {11}Decision Trees and Random Forests}{273}{chapter.11}%
 \contentsline {section}{\numberline {11.1}How Decision Trees Work}{274}{section.11.1}%
+\contentsline {subsection}{Making Predictions with a Decision Tree}{277}{section*.192}%
+\contentsline {subsection}{Controlling Tree Complexity}{278}{section*.193}%
 \contentsline {section}{\numberline {11.2}Classification and Regression Trees (CART)}{278}{section.11.2}%
 \contentsline {section}{\numberline {11.3}The C5.0 Algorithm for Building Decision Trees}{279}{section.11.3}%
-\contentsline {section}{\numberline {11.4}Random Forests: An Ensemble Approach}{282}{section.11.4}%
-\contentsline {section}{\numberline {11.5}Case Study: Who Can Earn More Than \$50K Per Year?}{284}{section.11.5}%
-\contentsline {subsection}{Overview of the Dataset}{284}{section*.192}%
-\contentsline {subsection}{Data Cleaning and Preparation}{285}{section*.193}%
-\contentsline {subsection}{Decision Tree with CART}{286}{section*.194}%
-\contentsline {subsection}{Decision Tree with C5.0}{287}{section*.195}%
-\contentsline {subsection}{Random Forest}{288}{section*.196}%
-\contentsline {subsection}{Model Evaluation}{289}{section*.197}%
-\contentsline {subsubsection}{CART:}{289}{section*.198}%
-\contentsline {subsubsection}{C5.0:}{289}{section*.199}%
-\contentsline {subsubsection}{Random Forest:}{290}{section*.200}%
-\contentsline {section}{\numberline {11.6}Exercises}{292}{section.11.6}%
-\contentsline {chapter}{\numberline {12}Neural Networks: The Building Blocks of Artificial Intelligence}{293}{chapter.12}%
-\contentsline {subsection}{Why Neural Networks Are Powerful}{294}{section*.201}%
-\contentsline {subsection}{What's Ahead}{295}{section*.202}%
-\contentsline {section}{\numberline {12.1}Neural Networks: Inspired by Biological Neurons}{295}{section.12.1}%
-\contentsline {section}{\numberline {12.2}How Neural Networks Work}{297}{section.12.2}%
-\contentsline {subsection}{Key Characteristics of Neural Networks}{299}{section*.203}%
-\contentsline {section}{\numberline {12.3}Activation Functions}{300}{section.12.3}%
-\contentsline {subsection}{The Sigmoid Activation Function}{301}{section*.204}%
-\contentsline {subsection}{Other Common Activation Functions}{301}{section*.205}%
-\contentsline {subsection}{Choosing the Right Activation Function}{302}{section*.206}%
-\contentsline {section}{\numberline {12.4}Network Architecture}{303}{section.12.4}%
-\contentsline {section}{\numberline {12.5}How Neural Networks Learn}{305}{section.12.5}%
-\contentsline {section}{\numberline {12.6}Case Study: Bank Marketing}{306}{section.12.6}%
-\contentsline {subsection}{Business Context}{307}{section*.207}%
-\contentsline {subsection}{Overview of the Dataset}{307}{section*.208}%
-\contentsline {subsection}{Data Cleaning and Preparation}{308}{section*.209}%
-\contentsline {subsection}{Applying the Neural Network Algorithm}{311}{section*.210}%
-\contentsline {subsection}{Prediction and Model Evaluation}{313}{section*.211}%
-\contentsline {section}{\numberline {12.7}Exercises}{314}{section.12.7}%
-\contentsline {chapter}{\numberline {13}Clustering}{315}{chapter.13}%
-\contentsline {section}{\numberline {13.1}K-means Clustering}{317}{section.13.1}%
-\contentsline {section}{\numberline {13.2}Choosing the Number of Clusters}{321}{section.13.2}%
-\contentsline {section}{\numberline {13.3}Case Study: Clustering Cereal Data}{323}{section.13.3}%
-\contentsline {subsection}{\numberline {13.3.1}Dataset Overview}{323}{subsection.13.3.1}%
-\contentsline {subsection}{\numberline {13.3.2}Data Preprocessing}{324}{subsection.13.3.2}%
-\contentsline {subsection}{\numberline {13.3.3}Applying K-means Clustering}{327}{subsection.13.3.3}%
-\contentsline {subsubsection}{Choosing the Optimal Number of Clusters}{327}{section*.212}%
-\contentsline {subsubsection}{Performing K-means Clustering}{328}{section*.213}%
-\contentsline {subsubsection}{Visualizing the Clusters}{328}{section*.214}%
-\contentsline {subsubsection}{Interpreting the Results}{329}{section*.215}%
-\contentsline {section}{\numberline {13.4}Exercises}{330}{section.13.4}%
+\contentsline {section}{\numberline {11.4}Random forests: an ensemble approach}{282}{section.11.4}%
+\contentsline {subsection}{Advantages and limitations of random forests}{282}{section*.194}%
+\contentsline {section}{\numberline {11.5}Case Study: Who Can Earn More Than \$50K Per Year?}{283}{section.11.5}%
+\contentsline {subsection}{Overview of the Dataset}{284}{section*.195}%
+\contentsline {subsection}{Data Preparation}{286}{section*.196}%
+\contentsline {subsubsection}{Handling Missing Values}{286}{section*.197}%
+\contentsline {subsubsection}{Transforming Categorical Variables}{287}{section*.198}%
+\contentsline {subsection}{Preparing Data for Modeling}{288}{section*.199}%
+\contentsline {subsection}{Decision Tree with CART}{289}{section*.200}%
+\contentsline {subsubsection}{Visualizing the Decision Tree}{290}{section*.201}%
+\contentsline {subsubsection}{Interpreting the Decision Tree}{291}{section*.202}%
+\contentsline {subsection}{Decision Tree with C5.0}{292}{section*.203}%
+\contentsline {subsection}{Random Forest}{292}{section*.204}%
+\contentsline {subsection}{Prediction and Model Evaluation}{294}{section*.205}%
+\contentsline {subsubsection}{Confusion Matrix and Classification Errors}{294}{section*.206}%
+\contentsline {subsubsection}{ROC Curve and AUC}{295}{section*.207}%
+\contentsline {section}{\numberline {11.6}Exercises}{297}{section.11.6}%
+\contentsline {subsection}{Decision Trees: Conceptual Questions}{297}{section*.208}%
+\contentsline {subsection}{Practical Exercises Using the Churn Dataset (Classification Tasks)}{298}{section*.209}%
+\contentsline {subsubsection}{\numberline {11.6.0.1}Data Preparation and Partitioning}{298}{subsubsection.11.6.0.1}%
+\contentsline {subsection}{Random Forests: Conceptual Questions}{299}{section*.210}%
+\contentsline {subsection}{Practical Exercises Using the Churn Dataset (Random Forests for Classification Tasks)}{299}{section*.211}%
+\contentsline {subsubsection}{Fitting and Evaluating a Random Forest Model}{299}{section*.212}%
+\contentsline {subsection}{Regression Trees and Random Forests (redWines Dataset)}{299}{section*.213}%
+\contentsline {subsubsection}{Data Preparation and Partitioning}{299}{section*.214}%
+\contentsline {subsubsection}{Conceptual Questions}{300}{section*.215}%
+\contentsline {subsubsection}{Practical Exercises Using the redWines Dataset}{300}{section*.216}%
+\contentsline {chapter}{\numberline {12}Neural Networks: The Building Blocks of Artificial Intelligence}{301}{chapter.12}%
+\contentsline {subsection}{Why Neural Networks Are Powerful}{302}{section*.217}%
+\contentsline {subsection}{What's Ahead}{303}{section*.218}%
+\contentsline {section}{\numberline {12.1}Neural Networks: Inspired by Biological Neurons}{303}{section.12.1}%
+\contentsline {section}{\numberline {12.2}How Neural Networks Work}{305}{section.12.2}%
+\contentsline {subsection}{Key Characteristics of Neural Networks}{307}{section*.219}%
+\contentsline {section}{\numberline {12.3}Activation Functions}{308}{section.12.3}%
+\contentsline {subsection}{The Sigmoid Activation Function}{309}{section*.220}%
+\contentsline {subsection}{Other Common Activation Functions}{309}{section*.221}%
+\contentsline {subsection}{Choosing the Right Activation Function}{310}{section*.222}%
+\contentsline {section}{\numberline {12.4}Network Architecture}{311}{section.12.4}%
+\contentsline {section}{\numberline {12.5}How Neural Networks Learn}{313}{section.12.5}%
+\contentsline {section}{\numberline {12.6}Case Study: Bank Marketing}{314}{section.12.6}%
+\contentsline {subsection}{Business Context}{315}{section*.223}%
+\contentsline {subsection}{Overview of the Dataset}{315}{section*.224}%
+\contentsline {subsection}{Data Cleaning and Preparation}{316}{section*.225}%
+\contentsline {subsection}{Applying the Neural Network Algorithm}{319}{section*.226}%
+\contentsline {subsection}{Prediction and Model Evaluation}{321}{section*.227}%
+\contentsline {section}{\numberline {12.7}Exercises}{322}{section.12.7}%
+\contentsline {chapter}{\numberline {13}Clustering}{323}{chapter.13}%
+\contentsline {section}{\numberline {13.1}K-means Clustering}{325}{section.13.1}%
+\contentsline {section}{\numberline {13.2}Choosing the Number of Clusters}{329}{section.13.2}%
+\contentsline {section}{\numberline {13.3}Case Study: Clustering Cereal Data}{331}{section.13.3}%
+\contentsline {subsection}{\numberline {13.3.1}Dataset Overview}{331}{subsection.13.3.1}%
+\contentsline {subsection}{\numberline {13.3.2}Data Preprocessing}{332}{subsection.13.3.2}%
+\contentsline {subsection}{\numberline {13.3.3}Applying K-means Clustering}{335}{subsection.13.3.3}%
+\contentsline {subsubsection}{Choosing the Optimal Number of Clusters}{335}{section*.228}%
+\contentsline {subsubsection}{Performing K-means Clustering}{336}{section*.229}%
+\contentsline {subsubsection}{Visualizing the Clusters}{336}{section*.230}%
+\contentsline {subsubsection}{Interpreting the Results}{337}{section*.231}%
+\contentsline {section}{\numberline {13.4}Exercises}{338}{section.13.4}%

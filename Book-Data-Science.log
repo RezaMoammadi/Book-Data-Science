@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.11.21)  19 FEB 2025 14:32
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.11.21)  25 FEB 2025 14:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -3969,103 +3969,158 @@ File: images/ex_tree_1.png Graphic file (type bmp)
 <images/ex_tree_1.png>
 File: images/ex_tree_2.png Graphic file (type bmp)
 <images/ex_tree_2.png>
-[275]
 File: images/ex_tree_3.png Graphic file (type bmp)
 <images/ex_tree_3.png>
 File: images/ex_tree_4.png Graphic file (type bmp)
 <images/ex_tree_4.png>
-[276] [277] [278] [279]
+[275] [276] [277] [278] [279]
 File: tree_files/figure-latex/tree-C50-1.pdf Graphic file (type pdf)
 <use tree_files/figure-latex/tree-C50-1.pdf>
-[280] [281] [282] [283] [284] [285] [286]
-File: tree_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file (type pdf)
-<use tree_files/figure-latex/unnamed-chunk-6-1.pdf>
-[287]
-File: tree_files/figure-latex/unnamed-chunk-9-1.pdf Graphic file (type pdf)
-<use tree_files/figure-latex/unnamed-chunk-9-1.pdf>
-File: tree_files/figure-latex/unnamed-chunk-9-2.pdf Graphic file (type pdf)
-<use tree_files/figure-latex/unnamed-chunk-9-2.pdf>
-
+[280]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[288]
-File: tree_files/figure-latex/unnamed-chunk-10-1.pdf Graphic file (type pdf)
-<use tree_files/figure-latex/unnamed-chunk-10-1.pdf>
-[289]
-File: tree_files/figure-latex/unnamed-chunk-11-1.pdf Graphic file (type pdf)
-<use tree_files/figure-latex/unnamed-chunk-11-1.pdf>
+[281] [282] [283]
+Overfull \hbox (9.0036pt too wide) in paragraph at lines 9110--9111
+[][][][][] 
+ []
+
+
+Overfull \hbox (53.00385pt too wide) in paragraph at lines 9110--9111
+[][] 
+ []
+
+
+Overfull \hbox (29.0036pt too wide) in paragraph at lines 9110--9111
+[][] 
+ []
+
+
+Overfull \hbox (29.0036pt too wide) in paragraph at lines 9110--9111
+[][] 
+ []
+
+
+Overfull \hbox (47.00378pt too wide) in paragraph at lines 9110--9111
+[][] 
+ []
+
+
+Overfull \hbox (29.0036pt too wide) in paragraph at lines 9110--9111
+[][] 
+ []
+
+
+Overfull \hbox (29.0036pt too wide) in paragraph at lines 9110--9111
+[][] 
+ []
+
+
+Overfull \hbox (47.00378pt too wide) in paragraph at lines 9110--9111
+[][] 
+ []
+
+
+Overfull \hbox (23.00354pt too wide) in paragraph at lines 9110--9111
+[]  
+ []
+
+
+Underfull \vbox (badness 2012) has occurred while \output is active []
+
+[284]
+Overfull \hbox (41.00372pt too wide) in paragraph at lines 9134--9135
+[][] 
+ []
+
+
+Overfull \hbox (17.00348pt too wide) in paragraph at lines 9134--9135
+[][] 
+ []
+
+
+Overfull \hbox (17.00348pt too wide) in paragraph at lines 9134--9135
+[][] 
+ []
+
+
+Overfull \hbox (41.00372pt too wide) in paragraph at lines 9134--9135
+[][] 
+ []
+
+
+Overfull \hbox (17.00348pt too wide) in paragraph at lines 9134--9135
+[][] 
+ []
+
+
+Overfull \hbox (17.00348pt too wide) in paragraph at lines 9134--9135
+[][] 
+ []
+
+
+Overfull \hbox (35.00366pt too wide) in paragraph at lines 9134--9135
+[][] 
+ []
+
+
+Overfull \hbox (11.00342pt too wide) in paragraph at lines 9134--9135
+[]  
+ []
+
+[285] [286] [287] [288] [289]
 File: tree_files/figure-latex/unnamed-chunk-12-1.pdf Graphic file (type pdf)
 <use tree_files/figure-latex/unnamed-chunk-12-1.pdf>
-[290]
-File: tree_files/figure-latex/unnamed-chunk-13-1.pdf Graphic file (type pdf)
-<use tree_files/figure-latex/unnamed-chunk-13-1.pdf>
+[290] [291] [292]
+File: tree_files/figure-latex/unnamed-chunk-19-1.pdf Graphic file (type pdf)
+<use tree_files/figure-latex/unnamed-chunk-19-1.pdf>
+File: tree_files/figure-latex/unnamed-chunk-20-1.pdf Graphic file (type pdf)
+<use tree_files/figure-latex/unnamed-chunk-20-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[291] [292]
+[293] [294]
+File: tree_files/figure-latex/unnamed-chunk-22-1.pdf Graphic file (type pdf)
+<use tree_files/figure-latex/unnamed-chunk-22-1.pdf>
+File: tree_files/figure-latex/unnamed-chunk-22-2.pdf Graphic file (type pdf)
+<use tree_files/figure-latex/unnamed-chunk-22-2.pdf>
+File: tree_files/figure-latex/unnamed-chunk-22-3.pdf Graphic file (type pdf)
+<use tree_files/figure-latex/unnamed-chunk-22-3.pdf>
+[295]
+File: tree_files/figure-latex/unnamed-chunk-26-1.pdf Graphic file (type pdf)
+<use tree_files/figure-latex/unnamed-chunk-26-1.pdf>
+[296]
+Underfull \vbox (badness 2165) has occurred while \output is active []
+
+[297]
+Underfull \vbox (badness 2478) has occurred while \output is active []
+
+[298] [299] [300]
 Chapter 12.
-[293
+[301
 
 ]
-Overfull \hbox (128.52344pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 294 \TU/lmr/m/sl/10 CHAPTER 12.  NEURAL NETWORKS: THE BUILDING B
-LOCKS OF ARTIFICIAL INTELLIGENCE
- []
-
-[294] [295]
-File: images/net_brain.png Graphic file (type bmp)
-<images/net_brain.png>
-File: images/net_1.png Graphic file (type bmp)
-<images/net_1.png>
-
-Overfull \hbox (128.52344pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 296 \TU/lmr/m/sl/10 CHAPTER 12.  NEURAL NETWORKS: THE BUILDING B
-LOCKS OF ARTIFICIAL INTELLIGENCE
- []
-
-[296]
-File: images/net_reg.png Graphic file (type bmp)
-<images/net_reg.png>
-[297]
-File: images/net_large.png Graphic file (type bmp)
-<images/net_large.png>
-
-Overfull \hbox (128.52344pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 298 \TU/lmr/m/sl/10 CHAPTER 12.  NEURAL NETWORKS: THE BUILDING B
-LOCKS OF ARTIFICIAL INTELLIGENCE
- []
-
-[298] [299]
-File: nn_files/figure-latex/active-fun-unit-1.pdf Graphic file (type pdf)
-<use nn_files/figure-latex/active-fun-unit-1.pdf>
-
-Overfull \hbox (128.52344pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 300 \TU/lmr/m/sl/10 CHAPTER 12.  NEURAL NETWORKS: THE BUILDING B
-LOCKS OF ARTIFICIAL INTELLIGENCE
- []
-
-[300]
-File: nn_files/figure-latex/active-fun-sigmoid-1.pdf Graphic file (type pdf)
-<use nn_files/figure-latex/active-fun-sigmoid-1.pdf>
-[301]
-File: nn_files/figure-latex/active-fun-comparison-1.pdf Graphic file (type pdf)
-
-<use nn_files/figure-latex/active-fun-comparison-1.pdf>
-
 Overfull \hbox (128.52344pt too wide) has occurred while \output is active
 \TU/lmr/m/n/10 302 \TU/lmr/m/sl/10 CHAPTER 12.  NEURAL NETWORKS: THE BUILDING B
 LOCKS OF ARTIFICIAL INTELLIGENCE
  []
 
 [302] [303]
+File: images/net_brain.png Graphic file (type bmp)
+<images/net_brain.png>
+File: images/net_1.png Graphic file (type bmp)
+<images/net_1.png>
+
 Overfull \hbox (128.52344pt too wide) has occurred while \output is active
 \TU/lmr/m/n/10 304 \TU/lmr/m/sl/10 CHAPTER 12.  NEURAL NETWORKS: THE BUILDING B
 LOCKS OF ARTIFICIAL INTELLIGENCE
  []
 
-[304] [305]
-Underfull \vbox (badness 1226) has occurred while \output is active []
-
+[304]
+File: images/net_reg.png Graphic file (type bmp)
+<images/net_reg.png>
+[305]
+File: images/net_large.png Graphic file (type bmp)
+<images/net_large.png>
 
 Overfull \hbox (128.52344pt too wide) has occurred while \output is active
 \TU/lmr/m/n/10 306 \TU/lmr/m/sl/10 CHAPTER 12.  NEURAL NETWORKS: THE BUILDING B
@@ -4073,12 +4128,49 @@ LOCKS OF ARTIFICIAL INTELLIGENCE
  []
 
 [306] [307]
+File: nn_files/figure-latex/active-fun-unit-1.pdf Graphic file (type pdf)
+<use nn_files/figure-latex/active-fun-unit-1.pdf>
+
 Overfull \hbox (128.52344pt too wide) has occurred while \output is active
 \TU/lmr/m/n/10 308 \TU/lmr/m/sl/10 CHAPTER 12.  NEURAL NETWORKS: THE BUILDING B
 LOCKS OF ARTIFICIAL INTELLIGENCE
  []
 
 [308]
+File: nn_files/figure-latex/active-fun-sigmoid-1.pdf Graphic file (type pdf)
+<use nn_files/figure-latex/active-fun-sigmoid-1.pdf>
+[309]
+File: nn_files/figure-latex/active-fun-comparison-1.pdf Graphic file (type pdf)
+
+<use nn_files/figure-latex/active-fun-comparison-1.pdf>
+
+Overfull \hbox (128.52344pt too wide) has occurred while \output is active
+\TU/lmr/m/n/10 310 \TU/lmr/m/sl/10 CHAPTER 12.  NEURAL NETWORKS: THE BUILDING B
+LOCKS OF ARTIFICIAL INTELLIGENCE
+ []
+
+[310] [311]
+Overfull \hbox (128.52344pt too wide) has occurred while \output is active
+\TU/lmr/m/n/10 312 \TU/lmr/m/sl/10 CHAPTER 12.  NEURAL NETWORKS: THE BUILDING B
+LOCKS OF ARTIFICIAL INTELLIGENCE
+ []
+
+[312] [313]
+Underfull \vbox (badness 1226) has occurred while \output is active []
+
+
+Overfull \hbox (128.52344pt too wide) has occurred while \output is active
+\TU/lmr/m/n/10 314 \TU/lmr/m/sl/10 CHAPTER 12.  NEURAL NETWORKS: THE BUILDING B
+LOCKS OF ARTIFICIAL INTELLIGENCE
+ []
+
+[314] [315]
+Overfull \hbox (128.52344pt too wide) has occurred while \output is active
+\TU/lmr/m/n/10 316 \TU/lmr/m/sl/10 CHAPTER 12.  NEURAL NETWORKS: THE BUILDING B
+LOCKS OF ARTIFICIAL INTELLIGENCE
+ []
+
+[316]
 File: nn_files/figure-latex/unnamed-chunk-5-1.pdf Graphic file (type pdf)
 <use nn_files/figure-latex/unnamed-chunk-5-1.pdf>
 File: nn_files/figure-latex/unnamed-chunk-5-2.pdf Graphic file (type pdf)
@@ -4086,48 +4178,48 @@ File: nn_files/figure-latex/unnamed-chunk-5-2.pdf Graphic file (type pdf)
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[309]
+[317]
 Overfull \hbox (128.52344pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 310 \TU/lmr/m/sl/10 CHAPTER 12.  NEURAL NETWORKS: THE BUILDING B
+\TU/lmr/m/n/10 318 \TU/lmr/m/sl/10 CHAPTER 12.  NEURAL NETWORKS: THE BUILDING B
 LOCKS OF ARTIFICIAL INTELLIGENCE
  []
 
-[310] [311]
+[318] [319]
 File: nn_files/figure-latex/unnamed-chunk-11-1.pdf Graphic file (type pdf)
 <use nn_files/figure-latex/unnamed-chunk-11-1.pdf>
 
 Overfull \hbox (128.52344pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 312 \TU/lmr/m/sl/10 CHAPTER 12.  NEURAL NETWORKS: THE BUILDING B
+\TU/lmr/m/n/10 320 \TU/lmr/m/sl/10 CHAPTER 12.  NEURAL NETWORKS: THE BUILDING B
 LOCKS OF ARTIFICIAL INTELLIGENCE
  []
 
-[312]
+[320]
 File: nn_files/figure-latex/unnamed-chunk-14-1.pdf Graphic file (type pdf)
 <use nn_files/figure-latex/unnamed-chunk-14-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[313]
+[321]
 Overfull \hbox (128.52344pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 314 \TU/lmr/m/sl/10 CHAPTER 12.  NEURAL NETWORKS: THE BUILDING B
+\TU/lmr/m/n/10 322 \TU/lmr/m/sl/10 CHAPTER 12.  NEURAL NETWORKS: THE BUILDING B
 LOCKS OF ARTIFICIAL INTELLIGENCE
  []
 
-[314]
+[322]
 Chapter 13.
-[315
+[323
 
 ]
 File: images/cluster_1.png Graphic file (type bmp)
 <images/cluster_1.png>
-[316] [317]
+[324] [325]
 File: images/cluster_ex_1.png Graphic file (type bmp)
 <images/cluster_ex_1.png>
 File: images/cluster_ex_2.png Graphic file (type bmp)
 <images/cluster_ex_2.png>
 File: images/cluster_ex_3.png Graphic file (type bmp)
 <images/cluster_ex_3.png>
-[318]
+[326]
 File: images/cluster_ex_4.png Graphic file (type bmp)
 <images/cluster_ex_4.png>
 File: images/cluster_ex_5.png Graphic file (type bmp)
@@ -4138,17 +4230,17 @@ File: images/cluster_ex_7.png Graphic file (type bmp)
 <images/cluster_ex_7.png>
 File: images/cluster_ex_8.png Graphic file (type bmp)
 <images/cluster_ex_8.png>
-[319] [320]
+[327] [328]
 File: images/cluster_elbow.png Graphic file (type bmp)
 <images/cluster_elbow.png>
-[321] [322] [323] [324] [325] [326]
+[329] [330] [331] [332] [333] [334]
 File: clustering_files/figure-latex/unnamed-chunk-10-1.pdf Graphic file (type p
 df)
 <use clustering_files/figure-latex/unnamed-chunk-10-1.pdf>
 File: clustering_files/figure-latex/unnamed-chunk-10-2.pdf Graphic file (type p
 df)
 <use clustering_files/figure-latex/unnamed-chunk-10-2.pdf>
-[327]
+[335]
 File: clustering_files/figure-latex/unnamed-chunk-11-1.pdf Graphic file (type p
 df)
 <use clustering_files/figure-latex/unnamed-chunk-11-1.pdf>
@@ -4158,11 +4250,11 @@ df)
 
 Underfull \vbox (badness 1184) has occurred while \output is active []
 
-[328] [329] (./Book-Data-Science.bbl [330])
+[336] [337] (./Book-Data-Science.bbl [338])
 
 Package natbib Warning: There were undefined citations.
 
-[331
+[339
 
 ] (./Book-Data-Science.aux)
 
@@ -4173,12 +4265,12 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 25270 strings out of 476683
- 486388 string characters out of 5804046
- 2161018 words of memory out of 5000000
- 45030 multiletter control sequences out of 15000+600000
+ 25309 strings out of 476683
+ 487417 string characters out of 5804046
+ 2162018 words of memory out of 5000000
+ 45066 multiletter control sequences out of 15000+600000
  520037 words of font info for 101 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  86i,18n,121p,1160b,1854s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on Book-Data-Science.pdf (331 pages).
+Output written on Book-Data-Science.pdf (339 pages).

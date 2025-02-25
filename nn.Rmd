@@ -1,37 +1,20 @@
-```{r, echo = F}
-# To use this link: 
-# 
-
-```
-
-
-```{r include = FALSE, message = FALSE, warning = FALSE}
-library(neuralnet)     # For Neural Network algorithm
-
-library(liver)         # For "adult" dataset & "partition" function
-library(ggplot2)       # For ggroc plot
-library(pROC)          # For ROC plot using "plot.roc" function
-
-data(bank) 
-```
-
 # Neural Networks: The Building Blocks of Artificial Intelligence {#chapter-nn}  
 
-For centuries, humans have dreamed of creating machines capable of mimicking human intelligence. Philosophers, scientists, and storytellers have long grappled with the possibilities and consequences of such creations, weaving them into myths, fiction, and philosophical discourse. The roots of this fascination can be traced as far back as ancient Greece, where inventors like Daedalus and Hero of Alexandria were said to have constructed mechanical devices that could write, generate sounds, and even play music. Today, in the 21st century, these age-old dreams are no longer confined to the realm of imagination. They have become reality in the form of **Artificial Intelligence (AI)**, a transformative force now deeply integrated into our daily lives. From **ChatGPT** and **generative AI (GenAI)** to self-driving cars and digital assistants like Siri or Alexa, AI has revolutionized the way we work, interact, and make decisions. This unprecedented progress has been driven by advancements in computational power, the availability of vast datasets, and breakthroughs in algorithm design.
+For centuries, humans have dreamed of creating machines capable of mimicking human intelligence. Philosophers, scientists, and storytellers have long grappled with the possibilities and consequences of such creations, weaving them into myths, fiction, and philosophical discourse. The roots of this fascination can be traced as far back as ancient Greece, where inventors like Daedalus and Hero of Alexandria were said to have constructed mechanical devices that could write, generate sounds, and even play music. Today, in the 21st century, these age-old dreams are no longer confined to the realm of imagination. They have become reality in the form of *Artificial Intelligence (AI)*, a transformative force now deeply integrated into our daily lives. From *generative AI (GenAI)* to self-driving cars and digital assistants like Siri or Alexa, AI has revolutionized the way we work, interact, and make decisions. This unprecedented progress has been driven by advancements in computational power, the availability of vast datasets, and breakthroughs in algorithm design.
 
-At the heart of many cutting-edge AI systems lies a class of algorithms known as **neural networks**. Over the past decade, neural networks have undergone a dramatic resurgence under the umbrella of **deep learning**, ushering in revolutionary advancements across diverse fields like computer vision, natural language processing, and generative modeling. While deep learning now represents the forefront of machine learning, its foundation rests on simpler neural network architectures. In this chapter, we focus on **feed-forward neural networks**, also known as **multilayer perceptrons (MLPs)**. These foundational models form the building blocks for more sophisticated deep learning systems.
+At the heart of many cutting-edge AI systems lies a class of algorithms known as *neural networks*. Over the past decade, neural networks have undergone a dramatic resurgence under the umbrella of *deep learning*, ushering in revolutionary advancements across diverse fields like computer vision, natural language processing, and generative modeling. While deep learning now represents the forefront of machine learning, its foundation rests on simpler neural network architectures. In this chapter, we focus on *feed-forward neural networks*, also known as *multilayer perceptrons (MLPs)*. These foundational models form the building blocks for more sophisticated deep learning systems.
 
-Neural networks are **computational models inspired by the human brain**. Just as the brain is composed of billions of interconnected neurons that work together to enable complex tasks like reasoning, learning, and perception, artificial neural networks replicate this structure using layers of interconnected nodes (artificial neurons). This architecture allows neural networks to process and learn from data by identifying patterns, making them uniquely suited for solving problems that involve **complex, high-dimensional, and unstructured data**—such as images, text, and sound. Unlike traditional machine learning models like Decision Trees or k-Nearest Neighbors, neural networks excel in their ability to automatically discover features and representations within the data, often surpassing human-engineered solutions.
+Neural networks are *computational models inspired by the human brain*. Just as the brain is composed of billions of interconnected neurons that work together to enable complex tasks like reasoning, learning, and perception, artificial neural networks replicate this structure using layers of interconnected nodes (artificial neurons). This architecture allows neural networks to process and learn from data by identifying patterns, making them uniquely suited for solving problems that involve *complex, high-dimensional, and unstructured data*—such as images, text, and sound. Unlike traditional machine learning models like Decision Trees or k-Nearest Neighbors, neural networks excel in their ability to automatically discover features and representations within the data, often surpassing human-engineered solutions.
 
 ### Why Neural Networks Are Powerful {-}
 
-Neural networks are particularly adept at solving **complex and nonlinear problems**, making them indispensable for tasks that involve large, diverse, and intricate datasets. Their unique design and capabilities provide several key advantages:
+Neural networks are particularly adept at solving *complex and nonlinear problems*, making them indispensable for tasks that involve large, diverse, and intricate datasets. Their unique design and capabilities provide several key advantages:
 
-1. **Pattern Recognition in Complex Data:** Neural networks shine when it comes to detecting patterns in unstructured data, such as recognizing objects in images, understanding spoken language, or generating coherent text. These are tasks where traditional algorithms struggle.  
-2. **Robustness to Noise:** Thanks to their dense networks of neurons and adaptable weights, neural networks can identify meaningful patterns even in noisy or incomplete datasets, effectively filtering out irrelevant or erroneous data.  
-3. **Scalability:** Neural networks can handle vast amounts of data and adapt to increasing complexity by adding layers and nodes, enabling them to model highly nonlinear relationships and solve challenging problems.  
+1. *Pattern Recognition in Complex Data:* Neural networks shine when it comes to detecting patterns in unstructured data, such as recognizing objects in images, understanding spoken language, or generating coherent text. These are tasks where traditional algorithms struggle.  
+2. *Robustness to Noise:* Thanks to their dense networks of neurons and adaptable weights, neural networks can identify meaningful patterns even in noisy or incomplete datasets, effectively filtering out irrelevant or erroneous data.  
+3. *Scalability:* Neural networks can handle vast amounts of data and adapt to increasing complexity by adding layers and nodes, enabling them to model highly nonlinear relationships and solve challenging problems.  
 
-Despite their strengths, neural networks are not without challenges. Unlike interpretable models such as decision trees, neural networks are often referred to as **“black boxes”** due to their distributed and opaque decision-making processes. It can be difficult to understand why a neural network makes a specific prediction, as the reasoning is embedded across countless weights and activations. Additionally, training neural networks can be computationally intensive, often requiring specialized hardware like GPUs or TPUs to handle the enormous volume of calculations efficiently.
+Despite their strengths, neural networks are not without challenges. Unlike interpretable models such as decision trees, neural networks are often referred to as *“black boxes”* due to their distributed and opaque decision-making processes. It can be difficult to understand why a neural network makes a specific prediction, as the reasoning is embedded across countless weights and activations. Additionally, training neural networks can be computationally intensive, often requiring specialized hardware like GPUs or TPUs to handle the enormous volume of calculations efficiently.
 
 The power of neural networks lies in their biological inspiration. Just as interconnected neurons in the brain collaborate to perform complex tasks, artificial neurons in a network combine their outputs to solve problems that simpler algorithms cannot. This ability to emulate the nonlinear, adaptive learning of the brain has positioned neural networks at the forefront of both academic research and industry applications.
 
@@ -39,11 +22,11 @@ The power of neural networks lies in their biological inspiration. Just as inter
 
 In this chapter, we will explore the key concepts behind neural networks and examine their transformative applications through the following topics:
 
-- **Biological Inspiration**: Understanding how the structure and function of the human brain inspired artificial neural networks.  
-- **Core Algorithmic Principles**: Exploring the foundational mechanics of neural networks, including layers, nodes, and weights.  
-- **Activation Functions**: Unpacking the importance of introducing non-linearity to enable neural networks to model complex patterns.  
-- **Training Neural Networks**: Learning how neural networks adjust their parameters through iterative optimization to minimize errors.  
-- **Case Study**: Applying neural networks to solve a real-world problem—predicting whether a customer will subscribe to a term deposit using the **bank marketing dataset**.
+- *Biological Inspiration*: Understanding how the structure and function of the human brain inspired artificial neural networks.  
+- *Core Algorithmic Principles*: Exploring the foundational mechanics of neural networks, including layers, nodes, and weights.  
+- *Activation Functions*: Unpacking the importance of introducing non-linearity to enable neural networks to model complex patterns.  
+- *Training Neural Networks*: Learning how neural networks adjust their parameters through iterative optimization to minimize errors.  
+- *Case Study*: Applying neural networks to solve a real-world problem—predicting whether a customer will subscribe to a term deposit using the *bank marketing dataset*.
 
 Neural networks represent a paradigm shift in modern computing, enabling machines to tackle problems that were once considered insurmountable. From powering recommendation systems to driving autonomous vehicles, these models are transforming industries and shaping the future of AI. In this chapter, we will uncover the fundamentals of neural networks, demonstrating their extraordinary capabilities and laying the groundwork for understanding how they operate. Let’s begin by exploring the inspiration behind neural networks and their connection to the biology of the human brain.
 
@@ -115,7 +98,6 @@ The **activation function** plays a vital role in introducing non-linearity to t
 ### Key Characteristics of Neural Networks {-}  
 
 Despite the diversity of neural network architectures, all neural networks share three key characteristics that define their functionality (see Figure \@ref(fig:net-1)):  
-
 1. **Activation Functions**:  
    The activation function transforms a neuron’s net input into an output signal that is passed to the next layer. Activation functions introduce non-linearity, which is critical for modeling complex relationships in data. Examples include the sigmoid function, ReLU (Rectified Linear Unit), and hyperbolic tangent (tanh).  
 
@@ -144,6 +126,8 @@ f(x) =
 Figure \@ref(fig:active-fun-unit) visualizes the **threshold activation function**. Here, the neuron outputs a value of 1 when the input is at least zero, and 0 otherwise. Due to its step-like shape, it is sometimes referred to as a **unit step function**.
 
 ```{r active-fun-unit, echo = FALSE, out.width = "50%", fig.align = 'center', fig.cap = "Visualization of the threshold activation function (unit step)."}
+library(ggplot2)       # For ggroc plot
+
 x_values <- seq(-10, 10, by = 0.1)
 data <- data.frame(x = x_values, y = ifelse(x_values >= 0, 1, 0))
 
@@ -302,6 +286,8 @@ The dataset, sourced from [this repository](https://rdrr.io/cran/liver/man/bank.
 We load and inspect the dataset:  
   
 ```{r}
+library(liver)   # Load the liver package
+
 data(bank)   # Load the bank marketing dataset 
 
 str(bank)
@@ -359,8 +345,10 @@ Next, we partition the dataset into training (80%) and test (20%) subsets using 
 set.seed(500)
 
 data_sets = partition(data = bank_mm, ratio = c(0.8, 0.2))
+
 train_set = data_sets$part1
 test_set  = data_sets$part2
+
 actual_test = test_set$deposit
 ```
 
@@ -451,6 +439,8 @@ conf.mat(prob_nn, actual_test, cutoff = 0.5)
 This confusion matrix reveals the number of correct and incorrect predictions (e.g., true positives, false positives). Finally, we assess the model’s performance by plotting the ROC curve and calculating the AUC:  
   
 ```{r}
+library(pROC)   # For ROC curve
+
 roc_nn = roc(actual_test, prob_nn)
 
 ggroc(roc_nn, size = 0.8) + 
@@ -465,6 +455,3 @@ The ROC curve illustrates the model's ability to distinguish between the two cla
 
 
 
-## Exercises
-
-To do ...
