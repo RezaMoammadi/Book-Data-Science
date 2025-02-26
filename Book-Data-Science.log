@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.11.21)  25 FEB 2025 14:42
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.11.21)  26 FEB 2025 15:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -4156,9 +4156,6 @@ LOCKS OF ARTIFICIAL INTELLIGENCE
  []
 
 [312] [313]
-Underfull \vbox (badness 1226) has occurred while \output is active []
-
-
 Overfull \hbox (128.52344pt too wide) has occurred while \output is active
 \TU/lmr/m/n/10 314 \TU/lmr/m/sl/10 CHAPTER 12.  NEURAL NETWORKS: THE BUILDING B
 LOCKS OF ARTIFICIAL INTELLIGENCE
@@ -4170,56 +4167,65 @@ Overfull \hbox (128.52344pt too wide) has occurred while \output is active
 LOCKS OF ARTIFICIAL INTELLIGENCE
  []
 
-[316]
-File: nn_files/figure-latex/unnamed-chunk-5-1.pdf Graphic file (type pdf)
-<use nn_files/figure-latex/unnamed-chunk-5-1.pdf>
-File: nn_files/figure-latex/unnamed-chunk-5-2.pdf Graphic file (type pdf)
-<use nn_files/figure-latex/unnamed-chunk-5-2.pdf>
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-[317]
+[316] [317]
 Overfull \hbox (128.52344pt too wide) has occurred while \output is active
 \TU/lmr/m/n/10 318 \TU/lmr/m/sl/10 CHAPTER 12.  NEURAL NETWORKS: THE BUILDING B
 LOCKS OF ARTIFICIAL INTELLIGENCE
  []
 
-[318] [319]
-File: nn_files/figure-latex/unnamed-chunk-11-1.pdf Graphic file (type pdf)
-<use nn_files/figure-latex/unnamed-chunk-11-1.pdf>
+[318]
+Underfull \vbox (badness 6625) has occurred while \output is active []
+
+[319]
+File: nn_files/figure-latex/unnamed-chunk-7-1.pdf Graphic file (type pdf)
+<use nn_files/figure-latex/unnamed-chunk-7-1.pdf>
+File: nn_files/figure-latex/unnamed-chunk-7-2.pdf Graphic file (type pdf)
+<use nn_files/figure-latex/unnamed-chunk-7-2.pdf>
 
 Overfull \hbox (128.52344pt too wide) has occurred while \output is active
 \TU/lmr/m/n/10 320 \TU/lmr/m/sl/10 CHAPTER 12.  NEURAL NETWORKS: THE BUILDING B
 LOCKS OF ARTIFICIAL INTELLIGENCE
  []
 
-[320]
-File: nn_files/figure-latex/unnamed-chunk-14-1.pdf Graphic file (type pdf)
-<use nn_files/figure-latex/unnamed-chunk-14-1.pdf>
+[320] [321]
+File: nn_files/figure-latex/unnamed-chunk-10-1.pdf Graphic file (type pdf)
+<use nn_files/figure-latex/unnamed-chunk-10-1.pdf>
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-[321]
 Overfull \hbox (128.52344pt too wide) has occurred while \output is active
 \TU/lmr/m/n/10 322 \TU/lmr/m/sl/10 CHAPTER 12.  NEURAL NETWORKS: THE BUILDING B
 LOCKS OF ARTIFICIAL INTELLIGENCE
  []
 
-[322]
+[322] [323]
+File: nn_files/figure-latex/unnamed-chunk-14-1.pdf Graphic file (type pdf)
+<use nn_files/figure-latex/unnamed-chunk-14-1.pdf>
+
+Overfull \hbox (128.52344pt too wide) has occurred while \output is active
+\TU/lmr/m/n/10 324 \TU/lmr/m/sl/10 CHAPTER 12.  NEURAL NETWORKS: THE BUILDING B
+LOCKS OF ARTIFICIAL INTELLIGENCE
+ []
+
+[324] [325]
+Overfull \hbox (128.52344pt too wide) has occurred while \output is active
+\TU/lmr/m/n/10 326 \TU/lmr/m/sl/10 CHAPTER 12.  NEURAL NETWORKS: THE BUILDING B
+LOCKS OF ARTIFICIAL INTELLIGENCE
+ []
+
+[326]
 Chapter 13.
-[323
+[327
 
 ]
 File: images/cluster_1.png Graphic file (type bmp)
 <images/cluster_1.png>
-[324] [325]
+[328] [329]
 File: images/cluster_ex_1.png Graphic file (type bmp)
 <images/cluster_ex_1.png>
 File: images/cluster_ex_2.png Graphic file (type bmp)
 <images/cluster_ex_2.png>
 File: images/cluster_ex_3.png Graphic file (type bmp)
 <images/cluster_ex_3.png>
-[326]
+[330]
 File: images/cluster_ex_4.png Graphic file (type bmp)
 <images/cluster_ex_4.png>
 File: images/cluster_ex_5.png Graphic file (type bmp)
@@ -4230,31 +4236,31 @@ File: images/cluster_ex_7.png Graphic file (type bmp)
 <images/cluster_ex_7.png>
 File: images/cluster_ex_8.png Graphic file (type bmp)
 <images/cluster_ex_8.png>
-[327] [328]
+[331] [332]
 File: images/cluster_elbow.png Graphic file (type bmp)
 <images/cluster_elbow.png>
-[329] [330] [331] [332] [333] [334]
-File: clustering_files/figure-latex/unnamed-chunk-10-1.pdf Graphic file (type p
+[333] [334] [335] [336] [337] [338]
+File: clustering_files/figure-latex/unnamed-chunk-8-1.pdf Graphic file (type pd
+f)
+<use clustering_files/figure-latex/unnamed-chunk-8-1.pdf>
+File: clustering_files/figure-latex/unnamed-chunk-8-2.pdf Graphic file (type pd
+f)
+<use clustering_files/figure-latex/unnamed-chunk-8-2.pdf>
+[339]
+File: clustering_files/figure-latex/unnamed-chunk-9-1.pdf Graphic file (type pd
+f)
+<use clustering_files/figure-latex/unnamed-chunk-9-1.pdf>
+File: clustering_files/figure-latex/unnamed-chunk-12-1.pdf Graphic file (type p
 df)
-<use clustering_files/figure-latex/unnamed-chunk-10-1.pdf>
-File: clustering_files/figure-latex/unnamed-chunk-10-2.pdf Graphic file (type p
-df)
-<use clustering_files/figure-latex/unnamed-chunk-10-2.pdf>
-[335]
-File: clustering_files/figure-latex/unnamed-chunk-11-1.pdf Graphic file (type p
-df)
-<use clustering_files/figure-latex/unnamed-chunk-11-1.pdf>
-File: clustering_files/figure-latex/unnamed-chunk-14-1.pdf Graphic file (type p
-df)
-<use clustering_files/figure-latex/unnamed-chunk-14-1.pdf>
+<use clustering_files/figure-latex/unnamed-chunk-12-1.pdf>
 
 Underfull \vbox (badness 1184) has occurred while \output is active []
 
-[336] [337] (./Book-Data-Science.bbl [338])
+[340] [341] [342] [343] (./Book-Data-Science.bbl [344])
 
 Package natbib Warning: There were undefined citations.
 
-[339
+[345
 
 ] (./Book-Data-Science.aux)
 
@@ -4265,12 +4271,12 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 25309 strings out of 476683
- 487417 string characters out of 5804046
- 2162018 words of memory out of 5000000
- 45066 multiletter control sequences out of 15000+600000
- 520037 words of font info for 101 fonts, out of 8000000 for 9000
+ 25335 strings out of 476683
+ 488081 string characters out of 5804046
+ 2191018 words of memory out of 5000000
+ 45091 multiletter control sequences out of 15000+600000
+ 520045 words of font info for 102 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 86i,18n,121p,1160b,1854s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 86i,18n,121p,1073b,1854s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on Book-Data-Science.pdf (339 pages).
+Output written on Book-Data-Science.pdf (345 pages).

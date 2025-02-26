@@ -102,7 +102,7 @@
 
 \title{Uncovering Data Science with R}
 \author{Reza Mohammadi}
-\date{2025-02-25}
+\date{2025-02-26}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -5601,7 +5601,7 @@ data_sets = partition(data = churn, ratio = c(0.8, 0.2))
 train_set = data_sets$part1
 test_set  = data_sets$part2
 
-actual_test = test_set$churn
+test_labels = test_set$churn
 \end{lstlisting}
 
 The \passthrough{\lstinline!partition()!} function randomly splits the dataset while maintaining the class distribution of the target variable, ensuring a representative training and test set. As we validated the partition in Section \ref{sec-validate-partition}, we can now proceed with feature scaling and one-hot encoding to ensure compatibility with the kNN algorithm.
@@ -5700,7 +5700,7 @@ The \passthrough{\lstinline!kNN()!} function automates the kNN classification pr
 Evaluating model performance is crucial to ensure that the kNN algorithm generalizes well to unseen data and makes reliable predictions. A confusion matrix provides a summary of correct and incorrect predictions by comparing the predicted labels to the actual labels in the test set. We compute it using the \passthrough{\lstinline!conf.mat()!} function from the \textbf{liver} package:
 
 \begin{lstlisting}[language=R]
-conf.mat(kNN_predict, actual_test, reference = "yes")
+conf.mat(kNN_predict, test_labels, reference = "yes")
           Actual
    Predict yes  no
        yes  54   7
@@ -9299,10 +9299,17 @@ To predict whether an individual's income exceeds \$50K, we use the following pr
 
 \passthrough{\lstinline!age!}, \passthrough{\lstinline!workclass!}, \passthrough{\lstinline!education.num!}, \passthrough{\lstinline!marital.status!}, \passthrough{\lstinline!occupation!}, \passthrough{\lstinline!race!}, \passthrough{\lstinline!gender!}, \passthrough{\lstinline!capital.gain!}, \passthrough{\lstinline!capital.loss!}, \passthrough{\lstinline!hours.per.week!}, and \passthrough{\lstinline!native.country!}.
 
-We exclude \passthrough{\lstinline!demogweight!}, \passthrough{\lstinline!education!}, and \passthrough{\lstinline!relationship!} for the following reasons:\\
-- \passthrough{\lstinline!demogweight!} is treated as an ID variable and does not provide meaningful predictive information.\\
-- \passthrough{\lstinline!education!} is removed because \passthrough{\lstinline!education.num!} represents the same information in a numerical format.\\
-- \passthrough{\lstinline!relationship!} is highly correlated with \passthrough{\lstinline!marital.status!} and does not provide additional independent information.
+We exclude \passthrough{\lstinline!demogweight!}, \passthrough{\lstinline!education!}, and \passthrough{\lstinline!relationship!} for the following reasons:
+
+\begin{itemize}
+\tightlist
+\item
+  \passthrough{\lstinline!demogweight!} is treated as an ID variable and does not provide meaningful predictive information.\\
+\item
+  \passthrough{\lstinline!education!} is removed because \passthrough{\lstinline!education.num!} represents the same information in a numerical format.\\
+\item
+  \passthrough{\lstinline!relationship!} is highly correlated with \passthrough{\lstinline!marital.status!} and does not provide additional independent information.
+\end{itemize}
 
 These selected predictors are used in the following formula:
 
@@ -9806,62 +9813,62 @@ test_labels = test_set$quantity
 
 \chapter{Neural Networks: The Building Blocks of Artificial Intelligence}\label{chapter-nn}
 
-For centuries, humans have dreamed of creating machines capable of mimicking human intelligence. Philosophers, scientists, and storytellers have long grappled with the possibilities and consequences of such creations, weaving them into myths, fiction, and philosophical discourse. The roots of this fascination can be traced as far back as ancient Greece, where inventors like Daedalus and Hero of Alexandria were said to have constructed mechanical devices that could write, generate sounds, and even play music. Today, in the 21st century, these age-old dreams are no longer confined to the realm of imagination. They have become reality in the form of \textbf{Artificial Intelligence (AI)}, a transformative force now deeply integrated into our daily lives. From \textbf{ChatGPT} and \textbf{generative AI (GenAI)} to self-driving cars and digital assistants like Siri or Alexa, AI has revolutionized the way we work, interact, and make decisions. This unprecedented progress has been driven by advancements in computational power, the availability of vast datasets, and breakthroughs in algorithm design.
+For centuries, humans have been captivated by the idea of creating machines that can think and learn like us. Philosophers, inventors, and storytellers have explored this vision, from the mechanical automata of ancient Greece to the artificial beings imagined in science fiction. Early inventors like Hero of Alexandria designed self-operating machines, and myths of artificial life---such as the golem or automatons---reflected humanity's enduring fascination with intelligent systems. What was once the realm of imagination has now become reality in the form of \emph{Artificial Intelligence (AI)}, a transformative force reshaping industries, societies, and daily life.
 
-At the heart of many cutting-edge AI systems lies a class of algorithms known as \textbf{neural networks}. Over the past decade, neural networks have undergone a dramatic resurgence under the umbrella of \textbf{deep learning}, ushering in revolutionary advancements across diverse fields like computer vision, natural language processing, and generative modeling. While deep learning now represents the forefront of machine learning, its foundation rests on simpler neural network architectures. In this chapter, we focus on \textbf{feed-forward neural networks}, also known as \textbf{multilayer perceptrons (MLPs)}. These foundational models form the building blocks for more sophisticated deep learning systems.
+AI is no longer a futuristic concept---it powers everything from recommendation systems and fraud detection to autonomous vehicles and generative AI (GenAI) models capable of producing text, images, and music. These advancements have been fueled by exponential growth in computational power, the availability of vast datasets, and breakthroughs in machine learning algorithms. At the heart of this revolution lies a class of models known as \emph{neural networks}, the driving force behind deep learning.\\
+Neural networks are computational models inspired by the structure and function of the human brain. Just as biological neurons connect to form intricate networks that process information, artificial neural networks consist of layers of interconnected nodes that learn from data. This design enables them to recognize patterns, extract meaningful insights, and make predictions, making them particularly suited for problems involving \emph{complex, high-dimensional, and unstructured data}---such as images, speech, and natural language. Unlike traditional machine learning models, which rely on handcrafted features, neural networks automatically discover representations in data, often outperforming classical approaches.
 
-Neural networks are \textbf{computational models inspired by the human brain}. Just as the brain is composed of billions of interconnected neurons that work together to enable complex tasks like reasoning, learning, and perception, artificial neural networks replicate this structure using layers of interconnected nodes (artificial neurons). This architecture allows neural networks to process and learn from data by identifying patterns, making them uniquely suited for solving problems that involve \textbf{complex, high-dimensional, and unstructured data}---such as images, text, and sound. Unlike traditional machine learning models like Decision Trees or k-Nearest Neighbors, neural networks excel in their ability to automatically discover features and representations within the data, often surpassing human-engineered solutions.
+While deep learning---powered by advanced neural architectures---has made groundbreaking strides in areas like computer vision and language modeling, its foundation rests on simpler architectures. In this chapter, we focus on \emph{feed-forward neural networks}, also known as \emph{multilayer perceptrons (MLPs)}. These fundamental models serve as the building blocks for more sophisticated deep learning systems.
 
-\subsection*{Why Neural Networks Are Powerful}\label{why-neural-networks-are-powerful}
-\addcontentsline{toc}{subsection}{Why Neural Networks Are Powerful}
+\subsection*{Why neural networks are powerful}\label{why-neural-networks-are-powerful}
+\addcontentsline{toc}{subsection}{Why neural networks are powerful}
 
-Neural networks are particularly adept at solving \textbf{complex and nonlinear problems}, making them indispensable for tasks that involve large, diverse, and intricate datasets. Their unique design and capabilities provide several key advantages:
+Neural networks excel in tackling \emph{complex and nonlinear problems}, making them indispensable in modern AI applications. Their strengths stem from three key capabilities:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\tightlist
 \item
-  \textbf{Pattern Recognition in Complex Data:} Neural networks shine when it comes to detecting patterns in unstructured data, such as recognizing objects in images, understanding spoken language, or generating coherent text. These are tasks where traditional algorithms struggle.\\
+  \textbf{Pattern recognition in complex data:} Neural networks are exceptionally effective at identifying patterns in unstructured data, such as detecting objects in images, recognizing speech, and generating human-like text. These tasks often pose significant challenges for traditional algorithms.
 \item
-  \textbf{Robustness to Noise:} Thanks to their dense networks of neurons and adaptable weights, neural networks can identify meaningful patterns even in noisy or incomplete datasets, effectively filtering out irrelevant or erroneous data.\\
+  \textbf{Robustness to noise:} Due to their dense connectivity and adaptive learning, neural networks can extract meaningful information even from noisy or incomplete datasets, filtering out irrelevant variations.
 \item
-  \textbf{Scalability:} Neural networks can handle vast amounts of data and adapt to increasing complexity by adding layers and nodes, enabling them to model highly nonlinear relationships and solve challenging problems.
+  \textbf{Scalability and adaptability:} Neural networks can handle massive datasets and model highly nonlinear relationships by adjusting their architecture---adding layers and neurons to capture increasing complexity.
 \end{enumerate}
 
-Despite their strengths, neural networks are not without challenges. Unlike interpretable models such as decision trees, neural networks are often referred to as \textbf{``black boxes''} due to their distributed and opaque decision-making processes. It can be difficult to understand why a neural network makes a specific prediction, as the reasoning is embedded across countless weights and activations. Additionally, training neural networks can be computationally intensive, often requiring specialized hardware like GPUs or TPUs to handle the enormous volume of calculations efficiently.
+Despite these advantages, neural networks come with challenges. Unlike interpretable models such as decision trees, they are often seen as \emph{``black boxes''} because their decision-making process is distributed across many parameters, making it difficult to explain individual predictions. Additionally, training neural networks requires significant computational power, often necessitating specialized hardware like GPUs or TPUs to process large volumes of data efficiently.
 
-The power of neural networks lies in their biological inspiration. Just as interconnected neurons in the brain collaborate to perform complex tasks, artificial neurons in a network combine their outputs to solve problems that simpler algorithms cannot. This ability to emulate the nonlinear, adaptive learning of the brain has positioned neural networks at the forefront of both academic research and industry applications.
+The power of neural networks lies in their ability to emulate biological learning. Just as neurons in the brain collaborate to recognize patterns, artificial neurons in a network combine their outputs to solve problems that traditional algorithms struggle with. This ability to adaptively model nonlinear relationships has placed neural networks at the forefront of both research and real-world applications.
 
-\subsection*{What's Ahead}\label{whats-ahead}
-\addcontentsline{toc}{subsection}{What's Ahead}
+\subsection*{What's ahead}\label{whats-ahead}
+\addcontentsline{toc}{subsection}{What's ahead}
 
-In this chapter, we will explore the key concepts behind neural networks and examine their transformative applications through the following topics:
+In this chapter, we will explore the key principles of neural networks and their transformative applications through the following topics:
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Biological Inspiration}: Understanding how the structure and function of the human brain inspired artificial neural networks.\\
+  Biological inspiration: How the structure and function of the human brain inspired artificial neural networks.\\
 \item
-  \textbf{Core Algorithmic Principles}: Exploring the foundational mechanics of neural networks, including layers, nodes, and weights.\\
+  Core algorithmic principles: The fundamental mechanics of neural networks, including layers, nodes, and weights.\\
 \item
-  \textbf{Activation Functions}: Unpacking the importance of introducing non-linearity to enable neural networks to model complex patterns.\\
+  Activation functions: The role of non-linearity in enabling neural networks to learn complex patterns.\\
 \item
-  \textbf{Training Neural Networks}: Learning how neural networks adjust their parameters through iterative optimization to minimize errors.\\
+  Training neural networks: The iterative optimization process used to adjust neural network parameters.\\
 \item
-  \textbf{Case Study}: Applying neural networks to solve a real-world problem---predicting whether a customer will subscribe to a term deposit using the \textbf{bank marketing dataset}.
+  Case study: Applying neural networks to predict customer subscription behavior using the \emph{bank marketing dataset}.
 \end{itemize}
 
-Neural networks represent a paradigm shift in modern computing, enabling machines to tackle problems that were once considered insurmountable. From powering recommendation systems to driving autonomous vehicles, these models are transforming industries and shaping the future of AI. In this chapter, we will uncover the fundamentals of neural networks, demonstrating their extraordinary capabilities and laying the groundwork for understanding how they operate. Let's begin by exploring the inspiration behind neural networks and their connection to the biology of the human brain.
+Neural networks have revolutionized computing, enabling machines to tackle problems once considered unsolvable. From driving autonomous vehicles to powering medical diagnostics, these models are shaping the future of AI. To understand how they function, we begin by exploring their biological origins and the inspiration drawn from the human brain.
 
-\section{Neural Networks: Inspired by Biological Neurons}\label{neural-networks-inspired-by-biological-neurons}
+\section{Neural networks: inspired by biological neurons}\label{neural-networks-inspired-by-biological-neurons}
 
 The foundation of neural networks is deeply rooted in the structure and function of biological neurons, which form the basis of learning and decision-making in animal brains. While individual neurons are relatively simple in structure, their true power lies in their dense and intricate connectivity. These networks of interconnected neurons enable the brain to perform highly complex tasks, such as pattern recognition, classification, reasoning, and decision-making. For example, the human brain contains approximately \(10^{11}\) neurons, with each neuron forming connections to an average of 10,000 others. This creates an astonishing \(10^{15}\) synaptic connections---a vast, dynamic network capable of extraordinary learning and adaptation.
 
-Artificial Neural Networks (ANNs) are computational abstractions of this biological system. While they are far simpler than their biological counterparts, ANNs replicate the fundamental principle of learning through interconnected units. By leveraging dense networks of artificial neurons, ANNs can model nonlinear and dynamic processes, enabling them to tackle complex problems in domains such as image recognition, speech processing, and decision-making. They are particularly adept at uncovering patterns and relationships in data, even in cases where traditional algorithms struggle.
+Artificial neural networks (ANNs) are computational models inspired by these biological structures. While they do not replicate the full complexity of the brain, they abstract key principles of learning through interconnected units. By leveraging dense networks of artificial neurons, ANNs can model nonlinear and dynamic processes, enabling them to tackle complex problems in domains such as image recognition, speech processing, and decision-making. They are particularly adept at uncovering patterns and relationships in data, even in cases where traditional algorithms struggle.
 
-As shown in Figure \ref{fig:net-brain}, a \textbf{biological neuron} is designed to process and transmit information. \textbf{Dendrites} act as the input channels, collecting signals from other neurons. These signals are processed and integrated in the \textbf{cell body}, where a decision is made: if the combined input surpasses a certain threshold, the neuron ``fires'' and sends an output signal through its \textbf{axon} to other connected neurons. This nonlinear behavior---firing only when a certain input threshold is exceeded---plays a critical role in the brain's ability to process information efficiently.
+As shown in Figure \ref{fig:net-brain}, a biological neuron is designed to process and transmit information. Dendrites act as input channels, collecting signals from other neurons. These signals are processed and integrated in the cell body, where a decision is made: if the combined input surpasses a certain threshold, the neuron ``fires'' and sends an output signal through its axon to other connected neurons. This nonlinear behavior---firing only when a certain input threshold is exceeded---plays a critical role in the brain's ability to process information efficiently.
 
-Similarly, an \textbf{artificial neuron} (illustrated in Figure \ref{fig:net-1}) emulates this process using a mathematical model. It receives inputs (\(x_i\)) from either other artificial neurons or directly from a dataset. These inputs are combined using a weighted summation (\(\sum w_i x_i\)), where the weights (\(w_i\)) represent the strength of each input's influence. The combined signal is then passed through an \textbf{activation function} (\(f(.)\)) to introduce non-linearity, determining the final output (\(\hat{y}\)). This output is then either passed downstream to other artificial neurons or used as the final result of the model. The activation function is crucial, as it enables neural networks to learn and model complex, nonlinear relationships in data.
+Similarly, an artificial neuron (illustrated in Figure \ref{fig:net-1}) emulates this process using a mathematical model. It receives inputs (\(x_i\)) from either other artificial neurons or directly from a dataset. These inputs are combined using a weighted summation (\(\sum w_i x_i\)), where the weights (\(w_i\)) represent the strength of each input's influence. The combined signal is then passed through an activation function (\(f(.)\)) to introduce non-linearity, determining the final output (\(\hat{y}\)). This output is either transmitted to other artificial neurons or used as the final result of the model. The activation function is crucial, as it enables neural networks to learn and model complex, nonlinear relationships in data.
 
 \begin{figure}
 
@@ -9881,18 +9888,21 @@ Similarly, an \textbf{artificial neuron} (illustrated in Figure \ref{fig:net-1})
 \caption{Illustration of an artificial neuron, designed to emulate the structure and function of a biological neuron in a simplified way.}\label{fig:net-1}
 \end{figure}
 
-One of the key advantages of artificial neural networks is their robustness. Unlike traditional algorithms, neural networks can handle noisy or incomplete data effectively. This is because the network's many interconnected neurons and weighted connections allow it to adapt and ``learn around'' noise, focusing on the underlying patterns. However, this flexibility comes at a cost. Neural networks often require large amounts of data and computational power to train effectively, and their decision-making process is less interpretable than traditional models like decision trees.
+One of the key advantages of artificial neural networks is their ability to generalize from data, even when faced with noise or incomplete information. Unlike traditional algorithms that rely on explicit rule-based decision-making, neural networks distribute learning across many interconnected neurons and weighted connections, allowing them to adapt and identify patterns even when individual data points are imperfect. This distributed learning process enables them to handle complex, high-dimensional data more effectively than many conventional models.
+
+However, this flexibility comes at a cost. Neural networks often require large amounts of data and computational power to train effectively, and their decision-making process is less interpretable than traditional models such as decision trees. Unlike rule-based models that provide clear decision paths, neural networks embed their learned knowledge within millions of parameters, making it challenging to understand precisely how a prediction is made.
 
 In the following sections, we will delve deeper into the mechanics of neural networks, starting with their core structure and the algorithms that enable them to learn from data.
 
-\section{How Neural Networks Work}\label{how-neural-networks-work}
+\section{How neural networks work}\label{how-neural-networks-work}
 
-Neural networks can be understood as an extension of linear models that incorporate multiple layers of processing to produce predictions or decisions. At their core, they build upon the fundamental concepts of linear regression. Recall that a linear regression model makes predictions using the following equation:
+Neural networks extend traditional linear models by incorporating multiple layers of processing to capture complex relationships in data. At their core, they build upon the fundamental concepts of linear regression. A linear regression model makes predictions using the following equation:
 
 \[
 \hat{y} = b_0 + b_1 x_1 + b_2 x_2 + \dots + b_p x_p
 \]
-where \(p\) represents the number of predictors, \(b_0\) is the intercept, and \(b_1\) to \(b_p\) are the learned coefficients. In this setup, \(\hat{y}\) is a weighted sum of the input features (\(x_1\) to \(x_p\)), where the weights (\(b_1\) to \(b_p\)) determine the relative influence of each feature on the prediction. This simple linear relationship can be visualized as shown in Figure \ref{fig:net-reg}, where the input features and the prediction are represented as nodes, and the coefficients are visualized as the connecting weights.
+
+where \(p\) represents the number of predictors, \(b_0\) is the intercept, and \(b_1\) to \(b_p\) are the learned coefficients. In this setup, \(\hat{y}\) is a weighted sum of the input features (\(x_1\) to \(x_p\)), where the weights (\(b_1\) to \(b_p\)) determine the relative influence of each feature on the prediction. This simple linear relationship can be visualized in Figure \ref{fig:net-reg}, where input features and the prediction are represented as nodes, with the coefficients acting as connecting weights.
 
 \begin{figure}
 
@@ -9903,18 +9913,17 @@ where \(p\) represents the number of predictors, \(b_0\) is the intercept, and \
 \caption{A graphical representation of a regression model: input features and predictions are shown as nodes, with the coefficients represented as connections between the nodes.}\label{fig:net-reg}
 \end{figure}
 
-In Figure \ref{fig:net-reg}, the nodes on the left represent the input features, the lines connecting them represent the coefficients (\(w_i\)), and the single node on the right represents the output (\(\hat{y}\)), which is the weighted sum of the inputs. A \textbf{neural network} generalizes this idea by introducing additional layers of nodes between the input and output, allowing the model to capture complex, nonlinear patterns in the data. This structure is illustrated in Figure \ref{fig:net-large}.
+While linear models are effective for capturing direct relationships between inputs and outputs, they struggle to represent more complex patterns, such as interactions between variables or hierarchical structures in data. Neural networks address this limitation by introducing multiple layers of artificial neurons between the input and output, allowing them to model intricate, nonlinear relationships. This structure is illustrated in Figure \ref{fig:net-large}.
 
-The structure of a neural network includes the following key components:
+The architecture of a neural network consists of the following key components:
 
 \begin{itemize}
-\tightlist
 \item
-  \textbf{Input Layer}: The input layer is the entry point for the data. Each node in this layer corresponds to an input feature (e.g., age, income, or image pixels).\\
+  The \textbf{input layer} serves as the entry point for the data. Each node in this layer corresponds to an input feature, such as age, income, or pixel intensity in an image.
 \item
-  \textbf{Hidden Layers}: These are the intermediate layers that process the data and extract patterns. Each hidden layer contains multiple nodes (artificial neurons), and each node is connected to every node in the preceding and succeeding layers. The nodes in hidden layers perform mathematical transformations on the data, enabling the network to learn complex relationships.\\
+  The \textbf{hidden layers} process the data by transforming inputs through multiple interconnected nodes (artificial neurons). Each hidden layer captures increasingly abstract features, allowing the network to learn complex patterns. Every neuron in a hidden layer is connected to neurons in both the preceding and succeeding layers, with each connection assigned a weight.
 \item
-  \textbf{Output Layer}: The final layer produces the model's prediction. For example, in a classification task, the output might be the predicted probability of a specific class, while in regression tasks, it might be a continuous numerical value.
+  The \textbf{output layer} produces the final prediction. In classification tasks, it typically represents the probability of a given class, while in regression tasks, it outputs a continuous numerical value.
 \end{itemize}
 
 \begin{figure}
@@ -9926,7 +9935,7 @@ The structure of a neural network includes the following key components:
 \caption{Visualization of a multilayer neural network model with two hidden layers.}\label{fig:net-large}
 \end{figure}
 
-In Figure \ref{fig:net-large}, the input layer passes the features into the network, where each hidden layer transforms the information and passes it to the next layer. The output layer aggregates all this information to generate the final prediction. Every connection in the network has an associated \textbf{weight} (\(w_i\)), which determines the strength of the relationship between two nodes. These weights are adjusted during training to optimize the model's accuracy.
+In Figure \ref{fig:net-large}, the input layer passes the features into the network, where each hidden layer applies transformations before passing the processed information forward. The output layer aggregates this information to generate the final prediction. Each connection in the network is assigned a weight (\(w_i\)), which determines the strength of influence one neuron has on another. These weights are adjusted during training to optimize the model's accuracy.
 
 The behavior of an artificial neuron can be mathematically expressed as:
 
@@ -9934,51 +9943,59 @@ The behavior of an artificial neuron can be mathematically expressed as:
 \hat{y} = f\left( \sum_{i=1}^{p} w_i x_i + b \right)
 \]
 
-Here:\\
+where:\\
 - \(x_i\) represents the input features,\\
 - \(w_i\) represents the corresponding weights,\\
 - \(b\) is a bias term that helps shift the activation threshold,\\
 - \(\sum\) represents the summation of the weighted inputs,\\
-- \(f(.)\) is the \textbf{activation function}, and\\
+- \(f(.)\) is the activation function, and\\
 - \(\hat{y}\) is the output of the neuron.
 
-The \textbf{activation function} plays a vital role in introducing non-linearity to the model. Without it, the neural network would simply be a linear model, regardless of its complexity or the number of layers. By applying a non-linear transformation to the combined input signals, activation functions enable neural networks to approximate highly complex patterns in data.
+A crucial component of this process is the activation function, which introduces non-linearity into the model. Without it, the neural network would be equivalent to a linear model, regardless of the number of layers. By applying a non-linear transformation to the combined input signals, activation functions allow neural networks to approximate complex relationships in data.
 
-\subsection*{Key Characteristics of Neural Networks}\label{key-characteristics-of-neural-networks}
-\addcontentsline{toc}{subsection}{Key Characteristics of Neural Networks}
+\subsection*{Key characteristics of neural networks}\label{key-characteristics-of-neural-networks}
+\addcontentsline{toc}{subsection}{Key characteristics of neural networks}
 
-Despite the diversity of neural network architectures, all neural networks share three key characteristics that define their functionality (see Figure \ref{fig:net-1}):
+Despite the diversity of neural network architectures, all neural networks share three fundamental characteristics that define their functionality:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  \textbf{Activation Functions}:\\
-  The activation function transforms a neuron's net input into an output signal that is passed to the next layer. Activation functions introduce non-linearity, which is critical for modeling complex relationships in data. Examples include the sigmoid function, ReLU (Rectified Linear Unit), and hyperbolic tangent (tanh).
+  \textbf{Activation functions} The activation function transforms a neuron's net input into an output signal that is passed to the next layer. Activation functions introduce non-linearity, enabling the network to learn complex patterns. Common choices include the sigmoid function, ReLU (rectified linear unit), and hyperbolic tangent (tanh).
 \item
-  \textbf{Network Architecture}:\\
-  The architecture defines the overall structure of the neural network, including the number of layers, the number of nodes in each layer, and the way the nodes are connected. For instance, a \textbf{deep neural network} has many hidden layers, enabling it to learn hierarchical and abstract representations from data.
+  \textbf{Network architecture} The structure of a neural network defines its computational capacity. This includes the number of layers, the number of neurons in each layer, and how neurons are connected. For example, deep neural networks contain many hidden layers, enabling them to learn hierarchical and abstract representations of data.
 \item
-  \textbf{Training Algorithm}:\\
-  Training a neural network involves adjusting the weights (\(w_i\)) and biases (\(b\)) in the model to minimize the error between the predicted and actual outputs. This is achieved through iterative optimization algorithms such as \textbf{gradient descent}, which uses the gradient of a loss function to update the weights.
+  \textbf{Training algorithm} Training a neural network involves adjusting the weights (\(w_i\)) and biases (\(b\)) in the model to minimize prediction errors. This is achieved by defining a loss function, which quantifies how far the network's predictions deviate from the true values. Optimization algorithms such as gradient descent iteratively update the weights to reduce this error, allowing the network to improve over time.
 \end{enumerate}
 
-In the following sections, we'll explore these components in greater detail, starting with activation functions and their role in enabling neural networks to learn complex, non-linear patterns.
+In the following sections, we will explore these components in greater detail, beginning with activation functions and their role in enabling neural networks to model complex, non-linear relationships.
 
-\section{Activation Functions}\label{activation-functions}
+\section{Activation functions}\label{activation-functions}
 
-The \textbf{activation function} is a critical component of a neural network, defining how an artificial neuron processes incoming signals and passes information through the network. Much like its biological counterpart, an artificial neuron aggregates its input signals, applies a transformation, and determines the output signal to send forward. In biological neurons, this transformation is akin to summing input signals from dendrites and deciding whether the neuron ``fires'' based on whether the cumulative signal exceeds a certain threshold.
+The activation function is a fundamental component of a neural network, determining how an artificial neuron processes incoming signals and passes information forward. Much like biological neurons, which integrate input signals from dendrites and decide whether to ``fire,'' artificial neurons use activation functions to introduce non-linearity, allowing neural networks to model complex relationships that linear models cannot capture. Without activation functions, even deep neural networks would behave like simple linear models, limiting their ability to learn hierarchical and abstract features from data.
 
-In artificial neurons, this process is implemented mathematically. The \textbf{activation function} determines whether, and to what extent, a neuron ``activates'' in response to the inputs. Early models of neural networks often used the \textbf{threshold activation function}, which mirrors this biological concept. The threshold function activates only when the input signal surpasses a certain threshold value. Mathematically, it is defined as:
+In mathematical terms, an artificial neuron computes a weighted sum of its inputs and applies an activation function \(f(x)\) to determine its output:
+
+\[
+\hat{y} = f\left( \sum_{i=1}^{p} w_i x_i + b \right)
+\]
+
+where \(x_i\) represents the input features, \(w_i\) are the corresponding weights, \(b\) is a bias term, and \(f(x)\) is the activation function. The choice of activation function significantly impacts a network's ability to learn and generalize.
+
+\subsection*{The threshold activation function}\label{the-threshold-activation-function}
+\addcontentsline{toc}{subsection}{The threshold activation function}
+
+Early neural network models used a simple threshold activation function, mimicking the binary nature of biological neurons. The threshold function activates only when the input exceeds a certain value, producing an output of either 0 or 1. It is defined as:
 
 \[
 f(x) = 
 \begin{cases} 
 1 & \text{if } x \geq 0 \\ 
-0 & \text{if } x < 0 
+0 & \text{if } x < 0
 \end{cases}
 \]
 
-Figure \ref{fig:active-fun-unit} visualizes the \textbf{threshold activation function}. Here, the neuron outputs a value of 1 when the input is at least zero, and 0 otherwise. Due to its step-like shape, it is sometimes referred to as a \textbf{unit step function}.
+This step-like behavior is visualized in Figure \ref{fig:active-fun-unit}. The function outputs 1 when the input is at least zero and 0 otherwise, making it useful for basic classification tasks.
 
 \begin{figure}
 
@@ -9989,18 +10006,18 @@ Figure \ref{fig:active-fun-unit} visualizes the \textbf{threshold activation fun
 \caption{Visualization of the threshold activation function (unit step).}\label{fig:active-fun-unit}
 \end{figure}
 
-While biologically intuitive, the threshold activation function is rarely used in modern neural networks because it cannot handle nuanced relationships between input and output. It is too rigid, providing only binary outputs (0 or 1), and is not differentiable, which prevents its use in optimization algorithms like gradient descent.
+While biologically intuitive, the threshold function has major drawbacks. It cannot model nuanced relationships between inputs and outputs, as it only provides binary decisions. More importantly, it is not differentiable, preventing its use in gradient-based optimization methods such as backpropagation. For these reasons, it has been largely replaced by continuous activation functions.
 
-\subsection*{The Sigmoid Activation Function}\label{the-sigmoid-activation-function}
-\addcontentsline{toc}{subsection}{The Sigmoid Activation Function}
+\subsection*{The sigmoid activation function}\label{the-sigmoid-activation-function}
+\addcontentsline{toc}{subsection}{The sigmoid activation function}
 
-A widely used alternative is the \textbf{sigmoid activation function}, also known as the \textbf{logistic sigmoid}. The sigmoid function provides a smoother, non-binary output that maps any input to a value between 0 and 1. It is defined mathematically as:
+A widely used alternative is the sigmoid activation function, also known as the logistic function. The sigmoid function maps any real-valued input to a smooth output between 0 and 1, making it suitable for probability-based interpretations. It is defined as:
 
 \[
 f(x) = \frac{1}{1 + e^{-x}}
 \]
 
-Here, \(e\) is the base of the natural logarithm (approximately 2.72). The sigmoid function has an ``S-shaped'' curve, as shown in Figure \ref{fig:active-fun-sigmoid}, which makes it particularly useful for modeling probabilities and continuous values. Unlike the threshold function, the sigmoid is differentiable, which makes it compatible with modern training algorithms.
+where \(e\) is the base of the natural logarithm (approximately 2.72). The sigmoid function has an S-shaped curve, as shown in Figure \ref{fig:active-fun-sigmoid}, and provides a differentiable alternative to the threshold function.
 
 \begin{figure}
 
@@ -10011,12 +10028,12 @@ Here, \(e\) is the base of the natural logarithm (approximately 2.72). The sigmo
 \caption{Visualization of the sigmoid activation function.}\label{fig:active-fun-sigmoid}
 \end{figure}
 
-The sigmoid function is effective in producing smooth outputs but has certain limitations. For example, it suffers from the \textbf{vanishing gradient problem}, where very large or very small input values cause the gradient to approach zero, slowing down the learning process.
+Although sigmoid activation is useful, it suffers from the \textbf{vanishing gradient problem}. When inputs are very large or very small, the function saturates, producing values close to 0 or 1. In these regions, the derivative is near zero, slowing down the learning process in deep networks. As a result, alternative activation functions are often preferred for hidden layers.
 
-\subsection*{Other Common Activation Functions}\label{other-common-activation-functions}
-\addcontentsline{toc}{subsection}{Other Common Activation Functions}
+\subsection*{Other common activation functions}\label{other-common-activation-functions}
+\addcontentsline{toc}{subsection}{Other common activation functions}
 
-In addition to the sigmoid function, several other activation functions are commonly used, depending on the specific needs of the task. Figure \ref{fig:active-fun-comparison} provides an overview of three widely used activation functions:
+Several activation functions have been developed to address the limitations of the sigmoid function. Figure \ref{fig:active-fun-comparison} compares some of the most commonly used activation functions.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -10024,9 +10041,9 @@ In addition to the sigmoid function, several other activation functions are comm
 \item
   \textbf{Hyperbolic Tangent (tanh):} Similar to the sigmoid function but with an output range of \((-1, 1)\). This symmetry around zero often leads to faster learning in practice.\\
 \item
-  \textbf{Gaussian:} Produces a bell-shaped curve centered at zero. It is less common but useful for specific applications like radial basis function networks.\\
+  \textbf{ReLU (Rectified Linear Unit):} Defined as \(f(x) = \max(0, x)\), ReLU is the most widely used activation function in deep neural networks due to its computational efficiency and ability to mitigate the vanishing gradient problem.\\
 \item
-  \textbf{Linear Activation:} Outputs the input as is, often used in the final layer for regression tasks.
+  \textbf{Leaky ReLU:} A variation of ReLU that allows small negative values instead of zero for negative inputs, reducing the problem of inactive neurons.
 \end{enumerate}
 
 \begin{figure}
@@ -10035,61 +10052,61 @@ In addition to the sigmoid function, several other activation functions are comm
 
 }
 
-\caption{Comparison of common activation functions: Sigmoid, tanh, and Gaussian.}\label{fig:active-fun-comparison}
+\caption{Comparison of common activation functions: sigmoid, tanh, and ReLU.}\label{fig:active-fun-comparison}
 \end{figure}
 
-\subsection*{Choosing the Right Activation Function}\label{choosing-the-right-activation-function}
-\addcontentsline{toc}{subsection}{Choosing the Right Activation Function}
+\subsection*{Choosing the right activation function}\label{choosing-the-right-activation-function}
+\addcontentsline{toc}{subsection}{Choosing the right activation function}
 
-The choice of an activation function significantly impacts the performance and behavior of a neural network:
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{Sigmoid} is commonly used in the output layer for binary classification problems, where the output represents a probability.\\
-\item
-  \textbf{Tanh} is often used in hidden layers as it is zero-centered, leading to faster convergence in optimization.\\
-\item
-  \textbf{ReLU (Rectified Linear Unit):} While not discussed above, ReLU is one of the most popular activation functions in modern neural networks. It outputs \(f(x) = \max(0, x)\), which helps address the vanishing gradient problem and accelerates training.\\
-\item
-  \textbf{Gaussian} and linear functions are more specialized and are chosen for specific tasks, such as regression or radial basis function networks.
-\end{itemize}
-
-Activation functions like sigmoid and tanh compress input values into a narrow output range (e.g., 0 to 1 for sigmoid, or \(-1\) to \(1\) for tanh). This compression leads to the \textbf{saturation problem}, where input values far from zero produce near-constant outputs. For instance:\\
-- Sigmoid outputs are very close to 0 for inputs below \(-5\) and very close to 1 for inputs above \(+5\).\\
-- This results in gradients near zero, slowing learning (the vanishing gradient problem).
-
-One solution to this issue is to preprocess data by \textbf{normalizing or standardizing input features} so they fall within a small range centered around zero. This ensures that most inputs are in the sensitive (non-saturated) range of the activation function, leading to faster convergence and better learning.
-
-\section{Network Architecture}\label{network-architecture}
-
-The capacity of a neural network to learn and make predictions is deeply tied to its \textbf{architecture}, or topology. This refers to the arrangement of neurons and the connections between them, which define how data flows through the network. While neural networks can take on countless forms, their architecture is primarily characterized by three elements:
+The choice of activation function depends on the network architecture and the specific learning task:
 
 \begin{itemize}
 \tightlist
 \item
-  The \textbf{number of layers} in the network,\\
+  \textbf{Sigmoid} is commonly used in the output layer for binary classification problems, where the output represents a probability.
 \item
-  The \textbf{number of neurons (or nodes)} in each layer, and\\
+  \textbf{Tanh} is often used in hidden layers because it is zero-centered, which can lead to faster convergence during training.\\
 \item
-  The \textbf{connections} between neurons across layers.
+  \textbf{ReLU} is the default choice for hidden layers in deep networks due to its efficiency and ability to mitigate the vanishing gradient problem.\\
+\item
+  \textbf{Leaky ReLU} is useful in cases where ReLU may cause neurons to become inactive, as it allows small negative outputs.\\
+\item
+  \textbf{Linear activation} is typically used in the final layer of regression models, where the output is a continuous value.
 \end{itemize}
 
-The architecture of a neural network determines its ability to model complexity. Larger networks with more layers and neurons can capture more intricate patterns and decision boundaries. However, the power of a network is not just a matter of size but also how its components are organized and interconnected.
+Activation functions such as sigmoid and tanh can suffer from \textbf{saturation}, where input values far from zero result in near-constant outputs. This leads to \textbf{vanishing gradients}, slowing down learning. One strategy to mitigate this issue is to preprocess input data through normalization or standardization, ensuring values remain within an optimal range.
 
-To understand network architecture, let us consider a simple example illustrated in Figure \ref{fig:net-reg}. This basic network consists of:
+ReLU and its variants have become the preferred choice for hidden layers in deep learning due to their computational efficiency and ability to propagate gradients effectively. However, selecting the right activation function depends on the specific problem and empirical evaluation.
+
+\section{Network architecture}\label{network-architecture}
+
+The ability of a neural network to learn and make predictions is fundamentally tied to its architecture, or topology. This refers to the arrangement of neurons and the connections between them, which define how data flows through the network. While neural networks can take on various forms, their architecture is primarily characterized by three factors:
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Input nodes}, which receive the raw feature values from the dataset. Each input node corresponds to one feature and passes its value to the network.\\
+  The number of layers in the network,\\
 \item
-  \textbf{Output nodes}, which provide the network's final prediction (denoted as \(p\)).
+  The number of neurons (or nodes) in each layer, and\\
+\item
+  The connectivity between neurons across layers.
 \end{itemize}
 
-In this single-layer network, input nodes are connected directly to the output node through a set of weights (\(w_1, w_2, \dots, w_p\)), representing the influence of each input feature on the prediction. This simple architecture works well for basic classification or regression tasks but struggles with more complex patterns.
+The architecture of a neural network determines its capacity to model complex relationships. Larger networks with more layers and neurons can capture intricate patterns and decision boundaries. However, the effectiveness of a network is not solely determined by its size but also by how its components are organized and interconnected.
 
-To handle more sophisticated tasks, we can add \textbf{hidden layers}, as shown in Figure \ref{fig:net-large}. These intermediate layers introduce additional processing steps, enabling the network to model nonlinear relationships and discover more complex patterns in the data.
+To understand network architecture, consider a simple example illustrated in Figure \ref{fig:net-reg}. This basic network consists of:
+
+\begin{itemize}
+\tightlist
+\item
+  Input nodes, which receive raw feature values from the dataset. Each input node corresponds to one feature and passes its value to the network.\\
+\item
+  Output nodes, which provide the network's final prediction, denoted as \(p\).
+\end{itemize}
+
+In this single-layer network, input nodes are directly connected to the output node through a set of weights (\(w_1, w_2, \dots, w_p\)), representing the influence of each input feature on the prediction. This simple architecture works well for basic classification or regression tasks but struggles with capturing complex patterns.
+
+To address this limitation, additional layers can be introduced, as shown in Figure \ref{fig:net-large}. These intermediate layers, known as hidden layers, allow the network to model nonlinear relationships and discover hierarchical structures in data.
 
 A multilayer network typically consists of three types of layers:
 
@@ -10097,78 +10114,82 @@ A multilayer network typically consists of three types of layers:
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  The \textbf{input layer}, where raw features enter the network,\\
+  The input layer, where raw features enter the network.\\
 \item
-  One or more \textbf{hidden layers}, which extract and refine patterns, and\\
+  One or more hidden layers, which extract and refine patterns.\\
 \item
-  The \textbf{output layer}, which combines the processed information to generate the network's final prediction.
+  The output layer, which combines the processed information to generate the network's final prediction.
 \end{enumerate}
 
-In a \textbf{fully connected network}, every neuron in one layer is connected to every neuron in the next layer, with each connection assigned a weight. These weights determine how much influence one neuron has on another, and they are adjusted during training to optimize the network's performance.
+In a fully connected network, each neuron in one layer transmits information to all neurons in the next layer, with an associated weight assigned to each connection. These weights determine how strongly neurons influence each other and are adjusted during training to optimize performance.
 
-The addition of hidden layers allows the network to process input data hierarchically. Early layers may learn basic features, such as edges in an image or simple word patterns in text, while deeper layers capture more abstract representations, such as shapes or semantic meaning. When a network contains multiple hidden layers, it is referred to as a \textbf{deep neural network (DNN)}. The practice of training such networks is known as \textbf{deep learning}, and it has enabled breakthroughs in fields such as computer vision, speech recognition, and natural language processing.
+The introduction of hidden layers enables neural networks to process input data hierarchically. Early layers may learn basic features, such as edges in an image or simple word patterns in text, while deeper layers capture more abstract representations, such as object shapes or semantic meaning. Networks with multiple hidden layers are referred to as deep neural networks (DNNs), and training such models is known as deep learning. This approach has driven advancements in computer vision, speech recognition, and natural language processing.
 
-The number of \textbf{input and output nodes} in a network is determined by the problem:\\
-- The \textbf{input nodes} match the number of features in the dataset. For example, a dataset with 20 features would have 20 input nodes.\\
-- The \textbf{output nodes} depend on the task. For regression, there is typically one output node for the predicted value. For classification, the number of output nodes corresponds to the number of classes.
+The number of input and output nodes in a network is determined by the problem at hand.\\
+- The input nodes match the number of features in the dataset. For example, a dataset with 20 features would have 20 input nodes.\\
+- The output nodes depend on the task. In regression problems, there is typically one output node representing a continuous value. In classification tasks, the number of output nodes corresponds to the number of classes.
 
-The number of \textbf{hidden nodes} in each layer is not predefined and must be decided by the user. A larger number of hidden nodes increases the network's capacity to learn complex patterns, but it also increases the risk of \textbf{overfitting}---a situation where the model performs well on the training data but poorly on unseen data. Overly large networks can also be computationally expensive and slow to train.
+The number of hidden nodes in each layer is not predefined and must be determined based on the complexity of the problem. A larger number of hidden nodes increases the network's ability to capture intricate patterns but also raises the risk of overfitting---where the model performs well on training data but poorly on unseen data. Overly large networks can also be computationally expensive and slow to train.
 
-While a more complex network may appear to be more powerful, it is crucial to strike a balance between complexity and simplicity. This is often guided by the principle of \textbf{Occam's Razor}, which suggests that the simplest model that adequately explains the data is usually the best choice. The optimal network architecture often requires trial and error, combined with domain knowledge and validation techniques to evaluate performance on unseen data.
+Balancing network complexity and efficiency is essential for achieving optimal performance. This is often guided by the principle of Occam's Razor, which suggests that the simplest model that adequately explains the data is usually preferable. In practice, the optimal network architecture is determined through experimentation, incorporating techniques such as cross-validation and regularization methods like dropout and weight decay to mitigate overfitting.
 
-In summary, the architecture of a neural network defines its capacity to solve problems. From the simple single-layer network to sophisticated deep neural networks, these architectures offer flexibility to model a wide variety of tasks, ranging from basic regression to highly complex problems like image recognition and text generation. As we move forward, we will explore how these architectures are trained to optimize their performance and learn from data.
+While this section focuses on fully connected networks, specialized architectures such as convolutional neural networks (CNNs) for image processing and recurrent neural networks (RNNs) for sequential data provide additional flexibility for specific tasks. These architectures build upon the principles of deep learning and have enabled major breakthroughs in artificial intelligence.
 
-\section{How Neural Networks Learn}\label{how-neural-networks-learn}
+In summary, the architecture of a neural network defines its capacity to solve problems. From simple single-layer networks to sophisticated deep neural networks, these architectures offer the flexibility to model a wide variety of tasks, ranging from basic regression to highly complex applications like autonomous driving and medical diagnosis. In the next section, we will explore how these architectures are trained to optimize their performance and learn from data.
 
-A neural network begins as an untrained structure---a blank slate. Similar to a newborn child learning through experience, a neural network must be trained with data to adjust its internal connections. These connections, represented as weights, are strengthened or weakened as the network processes data, enabling it to learn patterns and relationships over time. Just as a baby's brain develops by interacting with its environment, a neural network refines itself by iteratively improving its predictions based on the data it encounters.
+\section{How neural networks learn}\label{how-neural-networks-learn}
 
-Training a neural network involves a computationally intensive process of adjusting the weights that connect the neurons. While neural networks had been studied since the mid-20th century, they remained impractical for real-world applications until the 1980s, when a major breakthrough---the \textbf{backpropagation algorithm}---made it feasible to train multilayer networks efficiently. Backpropagation, a technique for ``back-propagating'' errors through the network, revolutionized neural networks by enabling them to learn complex tasks. Despite being computationally expensive relative to simpler algorithms, backpropagation has become a cornerstone of modern neural network training, powering applications from computer vision to natural language processing.
+A neural network, like an untrained system, starts with no knowledge of the task at hand. Through exposure to data, it gradually learns by adjusting internal connections, a process akin to how humans refine their understanding through experience. These connections, represented as weights, are updated as the network processes data, enabling it to discover patterns and relationships over time. Just as a child learns to recognize objects by repeatedly encountering them, a neural network improves its predictions through iterative refinements based on the data it encounters.
 
-At its core, backpropagation works by iteratively refining the network's weights through a process that cycles between two phases: the forward phase and the backward phase. Each cycle, referred to as an \textbf{epoch}, begins with random initialization of the weights, as the network starts with no prior knowledge. Over successive epochs, the network learns by adjusting the weights to minimize prediction errors.
+Training a neural network is a computationally intensive process that involves adjusting the weights connecting neurons. While neural networks have been studied since the mid-20th century, their real-world application remained limited until the 1980s, when a major breakthrough---the backpropagation algorithm---made it feasible to train multilayer networks efficiently. Backpropagation revolutionized neural network training by enabling networks to systematically learn from errors, making deep learning practical for real-world applications. Despite being computationally demanding compared to simpler machine learning algorithms, backpropagation remains the foundation of modern neural network training, powering advancements in fields such as computer vision and natural language processing.
 
-In the \textbf{forward phase}, input data is passed through the network, layer by layer, starting at the input layer and propagating through any hidden layers before reaching the output layer. Each neuron processes its input by applying its weights, summing the weighted inputs, and transforming the result using an activation function. The output layer produces the network's prediction, which is then compared to the actual target value from the training data. This comparison generates an \textbf{error signal}---a measure of how far off the network's prediction was.
+At its core, backpropagation refines the network's weights through an iterative learning process consisting of two main phases: the forward phase and the backward phase. Each iteration, known as an epoch, begins with randomly initialized weights, as the network starts without prior knowledge. Over successive epochs, the network continuously updates its weights to minimize prediction errors.
 
-In the \textbf{backward phase}, this error signal is propagated backward through the network to update the weights. The goal is to adjust the weights in such a way that the network produces predictions closer to the true target values in subsequent forward passes. This is achieved using a technique called \textbf{gradient descent}, which determines the optimal direction and magnitude of weight changes to minimize the error. Gradient descent relies on the derivative of the activation function to compute the gradient of the error with respect to each weight. This gradient indicates how steeply the error changes for a small adjustment in the weight, providing a ``slope'' to guide the weight updates. The process is akin to finding the fastest route downhill in a mountainous terrain: by always stepping in the direction of the steepest descent, the network gradually approaches the point of minimum error.
+In the forward phase, input data is passed through the network, layer by layer, from the input layer through any hidden layers before reaching the output layer. Each neuron processes its input by applying its associated weights, summing the weighted inputs, and transforming the result using an activation function. The output layer produces the network's final prediction, which is then compared to the actual target value from the training data. This comparison generates an error signal, quantifying how far the network's prediction deviates from the expected outcome.
 
-The size of each weight adjustment is controlled by a parameter called the \textbf{learning rate}. A high learning rate allows the network to make large, rapid updates to the weights, potentially speeding up training but risking overshooting the optimal solution. Conversely, a low learning rate ensures more precise updates but may result in slower convergence. Striking the right balance for the learning rate is crucial for effective training.
+In the backward phase, this error signal is propagated backward through the network to update the weights. The objective is to adjust the weights in a way that reduces the prediction error in subsequent forward passes. This process relies on gradient descent, an optimization technique that determines the optimal direction and magnitude of weight changes to minimize error. The gradient represents the rate of change of the error with respect to each weight, acting as a guide to indicate how adjustments should be made. This is analogous to descending a mountain: by always moving in the direction of the steepest downward slope, the network iteratively approaches the point of minimum error.
 
-To successfully apply gradient descent and backpropagation, the network's activation functions must be \textbf{differentiable}. This requirement is why smooth, non-linear activation functions such as the sigmoid, hyperbolic tangent, and ReLU (Rectified Linear Unit) are widely used. Their differentiable nature enables the network to compute gradients efficiently, allowing the algorithm to make meaningful updates to the weights.
+The magnitude of weight adjustments is controlled by a parameter known as the learning rate. A high learning rate enables the network to make large updates, which may speed up training but risks overshooting the optimal solution. Conversely, a low learning rate results in more gradual updates, ensuring precise refinements but potentially slowing convergence. Selecting an appropriate learning rate is crucial for efficient training, and modern optimization techniques, such as adaptive learning rate methods, help fine-tune this process dynamically.
 
-Through repeated cycles of forward and backward propagation, the network refines its weights, reducing the overall error and improving its ability to generalize to unseen data. While the training process may sound complex, modern machine learning libraries like TensorFlow and PyTorch automate the implementation of backpropagation, gradient descent, and weight updates. These tools simplify the process, enabling practitioners to focus on designing the network architecture and preparing the data.
+To successfully apply gradient descent and backpropagation, the network's activation functions must be differentiable. This requirement ensures that the gradients can be computed efficiently, allowing meaningful weight updates. As a result, smooth, non-linear activation functions such as the sigmoid, hyperbolic tangent (tanh), and ReLU (Rectified Linear Unit) are widely used in neural networks. In modern deep learning, variations of gradient descent, such as stochastic gradient descent (SGD) and Adam, have been developed to improve efficiency and stability, particularly for large-scale datasets.
 
-The development of the backpropagation algorithm marked a turning point for neural networks, enabling them to tackle real-world problems with impressive accuracy. Although training remains computationally demanding, advancements in hardware---such as GPUs and TPUs---have made it practical to train even large, complex networks. This progress has driven breakthroughs in fields such as speech recognition, image classification, and predictive modeling.
+Through repeated cycles of forward and backward propagation, the network refines its weights, reducing overall error and improving its ability to generalize to unseen data. While this process may seem computationally complex, modern machine learning frameworks such as TensorFlow and PyTorch automate backpropagation, gradient descent, and weight updates, allowing practitioners to focus on designing the network architecture and preparing the data.
 
-Now that we have a foundation in how neural networks are trained, we will explore their application to real-world scenarios, demonstrating how they can extract meaningful patterns from data to make predictions.
+The development of backpropagation marked a turning point in neural network research, enabling these models to solve real-world problems with remarkable accuracy. Although training remains computationally demanding, advancements in hardware---such as GPUs and TPUs---have significantly accelerated the process, making it feasible to train large and complex networks efficiently. With a clear understanding of how neural networks learn, we now turn to their practical applications, examining how they uncover patterns in data to make accurate predictions in real-world settings.
 
-\section{Case Study: Bank Marketing}\label{case-study-bank-marketing}
+\section{Case study: bank marketing}\label{case-study-bank-marketing}
 
-The \textbf{bank marketing dataset} contains information about customers contacted by a Portuguese banking institution to subscribe to a term deposit. The primary objective is to predict whether a customer will subscribe to the term deposit based on the available features. This analysis not only helps identify the profiles of likely subscribers but also provides insights for improving future marketing campaigns.
+How can a financial institution improve the effectiveness of its future marketing campaigns? To make a data-driven decision, we analyze the bank's previous marketing campaign to identify patterns that can inform future strategies. In this case study, we apply a neural network to predict whether a customer will subscribe to a term deposit based on demographic and campaign-related features. By analyzing this dataset, we aim to uncover key factors that influence customer subscription behavior, helping the bank design more effective marketing strategies.
 
-\subsection*{Business Context}\label{business-context}
-\addcontentsline{toc}{subsection}{Business Context}
+For this analysis, we use the \emph{bank} dataset, a well-known benchmark dataset sourced from the \href{https://archive.ics.uci.edu/dataset/222/bank+marketing}{UC Irvine Machine Learning Repository} and available in the \textbf{liver} package. This dataset was used by \citet{moro2014data} for a data-driven approach to predicting the success of bank telemarketing campaigns. The goal is to build a classification model that predicts which customers are likely to subscribe to a term deposit.
 
-Banks often rely on two approaches to promote their products:
+\subsection*{Problem understanding}\label{problem-understanding-3}
+\addcontentsline{toc}{subsection}{Problem understanding}
+
+Banks typically use two main strategies to market their financial products:
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Mass Campaigns}: Targeting the general public indiscriminately, typically resulting in low response rates (e.g., \textless1\%).\\
+  \emph{Mass campaigns}: These campaigns reach a broad audience with minimal targeting, often resulting in low response rates (typically below 1\%).\\
 \item
-  \textbf{Directed Marketing}: Focusing on specific, likely customers, which improves effectiveness but raises concerns about privacy intrusion.
+  \emph{Directed marketing}: This approach targets customers more likely to be interested in the product, improving conversion rates but raising potential privacy concerns.
 \end{itemize}
 
-In this case, the goal is to refine the effectiveness of directed marketing campaigns by analyzing patterns in past campaign data. By identifying which customers are more likely to subscribe, the bank can reduce costs, minimize intrusive communications, and maintain success rates.
+In this case study, we aim to enhance the effectiveness of directed marketing by analyzing past campaign data to identify patterns in customer behavior. By predicting which customers are more likely to subscribe to a term deposit, the bank can optimize marketing efforts, reduce costs, and minimize intrusive communications while maintaining success rates.
 
-A \textbf{term deposit} is a savings product with a fixed interest rate over a specified period. Customers benefit from better interest rates compared to regular savings accounts, and banks use term deposits to increase their financial assets. More about term deposits can be found \href{https://www.investopedia.com/terms/t/termdeposit.asp}{here}.
+A term deposit is a fixed-term savings product that offers customers higher interest rates than standard savings accounts. Banks use term deposits to secure long-term funds and strengthen their financial reserves. More details on term deposits can be found \href{https://www.investopedia.com/terms/t/termdeposit.asp}{here}.
 
-\subsection*{Overview of the Dataset}\label{overview-of-the-dataset-2}
-\addcontentsline{toc}{subsection}{Overview of the Dataset}
+\subsection*{Overview of the dataset}\label{overview-of-the-dataset-2}
+\addcontentsline{toc}{subsection}{Overview of the dataset}
 
-The dataset, sourced from \href{https://rdrr.io/cran/liver/man/bank.html}{this repository}, includes information on direct phone-based marketing campaigns. Some customers were contacted multiple times during the same campaign. The goal is to classify whether a customer subscribed to a term deposit (\passthrough{\lstinline!deposit = "yes"!} or \passthrough{\lstinline!"no"!}).
+The \emph{bank} dataset includes information on direct phone-based marketing campaigns conducted by a financial institution. Customers were contacted multiple times within the same campaign. The objective of this dataset is to predict whether a customer will subscribe to a term deposit (\passthrough{\lstinline!deposit = "yes"!} or \passthrough{\lstinline!"no"!}).
 
-We load and inspect the dataset:
+We load the \emph{bank} dataset directly into R and examine its structure using the following commands:
 
 \begin{lstlisting}[language=R]
+library(liver)   # Load the liver package
+
 data(bank)   # Load the bank marketing dataset 
 
 str(bank)
@@ -10192,9 +10213,9 @@ str(bank)
     $ deposit  : Factor w/ 2 levels "no","yes": 1 1 1 1 1 1 1 1 1 1 ...
 \end{lstlisting}
 
-The dataset contains 4521 observations and 17 variables. It includes 16 predictors and one target variable (\passthrough{\lstinline!deposit!}). Below is a summary of the key variables:
+The dataset contains 4521 observations and 17 variables. The target variable, \passthrough{\lstinline!deposit!}, is binary, with two categories: \passthrough{\lstinline!yes!} and \passthrough{\lstinline!no!}. Below is a summary of all features:
 
-\textbf{Demographic Features}:\\
+\textbf{Demographic features:}\\
 - \passthrough{\lstinline!age!}: Age of the customer (numeric).\\
 - \passthrough{\lstinline!job!}: Type of job (e.g., ``admin.'', ``blue-collar'', ``management'').\\
 - \passthrough{\lstinline!marital!}: Marital status (e.g., ``married'', ``single'').\\
@@ -10202,79 +10223,50 @@ The dataset contains 4521 observations and 17 variables. It includes 16 predicto
 - \passthrough{\lstinline!default!}: Whether the customer has credit in default (binary: ``yes'', ``no'').\\
 - \passthrough{\lstinline!balance!}: Average yearly balance in euros (numeric).
 
-\textbf{Loan Information}:\\
+\textbf{Loan information:}\\
 - \passthrough{\lstinline!housing!}: Whether the customer has a housing loan (binary).\\
 - \passthrough{\lstinline!loan!}: Whether the customer has a personal loan (binary).
 
-\textbf{Campaign Details}:\\
-- \passthrough{\lstinline!contact!}: Type of communication (e.g., ``telephone'', ``cellular'').\\
+\textbf{Campaign details:}\\
+- \passthrough{\lstinline!contact!}: Type of communication used (e.g., ``telephone'', ``cellular'').\\
+- \passthrough{\lstinline!day!}: Last contact day of the month (numeric).\\
+- \passthrough{\lstinline!month!}: Last contact month of the year (categorical: ``jan'', ``feb'', ``mar'', \ldots, ``nov'', ``dec'').\\
 - \passthrough{\lstinline!duration!}: Last contact duration in seconds (numeric).\\
-- \passthrough{\lstinline!campaign!}: Number of contacts performed during this campaign (numeric).\\
+- \passthrough{\lstinline!campaign!}: Total number of contacts made with the customer during the campaign (numeric).\\
 - \passthrough{\lstinline!pdays!}: Days since the customer was last contacted (numeric).\\
 - \passthrough{\lstinline!previous!}: Number of contacts before the current campaign (numeric).\\
 - \passthrough{\lstinline!poutcome!}: Outcome of the previous campaign (e.g., ``success'', ``failure'').
 
-\textbf{Target Variable}:\\
+\textbf{Target variable:}\\
 - \passthrough{\lstinline!deposit!}: Indicates whether the customer subscribed to a term deposit (binary: ``yes'', ``no'').
 
-\subsection*{Data Cleaning and Preparation}\label{data-cleaning-and-preparation}
-\addcontentsline{toc}{subsection}{Data Cleaning and Preparation}
+This dataset contains a diverse set of features related to customer demographics and past interactions, making it well-suited for building predictive models to improve marketing strategies.
 
-To prepare the dataset for the Neural Network algorithm, all variables must be scaled to a range between 0 and 1. We apply \textbf{min-max normalization} using the \passthrough{\lstinline!minmax()!} function from the \textbf{liver} package:
+With the dataset ready, we now proceed to data preparation and model training using a neural network to predict customer subscription behavior.
 
-\begin{lstlisting}[language=R]
-bank_mm = minmax(bank, col = "all")
-str(bank_mm)
-   'data.frame':    4521 obs. of  17 variables:
-    $ age      : num  0.162 0.206 0.235 0.162 0.588 ...
-    $ job      : num  0.9091 0.6364 0.3636 0.3636 0.0909 ...
-    $ marital  : num  0.5 0.5 1 0.5 0.5 1 0.5 0.5 0.5 0.5 ...
-    $ education: num  0 0.333 0.667 0.667 0.333 ...
-    $ default  : num  0 0 0 0 0 0 0 0 0 0 ...
-    $ balance  : num  0.0685 0.1088 0.0626 0.0643 0.0445 ...
-    $ housing  : num  0 1 1 1 1 0 1 1 1 1 ...
-    $ loan     : num  0 1 0 1 0 0 0 0 0 1 ...
-    $ contact  : num  0 0 0 1 1 0 0 0 1 0 ...
-    $ day      : num  0.6 0.3333 0.5 0.0667 0.1333 ...
-    $ month    : num  0.909 0.727 0 0.545 0.727 ...
-    $ duration : num  0.0248 0.0715 0.0599 0.0645 0.0735 ...
-    $ campaign : num  0 0 0 0.0612 0 ...
-    $ pdays    : num  0 0.39 0.38 0 0 ...
-    $ previous : num  0 0.16 0.04 0 0 0.12 0.08 0 0 0.08 ...
-    $ poutcome : num  1 0 0 1 1 ...
-    $ deposit  : num  0 0 0 0 0 0 0 0 0 0 ...
-\end{lstlisting}
+\subsection*{Preparing data for modeling}\label{preparing-data-for-modeling-3}
+\addcontentsline{toc}{subsection}{Preparing data for modeling}
 
-Before and after applying min-max normalization, we can compare the distribution of \passthrough{\lstinline!age!} as an example:
-
-\begin{lstlisting}[language=R]
-ggplot(data = bank) +
-  geom_histogram(mapping = aes(x = age), colour = "darkblue", fill = "lightblue") +
-  ggtitle("Variable 'age' before normalization")
-
-ggplot(data = bank_mm) +
-  geom_histogram(mapping = aes(x = age), colour = "darkblue", fill = "lightblue") +
-  ggtitle("Variable 'age' after normalization")
-\end{lstlisting}
-
-\includegraphics[width=0.5\linewidth]{nn_files/figure-latex/unnamed-chunk-5-1} \includegraphics[width=0.5\linewidth]{nn_files/figure-latex/unnamed-chunk-5-2}
-
-Next, we partition the dataset into training (80\%) and test (20\%) subsets using the \passthrough{\lstinline!partition()!} function:
+Before training the neural network model, we need to prepare the dataset by splitting it into training and test sets. This ensures that we can assess how well the model generalizes to new, unseen data. We use an 80/20 split, allocating 80\% of the data for training and 20\% for testing. To maintain consistency with previous chapters, we apply the \passthrough{\lstinline!partition()!} function from the \textbf{liver} package:
 
 \begin{lstlisting}[language=R]
 set.seed(500)
 
-data_sets = partition(data = bank_mm, ratio = c(0.8, 0.2))
+data_sets = partition(data = bank, ratio = c(0.8, 0.2))
+
 train_set = data_sets$part1
 test_set  = data_sets$part2
-actual_test = test_set$deposit
+
+test_labels = test_set$deposit
 \end{lstlisting}
+
+The \passthrough{\lstinline!set.seed()!} function ensures reproducibility by fixing the random seed. We use \passthrough{\lstinline!train\_set!} to train the classification models, while \passthrough{\lstinline!test\_set!} serves as unseen data for evaluation. The \passthrough{\lstinline!test\_labels!} vector contains the true class labels for \passthrough{\lstinline!test\_set!}, which we will compare against the model's predictions.
 
 To validate this split, we compare the proportion of \passthrough{\lstinline!deposit = "yes"!} in the training and test sets using a two-sample Z-test:
 
 \begin{lstlisting}[language=R]
-x1 = sum(train_set$deposit == 1)
-x2 = sum(test_set$deposit == 1)
+x1 = sum(train_set$deposit == "yes")
+x2 = sum(test_set$deposit == "yes")
 
 n1 = nrow(train_set)
 n2 = nrow(test_set)
@@ -10293,26 +10285,92 @@ prop.test(x = c(x1, x2), n = c(n1, n2))
    0.1150124 0.1161504
 \end{lstlisting}
 
-The test confirms that the proportions in both subsets are statistically similar (\emph{p}-value \textgreater{} 0.05), validating our split.
-
-Here's the improved version of your subsection:
-
-\subsection*{Applying the Neural Network Algorithm}\label{applying-the-neural-network-algorithm}
-\addcontentsline{toc}{subsection}{Applying the Neural Network Algorithm}
+The test confirms that the proportions in both subsets are statistically similar (\emph{p}-value \textgreater{} 0.05), validating our split. This ensures that the training and test sets are representative of the original dataset, enabling us to evaluate the model's performance effectively.
 
 Our objective is to classify customers as either likely (\passthrough{\lstinline!deposit = "yes"!}) or unlikely (\passthrough{\lstinline!deposit = "no"!}) to subscribe to a term deposit, based on the following predictors:
 
 \passthrough{\lstinline!age!}, \passthrough{\lstinline!default!}, \passthrough{\lstinline!balance!}, \passthrough{\lstinline!housing!}, \passthrough{\lstinline!loan!}, \passthrough{\lstinline!duration!}, \passthrough{\lstinline!campaign!}, \passthrough{\lstinline!pdays!}, and \passthrough{\lstinline!previous!}.
 
-To implement a neural network, we use the \href{https://CRAN.R-project.org/package=neuralnet}{\textbf{neuralnet}} package in \emph{R}. This package offers a straightforward and flexible way to build neural networks and provides functionality for visualizing the network topology. While \textbf{neuralnet} is a great learning tool, it is also powerful enough for practical applications.
+\subsubsection*{One-hot encoding}\label{one-hot-encoding-3}
+\addcontentsline{toc}{subsubsection}{One-hot encoding}
 
-If you haven't already installed the \textbf{neuralnet} package, you can do so by typing:
+Since neural networks require numerical inputs, categorical variables must be converted into numeric representations. One-hot encoding achieves this by creating separate binary variables for each category. We apply the \passthrough{\lstinline!one.hot()!} function from the \textbf{liver} package to transform categorical features into a numerical format suitable for a neural network:
 
 \begin{lstlisting}[language=R]
-install.packages("neuralnet")
+categorical_vars = c("default", "housing", "loan")
+
+train_onehot = one.hot(train_set, cols = categorical_vars)
+test_onehot  = one.hot(test_set,  cols = categorical_vars)
+
+str(test_onehot)
+   'data.frame':    904 obs. of  20 variables:
+    $ age        : int  43 40 56 25 31 32 23 36 32 32 ...
+    $ job        : Factor w/ 12 levels "admin.","blue-collar",..: 1 5 10 2 10 2 8 5 10 3 ...
+    $ marital    : Factor w/ 3 levels "divorced","married",..: 2 2 2 3 2 2 3 3 3 3 ...
+    $ education  : Factor w/ 4 levels "primary","secondary",..: 2 3 2 1 2 2 3 3 3 1 ...
+    $ default_no : int  1 1 1 1 1 1 1 1 1 0 ...
+    $ default_yes: int  0 0 0 0 0 0 0 0 0 1 ...
+    $ balance    : int  264 194 4073 -221 171 2089 363 553 2204 -849 ...
+    $ housing_no : int  0 1 1 0 1 0 0 1 0 0 ...
+    $ housing_yes: int  1 0 0 1 0 1 1 0 1 1 ...
+    $ loan_no    : int  1 0 1 1 1 1 1 1 1 0 ...
+    $ loan_yes   : int  0 1 0 0 0 0 0 0 0 1 ...
+    $ contact    : Factor w/ 3 levels "cellular","telephone",..: 1 1 1 3 1 1 3 1 1 1 ...
+    $ day        : int  17 29 27 23 27 14 30 11 21 4 ...
+    $ month      : Factor w/ 12 levels "apr","aug","dec",..: 1 2 2 9 2 10 9 2 10 4 ...
+    $ duration   : int  113 189 239 250 81 132 16 106 11 204 ...
+    $ campaign   : int  2 2 5 1 3 1 18 2 4 1 ...
+    $ pdays      : int  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+    $ previous   : int  0 0 0 0 0 0 0 0 0 0 ...
+    $ poutcome   : Factor w/ 4 levels "failure","other",..: 4 4 4 4 4 4 4 4 4 4 ...
+    $ deposit    : Factor w/ 2 levels "no","yes": 1 1 1 1 1 2 1 1 1 1 ...
 \end{lstlisting}
 
-Once installed, load it into your session:
+The \passthrough{\lstinline!one.hot()!} function expands categorical variables into binary columns. For example, the binary variable \passthrough{\lstinline!default!} is transformed into two new variables, \passthrough{\lstinline!default\_yes!} and \passthrough{\lstinline!default\_no!}, indicating whether the customer has defaulted on credit. These selected predictors are used in the following formula:
+
+\begin{lstlisting}[language=R]
+formula = deposit ~ default_yes + housing_yes + loan_yes + age + balance + duration + campaign + pdays + previous
+\end{lstlisting}
+
+\subsubsection*{Feature scaling}\label{feature-scaling-3}
+\addcontentsline{toc}{subsubsection}{Feature scaling}
+
+Neural networks perform best when input features are on a similar scale. To achieve this, we normalize numerical variables using min-max scaling, transforming all inputs into a standardized range between 0 and 1. This prevents features with larger numerical ranges from dominating the learning process and helps improve model convergence.
+
+To prevent data leakage, the scaling parameters (minimum and maximum values) are computed from the training set only and then applied consistently to the test set. This ensures that the test set remains an independent evaluation dataset, preventing it from influencing model training.
+
+\begin{lstlisting}[language=R]
+numeric_vars = c("age", "balance", "duration", "campaign", "pdays", "previous")
+
+min_train = sapply(train_onehot[, numeric_vars], min)
+max_train = sapply(train_onehot[, numeric_vars], max)
+
+train_scaled = minmax(train_onehot, col = numeric_vars, min = min_train, max = max_train)
+test_scaled  = minmax(test_onehot,  col = numeric_vars, min = min_train, max = max_train)
+\end{lstlisting}
+
+To visualize the effect of scaling, we compare the distribution of \passthrough{\lstinline!age!} before and after applying min-max transformation:
+
+\begin{lstlisting}[language=R]
+ggplot(data = train_set) +
+  geom_histogram(mapping = aes(x = age), colour = "darkblue", fill = "lightblue") +
+  ggtitle("Variable 'age' before scaling")
+
+ggplot(data = train_scaled) +
+  geom_histogram(mapping = aes(x = age), colour = "darkblue", fill = "lightblue") +
+  ggtitle("Variable 'age' after scaling")
+\end{lstlisting}
+
+\includegraphics[width=0.5\linewidth]{nn_files/figure-latex/unnamed-chunk-7-1} \includegraphics[width=0.5\linewidth]{nn_files/figure-latex/unnamed-chunk-7-2}
+
+The first histogram (left) displays the distribution of \passthrough{\lstinline!age!} in the training set before scaling, while the second histogram (right) shows the distribution after applying min-max scaling. The values are mapped to a range between 0 and 1 while preserving the original distribution.
+
+\subsection*{Applying the neural network algorithm}\label{applying-the-neural-network-algorithm}
+\addcontentsline{toc}{subsection}{Applying the neural network algorithm}
+
+To implement a neural network, we use the \href{https://CRAN.R-project.org/package=neuralnet}{\textbf{neuralnet}} package in R. This package offers a straightforward and flexible way to build neural networks and provides functionality for visualizing the network topology. While \textbf{neuralnet} is a useful learning tool, it is also powerful enough for practical applications.
+
+If the \textbf{neuralnet} package is not installed, it can be installed using \passthrough{\lstinline!install.packages("neuralnet")!}.Then, load it into the R session:
 
 \begin{lstlisting}[language=R]
 library(neuralnet)
@@ -10321,15 +10379,12 @@ library(neuralnet)
 Next, we apply the \passthrough{\lstinline!neuralnet()!} function to the training dataset to build our model:
 
 \begin{lstlisting}[language=R]
-formula = deposit ~ age + default + balance + housing + loan + duration + 
-                    campaign + pdays + previous
-
 neuralnet_bank = neuralnet(
   formula = formula,
-  data = train_set,
+  data = train_scaled,
   hidden = 1,                # Single hidden layer with 1 node
-  err.fct = "sse",           # Error function: Sum of Squared Errors
-  linear.output = FALSE      # Nonlinear activation function
+  err.fct = "sse",           # Loss function: Sum of Squared Errors
+  linear.output = FALSE      # Logistic activation function for classification
 )
 \end{lstlisting}
 
@@ -10338,15 +10393,15 @@ Here's what each argument in the function call does:
 \begin{itemize}
 \tightlist
 \item
-  \textbf{\passthrough{\lstinline!formula!}}: Specifies the target variable (\passthrough{\lstinline!deposit!}) and the predictors.\\
+  \passthrough{\lstinline!formula!}: Specifies the relationship between the target variable (\passthrough{\lstinline!deposit!}) and the predictors.\\
 \item
-  \textbf{\passthrough{\lstinline!data!}}: Indicates the dataset used for training (\passthrough{\lstinline!train\_set!}).\\
+  \passthrough{\lstinline!data!}: Indicates the dataset used for training (\passthrough{\lstinline!train\_scaled!}).\\
 \item
-  \textbf{\passthrough{\lstinline!hidden!}}: Defines the number of hidden layers and nodes (1 hidden layer with 1 node in this case).\\
+  \passthrough{\lstinline!hidden = 1!}: Defines the number of hidden layers and nodes (one hidden layer with a single node). For simplicity, we start with a minimal architecture, but more complex networks with additional nodes and layers may improve performance.\\
 \item
-  \textbf{\passthrough{\lstinline!err.fct!}}: Sets the error function to minimize during training; we use ``sse'' (Sum of Squared Errors).\\
+  \passthrough{\lstinline!err.fct = "sse"!}: Specifies the sum of squared errors as the loss function. While SSE is commonly used, cross-entropy loss (\passthrough{\lstinline!ce!}) is often preferred for classification tasks.\\
 \item
-  \textbf{\passthrough{\lstinline!linear.output!}}: Ensures a nonlinear activation function for the output layer, appropriate for classification tasks.
+  \passthrough{\lstinline!linear.output = FALSE!}: Ensures that the output layer uses a logistic activation function, which is essential for classification tasks where the predicted values represent probabilities.
 \end{itemize}
 
 After training, we visualize the network to examine its topology:
@@ -10355,49 +10410,71 @@ After training, we visualize the network to examine its topology:
 plot(neuralnet_bank, rep = "best")
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{nn_files/figure-latex/unnamed-chunk-11-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{nn_files/figure-latex/unnamed-chunk-10-1} \end{center}
 
-This visualization shows that the network consists of:\\
-- \textbf{9 input nodes}, corresponding to the 9 predictors,\\
-- \textbf{1 hidden layer} containing a single node, and\\
-- \textbf{1 output node} representing the classification result (\passthrough{\lstinline!yes!} or \passthrough{\lstinline!no!}).
+This visualization shows that the network consists of:
 
-The training process converged after 2578 steps, with a final error rate of 142.97. Upon analyzing the weights of the network, it was found that the \textbf{\passthrough{\lstinline!duration!}} predictor had the greatest influence on the model's output, making it the most significant factor in determining whether a customer is likely to subscribe to the term deposit.
+\begin{itemize}
+\tightlist
+\item
+  9 input nodes, corresponding to the 9 predictors,\\
+\item
+  1 hidden layer containing a single node, and\\
+\item
+  2 output nodes representing the classification result (\passthrough{\lstinline!yes!} or \passthrough{\lstinline!no!}).
+\end{itemize}
 
-This straightforward setup demonstrates how neural networks process input data through multiple layers and extract meaningful patterns to make predictions. In the next section, we will evaluate the model's performance and interpret its results.
+The training process converged after 1998 steps, with a final error rate of 284.9. An analysis of the trained network's weights indicates that \passthrough{\lstinline!duration!}---the length of the last phone call---has the strongest influence on the prediction. This finding aligns with prior studies, where call duration has been a key indicator of customer engagement in marketing campaigns.
 
-\subsection*{Prediction and Model Evaluation}\label{prediction-and-model-evaluation-2}
-\addcontentsline{toc}{subsection}{Prediction and Model Evaluation}
+This simple neural network model demonstrates how input features are processed through multiple layers to extract patterns and make predictions. In the next section, we will evaluate the model's performance and interpret its results.
 
-We use the trained Neural Network to predict the outcomes on the test dataset:
+\subsection*{Prediction and model evaluation}\label{prediction-and-model-evaluation-2}
+\addcontentsline{toc}{subsection}{Prediction and model evaluation}
+
+After training the neural network, we evaluate its performance by applying it to the test set, which contains customers unseen during training. The goal is to compare the model's predictions with the actual class labels stored in \passthrough{\lstinline!test\_labels!}.
+
+To obtain predictions from the neural network, we use the \passthrough{\lstinline!predict()!} function:
 
 \begin{lstlisting}[language=R]
-prob_nn = predict(neuralnet_bank, test_set)
+prob_nn = predict(neuralnet_bank, test_scaled)
+\end{lstlisting}
+
+To inspect the model's predictions, we display the first six output values:
+
+\begin{lstlisting}[language=R]
 head(prob_nn)
-            [,1]
-   12 0.01460510
-   16 0.02158387
-   17 0.11371069
-   19 0.02391761
-   32 0.03149115
-   38 0.01552204
+             [,1]       [,2]
+   [1,] 0.9849665 0.01506696
+   [2,] 0.9782933 0.02174953
+   [3,] 0.8866629 0.11342508
+   [4,] 0.9760059 0.02403981
+   [5,] 0.9686046 0.03144922
+   [6,] 0.9840902 0.01594459
 \end{lstlisting}
 
-We evaluate the predictions using a \textbf{confusion matrix} with a cutoff value of 0.5:
+Each column represents one output unit. Since \passthrough{\lstinline!neuralnet()!} does not automatically apply a softmax function, the values should be interpreted as raw activations rather than probabilities. To classify a customer as likely to subscribe, we compare the output activations. If the activation corresponding to \passthrough{\lstinline!deposit = "yes"!} is greater than the activation for \passthrough{\lstinline!deposit = "no"!}, the customer is predicted as a subscriber.
+
+We evaluate the predictions using a confusion matrix with a cutoff value of 0.5:
 
 \begin{lstlisting}[language=R]
-conf.mat(prob_nn, actual_test, cutoff = 0.5)
-   Setting levels: reference = "0", case = "1"
+# Extract the prediction for 'deposit = "yes"'
+prob_nn_yes = prob_nn[, 2] 
+
+conf.mat(prob_nn_yes, test_labels, cutoff = 0.5, reference = "yes")
           Actual
-   Predict   0   1
-         0  16  22
-         1 783  83
+   Predict yes  no
+       yes  22  16
+       no   83 783
 \end{lstlisting}
 
-This confusion matrix reveals the number of correct and incorrect predictions (e.g., true positives, false positives). Finally, we assess the model's performance by plotting the ROC curve and calculating the AUC:
+The confusion matrix summarizes the model's performance by comparing predicted versus actual labels. It provides insight into classification accuracy, as well as the number of true positives, false positives, true negatives, and false negatives.
+
+Finally, we assess the model's performance by plotting the ROC curve and calculating the AUC:
 
 \begin{lstlisting}[language=R]
-roc_nn = roc(actual_test, prob_nn)
+library(pROC)   # For ROC curve
+
+roc_nn = roc(test_labels, prob_nn_yes)
 
 ggroc(roc_nn, size = 0.8) + 
   theme_minimal() + 
@@ -10407,11 +10484,132 @@ ggroc(roc_nn, size = 0.8) +
 
 \begin{center}\includegraphics[width=0.7\linewidth]{nn_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
-The ROC curve illustrates the model's ability to distinguish between the two classes. A high AUC score indicates strong predictive performance.
+The ROC curve evaluates how well the model differentiates between customers who subscribe (\passthrough{\lstinline!deposit = "yes"!}) and those who do not (\passthrough{\lstinline!deposit = "no"!}) at varying classification thresholds. A high AUC score indicates strong predictive performance, meaning the model is effective at distinguishing between the two classes.
 
-\section{Exercises}\label{exercises-8}
+\section*{Exercises}\label{exercises-8}
+\addcontentsline{toc}{section}{Exercises}
 
-To do \ldots{}
+These exercises reinforce the concepts introduced in this chapter, focusing on understanding neural networks, tuning hyperparameters, and comparing their performance with tree-based models. They are divided into conceptual questions, practical tasks using the \emph{bank} dataset, and comparative exercises using the \emph{adult} dataset.
+
+\subsubsection*{Conceptual questions}\label{conceptual-questions-10}
+\addcontentsline{toc}{subsubsection}{Conceptual questions}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Explain the basic structure of a neural network. What role do the input, hidden, and output layers play?
+\item
+  What is the rule of activation functions in a neural network? Why are non-linear activation functions essential?
+\item
+  Compare and contrast ReLU, sigmoid, and tanh activation functions. In what scenarios would each be preferred?
+\item
+  Why are neural networks considered universal function approximators?
+\item
+  Explain how backpropagation updates the weights in a neural network.
+\item
+  Why do neural networks often require large datasets to perform well?
+\item
+  Define the bias-variance tradeoff in neural networks. How does model complexity affect bias and variance?
+\item
+  What is the purpose of dropout regularization, and how does it help prevent overfitting?
+\item
+  What is the role of the loss function in training a neural network?
+\item
+  What is weight initialization, and why is it important?
+\item
+  Compare shallow neural networks to deep neural networks. What advantages do deeper architectures provide?
+\item
+  How does the number of hidden layers affect a neural network's ability to model complex patterns?
+\item
+  What is the role of hyperparameter tuning in neural networks?
+\item
+  Compare the computational efficiency of decision trees and neural networks.
+\end{enumerate}
+
+\subsubsection*{\texorpdfstring{Practical exercises using the \emph{bank} dataset}{Practical exercises using the bank dataset}}\label{practical-exercises-using-the-bank-dataset-1}
+\addcontentsline{toc}{subsubsection}{Practical exercises using the \emph{bank} dataset}
+
+\paragraph*{Data preparation and model training}\label{data-preparation-and-model-training}
+\addcontentsline{toc}{paragraph}{Data preparation and model training}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{14}
+\tightlist
+\item
+  Load the \emph{bank} dataset and examine its structure. What are the key predictors?
+\item
+  Split the dataset into training (80\%) and testing (20\%) sets, ensuring the split is statistically representative.
+\item
+  Apply one-hot encoding to categorical variables. What are the advantages of one-hot encoding over label encoding?
+\item
+  Normalize the numerical features using min-max scaling. Why is scaling important for neural networks?
+\item
+  Train a basic feed-forward neural network with one hidden layer containing five neurons. Evaluate its accuracy.
+\item
+  Increase the number of neurons in the hidden layer to ten. Does the accuracy improve?
+\item
+  Train a neural network with two hidden layers (five neurons in the first layer, three in the second). How does performance compare?
+\item
+  Change the activation function from ReLU to sigmoid. How does this affect the model's convergence and accuracy?
+\item
+  Train a model using cross-entropy loss instead of sum of squared errors. Which performs better?
+\end{enumerate}
+
+\paragraph*{Model evaluation and comparison with tree-based models}\label{model-evaluation-and-comparison-with-tree-based-models}
+\addcontentsline{toc}{paragraph}{Model evaluation and comparison with tree-based models}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{23}
+\tightlist
+\item
+  Compute the confusion matrix and interpret precision, recall, and F1-score for the neural network model.
+\item
+  Plot the ROC curve and calculate AUC. How well does the model differentiate between subscribed and non-subscribed customers?
+\item
+  Compare the neural network's performance with a decision tree classifier trained on the same dataset.
+\item
+  Compare the neural network's performance with a random forest model trained on the same dataset.
+\item
+  Which model (decision tree, random forest, or neural network) performs best in terms of accuracy, precision, and recall?
+\end{enumerate}
+
+\paragraph*{\texorpdfstring{Training neural networks on the \emph{adult} dataset}{Training neural networks on the adult dataset}}\label{training-neural-networks-on-the-adult-dataset}
+\addcontentsline{toc}{paragraph}{Training neural networks on the \emph{adult} dataset}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{28}
+\tightlist
+\item
+  Load the \emph{adult} dataset and examine its structure. What are the key differences between this dataset and the \emph{bank} dataset?
+\item
+  Preprocess the categorical features using one-hot encoding.
+\item
+  Normalize the numerical features using min-max scaling.
+\item
+  Split the dataset into training (80\%) and testing (20\%) sets.
+\item
+  Train a basic neural network with one hidden layer (five neurons) to predict income level (\passthrough{\lstinline!<=50K!} or \passthrough{\lstinline!>50K!}).
+\item
+  Increase the number of neurons in the hidden layer to ten. Does performance improve?
+\item
+  Train a deeper neural network with two hidden layers (ten and five neurons).
+\item
+  Compare ReLU, tanh, and sigmoid activation functions on model performance.
+\item
+  Train a decision tree on the \emph{adult} dataset and compare its accuracy with the neural network model.
+\item
+  Train a random forest on the \emph{adult} dataset and compare its performance to the neural network model.
+\item
+  Analyze the feature importance in the random forest model and compare it to the most influential features in the neural network model.
+\item
+  Compare the ROC curves of the neural network, decision tree, and random forest models. Which model has the highest AUC?
+\item
+  Which model performs better in predicting high-income individuals, and why?
+\end{enumerate}
 
 \chapter{Clustering}\label{chapter-cluster}
 
@@ -10450,7 +10648,8 @@ This chapter provides a comprehensive introduction to clustering, covering:
 \end{itemize}
 
 By the end of this chapter, you will understand how clustering works, when to apply it, and how to implement it in real-world scenarios. Let's dive in!
-\#\# What is Cluster Analysis? \{\#cluster-what\}
+
+\section{What is Cluster Analysis?}\label{cluster-what}
 
 Clustering is an unsupervised machine learning technique that groups data points into \emph{clusters} based on their similarity. Unlike supervised learning, where models learn from labeled examples, clustering is \emph{exploratory}---it uncovers \emph{hidden structures} in data without predefined labels. The goal is to form groups where data points within the same cluster are highly similar, while those in different clusters are distinct.
 
@@ -10798,7 +10997,7 @@ ggplot(data = cereal_mm) +
     theme_minimal() + ggtitle("After min-max normalization")
 \end{lstlisting}
 
-\includegraphics[width=0.5\linewidth]{clustering_files/figure-latex/unnamed-chunk-10-1} \includegraphics[width=0.5\linewidth]{clustering_files/figure-latex/unnamed-chunk-10-2}
+\includegraphics[width=0.5\linewidth]{clustering_files/figure-latex/unnamed-chunk-8-1} \includegraphics[width=0.5\linewidth]{clustering_files/figure-latex/unnamed-chunk-8-2}
 
 After scaling, all values fall within the \emph{0--1 range}, making distance-based clustering more reliable.
 
@@ -10816,7 +11015,7 @@ fviz_nbclust(cereal_mm, kmeans, method = "wss", k.max = 15) +
   geom_vline(xintercept = 4, linetype = 2, color = "gray")
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{clustering_files/figure-latex/unnamed-chunk-11-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{clustering_files/figure-latex/unnamed-chunk-9-1} \end{center}
 
 From the plot, we observe that \emph{\(k = 4\) clusters} is a reasonable choice, as adding more clusters beyond this point yields diminishing improvements in WCSS.
 
@@ -10846,7 +11045,7 @@ To better understand the clustering results, we visualize the clusters using the
 fviz_cluster(cereal_kmeans, cereal_mm, geom = "point", ellipse.type = "norm", palette = "custom_palette")
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{clustering_files/figure-latex/unnamed-chunk-14-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{clustering_files/figure-latex/unnamed-chunk-12-1} \end{center}
 
 The scatter plot displays the \emph{four clusters}, with each point representing a cereal brand. Different colors indicate distinct clusters, and the ellipses represent the \emph{spread of each cluster} based on its standard deviation.
 
@@ -10870,9 +11069,154 @@ This case study demonstrated how \emph{K-means clustering} can segment cereals i
 
 In this chapter, we explored the fundamentals of clustering, the mechanics of the K-means algorithm, and methods for choosing the optimal number of clusters. We then applied these concepts to a real-world dataset, demonstrating how K-means can extract meaningful insights. Clustering remains a powerful tool across various domains, from marketing to bioinformatics, making it an essential technique in the modern data science toolkit.
 
-\section{Exercises}\label{exercises-9}
+\section*{Exercises}\label{exercises-9}
+\addcontentsline{toc}{section}{Exercises}
 
-To do \ldots{}
+These exercises reinforce the concepts introduced in this chapter, focusing on clustering fundamentals, hyperparameter tuning, and practical applications using the \emph{redWines} dataset. The exercises are divided into two categories:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Conceptual questions -- Understanding the theory behind clustering and K-means.\\
+\item
+  Practical exercises using the \emph{redWines} dataset -- Applying clustering techniques to real-world data.
+\end{enumerate}
+
+\subsection*{Conceptual questions}\label{conceptual-questions-11}
+\addcontentsline{toc}{subsection}{Conceptual questions}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  What is clustering, and how does it differ from classification?\\
+\item
+  Explain the concept of similarity measures in clustering. What is the most commonly used distance metric for numerical data?\\
+\item
+  Why is clustering considered an unsupervised learning method?\\
+\item
+  What are some real-world applications of clustering? Name at least three.\\
+\item
+  Define the terms \emph{intra-cluster similarity} and \emph{inter-cluster separation}. Why are these important in clustering?\\
+\item
+  How does K-means clustering determine which data points belong to a cluster?\\
+\item
+  Explain the role of centroids in K-means clustering.\\
+\item
+  What happens if the number of clusters \(k\) in K-means is chosen too small? What if it is too large?\\
+\item
+  What is the elbow method, and how does it help determine the optimal number of clusters?\\
+\item
+  Why is K-means sensitive to the initial selection of cluster centers? How does K-means++ address this issue?\\
+\item
+  Describe a scenario where Euclidean distance might not be an appropriate similarity measure for clustering.\\
+\item
+  Why do we need to normalize or scale variables before applying K-means clustering?\\
+\item
+  How does clustering help in dimensionality reduction and preprocessing for supervised learning?\\
+\item
+  What are the key assumptions of K-means clustering?\\
+\item
+  How does the silhouette score help evaluate the quality of clustering?\\
+\item
+  Compare K-means with hierarchical clustering. What are the advantages and disadvantages of each?\\
+\item
+  Why is K-means not suitable for non-spherical clusters?\\
+\item
+  What is the difference between hard clustering (e.g., K-means) and soft clustering (e.g., Gaussian Mixture Models)?\\
+\item
+  What are outliers, and how do they affect K-means clustering?\\
+\item
+  What are alternative clustering methods that handle outliers better than K-means?
+\end{enumerate}
+
+\subsection*{\texorpdfstring{Practical exercises using the \emph{redWines} dataset}{Practical exercises using the redWines dataset}}\label{practical-exercises-using-the-redwines-dataset-1}
+\addcontentsline{toc}{subsection}{Practical exercises using the \emph{redWines} dataset}
+
+The \emph{redWines} dataset contains chemical properties of red wines and their quality scores. These exercises guide you through clustering analysis, from data preprocessing to model evaluation.
+
+\subsubsection*{Data preparation and exploratory analysis}\label{data-preparation-and-exploratory-analysis}
+\addcontentsline{toc}{subsubsection}{Data preparation and exploratory analysis}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{20}
+\tightlist
+\item
+  Load the \emph{redWines} dataset from the \textbf{liver} package and inspect its structure.\\
+\end{enumerate}
+
+\begin{lstlisting}[language=R]
+library(liver)
+data(redWines)
+str(redWines)
+\end{lstlisting}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{21}
+\tightlist
+\item
+  Summarize the dataset using \passthrough{\lstinline!summary()!}. Identify any missing values.\\
+\item
+  Check the distribution of wine quality scores in the dataset. What is the most common wine quality score?\\
+\item
+  Since clustering requires numerical features, remove any non-numeric columns from the dataset.\\
+\item
+  Apply min-max scaling to normalize all numerical variables before clustering. Why is this step necessary?
+\end{enumerate}
+
+\subsubsection*{Applying K-means clustering}\label{applying-k-means-clustering-1}
+\addcontentsline{toc}{subsubsection}{Applying K-means clustering}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{25}
+\tightlist
+\item
+  Use the elbow method to determine the optimal number of clusters for the dataset.\\
+\end{enumerate}
+
+\begin{lstlisting}[language=R]
+library(factoextra)
+fviz_nbclust(redWines, kmeans, method = "wss")
+\end{lstlisting}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{26}
+\tightlist
+\item
+  Based on the elbow plot, choose an appropriate value of \(k\) and perform K-means clustering.\\
+\item
+  Visualize the clusters using a scatter plot of two numerical features.\\
+\item
+  Compute the silhouette score to evaluate cluster cohesion and separation.\\
+\item
+  Identify the centroids of the final clusters and interpret their meaning.
+\end{enumerate}
+
+\subsubsection*{Interpreting the clusters}\label{interpreting-the-clusters}
+\addcontentsline{toc}{subsubsection}{Interpreting the clusters}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{30}
+\tightlist
+\item
+  Assign the cluster labels to the original dataset and examine the average chemical composition of each cluster.\\
+\item
+  Compare the wine quality scores across clusters. Do some clusters contain higher-quality wines than others?\\
+\item
+  Identify which features contribute most to defining the clusters.\\
+\item
+  Are certain wine types (e.g., high acidity, high alcohol content) concentrated in specific clusters?\\
+\item
+  Experiment with different values of \(k\) and compare the clustering results. Does increasing or decreasing \(k\) improve the clustering?\\
+\item
+  Visualize how wine acidity and alcohol content influence cluster formation.
+\end{enumerate}
 
   \bibliography{book.bib,packages.bib}
 

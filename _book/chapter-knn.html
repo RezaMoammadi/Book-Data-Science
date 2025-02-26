@@ -462,7 +462,7 @@ Figure 7.6: Visualization illustrating the difference between proper scaling and
 <span><span class="va">train_set</span> <span class="op">=</span> <span class="va">data_sets</span><span class="op">$</span><span class="va">part1</span></span>
 <span><span class="va">test_set</span>  <span class="op">=</span> <span class="va">data_sets</span><span class="op">$</span><span class="va">part2</span></span>
 <span></span>
-<span><span class="va">actual_test</span> <span class="op">=</span> <span class="va">test_set</span><span class="op">$</span><span class="va">churn</span></span></code></pre></div>
+<span><span class="va">test_labels</span> <span class="op">=</span> <span class="va">test_set</span><span class="op">$</span><span class="va">churn</span></span></code></pre></div>
 <p>The <code><a href="https://rdrr.io/pkg/liver/man/partition.html">partition()</a></code> function randomly splits the dataset while maintaining the class distribution of the target variable, ensuring a representative training and test set. As we validated the partition in Section <a href="chapter-modeling.html#sec-validate-partition">6.4</a>, we can now proceed with feature scaling and one-hot encoding to ensure compatibility with the kNN algorithm.</p>
 <div id="one-hot-encoding-2" class="section level4 unnumbered">
 <h4>One-Hot Encoding<a class="anchor" aria-label="anchor" href="#one-hot-encoding-2"><i class="fas fa-link"></i></a>
@@ -547,7 +547,7 @@ Figure 7.6: Visualization illustrating the difference between proper scaling and
 <span class="header-section-number">7.6.4</span> Step 4: Evaluating the Model<a class="anchor" aria-label="anchor" href="#step-4-evaluating-the-model"><i class="fas fa-link"></i></a>
 </h3>
 <p>Evaluating model performance is crucial to ensure that the kNN algorithm generalizes well to unseen data and makes reliable predictions. A confusion matrix provides a summary of correct and incorrect predictions by comparing the predicted labels to the actual labels in the test set. We compute it using the <code><a href="https://rdrr.io/pkg/liver/man/conf.mat.html">conf.mat()</a></code> function from the <strong>liver</strong> package:</p>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="chapter-knn.html#cb140-1" tabindex="-1"></a><span class="fu">conf.mat</span>(kNN_predict, actual_test, <span class="at">reference =</span> <span class="st">"yes"</span>)</span>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="chapter-knn.html#cb140-1" tabindex="-1"></a><span class="fu">conf.mat</span>(kNN_predict, test_labels, <span class="at">reference =</span> <span class="st">"yes"</span>)</span>
 <span id="cb140-2"><a href="chapter-knn.html#cb140-2" tabindex="-1"></a>          Actual</span>
 <span id="cb140-3"><a href="chapter-knn.html#cb140-3" tabindex="-1"></a>   Predict yes  no</span>
 <span id="cb140-4"><a href="chapter-knn.html#cb140-4" tabindex="-1"></a>       yes  <span class="dv">54</span>   <span class="dv">7</span></span>
@@ -773,7 +773,7 @@ Figure 7.6: Visualization illustrating the difference between proper scaling and
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Uncovering Data Science with R</strong>" was written by Reza Mohammadi. It was last built on 2025-02-25.</p>
+    <p>"<strong>Uncovering Data Science with R</strong>" was written by Reza Mohammadi. It was last built on 2025-02-26.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

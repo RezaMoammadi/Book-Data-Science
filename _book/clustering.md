@@ -1,8 +1,3 @@
-
-
-
-
-
 # Clustering {#chapter-cluster}  
 
 Every day, we interact with systems that organize vast amounts of data without explicit instructions. How does Netflix recommend movies tailored to your taste? How does Amazon categorize millions of products? These are real-world examples of *clustering*, a machine learning technique that groups similar items based on shared characteristics—without any predefined labels.  
@@ -25,6 +20,7 @@ This chapter provides a comprehensive introduction to clustering, covering:
 - A practical case study: segmenting cereal brands based on their nutritional content.  
 
 By the end of this chapter, you will understand how clustering works, when to apply it, and how to implement it in real-world scenarios. Let’s dive in! 
+
 ## What is Cluster Analysis? {#cluster-what}  
 
 Clustering is an unsupervised machine learning technique that groups data points into *clusters* based on their similarity. Unlike supervised learning, where models learn from labeled examples, clustering is *exploratory*—it uncovers *hidden structures* in data without predefined labels. The goal is to form groups where data points within the same cluster are highly similar, while those in different clusters are distinct.  
@@ -43,10 +39,14 @@ Clustering is often compared to classification, but they serve different purpose
 
 All clustering algorithms aim to achieve *high intra-cluster similarity* (data points within a cluster are close together) and *low inter-cluster similarity* (clusters are well separated). This concept is visually illustrated in Figure \@ref(fig:cluster-1), where effective clusters minimize internal variation while maximizing separation between groups.
 
-<div class="figure" style="text-align: center">
-<img src="images/cluster_1.png" alt="Clustering algorithms aim to minimize intra-cluster variation while maximizing inter-cluster separation." width="75%" />
-<p class="caption">(\#fig:cluster-1)Clustering algorithms aim to minimize intra-cluster variation while maximizing inter-cluster separation.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.75\linewidth]{images/cluster_1} 
+
+}
+
+\caption{Clustering algorithms aim to minimize intra-cluster variation while maximizing inter-cluster separation.}(\#fig:cluster-1)
+\end{figure}
 
 Beyond its role in data exploration, clustering is widely used as a *preprocessing step* in machine learning. Given the massive scale of modern datasets, clustering helps reduce complexity by identifying *a smaller number of representative groups*, leading to several benefits:  
 
@@ -71,40 +71,60 @@ Although K-means is simple and efficient, it has some limitations. The final clu
 
 To illustrate how K-means works, consider a dataset with 50 records and two features, *\( x_1 \)* and *\( x_2 \)*, as shown in Figure \@ref(fig:cluster-ex-1). Our goal is to partition the data into *three* clusters.  
 
-<div class="figure" style="text-align: center">
-<img src="images/cluster_ex_1.png" alt="A simple dataset with 50 records and two features, ready for clustering." width="70%" />
-<p class="caption">(\#fig:cluster-ex-1)A simple dataset with 50 records and two features, ready for clustering.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/cluster_ex_1} 
+
+}
+
+\caption{A simple dataset with 50 records and two features, ready for clustering.}(\#fig:cluster-ex-1)
+\end{figure}
 
 The first step is to randomly select three initial cluster centers (red stars), as shown in the left panel of Figure \@ref(fig:cluster-ex-2). Each data point is then assigned to the nearest cluster, forming three groups labeled in *blue (Cluster A), green (Cluster B), and orange (Cluster C)*. The right panel of Figure \@ref(fig:cluster-ex-2) displays these initial assignments. The dashed lines represent the *Voronoi diagram*, which divides space into regions associated with each cluster center.
 
-<div class="figure" style="text-align: center">
-<img src="images/cluster_ex_2.png" alt="Initial random cluster centers (left) and first cluster assignments (right)." width="45%" /><img src="images/cluster_ex_3.png" alt="Initial random cluster centers (left) and first cluster assignments (right)." width="45%" />
-<p class="caption">(\#fig:cluster-ex-2)Initial random cluster centers (left) and first cluster assignments (right).</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.45\linewidth]{images/cluster_ex_2} \includegraphics[width=0.45\linewidth]{images/cluster_ex_3} 
+
+}
+
+\caption{Initial random cluster centers (left) and first cluster assignments (right).}(\#fig:cluster-ex-2)
+\end{figure}
 
 Since K-means is sensitive to *initialization*, poor placement of initial cluster centers can lead to suboptimal clustering. To mitigate this issue, *K-means++* [@arthur2006k] was introduced in 2007. This method strategically selects initial centers to improve convergence and reduce randomness.  
 
 Once the initial cluster assignments are made, K-means enters the *update phase*. The first step is to recompute the centroid of each cluster, which is the *mean position of all points assigned to that cluster*. The cluster centers are then moved to these new centroid locations, as shown in the left panel of Figure \@ref(fig:cluster-ex-3). The right panel illustrates how the *Voronoi boundaries shift*, causing some data points to be reassigned to a different cluster.
 
-<div class="figure" style="text-align: center">
-<img src="images/cluster_ex_4.png" alt="Updated cluster centers (left) and new assignments after centroid adjustment (right)." width="45%" /><img src="images/cluster_ex_5.png" alt="Updated cluster centers (left) and new assignments after centroid adjustment (right)." width="45%" />
-<p class="caption">(\#fig:cluster-ex-3)Updated cluster centers (left) and new assignments after centroid adjustment (right).</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.45\linewidth]{images/cluster_ex_4} \includegraphics[width=0.45\linewidth]{images/cluster_ex_5} 
+
+}
+
+\caption{Updated cluster centers (left) and new assignments after centroid adjustment (right).}(\#fig:cluster-ex-3)
+\end{figure}
 
 This process—*reassigning points and updating centroids*—continues iteratively. After another update, some points switch clusters again, leading to a refined Voronoi partition, as shown in Figure \@ref(fig:cluster-ex-6).
 
-<div class="figure" style="text-align: center">
-<img src="images/cluster_ex_6.png" alt="Updated cluster centers and assignments after another iteration." width="45%" /><img src="images/cluster_ex_7.png" alt="Updated cluster centers and assignments after another iteration." width="45%" />
-<p class="caption">(\#fig:cluster-ex-6)Updated cluster centers and assignments after another iteration.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.45\linewidth]{images/cluster_ex_6} \includegraphics[width=0.45\linewidth]{images/cluster_ex_7} 
+
+}
+
+\caption{Updated cluster centers and assignments after another iteration.}(\#fig:cluster-ex-6)
+\end{figure}
 
 The algorithm continues iterating until the cluster assignments stabilize—when *no more points switch clusters*, as shown in Figure \@ref(fig:cluster-ex-8). At this point, the algorithm *converges*, and the final clusters are established.
 
-<div class="figure" style="text-align: center">
-<img src="images/cluster_ex_8.png" alt="Final cluster assignments after K-means convergence." width="45%" />
-<p class="caption">(\#fig:cluster-ex-8)Final cluster assignments after K-means convergence.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.45\linewidth]{images/cluster_ex_8} 
+
+}
+
+\caption{Final cluster assignments after K-means convergence.}(\#fig:cluster-ex-8)
+\end{figure}
 
 Once clustering is complete, the results can be presented in two ways:  
 
@@ -123,10 +143,14 @@ One widely used technique for choosing \( k \) is the *elbow method*, which eval
 
 This critical point, known as the *elbow point*, represents the most natural number of clusters. The concept is illustrated in Figure \@ref(fig:cluster-elbow), where the curve shows the total within-cluster sum of squares (WCSS) as a function of \( k \). The "elbow" in the curve—where the rate of improvement slows—is a strong candidate for \( k \).  
 
-<div class="figure" style="text-align: center">
-<img src="images/cluster_elbow.png" alt="The elbow method helps determine the optimal number of clusters in K-means clustering." width="60%" />
-<p class="caption">(\#fig:cluster-elbow)The elbow method helps determine the optimal number of clusters in K-means clustering.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.6\linewidth]{images/cluster_elbow} 
+
+}
+
+\caption{The elbow method helps determine the optimal number of clusters in K-means clustering.}(\#fig:cluster-elbow)
+\end{figure}
 
 While the elbow method provides a useful heuristic, it has limitations. In some datasets, the curve may not exhibit a clear elbow, making the choice of \( k \) more ambiguous. Additionally, evaluating many different values of \( k \) can be computationally expensive, especially for large datasets.  
 
@@ -310,7 +334,8 @@ ggplot(data = cereal_mm) +
     theme_minimal() + ggtitle("After min-max normalization")
 ```
 
-<img src="clustering_files/figure-html/unnamed-chunk-10-1.png" width="50%" /><img src="clustering_files/figure-html/unnamed-chunk-10-2.png" width="50%" />
+
+\includegraphics[width=0.5\linewidth]{clustering_files/figure-latex/unnamed-chunk-8-1} \includegraphics[width=0.5\linewidth]{clustering_files/figure-latex/unnamed-chunk-8-2} 
 
 After scaling, all values fall within the *0–1 range*, making distance-based clustering more reliable.  
 
@@ -328,7 +353,9 @@ fviz_nbclust(cereal_mm, kmeans, method = "wss", k.max = 15) +
   geom_vline(xintercept = 4, linetype = 2, color = "gray")
 ```
 
-<img src="clustering_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{clustering_files/figure-latex/unnamed-chunk-9-1} \end{center}
 
 From the plot, we observe that *\( k = 4 \) clusters* is a reasonable choice, as adding more clusters beyond this point yields diminishing improvements in WCSS.  
 
@@ -359,7 +386,9 @@ To better understand the clustering results, we visualize the clusters using the
 fviz_cluster(cereal_kmeans, cereal_mm, geom = "point", ellipse.type = "norm", palette = "custom_palette")
 ```
 
-<img src="clustering_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{clustering_files/figure-latex/unnamed-chunk-12-1} \end{center}
 
 The scatter plot displays the *four clusters*, with each point representing a cereal brand. Different colors indicate distinct clusters, and the ellipses represent the *spread of each cluster* based on its standard deviation.  
 
@@ -383,9 +412,77 @@ This case study demonstrated how *K-means clustering* can segment cereals into m
 
 In this chapter, we explored the fundamentals of clustering, the mechanics of the K-means algorithm, and methods for choosing the optimal number of clusters. We then applied these concepts to a real-world dataset, demonstrating how K-means can extract meaningful insights. Clustering remains a powerful tool across various domains, from marketing to bioinformatics, making it an essential technique in the modern data science toolkit.
 
-## Exercises
+## Exercises {-}  
 
-To do ...
+These exercises reinforce the concepts introduced in this chapter, focusing on clustering fundamentals, hyperparameter tuning, and practical applications using the *redWines* dataset. The exercises are divided into two categories:  
+
+1. Conceptual questions – Understanding the theory behind clustering and K-means.  
+2. Practical exercises using the *redWines* dataset – Applying clustering techniques to real-world data.  
+
+### Conceptual questions {-}  
+
+1. What is clustering, and how does it differ from classification?  
+2. Explain the concept of similarity measures in clustering. What is the most commonly used distance metric for numerical data?  
+3. Why is clustering considered an unsupervised learning method?  
+4. What are some real-world applications of clustering? Name at least three.  
+5. Define the terms *intra-cluster similarity* and *inter-cluster separation*. Why are these important in clustering?  
+6. How does K-means clustering determine which data points belong to a cluster?  
+7. Explain the role of centroids in K-means clustering.  
+8. What happens if the number of clusters \( k \) in K-means is chosen too small? What if it is too large?  
+9. What is the elbow method, and how does it help determine the optimal number of clusters?  
+10. Why is K-means sensitive to the initial selection of cluster centers? How does K-means++ address this issue?  
+11. Describe a scenario where Euclidean distance might not be an appropriate similarity measure for clustering.  
+12. Why do we need to normalize or scale variables before applying K-means clustering?  
+13. How does clustering help in dimensionality reduction and preprocessing for supervised learning?  
+14. What are the key assumptions of K-means clustering?  
+15. How does the silhouette score help evaluate the quality of clustering?  
+16. Compare K-means with hierarchical clustering. What are the advantages and disadvantages of each?  
+17. Why is K-means not suitable for non-spherical clusters?  
+18. What is the difference between hard clustering (e.g., K-means) and soft clustering (e.g., Gaussian Mixture Models)?  
+19. What are outliers, and how do they affect K-means clustering?  
+20. What are alternative clustering methods that handle outliers better than K-means?  
+
+### Practical exercises using the *redWines* dataset {-}  
+
+The *redWines* dataset contains chemical properties of red wines and their quality scores. These exercises guide you through clustering analysis, from data preprocessing to model evaluation.
+
+#### Data preparation and exploratory analysis {-}  
+
+21. Load the *redWines* dataset from the **liver** package and inspect its structure.  
+```r
+library(liver)
+data(redWines)
+str(redWines)
+```
+
+22. Summarize the dataset using `summary()`. Identify any missing values.  
+23. Check the distribution of wine quality scores in the dataset. What is the most common wine quality score?  
+24. Since clustering requires numerical features, remove any non-numeric columns from the dataset.  
+25. Apply min-max scaling to normalize all numerical variables before clustering. Why is this step necessary?  
+
+#### Applying K-means clustering {-}  
+
+26. Use the elbow method to determine the optimal number of clusters for the dataset.  
+```r
+library(factoextra)
+fviz_nbclust(redWines, kmeans, method = "wss")
+```
+
+27. Based on the elbow plot, choose an appropriate value of \( k \) and perform K-means clustering.  
+28. Visualize the clusters using a scatter plot of two numerical features.  
+29. Compute the silhouette score to evaluate cluster cohesion and separation.  
+30. Identify the centroids of the final clusters and interpret their meaning.  
+
+#### Interpreting the clusters {-}  
+
+31. Assign the cluster labels to the original dataset and examine the average chemical composition of each cluster.  
+32. Compare the wine quality scores across clusters. Do some clusters contain higher-quality wines than others?  
+33. Identify which features contribute most to defining the clusters.  
+34. Are certain wine types (e.g., high acidity, high alcohol content) concentrated in specific clusters?  
+35. Experiment with different values of \( k \) and compare the clustering results. Does increasing or decreasing \( k \) improve the clustering?  
+36. Visualize how wine acidity and alcohol content influence cluster formation.  
+    
+
 
 
 

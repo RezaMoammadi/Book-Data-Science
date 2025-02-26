@@ -338,6 +338,7 @@ To predict whether an individual's income exceeds $50K, we use the following pre
 `age`, `workclass`, `education.num`, `marital.status`, `occupation`, `race`, `gender`, `capital.gain`, `capital.loss`, `hours.per.week`, and `native.country`. 
 
 We exclude `demogweight`, `education`, and `relationship` for the following reasons:  
+
 - `demogweight` is treated as an ID variable and does not provide meaningful predictive information.  
 - `education` is removed because `education.num` represents the same information in a numerical format.  
 - `relationship` is highly correlated with `marital.status` and does not provide additional independent information.

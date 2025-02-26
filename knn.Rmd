@@ -258,7 +258,7 @@ data_sets = partition(data = churn, ratio = c(0.8, 0.2))
 train_set = data_sets$part1
 test_set  = data_sets$part2
 
-actual_test  = test_set$churn
+test_labels = test_set$churn
 
 formula = churn ~ account.length + voice.plan + voice.messages + intl.plan + intl.mins + 
     day.mins + eve.mins + night.mins + customer.calls
@@ -429,7 +429,7 @@ data_sets = partition(data = churn, ratio = c(0.8, 0.2))
 train_set = data_sets$part1
 test_set  = data_sets$part2
 
-actual_test = test_set$churn
+test_labels = test_set$churn
 ```
 
 The `partition()` function randomly splits the dataset while maintaining the class distribution of the target variable, ensuring a representative training and test set. As we validated the partition in Section \@ref(sec-validate-partition), we can now proceed with feature scaling and one-hot encoding to ensure compatibility with the kNN algorithm.
@@ -500,11 +500,11 @@ The `kNN()` function automates the kNN classification process by computing dista
 Evaluating model performance is crucial to ensure that the kNN algorithm generalizes well to unseen data and makes reliable predictions. A confusion matrix provides a summary of correct and incorrect predictions by comparing the predicted labels to the actual labels in the test set. We compute it using the `conf.mat()` function from the **liver** package:
 
 ```{r message=FALSE}
-conf.mat(kNN_predict, actual_test, reference = "yes")
+conf.mat(kNN_predict, test_labels, reference = "yes")
 ```
 
 ```{r echo=FALSE, message=FALSE}
-conf_max_knn_churn = conf.mat(kNN_predict, actual_test, reference = "yes")
+conf_max_knn_churn = conf.mat(kNN_predict, test_labels, reference = "yes")
 ```
 
 From the confusion matrix, we see that the model correctly classified `r conf_max_knn_churn[1, 1] + conf_max_knn_churn[2, 2]` instances, while `r conf_max_knn_churn[1, 2] + conf_max_knn_churn[2, 1]` instances were misclassified. This summary helps assess model performance and identify areas for improvement.

@@ -1,18 +1,3 @@
-```{r, echo = F}
-# To use this link: 
-# https://developers.google.com/machine-learning/clustering/overview
-# https://towardsdatascience.com/k-means-clustering-from-a-to-z-f6242a314e9a
-```
-
-
-```{r include = FALSE, message = FALSE, warning = FALSE}
-library(liver)         # For "cereal" dataset &  functions "minmax" & "mse"
-library(factoextra)    # Clustering algorithms & visualization
-library(DMwR2)         # For missing values 
-
-data(cereal)
-```
-
 # Clustering {#chapter-cluster}  
 
 Every day, we interact with systems that organize vast amounts of data without explicit instructions. How does Netflix recommend movies tailored to your taste? How does Amazon categorize millions of products? These are real-world examples of *clustering*, a machine learning technique that groups similar items based on shared characteristics—without any predefined labels.  
@@ -35,6 +20,7 @@ This chapter provides a comprehensive introduction to clustering, covering:
 - A practical case study: segmenting cereal brands based on their nutritional content.  
 
 By the end of this chapter, you will understand how clustering works, when to apply it, and how to implement it in real-world scenarios. Let’s dive in! 
+
 ## What is Cluster Analysis? {#cluster-what}  
 
 Clustering is an unsupervised machine learning technique that groups data points into *clusters* based on their similarity. Unlike supervised learning, where models learn from labeled examples, clustering is *exploratory*—it uncovers *hidden structures* in data without predefined labels. The goal is to form groups where data points within the same cluster are highly similar, while those in different clusters are distinct.  
@@ -300,9 +286,77 @@ This case study demonstrated how *K-means clustering* can segment cereals into m
 
 In this chapter, we explored the fundamentals of clustering, the mechanics of the K-means algorithm, and methods for choosing the optimal number of clusters. We then applied these concepts to a real-world dataset, demonstrating how K-means can extract meaningful insights. Clustering remains a powerful tool across various domains, from marketing to bioinformatics, making it an essential technique in the modern data science toolkit.
 
-## Exercises
+## Exercises {-}  
 
-To do ...
+These exercises reinforce the concepts introduced in this chapter, focusing on clustering fundamentals, hyperparameter tuning, and practical applications using the *redWines* dataset. The exercises are divided into two categories:  
+
+1. Conceptual questions – Understanding the theory behind clustering and K-means.  
+2. Practical exercises using the *redWines* dataset – Applying clustering techniques to real-world data.  
+
+### Conceptual questions {-}  
+
+1. What is clustering, and how does it differ from classification?  
+2. Explain the concept of similarity measures in clustering. What is the most commonly used distance metric for numerical data?  
+3. Why is clustering considered an unsupervised learning method?  
+4. What are some real-world applications of clustering? Name at least three.  
+5. Define the terms *intra-cluster similarity* and *inter-cluster separation*. Why are these important in clustering?  
+6. How does K-means clustering determine which data points belong to a cluster?  
+7. Explain the role of centroids in K-means clustering.  
+8. What happens if the number of clusters \( k \) in K-means is chosen too small? What if it is too large?  
+9. What is the elbow method, and how does it help determine the optimal number of clusters?  
+10. Why is K-means sensitive to the initial selection of cluster centers? How does K-means++ address this issue?  
+11. Describe a scenario where Euclidean distance might not be an appropriate similarity measure for clustering.  
+12. Why do we need to normalize or scale variables before applying K-means clustering?  
+13. How does clustering help in dimensionality reduction and preprocessing for supervised learning?  
+14. What are the key assumptions of K-means clustering?  
+15. How does the silhouette score help evaluate the quality of clustering?  
+16. Compare K-means with hierarchical clustering. What are the advantages and disadvantages of each?  
+17. Why is K-means not suitable for non-spherical clusters?  
+18. What is the difference between hard clustering (e.g., K-means) and soft clustering (e.g., Gaussian Mixture Models)?  
+19. What are outliers, and how do they affect K-means clustering?  
+20. What are alternative clustering methods that handle outliers better than K-means?  
+
+### Practical exercises using the *redWines* dataset {-}  
+
+The *redWines* dataset contains chemical properties of red wines and their quality scores. These exercises guide you through clustering analysis, from data preprocessing to model evaluation.
+
+#### Data preparation and exploratory analysis {-}  
+
+21. Load the *redWines* dataset from the **liver** package and inspect its structure.  
+```r
+library(liver)
+data(redWines)
+str(redWines)
+```
+
+22. Summarize the dataset using `summary()`. Identify any missing values.  
+23. Check the distribution of wine quality scores in the dataset. What is the most common wine quality score?  
+24. Since clustering requires numerical features, remove any non-numeric columns from the dataset.  
+25. Apply min-max scaling to normalize all numerical variables before clustering. Why is this step necessary?  
+
+#### Applying K-means clustering {-}  
+
+26. Use the elbow method to determine the optimal number of clusters for the dataset.  
+```r
+library(factoextra)
+fviz_nbclust(redWines, kmeans, method = "wss")
+```
+
+27. Based on the elbow plot, choose an appropriate value of \( k \) and perform K-means clustering.  
+28. Visualize the clusters using a scatter plot of two numerical features.  
+29. Compute the silhouette score to evaluate cluster cohesion and separation.  
+30. Identify the centroids of the final clusters and interpret their meaning.  
+
+#### Interpreting the clusters {-}  
+
+31. Assign the cluster labels to the original dataset and examine the average chemical composition of each cluster.  
+32. Compare the wine quality scores across clusters. Do some clusters contain higher-quality wines than others?  
+33. Identify which features contribute most to defining the clusters.  
+34. Are certain wine types (e.g., high acidity, high alcohol content) concentrated in specific clusters?  
+35. Experiment with different values of \( k \) and compare the clustering results. Does increasing or decreasing \( k \) improve the clustering?  
+36. Visualize how wine acidity and alcohol content influence cluster formation.  
+    
+
 
 
 

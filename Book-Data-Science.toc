@@ -345,33 +345,47 @@
 \contentsline {subsubsection}{Conceptual Questions}{300}{section*.215}%
 \contentsline {subsubsection}{Practical Exercises Using the redWines Dataset}{300}{section*.216}%
 \contentsline {chapter}{\numberline {12}Neural Networks: The Building Blocks of Artificial Intelligence}{301}{chapter.12}%
-\contentsline {subsection}{Why Neural Networks Are Powerful}{302}{section*.217}%
-\contentsline {subsection}{What's Ahead}{303}{section*.218}%
-\contentsline {section}{\numberline {12.1}Neural Networks: Inspired by Biological Neurons}{303}{section.12.1}%
-\contentsline {section}{\numberline {12.2}How Neural Networks Work}{305}{section.12.2}%
-\contentsline {subsection}{Key Characteristics of Neural Networks}{307}{section*.219}%
-\contentsline {section}{\numberline {12.3}Activation Functions}{308}{section.12.3}%
-\contentsline {subsection}{The Sigmoid Activation Function}{309}{section*.220}%
-\contentsline {subsection}{Other Common Activation Functions}{309}{section*.221}%
-\contentsline {subsection}{Choosing the Right Activation Function}{310}{section*.222}%
-\contentsline {section}{\numberline {12.4}Network Architecture}{311}{section.12.4}%
-\contentsline {section}{\numberline {12.5}How Neural Networks Learn}{313}{section.12.5}%
-\contentsline {section}{\numberline {12.6}Case Study: Bank Marketing}{314}{section.12.6}%
-\contentsline {subsection}{Business Context}{315}{section*.223}%
-\contentsline {subsection}{Overview of the Dataset}{315}{section*.224}%
-\contentsline {subsection}{Data Cleaning and Preparation}{316}{section*.225}%
-\contentsline {subsection}{Applying the Neural Network Algorithm}{319}{section*.226}%
-\contentsline {subsection}{Prediction and Model Evaluation}{321}{section*.227}%
-\contentsline {section}{\numberline {12.7}Exercises}{322}{section.12.7}%
-\contentsline {chapter}{\numberline {13}Clustering}{323}{chapter.13}%
-\contentsline {section}{\numberline {13.1}K-means Clustering}{325}{section.13.1}%
-\contentsline {section}{\numberline {13.2}Choosing the Number of Clusters}{329}{section.13.2}%
-\contentsline {section}{\numberline {13.3}Case Study: Clustering Cereal Data}{331}{section.13.3}%
-\contentsline {subsection}{\numberline {13.3.1}Dataset Overview}{331}{subsection.13.3.1}%
-\contentsline {subsection}{\numberline {13.3.2}Data Preprocessing}{332}{subsection.13.3.2}%
-\contentsline {subsection}{\numberline {13.3.3}Applying K-means Clustering}{335}{subsection.13.3.3}%
-\contentsline {subsubsection}{Choosing the Optimal Number of Clusters}{335}{section*.228}%
-\contentsline {subsubsection}{Performing K-means Clustering}{336}{section*.229}%
-\contentsline {subsubsection}{Visualizing the Clusters}{336}{section*.230}%
-\contentsline {subsubsection}{Interpreting the Results}{337}{section*.231}%
-\contentsline {section}{\numberline {13.4}Exercises}{338}{section.13.4}%
+\contentsline {subsection}{Why neural networks are powerful}{302}{section*.217}%
+\contentsline {subsection}{What's ahead}{302}{section*.218}%
+\contentsline {section}{\numberline {12.1}Neural networks: inspired by biological neurons}{303}{section.12.1}%
+\contentsline {section}{\numberline {12.2}How neural networks work}{305}{section.12.2}%
+\contentsline {subsection}{Key characteristics of neural networks}{307}{section*.219}%
+\contentsline {section}{\numberline {12.3}Activation functions}{308}{section.12.3}%
+\contentsline {subsection}{The threshold activation function}{308}{section*.220}%
+\contentsline {subsection}{The sigmoid activation function}{309}{section*.221}%
+\contentsline {subsection}{Other common activation functions}{310}{section*.222}%
+\contentsline {subsection}{Choosing the right activation function}{310}{section*.223}%
+\contentsline {section}{\numberline {12.4}Network architecture}{311}{section.12.4}%
+\contentsline {section}{\numberline {12.5}How neural networks learn}{313}{section.12.5}%
+\contentsline {section}{\numberline {12.6}Case study: bank marketing}{315}{section.12.6}%
+\contentsline {subsection}{Problem understanding}{315}{section*.224}%
+\contentsline {subsection}{Overview of the dataset}{315}{section*.225}%
+\contentsline {subsection}{Preparing data for modeling}{317}{section*.226}%
+\contentsline {subsubsection}{One-hot encoding}{318}{section*.227}%
+\contentsline {subsubsection}{Feature scaling}{320}{section*.228}%
+\contentsline {subsection}{Applying the neural network algorithm}{321}{section*.229}%
+\contentsline {subsection}{Prediction and model evaluation}{323}{section*.230}%
+\contentsline {section}{Exercises}{324}{section*.231}%
+\contentsline {subsubsection}{Conceptual questions}{324}{section*.232}%
+\contentsline {subsubsection}{Practical exercises using the \emph {bank} dataset}{325}{section*.233}%
+\contentsline {paragraph}{Data preparation and model training}{325}{section*.234}%
+\contentsline {paragraph}{Model evaluation and comparison with tree-based models}{325}{section*.235}%
+\contentsline {paragraph}{Training neural networks on the \emph {adult} dataset}{326}{section*.236}%
+\contentsline {chapter}{\numberline {13}Clustering}{327}{chapter.13}%
+\contentsline {section}{\numberline {13.1}What is Cluster Analysis?}{328}{section.13.1}%
+\contentsline {section}{\numberline {13.2}K-means Clustering}{329}{section.13.2}%
+\contentsline {section}{\numberline {13.3}Choosing the Number of Clusters}{333}{section.13.3}%
+\contentsline {section}{\numberline {13.4}Case Study: Clustering Cereal Data}{335}{section.13.4}%
+\contentsline {subsection}{\numberline {13.4.1}Dataset Overview}{335}{subsection.13.4.1}%
+\contentsline {subsection}{\numberline {13.4.2}Data Preprocessing}{336}{subsection.13.4.2}%
+\contentsline {subsection}{\numberline {13.4.3}Applying K-means Clustering}{339}{subsection.13.4.3}%
+\contentsline {subsubsection}{Choosing the Optimal Number of Clusters}{339}{section*.237}%
+\contentsline {subsubsection}{Performing K-means Clustering}{340}{section*.238}%
+\contentsline {subsubsection}{Visualizing the Clusters}{340}{section*.239}%
+\contentsline {subsubsection}{Interpreting the Results}{341}{section*.240}%
+\contentsline {section}{Exercises}{342}{section*.241}%
+\contentsline {subsection}{Conceptual questions}{342}{section*.242}%
+\contentsline {subsection}{Practical exercises using the \emph {redWines} dataset}{343}{section*.243}%
+\contentsline {subsubsection}{Data preparation and exploratory analysis}{343}{section*.244}%
+\contentsline {subsubsection}{Applying K-means clustering}{343}{section*.245}%
+\contentsline {subsubsection}{Interpreting the clusters}{343}{section*.246}%

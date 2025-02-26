@@ -467,10 +467,17 @@ Figure 11.6: C5.0 Decision Tree for predicting credit risk based on age and inco
 <p>In practice, it is important to verify that the training and test sets are representative of the original dataset. One way to do this is by examining the distribution of <code>income</code> in both sets. We performed this validation and found the partition to be valid. We do not report it here but refer to Section <a href="chapter-modeling.html#sec-validate-partition">6.4</a> for details on how to validate partitions.</p>
 <p>To predict whether an individual’s income exceeds $50K, we use the following predictors:</p>
 <p><code>age</code>, <code>workclass</code>, <code>education.num</code>, <code>marital.status</code>, <code>occupation</code>, <code>race</code>, <code>gender</code>, <code>capital.gain</code>, <code>capital.loss</code>, <code>hours.per.week</code>, and <code>native.country</code>.</p>
-<p>We exclude <code>demogweight</code>, <code>education</code>, and <code>relationship</code> for the following reasons:<br>
-- <code>demogweight</code> is treated as an ID variable and does not provide meaningful predictive information.<br>
-- <code>education</code> is removed because <code>education.num</code> represents the same information in a numerical format.<br>
-- <code>relationship</code> is highly correlated with <code>marital.status</code> and does not provide additional independent information.</p>
+<p>We exclude <code>demogweight</code>, <code>education</code>, and <code>relationship</code> for the following reasons:</p>
+<ul>
+<li>
+<code>demogweight</code> is treated as an ID variable and does not provide meaningful predictive information.<br>
+</li>
+<li>
+<code>education</code> is removed because <code>education.num</code> represents the same information in a numerical format.<br>
+</li>
+<li>
+<code>relationship</code> is highly correlated with <code>marital.status</code> and does not provide additional independent information.</li>
+</ul>
 <p>These selected predictors are used in the following formula:</p>
 <div class="sourceCode" id="cb204"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">formula</span> <span class="op">=</span> <span class="va">income</span> <span class="op">~</span> <span class="va">age</span> <span class="op">+</span> <span class="va">workclass</span> <span class="op">+</span> <span class="va">education.num</span> <span class="op">+</span> <span class="va">marital.status</span> <span class="op">+</span> <span class="va">occupation</span> <span class="op">+</span> <span class="va">race</span> <span class="op">+</span> <span class="va">gender</span> <span class="op">+</span> <span class="va">capital.gain</span> <span class="op">+</span> <span class="va">capital.loss</span> <span class="op">+</span> <span class="va">hours.per.week</span> <span class="op">+</span> <span class="va">native.country</span></span></code></pre></div>
@@ -927,7 +934,7 @@ In the ROC plot, the <em>black</em> curve represents CART, the <span style="colo
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Uncovering Data Science with R</strong>" was written by Reza Mohammadi. It was last built on 2025-02-25.</p>
+    <p>"<strong>Uncovering Data Science with R</strong>" was written by Reza Mohammadi. It was last built on 2025-02-26.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
