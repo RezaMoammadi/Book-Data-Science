@@ -63,14 +63,10 @@ RStudio is updated several times a year, and it will notify you when a new versi
 
 When you open RStudio, you will see a window similar to Figure \@ref(fig:RStudio-window-1).
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/RStudio-window-1} 
-
-}
-
-\caption{The RStudio window when you first launch the program.}(\#fig:RStudio-window-1)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/RStudio-window-1.png" alt="The RStudio window when you first launch the program." width="70%" />
+<p class="caption">(\#fig:RStudio-window-1)The RStudio window when you first launch the program.</p>
+</div>
 
 If you see only three panels, add a fourth by selecting _File > New File > R Script_. This opens a script editor where you can write and save R code. Here’s a quick overview of RStudio’s panels:  
 
@@ -153,14 +149,10 @@ For those interested in exploring further, the Comprehensive R Archive Network (
 
 There are two ways to install R packages. The first method is through RStudio’s graphical interface. Click on the "Tools" tab and select "Install Packages…". In the dialog box that appears, enter the name of the package(s) you wish to install in the "Packages" field and click the "Install" button. Make sure to check the "Install dependencies" option to ensure that all necessary supporting packages are installed as well. See Figure \@ref(fig:install-packages) for a visual guide.  
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/RStudio-window-install} 
-
-}
-
-\caption{A visual guide to installing R packages using the 'Tools' tab in RStudio.}(\#fig:install-packages)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/RStudio-window-install.png" alt="A visual guide to installing R packages using the 'Tools' tab in RStudio." width="70%" />
+<p class="caption">(\#fig:install-packages)A visual guide to installing R packages using the 'Tools' tab in RStudio.</p>
+</div>
 
 The second method is to install packages directly using the `install.packages()` function. For example, to install the **liver** package, which provides datasets and functions used throughout this book, enter the following command in the R console:  
 
@@ -290,23 +282,15 @@ The easiest way to import data into R is through RStudio’s graphical interface
 
 After selecting your file, RStudio will display an import settings window (see Figure \@ref(fig:load-data-2)). Here, you can adjust column names, data types, and other options. If the first row contains column names, select *Yes* under the *Heading* option. Click *Import*, and the dataset will appear in RStudio’s Environment panel, ready for analysis.  
 
-\begin{figure}
+<div class="figure" style="text-align: center">
+<img src="images/RStudio-window-data-1.png" alt="A visual guide to loading a dataset into R using the 'Import Dataset' tab in RStudio." width="70%" />
+<p class="caption">(\#fig:load-data)A visual guide to loading a dataset into R using the 'Import Dataset' tab in RStudio.</p>
+</div>
 
-{\centering \includegraphics[width=0.7\linewidth]{images/RStudio-window-data-1} 
-
-}
-
-\caption{A visual guide to loading a dataset into R using the 'Import Dataset' tab in RStudio.}(\#fig:load-data)
-\end{figure}
-
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/RStudio-window-data} 
-
-}
-
-\caption{A visual guide to customizing the import settings when loading a dataset into R using the 'Import Dataset' tab in RStudio.}(\#fig:load-data-2)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/RStudio-window-data.png" alt="A visual guide to customizing the import settings when loading a dataset into R using the 'Import Dataset' tab in RStudio." width="70%" />
+<p class="caption">(\#fig:load-data-2)A visual guide to customizing the import settings when loading a dataset into R using the 'Import Dataset' tab in RStudio.</p>
+</div>
 
 ### Using `read.csv()`  {-}
 
@@ -427,14 +411,10 @@ Recognizing different data types is essential for choosing the right analytical 
 
 Data structures are fundamental to working with data in R. They define how data is stored and manipulated, which directly impacts the efficiency and accuracy of data analysis. The most commonly used data structures in R are vectors, matrices, data frames, and lists, as illustrated in Figure \@ref(fig:load-data-2).  
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.6\linewidth]{images/R-objects} 
-
-}
-
-\caption{A visual guide to different types of data structures in R.}(\#fig:R-objects)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/R-objects.png" alt="A visual guide to different types of data structures in R." width="60%" />
+<p class="caption">(\#fig:R-objects)A visual guide to different types of data structures in R.</p>
+</div>
 
 ### Vectors in R {-} 
 
@@ -692,9 +672,7 @@ ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp))
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-32-1} \end{center}
+<img src="Intro-R_files/figure-html/unnamed-chunk-32-1.png" width="70%" style="display: block; margin: auto;" />
 
 This code initializes the plot with the `ggplot()` function, specifying the dataset (`mtcars`). The `geom_point()` function adds points to the plot, and the `aes()` function maps `mpg` to the x-axis and `hp` to the y-axis.  
 
@@ -728,9 +706,7 @@ ggplot(data = mtcars) +
   geom_smooth(mapping = aes(x = mpg, y = hp))
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-34-1} \end{center}
+<img src="Intro-R_files/figure-html/unnamed-chunk-34-1.png" width="70%" style="display: block; margin: auto;" />
 
 Multiple geom functions can be combined in a single plot. To overlay a scatter plot on the smoothed line:  
 
@@ -741,9 +717,7 @@ ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp))
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-35-1} \end{center}
+<img src="Intro-R_files/figure-html/unnamed-chunk-35-1.png" width="70%" style="display: block; margin: auto;" />
 
 Alternatively, the `aes()` function can be placed inside `ggplot()` to streamline the code:  
 
@@ -766,9 +740,7 @@ ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp, color = cyl))
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-37-1} \end{center}
+<img src="Intro-R_files/figure-html/unnamed-chunk-37-1.png" width="70%" style="display: block; margin: auto;" />
 
 Here, `color = cyl` maps the color of the points to the number of cylinders (`cyl`) in the **mtcars** dataset. **ggplot2** automatically assigns a unique color to each category and adds a corresponding legend.  
 
@@ -785,8 +757,7 @@ ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp, alpha = cyl))
 ```
 
-
-\includegraphics[width=0.5\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-38-1} \includegraphics[width=0.5\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-38-2} 
+<img src="Intro-R_files/figure-html/unnamed-chunk-38-1.png" width="50%" /><img src="Intro-R_files/figure-html/unnamed-chunk-38-2.png" width="50%" />
 
 Aesthetics can also be set directly inside geom functions. For example, to make all points blue triangles of size 3:  
 
@@ -797,9 +768,7 @@ ggplot(data = mtcars) +
              color = "blue", size = 3, shape = 2)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-39-1} \end{center}
+<img src="Intro-R_files/figure-html/unnamed-chunk-39-1.png" width="70%" style="display: block; margin: auto;" />
 
 This section introduced the fundamentals of data visualization in R using **ggplot2**. The next chapters will explore how visualization plays a crucial role in exploratory data analysis (Chapter \@ref(chapter-EDA)) and how to refine plots for communication and reporting. For more details on visualization techniques, see the [**ggplot2** documentation](https://ggplot2.tidyverse.org). For interactive graphics, consider exploring the **plotly** package or **Shiny** for web applications.  
 
@@ -902,14 +871,10 @@ R Markdown integrates R code within documents using code chunks, which are enclo
 
 When compiled, R executes the code and displays the output within the document. Code chunks are used for analysis, visualizations, and modeling. The "Run" button in RStudio allows individual execution of chunks. See Figure \@ref(fig:run-chunk) for a visual guide.  
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.9\linewidth]{images/run-chunk} 
-
-}
-
-\caption{Executing a code chunk in R Markdown using the 'Run' button in RStudio.}(\#fig:run-chunk)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/run-chunk.png" alt="Executing a code chunk in R Markdown using the 'Run' button in RStudio." width="90%" />
+<p class="caption">(\#fig:run-chunk)Executing a code chunk in R Markdown using the 'Run' button in RStudio.</p>
+</div>
 
 Common chunk options include:  
 
@@ -1034,9 +999,7 @@ ggplot(data = drug_data, aes(x = Age, y = Ratio)) +
        x = "Age", y = "Sodium/Potassium Ratio")
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-45-1} \end{center}
+<img src="Intro-R_files/figure-html/unnamed-chunk-45-1.png" width="70%" style="display: block; margin: auto;" />
 
 18. Extend the dataset `drug_data` by adding a new variable named `Outcome`, which is a factor with two levels (`"Good"` and `"Bad"`).  
 - Patients with `Type == "A"` should have a higher probability of `"Good"` outcomes.  

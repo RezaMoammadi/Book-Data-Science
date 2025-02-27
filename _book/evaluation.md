@@ -132,9 +132,7 @@ conf.mat.plot(kNN_predict, actual_test)
    Setting levels: reference = "yes", case = "no"
 ```
 
-
-
-\begin{center}\includegraphics[width=0.6\linewidth]{evaluation_files/figure-latex/unnamed-chunk-4-1} \end{center}
+<img src="evaluation_files/figure-html/unnamed-chunk-4-1.png" width="60%" style="display: block; margin: auto;" />
 
 From the confusion matrix, we compute accuracy and error rate:
 
@@ -353,14 +351,10 @@ Figure \@ref(fig:roc-curve) illustrates key ROC curve characteristics. The verti
 - *Good Performance (Blue Curve)*: A well-performing but imperfect model remains closer to the top-left corner than to the diagonal line.  
 - *Random Classifier (Diagonal Line)*: The gray dashed diagonal represents a model with no predictive power, classifying randomly. A model close to this line provides little practical utility.  
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.6\linewidth]{images/roc-curve} 
-
-}
-
-\caption{The ROC curve illustrates the trade-off between sensitivity and specificity at different thresholds. The diagonal line represents a classifier with no predictive value (gray dashed line), while the curves represent varying levels of performance: green for optimal and blue for good.}(\#fig:roc-curve)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/roc-curve.png" alt="The ROC curve illustrates the trade-off between sensitivity and specificity at different thresholds. The diagonal line represents a classifier with no predictive value (gray dashed line), while the curves represent varying levels of performance: green for optimal and blue for good." width="60%" />
+<p class="caption">(\#fig:roc-curve)The ROC curve illustrates the trade-off between sensitivity and specificity at different thresholds. The diagonal line represents a classifier with no predictive value (gray dashed line), while the curves represent varying levels of performance: green for optimal and blue for good.</p>
+</div>
 
 Each point on the ROC curve corresponds to a specific threshold. As the threshold varies, the *True Positive Rate (Sensitivity)* and *False Positive Rate (1 - Specificity)* change, tracing the curve. A curve that remains close to the top-left corner indicates better performance, as the model achieves high sensitivity while minimizing false positives. However, moving along the curve reflects different trade-offs between sensitivity and specificity. Choosing an optimal threshold depends on the application:  
 
@@ -389,14 +383,10 @@ ggroc(roc_knn, colour = "blue") +
     ggtitle("ROC curve for KNN with k = 5, based on churn data")
 ```
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.65\linewidth]{evaluation_files/figure-latex/roc-knn-churn-1} 
-
-}
-
-\caption{ROC curve for KNN with k = 5, based on churn data.}(\#fig:roc-knn-churn)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="evaluation_files/figure-html/roc-knn-churn-1.png" alt="ROC curve for KNN with k = 5, based on churn data." width="65%" />
+<p class="caption">(\#fig:roc-knn-churn)ROC curve for KNN with k = 5, based on churn data.</p>
+</div>
 
 The ROC curve visually demonstrates the model’s performance across different thresholds. A curve closer to the top-left corner indicates better performance, as it achieves high sensitivity and specificity. The diagonal line represents a random classifier, serving as a baseline for comparison. In this case, the kNN model’s ROC curve is much closer to the top-left corner, suggesting strong performance in distinguishing between churners and non-churners.
 :::
@@ -411,14 +401,10 @@ Another critical metric derived from the ROC curve is the *Area Under the Curve 
 
 where \( t \) represents the threshold, reinforcing that AUC measures the model’s ability to rank positive cases above negative ones across all possible thresholds.  
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.45\linewidth]{images/auc} 
-
-}
-
-\caption{The AUC summarizes the ROC curve into a single number, representing the model’s ability to rank positive cases higher than negative ones. AUC = 1: Perfect model. AUC = 0.5: No better than random guessing.}(\#fig:auc)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/auc.png" alt="The AUC summarizes the ROC curve into a single number, representing the model’s ability to rank positive cases higher than negative ones. AUC = 1: Perfect model. AUC = 0.5: No better than random guessing." width="45%" />
+<p class="caption">(\#fig:auc)The AUC summarizes the ROC curve into a single number, representing the model’s ability to rank positive cases higher than negative ones. AUC = 1: Perfect model. AUC = 0.5: No better than random guessing.</p>
+</div>
 
 AUC values range from 0 to 1, where a value of 1 indicates a perfect classifier with ideal discrimination between classes, while a value of 0.5 suggests no better performance than random guessing. AUC values between 0.5 and 1 represent varying levels of model performance, with higher values reflecting better separation between positive and negative cases. 
 

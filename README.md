@@ -1,4 +1,4 @@
-## Uncovering Data Science with R  <a href="https://CRAN.R-project.org/package=liver"><img src="images/logo.png" align="right" width=135 /></a>
+## Uncovering Data Science with R  <a href="https://CRAN.R-project.org/package=liver"><img src="images/logo_black.png" align="right" width=145 /></a>
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/8efdea24-88be-4551-883b-edef5b9dd329/deploy-status)](https://app.netlify.com/sites/uncovering-data-science/deploys) 
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable) 
@@ -11,7 +11,7 @@ The book is written in R Markdown and built using the [bookdown](https://bookdow
 
 [Book PDF version](https://github.com/RezaMoammadi/Book-Data-Science/blob/main/_book/Book-Data-Science.pdf)
 
-### 🚀 Work in Progress  
+### Work in Progress  
 
 This book is continuously evolving! If you find any errors, typos, or areas for improvement, please consider:  
 

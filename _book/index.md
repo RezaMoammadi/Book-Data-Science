@@ -1,7 +1,7 @@
 ---
 title: "Uncovering Data Science with R"
 author: "Reza Mohammadi"
-date: "2025-02-26"
+date: "2025-02-27"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
@@ -105,26 +105,58 @@ This book has also been used in **data science courses** at the University of Am
 
 Table \@ref(tab:data-table) lists the datasets used in this book. These real-world datasets are used to illustrate key concepts and are available in the **liver** package, which can be downloaded from CRAN.  
 
-\begin{table}
-\centering
-\caption{(\#tab:data-table)List of datasets used for case studies in different chapters. Available in the R package liver.}
-\centering
-\begin{tabular}[t]{>{}l>{\raggedright\arraybackslash}p{20em}l}
-\toprule
-Name & Description & Chapter\\
-\midrule
-\textcolor{black}{\textbf{churn}} & Customer churn dataset. & Chapters 4, 6, 7, 8, 10\\
-\textcolor{black}{\textbf{bank}} & Direct marketing data from a Portuguese bank. & Chapters 7, 12\\
-\textcolor{black}{\textbf{adult}} & US Census data for income prediction. & Chapters 3, 11\\
-\textcolor{black}{\textbf{risk}} & Credit risk dataset. & Chapter 9\\
-\textcolor{black}{\textbf{marketing}} & Marketing campaign performance data. & Chapter 10\\
-\addlinespace
-\textcolor{black}{\textbf{house}} & House price prediction dataset. & Chapter 10\\
-\textcolor{black}{\textbf{diamonds}} & Diamond pricing dataset. & Chapter 3\\
-\textcolor{black}{\textbf{cereal}} & Nutritional information for 77 breakfast cereals. & Chapter 13\\
-\bottomrule
-\end{tabular}
-\end{table}
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>(\#tab:data-table)List of datasets used for case studies in different chapters. Available in the R package liver.</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Name </th>
+   <th style="text-align:left;"> Description </th>
+   <th style="text-align:left;"> Chapter </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;font-weight: bold;color: black !important;"> churn </td>
+   <td style="text-align:left;width: 20em; "> Customer churn dataset. </td>
+   <td style="text-align:left;"> Chapters 4, 6, 7, 8, 10 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;color: black !important;"> bank </td>
+   <td style="text-align:left;width: 20em; "> Direct marketing data from a Portuguese bank. </td>
+   <td style="text-align:left;"> Chapters 7, 12 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;color: black !important;"> adult </td>
+   <td style="text-align:left;width: 20em; "> US Census data for income prediction. </td>
+   <td style="text-align:left;"> Chapters 3, 11 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;color: black !important;"> risk </td>
+   <td style="text-align:left;width: 20em; "> Credit risk dataset. </td>
+   <td style="text-align:left;"> Chapter 9 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;color: black !important;"> marketing </td>
+   <td style="text-align:left;width: 20em; "> Marketing campaign performance data. </td>
+   <td style="text-align:left;"> Chapter 10 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;color: black !important;"> house </td>
+   <td style="text-align:left;width: 20em; "> House price prediction dataset. </td>
+   <td style="text-align:left;"> Chapter 10 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;color: black !important;"> diamonds </td>
+   <td style="text-align:left;width: 20em; "> Diamond pricing dataset. </td>
+   <td style="text-align:left;"> Chapter 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;color: black !important;"> cereal </td>
+   <td style="text-align:left;width: 20em; "> Nutritional information for 77 breakfast cereals. </td>
+   <td style="text-align:left;"> Chapter 13 </td>
+  </tr>
+</tbody>
+</table>
 
 
 
