@@ -1,11 +1,11 @@
 \contentsline {chapter}{Preface}{7}{chapter*.2}%
-\contentsline {section}{Why this book?}{7}{section*.3}%
-\contentsline {section}{Who should read this book?}{7}{section*.4}%
-\contentsline {section}{What you will learn}{8}{section*.5}%
-\contentsline {section}{The data science workflow}{8}{section*.6}%
-\contentsline {section}{How to use this book}{10}{section*.7}%
-\contentsline {section}{Datasets used in this book}{10}{section*.8}%
-\contentsline {section}{Using this book for teaching}{11}{section*.9}%
+\contentsline {section}{Why This Book?}{8}{section*.3}%
+\contentsline {section}{Who Should Read This Book?}{8}{section*.4}%
+\contentsline {section}{What You Will Learn}{8}{section*.5}%
+\contentsline {section}{How This Book Is Structured}{9}{section*.6}%
+\contentsline {section}{How to Use This Book}{10}{section*.7}%
+\contentsline {section}{Datasets Used in This Book}{11}{section*.8}%
+\contentsline {section}{Using This Book for Teaching}{11}{section*.9}%
 \contentsline {chapter}{\numberline {1}The Basics for R}{13}{chapter.1}%
 \contentsline {subsection}{Why Choose R for Data Science?}{13}{section*.10}%
 \contentsline {section}{\numberline {1.1}How to Install R}{14}{section.1.1}%

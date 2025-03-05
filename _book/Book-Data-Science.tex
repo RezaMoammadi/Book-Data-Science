@@ -131,145 +131,129 @@
 \chapter*{Preface}\label{preface}
 \addcontentsline{toc}{chapter}{Preface}
 
-Data science is transforming the way we solve problems, make decisions, and uncover insights from data. From personalized recommendations on Netflix to fraud detection in banking, data-driven techniques are revolutionizing industries. Whether you are new to data science or an experienced professional, \emph{Data Science Foundations and Machine Learning Using R} provides an accessible, hands-on introduction to this exciting field---no prior analytics or programming experience required.
+Data science is transforming the way we solve problems, make decisions, and uncover insights from data. From generative AI chatbots---such as ChatGPT, DeepSeek, and Gemini---to personalized recommendations on Netflix and fraud detection in banking, data-driven techniques are revolutionizing industries. Whether you are new to data science or an experienced professional, \emph{Data Science Foundations and Machine Learning Using R} provides an accessible, hands-on introduction to this exciting field---no prior analytics or programming experience required.
 
-\section*{Why this book?}\label{why-this-book}
-\addcontentsline{toc}{section}{Why this book?}
+This book is designed for those who want to understand data science and machine learning, as well as develop data-driven solutions for real-world applications. It provides a structured and accessible introduction to the fundamental concepts, making it suitable for beginners while also equipping readers with the skills to apply machine learning algorithms effectively. Whether you are a student, a business professional, or a researcher, this book offers a practical and intuitive approach to learning data science using \textbf{R}. Having taught these topics myself, I have found this hands-on approach to be highly effective and well-received by students.
 
-Data science is an evolving discipline that integrates computational tools and statistical techniques to transform raw data into actionable insights. This book introduces the fundamental skills needed to analyze data and build machine learning models using \textbf{R}, a powerful open-source statistical programming language widely used for data science, machine learning, and visualization.
+Unlike many theoretical texts, this book emphasizes a \emph{learning-by-doing} approach. Each topic is introduced through step-by-step explanations, practical examples, and exercises---some worked out manually to build intuition, while others involve coding implementations in \textbf{R}. Readers will not only develop a solid theoretical foundation in machine learning and intelligent systems but also gain experience with widely used tools and techniques for applying these concepts in practice.
 
-Unlike many textbooks that assume prior programming knowledge, this book is designed to be accessible. The focus is on \textbf{intuitive learning}, ensuring that concepts are not just explained but applied through practical, real-world examples. Readers will gain hands-on experience working with real datasets, developing essential data science skills while reinforcing theoretical foundations.
+The remainder of this preface outlines the book's structure, how it can be used in different learning environments, and the foundational knowledge needed to get the most out of it.
 
-Compared to proprietary software like SAS or SPSS, \textbf{R} offers a free, highly extensible ecosystem for statistical computing and machine learning. Its rich collection of packages makes it a widely adopted tool for data mining, predictive modeling, and exploratory data analysis.
+\section*{Why This Book?}\label{why-this-book}
+\addcontentsline{toc}{section}{Why This Book?}
 
-\section*{Who should read this book?}\label{who-should-read-this-book}
-\addcontentsline{toc}{section}{Who should read this book?}
+Data science is a rapidly evolving field that integrates machine learning, statistical techniques, and computational tools to extract meaningful insights from data. This book provides a structured introduction to data analysis and machine learning using \textbf{R}, a powerful open-source programming language widely adopted for statistical computing, visualization, and predictive modeling.
 
-This book is intended for:
+Unlike many textbooks that assume prior programming experience, this book is designed to be \textbf{intuitive and hands-on}, engaging readers through real-world applications to accelerate the learning curve. Concepts are introduced step by step and immediately applied to real datasets, reinforcing both theoretical foundations and practical skills. Readers will not only learn key data science techniques but also gain hands-on experience in solving analytical problems.
+
+Compared to proprietary software like SAS or SPSS, \textbf{R} offers a free, flexible, and highly extensible environment for data science. With its vast ecosystem of packages, \textbf{R} is a preferred choice for data mining, machine learning, and exploratory analysis across academia, industry, and research.
+
+\section*{Who Should Read This Book?}\label{who-should-read-this-book}
+\addcontentsline{toc}{section}{Who Should Read This Book?}
+
+This book is designed for anyone interested in learning data science and machine learning, particularly those new to the field. It is suitable for:
 
 \begin{itemize}
 \tightlist
 \item
-  Business professionals looking to leverage data for decision-making,\\
+  Business professionals seeking to leverage data for better decision-making,\\
 \item
-  Students and researchers applying data analysis in their work,\\
+  Students and researchers applying data analysis in their studies or projects,\\
 \item
   Beginners with no prior experience in programming or analytics,\\
 \item
-  Anyone interested in data science and machine learning using \textbf{R}.
+  Anyone interested in exploring data science and machine learning using \textbf{R}.
 \end{itemize}
 
-It is suitable for self-study, classroom use, or as a reference for professionals seeking to apply data science techniques in practical settings.
+Whether used for self-study, in a classroom setting, or as a reference for professionals, this book provides a practical and structured approach to applying data science techniques in real-world scenarios.
 
-\section*{What you will learn}\label{what-you-will-learn}
-\addcontentsline{toc}{section}{What you will learn}
+\section*{What You Will Learn}\label{what-you-will-learn}
+\addcontentsline{toc}{section}{What You Will Learn}
 
-This book introduces data science principles through a structured, hands-on approach using \textbf{R}. Topics covered include:
+This book provides a structured, hands-on introduction to data science and machine learning using \textbf{R}. Through practical examples and real-world datasets, you will:
 
 \begin{itemize}
 \tightlist
 \item
-  The fundamentals of \textbf{R} programming,\\
+  \emph{Gain proficiency in R programming} -- Master the core syntax, data structures, and essential functions for data analysis.\\
 \item
-  The data science workflow, including data wrangling, transformation, and visualization,\\
+  \emph{Implement the data science workflow} -- Apply a structured approach to data cleaning, transformation, and exploration.\\
 \item
-  Exploratory data analysis (EDA) and statistical inference,\\
+  \emph{Uncover patterns through exploratory data analysis (EDA)} -- Use statistical and graphical techniques to identify insights.\\
 \item
-  Machine learning techniques, including classification, regression, clustering, and neural networks,\\
+  \emph{Build predictive models} -- Develop machine learning models for classification, regression, and clustering.\\
 \item
-  Model evaluation and performance metrics,\\
+  \emph{Assess and refine models} -- Evaluate performance using key metrics and optimize algorithms for better accuracy.\\
 \item
-  Practical applications using real-world datasets.
+  \emph{Apply data science techniques in real-world scenarios} -- Work with datasets from marketing, finance, and other domains to solve practical problems.
 \end{itemize}
 
-\section*{The data science workflow}\label{the-data-science-workflow}
-\addcontentsline{toc}{section}{The data science workflow}
+By the end of this book, you will have a strong foundation in data science and machine learning, equipped with the skills to analyze complex datasets and develop effective data-driven solutions.
 
-Data science follows a structured methodology for analyzing and extracting insights from data. This book adheres to this process:
+\section*{How This Book Is Structured}\label{how-this-book-is-structured}
+\addcontentsline{toc}{section}{How This Book Is Structured}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  \textbf{Problem Understanding} -- Defining the objective and understanding the data.\\
-\item
-  \textbf{Data Preparation} -- Cleaning and transforming raw data for analysis.\\
-\item
-  \textbf{Exploratory Data Analysis (EDA)} -- Identifying patterns and relationships within the data.\\
-\item
-  \textbf{Preparing Data for Modeling} -- Preparing data for predictive modeling.\\
-\item
-  \textbf{Modeling} -- Building and training machine learning models.\\
-\item
-  \textbf{Evaluation} -- Assessing model performance using various metrics.\\
-\item
-  \textbf{Deployment} -- Applying trained models to real-world scenarios.
-\end{enumerate}
+This book is designed as a \emph{hands-on guide}, progressing from foundational concepts to more advanced machine learning techniques. Each chapter builds upon previous topics, ensuring a logical learning experience and reinforcing practical skills.
 
-By the end of this book, you will be familiar with each phase of this process and be able to apply it effectively in practice.\\
-\#\# How this book is structured \{.unnumbered\}
-
-The book is structured as a \textbf{hands-on guide}, progressing from foundational concepts to more advanced machine learning techniques. Each chapter builds upon previous topics, ensuring a logical learning experience.
-
-We use \textbf{real-world datasets} (see Table \ref{tab:data-table}) to demonstrate key concepts. These datasets are available in the \textbf{liver} package, making it easy to follow along. Below is an overview of the book's chapters:
+To illustrate concepts effectively, we use \emph{real-world datasets} (see Table \ref{tab:data-table}), which are available in the \textbf{liver} package. These datasets make it easy for readers to follow along with examples and exercises. Below is an overview of the book's chapters:
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Chapter \ref{chapter-into-R}} -- Introduction to \textbf{R} and its essential functions.\\
+  \emph{Chapter \ref{chapter-into-R}} -- Introduction to \textbf{R}, including installation and essential functions.\\
 \item
-  \textbf{Chapter \ref{chapter-intro-DS}} -- The foundations of data science and its methodology.\\
+  \emph{Chapter \ref{chapter-intro-DS}} -- The foundations of data science and its methodology.\\
 \item
-  \textbf{Chapter \ref{chapter-data-prep}} -- Techniques for cleaning and transforming data.\\
+  \emph{Chapter \ref{chapter-data-prep}} -- Techniques for cleaning and transforming data.\\
 \item
-  \textbf{Chapter \ref{chapter-EDA}} -- Exploratory Data Analysis (EDA) using visualization and summary statistics.\\
+  \emph{Chapter \ref{chapter-EDA}} -- Exploratory Data Analysis (EDA) using visualization and summary statistics.\\
 \item
-  \textbf{Chapter \ref{chapter-statistics}} -- Fundamentals of statistical analysis and hypothesis testing.\\
+  \emph{Chapter \ref{chapter-statistics}} -- Fundamentals of statistical analysis and hypothesis testing.\\
 \item
-  \textbf{Chapter \ref{chapter-modeling}} -- Overview of machine learning models.\\
+  \emph{Chapter \ref{chapter-modeling}} -- Overview of machine learning models.\\
 \item
-  \textbf{Chapter \ref{chapter-knn}} -- k-Nearest Neighbors (k-NN) algorithm.\\
+  \emph{Chapter \ref{chapter-knn}} -- The k-Nearest Neighbors (k-NN) algorithm.\\
 \item
-  \textbf{Chapter \ref{chapter-evaluation}} -- Model evaluation techniques.\\
+  \emph{Chapter \ref{chapter-evaluation}} -- Model evaluation techniques and performance metrics.\\
 \item
-  \textbf{Chapter \ref{chapter-bayes}} -- The Naïve Bayes classifier.\\
+  \emph{Chapter \ref{chapter-bayes}} -- The Naïve Bayes classifier for probabilistic modeling.\\
 \item
-  \textbf{Chapter \ref{chapter-regression}} -- Linear regression for predictive modeling.\\
+  \emph{Chapter \ref{chapter-regression}} -- Linear regression for predictive modeling.\\
 \item
-  \textbf{Chapter \ref{chapter-tree}} -- Decision trees and ensemble methods like Random Forests.\\
+  \emph{Chapter \ref{chapter-tree}} -- Decision trees and ensemble methods like Random Forests.\\
 \item
-  \textbf{Chapter \ref{chapter-nn}} -- Introduction to neural networks.\\
+  \emph{Chapter \ref{chapter-nn}} -- Introduction to neural networks.\\
 \item
-  \textbf{Chapter \ref{chapter-cluster}} -- Clustering techniques such as k-means.
+  \emph{Chapter \ref{chapter-cluster}} -- Clustering techniques such as k-means.
 \end{itemize}
 
-At the end of each chapter, \textbf{practical exercises and coding labs} reinforce key concepts and provide hands-on experience with real-world datasets.
+Each chapter concludes with \emph{practical exercises} that reinforce key concepts and provide hands-on experience with real-world datasets. These exercises are designed to help readers apply what they've learned, deepening their understanding of data science and machine learning.
 
-\section*{How to use this book}\label{how-to-use-this-book}
-\addcontentsline{toc}{section}{How to use this book}
+\section*{How to Use This Book}\label{how-to-use-this-book}
+\addcontentsline{toc}{section}{How to Use This Book}
 
-This book is designed for \textbf{self-study, classroom instruction, or professional learning}. Readers can either follow the book sequentially or jump to specific topics as needed.
+This book is designed for \emph{self-study, classroom instruction, and professional learning}. Readers can follow the chapters sequentially for a structured learning experience or refer to specific topics as needed.
 
-To maximize learning:
+To maximize learning and practical engagement:
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Run the code examples} -- All examples are designed for interactive execution in \textbf{R}.\\
+  \emph{Run the Code Examples} -- All examples are designed for interactive execution in \textbf{R} to reinforce key concepts.\\
 \item
-  \textbf{Complete the exercises} -- Practical exercises strengthen understanding and problem-solving skills.\\
+  \emph{Complete the Exercises} -- Practical exercises at the end of each chapter strengthen understanding and problem-solving skills.\\
 \item
-  \textbf{Modify and experiment} -- Tweaking code allows deeper exploration of concepts.\\
+  \emph{Modify and Experiment} -- Tweaking code and testing variations enhance comprehension and adaptability.\\
 \item
-  \textbf{Use it as a reference} -- Once familiar with the basics, refer to this book for real-world applications.
+  \emph{Use It as a Reference} -- Once familiar with the fundamentals, this book serves as a valuable resource for real-world applications.
 \end{itemize}
 
-The book has been used in \textbf{data science courses at the University of Amsterdam} and is suitable for similar courses in other institutions.
+This book has been successfully used in \emph{data science courses at the University of Amsterdam} and is well-suited for similar academic programs and professional training initiatives.
 
-\section*{Datasets used in this book}\label{datasets-used-in-this-book}
-\addcontentsline{toc}{section}{Datasets used in this book}
+\section*{Datasets Used in This Book}\label{datasets-used-in-this-book}
+\addcontentsline{toc}{section}{Datasets Used in This Book}
 
-Table \ref{tab:data-table} lists the datasets used throughout the book, all of which are included in the \textbf{liver} package.
+This book incorporates real-world datasets to illustrate key data science and machine learning concepts. Table \ref{tab:data-table} provides an overview of the datasets used throughout the book, all of which are included in the \textbf{liver} package.
 
 \begin{table}
 \centering
@@ -292,34 +276,28 @@ Name & Description & Chapter\\
 \end{tabular}
 \end{table}
 
-\section*{Using this book for teaching}\label{using-this-book-for-teaching}
-\addcontentsline{toc}{section}{Using this book for teaching}
+These datasets were selected to provide hands-on exposure to real-world problems across domains such as marketing, finance, and predictive modeling. By working with these datasets, readers will develop the practical skills necessary to apply data science techniques effectively in professional settings.
 
-This book is suitable for \textbf{introductory data science and machine learning courses} or as a \textbf{supplementary resource} for analytics training. It includes \textbf{over 500 exercises} categorized into three levels:
+The datasets listed in Table \ref{tab:data-table} are primarily used in case studies throughout the book. Additionally, the \textbf{liver} package contains over 15 datasets, providing readers with further opportunities for exploration and hands-on practice. While the main text focuses on a subset of these datasets, additional datasets are integrated into the exercises at the end of each chapter, allowing readers to extend their learning beyond the core examples presented in the book.
 
-\begin{itemize}
-\tightlist
-\item
-  \textbf{Conceptual Exercises} -- Reinforce theoretical understanding.\\
-\item
-  \textbf{Applied Exercises} -- Require hands-on analysis of real-world datasets.\\
-\item
-  \textbf{Advanced Exercises} -- Explore complex applications and machine learning techniques.
-\end{itemize}
+\section*{Using This Book for Teaching}\label{using-this-book-for-teaching}
+\addcontentsline{toc}{section}{Using This Book for Teaching}
 
-Faculty adopters have access to additional resources:
+This book is well-suited for \emph{introductory data science and machine learning courses} or as a \emph{supplementary resource} for analytics training. Its structured approach, hands-on exercises, and real-world case studies make it an effective learning tool for students at various levels.
+
+To support structured learning, the book includes \emph{over 500 exercises}, categorized into three levels:
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Instructor's Manual} -- Solutions to all exercises, plus teaching guidance.\\
+  \emph{Conceptual Exercises} -- Reinforce theoretical understanding and fundamental principles.\\
 \item
-  \textbf{PowerPoint Slides} -- Presentation slides for each chapter.\\
+  \emph{Applied Exercises} -- Require hands-on data analysis using real-world datasets.\\
 \item
-  \textbf{Test Bank} -- Multiple-choice and short-answer questions.\\
-\item
-  \textbf{Data Sets} -- Available in the \textbf{liver} package for easy access.
+  \emph{Advanced Exercises} -- Explore complex applications and machine learning techniques, encouraging deeper engagement with the material.
 \end{itemize}
+
+Instructors using this book will have access to supplementary teaching materials, including an instructor's manual, slides, and test banks. These resources provide a comprehensive framework for delivering data science and machine learning courses, whether in academic settings or professional training programs.
 
 \chapter{The Basics for R}\label{chapter-into-R}
 
@@ -1619,7 +1597,7 @@ Data science plays a crucial role in a wide range of sectors, including:
 
 For example, Netflix applies data science to analyze viewing patterns and recommend personalized content to users, while supply chain optimization at Amazon ensures faster deliveries by leveraging predictive analytics.
 
-\section{The Data Science Workflow}\label{the-data-science-workflow-1}
+\section{The Data Science Workflow}\label{the-data-science-workflow}
 
 The \emph{data science workflow} follows an \emph{iterative} and \emph{cyclical} approach, where insights gained at each stage inform and refine subsequent steps. Unlike a strictly linear process, data science involves continuous refinement to enhance accuracy and efficiency. This structured approach ensures that data-driven projects are conducted systematically, balancing exploratory analysis, model building, and evaluation to derive meaningful conclusions.
 
