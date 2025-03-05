@@ -81,7 +81,7 @@ Let’s revisit the *k-Nearest Neighbors (kNN)* model from Chapter \@ref(chapter
 First, we apply the kNN model and generate predictions:
 
 
-```r
+``` r
 library(liver)  
 # Load the churn dataset
 data(churn)
@@ -107,7 +107,7 @@ kNN_predict = kNN(formula = formula, train = train_set,
 For details on how this kNN model was built, refer to Section \@ref(sec-kNN-churn). Now, we generate the confusion matrix for the predictions using the `conf.mat()` function from the **liver** package:
 
 
-```r
+``` r
 conf.mat(kNN_predict, actual_test, reference = "yes")
           Actual
    Predict yes  no
@@ -127,12 +127,14 @@ Here, we set `reference = "yes"` to specify that `churn = yes` is the positive c
 We can also visualize the confusion matrix using the `conf.mat.plot()` function:
 
 
-```r
+``` r
 conf.mat.plot(kNN_predict, actual_test)
    Setting levels: reference = "yes", case = "no"
 ```
 
-<img src="evaluation_files/figure-html/unnamed-chunk-4-1.png" width="60%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.6\linewidth]{evaluation_files/figure-latex/unnamed-chunk-4-1} \end{center}
 
 From the confusion matrix, we compute accuracy and error rate:
 
@@ -287,7 +289,7 @@ These probability scores allow us to fine-tune how decisions are made by adjusti
 Let’s revisit the kNN model from Example \@ref(exm:ex-confusion-matrix-kNN), which predicts customer churn (`churn = yes`). This time, instead of making discrete predictions, we will obtain probability scores for the positive class (`churn = yes`) by setting the `type` parameter to `"prob"` in the `kNN()` function:
 
 
-```r
+``` r
 kNN_prob = kNN(formula = formula, train = train_set, 
                test = test_set, k = 5, scaler = "minmax",
                type = "prob")
@@ -310,7 +312,7 @@ The output displays the first 10 probability scores for each class: the first co
 To demonstrate the impact of threshold selection, we compute confusion matrices at two different thresholds: the default 0.5 and a stricter 0.7 threshold.
 
 
-```r
+``` r
 conf.mat(kNN_prob[, 1], actual_test, reference = "yes", cutoff = 0.5)
           Actual
    Predict yes  no
@@ -351,10 +353,14 @@ Figure \@ref(fig:roc-curve) illustrates key ROC curve characteristics. The verti
 - *Good Performance (Blue Curve)*: A well-performing but imperfect model remains closer to the top-left corner than to the diagonal line.  
 - *Random Classifier (Diagonal Line)*: The gray dashed diagonal represents a model with no predictive power, classifying randomly. A model close to this line provides little practical utility.  
 
-<div class="figure" style="text-align: center">
-<img src="images/roc-curve.png" alt="The ROC curve illustrates the trade-off between sensitivity and specificity at different thresholds. The diagonal line represents a classifier with no predictive value (gray dashed line), while the curves represent varying levels of performance: green for optimal and blue for good." width="60%" />
-<p class="caption">(\#fig:roc-curve)The ROC curve illustrates the trade-off between sensitivity and specificity at different thresholds. The diagonal line represents a classifier with no predictive value (gray dashed line), while the curves represent varying levels of performance: green for optimal and blue for good.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.6\linewidth]{images/ch8_roc-curve} 
+
+}
+
+\caption{The ROC curve illustrates the trade-off between sensitivity and specificity at different thresholds. The diagonal line represents a classifier with no predictive value (gray dashed line), while the curves represent varying levels of performance: green for optimal and blue for good.}(\#fig:roc-curve)
+\end{figure}
 
 Each point on the ROC curve corresponds to a specific threshold. As the threshold varies, the *True Positive Rate (Sensitivity)* and *False Positive Rate (1 - Specificity)* change, tracing the curve. A curve that remains close to the top-left corner indicates better performance, as the model achieves high sensitivity while minimizing false positives. However, moving along the curve reflects different trade-offs between sensitivity and specificity. Choosing an optimal threshold depends on the application:  
 
@@ -369,7 +375,7 @@ Let’s apply this concept to the *k-Nearest Neighbors (kNN)* model from Example
 To create an ROC curve, two inputs are needed: the estimated probabilities for the positive class and the actual class labels. Using the `roc()` function from the **pROC** package, we generate the ROC curve object:
 
 
-```r
+``` r
 library(pROC)
 
 roc_knn <- roc(response = actual_test, predictor = kNN_prob[, 1])
@@ -378,15 +384,19 @@ roc_knn <- roc(response = actual_test, predictor = kNN_prob[, 1])
 We can then visualize the ROC curve using the `ggroc()` function from the **pROC** package or the `plot()` function for a basic display. Here’s the ROC curve for the kNN model:
 
 
-```r
+``` r
 ggroc(roc_knn, colour = "blue") +
     ggtitle("ROC curve for KNN with k = 5, based on churn data")
 ```
 
-<div class="figure" style="text-align: center">
-<img src="evaluation_files/figure-html/roc-knn-churn-1.png" alt="ROC curve for KNN with k = 5, based on churn data." width="65%" />
-<p class="caption">(\#fig:roc-knn-churn)ROC curve for KNN with k = 5, based on churn data.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.65\linewidth]{evaluation_files/figure-latex/roc-knn-churn-1} 
+
+}
+
+\caption{ROC curve for KNN with k = 5, based on churn data.}(\#fig:roc-knn-churn)
+\end{figure}
 
 The ROC curve visually demonstrates the model’s performance across different thresholds. A curve closer to the top-left corner indicates better performance, as it achieves high sensitivity and specificity. The diagonal line represents a random classifier, serving as a baseline for comparison. In this case, the kNN model’s ROC curve is much closer to the top-left corner, suggesting strong performance in distinguishing between churners and non-churners.
 :::
@@ -401,16 +411,20 @@ Another critical metric derived from the ROC curve is the *Area Under the Curve 
 
 where \( t \) represents the threshold, reinforcing that AUC measures the model’s ability to rank positive cases above negative ones across all possible thresholds.  
 
-<div class="figure" style="text-align: center">
-<img src="images/auc.png" alt="The AUC summarizes the ROC curve into a single number, representing the model’s ability to rank positive cases higher than negative ones. AUC = 1: Perfect model. AUC = 0.5: No better than random guessing." width="45%" />
-<p class="caption">(\#fig:auc)The AUC summarizes the ROC curve into a single number, representing the model’s ability to rank positive cases higher than negative ones. AUC = 1: Perfect model. AUC = 0.5: No better than random guessing.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.45\linewidth]{images/ch8_auc} 
+
+}
+
+\caption{The AUC summarizes the ROC curve into a single number, representing the model’s ability to rank positive cases higher than negative ones. AUC = 1: Perfect model. AUC = 0.5: No better than random guessing.}(\#fig:auc)
+\end{figure}
 
 AUC values range from 0 to 1, where a value of 1 indicates a perfect classifier with ideal discrimination between classes, while a value of 0.5 suggests no better performance than random guessing. AUC values between 0.5 and 1 represent varying levels of model performance, with higher values reflecting better separation between positive and negative cases. 
 
 For the kNN model, we compute the AUC using the `auc()` function from the **pROC** package:
 
-```r
+``` r
 auc(roc_knn)
    Area under the curve: 0.8494
 ```
@@ -522,7 +536,7 @@ For these exercises, we will use the *bank* dataset from the **liver** package. 
 Load the necessary package and dataset:  
 
 
-```r
+``` r
 library(liver)
 
 # Load the dataset

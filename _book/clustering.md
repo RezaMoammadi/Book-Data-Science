@@ -39,10 +39,14 @@ Clustering is often compared to classification, but they serve different purpose
 
 All clustering algorithms aim to achieve *high intra-cluster similarity* (data points within a cluster are close together) and *low inter-cluster similarity* (clusters are well separated). This concept is visually illustrated in Figure \@ref(fig:cluster-1), where effective clusters minimize internal variation while maximizing separation between groups.
 
-<div class="figure" style="text-align: center">
-<img src="images/cluster_1.png" alt="Clustering algorithms aim to minimize intra-cluster variation while maximizing inter-cluster separation." width="75%" />
-<p class="caption">(\#fig:cluster-1)Clustering algorithms aim to minimize intra-cluster variation while maximizing inter-cluster separation.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.75\linewidth]{images/ch13_cluster_1} 
+
+}
+
+\caption{Clustering algorithms aim to minimize intra-cluster variation while maximizing inter-cluster separation.}(\#fig:cluster-1)
+\end{figure}
 
 Beyond its role in data exploration, clustering is widely used as a *preprocessing step* in machine learning. Given the massive scale of modern datasets, clustering helps reduce complexity by identifying *a smaller number of representative groups*, leading to several benefits:  
 
@@ -67,40 +71,60 @@ Although K-means is simple and efficient, it has some limitations. The final clu
 
 To illustrate how K-means works, consider a dataset with 50 records and two features, *\( x_1 \)* and *\( x_2 \)*, as shown in Figure \@ref(fig:cluster-ex-1). Our goal is to partition the data into *three* clusters.  
 
-<div class="figure" style="text-align: center">
-<img src="images/cluster_ex_1.png" alt="A simple dataset with 50 records and two features, ready for clustering." width="70%" />
-<p class="caption">(\#fig:cluster-ex-1)A simple dataset with 50 records and two features, ready for clustering.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/ch13_cluster_ex_1} 
+
+}
+
+\caption{A simple dataset with 50 records and two features, ready for clustering.}(\#fig:cluster-ex-1)
+\end{figure}
 
 The first step is to randomly select three initial cluster centers (red stars), as shown in the left panel of Figure \@ref(fig:cluster-ex-2). Each data point is then assigned to the nearest cluster, forming three groups labeled in *blue (Cluster A), green (Cluster B), and orange (Cluster C)*. The right panel of Figure \@ref(fig:cluster-ex-2) displays these initial assignments. The dashed lines represent the *Voronoi diagram*, which divides space into regions associated with each cluster center.
 
-<div class="figure" style="text-align: center">
-<img src="images/cluster_ex_2.png" alt="Initial random cluster centers (left) and first cluster assignments (right)." width="45%" /><img src="images/cluster_ex_3.png" alt="Initial random cluster centers (left) and first cluster assignments (right)." width="45%" />
-<p class="caption">(\#fig:cluster-ex-2)Initial random cluster centers (left) and first cluster assignments (right).</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.45\linewidth]{images/ch13_cluster_ex_2} \includegraphics[width=0.45\linewidth]{images/ch13_cluster_ex_3} 
+
+}
+
+\caption{Initial random cluster centers (left) and first cluster assignments (right).}(\#fig:cluster-ex-2)
+\end{figure}
 
 Since K-means is sensitive to *initialization*, poor placement of initial cluster centers can lead to suboptimal clustering. To mitigate this issue, *K-means++* [@arthur2006k] was introduced in 2007. This method strategically selects initial centers to improve convergence and reduce randomness.  
 
 Once the initial cluster assignments are made, K-means enters the *update phase*. The first step is to recompute the centroid of each cluster, which is the *mean position of all points assigned to that cluster*. The cluster centers are then moved to these new centroid locations, as shown in the left panel of Figure \@ref(fig:cluster-ex-3). The right panel illustrates how the *Voronoi boundaries shift*, causing some data points to be reassigned to a different cluster.
 
-<div class="figure" style="text-align: center">
-<img src="images/cluster_ex_4.png" alt="Updated cluster centers (left) and new assignments after centroid adjustment (right)." width="45%" /><img src="images/cluster_ex_5.png" alt="Updated cluster centers (left) and new assignments after centroid adjustment (right)." width="45%" />
-<p class="caption">(\#fig:cluster-ex-3)Updated cluster centers (left) and new assignments after centroid adjustment (right).</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.45\linewidth]{images/ch13_cluster_ex_4} \includegraphics[width=0.45\linewidth]{images/ch13_cluster_ex_5} 
+
+}
+
+\caption{Updated cluster centers (left) and new assignments after centroid adjustment (right).}(\#fig:cluster-ex-3)
+\end{figure}
 
 This process—*reassigning points and updating centroids*—continues iteratively. After another update, some points switch clusters again, leading to a refined Voronoi partition, as shown in Figure \@ref(fig:cluster-ex-6).
 
-<div class="figure" style="text-align: center">
-<img src="images/cluster_ex_6.png" alt="Updated cluster centers and assignments after another iteration." width="45%" /><img src="images/cluster_ex_7.png" alt="Updated cluster centers and assignments after another iteration." width="45%" />
-<p class="caption">(\#fig:cluster-ex-6)Updated cluster centers and assignments after another iteration.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.45\linewidth]{images/ch13_cluster_ex_6} \includegraphics[width=0.45\linewidth]{images/ch13_cluster_ex_7} 
+
+}
+
+\caption{Updated cluster centers and assignments after another iteration.}(\#fig:cluster-ex-6)
+\end{figure}
 
 The algorithm continues iterating until the cluster assignments stabilize—when *no more points switch clusters*, as shown in Figure \@ref(fig:cluster-ex-8). At this point, the algorithm *converges*, and the final clusters are established.
 
-<div class="figure" style="text-align: center">
-<img src="images/cluster_ex_8.png" alt="Final cluster assignments after K-means convergence." width="45%" />
-<p class="caption">(\#fig:cluster-ex-8)Final cluster assignments after K-means convergence.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.45\linewidth]{images/ch13_cluster_ex_8} 
+
+}
+
+\caption{Final cluster assignments after K-means convergence.}(\#fig:cluster-ex-8)
+\end{figure}
 
 Once clustering is complete, the results can be presented in two ways:  
 
@@ -119,10 +143,14 @@ One widely used technique for choosing \( k \) is the *elbow method*, which eval
 
 This critical point, known as the *elbow point*, represents the most natural number of clusters. The concept is illustrated in Figure \@ref(fig:cluster-elbow), where the curve shows the total within-cluster sum of squares (WCSS) as a function of \( k \). The "elbow" in the curve—where the rate of improvement slows—is a strong candidate for \( k \).  
 
-<div class="figure" style="text-align: center">
-<img src="images/cluster_elbow.png" alt="The elbow method helps determine the optimal number of clusters in K-means clustering." width="60%" />
-<p class="caption">(\#fig:cluster-elbow)The elbow method helps determine the optimal number of clusters in K-means clustering.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.6\linewidth]{images/ch13_cluster_elbow} 
+
+}
+
+\caption{The elbow method helps determine the optimal number of clusters in K-means clustering.}(\#fig:cluster-elbow)
+\end{figure}
 
 While the elbow method provides a useful heuristic, it has limitations. In some datasets, the curve may not exhibit a clear elbow, making the choice of \( k \) more ambiguous. Additionally, evaluating many different values of \( k \) can be computationally expensive, especially for large datasets.  
 
@@ -150,7 +178,7 @@ In this case study, we apply *K-means clustering* to the *cereal* dataset from t
 The *cereal* dataset includes 77 observations and 16 variables, covering various nutritional attributes. It can be accessed through the **liver** package, as shown below:  
 
 
-```r
+``` r
 library(liver)  # Load the liver package
 
 data(cereal)    # Load the cereal dataset
@@ -159,7 +187,7 @@ data(cereal)    # Load the cereal dataset
 We can examine its structure using:  
 
 
-```r
+``` r
 str(cereal)
    'data.frame':	77 obs. of  16 variables:
     $ name    : Factor w/ 77 levels "100% Bran","100% Natural Bran",..: 1 2 3 4 5 6 7 8 9 10 ...
@@ -204,7 +232,7 @@ The dataset contains the following variables:
 Before applying K-means clustering, we need to *clean and preprocess* the data. We start by summarizing the dataset:  
 
 
-```r
+``` r
 summary(cereal)
                            name    manuf    type       calories    
     100% Bran                : 1   A: 1   cold:74   Min.   : 50.0  
@@ -243,7 +271,7 @@ summary(cereal)
 Upon inspection, we notice *unusual values* in the variables `sugars`, `carbo`, and `potass`, where some entries are set to `-1`. Since negative values are invalid for these nutritional attributes, we replace them with `NA`:  
 
 
-```r
+``` r
 cereal[cereal == -1] <- NA
 find.na(cereal)  # Check missing values
         row col
@@ -256,7 +284,7 @@ find.na(cereal)  # Check missing values
 Next, we handle missing values using *K-nearest neighbors (KNN) imputation* with the `knnImputation()` function from the **DMwR2** package:  
 
 
-```r
+``` r
 library(DMwR2)
 cereal <- knnImputation(cereal, k = 3, scale = TRUE)
 find.na(cereal)  # Verify missing values are filled
@@ -266,7 +294,7 @@ find.na(cereal)  # Verify missing values are filled
 For clustering, we exclude categorical and identifier variables (`name`, `manuf`, and `rating`), retaining only *numerical features*:  
 
 
-```r
+``` r
 selected_variables <- colnames(cereal)[-c(1, 2, 16)]
 cereal_subset <- cereal[, selected_variables]
 ```
@@ -274,7 +302,7 @@ cereal_subset <- cereal[, selected_variables]
 Since the dataset includes features on *different scales*, we apply *min-max scaling* using the `minmax()` function from the **liver** package to ensure all variables contribute equally to the clustering process:  
 
 
-```r
+``` r
 cereal_mm <- minmax(cereal_subset, col = "all")
 str(cereal_mm)  # Check the transformed dataset
    'data.frame':	77 obs. of  13 variables:
@@ -296,7 +324,7 @@ str(cereal_mm)  # Check the transformed dataset
 To visualize the effect of normalization, we plot the *sodium* distribution before and after scaling:  
 
 
-```r
+``` r
 ggplot(data = cereal) +
     geom_histogram(aes(x = sodium), color = "blue", fill = "lightblue") +
     theme_minimal() + ggtitle("Before min-max normalization")
@@ -306,7 +334,8 @@ ggplot(data = cereal_mm) +
     theme_minimal() + ggtitle("After min-max normalization")
 ```
 
-<img src="clustering_files/figure-html/unnamed-chunk-8-1.png" width="50%" /><img src="clustering_files/figure-html/unnamed-chunk-8-2.png" width="50%" />
+
+\includegraphics[width=0.5\linewidth]{clustering_files/figure-latex/unnamed-chunk-8-1} \includegraphics[width=0.5\linewidth]{clustering_files/figure-latex/unnamed-chunk-8-2} 
 
 After scaling, all values fall within the *0–1 range*, making distance-based clustering more reliable.  
 
@@ -317,14 +346,16 @@ After scaling, all values fall within the *0–1 range*, making distance-based c
 Before clustering, we need to determine the *optimal number of clusters*. We use the *elbow method*, which plots the within-cluster sum of squares (WCSS) for different values of \( k \). The elbow point—where the improvement in WCSS slows—suggests an ideal \( k \):  
 
 
-```r
+``` r
 library(factoextra)
 
 fviz_nbclust(cereal_mm, kmeans, method = "wss", k.max = 15) + 
   geom_vline(xintercept = 4, linetype = 2, color = "gray")
 ```
 
-<img src="clustering_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{clustering_files/figure-latex/unnamed-chunk-9-1} \end{center}
 
 From the plot, we observe that *\( k = 4 \) clusters* is a reasonable choice, as adding more clusters beyond this point yields diminishing improvements in WCSS.  
 
@@ -333,7 +364,7 @@ From the plot, we observe that *\( k = 4 \) clusters* is a reasonable choice, as
 We now apply the *K-means algorithm* with \( k = 4 \) clusters:  
 
 
-```r
+``` r
 set.seed(3)  # Ensure reproducibility
 cereal_kmeans <- kmeans(cereal_mm, centers = 4)
 ```
@@ -341,7 +372,7 @@ cereal_kmeans <- kmeans(cereal_mm, centers = 4)
 To check cluster sizes:  
 
 
-```r
+``` r
 cereal_kmeans$size
    [1] 36 10 13 18
 ```
@@ -351,11 +382,13 @@ cereal_kmeans$size
 To better understand the clustering results, we visualize the clusters using the `fviz_cluster()` function from the **factoextra** package:  
 
 
-```r
+``` r
 fviz_cluster(cereal_kmeans, cereal_mm, geom = "point", ellipse.type = "norm", palette = "custom_palette")
 ```
 
-<img src="clustering_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{clustering_files/figure-latex/unnamed-chunk-12-1} \end{center}
 
 The scatter plot displays the *four clusters*, with each point representing a cereal brand. Different colors indicate distinct clusters, and the ellipses represent the *spread of each cluster* based on its standard deviation.  
 
@@ -369,7 +402,7 @@ The clusters reveal natural groupings among cereals based on *nutritional conten
 To examine which cereals belong to a specific cluster (e.g., Cluster 1), we can use:  
 
 
-```r
+``` r
 cereal$name[cereal_kmeans$cluster == 1]
 ```
 

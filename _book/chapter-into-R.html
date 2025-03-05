@@ -4,19 +4,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 1 The Basics for R | Uncovering Data Science with R</title>
+<title>Chapter 1 The Basics for R | Data Science Foundations and Machine Learning Using R</title>
 <meta name="author" content="Reza Mohammadi">
-<meta name="generator" content="bookdown 0.37 with bs4_book()">
-<meta property="og:title" content="Chapter 1 The Basics for R | Uncovering Data Science with R">
+<meta name="description" content="Before you can analyze data, you need a way to communicate with your computer. That’s where programming languages like R and Python come in. Many data science teams use a mix of languages, but R...">
+<meta name="generator" content="bookdown 0.42 with bs4_book()">
+<meta property="og:title" content="Chapter 1 The Basics for R | Data Science Foundations and Machine Learning Using R">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://uncovering-data-science.netlify.app/chapter-into-R.html">
-<meta property="og:image" content="https://uncovering-data-science.netlify.app/images/cover.jpg">
+<meta property="og:image" content="https://uncovering-data-science.netlify.app/images/logo_black.png">
+<meta property="og:description" content="Before you can analyze data, you need a way to communicate with your computer. That’s where programming languages like R and Python come in. Many data science teams use a mix of languages, but R...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 1 The Basics for R | Uncovering Data Science with R">
-<meta name="twitter:image" content="https://uncovering-data-science.netlify.app/images/cover.jpg">
+<meta name="twitter:title" content="Chapter 1 The Basics for R | Data Science Foundations and Machine Learning Using R">
+<meta name="twitter:description" content="Before you can analyze data, you need a way to communicate with your computer. That’s where programming languages like R and Python come in. Many data science teams use a mix of languages, but R...">
+<meta name="twitter:image" content="https://uncovering-data-science.netlify.app/images/logo_black.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.9.0/transition.js"></script><script src="libs/bs3compat-0.9.0/tabs.js"></script><script src="libs/bs3compat-0.9.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
@@ -46,9 +49,6 @@
     }
   </style>
 <link rel="stylesheet" href="style.css">
-<meta name="description" content="Before you can analyze data, you need a way to communicate with your computer. That’s where programming languages like R and Python come in. Many data science teams use a mix of languages, but R...">
-<meta property="og:description" content="Before you can analyze data, you need a way to communicate with your computer. That’s where programming languages like R and Python come in. Many data science teams use a mix of languages, but R...">
-<meta name="twitter:description" content="Before you can analyze data, you need a way to communicate with your computer. That’s where programming languages like R and Python come in. Many data science teams use a mix of languages, but R...">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -58,7 +58,7 @@
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
-        <a href="index.html" title="">Uncovering Data Science with R</a>
+        <a href="index.html" title="">Data Science Foundations and Machine Learning Using R</a>
       </h1>
       <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
@@ -70,7 +70,8 @@
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
-<li><a class="" href="index.html">Preface</a></li>
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="preface.html">Preface</a></li>
 <li><a class="active" href="chapter-into-R.html"><span class="header-section-number">1</span> The Basics for R</a></li>
 <li><a class="" href="chapter-intro-DS.html"><span class="header-section-number">2</span> Introduction to Data Science</a></li>
 <li><a class="" href="chapter-data-prep.html"><span class="header-section-number">3</span> Data Preparation</a></li>
@@ -84,6 +85,7 @@
 <li><a class="" href="chapter-tree.html"><span class="header-section-number">11</span> Decision Trees and Random Forests</a></li>
 <li><a class="" href="chapter-nn.html"><span class="header-section-number">12</span> Neural Networks: The Building Blocks of Artificial Intelligence</a></li>
 <li><a class="" href="chapter-cluster.html"><span class="header-section-number">13</span> Clustering</a></li>
+<li><a class="" href="references.html">References</a></li>
 </ul>
 
         <div class="book-extra">
@@ -172,7 +174,7 @@
 <p>When you open RStudio, you will see a window similar to Figure <a href="chapter-into-R.html#fig:RStudio-window-1">1.1</a>.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:RStudio-window-1"></span>
-<img src="images/RStudio-window-1.png" alt="The RStudio window when you first launch the program." width="70%"><p class="caption">
+<img src="images/ch1_RStudio-window-1.png" alt="The RStudio window when you first launch the program." width="70%"><p class="caption">
 Figure 1.1: The RStudio window when you first launch the program.
 </p>
 </div>
@@ -287,7 +289,7 @@ A comfortable coding environment enhances productivity—so feel free to explore
 <p>There are two ways to install R packages. The first method is through RStudio’s graphical interface. Click on the “Tools” tab and select “Install Packages…”. In the dialog box that appears, enter the name of the package(s) you wish to install in the “Packages” field and click the “Install” button. Make sure to check the “Install dependencies” option to ensure that all necessary supporting packages are installed as well. See Figure <a href="chapter-into-R.html#fig:install-packages">1.2</a> for a visual guide.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:install-packages"></span>
-<img src="images/RStudio-window-install.png" alt="A visual guide to installing R packages using the 'Tools' tab in RStudio." width="70%"><p class="caption">
+<img src="images/ch1_RStudio-window-install.png" alt="A visual guide to installing R packages using the 'Tools' tab in RStudio." width="70%"><p class="caption">
 Figure 1.2: A visual guide to installing R packages using the ‘Tools’ tab in RStudio.
 </p>
 </div>
@@ -374,13 +376,13 @@ To load a package, use the <code><a href="https://rdrr.io/r/base/library.html">l
 <p>After selecting your file, RStudio will display an import settings window (see Figure <a href="chapter-into-R.html#fig:load-data-2">1.4</a>). Here, you can adjust column names, data types, and other options. If the first row contains column names, select <em>Yes</em> under the <em>Heading</em> option. Click <em>Import</em>, and the dataset will appear in RStudio’s Environment panel, ready for analysis.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:load-data"></span>
-<img src="images/RStudio-window-data-1.png" alt="A visual guide to loading a dataset into R using the 'Import Dataset' tab in RStudio." width="70%"><p class="caption">
+<img src="images/ch1_RStudio-window-data-1.png" alt="A visual guide to loading a dataset into R using the 'Import Dataset' tab in RStudio." width="70%"><p class="caption">
 Figure 1.3: A visual guide to loading a dataset into R using the ‘Import Dataset’ tab in RStudio.
 </p>
 </div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:load-data-2"></span>
-<img src="images/RStudio-window-data.png" alt="A visual guide to customizing the import settings when loading a dataset into R using the 'Import Dataset' tab in RStudio." width="70%"><p class="caption">
+<img src="images/ch1_RStudio-window-data.png" alt="A visual guide to customizing the import settings when loading a dataset into R using the 'Import Dataset' tab in RStudio." width="70%"><p class="caption">
 Figure 1.4: A visual guide to customizing the import settings when loading a dataset into R using the ‘Import Dataset’ tab in RStudio.
 </p>
 </div>
@@ -440,7 +442,7 @@ Figure 1.4: A visual guide to customizing the import settings when loading a dat
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.uva.nl/profile/a.mohammadi">liver</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">churn</span><span class="op">)</span></span></code></pre></div>
-<p>Since many of the datasets used in this book are included in the <strong>liver</strong> package (see Table <a href="index.html#tab:data-table">0.1</a>), we will frequently use this package for examples and demonstrations.</p>
+<p>Since many of the datasets used in this book are included in the <strong>liver</strong> package (see Table <a href="preface.html#tab:data-table">0.1</a>), we will frequently use this package for examples and demonstrations.</p>
 <p>This section is well-structured and clearly explains the fundamental data types in R. It is concise and informative, making it accessible to beginners while maintaining a professional tone suitable for a Springer publication. Below are some minor refinements to improve clarity, consistency, and readability.</p>
 </div>
 </div>
@@ -479,7 +481,7 @@ Figure 1.4: A visual guide to customizing the import settings when loading a dat
 <p>Data structures are fundamental to working with data in R. They define how data is stored and manipulated, which directly impacts the efficiency and accuracy of data analysis. The most commonly used data structures in R are vectors, matrices, data frames, and lists, as illustrated in Figure <a href="chapter-into-R.html#fig:load-data-2">1.4</a>.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:R-objects"></span>
-<img src="images/R-objects.png" alt="A visual guide to different types of data structures in R." width="60%"><p class="caption">
+<img src="images/ch1_R-objects.png" alt="A visual guide to different types of data structures in R." width="60%"><p class="caption">
 Figure 1.5: A visual guide to different types of data structures in R.
 </p>
 </div>
@@ -842,14 +844,14 @@ File &gt; New File &gt; R Markdown
 </h3>
 <p>R Markdown integrates R code within documents using code chunks, which are enclosed in triple backticks (<code>```{r}</code>) followed by the code. For example:</p>
 <div class="sourceCode" id="cb46"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb46-1"><a href="chapter-into-R.html#cb46-1" tabindex="-1"></a></span>
-<span id="cb46-2"><a href="chapter-into-R.html#cb46-2" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb46-2"><a href="chapter-into-R.html#cb46-2" tabindex="-1"></a><span class="in">``` r</span></span>
 <span id="cb46-3"><a href="chapter-into-R.html#cb46-3" tabindex="-1"></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span></span>
 <span id="cb46-4"><a href="chapter-into-R.html#cb46-4" tabindex="-1"></a>   [<span class="dv">1</span>] <span class="dv">5</span></span>
 <span id="cb46-5"><a href="chapter-into-R.html#cb46-5" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
 <p>When compiled, R executes the code and displays the output within the document. Code chunks are used for analysis, visualizations, and modeling. The “Run” button in RStudio allows individual execution of chunks. See Figure <a href="chapter-into-R.html#fig:run-chunk">1.6</a> for a visual guide.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:run-chunk"></span>
-<img src="images/run-chunk.png" alt="Executing a code chunk in R Markdown using the 'Run' button in RStudio." width="90%"><p class="caption">
+<img src="images/ch1_run-chunk.png" alt="Executing a code chunk in R Markdown using the 'Run' button in RStudio." width="90%"><p class="caption">
 Figure 1.6: Executing a code chunk in R Markdown using the ‘Run’ button in RStudio.
 </p>
 </div>
@@ -1062,7 +1064,7 @@ Print the first few rows of the data frame using <code><a href="https://rdrr.io/
 </div>
 
   <div class="chapter-nav">
-<div class="prev"><a href="index.html">Preface</a></div>
+<div class="prev"><a href="preface.html">Preface</a></div>
 <div class="next"><a href="chapter-intro-DS.html"><span class="header-section-number">2</span> Introduction to Data Science</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
@@ -1158,7 +1160,7 @@ Print the first few rows of the data frame using <code><a href="https://rdrr.io/
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Uncovering Data Science with R</strong>" was written by Reza Mohammadi. It was last built on 2025-02-27.</p>
+    <p>"<strong>Data Science Foundations and Machine Learning Using R</strong>" was written by <a href="https://www.uva.nl/profile/a.mohammadi"><span style="color:white">Reza Mohammadi</span></a>. It was last built on 2025-03-05.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -39,20 +39,20 @@ The *diamonds* dataset, included in the **ggplot2** package, provides structured
 
 To use the *diamonds* dataset in **R**, first ensure that the **ggplot2** package is installed. If not, install it using:
 
-```r
+``` r
 install.packages("ggplot2") 
 ```
 Then, load the package and dataset:
 
-```r
+``` r
 library(ggplot2)  # Load ggplot2 package
 data(diamonds)    # Load diamonds dataset
 ```
 To inspect the dataset structure, use:
 
-```r
+``` r
 str(diamonds)   
-   tibble [53,940 × 10] (S3: tbl_df/tbl/data.frame)
+   tibble [53,940 x 10] (S3: tbl_df/tbl/data.frame)
     $ carat  : num [1:53940] 0.23 0.21 0.23 0.29 0.31 0.24 0.24 0.26 0.22 0.23 ...
     $ cut    : Ord.factor w/ 5 levels "Fair"<"Good"<..: 5 4 2 4 2 3 3 3 1 3 ...
     $ color  : Ord.factor w/ 7 levels "D"<"E"<"F"<"G"<..: 2 2 2 6 7 7 6 5 2 5 ...
@@ -124,12 +124,14 @@ In many cases, outliers are not errors but signals of important events. Understa
 Boxplots are a visual tool for detecting extreme values. Below is a boxplot of the `y` variable (diamond width) by using the **ggplot()** and `geom_boxplot()` functions from the **ggplot2** package:
 
 
-```r
+``` r
 ggplot(data = diamonds) +
     geom_boxplot(mapping = aes(y = y))
 ```
 
-<img src="data-preparation_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-4-1} \end{center}
 
 Here, boxplots highlight values beyond the whiskers, which may indicate potential outliers. Since diamonds cannot have a width of 0 mm, values like 32 mm or 59 mm likely result from data entry errors.
 
@@ -138,23 +140,27 @@ Here, boxplots highlight values beyond the whiskers, which may indicate potentia
 Histograms provide another visual approach to detecting outliers by displaying the frequency distribution of values. Below is a histogram of the `y` variable by using the *ggplot()* and *geom_histogram()* functions:
 
 
-```r
+``` r
 ggplot(data = diamonds) +
     geom_histogram(aes(x = y), binwidth = 0.5, color = 'blue', fill = "lightblue")
 ```
 
-<img src="data-preparation_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-5-1} \end{center}
 
 To enhance visibility, we can zoom in on smaller frequencies by using the *coord_cartesian()* function from the **ggplot2** package:
 
 
-```r
+``` r
 ggplot(data = diamonds) +
     geom_histogram(mapping = aes(x = y), binwidth = 0.5, color = 'blue', fill = "lightblue") + 
     coord_cartesian(ylim = c(0, 30))
 ```
 
-<img src="data-preparation_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-6-1} \end{center}
 
 Other useful visualization techniques include:
 
@@ -178,14 +184,14 @@ Choosing the right strategy depends on the context of the analysis and the poten
 After detecting outliers, we can choose to either replace them with `NA` values or remove them. For this, we could consider using the `mutate()` function from the **dplyr** package. Here’s an example of treating outliers as missing values using `mutate()` and `ifelse()`:
 
 
-```r
+``` r
 diamonds_2 <- mutate(diamonds, y = ifelse(y == 0 | y > 30, NA, y))
 ```
 
 Here’s how to verify the update:
 
 
-```r
+``` r
 summary(diamonds_2$y)
       Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
      3.680   4.720   5.710   5.734   6.540  10.540       9
@@ -213,7 +219,7 @@ There are several strategies for imputing missing values, each with different us
 To impute missing values in `y` using random sampling, we use the `impute()` function from the **Hmisc** package:  
 
 
-```r
+``` r
 diamonds_2$y <- impute(diamonds_2$y, "random")
 ```
 
@@ -268,7 +274,7 @@ Min-Max Scaling is particularly useful for models that require bounded input val
 To demonstrate Min-Max Scaling, we’ll apply it to the `carat` variable in the *diamonds* dataset, where `carat` values range from approximately 0.2 to 5. Using the `minmax()` function from the **liver** package, we can scale `carat` values to fit within the range [0, 1].
 
 
-```r
+``` r
 ggplot(data = diamonds) +
   geom_histogram(mapping = aes(x = carat), bins = 30,
                  color = 'blue', fill = "lightblue") +
@@ -282,7 +288,8 @@ ggplot(data = diamonds) +
   xlab("Values for variable `carat`")
 ```
 
-<img src="data-preparation_files/figure-html/unnamed-chunk-10-1.png" width="50%" /><img src="data-preparation_files/figure-html/unnamed-chunk-10-2.png" width="50%" />
+
+\includegraphics[width=0.5\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-10-1} \includegraphics[width=0.5\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-10-2} 
 
 The first histogram (left) shows the distribution of `carat` without scaling, while the second histogram (right) shows it after Min-Max Scaling. After scaling, the `carat` values are compressed to a range between 0 and 1, allowing it to be more comparable to other features that may have different original scales. This scaling method is particularly beneficial for distance-based algorithms, as it prevents features with wider ranges from having undue influence.
 :::
@@ -305,7 +312,7 @@ Z-score Scaling is particularly beneficial for models that assume normality or u
 Applying Z-score Scaling to the `carat` variable in the *diamonds* dataset, where the mean and standard deviation of `carat` are approximately 0.8 and 0.47, respectively. We use the `zscore()` function from the **liver** package to standardize these values.
 
 
-```r
+``` r
 ggplot(data = diamonds) +
   geom_histogram(mapping = aes(x = carat), bins = 30,
                  color = 'blue', fill = "lightblue") +
@@ -319,7 +326,8 @@ ggplot(data = diamonds) +
   xlab("Values for variable `carat`")
 ```
 
-<img src="data-preparation_files/figure-html/unnamed-chunk-11-1.png" width="50%" /><img src="data-preparation_files/figure-html/unnamed-chunk-11-2.png" width="50%" />
+
+\includegraphics[width=0.5\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-11-1} \includegraphics[width=0.5\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-11-2} 
 
 The first histogram (left) displays the distribution of `carat` without scaling, while the second histogram (right) shows the distribution after Z-score Scaling. This transformation makes feature values comparable across different scales and ensures that each feature contributes equally to distance-based computations and model training.
 :::
@@ -399,7 +407,7 @@ Selecting the appropriate encoding technique depends on the nature of your categ
 Applying these techniques to the *diamonds* dataset:
 
 
-```r
+``` r
 # Example: Ordinal encoding for `cut`
 diamonds <- diamonds %>%
   mutate(cut_encoded = as.integer(factor(cut, levels = c("Fair", "Good", "Very Good", "Premium", "Ideal"))))
@@ -437,19 +445,19 @@ The goal of this study is to predict whether an individual earns more than $50,0
 
 To use the *Adult* dataset, first ensure that the **liver** package is installed. If not, install it using:
 
-```r
+``` r
 install.packages("liver")
 ```
 Next, load the package and dataset:
 
-```r
+``` r
 library(liver)  # Load liver package
 data(adult)     # Load Adult dataset
 ```
 
 To inspect the dataset structure, use:
 
-```r
+``` r
 str(adult)
    'data.frame':	48598 obs. of  15 variables:
     $ age           : int  25 38 28 44 18 34 29 63 24 55 ...
@@ -495,7 +503,7 @@ For clarity, we categorize the dataset’s variables:
 
 To better understand the dataset, we generate summary statistics:
 
-```r
+``` r
 summary(adult)
          age              workclass      demogweight             education    
     Min.   :17.0   ?           : 2794   Min.   :  12285   HS-grad     :15750  
@@ -545,27 +553,29 @@ This summary provides insights into the distribution of numerical variables, mis
 The `summary()` function reveals that the variables `workclass` and `native.country` contain missing values, represented by the `"?"` category. Specifically, 2794 records in `workclass` and 847 records in `native.country` have missing values. Since `"?"` is used as a placeholder for missing data, we first convert these entries to `NA`:
 
 
-```r
+``` r
 adult[adult == "?"] = NA
 ```
 
 After replacing `"?"` with `NA`, we remove unused factor levels to clean up the dataset:
 
 
-```r
+``` r
 adult = droplevels(adult)
 ```
 
 To visualize the distribution of missing values, we use the `gg_miss_var()` function from the **naniar** package:
 
 
-```r
+``` r
 library(naniar)  # Load package for visualizing missing values
 
 gg_miss_var(adult, show_pct = TRUE)
 ```
 
-<img src="data-preparation_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-18-1} \end{center}
 
 The plot indicates that `workclass`, `occupation`, and `native.country` contain missing values. The percentage of missing values in these variables is relatively low, with `workclass` and `occupation` having less than 0.06 percent missing data, while `native.country` has about 0.02 percent.
 
@@ -576,7 +586,7 @@ Instead of removing records with missing values, which can lead to information l
 We use the `impute()` function from the **Hmisc** package for this purpose:
 
 
-```r
+``` r
 library(Hmisc)  # Load package for imputation
 
 # Impute missing values using random sampling from existing categories
@@ -588,11 +598,13 @@ adult$occupation     = impute(adult$occupation,     'random')
 To confirm that missing values have been successfully imputed, we generate another missing values plot:
 
 
-```r
+``` r
 gg_miss_var(adult, show_pct = TRUE)
 ```
 
-<img src="data-preparation_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-20-1} \end{center}
 
 The updated plot should show no missing values, indicating successful imputation.
 
@@ -619,7 +631,7 @@ The `native.country` variable contains 41 distinct countries. To make it more ma
 - *Other*: This includes the ambiguous "South" category, as its meaning is unclear in the dataset documentation.  
 We use the `fct_collapse()` function from the **forcats** package to reassign categories:
 
-```r
+``` r
 library(forcats)  # Load package for categorical variable transformation
 
 # To create a new factor variable with fewer levels for `native.country`
@@ -643,7 +655,7 @@ adult$native.country = fct_collapse(adult$native.country,
 To confirm the changes, we display the frequency distribution of `native.country`:
 
 
-```r
+``` r
 table(adult$native.country)
    
         Asia N.America S.America    Europe     Other 
@@ -657,14 +669,14 @@ By grouping the original 42 countries into 5 broader regions, we simplify the va
 The `workclass` variable originally contains several employment categories. Since "Never-worked" and "Without-pay" represent similar employment statuses, we merge them into a single category labeled "Unemployed":
 
 
-```r
+``` r
 adult$workclass = fct_collapse(adult$workclass, "Unemployed" = c("Never-worked", "Without-pay"))
 ```
 
 To verify the updated categories, we check the frequency distribution:
 
 
-```r
+``` r
 table(adult$workclass)
    
           Gov Unemployed    Private   Self-emp 
@@ -682,7 +694,7 @@ Detecting and handling outliers is an essential step in data preprocessing, as e
 To gain an initial understanding of `capital.loss`, we compute its summary statistics:  
 
 
-```r
+``` r
 summary(adult$capital.loss)
       Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
       0.00    0.00    0.00   87.94    0.00 4356.00
@@ -700,20 +712,24 @@ The summary output reveals the following insights:
 To further investigate the distribution of `capital.loss`, we use a boxplot and histogram:
 
 
-```r
+``` r
 ggplot(data = adult, aes(y = capital.loss)) +
      geom_boxplot()
 ```
 
-<img src="data-preparation_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" />
 
 
-```r
+\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-26-1} \end{center}
+
+
+``` r
 ggplot(data = adult, aes(x = capital.loss)) +
      geom_histogram(bins = 30, color = "blue", fill = "lightblue")
 ```
 
-<img src="data-preparation_files/figure-html/unnamed-chunk-27-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-27-1} \end{center}
 
 From these plots, we observe:  
 
@@ -727,21 +743,25 @@ Since a large proportion of observations report no capital loss, we further exam
 To better visualize the spread of nonzero values, we focus on observations with `capital.loss > 0`:
 
 
-```r
+``` r
 ggplot(data = adult, mapping = aes(x = capital.loss)) +
     geom_histogram(bins = 30, color = "blue", fill = "lightblue") +
     coord_cartesian(xlim = c(500, 4000), ylim = c(0, 1000))
 ```
 
-<img src="data-preparation_files/figure-html/unnamed-chunk-28-1.png" width="70%" style="display: block; margin: auto;" />
 
 
-```r
+\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-28-1} \end{center}
+
+
+``` r
 ggplot(data = subset(adult, capital.loss > 0)) +
      geom_boxplot(aes(y = capital.loss)) 
 ```
 
-<img src="data-preparation_files/figure-html/unnamed-chunk-29-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-29-1} \end{center}
 
 Key takeaways from these refined plots:  
 

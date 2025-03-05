@@ -13,7 +13,7 @@ This section is well-structured and provides a clear introduction to data scienc
 Data science is an interdisciplinary field that integrates computer science, statistics, and domain expertise to extract insights from data. It involves using analytical and computational techniques to process vast amounts of raw data, transforming them into meaningful information that supports decision-making and strategic planning.  
 
 ```{r Data-Science, fig.show='hold', echo = FALSE, out.width = "50%", fig.align = 'center', fig.cap = "Data science is a multidisciplinary field that applies computational and statistical methods to extract insights from data."}
-knitr::include_graphics("images/data_science.png")
+knitr::include_graphics("images/ch2_data_science.png")
 ```
 
 Although the term “data science” is relatively new, its foundations lie in well-established disciplines such as statistics, data analysis, and machine learning. With the exponential growth of digital data, advancements in computational power, and the increasing demand for data-driven decision-making, data science has emerged as a distinct and essential field.  
@@ -49,7 +49,7 @@ The *data science workflow* follows an *iterative* and *cyclical* approach, wher
 A *data science workflow* follows a phased, adaptive approach within a scientific framework, transforming raw data into actionable knowledge. This transformation is often conceptualized using the *DIKW Pyramid* (Data → Information → Knowledge → Wisdom), as illustrated in Figure \@ref(fig:DIKW-Pyramid).  
 
 ```{r DIKW-Pyramid, fig.show='hold', echo = FALSE, out.width = "40%", fig.align = 'center', fig.cap = "The DIKW Pyramid illustrates the transformation of raw data into actionable insights, progressing from data to information, knowledge, and ultimately wisdom."}  
-knitr::include_graphics("images/DIKW-Pyramid.png")  
+knitr::include_graphics("images/ch2_DIKW-Pyramid.png")  
 ```  
 
 While the specifics may vary across projects, most data science workflows follow a common structure. In this book, we adopt the *Data Science Workflow* as a guiding framework for structuring data science projects. This workflow is inspired by the *Cross-Industry Standard Process for Data Mining (CRISP-DM)* model, a widely recognized methodology for data-driven projects. It is a *cyclic* framework that guides data scientists through the following key stages (see Figure \@ref(fig:CRISP-DM)):  
@@ -62,8 +62,8 @@ While the specifics may vary across projects, most data science workflows follow
 6. **Evaluation** – Assessing model performance using appropriate metrics and validation techniques.  
 7. **Deployment** – Integrating the model into a production environment and monitoring its performance over time.  
 
-```{r CRISP-DM, echo = FALSE, fig.show='hold', out.width="60%", fig.align = 'center', fig.cap = "The Data Science Workflow is an iterative framework for structuring data science and machine learning projects. Inspired by the CRISP-DM model, it ensures systematic problem-solving and continuous refinement."}  
-knitr::include_graphics("images/DSW.png")  
+```{r CRISP-DM, echo = FALSE, fig.show='hold', out.width="70%", fig.align = 'center', fig.cap = "The Data Science Workflow is an iterative framework for structuring data science and machine learning projects. Inspired by the CRISP-DM model, it ensures systematic problem-solving and continuous refinement."}  
+knitr::include_graphics("images/ch2_DSW.png")  
 ```  
 
 Because data science is inherently *iterative*, these steps are often revisited multiple times within a single project. The *feedback loops* between stages allow for continuous refinement—adjusting data preprocessing, modifying features, or retraining models as new insights emerge. By following a structured workflow, data scientists can ensure rigor, accuracy, and efficiency in transforming data into valuable insights.  

@@ -102,7 +102,7 @@ Data storytelling is widely used in business, scientific research, and journalis
 One example comes from climate science. Figure \@ref(fig:EDA-fig-1) presents global mean surface temperature changes over the Common Era, highlighting long-term warming trends. Adapted from @neukom2019no, this visualization provides a historical perspective on climate change, illustrating temperature anomalies over time.  
 
 ```{r EDA-fig-1, echo = FALSE, out.width = "100%", fig.align = 'center', fig.cap = "Global mean surface temperature history over the Common Era. Temperature anomalies with respect to 1961–1990 CE. The colored lines represent 30-year low-pass-filtered ensemble medians for different reconstruction methods."}
-knitr::include_graphics("images/EDA_fig_1.png")
+knitr::include_graphics("images/ch4_EDA_fig_1.png")
 ```
 
 Another example focuses on global health and demographics. Figure \@ref(fig:EDA-fig-2) illustrates the relationship between fertility rate and life expectancy across world regions from 1960 to 2015. Adapted from Hans Rosling’s TED Talk ["New insights on poverty"](https://www.ted.com/talks/hans_rosling_new_insights_on_poverty), this visualization effectively conveys trends in population health and economic development over time.
@@ -464,7 +464,7 @@ The strength and direction of a correlation are measured by the correlation coef
 Below, Figure \@ref(fig:correlation) shows examples of different correlation coefficients.
 
 ```{r correlation, echo = FALSE, out.width = "100%", fig.align = 'center', fig.cap = "Example scatterplots showing different correlation coefficients."}
-knitr::include_graphics("images/correlation.png")
+knitr::include_graphics("images/ch4_correlation.png")
 ```
 
 When multiple variables are highly correlated, redundancy can become a problem. Including both variables in a model may not add much new information and can lead to instability, particularly in regression-based models where multicollinearity makes it difficult to determine the effect of individual predictors. Instead of automatically removing correlated variables, a more thoughtful approach involves assessing their practical relevance and whether they provide distinct information.  

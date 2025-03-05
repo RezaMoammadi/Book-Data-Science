@@ -37,7 +37,7 @@ Let’s explore some examples:
 To estimate the *proportion of churners* in the dataset, we use the *sample proportion* as a point estimate for the population proportion. Here’s how to calculate it in R:  
 
 
-```r
+``` r
 library(liver)
 data(churn) 
 
@@ -53,7 +53,7 @@ The estimated proportion of churners in the dataset is 0.14, serving as our best
 Now, let’s estimate the *average number of customer service calls* for customers who churned. The *sample mean* serves as a point estimate for the population mean:
 
 
-```r
+``` r
 # Filter churners
 churned_customers <- churn[churn$churn == "yes", ]
 
@@ -86,10 +86,14 @@ For a population mean, the confidence interval is calculated as:
 
 where \( \bar{x} \) is the sample mean, \( z_{\frac{\alpha}{2}} \) is a critical value from the standard normal distribution (such as 1.96 for a 95% confidence level), \( s \) is the sample standard deviation, and \( n \) is the sample size. This concept is illustrated in Figure \@ref(fig:confidence-interval), where the interval is centered around the point estimate and its width depends on the margin of error.
 
-<div class="figure" style="text-align: center">
-<img src="images/confidence_interval.png" alt="Confidence interval for the population mean. The interval is centered around the point estimate, with the width determined by the margin of error. The confidence level specifies the probability that the interval contains the true population parameter." width="80%" />
-<p class="caption">(\#fig:confidence-interval)Confidence interval for the population mean. The interval is centered around the point estimate, with the width determined by the margin of error. The confidence level specifies the probability that the interval contains the true population parameter.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.8\linewidth]{images/ch5_confidence_interval} 
+
+}
+
+\caption{Confidence interval for the population mean. The interval is centered around the point estimate, with the width determined by the margin of error. The confidence level specifies the probability that the interval contains the true population parameter.}(\#fig:confidence-interval)
+\end{figure}
 
 Several factors influence the width of a confidence interval. Larger sample sizes generally yield narrower intervals, increasing precision, while higher variability in the data results in wider intervals. The choice of confidence level also affects the width; for example, a 99% confidence level produces a wider interval than a 90% confidence level because it must capture more possible values.
 
@@ -98,7 +102,7 @@ Imagine you want to estimate the average height of all students in a university.
 To illustrate, suppose we want to estimate the average number of customer service calls among churners with 95% confidence:
 
 
-```r
+``` r
 # Calculate mean and standard error
 mean_calls <- mean(churned_customers$customer.calls)
 se_calls <- sd(churned_customers$customer.calls) / sqrt(nrow(churned_customers))
@@ -117,7 +121,7 @@ If the computed interval is [2.12, 2.39], we can say with 95% confidence that th
 For smaller sample sizes, it is better to use the t-distribution instead of the normal distribution, as it accounts for the added uncertainty when estimating the population standard deviation. This adjustment is applied automatically in R when using the `t.test()` function:
 
 
-```r
+``` r
 t.test(churned_customers$customer.calls, conf.level = 0.95)$conf.int
    [1] 2.120509 2.388685
    attr(,"conf.level")
@@ -246,7 +250,7 @@ We can present the hypotheses in mathematical form as:
 
 We begin by loading the *churn* dataset and filtering the customers who have churned:
 
-```r
+``` r
 library(liver)  # Load the liver package
 data(churn)     # Load the churn dataset
 
@@ -257,7 +261,7 @@ churned_customers <- churn[churn$churn == "yes", ]
 Now, we conduct a two-tailed one-sample t-test in R using the `t.test()` function; If you want to know more about the functionality of the `t.test()` function, you can find more by typing `?t.test` in the R console.
 
 
-```r
+``` r
 t_test <- t.test(churned_customers$customer.calls, mu = 2)
 t_test
    
@@ -273,7 +277,7 @@ t_test
     2.254597
 ```
 
-The output includes the *p*-value, test statistic, degrees of freedom, and confidence interval for the population mean. Since the *p*-value = 2\times 10^{-4} is less than the significance level (\(\alpha = 0.05\)), we reject the null hypothesis (\(H_0\)). This would indicate that there is sufficient evidence, at the 5% significance level, to conclude that the true average number of customer service calls differs from 2.
+The output includes the *p*-value, test statistic, degrees of freedom, and confidence interval for the population mean. Since the *p*-value = \ensuremath{2\times 10^{-4}} is less than the significance level (\(\alpha = 0.05\)), we reject the null hypothesis (\(H_0\)). This would indicate that there is sufficient evidence, at the 5% significance level, to conclude that the true average number of customer service calls differs from 2.
 
 The test also provides a 95% confidence interval, [2.12, 2.39], which represents the range of plausible values for the true population mean. Since 2 is outside this interval, we have further evidence that the true average number of service calls is different from the assumed value. Additionally, the sample mean, 2.25, is reported as the best estimate of the population mean.
 
@@ -303,7 +307,7 @@ H_a: \pi \neq 0.15
 The test is performed in R using the `prop.test()` function. If you would like to explore the details of this function, you can type `?prop.test` in the R console.
 
 
-```r
+``` r
 prop_test <- prop.test(x = sum(churn$churn == "yes"), 
                        n = nrow(churn), 
                        p = 0.15)
@@ -340,7 +344,8 @@ The *two-sample t-test*, also known as Student’s t-test, is a statistical meth
 
 In Section \@ref(EDA-sec-numeric) of the previous chapter, we explored the relationship between *International Calls* (`intl.calls`) and churn status using visualizations like box plots and density plots. While visualizations help identify potential differences, statistical testing quantifies the likelihood that these differences are due to chance.
 
-<img src="statistics_files/figure-html/unnamed-chunk-8-1.png" width="50%" /><img src="statistics_files/figure-html/unnamed-chunk-8-2.png" width="50%" />
+
+\includegraphics[width=0.5\linewidth]{statistics_files/figure-latex/unnamed-chunk-8-1} \includegraphics[width=0.5\linewidth]{statistics_files/figure-latex/unnamed-chunk-8-2} 
 
 The boxplot (left) and density plot (right) illustrate the distributions of `intl.calls` for churners and non-churners. While the visualizations suggest only minor differences, we perform a two-sample t-test to assess whether these differences are statistically significant.
 
@@ -360,7 +365,7 @@ This can also be expressed mathematically as:
 We perform the test in R using the `t.test()` function:
 
 
-```r
+``` r
 t_test_calls <- t.test(intl.calls ~ churn, data = churn)
 t_test_calls
    
@@ -398,7 +403,8 @@ In the previous section, we applied the *two-sample t-test* to compare the mean 
 
 In Section \@ref(chapter-EDA-categorical) of the previous chapter, we examined the relationship between the *Voice Mail Plan* (`voice.plan`) and churn status using bar plots. While visualizations suggest potential differences in churn rates between customers with and without a Voice Mail Plan, statistical testing quantifies whether these differences are statistically significant.
 
-<img src="statistics_files/figure-html/unnamed-chunk-10-1.png" width="50%" /><img src="statistics_files/figure-html/unnamed-chunk-10-2.png" width="50%" />
+
+\includegraphics[width=0.5\linewidth]{statistics_files/figure-latex/unnamed-chunk-10-1} \includegraphics[width=0.5\linewidth]{statistics_files/figure-latex/unnamed-chunk-10-2} 
 
 The first bar plot (left) shows the raw counts of churners and non-churners across the two categories of *Voice Mail Plan* (Yes or No), while the second plot (right) displays proportions, allowing direct comparison of churn rates. These visualizations suggest that customers without a Voice Mail Plan may have a higher churn rate, but hypothesis testing is needed to confirm whether this difference is statistically meaningful.
 
@@ -422,7 +428,7 @@ These can also be expressed mathematically as:
 To perform the Z-test in R, we begin by creating a contingency table to summarize the counts of customers with and without a Voice Mail Plan in the churner and non-churner groups. This can be done using the `table()` function:
 
 
-```r
+``` r
 table_plan = table(churn$churn, churn$voice.plan, dnn = c("churn", "voice.plan"))
 table_plan
         voice.plan
@@ -434,7 +440,7 @@ table_plan
 This table displays the count of churners and non-churners with and without a Voice Mail Plan. To conduct the Z-test, we use the `prop.test()` function:
 
 
-```r
+``` r
 z_test = prop.test(table_plan)
 z_test
    
@@ -468,14 +474,15 @@ To illustrate, we examine whether marital status is associated with purchasing a
 
 We begin by visualizing the relationship between `marital` and `deposit` using bar plots:
 
-<img src="statistics_files/figure-html/unnamed-chunk-13-1.png" width="50%" /><img src="statistics_files/figure-html/unnamed-chunk-13-2.png" width="50%" />
+
+\includegraphics[width=0.5\linewidth]{statistics_files/figure-latex/unnamed-chunk-13-1} \includegraphics[width=0.5\linewidth]{statistics_files/figure-latex/unnamed-chunk-13-2} 
 
 The first bar plot (left) displays the raw counts of deposit purchases across marital categories, while the second plot (right) presents the relative proportions. Visual inspection suggests differences in deposit purchase rates by marital status, but a statistical test is needed to confirm whether these differences are significant.
 
 We summarize the observed counts in a contingency table:
 
 
-```r
+``` r
 table_marital <- table(bank$deposit, bank$marital, dnn = c("deposit", "marital"))
 table_marital
           marital
@@ -494,7 +501,7 @@ $$
 The Chi-square test is applied using the `chisq.test()` function:
 
 
-```r
+``` r
 chisq_test <- chisq.test(table_marital)
 chisq_test
    
@@ -504,7 +511,7 @@ chisq_test
    X-squared = 19.03, df = 2, p-value = 7.374e-05
 ```
 
-The output includes the *p*-value, Chi-square test statistic, degrees of freedom, and expected frequencies under \(H_0\). If the *p*-value = 7.3735354\times 10^{-5} is smaller than \(\alpha = 0.05\), we reject the null hypothesis, concluding that marital status and deposit purchases are not independent. This means that at least one marital group differs significantly from the others in deposit purchase rates.
+The output includes the *p*-value, Chi-square test statistic, degrees of freedom, and expected frequencies under \(H_0\). If the *p*-value = \ensuremath{7.3735354\times 10^{-5}} is smaller than \(\alpha = 0.05\), we reject the null hypothesis, concluding that marital status and deposit purchases are not independent. This means that at least one marital group differs significantly from the others in deposit purchase rates.
 
 Examining the expected frequencies can reveal which marital groups contribute most to the observed association. If a particular group has a much higher or lower deposit purchase rate than expected, marketing efforts can be tailored accordingly.
 
@@ -521,7 +528,7 @@ To illustrate, let’s analyze the relationship between the variable `cut` and t
 We begin with a box plot to visualize the distribution of diamond prices for each category of `cut`:
 
 
-```r
+``` r
 data(diamonds)   
 
 ggplot(data = diamonds) + 
@@ -529,7 +536,9 @@ ggplot(data = diamonds) +
   scale_fill_manual(values = c("palevioletred1", "darkseagreen1", "skyblue1", "gold1", "lightcoral"))
 ```
 
-<img src="statistics_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{statistics_files/figure-latex/unnamed-chunk-16-1} \end{center}
 
 The box plot displays the spread and median prices for diamonds in each cut category. While differences in medians and ranges suggest that cut quality might influence price, statistical testing is required to confirm whether these differences are significant. We apply an ANOVA test to formally assess this relationship.
 
@@ -545,7 +554,7 @@ To test whether the mean prices differ by cut type, we set up the following hypo
 To conduct the ANOVA test in R, we use the `aov()` function:
 
 
-```r
+``` r
 anova_test <- aov(price ~ cut, data = diamonds)
 summary(anova_test)
                   Df    Sum Sq   Mean Sq F value Pr(>F)    
@@ -570,13 +579,15 @@ In the previous sections, we explored hypothesis tests for comparing means and p
 To illustrate, we examine whether a significant relationship exists between `carat` (diamond weight) and `price` in the *diamonds* dataset (available in the **ggplot2** package). Since larger diamonds are generally more expensive, we expect a positive correlation between these variables. A scatter plot provides an initial visual assessment of the relationship:
 
 
-```r
+``` r
 ggplot(data = diamonds) +
     geom_point(aes(x = carat, y = price), colour = "blue") +
     labs(x = "Carat", y = "Price") 
 ```
 
-<img src="statistics_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{statistics_files/figure-latex/unnamed-chunk-18-1} \end{center}
 
 The scatter plot shows a clear upward trend, suggesting that as *carat* increases, so does *price*. However, visualizations alone do not confirm statistical significance. To formally test this relationship, we establish the following hypotheses:
 
@@ -590,7 +601,7 @@ The scatter plot shows a clear upward trend, suggesting that as *carat* increase
 To conduct the correlation test in R, we use the `cor.test()` function:
 
 
-```r
+``` r
 cor_test <- cor.test(diamonds$carat, diamonds$price)
 cor_test
    
@@ -635,7 +646,7 @@ In the next chapter, we transition from statistical inference to predictive mode
 
 2. What is the difference between a confidence interval and a hypothesis test? How do they provide different ways of drawing conclusions about population parameters?  
 
-3. The *p*-value represents the probability of observing the sample data, or something more extreme, assuming the null hypothesis is true. How should *p*-values be interpreted, and why is a *p*-value of 0.001 in a two-sample *t*-test not necessarily evidence of practical significance?**  
+3. The *p*-value represents the probability of observing the sample data, or something more extreme, assuming the null hypothesis is true. How should *p*-values be interpreted, and why is a *p*-value of 0.001 in a two-sample *t*-test not necessarily evidence of practical significance?  
 
 4. Explain the concepts of *Type I* and *Type II* errors in hypothesis testing. Why is it important to balance the risks of these errors when designing statistical tests?  
 
@@ -656,7 +667,7 @@ For the following exercises, use the *churn*, *bank*, *marketing*, and *diamonds
 To load the datasets, use the following commands:
 
 
-```r
+``` r
 library(liver)
 library(ggplot2)   
 
@@ -670,7 +681,7 @@ data(diamonds)
 10. We are interested in knowing the 90% confidence interval for the population mean of the variable "`night.calls`" in the *churn* dataset. In **R**, we can obtain a confidence interval for the population mean using the `t.test()` function as follows:
 
 
-```r
+``` r
 t.test(x = churn$night.calls, conf.level = 0.90)$"conf.int"
    [1]  99.45484 100.38356
    attr(,"conf.level")
@@ -682,14 +693,14 @@ Interpret the confidence interval in the context of customer service calls made 
 11. Subgroup analyses help identify behavioral patterns in specific customer segments. In the *churn* dataset, we focus on customers with both an *International Plan* and a *Voice Mail Plan* who make more than 220 daytime minutes of calls. To create this subset, we use:
 
 
-```r
+``` r
 sub_churn = subset(churn, (intl.plan == "yes") & (voice.plan == "yes") & (day.mins > 220)) 
 ```
 
 Next, we compute the 95% confidence interval for the proportion of churners in this subset using `prop.test()`:
 
 
-```r
+``` r
 prop.test(table(sub_churn$churn), conf.level = 0.95)$"conf.int"
    [1] 0.2595701 0.5911490
    attr(,"conf.level")
@@ -710,7 +721,7 @@ Compare this confidence interval with the overall churn rate in the dataset (see
 Since the level of significance is \(\alpha = 0.01\), the confidence level is \(1-\alpha = 0.99\). We perform the test using:
 
 
-```r
+``` r
 t.test(x = churn$customer.calls, 
         mu = 1.5, 
         alternative = "greater", 
@@ -733,7 +744,7 @@ Report the *p*-value and determine whether to reject the null hypothesis at \(\a
 13. In the *churn* dataset, we test whether the proportion of churners (\(\pi\)) is less than 0.14 at a significance level of \(\alpha=0.01\). The confidence level is \(99\%\), corresponding to \(1-\alpha = 0.99\). The test is conducted in **R** using:
 
 
-```r
+``` r
 prop.test(table(churn$churn), 
            p = 0.14, 
            alternative = "less", 
@@ -756,7 +767,7 @@ State the null and alternative hypotheses. Report the *p*-value and determine wh
 14. In the *churn* dataset, we examine whether the number of customer service calls (`customer.calls`) differs between churners and non-churners. To test this, we perform a two-sample *t*-test:
 
 
-```r
+``` r
 t.test(customer.calls ~ churn, data = churn)
    
    	Welch Two Sample t-test
@@ -776,7 +787,7 @@ State the null and alternative hypotheses. Determine whether to reject the null 
 15. In the *marketing* dataset, we test whether there is a *positive* relationship between `revenue` and `spend` at a significance level of \(\alpha = 0.025\). We perform a one-tailed correlation test using:
 
 
-```r
+``` r
 cor.test(x = marketing$spend, 
          y = marketing$revenue, 
          alternative = "greater", 

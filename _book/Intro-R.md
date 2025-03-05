@@ -63,10 +63,14 @@ RStudio is updated several times a year, and it will notify you when a new versi
 
 When you open RStudio, you will see a window similar to Figure \@ref(fig:RStudio-window-1).
 
-<div class="figure" style="text-align: center">
-<img src="images/RStudio-window-1.png" alt="The RStudio window when you first launch the program." width="70%" />
-<p class="caption">(\#fig:RStudio-window-1)The RStudio window when you first launch the program.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/ch1_RStudio-window-1} 
+
+}
+
+\caption{The RStudio window when you first launch the program.}(\#fig:RStudio-window-1)
+\end{figure}
 
 If you see only three panels, add a fourth by selecting _File > New File > R Script_. This opens a script editor where you can write and save R code. Here’s a quick overview of RStudio’s panels:  
 
@@ -149,15 +153,19 @@ For those interested in exploring further, the Comprehensive R Archive Network (
 
 There are two ways to install R packages. The first method is through RStudio’s graphical interface. Click on the "Tools" tab and select "Install Packages…". In the dialog box that appears, enter the name of the package(s) you wish to install in the "Packages" field and click the "Install" button. Make sure to check the "Install dependencies" option to ensure that all necessary supporting packages are installed as well. See Figure \@ref(fig:install-packages) for a visual guide.  
 
-<div class="figure" style="text-align: center">
-<img src="images/RStudio-window-install.png" alt="A visual guide to installing R packages using the 'Tools' tab in RStudio." width="70%" />
-<p class="caption">(\#fig:install-packages)A visual guide to installing R packages using the 'Tools' tab in RStudio.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/ch1_RStudio-window-install} 
+
+}
+
+\caption{A visual guide to installing R packages using the 'Tools' tab in RStudio.}(\#fig:install-packages)
+\end{figure}
 
 The second method is to install packages directly using the `install.packages()` function. For example, to install the **liver** package, which provides datasets and functions used throughout this book, enter the following command in the R console:  
 
 
-```r
+``` r
 install.packages("liver")
 ```
 
@@ -166,7 +174,7 @@ Press "Enter" to execute the command. R will connect to [CRAN](https://cran.r-pr
 The `install.packages()` function also allows for customization, such as installing a package from a local file or a specific repository. To learn more, type the following command in the R console:  
 
 
-```r
+``` r
 ?install.packages()
 ```
 
@@ -178,7 +186,7 @@ To optimize memory usage, R does not automatically load all installed packages. 
 To load a package, use the `library()` or `require()` function. These functions locate the package on your system and make its functions, datasets, and documentation accessible. For example, to load the **liver** package, enter the following command in the R console:  
 
 
-```r
+``` r
 library(liver)
 ```
 
@@ -199,7 +207,7 @@ This approach is particularly useful in complex projects where multiple packages
 R is an interactive language, allowing you to type commands directly into the console and see the results immediately. For example, you can perform basic arithmetic operations such as addition, subtraction, multiplication, and division. To add two numbers, type the following in the R console:  
 
 
-```r
+``` r
 2 + 3
    [1] 5
 ```
@@ -207,7 +215,7 @@ R is an interactive language, allowing you to type commands directly into the co
 Press *Enter* to execute the command. R will compute the sum and display the result. You can also store this result in a variable for later use:  
 
 
-```r
+``` r
 result <- 2 + 3
 ```
 
@@ -216,7 +224,7 @@ Here, `<-` is the assignment operator in R, used to assign values to variables. 
 Variables in R store values for later use, allowing you to perform calculations efficiently. For example, you can multiply `result` by 4:  
 
 
-```r
+``` r
 result * 4
    [1] 20
 ```
@@ -228,7 +236,7 @@ R will retrieve the stored value of `result` and compute the multiplication.
 Comments are used to explain your code and make it easier to understand. In R, a comment starts with `#`, and everything following it on that line is ignored by the interpreter.  
 
 
-```r
+``` r
 # Store the sum of 2 and 3 in the variable `result`
 result <- 2 + 3
 ```
@@ -240,14 +248,14 @@ Comments do not affect the execution of your code but are essential for document
 R provides a rich set of built-in functions to perform specific tasks. A function takes **input(s)** (arguments), processes them, and returns an **output**. For example, the `c()` function creates vectors:  
 
 
-```r
+``` r
 x <- c(1, 2, 3, 4, 5)  # Create a vector
 ```
 
 You can then apply functions to this vector. For example, to compute the average of the numbers in `x`, use the `mean()` function:  
 
 
-```r
+``` r
 mean(x)  # Calculate the mean of x
    [1] 3
 ```
@@ -261,7 +269,7 @@ function_name(arguments)
 Some functions require arguments, while others are optional. To learn more about a function, use `?` followed by the function name:  
 
 
-```r
+``` r
 ?mean  # or help(mean)
 ```
 
@@ -282,29 +290,37 @@ The easiest way to import data into R is through RStudio’s graphical interface
 
 After selecting your file, RStudio will display an import settings window (see Figure \@ref(fig:load-data-2)). Here, you can adjust column names, data types, and other options. If the first row contains column names, select *Yes* under the *Heading* option. Click *Import*, and the dataset will appear in RStudio’s Environment panel, ready for analysis.  
 
-<div class="figure" style="text-align: center">
-<img src="images/RStudio-window-data-1.png" alt="A visual guide to loading a dataset into R using the 'Import Dataset' tab in RStudio." width="70%" />
-<p class="caption">(\#fig:load-data)A visual guide to loading a dataset into R using the 'Import Dataset' tab in RStudio.</p>
-</div>
+\begin{figure}
 
-<div class="figure" style="text-align: center">
-<img src="images/RStudio-window-data.png" alt="A visual guide to customizing the import settings when loading a dataset into R using the 'Import Dataset' tab in RStudio." width="70%" />
-<p class="caption">(\#fig:load-data-2)A visual guide to customizing the import settings when loading a dataset into R using the 'Import Dataset' tab in RStudio.</p>
-</div>
+{\centering \includegraphics[width=0.7\linewidth]{images/ch1_RStudio-window-data-1} 
+
+}
+
+\caption{A visual guide to loading a dataset into R using the 'Import Dataset' tab in RStudio.}(\#fig:load-data)
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{images/ch1_RStudio-window-data} 
+
+}
+
+\caption{A visual guide to customizing the import settings when loading a dataset into R using the 'Import Dataset' tab in RStudio.}(\#fig:load-data-2)
+\end{figure}
 
 ### Using `read.csv()`  {-}
 
 You can also import data directly using the `read.csv()` function, which reads tabular data (such as CSV files) into R as a data frame. If your data file is stored locally, you can load it as follows:  
 
 
-```r
+``` r
 data <- read.csv("path/to/your/file.csv")
 ```
 
 Replace `"path/to/your/file.csv"` with the actual file path. If your file does not contain column names, use:  
 
 
-```r
+``` r
 data <- read.csv("path/to/your/file.csv", header = FALSE)
 ```
 
@@ -315,14 +331,14 @@ By default, R looks for files in the current working directory. If your data is 
 To check your current working directory:  
 
 
-```r
+``` r
 getwd()
 ```
 
 To set a new working directory:  
 
 
-```r
+``` r
 setwd("~/Documents")  # Adjust the path based on your system
 ```
 
@@ -333,7 +349,7 @@ Alternatively, in RStudio, go to *Session > Set Working Directory > Choose Direc
 To interactively select a file instead of typing its path manually, use `file.choose()`:  
 
 
-```r
+``` r
 data <- read.csv(file.choose())
 ```
 
@@ -344,7 +360,7 @@ This will open a file selection dialog, making it a convenient option when worki
 R also allows direct import of datasets from web sources. For example, to load a publicly available COVID-19 dataset:  
 
 
-```r
+``` r
 corona_data <- read.csv("https://opendata.ecdc.europa.eu/covid19/casedistribution/csv", na.strings = "", fileEncoding = "UTF-8-BOM")
 ```
 
@@ -355,7 +371,7 @@ This approach is useful for accessing open datasets from research institutions o
 To import Excel files, use the `read_excel()` function from the **readxl** package. First, install and load the package:  
 
 
-```r
+``` r
 install.packages("readxl")
 
 library(readxl)
@@ -364,7 +380,7 @@ library(readxl)
 Then, import the Excel file:  
 
 
-```r
+``` r
 data <- read_excel("path/to/your/file.xlsx")
 ```
 
@@ -374,7 +390,7 @@ Unlike `read.csv()`, `read_excel()` supports multiple sheets within an Excel fil
 Some datasets are available directly in R packages and do not require importing from an external file. For example, the **liver** package, developed for this book, contains multiple datasets. To access the *churn* dataset:  
 
 
-```r
+``` r
 library(liver)
 data(churn)
 ```
@@ -398,7 +414,7 @@ Here are the most common data types in R:
 To check the data type of a variable, use the `class()` function. For example, to determine the type of the variable `result`, type:  
 
 
-```r
+``` r
 class(result)
    [1] "numeric"
 ```
@@ -411,17 +427,21 @@ Recognizing different data types is essential for choosing the right analytical 
 
 Data structures are fundamental to working with data in R. They define how data is stored and manipulated, which directly impacts the efficiency and accuracy of data analysis. The most commonly used data structures in R are vectors, matrices, data frames, and lists, as illustrated in Figure \@ref(fig:load-data-2).  
 
-<div class="figure" style="text-align: center">
-<img src="images/R-objects.png" alt="A visual guide to different types of data structures in R." width="60%" />
-<p class="caption">(\#fig:R-objects)A visual guide to different types of data structures in R.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.6\linewidth]{images/ch1_R-objects} 
+
+}
+
+\caption{A visual guide to different types of data structures in R.}(\#fig:R-objects)
+\end{figure}
 
 ### Vectors in R {-} 
 
 A vector is the simplest data structure in R. It is a one-dimensional array that holds elements of the same type (numeric, character, or logical). Vectors are the building blocks of other data structures. You can create a vector using the `c()` function:  
 
 
-```r
+``` r
 # Create a numeric vector
 x <- c(1, 2, 0, -3, 5)
 
@@ -445,7 +465,7 @@ Here, `x` is a numeric vector containing five elements. The `is.vector()` functi
 A matrix is a two-dimensional array where all elements must be of the same type. Matrices are useful for mathematical operations and structured numerical data. You can create a matrix using the `matrix()` function:  
 
 
-```r
+``` r
 # Create a matrix with 2 rows and 3 columns
 m <- matrix(c(1, 2, 3, 4, 5, 6), nrow = 2, ncol = 3, byrow = TRUE)
 
@@ -471,7 +491,7 @@ This matrix `m` consists of two rows and three columns, filled row-wise. The `di
 A data frame is a two-dimensional table where each column can contain a different data type (numeric, character, or logical). This makes data frames ideal for storing tabular data, similar to spreadsheets. You can create a data frame using the `data.frame()` function:  
 
 
-```r
+``` r
 # Create vectors for student data
 student_id <- c(101, 102, 103, 104)
 name       <- c("Emma", "Bob", "Alice", "Noah")
@@ -495,7 +515,7 @@ This data frame `students_df` consists of four columns: `student_id`, `name`, `a
 To inspect the first few rows of a data frame, use the `head()` function. For example, to display the first six rows of the *churn* dataset from the **liver** package:
 
 
-```r
+``` r
 library(liver)  # Load the liver package
 data(churn)     # Load the churn dataset
 
@@ -555,7 +575,7 @@ This code loads the **liver** package, retrieves the *churn* dataset, and provid
 A list is a flexible data structure that can contain elements of different types, including vectors, matrices, data frames, or even other lists. Lists are useful for storing complex objects in a structured way. You can create a list using the `list()` function:  
 
 
-```r
+``` r
 # Create a list containing a vector, matrix, and data frame
 my_list <- list(vector = x, matrix = m, data_frame = students_df)
 
@@ -580,7 +600,7 @@ my_list
 This list `my_list` stores a vector, a matrix, and a data frame within a single object. Lists allow for efficient organization of heterogeneous data. To explore the structure of a list, use the `str()` function:
 
 
-```r
+``` r
 str(my_list)
    List of 3
     $ vector    : num [1:5] 1 2 0 -3 5
@@ -601,7 +621,7 @@ Once you've imported data into R, you can easily access specific records or vari
 The `$` operator allows you to extract a specific column from a data frame or a specific element from a list. For example, to access the `name` column in the `students_df` data frame, you would use:
 
 
-```r
+``` r
 students_df$name
    [1] "Emma"  "Bob"   "Alice" "Noah"
 ```
@@ -611,7 +631,7 @@ This command retrieves and displays the `name` column from the `students_df` dat
 Similarly, you can use the `$` operator to access elements within a list. For example, to access the `vector` element in the `my_list` list:
 
 
-```r
+``` r
 my_list$vector
    [1]  1  2  0 -3  5
 ```
@@ -621,7 +641,7 @@ This command retrieves and displays the `vector` element from the `my_list` list
 Another method for accessing specific records or variables is through the `[]` operator, which allows you to subset data frames, matrices, and lists based on specific conditions. For example, to extract the first three rows of the `students_df` data frame, you can use:
 
 
-```r
+``` r
 students_df[1:3, ]
      student_id  name age grade
    1        101  Emma  20     A
@@ -634,7 +654,7 @@ This command will display the first three rows of the `students_df` data frame.
 You can also use the `[]` operator to extract specific columns. For instance, to select the `name` and `grade` columns from the `students_df` data frame:
 
 
-```r
+``` r
 students_df[, c("name", "grade")]
       name grade
    1  Emma     A
@@ -660,26 +680,28 @@ In R, there are two primary ways to create plots: using base R graphics and usin
 To create a plot using **ggplot2**, first install and load the package. Instructions for installing packages are provided in Section \@ref(install-packages). To load **ggplot2**, use the following command:  
 
 
-```r
+``` r
 library(ggplot2)
 ```
 
 Next, define the data, aesthetics, and geometries for your plot. For example, to create a scatter plot of miles per gallon (`mpg`) versus horsepower (`hp`) using the built-in *mtcars* dataset:  
 
 
-```r
+``` r
 ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp))
 ```
 
-<img src="Intro-R_files/figure-html/unnamed-chunk-32-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-32-1} \end{center}
 
 This code initializes the plot with the `ggplot()` function, specifying the dataset (`mtcars`). The `geom_point()` function adds points to the plot, and the `aes()` function maps `mpg` to the x-axis and `hp` to the y-axis.  
 
 The general template for creating plots with **ggplot2** follows this structure:  
 
 
-```r
+``` r
 ggplot(data = <DATA>) +
   <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))
 ```
@@ -701,28 +723,32 @@ Geom functions determine the type of plot created in **ggplot2**. Some commonly 
 For example, to create a smoothed line plot of `mpg` versus `hp`:  
 
 
-```r
+``` r
 ggplot(data = mtcars) +
   geom_smooth(mapping = aes(x = mpg, y = hp))
 ```
 
-<img src="Intro-R_files/figure-html/unnamed-chunk-34-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-34-1} \end{center}
 
 Multiple geom functions can be combined in a single plot. To overlay a scatter plot on the smoothed line:  
 
 
-```r
+``` r
 ggplot(data = mtcars) +
   geom_smooth(mapping = aes(x = mpg, y = hp)) + 
   geom_point(mapping = aes(x = mpg, y = hp))
 ```
 
-<img src="Intro-R_files/figure-html/unnamed-chunk-35-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-35-1} \end{center}
 
 Alternatively, the `aes()` function can be placed inside `ggplot()` to streamline the code:  
 
 
-```r
+``` r
 ggplot(data = mtcars, mapping = aes(x = mpg, y = hp)) +
   geom_smooth() + 
   geom_point()
@@ -735,19 +761,21 @@ Additional visualization examples can be found in Chapter \@ref(chapter-EDA). Fo
 Aesthetics control the visual properties of data points, such as color, size, and shape. These properties are specified within the `aes()` function. For example:  
 
 
-```r
+``` r
 ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp, color = cyl))
 ```
 
-<img src="Intro-R_files/figure-html/unnamed-chunk-37-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-37-1} \end{center}
 
 Here, `color = cyl` maps the color of the points to the number of cylinders (`cyl`) in the **mtcars** dataset. **ggplot2** automatically assigns a unique color to each category and adds a corresponding legend.  
 
 In addition to `color`, other aesthetics such as `size` and `alpha` (transparency) can be used:  
 
 
-```r
+``` r
 # Left plot: using the size aesthetic
 ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp, size = cyl))
@@ -757,18 +785,21 @@ ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp, alpha = cyl))
 ```
 
-<img src="Intro-R_files/figure-html/unnamed-chunk-38-1.png" width="50%" /><img src="Intro-R_files/figure-html/unnamed-chunk-38-2.png" width="50%" />
+
+\includegraphics[width=0.5\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-38-1} \includegraphics[width=0.5\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-38-2} 
 
 Aesthetics can also be set directly inside geom functions. For example, to make all points blue triangles of size 3:  
 
 
-```r
+``` r
 ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp), 
              color = "blue", size = 3, shape = 2)
 ```
 
-<img src="Intro-R_files/figure-html/unnamed-chunk-39-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-39-1} \end{center}
 
 This section introduced the fundamentals of data visualization in R using **ggplot2**. The next chapters will explore how visualization plays a crucial role in exploratory data analysis (Chapter \@ref(chapter-EDA)) and how to refine plots for communication and reporting. For more details on visualization techniques, see the [**ggplot2** documentation](https://ggplot2.tidyverse.org). For interactive graphics, consider exploring the **plotly** package or **Shiny** for web applications.  
 
@@ -780,7 +811,7 @@ In R, formulas use the tilde symbol `~` to express relationships between variabl
 For instance, using the `diamonds` dataset, the formula:
 
 
-```r
+``` r
 price ~ carat + cut + color
 ```
 
@@ -789,7 +820,7 @@ models the `price` of a diamond based on its `carat`, `cut`, and `color`.
 To include all other variables in the dataset as predictors, we can use the shorthand notation:
 
 
-```r
+``` r
 price ~ .
 ```
 
@@ -801,7 +832,7 @@ A formula in R acts as a **quoting operator**, instructing R to interpret the va
 To illustrate, suppose we want to predict the `price` of a diamond using a linear regression model. We can pass the formula into the `lm()` function:
 
 
-```r
+``` r
 model <- lm(price ~ carat + cut + color, data = diamonds)
 ```
 
@@ -863,7 +894,7 @@ R Markdown integrates R code within documents using code chunks, which are enclo
 
 ````markdown
 
-```r
+``` r
 2 + 3
    [1] 5
 ```
@@ -871,10 +902,14 @@ R Markdown integrates R code within documents using code chunks, which are enclo
 
 When compiled, R executes the code and displays the output within the document. Code chunks are used for analysis, visualizations, and modeling. The "Run" button in RStudio allows individual execution of chunks. See Figure \@ref(fig:run-chunk) for a visual guide.  
 
-<div class="figure" style="text-align: center">
-<img src="images/run-chunk.png" alt="Executing a code chunk in R Markdown using the 'Run' button in RStudio." width="90%" />
-<p class="caption">(\#fig:run-chunk)Executing a code chunk in R Markdown using the 'Run' button in RStudio.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{images/ch1_run-chunk} 
+
+}
+
+\caption{Executing a code chunk in R Markdown using the 'Run' button in RStudio.}(\#fig:run-chunk)
+\end{figure}
 
 Common chunk options include:  
 
@@ -964,7 +999,7 @@ Print the first few rows of the data frame using `head()`.
      
 Run the code and report the summary statistics of the data.  
 
-```r
+``` r
 # Simulate data for kNN
 set.seed(10)
 
@@ -992,14 +1027,16 @@ drug_data = data.frame(Age = Age, Ratio = Ratio, Type = Type)
 
 Visualize the data using the following **ggplot2** code:  
 
-```r
+``` r
 ggplot(data = drug_data, aes(x = Age, y = Ratio)) +
   geom_point(aes(color = Type, shape = Type)) + 
   labs(title = "Age vs. Sodium/Potassium Ratio", 
        x = "Age", y = "Sodium/Potassium Ratio")
 ```
 
-<img src="Intro-R_files/figure-html/unnamed-chunk-45-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-45-1} \end{center}
 
 18. Extend the dataset `drug_data` by adding a new variable named `Outcome`, which is a factor with two levels (`"Good"` and `"Bad"`).  
 - Patients with `Type == "A"` should have a higher probability of `"Good"` outcomes.  

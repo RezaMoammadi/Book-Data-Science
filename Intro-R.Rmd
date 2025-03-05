@@ -64,7 +64,7 @@ RStudio is updated several times a year, and it will notify you when a new versi
 When you open RStudio, you will see a window similar to Figure \@ref(fig:RStudio-window-1).
 
 ```{r RStudio-window-1, echo = FALSE, out.width = "70%", fig.align = 'center', fig.cap = "The RStudio window when you first launch the program."}
-knitr::include_graphics("images/RStudio-window-1.png")
+knitr::include_graphics("images/ch1_RStudio-window-1.png")
 ```
 
 If you see only three panels, add a fourth by selecting _File > New File > R Script_. This opens a script editor where you can write and save R code. Here’s a quick overview of RStudio’s panels:  
@@ -149,7 +149,7 @@ For those interested in exploring further, the Comprehensive R Archive Network (
 There are two ways to install R packages. The first method is through RStudio’s graphical interface. Click on the "Tools" tab and select "Install Packages…". In the dialog box that appears, enter the name of the package(s) you wish to install in the "Packages" field and click the "Install" button. Make sure to check the "Install dependencies" option to ensure that all necessary supporting packages are installed as well. See Figure \@ref(fig:install-packages) for a visual guide.  
 
 ```{r install-packages, echo = FALSE, out.width = "70%", fig.align = 'center', fig.cap = "A visual guide to installing R packages using the 'Tools' tab in RStudio."}
-knitr::include_graphics("images/RStudio-window-install.png")
+knitr::include_graphics("images/ch1_RStudio-window-install.png")
 ```
 
 The second method is to install packages directly using the `install.packages()` function. For example, to install the **liver** package, which provides datasets and functions used throughout this book, enter the following command in the R console:  
@@ -268,11 +268,11 @@ The easiest way to import data into R is through RStudio’s graphical interface
 After selecting your file, RStudio will display an import settings window (see Figure \@ref(fig:load-data-2)). Here, you can adjust column names, data types, and other options. If the first row contains column names, select *Yes* under the *Heading* option. Click *Import*, and the dataset will appear in RStudio’s Environment panel, ready for analysis.  
 
 ```{r load-data, echo = FALSE, out.width = "70%", fig.align = 'center', fig.cap = "A visual guide to loading a dataset into R using the 'Import Dataset' tab in RStudio."}
-knitr::include_graphics("images/RStudio-window-data-1.png")
+knitr::include_graphics("images/ch1_RStudio-window-data-1.png")
 ```
 
 ```{r load-data-2, echo = FALSE, out.width = "70%", fig.align = 'center', fig.cap = "A visual guide to customizing the import settings when loading a dataset into R using the 'Import Dataset' tab in RStudio."}
-knitr::include_graphics("images/RStudio-window-data.png")
+knitr::include_graphics("images/ch1_RStudio-window-data.png")
 ```
 
 ### Using `read.csv()`  {-}
@@ -384,7 +384,7 @@ Recognizing different data types is essential for choosing the right analytical 
 Data structures are fundamental to working with data in R. They define how data is stored and manipulated, which directly impacts the efficiency and accuracy of data analysis. The most commonly used data structures in R are vectors, matrices, data frames, and lists, as illustrated in Figure \@ref(fig:load-data-2).  
 
 ```{r R-objects, echo = FALSE, out.width = "60%", fig.align = 'center', fig.cap = "A visual guide to different types of data structures in R."}
-knitr::include_graphics("images/R-objects.png")
+knitr::include_graphics("images/ch1_R-objects.png")
 ```
 
 ### Vectors in R {-} 
@@ -719,7 +719,7 @@ R Markdown integrates R code within documents using code chunks, which are enclo
 When compiled, R executes the code and displays the output within the document. Code chunks are used for analysis, visualizations, and modeling. The "Run" button in RStudio allows individual execution of chunks. See Figure \@ref(fig:run-chunk) for a visual guide.  
 
 ```{r run-chunk, echo = FALSE, out.width = "90%", fig.align = 'center', fig.cap = "Executing a code chunk in R Markdown using the 'Run' button in RStudio."}
-knitr::include_graphics("images/run-chunk.png")
+knitr::include_graphics("images/ch1_run-chunk.png")
 ```
 
 Common chunk options include:  

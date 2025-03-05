@@ -4,19 +4,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 5 Statistical Inference and Hypothesis Testing | Uncovering Data Science with R</title>
+<title>Chapter 5 Statistical Inference and Hypothesis Testing | Data Science Foundations and Machine Learning Using R</title>
 <meta name="author" content="Reza Mohammadi">
-<meta name="generator" content="bookdown 0.37 with bs4_book()">
-<meta property="og:title" content="Chapter 5 Statistical Inference and Hypothesis Testing | Uncovering Data Science with R">
+<meta name="description" content="Statistical inference bridges the gap between what we observe in a sample and what we want to understand about the population. While exploratory data analysis (EDA) helps us identify patterns and...">
+<meta name="generator" content="bookdown 0.42 with bs4_book()">
+<meta property="og:title" content="Chapter 5 Statistical Inference and Hypothesis Testing | Data Science Foundations and Machine Learning Using R">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://uncovering-data-science.netlify.app/chapter-statistics.html">
-<meta property="og:image" content="https://uncovering-data-science.netlify.app/images/cover.jpg">
+<meta property="og:image" content="https://uncovering-data-science.netlify.app/images/logo_black.png">
+<meta property="og:description" content="Statistical inference bridges the gap between what we observe in a sample and what we want to understand about the population. While exploratory data analysis (EDA) helps us identify patterns and...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 5 Statistical Inference and Hypothesis Testing | Uncovering Data Science with R">
-<meta name="twitter:image" content="https://uncovering-data-science.netlify.app/images/cover.jpg">
+<meta name="twitter:title" content="Chapter 5 Statistical Inference and Hypothesis Testing | Data Science Foundations and Machine Learning Using R">
+<meta name="twitter:description" content="Statistical inference bridges the gap between what we observe in a sample and what we want to understand about the population. While exploratory data analysis (EDA) helps us identify patterns and...">
+<meta name="twitter:image" content="https://uncovering-data-science.netlify.app/images/logo_black.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.9.0/transition.js"></script><script src="libs/bs3compat-0.9.0/tabs.js"></script><script src="libs/bs3compat-0.9.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
@@ -46,9 +49,6 @@
     }
   </style>
 <link rel="stylesheet" href="style.css">
-<meta name="description" content="Statistical inference bridges the gap between what we observe in a sample and what we want to understand about the population. While exploratory data analysis (EDA) helps us identify patterns and...">
-<meta property="og:description" content="Statistical inference bridges the gap between what we observe in a sample and what we want to understand about the population. While exploratory data analysis (EDA) helps us identify patterns and...">
-<meta name="twitter:description" content="Statistical inference bridges the gap between what we observe in a sample and what we want to understand about the population. While exploratory data analysis (EDA) helps us identify patterns and...">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -58,7 +58,7 @@
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
-        <a href="index.html" title="">Uncovering Data Science with R</a>
+        <a href="index.html" title="">Data Science Foundations and Machine Learning Using R</a>
       </h1>
       <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
@@ -70,7 +70,8 @@
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
-<li><a class="" href="index.html">Preface</a></li>
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="preface.html">Preface</a></li>
 <li><a class="" href="chapter-into-R.html"><span class="header-section-number">1</span> The Basics for R</a></li>
 <li><a class="" href="chapter-intro-DS.html"><span class="header-section-number">2</span> Introduction to Data Science</a></li>
 <li><a class="" href="chapter-data-prep.html"><span class="header-section-number">3</span> Data Preparation</a></li>
@@ -84,6 +85,7 @@
 <li><a class="" href="chapter-tree.html"><span class="header-section-number">11</span> Decision Trees and Random Forests</a></li>
 <li><a class="" href="chapter-nn.html"><span class="header-section-number">12</span> Neural Networks: The Building Blocks of Artificial Intelligence</a></li>
 <li><a class="" href="chapter-cluster.html"><span class="header-section-number">13</span> Clustering</a></li>
+<li><a class="" href="references.html">References</a></li>
 </ul>
 
         <div class="book-extra">
@@ -179,7 +181,7 @@
 <p>where <span class="math inline">\(\bar{x}\)</span> is the sample mean, <span class="math inline">\(z_{\frac{\alpha}{2}}\)</span> is a critical value from the standard normal distribution (such as 1.96 for a 95% confidence level), <span class="math inline">\(s\)</span> is the sample standard deviation, and <span class="math inline">\(n\)</span> is the sample size. This concept is illustrated in Figure <a href="chapter-statistics.html#fig:confidence-interval">5.1</a>, where the interval is centered around the point estimate and its width depends on the margin of error.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:confidence-interval"></span>
-<img src="images/confidence_interval.png" alt="Confidence interval for the population mean. The interval is centered around the point estimate, with the width determined by the margin of error. The confidence level specifies the probability that the interval contains the true population parameter." width="80%"><p class="caption">
+<img src="images/ch5_confidence_interval.png" alt="Confidence interval for the population mean. The interval is centered around the point estimate, with the width determined by the margin of error. The confidence level specifies the probability that the interval contains the true population parameter." width="80%"><p class="caption">
 Figure 5.1: Confidence interval for the population mean. The interval is centered around the point estimate, with the width determined by the margin of error. The confidence level specifies the probability that the interval contains the true population parameter.
 </p>
 </div>
@@ -263,19 +265,19 @@ Figure 5.1: Confidence interval for the population mean. The interval is centere
 <col width="37%">
 <col width="36%">
 </colgroup>
-<thead><tr>
+<thead><tr class="header">
 <th><em>Decision</em></th>
 <th><em>Reality: <span class="math inline">\(H_0\)</span> is True</em></th>
 <th><em>Reality: <span class="math inline">\(H_0\)</span> is False</em></th>
 </tr></thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>Fail to Reject <span class="math inline">\(H_0\)</span>
 </td>
 <td><span style="color: green;"><em>Correct Decision</em>: Acquit an innocent person.</span></td>
 <td><span style="color: red;"><em>Type II Error (<span class="math inline">\(\beta\)</span>)</em>: Acquit a guilty person.</span></td>
 </tr>
-<tr>
+<tr class="even">
 <td>Reject <span class="math inline">\(H_0\)</span>
 </td>
 <td><span style="color: red;"><em>Type I Error (<span class="math inline">\(\alpha\)</span>)</em>: Convict an innocent person.</span></td>
@@ -297,43 +299,43 @@ Figure 5.1: Confidence interval for the population mean. The interval is centere
 <col width="32%">
 <col width="42%">
 </colgroup>
-<thead><tr>
+<thead><tr class="header">
 <th>Test</th>
 <th><span class="math inline">\(H_0\)</span></th>
 <th>Can be used for</th>
 </tr></thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>One-sample t-test</td>
 <td><span class="math inline">\(H_0: \mu = \mu_0\)</span></td>
 <td>A numerical variable</td>
 </tr>
-<tr>
+<tr class="even">
 <td>Test for Proportion</td>
 <td><span class="math inline">\(H_0: \pi = \pi_0\)</span></td>
 <td>A categorical variable</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>Two-sample t-test</td>
 <td><span class="math inline">\(H_0: \mu_1 = \mu_2\)</span></td>
 <td>A numerical and a binary variable</td>
 </tr>
-<tr>
+<tr class="even">
 <td>Two-sample Z-test</td>
 <td><span class="math inline">\(H_0: \pi_1 = \pi_2\)</span></td>
 <td>Two binary variables</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>Chi-square Test</td>
 <td><span class="math inline">\(H_0: \pi_1 = \pi_2 = \pi_3\)</span></td>
 <td>Two categorical variables (with &gt; 2 categories)</td>
 </tr>
-<tr>
+<tr class="even">
 <td>Analysis of Variance (ANOVA)</td>
 <td><span class="math inline">\(H_0: \mu_1 = \mu_2 = \mu_3\)</span></td>
 <td>A numerical and a categorical variable</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>Correlation Test</td>
 <td><span class="math inline">\(H_0: \rho = 0\)</span></td>
 <td>Two numerical variables</td>
@@ -693,7 +695,7 @@ While statistical inference and hypothesis testing are essential tools in data s
 <ol style="list-style-type: decimal">
 <li><p>Why is hypothesis testing important in data science? Explain its role in making data-driven decisions and how it complements exploratory data analysis.</p></li>
 <li><p>What is the difference between a confidence interval and a hypothesis test? How do they provide different ways of drawing conclusions about population parameters?</p></li>
-<li><p>The <em>p</em>-value represents the probability of observing the sample data, or something more extreme, assuming the null hypothesis is true. How should <em>p</em>-values be interpreted, and why is a <em>p</em>-value of 0.001 in a two-sample <em>t</em>-test not necessarily evidence of practical significance?**</p></li>
+<li><p>The <em>p</em>-value represents the probability of observing the sample data, or something more extreme, assuming the null hypothesis is true. How should <em>p</em>-values be interpreted, and why is a <em>p</em>-value of 0.001 in a two-sample <em>t</em>-test not necessarily evidence of practical significance?</p></li>
 <li><p>Explain the concepts of <em>Type I</em> and <em>Type II</em> errors in hypothesis testing. Why is it important to balance the risks of these errors when designing statistical tests?</p></li>
 <li><p>In a hypothesis test, failing to reject the null hypothesis does not imply that the null hypothesis is true. Explain why this is the case and discuss the implications of this result in practice.</p></li>
 <li><p>When working with small sample sizes, why is the <em>t</em>-distribution used instead of the normal distribution? How does the shape of the <em>t</em>-distribution change as the sample size increases?</p></li>
@@ -881,7 +883,7 @@ While statistical inference and hypothesis testing are essential tools in data s
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Uncovering Data Science with R</strong>" was written by Reza Mohammadi. It was last built on 2025-02-27.</p>
+    <p>"<strong>Data Science Foundations and Machine Learning Using R</strong>" was written by <a href="https://www.uva.nl/profile/a.mohammadi"><span style="color:white">Reza Mohammadi</span></a>. It was last built on 2025-03-05.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

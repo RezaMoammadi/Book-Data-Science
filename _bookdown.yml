@@ -20,5 +20,6 @@ rmd_files: [
     "regression.Rmd",
     "tree.Rmd",
     "nn.Rmd",
-    "clustering.Rmd"
+    "clustering.Rmd",
+    "references.Rmd"
 ]

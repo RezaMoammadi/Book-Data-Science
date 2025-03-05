@@ -4,19 +4,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 4 Exploratory Data Analysis | Uncovering Data Science with R</title>
+<title>Chapter 4 Exploratory Data Analysis | Data Science Foundations and Machine Learning Using R</title>
 <meta name="author" content="Reza Mohammadi">
-<meta name="generator" content="bookdown 0.37 with bs4_book()">
-<meta property="og:title" content="Chapter 4 Exploratory Data Analysis | Uncovering Data Science with R">
+<meta name="description" content="Exploratory Data Analysis (EDA) is a fundamental step in data science that helps uncover insights, detect patterns, and understand relationships within a dataset. Before applying statistical...">
+<meta name="generator" content="bookdown 0.42 with bs4_book()">
+<meta property="og:title" content="Chapter 4 Exploratory Data Analysis | Data Science Foundations and Machine Learning Using R">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://uncovering-data-science.netlify.app/chapter-EDA.html">
-<meta property="og:image" content="https://uncovering-data-science.netlify.app/images/cover.jpg">
+<meta property="og:image" content="https://uncovering-data-science.netlify.app/images/logo_black.png">
+<meta property="og:description" content="Exploratory Data Analysis (EDA) is a fundamental step in data science that helps uncover insights, detect patterns, and understand relationships within a dataset. Before applying statistical...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 4 Exploratory Data Analysis | Uncovering Data Science with R">
-<meta name="twitter:image" content="https://uncovering-data-science.netlify.app/images/cover.jpg">
+<meta name="twitter:title" content="Chapter 4 Exploratory Data Analysis | Data Science Foundations and Machine Learning Using R">
+<meta name="twitter:description" content="Exploratory Data Analysis (EDA) is a fundamental step in data science that helps uncover insights, detect patterns, and understand relationships within a dataset. Before applying statistical...">
+<meta name="twitter:image" content="https://uncovering-data-science.netlify.app/images/logo_black.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.9.0/transition.js"></script><script src="libs/bs3compat-0.9.0/tabs.js"></script><script src="libs/bs3compat-0.9.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
@@ -46,9 +49,6 @@
     }
   </style>
 <link rel="stylesheet" href="style.css">
-<meta name="description" content="Exploratory Data Analysis (EDA) is a fundamental step in data science that helps uncover insights, detect patterns, and understand relationships within a dataset. Before applying statistical...">
-<meta property="og:description" content="Exploratory Data Analysis (EDA) is a fundamental step in data science that helps uncover insights, detect patterns, and understand relationships within a dataset. Before applying statistical...">
-<meta name="twitter:description" content="Exploratory Data Analysis (EDA) is a fundamental step in data science that helps uncover insights, detect patterns, and understand relationships within a dataset. Before applying statistical...">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -58,7 +58,7 @@
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
-        <a href="index.html" title="">Uncovering Data Science with R</a>
+        <a href="index.html" title="">Data Science Foundations and Machine Learning Using R</a>
       </h1>
       <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
@@ -70,7 +70,8 @@
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
-<li><a class="" href="index.html">Preface</a></li>
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="preface.html">Preface</a></li>
 <li><a class="" href="chapter-into-R.html"><span class="header-section-number">1</span> The Basics for R</a></li>
 <li><a class="" href="chapter-intro-DS.html"><span class="header-section-number">2</span> Introduction to Data Science</a></li>
 <li><a class="" href="chapter-data-prep.html"><span class="header-section-number">3</span> Data Preparation</a></li>
@@ -84,6 +85,7 @@
 <li><a class="" href="chapter-tree.html"><span class="header-section-number">11</span> Decision Trees and Random Forests</a></li>
 <li><a class="" href="chapter-nn.html"><span class="header-section-number">12</span> Neural Networks: The Building Blocks of Artificial Intelligence</a></li>
 <li><a class="" href="chapter-cluster.html"><span class="header-section-number">13</span> Clustering</a></li>
+<li><a class="" href="references.html">References</a></li>
 </ul>
 
         <div class="book-extra">
@@ -148,53 +150,53 @@
 <col width="20%">
 <col width="43%">
 </colgroup>
-<thead><tr>
+<thead><tr class="header">
 <th align="left">EDA.Objective</th>
 <th align="left">Data.Type</th>
 <th align="left">Recommended.Tools</th>
 </tr></thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td align="left">Understand the distribution of a variable</td>
 <td align="left">Numerical (continuous/discrete)</td>
 <td align="left">Histogram, box plot, density plot, summary statistics</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left">Examine a categorical variable’s distribution</td>
 <td align="left">Categorical</td>
 <td align="left">Bar chart, frequency table</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left">Identify outliers</td>
 <td align="left">Numerical</td>
 <td align="left">Box plot, histogram, Z-score analysis</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left">Detect missing values</td>
 <td align="left">Any</td>
 <td align="left">Heatmap, summary statistics, missing data patterns</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left">Analyze the relationship between two numerical variables</td>
 <td align="left">Numerical &amp; numerical</td>
 <td align="left">Scatter plot, correlation coefficient, regression line</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left">Compare a numerical variable across categories</td>
 <td align="left">Categorical &amp; numerical</td>
 <td align="left">Box plot, violin plot, grouped bar chart</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left">Explore interactions between two categorical variables</td>
 <td align="left">Categorical &amp; categorical</td>
 <td align="left">Stacked bar chart, mosaic plot, contingency table</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left">Assess correlation among multiple numerical variables</td>
 <td align="left">Multiple numerical</td>
 <td align="left">Correlation matrix, pair plot (scatterplot matrix)</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left">Investigate complex multivariate relationships</td>
 <td align="left">Multiple variables</td>
 <td align="left">Facet grid, parallel coordinates, principal component analysis (PCA)</td>
@@ -216,7 +218,7 @@
 <p>One example comes from climate science. Figure <a href="chapter-EDA.html#fig:EDA-fig-1">4.1</a> presents global mean surface temperature changes over the Common Era, highlighting long-term warming trends. Adapted from <span class="citation">Raphael Neukom et al.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;&lt;span&gt;“No Evidence for Globally Coherent Warm and Cold Periods over the Preindustrial Common Era,”&lt;/span&gt; &lt;em&gt;Nature&lt;/em&gt; 571, no. 7766 (2019): 550–54.&lt;/p&gt;"><sup>4</sup></a></span>, this visualization provides a historical perspective on climate change, illustrating temperature anomalies over time.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:EDA-fig-1"></span>
-<img src="images/EDA_fig_1.png" alt="Global mean surface temperature history over the Common Era. Temperature anomalies with respect to 1961–1990 CE. The colored lines represent 30-year low-pass-filtered ensemble medians for different reconstruction methods." width="100%"><p class="caption">
+<img src="images/ch4_EDA_fig_1.png" alt="Global mean surface temperature history over the Common Era. Temperature anomalies with respect to 1961–1990 CE. The colored lines represent 30-year low-pass-filtered ensemble medians for different reconstruction methods." width="100%"><p class="caption">
 Figure 4.1: Global mean surface temperature history over the Common Era. Temperature anomalies with respect to 1961–1990 CE. The colored lines represent 30-year low-pass-filtered ensemble medians for different reconstruction methods.
 </p>
 </div>
@@ -615,7 +617,7 @@ Figure 4.2: Animated scatter plot of fertility rate and life expectancy at birth
 <p>Below, Figure <a href="chapter-EDA.html#fig:correlation">4.3</a> shows examples of different correlation coefficients.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:correlation"></span>
-<img src="images/correlation.png" alt="Example scatterplots showing different correlation coefficients." width="100%"><p class="caption">
+<img src="images/ch4_correlation.png" alt="Example scatterplots showing different correlation coefficients." width="100%"><p class="caption">
 Figure 4.3: Example scatterplots showing different correlation coefficients.
 </p>
 </div>
@@ -809,7 +811,7 @@ Figure 4.3: Example scatterplots showing different correlation coefficients.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Uncovering Data Science with R</strong>" was written by Reza Mohammadi. It was last built on 2025-02-27.</p>
+    <p>"<strong>Data Science Foundations and Machine Learning Using R</strong>" was written by <a href="https://www.uva.nl/profile/a.mohammadi"><span style="color:white">Reza Mohammadi</span></a>. It was last built on 2025-03-05.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

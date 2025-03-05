@@ -72,7 +72,7 @@ To illustrate its application, consider a financial risk assessment scenario fro
 Let’s use the `risk` dataset to calculate the probability of a customer being classified as good risk, given that they have a mortgage. We start by loading the dataset and inspecting the relevant data:  
 
 
-```r
+``` r
 library(liver)         
 
 data(risk)
@@ -87,7 +87,7 @@ xtabs(~ risk + mortgage, data = risk)
 To improve readability, we add row and column totals to the contingency table:  
 
 
-```r
+``` r
 addmargins(xtabs(~ risk + mortgage, data = risk))
               mortgage
    risk        yes  no Sum
@@ -156,7 +156,7 @@ This assumption is what makes the algorithm “naive.” In reality, features ar
 To illustrate, consider the `risk` dataset from the **liver** package:  
 
 
-```r
+``` r
 str(risk)
    'data.frame':	246 obs. of  6 variables:
     $ age     : int  34 37 29 33 39 28 28 25 41 26 ...
@@ -231,7 +231,7 @@ This adjustment ensures that:
 In R, Laplace smoothing can be applied using the `laplace` argument in the **naivebayes** package. By default, `laplace = 0`, meaning no smoothing is applied. To apply smoothing, simply set `laplace = 1`:
 
 
-```r
+``` r
 library(naivebayes)
 
 # Fit Naive Bayes with Laplace smoothing
@@ -290,7 +290,7 @@ For additional details about the dataset, refer to its [documentation](https://s
 To begin the analysis, we load the dataset and examine its structure to understand its variables and data types:
 
 
-```r
+``` r
 data(risk)
 
 str(risk)
@@ -306,7 +306,7 @@ str(risk)
 To gain further insights, we summarize the dataset’s key statistics:
 
 
-```r
+``` r
 summary(risk)
          age           marital        income      mortgage     nr.loans    
     Min.   :17.00   single :111   Min.   :15301   yes:175   Min.   :0.000  
@@ -331,7 +331,7 @@ This summary provides an overview of variable distributions and identifies any m
 Before training the Naive Bayes classifier, we need to split the dataset into training and testing sets. This step ensures that we can evaluate how well the model generalizes to unseen data. We use an 80/20 split, allocating 80% of the data for training and 20% for testing. To maintain consistency with previous chapters, we apply the `partition()` function from the **liver** package:
 
 
-```r
+``` r
 set.seed(5)
 
 data_sets = partition(data = risk, ratio = c(0.8, 0.2))
@@ -347,7 +347,7 @@ Setting `set.seed(5)` ensures reproducibility so that the same partitioning is a
 To verify that the training and test sets are representative of the original dataset, we compare the proportions of the `marital` variable across both sets. A chi-squared test is used to check whether the distribution of marital statuses (`single`, `married`, and `other`) is statistically similar between the training and test sets:
 
 
-```r
+``` r
 chisq.test(x = table(train_set$marital), y = table(test_set$marital))
    
    	Pearson's Chi-squared test
@@ -387,14 +387,14 @@ Unlike the k-NN algorithm in the previous chapter, which classifies new data wit
 To train the model, we define a formula where `risk` is the target variable, and all other features serve as predictors:  
 
 
-```r
+``` r
 formula = risk ~ age + income + mortgage + nr.loans + marital
 ```
 
 We then apply the `naive_bayes()` function from the **naivebayes** package to train the classifier on the training dataset:  
 
 
-```r
+``` r
 library(naivebayes)
 
 naive_bayes = naive_bayes(formula, data = train_set)
@@ -473,7 +473,7 @@ The `naive_bayes()` function estimates the probability distributions for each fe
 To inspect the model’s learned probability distributions, we summarize the trained model:  
 
 
-```r
+``` r
 summary(naive_bayes)
    
    ================================= Naive Bayes ================================== 
@@ -503,7 +503,7 @@ After training the Naive Bayes classifier, we evaluate its performance by applyi
 To obtain the predicted class probabilities, we use the `predict()` function from the **naivebayes** package:  
 
 
-```r
+``` r
 prob_naive_bayes = predict(naive_bayes, test_set, type = "prob")
 ```
 
@@ -512,7 +512,7 @@ By specifying `type = "prob"`, the function returns posterior probabilities for 
 To inspect the model’s predictions, we display the first 10 probability estimates:  
 
 
-```r
+``` r
 # Display the first 10 predictions
 round(head(prob_naive_bayes, n = 10), 3)
          good risk bad risk
@@ -542,7 +542,7 @@ This probability-based output provides flexibility in decision-making. Instead o
 To assess the classification performance of our Naive Bayes model, we compute the confusion matrix using the `conf.mat()` and `conf.mat.plot()` functions from the **liver** package. The confusion matrix compares the predicted class probabilities with the actual class labels, allowing us to measure the model’s accuracy and analyze different types of errors.  
 
 
-```r
+``` r
 # Extract probability of "good risk"
 prob_naive_bayes = prob_naive_bayes[, 1] 
 
@@ -555,7 +555,9 @@ conf.mat(prob_naive_bayes, test_labels, cutoff = 0.5, reference = "good risk")
 conf.mat.plot(prob_naive_bayes, test_labels, cutoff = 0.5, reference = "good risk")
 ```
 
-<img src="bayes_files/figure-html/unnamed-chunk-16-1.png" width="65%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.65\linewidth]{bayes_files/figure-latex/unnamed-chunk-16-1} \end{center}
 
 In this evaluation, we apply a **classification threshold of 0.5**, meaning that if a customer’s predicted probability of being a "`good risk`" is at least 50%, the model classifies them as "`good risk`"; otherwise, they are classified as "`bad risk`." Additionally, we specify **"`good risk`" as the reference class**, meaning that performance metrics such as sensitivity and precision will be calculated with respect to this category.  
 
@@ -575,7 +577,7 @@ This matrix offers a structured way to assess classification performance, helpin
 To further evaluate the model, we compute the *Receiver Operating Characteristic (ROC) curve* and the *Area Under the Curve (AUC)* value. These metrics provide a comprehensive assessment of the model’s ability to distinguish between "`good risk`" and "`bad risk`" customers across different classification thresholds. The **pROC** package in R facilitates both calculations.  
 
 
-```r
+``` r
 library(pROC)          
 
 roc_naive_bayes = roc(test_labels, prob_naive_bayes)
@@ -583,14 +585,16 @@ roc_naive_bayes = roc(test_labels, prob_naive_bayes)
 ggroc(roc_naive_bayes)
 ```
 
-<img src="bayes_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{bayes_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 The ROC curve plots the **true positive rate (sensitivity)** against the **false positive rate (1 - specificity)** at various threshold values. A curve that remains closer to the top-left corner indicates a well-performing model, while a curve near the diagonal suggests performance close to random guessing.  
 
 Next, we compute the *AUC* value, which summarizes the ROC curve into a single number:  
 
 
-```r
+``` r
 round(auc(roc_naive_bayes), 3)
    [1] 0.957
 ```
@@ -641,7 +645,7 @@ For the following exercises, we will use the *churn* dataset from the **liver** 
 17. Load the **liver** package and the *churn* dataset:  
 
 
-```r
+``` r
 library(liver)
 data(churn)
 ```
@@ -657,7 +661,7 @@ data(churn)
 21. Based on the exploratory data analysis in Section \@ref(EDA-sec-churn), select the following predictors for the Naive Bayes model: `account.length`, `voice.plan`, `voice.messages`, `intl.plan`, `intl.mins`, `day.mins`, `eve.mins`, `night.mins`, and `customer.calls`. Define the model formula:  
 
 
-```r
+``` r
 formula = churn ~ account.length + voice.plan + voice.messages + 
                  intl.plan + intl.mins + day.mins + eve.mins + 
                  night.mins + customer.calls

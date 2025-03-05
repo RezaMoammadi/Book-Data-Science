@@ -4,19 +4,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 2 Introduction to Data Science | Uncovering Data Science with R</title>
+<title>Chapter 2 Introduction to Data Science | Data Science Foundations and Machine Learning Using R</title>
 <meta name="author" content="Reza Mohammadi">
-<meta name="generator" content="bookdown 0.37 with bs4_book()">
-<meta property="og:title" content="Chapter 2 Introduction to Data Science | Uncovering Data Science with R">
+<meta name="description" content="Data Science is a rapidly evolving field that is transforming industries by leveraging computational, statistical, and analytical techniques. In the 21st century, data has become one of the most...">
+<meta name="generator" content="bookdown 0.42 with bs4_book()">
+<meta property="og:title" content="Chapter 2 Introduction to Data Science | Data Science Foundations and Machine Learning Using R">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://uncovering-data-science.netlify.app/chapter-intro-DS.html">
-<meta property="og:image" content="https://uncovering-data-science.netlify.app/images/cover.jpg">
+<meta property="og:image" content="https://uncovering-data-science.netlify.app/images/logo_black.png">
+<meta property="og:description" content="Data Science is a rapidly evolving field that is transforming industries by leveraging computational, statistical, and analytical techniques. In the 21st century, data has become one of the most...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 2 Introduction to Data Science | Uncovering Data Science with R">
-<meta name="twitter:image" content="https://uncovering-data-science.netlify.app/images/cover.jpg">
+<meta name="twitter:title" content="Chapter 2 Introduction to Data Science | Data Science Foundations and Machine Learning Using R">
+<meta name="twitter:description" content="Data Science is a rapidly evolving field that is transforming industries by leveraging computational, statistical, and analytical techniques. In the 21st century, data has become one of the most...">
+<meta name="twitter:image" content="https://uncovering-data-science.netlify.app/images/logo_black.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.9.0/transition.js"></script><script src="libs/bs3compat-0.9.0/tabs.js"></script><script src="libs/bs3compat-0.9.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
@@ -46,9 +49,6 @@
     }
   </style>
 <link rel="stylesheet" href="style.css">
-<meta name="description" content="Data Science is a rapidly evolving field that is transforming industries by leveraging computational, statistical, and analytical techniques. In the 21st century, data has become one of the most...">
-<meta property="og:description" content="Data Science is a rapidly evolving field that is transforming industries by leveraging computational, statistical, and analytical techniques. In the 21st century, data has become one of the most...">
-<meta name="twitter:description" content="Data Science is a rapidly evolving field that is transforming industries by leveraging computational, statistical, and analytical techniques. In the 21st century, data has become one of the most...">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -58,7 +58,7 @@
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
-        <a href="index.html" title="">Uncovering Data Science with R</a>
+        <a href="index.html" title="">Data Science Foundations and Machine Learning Using R</a>
       </h1>
       <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
@@ -70,7 +70,8 @@
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
-<li><a class="" href="index.html">Preface</a></li>
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="preface.html">Preface</a></li>
 <li><a class="" href="chapter-into-R.html"><span class="header-section-number">1</span> The Basics for R</a></li>
 <li><a class="active" href="chapter-intro-DS.html"><span class="header-section-number">2</span> Introduction to Data Science</a></li>
 <li><a class="" href="chapter-data-prep.html"><span class="header-section-number">3</span> Data Preparation</a></li>
@@ -84,6 +85,7 @@
 <li><a class="" href="chapter-tree.html"><span class="header-section-number">11</span> Decision Trees and Random Forests</a></li>
 <li><a class="" href="chapter-nn.html"><span class="header-section-number">12</span> Neural Networks: The Building Blocks of Artificial Intelligence</a></li>
 <li><a class="" href="chapter-cluster.html"><span class="header-section-number">13</span> Clustering</a></li>
+<li><a class="" href="references.html">References</a></li>
 </ul>
 
         <div class="book-extra">
@@ -106,7 +108,7 @@
 <p>Data science is an interdisciplinary field that integrates computer science, statistics, and domain expertise to extract insights from data. It involves using analytical and computational techniques to process vast amounts of raw data, transforming them into meaningful information that supports decision-making and strategic planning.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:Data-Science"></span>
-<img src="images/data_science.png" alt="Data science is a multidisciplinary field that applies computational and statistical methods to extract insights from data." width="50%"><p class="caption">
+<img src="images/ch2_data_science.png" alt="Data science is a multidisciplinary field that applies computational and statistical methods to extract insights from data." width="50%"><p class="caption">
 Figure 2.1: Data science is a multidisciplinary field that applies computational and statistical methods to extract insights from data.
 </p>
 </div>
@@ -150,15 +152,15 @@ Data science plays a crucial role in a wide range of sectors, including:</p>
 </ul>
 <p>For example, Netflix applies data science to analyze viewing patterns and recommend personalized content to users, while supply chain optimization at Amazon ensures faster deliveries by leveraging predictive analytics.</p>
 </div>
-<div id="the-data-science-workflow" class="section level2" number="2.3">
+<div id="the-data-science-workflow-1" class="section level2" number="2.3">
 <h2>
-<span class="header-section-number">2.3</span> The Data Science Workflow<a class="anchor" aria-label="anchor" href="#the-data-science-workflow"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.3</span> The Data Science Workflow<a class="anchor" aria-label="anchor" href="#the-data-science-workflow-1"><i class="fas fa-link"></i></a>
 </h2>
 <p>The <em>data science workflow</em> follows an <em>iterative</em> and <em>cyclical</em> approach, where insights gained at each stage inform and refine subsequent steps. Unlike a strictly linear process, data science involves continuous refinement to enhance accuracy and efficiency. This structured approach ensures that data-driven projects are conducted systematically, balancing exploratory analysis, model building, and evaluation to derive meaningful conclusions.</p>
 <p>A <em>data science workflow</em> follows a phased, adaptive approach within a scientific framework, transforming raw data into actionable knowledge. This transformation is often conceptualized using the <em>DIKW Pyramid</em> (Data → Information → Knowledge → Wisdom), as illustrated in Figure <a href="chapter-intro-DS.html#fig:DIKW-Pyramid">2.2</a>.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:DIKW-Pyramid"></span>
-<img src="images/DIKW-Pyramid.png" alt="The DIKW Pyramid illustrates the transformation of raw data into actionable insights, progressing from data to information, knowledge, and ultimately wisdom." width="40%"><p class="caption">
+<img src="images/ch2_DIKW-Pyramid.png" alt="The DIKW Pyramid illustrates the transformation of raw data into actionable insights, progressing from data to information, knowledge, and ultimately wisdom." width="40%"><p class="caption">
 Figure 2.2: The DIKW Pyramid illustrates the transformation of raw data into actionable insights, progressing from data to information, knowledge, and ultimately wisdom.
 </p>
 </div>
@@ -187,7 +189,7 @@ Figure 2.2: The DIKW Pyramid illustrates the transformation of raw data into act
 </ol>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:CRISP-DM"></span>
-<img src="images/DSW.png" alt="The Data Science Workflow is an iterative framework for structuring data science and machine learning projects. Inspired by the CRISP-DM model, it ensures systematic problem-solving and continuous refinement." width="60%"><p class="caption">
+<img src="images/ch2_DSW.png" alt="The Data Science Workflow is an iterative framework for structuring data science and machine learning projects. Inspired by the CRISP-DM model, it ensures systematic problem-solving and continuous refinement." width="70%"><p class="caption">
 Figure 2.3: The Data Science Workflow is an iterative framework for structuring data science and machine learning projects. Inspired by the CRISP-DM model, it ensures systematic problem-solving and continuous refinement.
 </p>
 </div>
@@ -418,7 +420,7 @@ Figure 2.3: The Data Science Workflow is an iterative framework for structuring 
 <a class="nav-link" href="#what-is-data-science"><span class="header-section-number">2.1</span> What is Data Science?</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#key-components-of-data-science">Key Components of Data Science</a></li></ul>
 </li>
 <li><a class="nav-link" href="#why-data-science-matters"><span class="header-section-number">2.2</span> Why Data Science Matters</a></li>
-<li><a class="nav-link" href="#the-data-science-workflow"><span class="header-section-number">2.3</span> The Data Science Workflow</a></li>
+<li><a class="nav-link" href="#the-data-science-workflow-1"><span class="header-section-number">2.3</span> The Data Science Workflow</a></li>
 <li><a class="nav-link" href="#problem-understanding"><span class="header-section-number">2.4</span> Problem Understanding</a></li>
 <li><a class="nav-link" href="#data-preparation"><span class="header-section-number">2.5</span> Data Preparation</a></li>
 <li><a class="nav-link" href="#exploratory-data-analysis-eda"><span class="header-section-number">2.6</span> Exploratory Data Analysis (EDA)</a></li>
@@ -447,7 +449,7 @@ Figure 2.3: The Data Science Workflow is an iterative framework for structuring 
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Uncovering Data Science with R</strong>" was written by Reza Mohammadi. It was last built on 2025-02-27.</p>
+    <p>"<strong>Data Science Foundations and Machine Learning Using R</strong>" was written by <a href="https://www.uva.nl/profile/a.mohammadi"><span style="color:white">Reza Mohammadi</span></a>. It was last built on 2025-03-05.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

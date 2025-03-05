@@ -27,7 +27,7 @@ The dataset consists of 40 observations and 8 variables:
 We begin by loading the dataset and examining its structure:
 
 
-```r
+``` r
 library(liver)
 
 data(marketing, package = "liver")
@@ -51,13 +51,15 @@ The dataset contains 8 variables and 40 observations. The response variable, `re
 Before constructing a regression model, we first explore the relationships between variables to ensure that our assumptions hold and to identify strong predictors. A useful tool for this is the `pairs.panels()` function from the **psych** package, which provides a comprehensive overview of pairwise relationships:
 
 
-```r
+``` r
 library(psych)
 
 pairs.panels(marketing)
 ```
 
-<img src="regression_files/figure-html/unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=1\linewidth]{regression_files/figure-latex/unnamed-chunk-2-1} \end{center}
 
 This visualization includes:
 
@@ -75,10 +77,14 @@ A logical starting point in regression analysis is examining the relationship be
 
 Before fitting the model, it is essential to visualize the relationship between these variables to assess whether a linear assumption is reasonable. A scatter plot with a fitted least-squares regression line provides insight into the strength and direction of the relationship:
 
-<div class="figure" style="text-align: center">
-<img src="regression_files/figure-html/scoter-plot-simple-reg-1.png" alt="Scatter plot of daily revenue (€) versus daily spend (€) for 40 observations, with the fitted least-squares regression line (blue) showing the linear relationship." width="80%" />
-<p class="caption">(\#fig:scoter-plot-simple-reg)Scatter plot of daily revenue (€) versus daily spend (€) for 40 observations, with the fitted least-squares regression line (blue) showing the linear relationship.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.8\linewidth]{regression_files/figure-latex/scoter-plot-simple-reg-1} 
+
+}
+
+\caption{Scatter plot of daily revenue (€) versus daily spend (€) for 40 observations, with the fitted least-squares regression line (blue) showing the linear relationship.}(\#fig:scoter-plot-simple-reg)
+\end{figure}
 
 Figure \@ref(fig:scoter-plot-simple-reg) illustrates the relationship between `spend` and `revenue` in the *marketing* dataset. The scatter plot suggests a positive association, indicating that increased advertising expenditure is generally linked to higher revenue.
 
@@ -108,14 +114,14 @@ lm(response_variable ~ predictor_variable, data = dataset)
 For our analysis, we model `revenue` as a function of `spend`:  
 
 
-```r
+``` r
 simple_reg = lm(revenue ~ spend, data = marketing)
 ```
 
 After fitting the model, we summarize the results using the `summary()` function:  
 
 
-```r
+``` r
 summary(simple_reg)
    
    Call:
@@ -249,7 +255,7 @@ t = \frac{b_1}{SE(b_1)}
 To illustrate hypothesis testing in simple linear regression, we examine the results of the model that predicts `revenue` (daily revenue) based on `spend` (advertising expenditure) using the *marketing* dataset. The estimated slope \( b_1 \) for `spend` is:
 
 
-```r
+``` r
 summary(simple_reg)
    
    Call:
@@ -274,7 +280,7 @@ summary(simple_reg)
 From the output:
 
 - The **t-statistic** for the slope is 7.93.  
-- The **p-value** is 1.4150362\times 10^{-9}, which is very close to zero.  
+- The **p-value** is \ensuremath{1.4150362\times 10^{-9}}, which is very close to zero.  
 
 Since the p-value is significantly smaller than the commonly used significance level (\(\alpha = 0.05\)), we reject the null hypothesis \( H_0 \). This confirms that the predictor `spend` has a statistically significant effect on `revenue`. Specifically:
 
@@ -303,7 +309,7 @@ where \( y_i \) represents the observed values of the response variable, \( \hat
 A smaller RSE indicates a model with more precise predictions. For example, in the simple linear regression model for the *marketing* dataset, the RSE is:
 
 
-```r
+``` r
 rse_value = sqrt(sum(simple_reg$residuals^2) / summary(simple_reg)$df[2])
 round(rse_value, 2)
    [1] 93.82
@@ -327,7 +333,7 @@ where:
 \( R^2 \) ranges from 0 to 1, where higher values indicate that the model explains a greater proportion of variability in the response variable. For example, in the *marketing* dataset, the \( R^2 \) value is:
 
 
-```r
+``` r
 round(summary(simple_reg)$r.squared, 3)
    [1] 0.623
 ```
@@ -345,7 +351,7 @@ R^2 = r^2
 For example, in the *marketing* dataset, the correlation between `spend` and `revenue` is:
 
 
-```r
+``` r
 round(cor(marketing$spend, marketing$revenue), 2)
    [1] 0.79
 ```
@@ -353,7 +359,7 @@ round(cor(marketing$spend, marketing$revenue), 2)
 Squaring this value gives:
 
 
-```r
+``` r
 round(cor(marketing$spend, marketing$revenue)^2, 2)
    [1] 0.62
 ```
@@ -408,7 +414,7 @@ where `spend` represents daily advertising expenditure and `display` is a catego
 We fit the multiple regression model using the `lm()` function in R:
 
 
-```r
+``` r
 multiple_reg = lm(revenue ~ spend + display, data = marketing)
 
 summary(multiple_reg)
@@ -519,7 +525,7 @@ where `response_variable` is the binary outcome, `predictor_variables` are the i
 For the *churn* dataset, we fit a logistic regression model as follows:
 
 
-```r
+``` r
 data(churn)
 
 logreg_1 = glm(churn ~ account.length + voice.messages + day.mins + eve.mins + 
@@ -530,7 +536,7 @@ logreg_1 = glm(churn ~ account.length + voice.messages + day.mins + eve.mins +
 The model estimates the relationship between the predictors and the probability of churn. To examine the model’s coefficients and significance levels, we use:
 
 
-```r
+``` r
 summary(logreg_1)
    
    Call:
@@ -589,7 +595,7 @@ glm(response_variable ~ predictor_variables, data = dataset, family = poisson)
 For our example, we fit a Poisson regression model as follows:
 
 
-```r
+``` r
 formula = customer.calls ~ churn + voice.messages + day.mins + eve.mins + 
                            night.mins + intl.mins + intl.plan + voice.plan
 
@@ -601,7 +607,7 @@ Here, `customer.calls` is the response variable, while predictors such as `churn
 Once the model is fitted, we examine the results:
 
 
-```r
+``` r
 summary(reg_pois)
    
    Call:
@@ -666,7 +672,7 @@ To illustrate stepwise regression, we apply it to the *marketing* dataset, which
 We begin by fitting a regression model that includes all available predictors:
 
 
-```r
+``` r
 ml_all = lm(revenue ~ ., data = marketing)
 
 summary(ml_all)
@@ -699,7 +705,7 @@ The initial model includes all predictors, but some may not contribute meaningfu
 Next, we apply stepwise regression using the `step()` function, setting `direction = "both"` to allow for both forward selection and backward elimination:
 
 
-```r
+``` r
 ml_stepwise = step(ml_all, direction = "both")
    Start:  AIC=355.21
    revenue ~ spend + clicks + impressions + display + transactions + 
@@ -789,7 +795,7 @@ Tracking AIC values throughout the selection process allows us to quantify model
 To examine the final selected model, we use:
 
 
-```r
+``` r
 summary(ml_stepwise)
    
    Call:
@@ -849,10 +855,14 @@ unit.price = b_0 + b_1 \cdot house.age + b_2 \cdot house.age^2
 
 This equation incorporates both `house.age` and its squared term (`house.age^2`), allowing for a curved relationship between the predictor and response variable. Although polynomial regression introduces non-linear predictors, the model remains a *linear regression model* because the coefficients (\(b_0, b_1, b_2\)) are estimated using standard least squares methods. The blue curve in Figure \@ref(fig:scoter-plot-non-reg) illustrates the improved fit of a quadratic regression model, which captures the pattern in the data more effectively than the simple linear model.
 
-<div class="figure" style="text-align: center">
-<img src="regression_files/figure-html/scoter-plot-non-reg-1.png" alt="Scatter plot of house price ($) versus house age (years) for the house dataset, with the fitted simple linear regression line in orange and the quadratic regression curve in blue." width="100%" />
-<p class="caption">(\#fig:scoter-plot-non-reg)Scatter plot of house price ($) versus house age (years) for the house dataset, with the fitted simple linear regression line in orange and the quadratic regression curve in blue.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{regression_files/figure-latex/scoter-plot-non-reg-1} 
+
+}
+
+\caption{Scatter plot of house price ($) versus house age (years) for the house dataset, with the fitted simple linear regression line in orange and the quadratic regression curve in blue.}(\#fig:scoter-plot-non-reg)
+\end{figure}
 
 This example highlights the need for non-linear regression techniques when the assumption of linearity does not hold. By incorporating polynomial terms, we can improve model accuracy while retaining interpretability, ensuring that predictions align more closely with real-world data patterns.
   
@@ -872,7 +882,7 @@ To illustrate polynomial regression, we use the *house* dataset from the **liver
 First, we load the dataset and examine its structure:
 
 
-```r
+``` r
 data(house)
 
 str(house)
@@ -890,7 +900,7 @@ The dataset consists of 414 observations and 6 variables. The target variable is
 We begin by fitting a simple linear regression model:
 
 
-```r
+``` r
 simple_reg_house = lm(unit.price ~ house.age, data = house)
 
 summary(simple_reg_house)
@@ -925,7 +935,7 @@ unit.price = b_0 + b_1 \cdot house.age + b_2 \cdot house.age^2
 This can be implemented in R using the `poly()` function:
 
 
-```r
+``` r
 reg_nonlinear_house = lm(unit.price ~ poly(house.age, 2), data = house)
 
 summary(reg_nonlinear_house)
@@ -974,16 +984,15 @@ To demonstrate model diagnostics, we evaluate the assumptions of the multiple re
 We generate diagnostic plots for the model as follows:
 
 
-```r
+``` r
 ml_stepwise = lm(revenue ~ clicks + display, data = marketing)
 
 plot(ml_stepwise)  
 ```
 
-<div class="figure">
-<img src="regression_files/figure-html/model-diagnostics-1.png" alt="Diagnostic plots for assessing regression model assumptions." width="50%" /><img src="regression_files/figure-html/model-diagnostics-2.png" alt="Diagnostic plots for assessing regression model assumptions." width="50%" /><img src="regression_files/figure-html/model-diagnostics-3.png" alt="Diagnostic plots for assessing regression model assumptions." width="50%" /><img src="regression_files/figure-html/model-diagnostics-4.png" alt="Diagnostic plots for assessing regression model assumptions." width="50%" />
-<p class="caption">(\#fig:model-diagnostics)Diagnostic plots for assessing regression model assumptions.</p>
-</div>
+\begin{figure}
+\includegraphics[width=0.5\linewidth]{regression_files/figure-latex/model-diagnostics-1} \includegraphics[width=0.5\linewidth]{regression_files/figure-latex/model-diagnostics-2} \includegraphics[width=0.5\linewidth]{regression_files/figure-latex/model-diagnostics-3} \includegraphics[width=0.5\linewidth]{regression_files/figure-latex/model-diagnostics-4} \caption{Diagnostic plots for assessing regression model assumptions.}(\#fig:model-diagnostics)
+\end{figure}
 
 These diagnostic plots provide insights into the validity of the model’s assumptions.
 
@@ -1021,7 +1030,7 @@ The exercises are structured to test theoretical understanding, interpretation o
 Load the *house* dataset:
 
 
-```r
+``` r
 data(house, package = "liver")
 ```
 
@@ -1038,7 +1047,7 @@ data(house, package = "liver")
 Load the *insurance* dataset:
 
 
-```r
+``` r
 data(insurance, package = "liver")
 ```
 
@@ -1053,7 +1062,7 @@ data(insurance, package = "liver")
 Load the *cereal* dataset:
 
 
-```r
+``` r
 data(cereal, package = "liver")
 ```
 
@@ -1096,7 +1105,7 @@ data(cereal, package = "liver")
 Load the *bank* dataset:
 
 
-```r
+``` r
 data(bank, package = "liver")
 ```
 

@@ -42,7 +42,7 @@ At each step, the algorithm selects the feature and threshold that best separate
 To see this process in action, consider a simple dataset with two features (\(x_1\) and \(x_2\)) and two classes (Class A and Class B), as shown in Figure \@ref(fig:tree-1). The dataset consists of 50 data points, and the goal is to classify them into their respective categories.
 
 ```{r tree-1, echo = FALSE, out.width = "70%", fig.align = 'center', fig.cap = "A two-dimensional toy dataset (50 observations) with two classes (Class A and Class B), used to illustrate how to build Decision Trees."}
-knitr::include_graphics("images/ex_tree_1.png")
+knitr::include_graphics("images/ch11_ex_tree_1.png")
 ```
 
 The process begins by identifying the feature and threshold that best separate the two classes. The algorithm evaluates all possible splits and selects the one that maximizes homogeneity in the resulting subsets. For this dataset, the optimal split occurs at \(x_1 = 10\), dividing the dataset into two regions:
@@ -53,7 +53,7 @@ The process begins by identifying the feature and threshold that best separate t
 This first split is illustrated in Figure \@ref(fig:tree-2), where the decision boundary is drawn at \(x_1 = 10\).
 
 ```{r tree-2, echo = FALSE, out.width = "100%", fig.align = 'center', fig.cap = "Left: Decision boundary for a tree with depth 1. Right: The corresponding Decision Tree."}
-knitr::include_graphics("images/ex_tree_2.png")
+knitr::include_graphics("images/ch11_ex_tree_2.png")
 ```
 
 Although this split improves class separation, some overlap remains, suggesting that further refinement is needed. The tree-building process continues by introducing additional splits based on \(x_2\), creating smaller, more homogeneous groups.
@@ -61,13 +61,13 @@ Although this split improves class separation, some overlap remains, suggesting 
 In Figure \@ref(fig:tree-3), the algorithm identifies new thresholds: \(x_2 = 6\) for the left region and \(x_2 = 8\) for the right region. These additional splits refine the classification process, improving the model’s ability to distinguish between the two classes.
 
 ```{r tree-3, echo = FALSE, out.width = "100%", fig.align = 'center', fig.cap = "Left: Decision boundary for a tree with depth 2. Right: The corresponding Decision Tree."}
-knitr::include_graphics("images/ex_tree_3.png")
+knitr::include_graphics("images/ch11_ex_tree_3.png")
 ```
 
 This recursive process continues until the tree reaches a stopping criterion. Figure \@ref(fig:tree-4) shows a fully grown tree with a depth of 5, demonstrating how decision trees create increasingly refined decision boundaries.
 
 ```{r tree-4, echo = FALSE, out.width = "100%", fig.align = 'center', fig.cap = "Left: Decision boundary for a tree with depth 5. Right: The corresponding Decision Tree."}
-knitr::include_graphics("images/ex_tree_4.png")
+knitr::include_graphics("images/ch11_ex_tree_4.png")
 ```
 
 At this depth, the tree has created highly specific decision boundaries that closely match the training data. While this deep tree perfectly classifies the training data, it may not generalize well to new observations. The model has likely captured not just meaningful patterns but also noise, a problem known as *overfitting*. Overfitted trees perform well on training data but struggle to make accurate predictions on unseen data.

@@ -82,7 +82,7 @@ For a population mean, the confidence interval is calculated as:
 where \( \bar{x} \) is the sample mean, \( z_{\frac{\alpha}{2}} \) is a critical value from the standard normal distribution (such as 1.96 for a 95% confidence level), \( s \) is the sample standard deviation, and \( n \) is the sample size. This concept is illustrated in Figure \@ref(fig:confidence-interval), where the interval is centered around the point estimate and its width depends on the margin of error.
 
 ```{r confidence-interval, echo = FALSE, out.width = "80%", fig.align = 'center', fig.cap = "Confidence interval for the population mean. The interval is centered around the point estimate, with the width determined by the margin of error. The confidence level specifies the probability that the interval contains the true population parameter."}
-knitr::include_graphics("images/confidence_interval.png")
+knitr::include_graphics("images/ch5_confidence_interval.png")
 ```
 
 Several factors influence the width of a confidence interval. Larger sample sizes generally yield narrower intervals, increasing precision, while higher variability in the data results in wider intervals. The choice of confidence level also affects the width; for example, a 99% confidence level produces a wider interval than a 90% confidence level because it must capture more possible values.
@@ -561,7 +561,7 @@ In the next chapter, we transition from statistical inference to predictive mode
 
 2. What is the difference between a confidence interval and a hypothesis test? How do they provide different ways of drawing conclusions about population parameters?  
 
-3. The *p*-value represents the probability of observing the sample data, or something more extreme, assuming the null hypothesis is true. How should *p*-values be interpreted, and why is a *p*-value of 0.001 in a two-sample *t*-test not necessarily evidence of practical significance?**  
+3. The *p*-value represents the probability of observing the sample data, or something more extreme, assuming the null hypothesis is true. How should *p*-values be interpreted, and why is a *p*-value of 0.001 in a two-sample *t*-test not necessarily evidence of practical significance?  
 
 4. Explain the concepts of *Type I* and *Type II* errors in hypothesis testing. Why is it important to balance the risks of these errors when designing statistical tests?  
 

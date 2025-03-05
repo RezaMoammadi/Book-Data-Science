@@ -4,19 +4,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 13 Clustering | Uncovering Data Science with R</title>
+<title>Chapter 13 Clustering | Data Science Foundations and Machine Learning Using R</title>
 <meta name="author" content="Reza Mohammadi">
-<meta name="generator" content="bookdown 0.37 with bs4_book()">
-<meta property="og:title" content="Chapter 13 Clustering | Uncovering Data Science with R">
+<meta name="description" content="Every day, we interact with systems that organize vast amounts of data without explicit instructions. How does Netflix recommend movies tailored to your taste? How does Amazon categorize millions...">
+<meta name="generator" content="bookdown 0.42 with bs4_book()">
+<meta property="og:title" content="Chapter 13 Clustering | Data Science Foundations and Machine Learning Using R">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://uncovering-data-science.netlify.app/chapter-cluster.html">
-<meta property="og:image" content="https://uncovering-data-science.netlify.app/images/cover.jpg">
+<meta property="og:image" content="https://uncovering-data-science.netlify.app/images/logo_black.png">
+<meta property="og:description" content="Every day, we interact with systems that organize vast amounts of data without explicit instructions. How does Netflix recommend movies tailored to your taste? How does Amazon categorize millions...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 13 Clustering | Uncovering Data Science with R">
-<meta name="twitter:image" content="https://uncovering-data-science.netlify.app/images/cover.jpg">
+<meta name="twitter:title" content="Chapter 13 Clustering | Data Science Foundations and Machine Learning Using R">
+<meta name="twitter:description" content="Every day, we interact with systems that organize vast amounts of data without explicit instructions. How does Netflix recommend movies tailored to your taste? How does Amazon categorize millions...">
+<meta name="twitter:image" content="https://uncovering-data-science.netlify.app/images/logo_black.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.9.0/transition.js"></script><script src="libs/bs3compat-0.9.0/tabs.js"></script><script src="libs/bs3compat-0.9.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
@@ -46,9 +49,6 @@
     }
   </style>
 <link rel="stylesheet" href="style.css">
-<meta name="description" content="Every day, we interact with systems that organize vast amounts of data without explicit instructions. How does Netflix recommend movies tailored to your taste? How does Amazon categorize millions...">
-<meta property="og:description" content="Every day, we interact with systems that organize vast amounts of data without explicit instructions. How does Netflix recommend movies tailored to your taste? How does Amazon categorize millions...">
-<meta name="twitter:description" content="Every day, we interact with systems that organize vast amounts of data without explicit instructions. How does Netflix recommend movies tailored to your taste? How does Amazon categorize millions...">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -58,7 +58,7 @@
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
-        <a href="index.html" title="">Uncovering Data Science with R</a>
+        <a href="index.html" title="">Data Science Foundations and Machine Learning Using R</a>
       </h1>
       <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
@@ -70,7 +70,8 @@
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
-<li><a class="" href="index.html">Preface</a></li>
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="preface.html">Preface</a></li>
 <li><a class="" href="chapter-into-R.html"><span class="header-section-number">1</span> The Basics for R</a></li>
 <li><a class="" href="chapter-intro-DS.html"><span class="header-section-number">2</span> Introduction to Data Science</a></li>
 <li><a class="" href="chapter-data-prep.html"><span class="header-section-number">3</span> Data Preparation</a></li>
@@ -84,6 +85,7 @@
 <li><a class="" href="chapter-tree.html"><span class="header-section-number">11</span> Decision Trees and Random Forests</a></li>
 <li><a class="" href="chapter-nn.html"><span class="header-section-number">12</span> Neural Networks: The Building Blocks of Artificial Intelligence</a></li>
 <li><a class="active" href="chapter-cluster.html"><span class="header-section-number">13</span> Clustering</a></li>
+<li><a class="" href="references.html">References</a></li>
 </ul>
 
         <div class="book-extra">
@@ -141,7 +143,7 @@
 <p>All clustering algorithms aim to achieve <em>high intra-cluster similarity</em> (data points within a cluster are close together) and <em>low inter-cluster similarity</em> (clusters are well separated). This concept is visually illustrated in Figure <a href="chapter-cluster.html#fig:cluster-1">13.1</a>, where effective clusters minimize internal variation while maximizing separation between groups.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:cluster-1"></span>
-<img src="images/cluster_1.png" alt="Clustering algorithms aim to minimize intra-cluster variation while maximizing inter-cluster separation." width="75%"><p class="caption">
+<img src="images/ch13_cluster_1.png" alt="Clustering algorithms aim to minimize intra-cluster variation while maximizing inter-cluster separation." width="75%"><p class="caption">
 Figure 13.1: Clustering algorithms aim to minimize intra-cluster variation while maximizing inter-cluster separation.
 </p>
 </div>
@@ -181,14 +183,14 @@ Figure 13.1: Clustering algorithms aim to minimize intra-cluster variation while
 <p>To illustrate how K-means works, consider a dataset with 50 records and two features, <em><span class="math inline">\(x_1\)</span></em> and <em><span class="math inline">\(x_2\)</span></em>, as shown in Figure <a href="chapter-cluster.html#fig:cluster-ex-1">13.2</a>. Our goal is to partition the data into <em>three</em> clusters.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:cluster-ex-1"></span>
-<img src="images/cluster_ex_1.png" alt="A simple dataset with 50 records and two features, ready for clustering." width="70%"><p class="caption">
+<img src="images/ch13_cluster_ex_1.png" alt="A simple dataset with 50 records and two features, ready for clustering." width="70%"><p class="caption">
 Figure 13.2: A simple dataset with 50 records and two features, ready for clustering.
 </p>
 </div>
 <p>The first step is to randomly select three initial cluster centers (red stars), as shown in the left panel of Figure <a href="chapter-cluster.html#fig:cluster-ex-2">13.3</a>. Each data point is then assigned to the nearest cluster, forming three groups labeled in <em>blue (Cluster A), green (Cluster B), and orange (Cluster C)</em>. The right panel of Figure <a href="chapter-cluster.html#fig:cluster-ex-2">13.3</a> displays these initial assignments. The dashed lines represent the <em>Voronoi diagram</em>, which divides space into regions associated with each cluster center.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:cluster-ex-2"></span>
-<img src="images/cluster_ex_2.png" alt="Initial random cluster centers (left) and first cluster assignments (right)." width="45%"><img src="images/cluster_ex_3.png" alt="Initial random cluster centers (left) and first cluster assignments (right)." width="45%"><p class="caption">
+<img src="images/ch13_cluster_ex_2.png" alt="Initial random cluster centers (left) and first cluster assignments (right)." width="45%"><img src="images/ch13_cluster_ex_3.png" alt="Initial random cluster centers (left) and first cluster assignments (right)." width="45%"><p class="caption">
 Figure 13.3: Initial random cluster centers (left) and first cluster assignments (right).
 </p>
 </div>
@@ -196,21 +198,21 @@ Figure 13.3: Initial random cluster centers (left) and first cluster assignments
 <p>Once the initial cluster assignments are made, K-means enters the <em>update phase</em>. The first step is to recompute the centroid of each cluster, which is the <em>mean position of all points assigned to that cluster</em>. The cluster centers are then moved to these new centroid locations, as shown in the left panel of Figure <a href="chapter-cluster.html#fig:cluster-ex-3">13.4</a>. The right panel illustrates how the <em>Voronoi boundaries shift</em>, causing some data points to be reassigned to a different cluster.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:cluster-ex-3"></span>
-<img src="images/cluster_ex_4.png" alt="Updated cluster centers (left) and new assignments after centroid adjustment (right)." width="45%"><img src="images/cluster_ex_5.png" alt="Updated cluster centers (left) and new assignments after centroid adjustment (right)." width="45%"><p class="caption">
+<img src="images/ch13_cluster_ex_4.png" alt="Updated cluster centers (left) and new assignments after centroid adjustment (right)." width="45%"><img src="images/ch13_cluster_ex_5.png" alt="Updated cluster centers (left) and new assignments after centroid adjustment (right)." width="45%"><p class="caption">
 Figure 13.4: Updated cluster centers (left) and new assignments after centroid adjustment (right).
 </p>
 </div>
 <p>This process—<em>reassigning points and updating centroids</em>—continues iteratively. After another update, some points switch clusters again, leading to a refined Voronoi partition, as shown in Figure <a href="chapter-cluster.html#fig:cluster-ex-6">13.5</a>.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:cluster-ex-6"></span>
-<img src="images/cluster_ex_6.png" alt="Updated cluster centers and assignments after another iteration." width="45%"><img src="images/cluster_ex_7.png" alt="Updated cluster centers and assignments after another iteration." width="45%"><p class="caption">
+<img src="images/ch13_cluster_ex_6.png" alt="Updated cluster centers and assignments after another iteration." width="45%"><img src="images/ch13_cluster_ex_7.png" alt="Updated cluster centers and assignments after another iteration." width="45%"><p class="caption">
 Figure 13.5: Updated cluster centers and assignments after another iteration.
 </p>
 </div>
 <p>The algorithm continues iterating until the cluster assignments stabilize—when <em>no more points switch clusters</em>, as shown in Figure <a href="chapter-cluster.html#fig:cluster-ex-8">13.6</a>. At this point, the algorithm <em>converges</em>, and the final clusters are established.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:cluster-ex-8"></span>
-<img src="images/cluster_ex_8.png" alt="Final cluster assignments after K-means convergence." width="45%"><p class="caption">
+<img src="images/ch13_cluster_ex_8.png" alt="Final cluster assignments after K-means convergence." width="45%"><p class="caption">
 Figure 13.6: Final cluster assignments after K-means convergence.
 </p>
 </div>
@@ -234,7 +236,7 @@ Figure 13.6: Final cluster assignments after K-means convergence.
 <p>This critical point, known as the <em>elbow point</em>, represents the most natural number of clusters. The concept is illustrated in Figure <a href="chapter-cluster.html#fig:cluster-elbow">13.7</a>, where the curve shows the total within-cluster sum of squares (WCSS) as a function of <span class="math inline">\(k\)</span>. The “elbow” in the curve—where the rate of improvement slows—is a strong candidate for <span class="math inline">\(k\)</span>.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:cluster-elbow"></span>
-<img src="images/cluster_elbow.png" alt="The elbow method helps determine the optimal number of clusters in K-means clustering." width="60%"><p class="caption">
+<img src="images/ch13_cluster_elbow.png" alt="The elbow method helps determine the optimal number of clusters in K-means clustering." width="60%"><p class="caption">
 Figure 13.7: The elbow method helps determine the optimal number of clusters in K-means clustering.
 </p>
 </div>
@@ -590,61 +592,14 @@ Figure 13.7: The elbow method helps determine the optimal number of clusters in 
 </li>
 <li>Visualize how wine acidity and alcohol content influence cluster formation.</li>
 </ol>
-<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
-<div id="ref-arthur2006k" class="csl-entry">
-Arthur, David, and Sergei Vassilvitskii. <span>“K-Means++: The Advantages of Careful Seeding,”</span> 2006.
-</div>
-<div id="ref-bayes1958essay" class="csl-entry">
-Bayes, Thomas. <em>Essay Toward Solving a Problem in the Doctrine of Chances</em>. Biometrika Office, 1958.
-</div>
-<div id="ref-breiman1984classification" class="csl-entry">
-Breiman, L, JH Friedman, R Olshen, and CJ Stone. <span>“Classification and Regression Trees,”</span> 1984.
-</div>
-<div id="ref-gareth2013introduction" class="csl-entry">
-Gareth, James, Witten Daniela, Hastie Trevor, and Tibshirani Robert. <em>An Introduction to Statistical Learning: With Applications in r</em>. Spinger, 2013.
-</div>
-<div id="ref-grolemund2014hands" class="csl-entry">
-Grolemund, Garrett. <em>Hands-on Programming with r: Write Your Own Functions and Simulations</em>. " O’Reilly Media, Inc.", 2014. <a href="https://rstudio-education.github.io/hopr/">https://rstudio-education.github.io/hopr/</a>.
-</div>
-<div id="ref-moro2014data" class="csl-entry">
-Moro, Sérgio, Paulo Cortez, and Paulo Rita. <span>“A Data-Driven Approach to Predict the Success of Bank Telemarketing.”</span> <em>Decision Support Systems</em> 62 (2014): 22–31.
-</div>
-<div id="ref-neukom2019no" class="csl-entry">
-Neukom, Raphael, Nathan Steiger, Juan José Gómez-Navarro, Jianghao Wang, and Johannes P Werner. <span>“No Evidence for Globally Coherent Warm and Cold Periods over the Preindustrial Common Era.”</span> <em>Nature</em> 571, no. 7766 (2019): 550–54.
-</div>
-<div id="ref-wheelan2013naked" class="csl-entry">
-Wheelan, Charles. <em>Naked Statistics: Stripping the Dread from the Data</em>. WW Norton &amp; Company, 2013.
-</div>
-<div id="ref-wolfe2017intuitive" class="csl-entry">
-Wolfe, Douglas A, and Grant Schneider. <em>Intuitive Introductory Statistics</em>. Springer, 2017.
 </div>
 </div>
 </div>
 </div>
-</div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   <div class="chapter-nav">
 <div class="prev"><a href="chapter-nn.html"><span class="header-section-number">12</span> Neural Networks: The Building Blocks of Artificial Intelligence</a></div>
-<div class="empty"></div>
+<div class="next"><a href="references.html">References</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -682,7 +637,7 @@ Wolfe, Douglas A, and Grant Schneider. <em>Intuitive Introductory Statistics</em
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Uncovering Data Science with R</strong>" was written by Reza Mohammadi. It was last built on 2025-02-27.</p>
+    <p>"<strong>Data Science Foundations and Machine Learning Using R</strong>" was written by <a href="https://www.uva.nl/profile/a.mohammadi"><span style="color:white">Reza Mohammadi</span></a>. It was last built on 2025-03-05.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

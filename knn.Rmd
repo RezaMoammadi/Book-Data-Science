@@ -73,7 +73,7 @@ Figure \@ref(fig:knn-image) illustrates this concept with two classes: <span sty
 - *When \(k = 6\)*: The algorithm expands the neighborhood to include the 6 nearest neighbors. This larger set consists of four red circles and two blue squares, shifting the majority class to *Class A (red circles)*. As a result, the new point is classified as Class A.  
 
 ```{r knn-image, echo = FALSE, out.width = "75%", fig.align = 'center', fig.cap = "A two-dimensional toy dataset with two classes (Class A and Class B) and a new data point (dark star), illustrating the k-Nearest Neighbors algorithm with k = 3 and k = 6."}
-knitr::include_graphics("images/knn.png")
+knitr::include_graphics("images/ch7_knn.png")
 ```
 
 These examples illustrate how the choice of \(k\) affects classification. A smaller \(k\) (e.g., 3) makes predictions highly sensitive to local patterns, capturing finer details but also increasing the risk of misclassification due to noise. In contrast, a larger \(k\) (e.g., 6) smooths predictions by incorporating more neighbors, reducing sensitivity to individual data points but potentially overlooking localized structures in the data. Selecting an appropriate \( k \) ensures that kNN generalizes well without becoming overly complex or overly simplistic.

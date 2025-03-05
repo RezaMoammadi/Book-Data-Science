@@ -35,10 +35,14 @@ Partitioning the dataset is a crucial step in preparing data for modeling. A com
 
 Partitioning involves dividing the dataset into two subsets: the *training set*, used to build the model, and the *testing set*, used to evaluate performance. This separation simulates real-world conditions, where the model must make predictions on new data. It helps detect and address two common pitfalls in machine learning: *overfitting* and *underfitting*. These trade-offs are illustrated in Figure \@ref(fig:model-complexity), which highlights the balance between model complexity and performance on training and testing datasets.
 
-<div class="figure" style="text-align: center">
-<img src="images/model_complexity.png" alt="The trade-off between model complexity and accuracy on the training and test sets. It highlights the optimal model complexity (sweet spot), where the test set accuracy reaches its highest value for unseen data." width="65%" />
-<p class="caption">(\#fig:model-complexity)The trade-off between model complexity and accuracy on the training and test sets. It highlights the optimal model complexity (sweet spot), where the test set accuracy reaches its highest value for unseen data.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.65\linewidth]{images/ch6_model_complexity} 
+
+}
+
+\caption{The trade-off between model complexity and accuracy on the training and test sets. It highlights the optimal model complexity (sweet spot), where the test set accuracy reaches its highest value for unseen data.}(\#fig:model-complexity)
+\end{figure}
 
 **Overfitting** occurs when a model memorizes the training data, including noise and random fluctuations, instead of capturing general patterns. Such models achieve high accuracy on the training set but perform poorly on unseen data. For instance, a churn prediction model might memorize specific customer IDs rather than recognizing broader behavioral trends, making it ineffective for new customers.
 
@@ -58,10 +62,14 @@ To summarize, the general strategy for supervised machine learning consists of t
 2. **Building** machine learning models on the training data.
 3. **Evaluating** the performance of models on the testing data to select the most effective approach.
 
-<div class="figure" style="text-align: center">
-<img src="images/partitioning.png" alt="A general predictive machine learning process for building and evaluating models. The 80-20 split ratio is an example and may vary based on the dataset and task." width="80%" />
-<p class="caption">(\#fig:modeling)A general predictive machine learning process for building and evaluating models. The 80-20 split ratio is an example and may vary based on the dataset and task.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.8\linewidth]{images/ch6_partitioning} 
+
+}
+
+\caption{A general predictive machine learning process for building and evaluating models. The 80-20 split ratio is an example and may vary based on the dataset and task.}(\#fig:modeling)
+\end{figure}
 
 By following this structured process, we build models that are both robust and capable of making accurate predictions on unseen data. This chapter focuses on the first step: partitioning the data effectively, validating the partition, and preparing a balanced training dataset—key steps for developing reliable and interpretable machine learning models.
 
@@ -76,7 +84,7 @@ A typical train-test split ratio is 70-30, 80-20, or 90-10, depending on the dat
 To illustrate, we revisit the *churn* dataset from Section \@ref(EDA-sec-churn), where the goal is to predict customer churn. We first load the dataset:
 
 
-```r
+``` r
 library(liver)
 data(churn) 
 ```
@@ -84,7 +92,7 @@ data(churn)
 We then split the *churn* dataset into training and testing subsets by using the `partition()` function from the **liver** package. The following code demonstrates how to create these subsets in R:
 
 
-```r
+``` r
 set.seed(43)
 
 data_sets = partition(data = churn, ratio = c(0.8, 0.2))
@@ -135,7 +143,7 @@ H_a:  \pi_{\text{churn, train}} \neq \pi_{\text{churn, test}} \quad \text{(Propo
 Here’s how it can be implemented in **R**:
 
 
-```r
+``` r
 x1 <- sum(train_set$churn == "yes")
 x2 <- sum(test_set$churn == "yes")
 
@@ -196,7 +204,7 @@ The choice of technique depends on factors such as dataset size, the severity of
 First, we examine the distribution of the target variable (*churn*) in the training dataset:
 
 
-```r
+``` r
 # Check the class distribution
 table(train_set$churn)
    
@@ -213,7 +221,7 @@ Suppose the output shows that churners (`churn = "yes"`) constitute only 0.14, w
 To address this, we use the **ROSE** package in R to oversample the minority class (`churn = "yes"`) so that it constitutes 30% of the training dataset:
 
 
-```r
+``` r
 # Load the ROSE package
 library(ROSE)
 
@@ -279,7 +287,7 @@ In summary, balancing the training dataset can improve model performance, especi
 For the following exercises, use the *churn*, *bank*, and *risk* datasets available in the **liver** package. We have previously used the *churn* and *bank* datasets in this and earlier chapters. In Chapter \@ref(chapter-bayes), we will introduce the *risk* dataset. Load the datasets using:
 
 
-```r
+``` r
 library(liver)
 
 # Load datasets

@@ -13,5 +13,6 @@ RnwWeave: Sweave
 LaTeX: pdfLaTeX
 
 BuildType: Website
+WebsitePath: /Users/a.mohammadiuva.nl/Library/CloudStorage/OneDrive-UvA/Book_DS/Book-Data-Science
 
 SpellingDictionary: en_GB

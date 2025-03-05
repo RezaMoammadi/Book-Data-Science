@@ -323,7 +323,7 @@ Figure \@ref(fig:roc-curve) illustrates key ROC curve characteristics. The verti
 - *Random Classifier (Diagonal Line)*: The gray dashed diagonal represents a model with no predictive power, classifying randomly. A model close to this line provides little practical utility.  
 
 ```{r roc-curve, echo = FALSE, out.width = "60%", fig.align = 'center', fig.cap = "The ROC curve illustrates the trade-off between sensitivity and specificity at different thresholds. The diagonal line represents a classifier with no predictive value (gray dashed line), while the curves represent varying levels of performance: green for optimal and blue for good."}
-knitr::include_graphics("images/roc-curve.png")
+knitr::include_graphics("images/ch8_roc-curve.png")
 ```
 
 Each point on the ROC curve corresponds to a specific threshold. As the threshold varies, the *True Positive Rate (Sensitivity)* and *False Positive Rate (1 - Specificity)* change, tracing the curve. A curve that remains close to the top-left corner indicates better performance, as the model achieves high sensitivity while minimizing false positives. However, moving along the curve reflects different trade-offs between sensitivity and specificity. Choosing an optimal threshold depends on the application:  
@@ -365,7 +365,7 @@ Another critical metric derived from the ROC curve is the *Area Under the Curve 
 where \( t \) represents the threshold, reinforcing that AUC measures the model’s ability to rank positive cases above negative ones across all possible thresholds.  
 
 ```{r auc, echo = FALSE, out.width = "45%", fig.align = 'center', fig.cap = "The AUC summarizes the ROC curve into a single number, representing the model’s ability to rank positive cases higher than negative ones. AUC = 1: Perfect model. AUC = 0.5: No better than random guessing."}
-knitr::include_graphics("images/auc.png")
+knitr::include_graphics("images/ch8_auc.png")
 ```
 
 AUC values range from 0 to 1, where a value of 1 indicates a perfect classifier with ideal discrimination between classes, while a value of 0.5 suggests no better performance than random guessing. AUC values between 0.5 and 1 represent varying levels of model performance, with higher values reflecting better separation between positive and negative cases. 

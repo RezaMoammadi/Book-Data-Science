@@ -72,10 +72,14 @@ Figure \@ref(fig:knn-image) illustrates this concept with two classes: <span sty
 - *When \(k = 3\)*: The algorithm considers the 3 closest neighbors—two blue squares and one red circle. Since the majority class is *Class B (blue squares)*, the new point is classified as Class B.  
 - *When \(k = 6\)*: The algorithm expands the neighborhood to include the 6 nearest neighbors. This larger set consists of four red circles and two blue squares, shifting the majority class to *Class A (red circles)*. As a result, the new point is classified as Class A.  
 
-<div class="figure" style="text-align: center">
-<img src="images/knn.png" alt="A two-dimensional toy dataset with two classes (Class A and Class B) and a new data point (dark star), illustrating the k-Nearest Neighbors algorithm with k = 3 and k = 6." width="75%" />
-<p class="caption">(\#fig:knn-image)A two-dimensional toy dataset with two classes (Class A and Class B) and a new data point (dark star), illustrating the k-Nearest Neighbors algorithm with k = 3 and k = 6.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.75\linewidth]{images/ch7_knn} 
+
+}
+
+\caption{A two-dimensional toy dataset with two classes (Class A and Class B) and a new data point (dark star), illustrating the k-Nearest Neighbors algorithm with k = 3 and k = 6.}(\#fig:knn-image)
+\end{figure}
 
 These examples illustrate how the choice of \(k\) affects classification. A smaller \(k\) (e.g., 3) makes predictions highly sensitive to local patterns, capturing finer details but also increasing the risk of misclassification due to noise. In contrast, a larger \(k\) (e.g., 6) smooths predictions by incorporating more neighbors, reducing sensitivity to individual data points but potentially overlooking localized structures in the data. Selecting an appropriate \( k \) ensures that kNN generalizes well without becoming overly complex or overly simplistic.
 
@@ -93,10 +97,14 @@ To further illustrate kNN, consider a real-world scenario involving drug prescri
 - *Green triangles* for Drug B, and  
 - *Blue squares* for Drug C.  
 
-<div class="figure" style="text-align: center">
-<img src="knn_files/figure-html/scatter-plot-ex-drug-1.png" alt="Scatter plot of Age vs. Sodium/Potassium Ratio for 200 patients, with drug type indicated by color and shape." width="95%" />
-<p class="caption">(\#fig:scatter-plot-ex-drug)Scatter plot of Age vs. Sodium/Potassium Ratio for 200 patients, with drug type indicated by color and shape.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.95\linewidth]{knn_files/figure-latex/scatter-plot-ex-drug-1} 
+
+}
+
+\caption{Scatter plot of Age vs. Sodium/Potassium Ratio for 200 patients, with drug type indicated by color and shape.}(\#fig:scatter-plot-ex-drug)
+\end{figure}
 
 Suppose three new patients arrive at the clinic, and we need to determine which drug is most suitable for them based on their *age* and *sodium-to-potassium ratio*. Their details are as follows:
 
@@ -106,10 +114,14 @@ Suppose three new patients arrive at the clinic, and we need to determine which 
 
 These patients are represented as *orange circles* in Figure \@ref(fig:scatter-plot-ex-drug-2). Using kNN, we will classify the drug type for each patient.
 
-<div class="figure" style="text-align: center">
-<img src="knn_files/figure-html/scatter-plot-ex-drug-2-1.png" alt="Scatter plot of Age vs. Sodium/Potassium Ratio for 200 patients, with drug type indicated by color and shape. The three new patients are represented by large orange circles." width="95%" />
-<p class="caption">(\#fig:scatter-plot-ex-drug-2)Scatter plot of Age vs. Sodium/Potassium Ratio for 200 patients, with drug type indicated by color and shape. The three new patients are represented by large orange circles.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.95\linewidth]{knn_files/figure-latex/scatter-plot-ex-drug-2-1} 
+
+}
+
+\caption{Scatter plot of Age vs. Sodium/Potassium Ratio for 200 patients, with drug type indicated by color and shape. The three new patients are represented by large orange circles.}(\#fig:scatter-plot-ex-drug-2)
+\end{figure}
 
 For *Patient 1*, who is located deep within a cluster of red-circle points (Drug A), the classification is straightforward: *Drug A*. All the nearest neighbors belong to Drug A, making it an easy decision.
 
@@ -117,10 +129,9 @@ For *Patient 2*, the situation is more nuanced. If \(k = 1\), the nearest neighb
 
 For *Patient 3*, classification becomes even more ambiguous. With \(k = 1\), the closest neighbor is a blue square, classifying the patient as *Drug C*. However, for \(k = 2\) or \(k = 3\), the nearest neighbors belong to multiple classes, creating uncertainty in classification.
 
-<div class="figure">
-<img src="knn_files/figure-html/scatter-plot-ex-drug-3-1.png" alt="Zoom-in plots for the three new patients and their nearest neighbors. The left plot is for Patient 1, the middle plot is for Patient 2, and the right plot is for Patient 3." width="33%" /><img src="knn_files/figure-html/scatter-plot-ex-drug-3-2.png" alt="Zoom-in plots for the three new patients and their nearest neighbors. The left plot is for Patient 1, the middle plot is for Patient 2, and the right plot is for Patient 3." width="33%" /><img src="knn_files/figure-html/scatter-plot-ex-drug-3-3.png" alt="Zoom-in plots for the three new patients and their nearest neighbors. The left plot is for Patient 1, the middle plot is for Patient 2, and the right plot is for Patient 3." width="33%" />
-<p class="caption">(\#fig:scatter-plot-ex-drug-3)Zoom-in plots for the three new patients and their nearest neighbors. The left plot is for Patient 1, the middle plot is for Patient 2, and the right plot is for Patient 3.</p>
-</div>
+\begin{figure}
+\includegraphics[width=0.33\linewidth]{knn_files/figure-latex/scatter-plot-ex-drug-3-1} \includegraphics[width=0.33\linewidth]{knn_files/figure-latex/scatter-plot-ex-drug-3-2} \includegraphics[width=0.33\linewidth]{knn_files/figure-latex/scatter-plot-ex-drug-3-3} \caption{Zoom-in plots for the three new patients and their nearest neighbors. The left plot is for Patient 1, the middle plot is for Patient 2, and the right plot is for Patient 3.}(\#fig:scatter-plot-ex-drug-3)
+\end{figure}
 
 These examples highlight several key aspects of kNN. The choice of \(k\) significantly influences classification—small values of \(k\) make the algorithm highly sensitive to local patterns, while larger values introduce smoothing by considering broader neighborhoods. Additionally, the selection of distance metrics, such as Euclidean distance, affects how neighbors are determined. Finally, proper feature scaling ensures that all variables contribute fairly to distance calculations, preventing dominance by features with larger numeric ranges.
 
@@ -188,10 +199,14 @@ Since the optimal \( k \) depends on the dataset, a common approach is to evalua
 
 To illustrate, we use the *churn* dataset and evaluate the accuracy of the kNN algorithm across different \( k \) values (ranging from 1 to 30). Figure \@ref(fig:kNN-plot) shows how accuracy fluctuates as \( k \) increases. The plot is generated using the `kNN.plot()` function from the **liver** package in R.
 
-<div class="figure" style="text-align: center">
-<img src="knn_files/figure-html/kNN-plot-1.png" alt="Accuracy of the k-Nearest Neighbors algorithm for different values of k in the range from 1 to 30." width="85%" />
-<p class="caption">(\#fig:kNN-plot)Accuracy of the k-Nearest Neighbors algorithm for different values of k in the range from 1 to 30.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.85\linewidth]{knn_files/figure-latex/kNN-plot-1} 
+
+}
+
+\caption{Accuracy of the k-Nearest Neighbors algorithm for different values of k in the range from 1 to 30.}(\#fig:kNN-plot)
+\end{figure}
 
 From the plot, we observe that kNN accuracy fluctuates as \( k \) increases. The highest accuracy is achieved when \( k = 5 \), where the algorithm balances sensitivity to local patterns with robustness to noise. At this value, kNN delivers an accuracy of 0.932 and an error rate of 0.068.
 
@@ -230,7 +245,7 @@ Scaling must always be performed *after partitioning* the dataset into training 
 To illustrate the importance of consistent scaling, consider the *patient drug classification problem*, which involves two features: `age` and `sodium/potassium (Na/K) ratio`. Figure \@ref(fig:scatter-plot-ex-drug-2) shows a dataset of 200 patients as the training set, with three additional patients in the test set. Using the `minmax()` function from the **liver** package, we demonstrate both correct and incorrect ways to scale the data:
 
 
-```r
+``` r
 # Load the liver package
 library(liver)
 
@@ -246,10 +261,14 @@ test_scaled_wrongly  = minmax(test_data , col = c("Age", "Ratio"))
 
 The difference is illustrated in Figure \@ref(fig:ex-proper-scaling). The middle panel shows the results of proper scaling, where the test set is scaled using the same parameters derived from the training set. This ensures consistency in distance calculations across both datasets. In contrast, the right panel shows improper scaling, where the test set is scaled independently. This leads to distorted relationships between the training and test data, which can cause unreliable predictions.
 
-<div class="figure" style="text-align: center">
-<img src="knn_files/figure-html/ex-proper-scaling-1.png" alt="Visualization illustrating the difference between proper scaling and improper scaling. The left panel shows the original data without scaling. The middle panel shows the results of proper scaling. The right panel shows the results of improper scaling." width="50%" /><img src="knn_files/figure-html/ex-proper-scaling-2.png" alt="Visualization illustrating the difference between proper scaling and improper scaling. The left panel shows the original data without scaling. The middle panel shows the results of proper scaling. The right panel shows the results of improper scaling." width="50%" /><img src="knn_files/figure-html/ex-proper-scaling-3.png" alt="Visualization illustrating the difference between proper scaling and improper scaling. The left panel shows the original data without scaling. The middle panel shows the results of proper scaling. The right panel shows the results of improper scaling." width="50%" />
-<p class="caption">(\#fig:ex-proper-scaling)Visualization illustrating the difference between proper scaling and improper scaling. The left panel shows the original data without scaling. The middle panel shows the results of proper scaling. The right panel shows the results of improper scaling.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{knn_files/figure-latex/ex-proper-scaling-1} \includegraphics[width=0.5\linewidth]{knn_files/figure-latex/ex-proper-scaling-2} \includegraphics[width=0.5\linewidth]{knn_files/figure-latex/ex-proper-scaling-3} 
+
+}
+
+\caption{Visualization illustrating the difference between proper scaling and improper scaling. The left panel shows the original data without scaling. The middle panel shows the results of proper scaling. The right panel shows the results of improper scaling.}(\#fig:ex-proper-scaling)
+\end{figure}
 
 > **Key Insight:** Proper scaling ensures that distance metrics remain valid, while improper scaling creates inconsistencies that undermine the kNN algorithm’s performance. *Scaling parameters should always be derived from the training set and applied consistently to the test set*. Neglecting this principle introduces data leakage, which distorts model evaluation and leads to overly optimistic performance estimates.
 
@@ -272,7 +291,7 @@ For categorical variables with more than two categories, one-hot encoding create
 The **liver** package in R provides the `one.hot()` function to perform one-hot encoding automatically. It identifies categorical variables and encodes them into binary columns, leaving numerical features unchanged. Applying one-hot encoding to the *marital* variable in the *bank* dataset, for instance, adds binary columns for the encoded categories:
 
 
-```r
+``` r
 data(bank)
 
 # To perform one-hot encoding on the "marital" variable
@@ -317,7 +336,7 @@ Setting `dropCols = FALSE` retains the original categorical column in the datase
 Applying the kNN algorithm involves several key steps, from preparing the data to training the model, making predictions, and evaluating its performance. In this section, we demonstrate the entire workflow using the *churn* dataset from the **liver** package in R. The target variable, `churn`, indicates whether a customer has churned (`yes`) or not (`no`), while the predictors include customer characteristics such as account length, international plan status, and call details. For details on exploratory data analysis, problem understanding, and data preparation for this dataset, refer to Section \@ref(EDA-sec-churn).
 
 
-```r
+``` r
 str(churn)
    'data.frame':	5000 obs. of  20 variables:
     $ state         : Factor w/ 51 levels "AK","AL","AR",..: 17 36 32 36 37 2 20 25 19 50 ...
@@ -357,7 +376,7 @@ The first step in applying kNN is to partition the dataset into training and tes
 We split the dataset into an 80% training set and a 20% test set using the `partition()` function from the **liver** package:
 
 
-```r
+``` r
 set.seed(43)
 
 data_sets = partition(data = churn, ratio = c(0.8, 0.2))
@@ -375,7 +394,7 @@ The `partition()` function randomly splits the dataset while maintaining the cla
 Since kNN relies on distance calculations, categorical variables like `voice.plan` and `intl.plan` must be converted into numerical representations. One-hot encoding achieves this by creating binary (dummy) variables for each category. We apply the `one.hot()` function from the **liver** package to transform categorical features into a numerical format suitable for kNN:
 
 
-```r
+``` r
 categorical_vars = c("voice.plan", "intl.plan")
 
 train_onehot = one.hot(train_set, cols = categorical_vars)
@@ -416,7 +435,7 @@ Since kNN calculates distances between data points, features with larger numeric
 To standardize the numerical variables, we apply min-max scaling using the `minmax()` function from the **liver** package. Scaling parameters (minimum and maximum values) must be computed from the training set and then applied consistently to both the training and test sets. This prevents data leakage, which occurs when test data influences the training process, leading to misleadingly high performance estimates.
 
 
-```r
+``` r
 numeric_vars = c("account.length", "voice.messages", "intl.mins", "intl.calls", 
                  "day.mins", "day.calls", "eve.mins", "eve.calls", 
                  "night.mins", "night.calls", "customer.calls")
@@ -435,7 +454,7 @@ The `minmax()` function normalizes the numerical features to the range \([0, 1]\
 The choice of \( k \) determines the trade-off between capturing local patterns and generalizing well to unseen data. Selecting an inappropriate \( k \) may result in overfitting (if \( k \) is too small) or oversmoothing (if \( k \) is too large). To identify the optimal \( k \), we evaluate the model’s accuracy for different values of \( k \) using the `kNN.plot()` function:
 
 
-```r
+``` r
 formula = churn ~ account.length + voice.plan_yes + voice.messages + 
                   intl.plan_yes + intl.mins + intl.calls + 
                   day.mins + day.calls + eve.mins + eve.calls + 
@@ -446,7 +465,9 @@ kNN.plot(formula = formula, train = train_scaled, test = test_scaled,
    Setting levels: reference = "yes", case = "no"
 ```
 
-<img src="knn_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{knn_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
 The `kNN.plot()` function visualizes the relationship between \( k \) and model accuracy, helping us determine the value of \( k \) that balances model complexity and generalization. By examining the plot, we observe that the highest accuracy is achieved when \( k = 5 \). This choice maintains sufficient flexibility to capture meaningful patterns while avoiding excessive sensitivity to outliers.
 
@@ -455,7 +476,7 @@ The `kNN.plot()` function visualizes the relationship between \( k \) and model 
 Since we identified \( k = 5 \) as the optimal value in Step 2, we now proceed to train the kNN model and make predictions on the test set. To apply the kNN algorithm in **R**, we use the `kNN()` function from the **liver** package as follows:
 
 
-```r
+``` r
 kNN_predict = kNN(formula = formula, train = train_scaled, test = test_scaled, k = 5)
 ```
 
@@ -466,7 +487,7 @@ The `kNN()` function automates the kNN classification process by computing dista
 Evaluating model performance is crucial to ensure that the kNN algorithm generalizes well to unseen data and makes reliable predictions. A confusion matrix provides a summary of correct and incorrect predictions by comparing the predicted labels to the actual labels in the test set. We compute it using the `conf.mat()` function from the **liver** package:
 
 
-```r
+``` r
 conf.mat(kNN_predict, test_labels, reference = "yes")
           Actual
    Predict yes  no
@@ -514,7 +535,7 @@ Here, we want to apply the concepts covered in this chapter using the *bank* dat
 To begin, load the necessary package and dataset:
 
 
-```r
+``` r
 library(liver)
 
 # Load the dataset

@@ -44,11 +44,11 @@ As shown in Figure \@ref(fig:net-brain), a biological neuron is designed to proc
 Similarly, an artificial neuron (illustrated in Figure \@ref(fig:net-1)) emulates this process using a mathematical model. It receives inputs (\(x_i\)) from either other artificial neurons or directly from a dataset. These inputs are combined using a weighted summation (\(\sum w_i x_i\)), where the weights (\(w_i\)) represent the strength of each input’s influence. The combined signal is then passed through an activation function (\(f(.)\)) to introduce non-linearity, determining the final output (\(\hat{y}\)). This output is either transmitted to other artificial neurons or used as the final result of the model. The activation function is crucial, as it enables neural networks to learn and model complex, nonlinear relationships in data.
 
 ```{r net-brain, echo = FALSE, out.width = "75%", fig.align = 'center', fig.cap = "Visualization of a biological neuron, which processes input signals through dendrites and sends outputs through the axon."}
-knitr::include_graphics("images/net_brain.png")
+knitr::include_graphics("images/ch12_net_brain.png")
 ```
 
 ```{r net-1, echo = FALSE, out.width = "90%", fig.align = 'center', fig.cap = "Illustration of an artificial neuron, designed to emulate the structure and function of a biological neuron in a simplified way."}
-knitr::include_graphics("images/net_1.png")
+knitr::include_graphics("images/ch12_net_1.png")
 ```
 
 One of the key advantages of artificial neural networks is their ability to generalize from data, even when faced with noise or incomplete information. Unlike traditional algorithms that rely on explicit rule-based decision-making, neural networks distribute learning across many interconnected neurons and weighted connections, allowing them to adapt and identify patterns even when individual data points are imperfect. This distributed learning process enables them to handle complex, high-dimensional data more effectively than many conventional models.
@@ -68,7 +68,7 @@ Neural networks extend traditional linear models by incorporating multiple layer
 where \(p\) represents the number of predictors, \(b_0\) is the intercept, and \(b_1\) to \(b_p\) are the learned coefficients. In this setup, \(\hat{y}\) is a weighted sum of the input features (\(x_1\) to \(x_p\)), where the weights (\(b_1\) to \(b_p\)) determine the relative influence of each feature on the prediction. This simple linear relationship can be visualized in Figure \@ref(fig:net-reg), where input features and the prediction are represented as nodes, with the coefficients acting as connecting weights.  
 
 ```{r net-reg, echo = FALSE, out.width = "40%", fig.align = 'center', fig.cap = "A graphical representation of a regression model: input features and predictions are shown as nodes, with the coefficients represented as connections between the nodes."}
-knitr::include_graphics("images/net_reg.png")
+knitr::include_graphics("images/ch12_net_reg.png")
 ```
 
 While linear models are effective for capturing direct relationships between inputs and outputs, they struggle to represent more complex patterns, such as interactions between variables or hierarchical structures in data. Neural networks address this limitation by introducing multiple layers of artificial neurons between the input and output, allowing them to model intricate, nonlinear relationships. This structure is illustrated in Figure \@ref(fig:net-large).  
@@ -82,7 +82,7 @@ The architecture of a neural network consists of the following key components:
 - The **output layer** produces the final prediction. In classification tasks, it typically represents the probability of a given class, while in regression tasks, it outputs a continuous numerical value.  
 
 ```{r net-large, echo = FALSE, out.width = "80%", fig.align = 'center', fig.cap = "Visualization of a multilayer neural network model with two hidden layers."}
-knitr::include_graphics("images/net_large.png")
+knitr::include_graphics("images/ch12_net_large.png")
 ```
 
 In Figure \@ref(fig:net-large), the input layer passes the features into the network, where each hidden layer applies transformations before passing the processed information forward. The output layer aggregates this information to generate the final prediction. Each connection in the network is assigned a weight (\(w_i\)), which determines the strength of influence one neuron has on another. These weights are adjusted during training to optimize the model’s accuracy.

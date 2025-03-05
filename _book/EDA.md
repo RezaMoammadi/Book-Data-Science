@@ -43,21 +43,27 @@ To analyze these relationships, data scientists commonly use scatter plots, corr
 
 A common challenge in EDA is choosing the most appropriate visualization or statistical summary for a given analysis. The selection depends on both the type of data and the insight being sought. The table below provides a structured guide to selecting the most effective tools for various exploratory tasks:
 
+\begin{table}
 
-
-Table: (\#tab:EDA-table-tools)EDA Tool Selection Guide.
-
-|EDA.Objective                                            |Data.Type                       |Recommended.Tools                                                    |
-|:--------------------------------------------------------|:-------------------------------|:--------------------------------------------------------------------|
-|Understand the distribution of a variable                |Numerical (continuous/discrete) |Histogram, box plot, density plot, summary statistics                |
-|Examine a categorical variable's distribution            |Categorical                     |Bar chart, frequency table                                           |
-|Identify outliers                                        |Numerical                       |Box plot, histogram, Z-score analysis                                |
-|Detect missing values                                    |Any                             |Heatmap, summary statistics, missing data patterns                   |
-|Analyze the relationship between two numerical variables |Numerical & numerical           |Scatter plot, correlation coefficient, regression line               |
-|Compare a numerical variable across categories           |Categorical & numerical         |Box plot, violin plot, grouped bar chart                             |
-|Explore interactions between two categorical variables   |Categorical & categorical       |Stacked bar chart, mosaic plot, contingency table                    |
-|Assess correlation among multiple numerical variables    |Multiple numerical              |Correlation matrix, pair plot (scatterplot matrix)                   |
-|Investigate complex multivariate relationships           |Multiple variables              |Facet grid, parallel coordinates, principal component analysis (PCA) |
+\caption{(\#tab:EDA-table-tools)EDA Tool Selection Guide.}
+\centering
+\begin{tabular}[t]{lll}
+\toprule
+EDA.Objective & Data.Type & Recommended.Tools\\
+\midrule
+Understand the distribution of a variable & Numerical (continuous/discrete) & Histogram, box plot, density plot, summary statistics\\
+Examine a categorical variable's distribution & Categorical & Bar chart, frequency table\\
+Identify outliers & Numerical & Box plot, histogram, Z-score analysis\\
+Detect missing values & Any & Heatmap, summary statistics, missing data patterns\\
+Analyze the relationship between two numerical variables & Numerical \& numerical & Scatter plot, correlation coefficient, regression line\\
+\addlinespace
+Compare a numerical variable across categories & Categorical \& numerical & Box plot, violin plot, grouped bar chart\\
+Explore interactions between two categorical variables & Categorical \& categorical & Stacked bar chart, mosaic plot, contingency table\\
+Assess correlation among multiple numerical variables & Multiple numerical & Correlation matrix, pair plot (scatterplot matrix)\\
+Investigate complex multivariate relationships & Multiple variables & Facet grid, parallel coordinates, principal component analysis (PCA)\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 
 
@@ -79,17 +85,18 @@ Data storytelling is widely used in business, scientific research, and journalis
 
 One example comes from climate science. Figure \@ref(fig:EDA-fig-1) presents global mean surface temperature changes over the Common Era, highlighting long-term warming trends. Adapted from @neukom2019no, this visualization provides a historical perspective on climate change, illustrating temperature anomalies over time.  
 
-<div class="figure" style="text-align: center">
-<img src="images/EDA_fig_1.png" alt="Global mean surface temperature history over the Common Era. Temperature anomalies with respect to 1961–1990 CE. The colored lines represent 30-year low-pass-filtered ensemble medians for different reconstruction methods." width="100%" />
-<p class="caption">(\#fig:EDA-fig-1)Global mean surface temperature history over the Common Era. Temperature anomalies with respect to 1961–1990 CE. The colored lines represent 30-year low-pass-filtered ensemble medians for different reconstruction methods.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{images/ch4_EDA_fig_1} 
+
+}
+
+\caption{Global mean surface temperature history over the Common Era. Temperature anomalies with respect to 1961–1990 CE. The colored lines represent 30-year low-pass-filtered ensemble medians for different reconstruction methods.}(\#fig:EDA-fig-1)
+\end{figure}
 
 Another example focuses on global health and demographics. Figure \@ref(fig:EDA-fig-2) illustrates the relationship between fertility rate and life expectancy across world regions from 1960 to 2015. Adapted from Hans Rosling’s TED Talk ["New insights on poverty"](https://www.ted.com/talks/hans_rosling_new_insights_on_poverty), this visualization effectively conveys trends in population health and economic development over time.
 
-<div class="figure" style="text-align: center">
-<img src="EDA_files/figure-html/EDA-fig-2-1.gif" alt="Animated scatter plot of fertility rate and life expectancy at birth for different world regions from 1960 to 2015." width="100%" />
-<p class="caption">(\#fig:EDA-fig-2)Animated scatter plot of fertility rate and life expectancy at birth for different world regions from 1960 to 2015.</p>
-</div>
+
 
 These examples highlight how well-designed visualizations can make complex data more accessible and engaging.  
 
@@ -139,7 +146,7 @@ The *churn* dataset comes from IBM Sample Data Sets and contains 5000 customer r
 To use this dataset, we first load the **liver** package and then import the dataset into **R**:
 
 
-```r
+``` r
 library(liver)
 data(churn)  
 ```
@@ -147,7 +154,7 @@ data(churn)
 To examine the structure of the dataset, we use:
 
 
-```r
+``` r
 str(churn)  
    'data.frame':	5000 obs. of  20 variables:
     $ state         : Factor w/ 51 levels "AK","AL","AR",..: 17 36 32 36 37 2 20 25 19 50 ...
@@ -177,7 +184,7 @@ This command reveals that the dataset is stored as a `data.frame` with 5000 obse
 To summarize the dataset, we use:
 
 
-```r
+``` r
 summary(churn)
         state              area.code    account.length  voice.plan
     WV     : 158   area_code_408:1259   Min.   :  1.0   yes:1323  
@@ -232,13 +239,15 @@ Categorical variables represent discrete values such as labels, names, or binary
 To begin, we examine the distribution of the target variable `churn` to determine whether the dataset is balanced:
 
 
-```r
+``` r
 ggplot(data = churn, aes(x = churn, label = scales::percent(prop.table(stat(count))))) +
   geom_bar(fill = c("palevioletred1", "darkseagreen1")) + 
   geom_text(stat = 'count', vjust = 0.2, size = 6)
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-4-1} \end{center}
 
 The bar plot reveals that the dataset is imbalanced, with more customers staying (`churn = "no"`) than leaving (`churn = "yes"`). The proportion of churners is approximately 1.4 percent, while the proportion of non-churners is 8.6 percent. Since imbalanced data can impact predictive modeling, understanding churn patterns is essential for improving retention strategies.
 
@@ -247,7 +256,7 @@ The bar plot reveals that the dataset is imbalanced, with more customers staying
 We first analyze `intl.plan`, which indicates whether a customer has an international calling plan. As a binary variable, it allows for a straightforward comparison of churn rates between subscribed and non-subscribed customers.  
 
 
-```r
+``` r
 ggplot(data = churn) + 
   geom_bar(aes(x = intl.plan, fill = churn)) +
   scale_fill_manual(values = c("palevioletred1", "darkseagreen1")) 
@@ -257,14 +266,15 @@ ggplot(data = churn) +
   scale_fill_manual(values = c("palevioletred1", "darkseagreen1")) 
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-5-1.png" width="50%" /><img src="EDA_files/figure-html/unnamed-chunk-5-2.png" width="50%" />
+
+\includegraphics[width=0.5\linewidth]{EDA_files/figure-latex/unnamed-chunk-5-1} \includegraphics[width=0.5\linewidth]{EDA_files/figure-latex/unnamed-chunk-5-2} 
 
 The first plot (left) compares the raw counts of churners and non-churners among customers with and without an international plan. The second plot (right) normalizes the proportions, revealing that customers with an international plan have a significantly higher churn rate.
 
 To quantify this relationship, we generate a contingency table:
 
 
-```r
+``` r
 addmargins(table(churn$churn, churn$intl.plan, 
                  dnn = c("Churn", "International Plan")))
         International Plan
@@ -281,7 +291,7 @@ The results confirm that churn is more prevalent among customers subscribed to a
 Next, we examine `voice.plan`, which indicates whether a customer has subscribed to a voice mail plan.
 
 
-```r
+``` r
 ggplot(data = churn) + 
   geom_bar(aes(x = voice.plan, fill = churn)) +
   scale_fill_manual(values = c("palevioletred1", "darkseagreen1")) 
@@ -291,12 +301,13 @@ ggplot(data = churn) +
   scale_fill_manual(values = c("palevioletred1", "darkseagreen1")) 
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-7-1.png" width="50%" /><img src="EDA_files/figure-html/unnamed-chunk-7-2.png" width="50%" />
+
+\includegraphics[width=0.5\linewidth]{EDA_files/figure-latex/unnamed-chunk-7-1} \includegraphics[width=0.5\linewidth]{EDA_files/figure-latex/unnamed-chunk-7-2} 
 
 Customers without a voice mail plan appear to churn at a slightly higher rate. This is confirmed using a contingency table:
 
 
-```r
+``` r
 addmargins(table(churn$churn, churn$voice.plan, dnn = c("Churn", "Voice Mail Plan")))
         Voice Mail Plan
    Churn  yes   no  Sum
@@ -324,20 +335,22 @@ We now turn to numerical variables in the churn dataset, examining their distrib
 The variable `customer.calls` represents the number of calls a customer makes to customer service. Since this is a discrete numerical variable, we use a histogram to examine its distribution:
 
 
-```r
+``` r
 ggplot(data = churn) +
   geom_histogram(aes(x = customer.calls), 
                  bins = 10, fill = "skyblue", color = "black")
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-9-1} \end{center}
 
 The histogram shows that most customers make only a few service calls, while a smaller group contacts customer service frequently. The right-skewed distribution suggests that a few customers make an unusually high number of calls, potentially signaling dissatisfaction.  
 
 To further investigate, we overlay churn status:
 
 
-```r
+``` r
 ggplot(data = churn) +
   geom_histogram(aes(x = customer.calls, fill = churn), position = "stack") +
   scale_fill_manual(values = c("palevioletred1", "darkseagreen1")) 
@@ -347,7 +360,8 @@ ggplot(data = churn) +
   scale_fill_manual(values = c("palevioletred1", "darkseagreen1")) 
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-10-1.png" width="50%" /><img src="EDA_files/figure-html/unnamed-chunk-10-2.png" width="50%" />
+
+\includegraphics[width=0.5\linewidth]{EDA_files/figure-latex/unnamed-chunk-10-1} \includegraphics[width=0.5\linewidth]{EDA_files/figure-latex/unnamed-chunk-10-2} 
 
 The normalized histogram (right) reveals a striking trend: customers making *four or more* service calls have a significantly higher churn rate. This suggests that frequent service interactions may indicate unresolved issues, leading to customer dissatisfaction.
 
@@ -362,7 +376,7 @@ Key Insights and Business Implications:
 Next, we examine `day.mins`, which represents the number of minutes a customer spends on daytime calls. We use box plots and density plots to compare distributions between churners and non-churners.
 
 
-```r
+``` r
 ggplot(data = churn) +
     geom_boxplot(aes(x = churn, y = day.mins), 
                  fill = c("palevioletred1", "darkseagreen1"))
@@ -371,7 +385,8 @@ ggplot(data = churn) +
     geom_density(aes(x = day.mins, fill = churn), alpha = 0.3)
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-11-1.png" width="50%" /><img src="EDA_files/figure-html/unnamed-chunk-11-2.png" width="50%" />
+
+\includegraphics[width=0.5\linewidth]{EDA_files/figure-latex/unnamed-chunk-11-1} \includegraphics[width=0.5\linewidth]{EDA_files/figure-latex/unnamed-chunk-11-2} 
 
 The box plot (left) shows that customers who churn tend to have higher daytime call usage. The density plot (right) confirms this, with a noticeable peak in churners at higher `day.mins` values.
 
@@ -386,7 +401,7 @@ Key Insights and Business Implications:
 To investigate whether evening and nighttime call patterns also relate to churn, we plot `eve.mins` and `night.mins`.
 
 
-```r
+``` r
 ggplot(data = churn) +
     geom_boxplot(aes(x = churn, y = eve.mins), fill = c("palevioletred1", "darkseagreen1"))
 
@@ -394,12 +409,13 @@ ggplot(data = churn) +
     geom_density(aes(x = eve.mins, fill = churn), alpha = 0.3)
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-12-1.png" width="50%" /><img src="EDA_files/figure-html/unnamed-chunk-12-2.png" width="50%" />
+
+\includegraphics[width=0.5\linewidth]{EDA_files/figure-latex/unnamed-chunk-12-1} \includegraphics[width=0.5\linewidth]{EDA_files/figure-latex/unnamed-chunk-12-2} 
 
 While a slight trend suggests that churners have higher `eve.mins`, the effect is weaker than for `day.mins`. Similarly, analysis of `night.mins` does not reveal a clear distinction between churners and non-churners.
 
 
-```r
+``` r
 ggplot(data = churn) +
     geom_boxplot(aes(x = churn, y = night.mins), fill = c("palevioletred1", "darkseagreen1"))
 
@@ -407,7 +423,8 @@ ggplot(data = churn) +
     geom_density(aes(x = night.mins, fill = churn), alpha = 0.3)
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-13-1.png" width="50%" /><img src="EDA_files/figure-html/unnamed-chunk-13-2.png" width="50%" />
+
+\includegraphics[width=0.5\linewidth]{EDA_files/figure-latex/unnamed-chunk-13-1} \includegraphics[width=0.5\linewidth]{EDA_files/figure-latex/unnamed-chunk-13-2} 
 
 The similar distributions suggest that nighttime call usage is not a strong churn indicator.
 
@@ -424,7 +441,7 @@ Your subsection is **well-structured** and provides a **clear** overview of the 
 We now examine `intl.calls`, which represents the total number of international calls made by customers. To explore its relationship with churn, we visualize the distribution using box plots and density plots.
 
 
-```r
+``` r
 ggplot(data = churn) +
     geom_boxplot(aes(x = churn, y = intl.calls), 
                  fill = c("palevioletred1", "darkseagreen1"))
@@ -433,7 +450,8 @@ ggplot(data = churn) +
     geom_density(aes(x = intl.calls, fill = churn), alpha = 0.3)
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-14-1.png" width="50%" /><img src="EDA_files/figure-html/unnamed-chunk-14-2.png" width="50%" />
+
+\includegraphics[width=0.5\linewidth]{EDA_files/figure-latex/unnamed-chunk-14-1} \includegraphics[width=0.5\linewidth]{EDA_files/figure-latex/unnamed-chunk-14-2} 
 
 The box plot (left) indicates that churners (`churn=yes`) tend to make slightly fewer international calls than non-churners. The density plot (right) further supports this, showing a minor difference in distribution between the two groups.
 
@@ -455,14 +473,16 @@ While univariate analysis provides insights into individual variables, multivari
 A useful example is the relationship between `day.mins` (Day Minutes) and `eve.mins` (Evening Minutes), visualized in the scatter plot below:
 
 
-```r
+``` r
 ggplot(data = churn) +
     geom_point(aes(x = eve.mins, y = day.mins, color = churn), size = 0.7, alpha = 0.8) +
     scale_color_manual(values = c("palevioletred1", "darkseagreen1")) +
     geom_abline(intercept = 400, slope = -0.6, color = "blue", size = 1)
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-15-1} \end{center}
 
 The diagonal line, represented by the equation:
 
@@ -475,7 +495,7 @@ separates the dataset into two regions. Customers in the upper-right region, whe
 To quantify this effect, we isolate the high-churn segment:
 
 
-```r
+``` r
 sub_churn = subset(churn, (day.mins > 400 - 0.6 * eve.mins))
 
 ggplot(data = sub_churn, aes(x = churn, label = scales::percent(prop.table(stat(count))))) +
@@ -483,20 +503,24 @@ ggplot(data = sub_churn, aes(x = churn, label = scales::percent(prop.table(stat(
     geom_text(stat = 'count', vjust = 0.2, size = 6)
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-16-1} \end{center}
 
 Within this subset, the churn rate is significantly higher than in the overall dataset, reinforcing the importance of considering variable interactions. The combination of high day and evening usage may indicate a specific customer behavior pattern that correlates with dissatisfaction.
 
 Another key relationship exists between `customer.calls` and `day.mins`:
 
 
-```r
+``` r
 ggplot(data = churn) +
   geom_point(aes(x = day.mins, y = customer.calls, color = churn), alpha = 0.8) +
   scale_color_manual(values = c("palevioletred1", "darkseagreen1"))
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 This scatter plot reveals an interesting high-churn region in the upper left, where customers make frequent customer service calls but have low day-minute usage. This group may represent dissatisfied customers who are not heavy users but are still experiencing service-related frustrations. By contrast, high-minute users who also make frequent service calls show a lower churn rate, possibly indicating that engaged customers are more tolerant of service issues.
 
@@ -519,17 +543,21 @@ The strength and direction of a correlation are measured by the correlation coef
 
 Below, Figure \@ref(fig:correlation) shows examples of different correlation coefficients.
 
-<div class="figure" style="text-align: center">
-<img src="images/correlation.png" alt="Example scatterplots showing different correlation coefficients." width="100%" />
-<p class="caption">(\#fig:correlation)Example scatterplots showing different correlation coefficients.</p>
-</div>
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{images/ch4_correlation} 
+
+}
+
+\caption{Example scatterplots showing different correlation coefficients.}(\#fig:correlation)
+\end{figure}
 
 When multiple variables are highly correlated, redundancy can become a problem. Including both variables in a model may not add much new information and can lead to instability, particularly in regression-based models where multicollinearity makes it difficult to determine the effect of individual predictors. Instead of automatically removing correlated variables, a more thoughtful approach involves assessing their practical relevance and whether they provide distinct information.  
 
 To examine correlations in the churn dataset, we compute the correlation matrix for the numerical variables and visualize it using a heatmap.  
 
 
-```r
+``` r
 library(ggcorrplot)  
 variable_list = c("intl.mins",  "intl.calls",  "intl.charge", 
                   "day.mins",   "day.calls",   "day.charge",
@@ -541,7 +569,9 @@ cor_matrix = cor(churn[, variable_list])
 ggcorrplot(cor_matrix, type = "lower", lab = TRUE, lab_size = 3)
 ```
 
-<img src="EDA_files/figure-html/unnamed-chunk-18-1.png" width="100%" style="display: block; margin: auto;" />
+
+
+\begin{center}\includegraphics[width=1\linewidth]{EDA_files/figure-latex/unnamed-chunk-18-1} \end{center}
 
 The correlation matrix highlights some key relationships. The charge variables are perfectly correlated with their corresponding minutes variables because charges are calculated directly from call duration. Including both would introduce redundancy. To avoid this, the charge variables should be removed, keeping only the minutes variables.  
 
@@ -623,13 +653,13 @@ More details on this dataset can be found at: [https://rdrr.io/cran/liver/man/ba
 
 We can import the dataset in **R** as follows:  
 
-```r
+``` r
 library(liver)
 data(bank)      
 ```
 To examine the dataset’s structure, we use:
 
-```r
+``` r
 str(bank)
    'data.frame':	4521 obs. of  17 variables:
     $ age      : int  30 33 35 30 59 35 36 39 41 43 ...

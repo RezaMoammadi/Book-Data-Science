@@ -95,14 +95,14 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
-  pdftitle={Uncovering Data Science with R},
+  pdftitle={Data Science Foundations and Machine Learning Using R},
   pdfauthor={Reza Mohammadi},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 
-\title{Uncovering Data Science with R}
-\author{Reza Mohammadi}
-\date{2025-02-27}
+\title{Data Science Foundations and Machine Learning Using R}
+\author{\href{https://www.uva.nl/profile/a.mohammadi}{{Reza Mohammadi}}}
+\date{2025-03-05}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -131,65 +131,61 @@
 \chapter*{Preface}\label{preface}
 \addcontentsline{toc}{chapter}{Preface}
 
-\textbf{Data science is transforming the way we solve problems, make decisions, and uncover insights from data.} Whether you're a beginner or an experienced professional, \emph{Uncovering Data Science with R} provides an intuitive and practical introduction to this exciting field---no prior analytics or programming experience required.
+Data science is transforming the way we solve problems, make decisions, and uncover insights from data. From personalized recommendations on Netflix to fraud detection in banking, data-driven techniques are revolutionizing industries. Whether you are new to data science or an experienced professional, \emph{Data Science Foundations and Machine Learning Using R} provides an accessible, hands-on introduction to this exciting field---no prior analytics or programming experience required.
 
-This book is a work in progress, and we welcome feedback from readers. If you have any comments, suggestions, or corrections, please feel free to contact us at \href{mailto:a.mohammadi@uva.nl}{Contact Us}.
+\section*{Why this book?}\label{why-this-book}
+\addcontentsline{toc}{section}{Why this book?}
 
-\section*{Why This Book?}\label{why-this-book}
-\addcontentsline{toc}{section}{Why This Book?}
+Data science is an evolving discipline that integrates computational tools and statistical techniques to transform raw data into actionable insights. This book introduces the fundamental skills needed to analyze data and build machine learning models using \textbf{R}, a powerful open-source statistical programming language widely used for data science, machine learning, and visualization.
 
-Data science is a rapidly evolving field that leverages computational tools and techniques to transform raw data into actionable insights. In this book, we introduce the fundamental skills needed to work with \textbf{R}, a powerful and freely available statistical programming language widely used for data analysis, visualization, and machine learning.
+Unlike many textbooks that assume prior programming knowledge, this book is designed to be accessible. The focus is on \textbf{intuitive learning}, ensuring that concepts are not just explained but applied through practical, real-world examples. Readers will gain hands-on experience working with real datasets, developing essential data science skills while reinforcing theoretical foundations.
 
-Unlike many other books on data science, our focus is on accessibility. We aim to provide an intuitive and practical introduction, making \textbf{R} and data science concepts understandable for those with little or no technical background. Our hands-on approach ensures that you will not only learn theoretical concepts but also gain experience applying them to real-world datasets.
+Compared to proprietary software like SAS or SPSS, \textbf{R} offers a free, highly extensible ecosystem for statistical computing and machine learning. Its rich collection of packages makes it a widely adopted tool for data mining, predictive modeling, and exploratory data analysis.
 
-Compared to commercial software like SAS or SPSS, \textbf{R} provides a free, open-source, and highly extensible platform for statistical computing and machine learning. Its rich ecosystem of packages makes it an excellent alternative to proprietary data mining tools.
+\section*{Who should read this book?}\label{who-should-read-this-book}
+\addcontentsline{toc}{section}{Who should read this book?}
 
-Inspired by the Free and Open Source Software (FOSS) movement, the content of this book is open and transparent, ensuring reproducibility. The code, datasets, and materials are hosted on \href{https://cran.r-project.org/web/packages/liver/index.html}{CRAN} and are accessible via the \textbf{liver} package (\url{https://CRAN.R-project.org/package=liver}), allowing readers to engage with the book interactively.
-
-\section*{Who Should Read This Book?}\label{who-should-read-this-book}
-\addcontentsline{toc}{section}{Who Should Read This Book?}
-
-This book is for anyone interested in learning about data science, particularly those new to the field. It is designed for:
+This book is intended for:
 
 \begin{itemize}
 \tightlist
 \item
-  Business professionals who want to leverage data for decision-making,\\
+  Business professionals looking to leverage data for decision-making,\\
 \item
-  Students and researchers looking to apply data analysis in their work,\\
+  Students and researchers applying data analysis in their work,\\
 \item
-  Beginners with no prior programming experience,\\
+  Beginners with no prior experience in programming or analytics,\\
 \item
   Anyone interested in data science and machine learning using \textbf{R}.
 \end{itemize}
 
-\section*{What You Will Learn}\label{what-you-will-learn}
-\addcontentsline{toc}{section}{What You Will Learn}
+It is suitable for self-study, classroom use, or as a reference for professionals seeking to apply data science techniques in practical settings.
 
-The primary goal of this book is to introduce data science concepts using \textbf{R} as a tool for data analysis and machine learning. \textbf{R} is an open-source language and environment for statistical computing and graphics, offering a vast collection of packages for data mining, visualization, and modeling.
+\section*{What you will learn}\label{what-you-will-learn}
+\addcontentsline{toc}{section}{What you will learn}
 
-Through hands-on examples and real-world datasets, you will learn:
+This book introduces data science principles through a structured, hands-on approach using \textbf{R}. Topics covered include:
 
 \begin{itemize}
 \tightlist
 \item
-  The basics of \textbf{R} and how to set up your environment,\\
+  The fundamentals of \textbf{R} programming,\\
 \item
-  The core principles of data science and the Data Science Methodology,\\
+  The data science workflow, including data wrangling, transformation, and visualization,\\
 \item
-  How to clean, transform, and explore data,\\
+  Exploratory data analysis (EDA) and statistical inference,\\
 \item
-  The fundamentals of statistical analysis, machine learning, and data visualization,\\
+  Machine learning techniques, including classification, regression, clustering, and neural networks,\\
 \item
-  How to build and evaluate machine learning models, including classification, regression, clustering, and neural networks,\\
+  Model evaluation and performance metrics,\\
 \item
-  How to apply these techniques to real-world datasets.
+  Practical applications using real-world datasets.
 \end{itemize}
 
-\section*{The Data Science Process}\label{the-data-science-process}
-\addcontentsline{toc}{section}{The Data Science Process}
+\section*{The data science workflow}\label{the-data-science-workflow}
+\addcontentsline{toc}{section}{The data science workflow}
 
-Data science follows an iterative and structured methodology for analyzing and extracting insights from data. This book follows this framework:
+Data science follows a structured methodology for analyzing and extracting insights from data. This book adheres to this process:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -197,85 +193,83 @@ Data science follows an iterative and structured methodology for analyzing and e
 \item
   \textbf{Problem Understanding} -- Defining the objective and understanding the data.\\
 \item
-  \textbf{Data Preparation} -- Preparing raw data for analysis.\\
+  \textbf{Data Preparation} -- Cleaning and transforming raw data for analysis.\\
 \item
-  \textbf{Exploratory Data Analysis (EDA)} -- Identifying patterns and relationships in data.\\
+  \textbf{Exploratory Data Analysis (EDA)} -- Identifying patterns and relationships within the data.\\
 \item
-  \textbf{Preparing Data for Modeling} -- Transforming data for machine learning models.\\
+  \textbf{Preparing Data for Modeling} -- Preparing data for predictive modeling.\\
 \item
-  \textbf{Modeling} -- Building predictive models using machine learning algorithms.\\
+  \textbf{Modeling} -- Building and training machine learning models.\\
 \item
   \textbf{Evaluation} -- Assessing model performance using various metrics.\\
 \item
-  \textbf{Deployment} -- Applying the trained model to real-world scenarios.
+  \textbf{Deployment} -- Applying trained models to real-world scenarios.
 \end{enumerate}
 
-By the end of this book, you will have a solid understanding of these phases and be able to apply them effectively.
+By the end of this book, you will be familiar with each phase of this process and be able to apply it effectively in practice.\\
+\#\# How this book is structured \{.unnumbered\}
 
-\section*{How This Book Is Structured}\label{how-this-book-is-structured}
-\addcontentsline{toc}{section}{How This Book Is Structured}
+The book is structured as a \textbf{hands-on guide}, progressing from foundational concepts to more advanced machine learning techniques. Each chapter builds upon previous topics, ensuring a logical learning experience.
 
-This book is structured as a \textbf{hands-on guide}, designed to take you from beginner to practitioner in \textbf{R} and data science. The chapters follow a logical progression, starting with foundational concepts and gradually introducing more advanced techniques.
-
-We use \textbf{real-world datasets} (see Table \ref{tab:data-table}) throughout the book to illustrate key concepts. These datasets are available in the \textbf{liver} package and can be accessed easily. Below is a brief overview of the book's chapters:
+We use \textbf{real-world datasets} (see Table \ref{tab:data-table}) to demonstrate key concepts. These datasets are available in the \textbf{liver} package, making it easy to follow along. Below is an overview of the book's chapters:
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Chapter \ref{chapter-into-R}} -- Introduction to \textbf{R}, including installation and basic operations.\\
+  \textbf{Chapter \ref{chapter-into-R}} -- Introduction to \textbf{R} and its essential functions.\\
 \item
-  \textbf{Chapter \ref{chapter-intro-DS}} -- Introduction to Data Science and its methodology.\\
+  \textbf{Chapter \ref{chapter-intro-DS}} -- The foundations of data science and its methodology.\\
 \item
-  \textbf{Chapter \ref{chapter-data-prep}} -- Data preparation techniques.\\
+  \textbf{Chapter \ref{chapter-data-prep}} -- Techniques for cleaning and transforming data.\\
 \item
   \textbf{Chapter \ref{chapter-EDA}} -- Exploratory Data Analysis (EDA) using visualization and summary statistics.\\
 \item
-  \textbf{Chapter \ref{chapter-statistics}} -- Basics of statistical analysis, including descriptive statistics and hypothesis testing.\\
+  \textbf{Chapter \ref{chapter-statistics}} -- Fundamentals of statistical analysis and hypothesis testing.\\
 \item
   \textbf{Chapter \ref{chapter-modeling}} -- Overview of machine learning models.\\
 \item
   \textbf{Chapter \ref{chapter-knn}} -- k-Nearest Neighbors (k-NN) algorithm.\\
 \item
-  \textbf{Chapter \ref{chapter-evaluation}} -- Model evaluation metrics and techniques.\\
+  \textbf{Chapter \ref{chapter-evaluation}} -- Model evaluation techniques.\\
 \item
-  \textbf{Chapter \ref{chapter-bayes}} -- Naïve Bayes classifier for probabilistic modeling.\\
+  \textbf{Chapter \ref{chapter-bayes}} -- The Naïve Bayes classifier.\\
 \item
   \textbf{Chapter \ref{chapter-regression}} -- Linear regression for predictive modeling.\\
 \item
-  \textbf{Chapter \ref{chapter-tree}} -- Decision trees and Random Forests.\\
+  \textbf{Chapter \ref{chapter-tree}} -- Decision trees and ensemble methods like Random Forests.\\
 \item
-  \textbf{Chapter \ref{chapter-nn}} -- Neural networks and deep learning basics.\\
+  \textbf{Chapter \ref{chapter-nn}} -- Introduction to neural networks.\\
 \item
-  \textbf{Chapter \ref{chapter-cluster}} -- Clustering techniques, including k-means.
+  \textbf{Chapter \ref{chapter-cluster}} -- Clustering techniques such as k-means.
 \end{itemize}
 
-At the end of each chapter, you will find \textbf{practical exercises and labs} to reinforce your learning. These exercises use real-world datasets and provide step-by-step guidance to ensure hands-on experience.
+At the end of each chapter, \textbf{practical exercises and coding labs} reinforce key concepts and provide hands-on experience with real-world datasets.
 
-\section*{How to Use This Book}\label{how-to-use-this-book}
-\addcontentsline{toc}{section}{How to Use This Book}
+\section*{How to use this book}\label{how-to-use-this-book}
+\addcontentsline{toc}{section}{How to use this book}
 
-This book is designed for \textbf{both self-study and classroom use}. You can read it cover to cover or jump to the chapters that interest you most. Each chapter builds on the previous ones, so beginners are encouraged to follow the sequence for a smooth learning experience.
+This book is designed for \textbf{self-study, classroom instruction, or professional learning}. Readers can either follow the book sequentially or jump to specific topics as needed.
 
-To get the most out of this book:
+To maximize learning:
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Run the code examples} -- All code snippets are designed to be executed interactively in \textbf{R}.\\
+  \textbf{Run the code examples} -- All examples are designed for interactive execution in \textbf{R}.\\
 \item
-  \textbf{Complete the exercises} -- Practical exercises reinforce key concepts and improve problem-solving skills.\\
+  \textbf{Complete the exercises} -- Practical exercises strengthen understanding and problem-solving skills.\\
 \item
-  \textbf{Modify and experiment} -- Try changing the code to explore different scenarios.\\
+  \textbf{Modify and experiment} -- Tweaking code allows deeper exploration of concepts.\\
 \item
-  \textbf{Use it as a reference} -- Once you're familiar with the basics, use this book as a guide for working with real-world data.
+  \textbf{Use it as a reference} -- Once familiar with the basics, refer to this book for real-world applications.
 \end{itemize}
 
-This book has also been used in \textbf{data science courses} at the University of Amsterdam. It can serve as a textbook for similar courses or as a supplementary resource for more advanced analytics training.
+The book has been used in \textbf{data science courses at the University of Amsterdam} and is suitable for similar courses in other institutions.
 
-\section*{Datasets Used in This Book}\label{datasets-used-in-this-book}
-\addcontentsline{toc}{section}{Datasets Used in This Book}
+\section*{Datasets used in this book}\label{datasets-used-in-this-book}
+\addcontentsline{toc}{section}{Datasets used in this book}
 
-Table \ref{tab:data-table} lists the datasets used in this book. These real-world datasets are used to illustrate key concepts and are available in the \textbf{liver} package, which can be downloaded from CRAN.
+Table \ref{tab:data-table} lists the datasets used throughout the book, all of which are included in the \textbf{liver} package.
 
 \begin{table}
 \centering
@@ -298,10 +292,34 @@ Name & Description & Chapter\\
 \end{tabular}
 \end{table}
 
-\section*{Prerequisites}\label{prerequisites}
-\addcontentsline{toc}{section}{Prerequisites}
+\section*{Using this book for teaching}\label{using-this-book-for-teaching}
+\addcontentsline{toc}{section}{Using this book for teaching}
 
-No prior programming experience is required, but a basic understanding of numbers and logic will be helpful. To run the code in this book, you need to install \textbf{R}, \textbf{RStudio}, and several \textbf{R} packages.
+This book is suitable for \textbf{introductory data science and machine learning courses} or as a \textbf{supplementary resource} for analytics training. It includes \textbf{over 500 exercises} categorized into three levels:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Conceptual Exercises} -- Reinforce theoretical understanding.\\
+\item
+  \textbf{Applied Exercises} -- Require hands-on analysis of real-world datasets.\\
+\item
+  \textbf{Advanced Exercises} -- Explore complex applications and machine learning techniques.
+\end{itemize}
+
+Faculty adopters have access to additional resources:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Instructor's Manual} -- Solutions to all exercises, plus teaching guidance.\\
+\item
+  \textbf{PowerPoint Slides} -- Presentation slides for each chapter.\\
+\item
+  \textbf{Test Bank} -- Multiple-choice and short-answer questions.\\
+\item
+  \textbf{Data Sets} -- Available in the \textbf{liver} package for easy access.
+\end{itemize}
 
 \chapter{The Basics for R}\label{chapter-into-R}
 
@@ -401,7 +419,7 @@ When you open RStudio, you will see a window similar to Figure \ref{fig:RStudio-
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.7\linewidth]{images/RStudio-window-1} 
+{\centering \includegraphics[width=0.7\linewidth]{images/ch1_RStudio-window-1} 
 
 }
 
@@ -531,7 +549,7 @@ There are two ways to install R packages. The first method is through RStudio's 
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.7\linewidth]{images/RStudio-window-install} 
+{\centering \includegraphics[width=0.7\linewidth]{images/ch1_RStudio-window-install} 
 
 }
 
@@ -660,7 +678,7 @@ After selecting your file, RStudio will display an import settings window (see F
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.7\linewidth]{images/RStudio-window-data-1} 
+{\centering \includegraphics[width=0.7\linewidth]{images/ch1_RStudio-window-data-1} 
 
 }
 
@@ -669,7 +687,7 @@ After selecting your file, RStudio will display an import settings window (see F
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.7\linewidth]{images/RStudio-window-data} 
+{\centering \includegraphics[width=0.7\linewidth]{images/ch1_RStudio-window-data} 
 
 }
 
@@ -800,7 +818,7 @@ Data structures are fundamental to working with data in R. They define how data 
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.6\linewidth]{images/R-objects} 
+{\centering \includegraphics[width=0.6\linewidth]{images/ch1_R-objects} 
 
 }
 
@@ -1267,7 +1285,7 @@ R Markdown integrates R code within documents using code chunks, which are enclo
 
 \begin{lstlisting}
 
-```r
+``` r
 2 + 3
    [1] 5
 ```
@@ -1277,7 +1295,7 @@ When compiled, R executes the code and displays the output within the document. 
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.9\linewidth]{images/run-chunk} 
+{\centering \includegraphics[width=0.9\linewidth]{images/ch1_run-chunk} 
 
 }
 
@@ -1554,7 +1572,7 @@ Data science is an interdisciplinary field that integrates computer science, sta
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.5\linewidth]{images/data_science} 
+{\centering \includegraphics[width=0.5\linewidth]{images/ch2_data_science} 
 
 }
 
@@ -1601,7 +1619,7 @@ Data science plays a crucial role in a wide range of sectors, including:
 
 For example, Netflix applies data science to analyze viewing patterns and recommend personalized content to users, while supply chain optimization at Amazon ensures faster deliveries by leveraging predictive analytics.
 
-\section{The Data Science Workflow}\label{the-data-science-workflow}
+\section{The Data Science Workflow}\label{the-data-science-workflow-1}
 
 The \emph{data science workflow} follows an \emph{iterative} and \emph{cyclical} approach, where insights gained at each stage inform and refine subsequent steps. Unlike a strictly linear process, data science involves continuous refinement to enhance accuracy and efficiency. This structured approach ensures that data-driven projects are conducted systematically, balancing exploratory analysis, model building, and evaluation to derive meaningful conclusions.
 
@@ -1609,7 +1627,7 @@ A \emph{data science workflow} follows a phased, adaptive approach within a scie
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.4\linewidth]{images/DIKW-Pyramid} 
+{\centering \includegraphics[width=0.4\linewidth]{images/ch2_DIKW-Pyramid} 
 
 }
 
@@ -1639,7 +1657,7 @@ While the specifics may vary across projects, most data science workflows follow
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.6\linewidth]{images/DSW} 
+{\centering \includegraphics[width=0.7\linewidth]{images/ch2_DSW} 
 
 }
 
@@ -3091,7 +3109,7 @@ One example comes from climate science. Figure \ref{fig:EDA-fig-1} presents glob
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/EDA_fig_1} 
+{\centering \includegraphics[width=1\linewidth]{images/ch4_EDA_fig_1} 
 
 }
 
@@ -3591,7 +3609,7 @@ Below, Figure \ref{fig:correlation} shows examples of different correlation coef
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/correlation} 
+{\centering \includegraphics[width=1\linewidth]{images/ch4_correlation} 
 
 }
 
@@ -3892,7 +3910,7 @@ where \(\bar{x}\) is the sample mean, \(z_{\frac{\alpha}{2}}\) is a critical val
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.8\linewidth]{images/confidence_interval} 
+{\centering \includegraphics[width=0.8\linewidth]{images/ch5_confidence_interval} 
 
 }
 
@@ -4527,7 +4545,7 @@ In the next chapter, we transition from statistical inference to predictive mode
 \item
   What is the difference between a confidence interval and a hypothesis test? How do they provide different ways of drawing conclusions about population parameters?
 \item
-  The \emph{p}-value represents the probability of observing the sample data, or something more extreme, assuming the null hypothesis is true. How should \emph{p}-values be interpreted, and why is a \emph{p}-value of 0.001 in a two-sample \emph{t}-test not necessarily evidence of practical significance?**
+  The \emph{p}-value represents the probability of observing the sample data, or something more extreme, assuming the null hypothesis is true. How should \emph{p}-values be interpreted, and why is a \emph{p}-value of 0.001 in a two-sample \emph{t}-test not necessarily evidence of practical significance?
 \item
   Explain the concepts of \emph{Type I} and \emph{Type II} errors in hypothesis testing. Why is it important to balance the risks of these errors when designing statistical tests?
 \item
@@ -4806,7 +4824,7 @@ Partitioning involves dividing the dataset into two subsets: the \emph{training 
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.65\linewidth]{images/model_complexity} 
+{\centering \includegraphics[width=0.65\linewidth]{images/ch6_model_complexity} 
 
 }
 
@@ -4840,7 +4858,7 @@ To summarize, the general strategy for supervised machine learning consists of t
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.8\linewidth]{images/partitioning} 
+{\centering \includegraphics[width=0.8\linewidth]{images/ch6_partitioning} 
 
 }
 
@@ -5263,7 +5281,7 @@ Figure \ref{fig:knn-image} illustrates this concept with two classes: {Class A (
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.75\linewidth]{images/knn} 
+{\centering \includegraphics[width=0.75\linewidth]{images/ch7_knn} 
 
 }
 
@@ -6318,7 +6336,7 @@ Figure \ref{fig:roc-curve} illustrates key ROC curve characteristics. The vertic
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.6\linewidth]{images/roc-curve} 
+{\centering \includegraphics[width=0.6\linewidth]{images/ch8_roc-curve} 
 
 }
 
@@ -6380,7 +6398,7 @@ where \(t\) represents the threshold, reinforcing that AUC measures the model's 
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.45\linewidth]{images/auc} 
+{\centering \includegraphics[width=0.45\linewidth]{images/ch8_auc} 
 
 }
 
@@ -8866,7 +8884,7 @@ To see this process in action, consider a simple dataset with two features (\(x_
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.7\linewidth]{images/ex_tree_1} 
+{\centering \includegraphics[width=0.7\linewidth]{images/ch11_ex_tree_1} 
 
 }
 
@@ -8887,7 +8905,7 @@ This first split is illustrated in Figure \ref{fig:tree-2}, where the decision b
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/ex_tree_2} 
+{\centering \includegraphics[width=1\linewidth]{images/ch11_ex_tree_2} 
 
 }
 
@@ -8900,7 +8918,7 @@ In Figure \ref{fig:tree-3}, the algorithm identifies new thresholds: \(x_2 = 6\)
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/ex_tree_3} 
+{\centering \includegraphics[width=1\linewidth]{images/ch11_ex_tree_3} 
 
 }
 
@@ -8911,7 +8929,7 @@ This recursive process continues until the tree reaches a stopping criterion. Fi
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/ex_tree_4} 
+{\centering \includegraphics[width=1\linewidth]{images/ch11_ex_tree_4} 
 
 }
 
@@ -9872,7 +9890,7 @@ Similarly, an artificial neuron (illustrated in Figure \ref{fig:net-1}) emulates
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.75\linewidth]{images/net_brain} 
+{\centering \includegraphics[width=0.75\linewidth]{images/ch12_net_brain} 
 
 }
 
@@ -9881,7 +9899,7 @@ Similarly, an artificial neuron (illustrated in Figure \ref{fig:net-1}) emulates
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.9\linewidth]{images/net_1} 
+{\centering \includegraphics[width=0.9\linewidth]{images/ch12_net_1} 
 
 }
 
@@ -9906,7 +9924,7 @@ where \(p\) represents the number of predictors, \(b_0\) is the intercept, and \
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.4\linewidth]{images/net_reg} 
+{\centering \includegraphics[width=0.4\linewidth]{images/ch12_net_reg} 
 
 }
 
@@ -9928,7 +9946,7 @@ The architecture of a neural network consists of the following key components:
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.8\linewidth]{images/net_large} 
+{\centering \includegraphics[width=0.8\linewidth]{images/ch12_net_large} 
 
 }
 
@@ -10669,7 +10687,7 @@ All clustering algorithms aim to achieve \emph{high intra-cluster similarity} (d
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.75\linewidth]{images/cluster_1} 
+{\centering \includegraphics[width=0.75\linewidth]{images/ch13_cluster_1} 
 
 }
 
@@ -10715,7 +10733,7 @@ To illustrate how K-means works, consider a dataset with 50 records and two feat
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.7\linewidth]{images/cluster_ex_1} 
+{\centering \includegraphics[width=0.7\linewidth]{images/ch13_cluster_ex_1} 
 
 }
 
@@ -10726,7 +10744,7 @@ The first step is to randomly select three initial cluster centers (red stars), 
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.45\linewidth]{images/cluster_ex_2} \includegraphics[width=0.45\linewidth]{images/cluster_ex_3} 
+{\centering \includegraphics[width=0.45\linewidth]{images/ch13_cluster_ex_2} \includegraphics[width=0.45\linewidth]{images/ch13_cluster_ex_3} 
 
 }
 
@@ -10739,7 +10757,7 @@ Once the initial cluster assignments are made, K-means enters the \emph{update p
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.45\linewidth]{images/cluster_ex_4} \includegraphics[width=0.45\linewidth]{images/cluster_ex_5} 
+{\centering \includegraphics[width=0.45\linewidth]{images/ch13_cluster_ex_4} \includegraphics[width=0.45\linewidth]{images/ch13_cluster_ex_5} 
 
 }
 
@@ -10750,7 +10768,7 @@ This process---\emph{reassigning points and updating centroids}---continues iter
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.45\linewidth]{images/cluster_ex_6} \includegraphics[width=0.45\linewidth]{images/cluster_ex_7} 
+{\centering \includegraphics[width=0.45\linewidth]{images/ch13_cluster_ex_6} \includegraphics[width=0.45\linewidth]{images/ch13_cluster_ex_7} 
 
 }
 
@@ -10761,7 +10779,7 @@ The algorithm continues iterating until the cluster assignments stabilize---when
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.45\linewidth]{images/cluster_ex_8} 
+{\centering \includegraphics[width=0.45\linewidth]{images/ch13_cluster_ex_8} 
 
 }
 
@@ -10792,7 +10810,7 @@ This critical point, known as the \emph{elbow point}, represents the most natura
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.6\linewidth]{images/cluster_elbow} 
+{\centering \includegraphics[width=0.6\linewidth]{images/ch13_cluster_elbow} 
 
 }
 

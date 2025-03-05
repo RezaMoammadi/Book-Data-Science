@@ -66,3 +66,6 @@ ggplot2::theme_set(ggplot2::theme(
                             title = ggplot2::element_text(size = 14, face = "bold"), 
                             plot.title = ggplot2::element_text(hjust = 0.5)
                   ))
+
+# For LaTeX output
+options(tinytex.verbose = TRUE)
