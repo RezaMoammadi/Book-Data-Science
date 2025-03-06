@@ -77,7 +77,7 @@
 <li><a class="" href="chapter-data-prep.html"><span class="header-section-number">3</span> Data Preparation</a></li>
 <li><a class="" href="chapter-EDA.html"><span class="header-section-number">4</span> Exploratory Data Analysis</a></li>
 <li><a class="" href="chapter-statistics.html"><span class="header-section-number">5</span> Statistical Inference and Hypothesis Testing</a></li>
-<li><a class="" href="chapter-modeling.html"><span class="header-section-number">6</span> Preparing Data for Modeling</a></li>
+<li><a class="" href="chapter-modeling.html"><span class="header-section-number">6</span> Preparing Data to Model</a></li>
 <li><a class="active" href="chapter-knn.html"><span class="header-section-number">7</span> Classification using k-Nearest Neighbors</a></li>
 <li><a class="" href="chapter-evaluation.html"><span class="header-section-number">8</span> Model Evaluation</a></li>
 <li><a class="" href="chapter-bayes.html"><span class="header-section-number">9</span> Naive Bayes Classifier</a></li>
@@ -207,7 +207,7 @@ Figure 7.1: A two-dimensional toy dataset with two classes (Class A and Class B)
 </ul>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:scatter-plot-ex-drug"></span>
-<img src="knn_files/figure-html/scatter-plot-ex-drug-1.png" alt="Scatter plot of Age vs. Sodium/Potassium Ratio for 200 patients, with drug type indicated by color and shape." width="95%"><p class="caption">
+<img src="7_kNN_files/figure-html/scatter-plot-ex-drug-1.png" alt="Scatter plot of Age vs. Sodium/Potassium Ratio for 200 patients, with drug type indicated by color and shape." width="95%"><p class="caption">
 Figure 7.2: Scatter plot of Age vs. Sodium/Potassium Ratio for 200 patients, with drug type indicated by color and shape.
 </p>
 </div>
@@ -225,7 +225,7 @@ Figure 7.2: Scatter plot of Age vs. Sodium/Potassium Ratio for 200 patients, wi
 <p>These patients are represented as <em>orange circles</em> in Figure <a href="chapter-knn.html#fig:scatter-plot-ex-drug-2">7.3</a>. Using kNN, we will classify the drug type for each patient.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:scatter-plot-ex-drug-2"></span>
-<img src="knn_files/figure-html/scatter-plot-ex-drug-2-1.png" alt="Scatter plot of Age vs. Sodium/Potassium Ratio for 200 patients, with drug type indicated by color and shape. The three new patients are represented by large orange circles." width="95%"><p class="caption">
+<img src="7_kNN_files/figure-html/scatter-plot-ex-drug-2-1.png" alt="Scatter plot of Age vs. Sodium/Potassium Ratio for 200 patients, with drug type indicated by color and shape. The three new patients are represented by large orange circles." width="95%"><p class="caption">
 Figure 7.3: Scatter plot of Age vs. Sodium/Potassium Ratio for 200 patients, with drug type indicated by color and shape. The three new patients are represented by large orange circles.
 </p>
 </div>
@@ -234,7 +234,7 @@ Figure 7.3: Scatter plot of Age vs. Sodium/Potassium Ratio for 200 patients, wi
 <p>For <em>Patient 3</em>, classification becomes even more ambiguous. With <span class="math inline">\(k = 1\)</span>, the closest neighbor is a blue square, classifying the patient as <em>Drug C</em>. However, for <span class="math inline">\(k = 2\)</span> or <span class="math inline">\(k = 3\)</span>, the nearest neighbors belong to multiple classes, creating uncertainty in classification.</p>
 <div class="figure">
 <span style="display:block;" id="fig:scatter-plot-ex-drug-3"></span>
-<img src="knn_files/figure-html/scatter-plot-ex-drug-3-1.png" alt="Zoom-in plots for the three new patients and their nearest neighbors. The left plot is for Patient 1, the middle plot is for Patient 2, and the right plot is for Patient 3." width="33%"><img src="knn_files/figure-html/scatter-plot-ex-drug-3-2.png" alt="Zoom-in plots for the three new patients and their nearest neighbors. The left plot is for Patient 1, the middle plot is for Patient 2, and the right plot is for Patient 3." width="33%"><img src="knn_files/figure-html/scatter-plot-ex-drug-3-3.png" alt="Zoom-in plots for the three new patients and their nearest neighbors. The left plot is for Patient 1, the middle plot is for Patient 2, and the right plot is for Patient 3." width="33%"><p class="caption">
+<img src="7_kNN_files/figure-html/scatter-plot-ex-drug-3-1.png" alt="Zoom-in plots for the three new patients and their nearest neighbors. The left plot is for Patient 1, the middle plot is for Patient 2, and the right plot is for Patient 3." width="33%"><img src="7_kNN_files/figure-html/scatter-plot-ex-drug-3-2.png" alt="Zoom-in plots for the three new patients and their nearest neighbors. The left plot is for Patient 1, the middle plot is for Patient 2, and the right plot is for Patient 3." width="33%"><img src="7_kNN_files/figure-html/scatter-plot-ex-drug-3-3.png" alt="Zoom-in plots for the three new patients and their nearest neighbors. The left plot is for Patient 1, the middle plot is for Patient 2, and the right plot is for Patient 3." width="33%"><p class="caption">
 Figure 7.4: Zoom-in plots for the three new patients and their nearest neighbors. The left plot is for Patient 1, the middle plot is for Patient 2, and the right plot is for Patient 3.
 </p>
 </div>
@@ -305,7 +305,7 @@ Figure 7.4: Zoom-in plots for the three new patients and their nearest neighbors
 <p>To illustrate, we use the <em>churn</em> dataset and evaluate the accuracy of the kNN algorithm across different <span class="math inline">\(k\)</span> values (ranging from 1 to 30). Figure <a href="chapter-knn.html#fig:kNN-plot">7.5</a> shows how accuracy fluctuates as <span class="math inline">\(k\)</span> increases. The plot is generated using the <code><a href="https://rdrr.io/pkg/liver/man/kNN.plot.html">kNN.plot()</a></code> function from the <strong>liver</strong> package in R.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:kNN-plot"></span>
-<img src="knn_files/figure-html/kNN-plot-1.png" alt="Accuracy of the k-Nearest Neighbors algorithm for different values of k in the range from 1 to 30." width="85%"><p class="caption">
+<img src="7_kNN_files/figure-html/kNN-plot-1.png" alt="Accuracy of the k-Nearest Neighbors algorithm for different values of k in the range from 1 to 30." width="85%"><p class="caption">
 Figure 7.5: Accuracy of the k-Nearest Neighbors algorithm for different values of k in the range from 1 to 30.
 </p>
 </div>
@@ -363,7 +363,7 @@ Scaling must always be performed <em>after partitioning</em> the dataset into tr
 <p>The difference is illustrated in Figure <a href="chapter-knn.html#fig:ex-proper-scaling">7.6</a>. The middle panel shows the results of proper scaling, where the test set is scaled using the same parameters derived from the training set. This ensures consistency in distance calculations across both datasets. In contrast, the right panel shows improper scaling, where the test set is scaled independently. This leads to distorted relationships between the training and test data, which can cause unreliable predictions.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:ex-proper-scaling"></span>
-<img src="knn_files/figure-html/ex-proper-scaling-1.png" alt="Visualization illustrating the difference between proper scaling and improper scaling. The left panel shows the original data without scaling. The middle panel shows the results of proper scaling. The right panel shows the results of improper scaling." width="50%"><img src="knn_files/figure-html/ex-proper-scaling-2.png" alt="Visualization illustrating the difference between proper scaling and improper scaling. The left panel shows the original data without scaling. The middle panel shows the results of proper scaling. The right panel shows the results of improper scaling." width="50%"><img src="knn_files/figure-html/ex-proper-scaling-3.png" alt="Visualization illustrating the difference between proper scaling and improper scaling. The left panel shows the original data without scaling. The middle panel shows the results of proper scaling. The right panel shows the results of improper scaling." width="50%"><p class="caption">
+<img src="7_kNN_files/figure-html/ex-proper-scaling-1.png" alt="Visualization illustrating the difference between proper scaling and improper scaling. The left panel shows the original data without scaling. The middle panel shows the results of proper scaling. The right panel shows the results of improper scaling." width="50%"><img src="7_kNN_files/figure-html/ex-proper-scaling-2.png" alt="Visualization illustrating the difference between proper scaling and improper scaling. The left panel shows the original data without scaling. The middle panel shows the results of proper scaling. The right panel shows the results of improper scaling." width="50%"><img src="7_kNN_files/figure-html/ex-proper-scaling-3.png" alt="Visualization illustrating the difference between proper scaling and improper scaling. The left panel shows the original data without scaling. The middle panel shows the results of proper scaling. The right panel shows the results of improper scaling." width="50%"><p class="caption">
 Figure 7.6: Visualization illustrating the difference between proper scaling and improper scaling. The left panel shows the original data without scaling. The middle panel shows the results of proper scaling. The right panel shows the results of improper scaling.
 </p>
 </div>
@@ -507,9 +507,10 @@ Figure 7.6: Visualization illustrating the difference between proper scaling and
 <p>Since kNN calculates distances between data points, features with larger numerical ranges can disproportionately influence the results. Scaling ensures that all features contribute equally to distance calculations, preventing dominance by high-magnitude features.</p>
 <p>To standardize the numerical variables, we apply min-max scaling using the <code><a href="https://rdrr.io/pkg/liver/man/minmax.html">minmax()</a></code> function from the <strong>liver</strong> package. Scaling parameters (minimum and maximum values) must be computed from the training set and then applied consistently to both the training and test sets. This prevents data leakage, which occurs when test data influences the training process, leading to misleadingly high performance estimates.</p>
 <div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">numeric_vars</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"account.length"</span>, <span class="st">"voice.messages"</span>, <span class="st">"intl.mins"</span>, <span class="st">"intl.calls"</span>, </span>
-<span>                 <span class="st">"day.mins"</span>, <span class="st">"day.calls"</span>, <span class="st">"eve.mins"</span>, <span class="st">"eve.calls"</span>, </span>
-<span>                 <span class="st">"night.mins"</span>, <span class="st">"night.calls"</span>, <span class="st">"customer.calls"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">numeric_vars</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"account.length"</span>, <span class="st">"voice.messages"</span>, <span class="st">"intl.mins"</span>, </span>
+<span>                 <span class="st">"intl.calls"</span>, <span class="st">"day.mins"</span>, <span class="st">"day.calls"</span>, <span class="st">"eve.mins"</span>, </span>
+<span>                 <span class="st">"eve.calls"</span>, <span class="st">"night.mins"</span>, <span class="st">"night.calls"</span>, </span>
+<span>                 <span class="st">"customer.calls"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">min_train</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="va">train_set</span><span class="op">[</span>, <span class="va">numeric_vars</span><span class="op">]</span>, <span class="va">min</span><span class="op">)</span></span>
 <span><span class="va">max_train</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="va">train_set</span><span class="op">[</span>, <span class="va">numeric_vars</span><span class="op">]</span>, <span class="va">max</span><span class="op">)</span></span>
@@ -523,7 +524,8 @@ Figure 7.6: Visualization illustrating the difference between proper scaling and
 <h3>
 <span class="header-section-number">7.6.2</span> Step 2: Choosing an Optimal <span class="math inline">\(k\)</span><a class="anchor" aria-label="anchor" href="#step-2-choosing-an-optimal-k"><i class="fas fa-link"></i></a>
 </h3>
-<p>The choice of <span class="math inline">\(k\)</span> determines the trade-off between capturing local patterns and generalizing well to unseen data. Selecting an inappropriate <span class="math inline">\(k\)</span> may result in overfitting (if <span class="math inline">\(k\)</span> is too small) or oversmoothing (if <span class="math inline">\(k\)</span> is too large). To identify the optimal <span class="math inline">\(k\)</span>, we evaluate the model’s accuracy for different values of <span class="math inline">\(k\)</span> using the <code><a href="https://rdrr.io/pkg/liver/man/kNN.plot.html">kNN.plot()</a></code> function:</p>
+<p>The selection of <span class="math inline">\(k\)</span> plays a crucial role in balancing <em>local pattern recognition</em> and <em>generalization</em> to unseen data. A small <span class="math inline">\(k\)</span> may lead to <em>overfitting</em>, making the model highly sensitive to noise, while a large <span class="math inline">\(k\)</span> can result in <em>oversmoothing</em>, causing the model to overlook important details. To find an optimal <span class="math inline">\(k\)</span>, we evaluate the model’s accuracy across different values of <span class="math inline">\(k\)</span> and select the one that yields the best performance.</p>
+<p>A practical way to achieve this is by plotting model accuracy against different values of <span class="math inline">\(k\)</span>. The <code><a href="https://rdrr.io/pkg/liver/man/kNN.plot.html">kNN.plot()</a></code> function from the <strong>liver</strong> package automates this process, providing a clear visualization of the relationship between <span class="math inline">\(k\)</span> and accuracy:</p>
 <div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="chapter-knn.html#cb138-1" tabindex="-1"></a>formula <span class="ot">=</span> churn <span class="sc">~</span> account.length <span class="sc">+</span> voice.plan_yes <span class="sc">+</span> voice.messages <span class="sc">+</span> </span>
 <span id="cb138-2"><a href="chapter-knn.html#cb138-2" tabindex="-1"></a>                  intl.plan_yes <span class="sc">+</span> intl.mins <span class="sc">+</span> intl.calls <span class="sc">+</span> </span>
 <span id="cb138-3"><a href="chapter-knn.html#cb138-3" tabindex="-1"></a>                  day.mins <span class="sc">+</span> day.calls <span class="sc">+</span> eve.mins <span class="sc">+</span> eve.calls <span class="sc">+</span> </span>
@@ -532,17 +534,33 @@ Figure 7.6: Visualization illustrating the difference between proper scaling and
 <span id="cb138-6"><a href="chapter-knn.html#cb138-6" tabindex="-1"></a><span class="fu">kNN.plot</span>(<span class="at">formula =</span> formula, <span class="at">train =</span> train_scaled, <span class="at">test =</span> test_scaled, </span>
 <span id="cb138-7"><a href="chapter-knn.html#cb138-7" tabindex="-1"></a>         <span class="at">k.max =</span> <span class="dv">30</span>, <span class="at">set.seed =</span> <span class="dv">43</span>)</span>
 <span id="cb138-8"><a href="chapter-knn.html#cb138-8" tabindex="-1"></a>   Setting levels<span class="sc">:</span> reference <span class="ot">=</span> <span class="st">"yes"</span>, case <span class="ot">=</span> <span class="st">"no"</span></span></code></pre></div>
-<div class="inline-figure"><img src="knn_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;"></div>
-<p>The <code><a href="https://rdrr.io/pkg/liver/man/kNN.plot.html">kNN.plot()</a></code> function visualizes the relationship between <span class="math inline">\(k\)</span> and model accuracy, helping us determine the value of <span class="math inline">\(k\)</span> that balances model complexity and generalization. By examining the plot, we observe that the highest accuracy is achieved when <span class="math inline">\(k = 5\)</span>. This choice maintains sufficient flexibility to capture meaningful patterns while avoiding excessive sensitivity to outliers.</p>
+<div class="inline-figure"><img src="7_kNN_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>The resulting plot helps identify the optimal <span class="math inline">\(k\)</span>, balancing <em>model complexity</em> and <em>generalization</em>. From the visualization, we observe that the highest accuracy is achieved when <span class="math inline">\(k = 5\)</span>, suggesting that this value effectively captures meaningful patterns while minimizing sensitivity to outliers.</p>
 </div>
 <div id="step-3-training-the-model-and-making-predictions" class="section level3" number="7.6.3">
 <h3>
 <span class="header-section-number">7.6.3</span> Step 3: Training the Model and Making Predictions<a class="anchor" aria-label="anchor" href="#step-3-training-the-model-and-making-predictions"><i class="fas fa-link"></i></a>
 </h3>
-<p>Since we identified <span class="math inline">\(k = 5\)</span> as the optimal value in Step 2, we now proceed to train the kNN model and make predictions on the test set. To apply the kNN algorithm in <strong>R</strong>, we use the <code><a href="https://rdrr.io/pkg/liver/man/kNN.html">kNN()</a></code> function from the <strong>liver</strong> package as follows:</p>
+<p>With <span class="math inline">\(k = 5\)</span> identified as the optimal value, we are now ready to classify test records using the k-NN algorithm. Unlike many machine learning methods, k-NN is a <strong>lazy learner</strong>, meaning it does not build an explicit model during training. Instead, it simply stores the training data in a structured format and performs classification only when a new observation needs to be classified.</p>
+<p>Several R packages provide implementations of the k-NN algorithm, including <a href="https://CRAN.R-project.org/package=class"><strong>class</strong></a> and <a href="https://CRAN.R-project.org/package=liver"><strong>liver</strong></a>. The <strong>class</strong> package offers basic k-NN functionality, while the <strong>liver</strong> package provides an enhanced <code><a href="https://rdrr.io/pkg/liver/man/kNN.html">kNN()</a></code> function that supports a formula-based interface and built-in normalization.</p>
+<p>To apply the k-NN algorithm, we use the <code><a href="https://rdrr.io/pkg/liver/man/kNN.html">kNN()</a></code> function from the <strong>liver</strong> package:</p>
 <div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">kNN_predict</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/liver/man/kNN.html">kNN</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="va">formula</span>, train <span class="op">=</span> <span class="va">train_scaled</span>, test <span class="op">=</span> <span class="va">test_scaled</span>, k <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
-<p>The <code><a href="https://rdrr.io/pkg/liver/man/kNN.html">kNN()</a></code> function automates the kNN classification process by computing distances between each test observation and all training data points. It then selects the 5 closest neighbors based on the chosen distance metric and assigns the most frequently occurring class among them as the predicted label. Since test data was not used during training, these predictions provide an unbiased estimate of how well the model generalizes to new observations.</p>
+<p>In this function:</p>
+<ul>
+<li>
+<code>formula</code> specifies the relationship between the target variable and predictors.<br>
+</li>
+<li>
+<code>train</code> contains the scaled training data.<br>
+</li>
+<li>
+<code>test</code> contains the scaled test data.<br>
+</li>
+<li>
+<code>k</code> determines the number of nearest neighbors to consider, set here to <span class="math inline">\(k = 5\)</span> based on the selection in the previous step.</li>
+</ul>
+<p>The <code><a href="https://rdrr.io/pkg/liver/man/kNN.html">kNN()</a></code> function classifies test observations by computing distances between each test record and all training data points. It then selects the five closest neighbors based on the chosen distance metric and assigns the most frequent class among them as the predicted label. Since test data is independent of training data, these predictions provide an unbiased estimate of the model’s ability to generalize to new observations.</p>
 </div>
 <div id="step-4-evaluating-the-model" class="section level3" number="7.6.4">
 <h3>
@@ -701,7 +719,7 @@ Figure 7.6: Visualization illustrating the difference between proper scaling and
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="chapter-modeling.html"><span class="header-section-number">6</span> Preparing Data for Modeling</a></div>
+<div class="prev"><a href="chapter-modeling.html"><span class="header-section-number">6</span> Preparing Data to Model</a></div>
 <div class="next"><a href="chapter-evaluation.html"><span class="header-section-number">8</span> Model Evaluation</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
@@ -762,8 +780,8 @@ Figure 7.6: Visualization illustrating the difference between proper scaling and
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/RezaMoammadi/Book-Data-Science/blob/master/knn.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/RezaMoammadi/Book-Data-Science/edit/master/knn.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/RezaMoammadi/Book-Data-Science/blob/master/7_kNN.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/RezaMoammadi/Book-Data-Science/edit/master/7_kNN.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>

@@ -1057,7 +1057,7 @@ ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp))
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-32-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{1_Intro_R_files/figure-latex/unnamed-chunk-32-1} \end{center}
 
 This code initializes the plot with the \passthrough{\lstinline!ggplot()!} function, specifying the dataset (\passthrough{\lstinline!mtcars!}). The \passthrough{\lstinline!geom\_point()!} function adds points to the plot, and the \passthrough{\lstinline!aes()!} function maps \passthrough{\lstinline!mpg!} to the x-axis and \passthrough{\lstinline!hp!} to the y-axis.
 
@@ -1100,7 +1100,7 @@ ggplot(data = mtcars) +
   geom_smooth(mapping = aes(x = mpg, y = hp))
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-34-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{1_Intro_R_files/figure-latex/unnamed-chunk-34-1} \end{center}
 
 Multiple geom functions can be combined in a single plot. To overlay a scatter plot on the smoothed line:
 
@@ -1110,7 +1110,7 @@ ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp))
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-35-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{1_Intro_R_files/figure-latex/unnamed-chunk-35-1} \end{center}
 
 Alternatively, the \passthrough{\lstinline!aes()!} function can be placed inside \passthrough{\lstinline!ggplot()!} to streamline the code:
 
@@ -1132,7 +1132,7 @@ ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp, color = cyl))
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-37-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{1_Intro_R_files/figure-latex/unnamed-chunk-37-1} \end{center}
 
 Here, \passthrough{\lstinline!color = cyl!} maps the color of the points to the number of cylinders (\passthrough{\lstinline!cyl!}) in the \textbf{mtcars} dataset. \textbf{ggplot2} automatically assigns a unique color to each category and adds a corresponding legend.
 
@@ -1148,7 +1148,7 @@ ggplot(data = mtcars) +
   geom_point(mapping = aes(x = mpg, y = hp, alpha = cyl))
 \end{lstlisting}
 
-\includegraphics[width=0.5\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-38-1} \includegraphics[width=0.5\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-38-2}
+\includegraphics[width=0.5\linewidth]{1_Intro_R_files/figure-latex/unnamed-chunk-38-1} \includegraphics[width=0.5\linewidth]{1_Intro_R_files/figure-latex/unnamed-chunk-38-2}
 
 Aesthetics can also be set directly inside geom functions. For example, to make all points blue triangles of size 3:
 
@@ -1158,7 +1158,7 @@ ggplot(data = mtcars) +
              color = "blue", size = 3, shape = 2)
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-39-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{1_Intro_R_files/figure-latex/unnamed-chunk-39-1} \end{center}
 
 This section introduced the fundamentals of data visualization in R using \textbf{ggplot2}. The next chapters will explore how visualization plays a crucial role in exploratory data analysis (Chapter \ref{chapter-EDA}) and how to refine plots for communication and reporting. For more details on visualization techniques, see the \href{https://ggplot2.tidyverse.org}{\textbf{ggplot2} documentation}. For interactive graphics, consider exploring the \textbf{plotly} package or \textbf{Shiny} for web applications.
 
@@ -1478,7 +1478,7 @@ ggplot(data = drug_data, aes(x = Age, y = Ratio)) +
        x = "Age", y = "Sodium/Potassium Ratio")
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Intro-R_files/figure-latex/unnamed-chunk-45-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{1_Intro_R_files/figure-latex/unnamed-chunk-45-1} \end{center}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1536,8 +1536,7 @@ ggplot(data = drug_data, aes(x = Age, y = Ratio)) +
 
 \chapter{Introduction to Data Science}\label{chapter-intro-DS}
 
-\emph{Data Science} is a rapidly evolving field that is transforming industries by leveraging computational, statistical, and analytical techniques. In the 21st century, data has become one of the most valuable resources, often called the \emph{``new oil''} due to its potential to drive innovation and reshape the future.
-
+\emph{Data Science} is a rapidly evolving field that is transforming industries by leveraging computational, statistical, and analytical techniques. In the 21st century, data has become one of the most valuable resources, often called the \emph{``new oil''} due to its potential to drive innovation and reshape the future.\\
 Data science is the key to unlocking this potential. By applying computational, statistical, and analytical techniques, data scientists extract insights from vast amounts of data, enabling organizations to make informed decisions, optimize processes, predict trends, and develop intelligent systems. This has led to groundbreaking advancements in fields such as healthcare, finance, marketing, artificial intelligence (AI), and beyond.
 
 Given its rapid growth and increasing demand, data science is more critical than ever. In this chapter, we'll explore the fundamentals of data science, discuss its significance in modern society, and introduce the Data Science Workflow---a structured approach that data scientists use to transform raw data into actionable insights.
@@ -2076,7 +2075,7 @@ ggplot(data = diamonds) +
     geom_boxplot(mapping = aes(y = y))
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-4-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{3_Data_Preparation_files/figure-latex/unnamed-chunk-4-1} \end{center}
 
 Here, boxplots highlight values beyond the whiskers, which may indicate potential outliers. Since diamonds cannot have a width of 0 mm, values like 32 mm or 59 mm likely result from data entry errors.
 
@@ -2090,7 +2089,7 @@ ggplot(data = diamonds) +
     geom_histogram(aes(x = y), binwidth = 0.5, color = 'blue', fill = "lightblue")
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-5-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{3_Data_Preparation_files/figure-latex/unnamed-chunk-5-1} \end{center}
 
 To enhance visibility, we can zoom in on smaller frequencies by using the \emph{coord\_cartesian()} function from the \textbf{ggplot2} package:
 
@@ -2100,7 +2099,7 @@ ggplot(data = diamonds) +
     coord_cartesian(ylim = c(0, 30))
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-6-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{3_Data_Preparation_files/figure-latex/unnamed-chunk-6-1} \end{center}
 
 Other useful visualization techniques include:
 
@@ -2282,7 +2281,7 @@ ggplot(data = diamonds) +
   xlab("Values for variable `carat`")
 \end{lstlisting}
 
-\includegraphics[width=0.5\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-10-1} \includegraphics[width=0.5\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-10-2}
+\includegraphics[width=0.5\linewidth]{3_Data_Preparation_files/figure-latex/unnamed-chunk-10-1} \includegraphics[width=0.5\linewidth]{3_Data_Preparation_files/figure-latex/unnamed-chunk-10-2}
 
 The first histogram (left) shows the distribution of \passthrough{\lstinline!carat!} without scaling, while the second histogram (right) shows it after Min-Max Scaling. After scaling, the \passthrough{\lstinline!carat!} values are compressed to a range between 0 and 1, allowing it to be more comparable to other features that may have different original scales. This scaling method is particularly beneficial for distance-based algorithms, as it prevents features with wider ranges from having undue influence.
 \end{example}
@@ -2318,7 +2317,7 @@ ggplot(data = diamonds) +
   xlab("Values for variable `carat`")
 \end{lstlisting}
 
-\includegraphics[width=0.5\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-11-1} \includegraphics[width=0.5\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-11-2}
+\includegraphics[width=0.5\linewidth]{3_Data_Preparation_files/figure-latex/unnamed-chunk-11-1} \includegraphics[width=0.5\linewidth]{3_Data_Preparation_files/figure-latex/unnamed-chunk-11-2}
 
 The first histogram (left) displays the distribution of \passthrough{\lstinline!carat!} without scaling, while the second histogram (right) shows the distribution after Z-score Scaling. This transformation makes feature values comparable across different scales and ensures that each feature contributes equally to distance-based computations and model training.
 \end{example}
@@ -2633,7 +2632,7 @@ library(naniar)  # Load package for visualizing missing values
 gg_miss_var(adult, show_pct = TRUE)
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-18-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{3_Data_Preparation_files/figure-latex/unnamed-chunk-18-1} \end{center}
 
 The plot indicates that \passthrough{\lstinline!workclass!}, \passthrough{\lstinline!occupation!}, and \passthrough{\lstinline!native.country!} contain missing values. The percentage of missing values in these variables is relatively low, with \passthrough{\lstinline!workclass!} and \passthrough{\lstinline!occupation!} having less than 0.06 percent missing data, while \passthrough{\lstinline!native.country!} has about 0.02 percent.
 
@@ -2659,7 +2658,7 @@ To confirm that missing values have been successfully imputed, we generate anoth
 gg_miss_var(adult, show_pct = TRUE)
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-20-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{3_Data_Preparation_files/figure-latex/unnamed-chunk-20-1} \end{center}
 
 The updated plot should show no missing values, indicating successful imputation.
 
@@ -2787,14 +2786,14 @@ ggplot(data = adult, aes(y = capital.loss)) +
      geom_boxplot()
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-26-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{3_Data_Preparation_files/figure-latex/unnamed-chunk-26-1} \end{center}
 
 \begin{lstlisting}[language=R]
 ggplot(data = adult, aes(x = capital.loss)) +
      geom_histogram(bins = 30, color = "blue", fill = "lightblue")
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-27-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{3_Data_Preparation_files/figure-latex/unnamed-chunk-27-1} \end{center}
 
 From these plots, we observe:
 
@@ -2819,14 +2818,14 @@ ggplot(data = adult, mapping = aes(x = capital.loss)) +
     coord_cartesian(xlim = c(500, 4000), ylim = c(0, 1000))
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-28-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{3_Data_Preparation_files/figure-latex/unnamed-chunk-28-1} \end{center}
 
 \begin{lstlisting}[language=R]
 ggplot(data = subset(adult, capital.loss > 0)) +
      geom_boxplot(aes(y = capital.loss)) 
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{data-preparation_files/figure-latex/unnamed-chunk-29-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{3_Data_Preparation_files/figure-latex/unnamed-chunk-29-1} \end{center}
 
 Key takeaways from these refined plots:
 
@@ -3098,7 +3097,7 @@ Another example focuses on global health and demographics. Figure \ref{fig:EDA-f
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{EDA_files/figure-latex/EDA-fig-2-1} 
+{\centering \includegraphics[width=1\linewidth]{4_Exploratory_Data_Analysis_files/figure-latex/EDA-fig-2-1} 
 
 }
 
@@ -3279,7 +3278,7 @@ ggplot(data = churn, aes(x = churn, label = scales::percent(prop.table(stat(coun
   geom_text(stat = 'count', vjust = 0.2, size = 6)
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-4-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{4_Exploratory_Data_Analysis_files/figure-latex/unnamed-chunk-4-1} \end{center}
 
 The bar plot reveals that the dataset is imbalanced, with more customers staying (\passthrough{\lstinline!churn = "no"!}) than leaving (\passthrough{\lstinline!churn = "yes"!}). The proportion of churners is approximately 1.4 percent, while the proportion of non-churners is 8.6 percent. Since imbalanced data can impact predictive modeling, understanding churn patterns is essential for improving retention strategies.
 
@@ -3298,7 +3297,7 @@ ggplot(data = churn) +
   scale_fill_manual(values = c("palevioletred1", "darkseagreen1")) 
 \end{lstlisting}
 
-\includegraphics[width=0.5\linewidth]{EDA_files/figure-latex/unnamed-chunk-5-1} \includegraphics[width=0.5\linewidth]{EDA_files/figure-latex/unnamed-chunk-5-2}
+\includegraphics[width=0.5\linewidth]{4_Exploratory_Data_Analysis_files/figure-latex/unnamed-chunk-5-1} \includegraphics[width=0.5\linewidth]{4_Exploratory_Data_Analysis_files/figure-latex/unnamed-chunk-5-2}
 
 The first plot (left) compares the raw counts of churners and non-churners among customers with and without an international plan. The second plot (right) normalizes the proportions, revealing that customers with an international plan have a significantly higher churn rate.
 
@@ -3331,7 +3330,7 @@ ggplot(data = churn) +
   scale_fill_manual(values = c("palevioletred1", "darkseagreen1")) 
 \end{lstlisting}
 
-\includegraphics[width=0.5\linewidth]{EDA_files/figure-latex/unnamed-chunk-7-1} \includegraphics[width=0.5\linewidth]{EDA_files/figure-latex/unnamed-chunk-7-2}
+\includegraphics[width=0.5\linewidth]{4_Exploratory_Data_Analysis_files/figure-latex/unnamed-chunk-7-1} \includegraphics[width=0.5\linewidth]{4_Exploratory_Data_Analysis_files/figure-latex/unnamed-chunk-7-2}
 
 Customers without a voice mail plan appear to churn at a slightly higher rate. This is confirmed using a contingency table:
 
@@ -3376,7 +3375,7 @@ ggplot(data = churn) +
                  bins = 10, fill = "skyblue", color = "black")
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-9-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{4_Exploratory_Data_Analysis_files/figure-latex/unnamed-chunk-9-1} \end{center}
 
 The histogram shows that most customers make only a few service calls, while a smaller group contacts customer service frequently. The right-skewed distribution suggests that a few customers make an unusually high number of calls, potentially signaling dissatisfaction.
 
@@ -3392,7 +3391,7 @@ ggplot(data = churn) +
   scale_fill_manual(values = c("palevioletred1", "darkseagreen1")) 
 \end{lstlisting}
 
-\includegraphics[width=0.5\linewidth]{EDA_files/figure-latex/unnamed-chunk-10-1} \includegraphics[width=0.5\linewidth]{EDA_files/figure-latex/unnamed-chunk-10-2}
+\includegraphics[width=0.5\linewidth]{4_Exploratory_Data_Analysis_files/figure-latex/unnamed-chunk-10-1} \includegraphics[width=0.5\linewidth]{4_Exploratory_Data_Analysis_files/figure-latex/unnamed-chunk-10-2}
 
 The normalized histogram (right) reveals a striking trend: customers making \emph{four or more} service calls have a significantly higher churn rate. This suggests that frequent service interactions may indicate unresolved issues, leading to customer dissatisfaction.
 
@@ -3422,7 +3421,7 @@ ggplot(data = churn) +
     geom_density(aes(x = day.mins, fill = churn), alpha = 0.3)
 \end{lstlisting}
 
-\includegraphics[width=0.5\linewidth]{EDA_files/figure-latex/unnamed-chunk-11-1} \includegraphics[width=0.5\linewidth]{EDA_files/figure-latex/unnamed-chunk-11-2}
+\includegraphics[width=0.5\linewidth]{4_Exploratory_Data_Analysis_files/figure-latex/unnamed-chunk-11-1} \includegraphics[width=0.5\linewidth]{4_Exploratory_Data_Analysis_files/figure-latex/unnamed-chunk-11-2}
 
 The box plot (left) shows that customers who churn tend to have higher daytime call usage. The density plot (right) confirms this, with a noticeable peak in churners at higher \passthrough{\lstinline!day.mins!} values.
 
@@ -3451,7 +3450,7 @@ ggplot(data = churn) +
     geom_density(aes(x = eve.mins, fill = churn), alpha = 0.3)
 \end{lstlisting}
 
-\includegraphics[width=0.5\linewidth]{EDA_files/figure-latex/unnamed-chunk-12-1} \includegraphics[width=0.5\linewidth]{EDA_files/figure-latex/unnamed-chunk-12-2}
+\includegraphics[width=0.5\linewidth]{4_Exploratory_Data_Analysis_files/figure-latex/unnamed-chunk-12-1} \includegraphics[width=0.5\linewidth]{4_Exploratory_Data_Analysis_files/figure-latex/unnamed-chunk-12-2}
 
 While a slight trend suggests that churners have higher \passthrough{\lstinline!eve.mins!}, the effect is weaker than for \passthrough{\lstinline!day.mins!}. Similarly, analysis of \passthrough{\lstinline!night.mins!} does not reveal a clear distinction between churners and non-churners.
 
@@ -3463,7 +3462,7 @@ ggplot(data = churn) +
     geom_density(aes(x = night.mins, fill = churn), alpha = 0.3)
 \end{lstlisting}
 
-\includegraphics[width=0.5\linewidth]{EDA_files/figure-latex/unnamed-chunk-13-1} \includegraphics[width=0.5\linewidth]{EDA_files/figure-latex/unnamed-chunk-13-2}
+\includegraphics[width=0.5\linewidth]{4_Exploratory_Data_Analysis_files/figure-latex/unnamed-chunk-13-1} \includegraphics[width=0.5\linewidth]{4_Exploratory_Data_Analysis_files/figure-latex/unnamed-chunk-13-2}
 
 The similar distributions suggest that nighttime call usage is not a strong churn indicator.
 
@@ -3495,7 +3494,7 @@ ggplot(data = churn) +
     geom_density(aes(x = intl.calls, fill = churn), alpha = 0.3)
 \end{lstlisting}
 
-\includegraphics[width=0.5\linewidth]{EDA_files/figure-latex/unnamed-chunk-14-1} \includegraphics[width=0.5\linewidth]{EDA_files/figure-latex/unnamed-chunk-14-2}
+\includegraphics[width=0.5\linewidth]{4_Exploratory_Data_Analysis_files/figure-latex/unnamed-chunk-14-1} \includegraphics[width=0.5\linewidth]{4_Exploratory_Data_Analysis_files/figure-latex/unnamed-chunk-14-2}
 
 The box plot (left) indicates that churners (\passthrough{\lstinline!churn=yes!}) tend to make slightly fewer international calls than non-churners. The density plot (right) further supports this, showing a minor difference in distribution between the two groups.
 
@@ -3531,7 +3530,7 @@ ggplot(data = churn) +
     geom_abline(intercept = 400, slope = -0.6, color = "blue", size = 1)
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-15-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{4_Exploratory_Data_Analysis_files/figure-latex/unnamed-chunk-15-1} \end{center}
 
 The diagonal line, represented by the equation:
 
@@ -3551,7 +3550,7 @@ ggplot(data = sub_churn, aes(x = churn, label = scales::percent(prop.table(stat(
     geom_text(stat = 'count', vjust = 0.2, size = 6)
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-16-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{4_Exploratory_Data_Analysis_files/figure-latex/unnamed-chunk-16-1} \end{center}
 
 Within this subset, the churn rate is significantly higher than in the overall dataset, reinforcing the importance of considering variable interactions. The combination of high day and evening usage may indicate a specific customer behavior pattern that correlates with dissatisfaction.
 
@@ -3563,7 +3562,7 @@ ggplot(data = churn) +
   scale_color_manual(values = c("palevioletred1", "darkseagreen1"))
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{EDA_files/figure-latex/unnamed-chunk-17-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{4_Exploratory_Data_Analysis_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 This scatter plot reveals an interesting high-churn region in the upper left, where customers make frequent customer service calls but have low day-minute usage. This group may represent dissatisfied customers who are not heavy users but are still experiencing service-related frustrations. By contrast, high-minute users who also make frequent service calls show a lower churn rate, possibly indicating that engaged customers are more tolerant of service issues.
 
@@ -3619,7 +3618,7 @@ cor_matrix = cor(churn[, variable_list])
 ggcorrplot(cor_matrix, type = "lower", lab = TRUE, lab_size = 3)
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=1\linewidth]{EDA_files/figure-latex/unnamed-chunk-18-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{4_Exploratory_Data_Analysis_files/figure-latex/unnamed-chunk-18-1} \end{center}
 
 The correlation matrix highlights some key relationships. The charge variables are perfectly correlated with their corresponding minutes variables because charges are calculated directly from call duration. Including both would introduce redundancy. To avoid this, the charge variables should be removed, keeping only the minutes variables.
 
@@ -4229,7 +4228,7 @@ The \emph{two-sample t-test}, also known as Student's t-test, is a statistical m
 
 In Section \ref{EDA-sec-numeric} of the previous chapter, we explored the relationship between \emph{International Calls} (\passthrough{\lstinline!intl.calls!}) and churn status using visualizations like box plots and density plots. While visualizations help identify potential differences, statistical testing quantifies the likelihood that these differences are due to chance.
 
-\includegraphics[width=0.5\linewidth]{statistics_files/figure-latex/unnamed-chunk-8-1} \includegraphics[width=0.5\linewidth]{statistics_files/figure-latex/unnamed-chunk-8-2}
+\includegraphics[width=0.5\linewidth]{5_Statistics_files/figure-latex/unnamed-chunk-8-1} \includegraphics[width=0.5\linewidth]{5_Statistics_files/figure-latex/unnamed-chunk-8-2}
 
 The boxplot (left) and density plot (right) illustrate the distributions of \passthrough{\lstinline!intl.calls!} for churners and non-churners. While the visualizations suggest only minor differences, we perform a two-sample t-test to assess whether these differences are statistically significant.
 
@@ -4291,7 +4290,7 @@ In the previous section, we applied the \emph{two-sample t-test} to compare the 
 
 In Section \ref{chapter-EDA-categorical} of the previous chapter, we examined the relationship between the \emph{Voice Mail Plan} (\passthrough{\lstinline!voice.plan!}) and churn status using bar plots. While visualizations suggest potential differences in churn rates between customers with and without a Voice Mail Plan, statistical testing quantifies whether these differences are statistically significant.
 
-\includegraphics[width=0.5\linewidth]{statistics_files/figure-latex/unnamed-chunk-10-1} \includegraphics[width=0.5\linewidth]{statistics_files/figure-latex/unnamed-chunk-10-2}
+\includegraphics[width=0.5\linewidth]{5_Statistics_files/figure-latex/unnamed-chunk-10-1} \includegraphics[width=0.5\linewidth]{5_Statistics_files/figure-latex/unnamed-chunk-10-2}
 
 The first bar plot (left) shows the raw counts of churners and non-churners across the two categories of \emph{Voice Mail Plan} (Yes or No), while the second plot (right) displays proportions, allowing direct comparison of churn rates. These visualizations suggest that customers without a Voice Mail Plan may have a higher churn rate, but hypothesis testing is needed to confirm whether this difference is statistically meaningful.
 
@@ -4361,7 +4360,7 @@ To illustrate, we examine whether marital status is associated with purchasing a
 
 We begin by visualizing the relationship between \passthrough{\lstinline!marital!} and \passthrough{\lstinline!deposit!} using bar plots:
 
-\includegraphics[width=0.5\linewidth]{statistics_files/figure-latex/unnamed-chunk-13-1} \includegraphics[width=0.5\linewidth]{statistics_files/figure-latex/unnamed-chunk-13-2}
+\includegraphics[width=0.5\linewidth]{5_Statistics_files/figure-latex/unnamed-chunk-13-1} \includegraphics[width=0.5\linewidth]{5_Statistics_files/figure-latex/unnamed-chunk-13-2}
 
 The first bar plot (left) displays the raw counts of deposit purchases across marital categories, while the second plot (right) presents the relative proportions. Visual inspection suggests differences in deposit purchase rates by marital status, but a statistical test is needed to confirm whether these differences are significant.
 
@@ -4419,7 +4418,7 @@ ggplot(data = diamonds) +
   scale_fill_manual(values = c("palevioletred1", "darkseagreen1", "skyblue1", "gold1", "lightcoral"))
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{statistics_files/figure-latex/unnamed-chunk-16-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{5_Statistics_files/figure-latex/unnamed-chunk-16-1} \end{center}
 
 The box plot displays the spread and median prices for diamonds in each cut category. While differences in medians and ranges suggest that cut quality might influence price, statistical testing is required to confirm whether these differences are significant. We apply an ANOVA test to formally assess this relationship.
 
@@ -4464,7 +4463,7 @@ ggplot(data = diamonds) +
     labs(x = "Carat", y = "Price") 
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{statistics_files/figure-latex/unnamed-chunk-18-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{5_Statistics_files/figure-latex/unnamed-chunk-18-1} \end{center}
 
 The scatter plot shows a clear upward trend, suggesting that as \emph{carat} increases, so does \emph{price}. However, visualizations alone do not confirm statistical significance. To formally test this relationship, we establish the following hypotheses:
 
@@ -4756,11 +4755,11 @@ State the null and alternative hypotheses. Report the \emph{p}-value and determi
   Suppose a hypothesis test indicates that customers with a Voice Mail Plan are significantly less likely to churn (\emph{p} \textless{} 0.01). What are some potential business strategies a company could implement based on this finding? Beyond statistical significance, what additional factors should be considered before making marketing decisions?
 \end{enumerate}
 
-\chapter{Preparing Data for Modeling}\label{chapter-modeling}
+\chapter{Preparing Data to Model}\label{chapter-modeling}
 
 Before we can build reliable machine learning models, we must ensure our data is well-prepared. The previous chapters established a foundation by addressing key steps in the Data Science Workflow (Figure \ref{fig:CRISP-DM}). Now, we focus on transitioning from data exploration to model building.
 
-In Chapter \ref{problem-understanding}, we discussed defining the problem and aligning objectives with data-driven strategies. Chapter \ref{chapter-data-prep} addressed handling missing values, outliers, and data transformations to create a clean dataset. In Chapter \ref{chapter-EDA}, we visualized data to uncover patterns, while Chapter \ref{chapter-statistics} introduced statistical inference, including hypothesis testing and feature selection---tools that will help us validate our data partitioning.
+In Section \ref{problem-understanding}, we discussed defining the problem and aligning objectives with data-driven strategies. Chapter \ref{chapter-data-prep} addressed handling missing values, outliers, and data transformations to create a clean dataset. In Chapter \ref{chapter-EDA}, we visualized data to uncover patterns, while Chapter \ref{chapter-statistics} introduced statistical inference, including hypothesis testing and feature selection---tools that will help us validate our data partitioning.
 
 Before diving into machine learning, we must complete the \emph{Setup Phase}, which ensures that our dataset is structured for robust model development. This phase involves three essential steps:
 
@@ -4863,14 +4862,15 @@ A typical train-test split ratio is 70-30, 80-20, or 90-10, depending on the dat
 \subsection*{Example: Train-Test Split in R}\label{example-train-test-split-in-r}
 \addcontentsline{toc}{subsection}{Example: Train-Test Split in R}
 
-To illustrate, we revisit the \emph{churn} dataset from Section \ref{EDA-sec-churn}, where the goal is to predict customer churn. We first load the dataset:
+To illustrate the process of data partitioning, we revisit the \emph{churn} dataset from Section \ref{EDA-sec-churn}, where the goal is to predict customer churn. Since this dataset is included in the \textbf{liver} package, we begin by loading the package and dataset:
 
 \begin{lstlisting}[language=R]
 library(liver)
+
 data(churn) 
 \end{lstlisting}
 
-We then split the \emph{churn} dataset into training and testing subsets by using the \passthrough{\lstinline!partition()!} function from the \textbf{liver} package. The following code demonstrates how to create these subsets in R:
+In R, there are multiple ways to split a dataset into training and test sets. A simple and efficient method is to use the \passthrough{\lstinline!partition()!} function from the \href{https://CRAN.R-project.org/package=liver}{\textbf{liver}} package. This function allows for random partitioning of a dataset according to a specified ratio. The following example demonstrates how to split the \emph{churn} dataset into training (80\%) and test (20\%) sets:
 
 \begin{lstlisting}[language=R]
 set.seed(43)
@@ -4880,15 +4880,23 @@ data_sets = partition(data = churn, ratio = c(0.8, 0.2))
 train_set = data_sets$part1
 test_set  = data_sets$part2
 
-actual_test = test_set$churn
+test_labels = test_set$churn
 \end{lstlisting}
 
-The code begins by setting a seed using \passthrough{\lstinline!set.seed(43)!}, which ensures reproducibility by making the random split consistent across different runs. This is particularly important when sharing results or collaborating on a project. Next, the \passthrough{\lstinline!partition()!} function is used to divide the dataset into two subsets: 80\% of the data is assigned to \passthrough{\lstinline!train\_set!} for model training, while the remaining 20\% is stored in \passthrough{\lstinline!test\_set!} for evaluation. Finally, \passthrough{\lstinline!actual\_test!} is created to store the true target values from the test set, which will be used later to assess the model's predictive accuracy.
+The process begins with \passthrough{\lstinline!set.seed(43)!}, ensuring \textbf{reproducibility} by generating the same random partition every time the code is run. This is crucial for consistency in model evaluation and collaborative work. The \passthrough{\lstinline!partition()!} function then divides the dataset into two subsets:
 
-Reproducibility is essential in machine learning. Setting a seed guarantees that results remain consistent, allowing others to replicate findings exactly. While the seed value itself is arbitrary, using one ensures that the partitioning process is stable across different runs.
+\begin{itemize}
+\tightlist
+\item
+  \passthrough{\lstinline!train\_set!} (80\% of the data) -- used for model training,\\
+\item
+  \passthrough{\lstinline!test\_set!} (20\% of the data) -- reserved for evaluating model performance.
+\end{itemize}
 
-\subsection*{Why Partitioning Matters}\label{why-partitioning-matters}
-\addcontentsline{toc}{subsection}{Why Partitioning Matters}
+Additionally, \passthrough{\lstinline!test\_labels!} stores the \emph{true labels} from the test set, which will later be used to assess the model's predictive accuracy.
+
+Reproducibility is a fundamental principle in machine learning. By setting a seed, we ensure that the dataset split remains consistent across different runs, allowing for precise comparisons and validation of results. While the seed value itself is arbitrary, choosing one guarantees that the partitioning process remains stable.\\
+\#\#\# Why Partitioning Matters \{-\}
 
 The primary reason for partitioning is to prevent \emph{data leakage}---a situation where information from the testing set influences training, leading to overly optimistic performance estimates. By strictly separating these sets, we ensure that performance metrics reflect the model's ability to generalize to new data rather than just memorizing training patterns.
 
@@ -5301,7 +5309,7 @@ To further illustrate kNN, consider a real-world scenario involving drug prescri
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.95\linewidth]{knn_files/figure-latex/scatter-plot-ex-drug-1} 
+{\centering \includegraphics[width=0.95\linewidth]{7_kNN_files/figure-latex/scatter-plot-ex-drug-1} 
 
 }
 
@@ -5325,7 +5333,7 @@ These patients are represented as \emph{orange circles} in Figure \ref{fig:scatt
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.95\linewidth]{knn_files/figure-latex/scatter-plot-ex-drug-2-1} 
+{\centering \includegraphics[width=0.95\linewidth]{7_kNN_files/figure-latex/scatter-plot-ex-drug-2-1} 
 
 }
 
@@ -5339,7 +5347,7 @@ For \emph{Patient 2}, the situation is more nuanced. If \(k = 1\), the nearest n
 For \emph{Patient 3}, classification becomes even more ambiguous. With \(k = 1\), the closest neighbor is a blue square, classifying the patient as \emph{Drug C}. However, for \(k = 2\) or \(k = 3\), the nearest neighbors belong to multiple classes, creating uncertainty in classification.
 
 \begin{figure}
-\includegraphics[width=0.33\linewidth]{knn_files/figure-latex/scatter-plot-ex-drug-3-1} \includegraphics[width=0.33\linewidth]{knn_files/figure-latex/scatter-plot-ex-drug-3-2} \includegraphics[width=0.33\linewidth]{knn_files/figure-latex/scatter-plot-ex-drug-3-3} \caption{Zoom-in plots for the three new patients and their nearest neighbors. The left plot is for Patient 1, the middle plot is for Patient 2, and the right plot is for Patient 3.}\label{fig:scatter-plot-ex-drug-3}
+\includegraphics[width=0.33\linewidth]{7_kNN_files/figure-latex/scatter-plot-ex-drug-3-1} \includegraphics[width=0.33\linewidth]{7_kNN_files/figure-latex/scatter-plot-ex-drug-3-2} \includegraphics[width=0.33\linewidth]{7_kNN_files/figure-latex/scatter-plot-ex-drug-3-3} \caption{Zoom-in plots for the three new patients and their nearest neighbors. The left plot is for Patient 1, the middle plot is for Patient 2, and the right plot is for Patient 3.}\label{fig:scatter-plot-ex-drug-3}
 \end{figure}
 
 These examples highlight several key aspects of kNN. The choice of \(k\) significantly influences classification---small values of \(k\) make the algorithm highly sensitive to local patterns, while larger values introduce smoothing by considering broader neighborhoods. Additionally, the selection of distance metrics, such as Euclidean distance, affects how neighbors are determined. Finally, proper feature scaling ensures that all variables contribute fairly to distance calculations, preventing dominance by features with larger numeric ranges.
@@ -5425,7 +5433,7 @@ To illustrate, we use the \emph{churn} dataset and evaluate the accuracy of the 
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.85\linewidth]{knn_files/figure-latex/kNN-plot-1} 
+{\centering \includegraphics[width=0.85\linewidth]{7_kNN_files/figure-latex/kNN-plot-1} 
 
 }
 
@@ -5490,7 +5498,7 @@ The difference is illustrated in Figure \ref{fig:ex-proper-scaling}. The middle 
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.5\linewidth]{knn_files/figure-latex/ex-proper-scaling-1} \includegraphics[width=0.5\linewidth]{knn_files/figure-latex/ex-proper-scaling-2} \includegraphics[width=0.5\linewidth]{knn_files/figure-latex/ex-proper-scaling-3} 
+{\centering \includegraphics[width=0.5\linewidth]{7_kNN_files/figure-latex/ex-proper-scaling-1} \includegraphics[width=0.5\linewidth]{7_kNN_files/figure-latex/ex-proper-scaling-2} \includegraphics[width=0.5\linewidth]{7_kNN_files/figure-latex/ex-proper-scaling-3} 
 
 }
 
@@ -5658,9 +5666,10 @@ Since kNN calculates distances between data points, features with larger numeric
 To standardize the numerical variables, we apply min-max scaling using the \passthrough{\lstinline!minmax()!} function from the \textbf{liver} package. Scaling parameters (minimum and maximum values) must be computed from the training set and then applied consistently to both the training and test sets. This prevents data leakage, which occurs when test data influences the training process, leading to misleadingly high performance estimates.
 
 \begin{lstlisting}[language=R]
-numeric_vars = c("account.length", "voice.messages", "intl.mins", "intl.calls", 
-                 "day.mins", "day.calls", "eve.mins", "eve.calls", 
-                 "night.mins", "night.calls", "customer.calls")
+numeric_vars = c("account.length", "voice.messages", "intl.mins", 
+                 "intl.calls", "day.mins", "day.calls", "eve.mins", 
+                 "eve.calls", "night.mins", "night.calls", 
+                 "customer.calls")
 
 min_train = sapply(train_set[, numeric_vars], min)
 max_train = sapply(train_set[, numeric_vars], max)
@@ -5673,7 +5682,9 @@ The \passthrough{\lstinline!minmax()!} function normalizes the numerical feature
 
 \subsection{\texorpdfstring{Step 2: Choosing an Optimal \(k\)}{Step 2: Choosing an Optimal k}}\label{step-2-choosing-an-optimal-k}
 
-The choice of \(k\) determines the trade-off between capturing local patterns and generalizing well to unseen data. Selecting an inappropriate \(k\) may result in overfitting (if \(k\) is too small) or oversmoothing (if \(k\) is too large). To identify the optimal \(k\), we evaluate the model's accuracy for different values of \(k\) using the \passthrough{\lstinline!kNN.plot()!} function:
+The selection of \(k\) plays a crucial role in balancing \emph{local pattern recognition} and \emph{generalization} to unseen data. A small \(k\) may lead to \emph{overfitting}, making the model highly sensitive to noise, while a large \(k\) can result in \emph{oversmoothing}, causing the model to overlook important details. To find an optimal \(k\), we evaluate the model's accuracy across different values of \(k\) and select the one that yields the best performance.
+
+A practical way to achieve this is by plotting model accuracy against different values of \(k\). The \passthrough{\lstinline!kNN.plot()!} function from the \textbf{liver} package automates this process, providing a clear visualization of the relationship between \(k\) and accuracy:
 
 \begin{lstlisting}[language=R]
 formula = churn ~ account.length + voice.plan_yes + voice.messages + 
@@ -5686,19 +5697,37 @@ kNN.plot(formula = formula, train = train_scaled, test = test_scaled,
    Setting levels: reference = "yes", case = "no"
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{knn_files/figure-latex/unnamed-chunk-7-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{7_kNN_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
-The \passthrough{\lstinline!kNN.plot()!} function visualizes the relationship between \(k\) and model accuracy, helping us determine the value of \(k\) that balances model complexity and generalization. By examining the plot, we observe that the highest accuracy is achieved when \(k = 5\). This choice maintains sufficient flexibility to capture meaningful patterns while avoiding excessive sensitivity to outliers.
+The resulting plot helps identify the optimal \(k\), balancing \emph{model complexity} and \emph{generalization}. From the visualization, we observe that the highest accuracy is achieved when \(k = 5\), suggesting that this value effectively captures meaningful patterns while minimizing sensitivity to outliers.
 
 \subsection{Step 3: Training the Model and Making Predictions}\label{step-3-training-the-model-and-making-predictions}
 
-Since we identified \(k = 5\) as the optimal value in Step 2, we now proceed to train the kNN model and make predictions on the test set. To apply the kNN algorithm in \textbf{R}, we use the \passthrough{\lstinline!kNN()!} function from the \textbf{liver} package as follows:
+With \(k = 5\) identified as the optimal value, we are now ready to classify test records using the k-NN algorithm. Unlike many machine learning methods, k-NN is a \textbf{lazy learner}, meaning it does not build an explicit model during training. Instead, it simply stores the training data in a structured format and performs classification only when a new observation needs to be classified.
+
+Several R packages provide implementations of the k-NN algorithm, including \href{https://CRAN.R-project.org/package=class}{\textbf{class}} and \href{https://CRAN.R-project.org/package=liver}{\textbf{liver}}. The \textbf{class} package offers basic k-NN functionality, while the \textbf{liver} package provides an enhanced \passthrough{\lstinline!kNN()!} function that supports a formula-based interface and built-in normalization.
+
+To apply the k-NN algorithm, we use the \passthrough{\lstinline!kNN()!} function from the \textbf{liver} package:
 
 \begin{lstlisting}[language=R]
 kNN_predict = kNN(formula = formula, train = train_scaled, test = test_scaled, k = 5)
 \end{lstlisting}
 
-The \passthrough{\lstinline!kNN()!} function automates the kNN classification process by computing distances between each test observation and all training data points. It then selects the 5 closest neighbors based on the chosen distance metric and assigns the most frequently occurring class among them as the predicted label. Since test data was not used during training, these predictions provide an unbiased estimate of how well the model generalizes to new observations.
+In this function:
+
+\begin{itemize}
+\tightlist
+\item
+  \passthrough{\lstinline!formula!} specifies the relationship between the target variable and predictors.\\
+\item
+  \passthrough{\lstinline!train!} contains the scaled training data.\\
+\item
+  \passthrough{\lstinline!test!} contains the scaled test data.\\
+\item
+  \passthrough{\lstinline!k!} determines the number of nearest neighbors to consider, set here to \(k = 5\) based on the selection in the previous step.
+\end{itemize}
+
+The \passthrough{\lstinline!kNN()!} function classifies test observations by computing distances between each test record and all training data points. It then selects the five closest neighbors based on the chosen distance metric and assigns the most frequent class among them as the predicted label. Since test data is independent of training data, these predictions provide an unbiased estimate of the model's ability to generalize to new observations.
 
 \subsection{Step 4: Evaluating the Model}\label{step-4-evaluating-the-model}
 
@@ -6068,7 +6097,7 @@ conf.mat.plot(kNN_predict, actual_test)
    Setting levels: reference = "yes", case = "no"
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.6\linewidth]{evaluation_files/figure-latex/unnamed-chunk-4-1} \end{center}
+\begin{center}\includegraphics[width=0.6\linewidth]{8_Model_Evaluation_files/figure-latex/unnamed-chunk-4-1} \end{center}
 
 From the confusion matrix, we compute accuracy and error rate:
 
@@ -6362,7 +6391,7 @@ ggroc(roc_knn, colour = "blue") +
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.65\linewidth]{evaluation_files/figure-latex/roc-knn-churn-1} 
+{\centering \includegraphics[width=0.65\linewidth]{8_Model_Evaluation_files/figure-latex/roc-knn-churn-1} 
 
 }
 
@@ -7253,12 +7282,11 @@ The output contains two columns:
 \begin{itemize}
 \tightlist
 \item
-  The first column represents the probability that a customer is classified as ``\passthrough{\lstinline!good risk!}.''\\
+  The first column represents the probability that a customer is classified as ``\passthrough{\lstinline!good risk!}.''
 \item
-  The second column represents the probability that a customer is classified as ``\passthrough{\lstinline!bad risk!}.''
+  The second column represents the probability that a customer is classified as ``\passthrough{\lstinline!bad risk!}.''\\
+  For example, if the second row has a probability of 0.987 for ``\passthrough{\lstinline!bad risk!},'' it indicates that the second customer in the test set is predicted to belong to the ``\passthrough{\lstinline!bad risk!}'' category with a probability of 0.987.
 \end{itemize}
-
-For example, if the second row has a probability of 0.987 for ``\passthrough{\lstinline!bad risk!},'' it indicates that the second customer in the test set is predicted to belong to the ``\passthrough{\lstinline!bad risk!}'' category with a probability of 0.987.
 
 This probability-based output provides flexibility in decision-making. Instead of using a fixed threshold of 0.5, financial institutions can adjust the cutoff based on business objectives. For instance, if minimizing loan defaults is the priority, a more conservative threshold may be set. In the next section, we convert these probabilities into class predictions and evaluate the model using a confusion matrix and other performance metrics.
 
@@ -7280,7 +7308,7 @@ conf.mat(prob_naive_bayes, test_labels, cutoff = 0.5, reference = "good risk")
 conf.mat.plot(prob_naive_bayes, test_labels, cutoff = 0.5, reference = "good risk")
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.65\linewidth]{bayes_files/figure-latex/unnamed-chunk-16-1} \end{center}
+\begin{center}\includegraphics[width=0.65\linewidth]{9_Naive_Bayes_files/figure-latex/unnamed-chunk-16-1} \end{center}
 
 In this evaluation, we apply a \textbf{classification threshold of 0.5}, meaning that if a customer's predicted probability of being a ``\passthrough{\lstinline!good risk!}'' is at least 50\%, the model classifies them as ``\passthrough{\lstinline!good risk!}''; otherwise, they are classified as ``\passthrough{\lstinline!bad risk!}.'' Additionally, we specify \textbf{``\passthrough{\lstinline!good risk!}'' as the reference class}, meaning that performance metrics such as sensitivity and precision will be calculated with respect to this category.
 
@@ -7315,7 +7343,7 @@ roc_naive_bayes = roc(test_labels, prob_naive_bayes)
 ggroc(roc_naive_bayes)
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{bayes_files/figure-latex/unnamed-chunk-17-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{9_Naive_Bayes_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 The ROC curve plots the \textbf{true positive rate (sensitivity)} against the \textbf{false positive rate (1 - specificity)} at various threshold values. A curve that remains closer to the top-left corner indicates a well-performing model, while a curve near the diagonal suggests performance close to random guessing.
 
@@ -7558,7 +7586,7 @@ library(psych)
 pairs.panels(marketing)
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=1\linewidth]{regression_files/figure-latex/unnamed-chunk-2-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{10_Regression_files/figure-latex/unnamed-chunk-2-1} \end{center}
 
 This visualization includes:
 
@@ -7585,7 +7613,7 @@ Before fitting the model, it is essential to visualize the relationship between 
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.8\linewidth]{regression_files/figure-latex/scoter-plot-simple-reg-1} 
+{\centering \includegraphics[width=0.8\linewidth]{10_Regression_files/figure-latex/scoter-plot-simple-reg-1} 
 
 }
 
@@ -8432,7 +8460,7 @@ This equation incorporates both \passthrough{\lstinline!house.age!} and its squa
 
 \textbackslash begin\{figure\}
 
-\{\centering \includegraphics[width=1\linewidth]{regression_files/figure-latex/scoter-plot-non-reg-1}
+\{\centering \includegraphics[width=1\linewidth]{10_Regression_files/figure-latex/scoter-plot-non-reg-1}
 
 \}
 
@@ -8570,7 +8598,7 @@ plot(ml_stepwise)
 \end{lstlisting}
 
 \begin{figure}
-\includegraphics[width=0.5\linewidth]{regression_files/figure-latex/model-diagnostics-1} \includegraphics[width=0.5\linewidth]{regression_files/figure-latex/model-diagnostics-2} \includegraphics[width=0.5\linewidth]{regression_files/figure-latex/model-diagnostics-3} \includegraphics[width=0.5\linewidth]{regression_files/figure-latex/model-diagnostics-4} \caption{Diagnostic plots for assessing regression model assumptions.}\label{fig:model-diagnostics}
+\includegraphics[width=0.5\linewidth]{10_Regression_files/figure-latex/model-diagnostics-1} \includegraphics[width=0.5\linewidth]{10_Regression_files/figure-latex/model-diagnostics-2} \includegraphics[width=0.5\linewidth]{10_Regression_files/figure-latex/model-diagnostics-3} \includegraphics[width=0.5\linewidth]{10_Regression_files/figure-latex/model-diagnostics-4} \caption{Diagnostic plots for assessing regression model assumptions.}\label{fig:model-diagnostics}
 \end{figure}
 
 These diagnostic plots provide insights into the validity of the model's assumptions.
@@ -8838,7 +8866,7 @@ To see decision trees in action, consider the example in Figure \ref{fig:tree-0}
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.75\linewidth]{tree_files/figure-latex/tree-0-1} 
+{\centering \includegraphics[width=0.75\linewidth]{11_Decision_Tree_files/figure-latex/tree-0-1} 
 
 }
 
@@ -9010,7 +9038,7 @@ To illustrate how C5.0 constructs decision trees, consider its application to th
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.65\linewidth]{tree_files/figure-latex/tree-C50-1} 
+{\centering \includegraphics[width=0.65\linewidth]{11_Decision_Tree_files/figure-latex/tree-C50-1} 
 
 }
 
@@ -9366,7 +9394,7 @@ The tree is displayed using:
 rpart.plot(tree_cart, type = 4, extra = 104)
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=1\linewidth]{tree_files/figure-latex/unnamed-chunk-12-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{11_Decision_Tree_files/figure-latex/unnamed-chunk-11-1} \end{center}
 
 \begin{itemize}
 \tightlist
@@ -9474,7 +9502,7 @@ We can evaluate the importance of predictors using the \passthrough{\lstinline!v
 varImpPlot(random_forest)
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{tree_files/figure-latex/unnamed-chunk-19-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{11_Decision_Tree_files/figure-latex/unnamed-chunk-18-1} \end{center}
 
 This plot ranks predictors based on their contribution to model accuracy. In this case, \passthrough{\lstinline!marital.status!} appears as the most important predictor, followed by \passthrough{\lstinline!capital.gain!} and \passthrough{\lstinline!education.num!}.
 
@@ -9484,7 +9512,7 @@ To assess how the error rate changes as the number of trees increases, we use:
 plot(random_forest)
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{tree_files/figure-latex/unnamed-chunk-20-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{11_Decision_Tree_files/figure-latex/unnamed-chunk-19-1} \end{center}
 
 This plot shows classification error as a function of the number of trees. The error rate stabilizes after approximately 40 trees, indicating that adding more trees beyond this point does not significantly improve accuracy.
 
@@ -9516,7 +9544,7 @@ conf.mat.plot(prob_C50, test_labels, cutoff = 0.5, reference = "<=50K", main = "
 conf.mat.plot(prob_random_forest, test_labels, cutoff = 0.5, reference = "<=50K", main = "Random Forest Prediction")
 \end{lstlisting}
 
-\includegraphics[width=0.33\linewidth]{tree_files/figure-latex/unnamed-chunk-22-1} \includegraphics[width=0.33\linewidth]{tree_files/figure-latex/unnamed-chunk-22-2} \includegraphics[width=0.33\linewidth]{tree_files/figure-latex/unnamed-chunk-22-3}
+\includegraphics[width=0.33\linewidth]{11_Decision_Tree_files/figure-latex/unnamed-chunk-21-1} \includegraphics[width=0.33\linewidth]{11_Decision_Tree_files/figure-latex/unnamed-chunk-21-2} \includegraphics[width=0.33\linewidth]{11_Decision_Tree_files/figure-latex/unnamed-chunk-21-3}
 
 The confusion matrices indicate the number of correctly classified instances for each model:
 
@@ -9562,7 +9590,7 @@ ggroc(list(roc_cart, roc_C50, roc_random_forest), size = 0.8) +
   theme(legend.position = c(.7, .3), text = element_text(size = 17))
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{tree_files/figure-latex/unnamed-chunk-26-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{11_Decision_Tree_files/figure-latex/unnamed-chunk-25-1} \end{center}
 
 In the ROC plot, the \emph{black} curve represents CART, the {\emph{red}} curve represents C5.0, and the {\emph{green}} curve represents Random Forest. The ROC curves suggest that both C5.0 and Random Forest outperform CART. However, distinguishing between C5.0 and Random Forest based on the ROC curve alone is challenging. Note that in the above ROC plots we also report the AUC values for each model, by using the \passthrough{\lstinline!auc()!} function from the \textbf{pROC} package. The AUC values provide further insight:
 
@@ -10004,7 +10032,7 @@ This step-like behavior is visualized in Figure \ref{fig:active-fun-unit}. The f
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.5\linewidth]{nn_files/figure-latex/active-fun-unit-1} 
+{\centering \includegraphics[width=0.5\linewidth]{12_Neural_Network_files/figure-latex/active-fun-unit-1} 
 
 }
 
@@ -10026,7 +10054,7 @@ where \(e\) is the base of the natural logarithm (approximately 2.72). The sigmo
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.5\linewidth]{nn_files/figure-latex/active-fun-sigmoid-1} 
+{\centering \includegraphics[width=0.5\linewidth]{12_Neural_Network_files/figure-latex/active-fun-sigmoid-1} 
 
 }
 
@@ -10053,7 +10081,7 @@ Several activation functions have been developed to address the limitations of t
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.8\linewidth]{nn_files/figure-latex/active-fun-comparison-1} 
+{\centering \includegraphics[width=0.8\linewidth]{12_Neural_Network_files/figure-latex/active-fun-comparison-1} 
 
 }
 
@@ -10366,7 +10394,7 @@ ggplot(data = train_scaled) +
   ggtitle("Variable 'age' after scaling")
 \end{lstlisting}
 
-\includegraphics[width=0.5\linewidth]{nn_files/figure-latex/unnamed-chunk-7-1} \includegraphics[width=0.5\linewidth]{nn_files/figure-latex/unnamed-chunk-7-2}
+\includegraphics[width=0.5\linewidth]{12_Neural_Network_files/figure-latex/unnamed-chunk-7-1} \includegraphics[width=0.5\linewidth]{12_Neural_Network_files/figure-latex/unnamed-chunk-7-2}
 
 The first histogram (left) displays the distribution of \passthrough{\lstinline!age!} in the training set before scaling, while the second histogram (right) shows the distribution after applying min-max scaling. The values are mapped to a range between 0 and 1 while preserving the original distribution.
 
@@ -10415,7 +10443,7 @@ After training, we visualize the network to examine its topology:
 plot(neuralnet_bank, rep = "best")
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{nn_files/figure-latex/unnamed-chunk-10-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{12_Neural_Network_files/figure-latex/unnamed-chunk-10-1} \end{center}
 
 This visualization shows that the network consists of:
 
@@ -10487,7 +10515,7 @@ ggroc(roc_nn, size = 0.8) +
   theme(legend.title = element_blank(), legend.position = c(.7, .3), text = element_text(size = 17))
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{nn_files/figure-latex/unnamed-chunk-14-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{12_Neural_Network_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
 The ROC curve evaluates how well the model differentiates between customers who subscribe (\passthrough{\lstinline!deposit = "yes"!}) and those who do not (\passthrough{\lstinline!deposit = "no"!}) at varying classification thresholds. A high AUC score indicates strong predictive performance, meaning the model is effective at distinguishing between the two classes.
 
@@ -11002,7 +11030,7 @@ ggplot(data = cereal_mm) +
     theme_minimal() + ggtitle("After min-max normalization")
 \end{lstlisting}
 
-\includegraphics[width=0.5\linewidth]{clustering_files/figure-latex/unnamed-chunk-8-1} \includegraphics[width=0.5\linewidth]{clustering_files/figure-latex/unnamed-chunk-8-2}
+\includegraphics[width=0.5\linewidth]{13_Clustering_files/figure-latex/unnamed-chunk-8-1} \includegraphics[width=0.5\linewidth]{13_Clustering_files/figure-latex/unnamed-chunk-8-2}
 
 After scaling, all values fall within the \emph{0--1 range}, making distance-based clustering more reliable.
 
@@ -11020,7 +11048,7 @@ fviz_nbclust(cereal_mm, kmeans, method = "wss", k.max = 15) +
   geom_vline(xintercept = 4, linetype = 2, color = "gray")
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{clustering_files/figure-latex/unnamed-chunk-9-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{13_Clustering_files/figure-latex/unnamed-chunk-9-1} \end{center}
 
 From the plot, we observe that \emph{\(k = 4\) clusters} is a reasonable choice, as adding more clusters beyond this point yields diminishing improvements in WCSS.
 
@@ -11050,7 +11078,7 @@ To better understand the clustering results, we visualize the clusters using the
 fviz_cluster(cereal_kmeans, cereal_mm, geom = "point", ellipse.type = "norm", palette = "custom_palette")
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{clustering_files/figure-latex/unnamed-chunk-12-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{13_Clustering_files/figure-latex/unnamed-chunk-12-1} \end{center}
 
 The scatter plot displays the \emph{four clusters}, with each point representing a cereal brand. Different colors indicate distinct clusters, and the ellipses represent the \emph{spread of each cluster} based on its standard deviation.
 

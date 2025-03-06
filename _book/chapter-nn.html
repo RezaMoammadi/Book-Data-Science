@@ -77,7 +77,7 @@
 <li><a class="" href="chapter-data-prep.html"><span class="header-section-number">3</span> Data Preparation</a></li>
 <li><a class="" href="chapter-EDA.html"><span class="header-section-number">4</span> Exploratory Data Analysis</a></li>
 <li><a class="" href="chapter-statistics.html"><span class="header-section-number">5</span> Statistical Inference and Hypothesis Testing</a></li>
-<li><a class="" href="chapter-modeling.html"><span class="header-section-number">6</span> Preparing Data for Modeling</a></li>
+<li><a class="" href="chapter-modeling.html"><span class="header-section-number">6</span> Preparing Data to Model</a></li>
 <li><a class="" href="chapter-knn.html"><span class="header-section-number">7</span> Classification using k-Nearest Neighbors</a></li>
 <li><a class="" href="chapter-evaluation.html"><span class="header-section-number">8</span> Model Evaluation</a></li>
 <li><a class="" href="chapter-bayes.html"><span class="header-section-number">9</span> Naive Bayes Classifier</a></li>
@@ -231,7 +231,7 @@ f(x) =
 <p>This step-like behavior is visualized in Figure <a href="chapter-nn.html#fig:active-fun-unit">12.5</a>. The function outputs 1 when the input is at least zero and 0 otherwise, making it useful for basic classification tasks.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:active-fun-unit"></span>
-<img src="nn_files/figure-html/active-fun-unit-1.png" alt="Visualization of the threshold activation function (unit step)." width="50%"><p class="caption">
+<img src="12_Neural_Network_files/figure-html/active-fun-unit-1.png" alt="Visualization of the threshold activation function (unit step)." width="50%"><p class="caption">
 Figure 12.5: Visualization of the threshold activation function (unit step).
 </p>
 </div>
@@ -247,7 +247,7 @@ f(x) = \frac{1}{1 + e^{-x}}
 <p>where <span class="math inline">\(e\)</span> is the base of the natural logarithm (approximately 2.72). The sigmoid function has an S-shaped curve, as shown in Figure <a href="chapter-nn.html#fig:active-fun-sigmoid">12.6</a>, and provides a differentiable alternative to the threshold function.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:active-fun-sigmoid"></span>
-<img src="nn_files/figure-html/active-fun-sigmoid-1.png" alt="Visualization of the sigmoid activation function." width="50%"><p class="caption">
+<img src="12_Neural_Network_files/figure-html/active-fun-sigmoid-1.png" alt="Visualization of the sigmoid activation function." width="50%"><p class="caption">
 Figure 12.6: Visualization of the sigmoid activation function.
 </p>
 </div>
@@ -269,7 +269,7 @@ Figure 12.6: Visualization of the sigmoid activation function.
 </ol>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:active-fun-comparison"></span>
-<img src="nn_files/figure-html/active-fun-comparison-1.png" alt="Comparison of common activation functions: sigmoid, tanh, and ReLU." width="80%"><p class="caption">
+<img src="12_Neural_Network_files/figure-html/active-fun-comparison-1.png" alt="Comparison of common activation functions: sigmoid, tanh, and ReLU." width="80%"><p class="caption">
 Figure 12.7: Comparison of common activation functions: sigmoid, tanh, and ReLU.
 </p>
 </div>
@@ -516,7 +516,7 @@ Figure 12.7: Comparison of common activation functions: sigmoid, tanh, and ReLU.
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">train_scaled</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">age</span><span class="op">)</span>, colour <span class="op">=</span> <span class="st">"darkblue"</span>, fill <span class="op">=</span> <span class="st">"lightblue"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Variable 'age' after scaling"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="nn_files/figure-html/unnamed-chunk-7-1.png" width="50%"><img src="nn_files/figure-html/unnamed-chunk-7-2.png" width="50%"></p>
+<p><img src="12_Neural_Network_files/figure-html/unnamed-chunk-7-1.png" width="50%"><img src="12_Neural_Network_files/figure-html/unnamed-chunk-7-2.png" width="50%"></p>
 <p>The first histogram (left) displays the distribution of <code>age</code> in the training set before scaling, while the second histogram (right) shows the distribution after applying min-max scaling. The values are mapped to a range between 0 and 1 while preserving the original distribution.</p>
 </div>
 </div>
@@ -556,7 +556,7 @@ Figure 12.7: Comparison of common activation functions: sigmoid, tanh, and ReLU.
 <p>After training, we visualize the network to examine its topology:</p>
 <div class="sourceCode" id="cb233"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">neuralnet_bank</span>, rep <span class="op">=</span> <span class="st">"best"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="nn_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="12_Neural_Network_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>This visualization shows that the network consists of:</p>
 <ul>
 <li>9 input nodes, corresponding to the 9 predictors,<br>
@@ -605,7 +605,7 @@ Figure 12.7: Comparison of common activation functions: sigmoid, tanh, and ReLU.
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"ROC for Neural Network Algorithm"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>, legend.position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">.7</span>, <span class="fl">.3</span><span class="op">)</span>, text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">17</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="nn_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="12_Neural_Network_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>The ROC curve evaluates how well the model differentiates between customers who subscribe (<code>deposit = "yes"</code>) and those who do not (<code>deposit = "no"</code>) at varying classification thresholds. A high AUC score indicates strong predictive performance, meaning the model is effective at distinguishing between the two classes.</p>
 </div>
 </div>
@@ -725,8 +725,8 @@ Figure 12.7: Comparison of common activation functions: sigmoid, tanh, and ReLU.
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/RezaMoammadi/Book-Data-Science/blob/master/nn.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/RezaMoammadi/Book-Data-Science/edit/master/nn.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/RezaMoammadi/Book-Data-Science/blob/master/12_Neural_Network.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/RezaMoammadi/Book-Data-Science/edit/master/12_Neural_Network.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>

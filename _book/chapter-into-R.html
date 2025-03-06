@@ -77,7 +77,7 @@
 <li><a class="" href="chapter-data-prep.html"><span class="header-section-number">3</span> Data Preparation</a></li>
 <li><a class="" href="chapter-EDA.html"><span class="header-section-number">4</span> Exploratory Data Analysis</a></li>
 <li><a class="" href="chapter-statistics.html"><span class="header-section-number">5</span> Statistical Inference and Hypothesis Testing</a></li>
-<li><a class="" href="chapter-modeling.html"><span class="header-section-number">6</span> Preparing Data for Modeling</a></li>
+<li><a class="" href="chapter-modeling.html"><span class="header-section-number">6</span> Preparing Data to Model</a></li>
 <li><a class="" href="chapter-knn.html"><span class="header-section-number">7</span> Classification using k-Nearest Neighbors</a></li>
 <li><a class="" href="chapter-evaluation.html"><span class="header-section-number">8</span> Model Evaluation</a></li>
 <li><a class="" href="chapter-bayes.html"><span class="header-section-number">9</span> Naive Bayes Classifier</a></li>
@@ -687,7 +687,7 @@ Figure 1.5: A visual guide to different types of data structures in R.
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">hp</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="Intro-R_files/figure-html/unnamed-chunk-32-1.png" width="70%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="1_Intro_R_files/figure-html/unnamed-chunk-32-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>This code initializes the plot with the <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> function, specifying the dataset (<code>mtcars</code>). The <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code> function adds points to the plot, and the <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code> function maps <code>mpg</code> to the x-axis and <code>hp</code> to the y-axis.</p>
 <p>The general template for creating plots with <strong>ggplot2</strong> follows this structure:</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="chapter-into-R.html#cb35-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="sc">&lt;</span>DATA<span class="sc">&gt;</span>) <span class="sc">+</span></span>
@@ -723,13 +723,13 @@ Figure 1.5: A visual guide to different types of data structures in R.
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">hp</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="Intro-R_files/figure-html/unnamed-chunk-34-1.png" width="70%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="1_Intro_R_files/figure-html/unnamed-chunk-34-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>Multiple geom functions can be combined in a single plot. To overlay a scatter plot on the smoothed line:</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">hp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">hp</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="Intro-R_files/figure-html/unnamed-chunk-35-1.png" width="70%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="1_Intro_R_files/figure-html/unnamed-chunk-35-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>Alternatively, the <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code> function can be placed inside <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> to streamline the code:</p>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">hp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -744,7 +744,7 @@ Figure 1.5: A visual guide to different types of data structures in R.
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">hp</span>, color <span class="op">=</span> <span class="va">cyl</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="Intro-R_files/figure-html/unnamed-chunk-37-1.png" width="70%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="1_Intro_R_files/figure-html/unnamed-chunk-37-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>Here, <code>color = cyl</code> maps the color of the points to the number of cylinders (<code>cyl</code>) in the <strong>mtcars</strong> dataset. <strong>ggplot2</strong> automatically assigns a unique color to each category and adds a corresponding legend.</p>
 <p>In addition to <code>color</code>, other aesthetics such as <code>size</code> and <code>alpha</code> (transparency) can be used:</p>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
@@ -755,13 +755,13 @@ Figure 1.5: A visual guide to different types of data structures in R.
 <span><span class="co"># Right plot: using the alpha aesthetic</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">hp</span>, alpha <span class="op">=</span> <span class="va">cyl</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Intro-R_files/figure-html/unnamed-chunk-38-1.png" width="50%"><img src="Intro-R_files/figure-html/unnamed-chunk-38-2.png" width="50%"></p>
+<p><img src="1_Intro_R_files/figure-html/unnamed-chunk-38-1.png" width="50%"><img src="1_Intro_R_files/figure-html/unnamed-chunk-38-2.png" width="50%"></p>
 <p>Aesthetics can also be set directly inside geom functions. For example, to make all points blue triangles of size 3:</p>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">hp</span><span class="op">)</span>, </span>
 <span>             color <span class="op">=</span> <span class="st">"blue"</span>, size <span class="op">=</span> <span class="fl">3</span>, shape <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="Intro-R_files/figure-html/unnamed-chunk-39-1.png" width="70%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="1_Intro_R_files/figure-html/unnamed-chunk-39-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>This section introduced the fundamentals of data visualization in R using <strong>ggplot2</strong>. The next chapters will explore how visualization plays a crucial role in exploratory data analysis (Chapter <a href="chapter-EDA.html#chapter-EDA">4</a>) and how to refine plots for communication and reporting. For more details on visualization techniques, see the <a href="https://ggplot2.tidyverse.org"><strong>ggplot2</strong> documentation</a>. For interactive graphics, consider exploring the <strong>plotly</strong> package or <strong>Shiny</strong> for web applications.</p>
 </div>
 </div>
@@ -1025,7 +1025,7 @@ Print the first few rows of the data frame using <code><a href="https://rdrr.io/
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">Type</span>, shape <span class="op">=</span> <span class="va">Type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Age vs. Sodium/Potassium Ratio"</span>, </span>
 <span>       x <span class="op">=</span> <span class="st">"Age"</span>, y <span class="op">=</span> <span class="st">"Sodium/Potassium Ratio"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="Intro-R_files/figure-html/unnamed-chunk-45-1.png" width="70%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="1_Intro_R_files/figure-html/unnamed-chunk-45-1.png" width="70%" style="display: block; margin: auto;"></div>
 <ol start="18" style="list-style-type: decimal">
 <li>Extend the dataset <code>drug_data</code> by adding a new variable named <code>Outcome</code>, which is a factor with two levels (<code>"Good"</code> and <code>"Bad"</code>).<br>
 </li>
@@ -1147,8 +1147,8 @@ Print the first few rows of the data frame using <code><a href="https://rdrr.io/
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/RezaMoammadi/Book-Data-Science/blob/master/Intro-R.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/RezaMoammadi/Book-Data-Science/edit/master/Intro-R.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/RezaMoammadi/Book-Data-Science/blob/master/1_Intro_R.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/RezaMoammadi/Book-Data-Science/edit/master/1_Intro_R.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>

@@ -16,31 +16,7 @@ editor_options:
     wrap: sentence
 ---
 
-# Welcome {-}  
 
-Welcome to the online companion for *Data Science Foundations and Machine Learning Using R*, a hands-on and intuitive introduction to the exciting field of data science—no prior programming or analytics experience required.  
-
-Inspired by the principles of open science and reproducibility, this book embraces transparency. The code, datasets, and materials are freely available on [CRAN](https://cran.r-project.org/web/packages/liver/index.html) through the **liver** package (<https://CRAN.R-project.org/package=liver>), enabling readers to engage with the content interactively.  
-
-<a href="https://CRAN.R-project.org/package=liver"><img src="images/logo.png" alt="Book cover" width="250" height="250" align="right" style="margin: 0 1em 0 1em"/></a>
-
-The latest version of this book is available online at [https://uncovering-data-science.netlify.app](https://uncovering-data-science.netlify.app). The source code for this site is maintained on [GitHub](https://github.com/RezaMoammadi/Book-Data-Science), ensuring continuous updates and improvements.
-
-### Work in Progress {-}  
-
-This book is an evolving project, and we welcome feedback from readers. If you have suggestions, corrections, or ideas for improvement, we encourage you to reach out:  
-
-- **Email**: [Contact Us](mailto:a.mohammadi@uva.nl)  
-- **Contribute on GitHub**: Submit an issue or pull request at [GitHub Repository](https://github.com/RezaMoammadi/Book-Data-Science)  
-
-Your input is invaluable in making this book a better resource for the data science community!  
-
-<p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://github.com/RezaMoammadi/Book-Data-Science">Book</a> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://www.uva.nl/profile/a.mohammadi">Reza Mohammadi</a> is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></a></p>
-                  
-<hr>
-
-<a href="https://www.netlify.com"><img src="https://www.netlify.com/img/global/badges/netlify-color-accent.svg"/></a>
-The book website is hosted on [Netlify](https://www.netlify.com).
 
 # Preface {.unnumbered}  
 
@@ -123,58 +99,26 @@ This book has been successfully used in *data science courses at the University 
 
 This book incorporates real-world datasets to illustrate key data science and machine learning concepts. Table \@ref(tab:data-table) provides an overview of the datasets used throughout the book, all of which are included in the **liver** package.  
 
-<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<caption>(\#tab:data-table)List of datasets used for case studies in different chapters. Available in the R package liver.</caption>
- <thead>
-  <tr>
-   <th style="text-align:left;"> Name </th>
-   <th style="text-align:left;"> Description </th>
-   <th style="text-align:left;"> Chapter </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;font-weight: bold;color: black !important;"> churn </td>
-   <td style="text-align:left;width: 20em; "> Customer churn dataset. </td>
-   <td style="text-align:left;"> Chapters 4, 6, 7, 8, 10 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;color: black !important;"> bank </td>
-   <td style="text-align:left;width: 20em; "> Direct marketing data from a Portuguese bank. </td>
-   <td style="text-align:left;"> Chapters 7, 12 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;color: black !important;"> adult </td>
-   <td style="text-align:left;width: 20em; "> US Census data for income prediction. </td>
-   <td style="text-align:left;"> Chapters 3, 11 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;color: black !important;"> risk </td>
-   <td style="text-align:left;width: 20em; "> Credit risk dataset. </td>
-   <td style="text-align:left;"> Chapter 9 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;color: black !important;"> marketing </td>
-   <td style="text-align:left;width: 20em; "> Marketing campaign performance data. </td>
-   <td style="text-align:left;"> Chapter 10 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;color: black !important;"> house </td>
-   <td style="text-align:left;width: 20em; "> House price prediction dataset. </td>
-   <td style="text-align:left;"> Chapter 10 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;color: black !important;"> diamonds </td>
-   <td style="text-align:left;width: 20em; "> Diamond pricing dataset. </td>
-   <td style="text-align:left;"> Chapter 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;color: black !important;"> cereal </td>
-   <td style="text-align:left;width: 20em; "> Nutritional information for 77 breakfast cereals. </td>
-   <td style="text-align:left;"> Chapter 13 </td>
-  </tr>
-</tbody>
-</table>
+\begin{table}
+\centering
+\caption{(\#tab:data-table)List of datasets used for case studies in different chapters. Available in the R package liver.}
+\centering
+\begin{tabular}[t]{>{}l>{\raggedright\arraybackslash}p{20em}l}
+\toprule
+Name & Description & Chapter\\
+\midrule
+\textcolor{black}{\textbf{churn}} & Customer churn dataset. & Chapters 4, 6, 7, 8, 10\\
+\textcolor{black}{\textbf{bank}} & Direct marketing data from a Portuguese bank. & Chapters 7, 12\\
+\textcolor{black}{\textbf{adult}} & US Census data for income prediction. & Chapters 3, 11\\
+\textcolor{black}{\textbf{risk}} & Credit risk dataset. & Chapter 9\\
+\textcolor{black}{\textbf{marketing}} & Marketing campaign performance data. & Chapter 10\\
+\addlinespace
+\textcolor{black}{\textbf{house}} & House price prediction dataset. & Chapter 10\\
+\textcolor{black}{\textbf{diamonds}} & Diamond pricing dataset. & Chapter 3\\
+\textcolor{black}{\textbf{cereal}} & Nutritional information for 77 breakfast cereals. & Chapter 13\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 
 

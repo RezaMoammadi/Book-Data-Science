@@ -77,7 +77,7 @@
 <li><a class="" href="chapter-data-prep.html"><span class="header-section-number">3</span> Data Preparation</a></li>
 <li><a class="" href="chapter-EDA.html"><span class="header-section-number">4</span> Exploratory Data Analysis</a></li>
 <li><a class="active" href="chapter-statistics.html"><span class="header-section-number">5</span> Statistical Inference and Hypothesis Testing</a></li>
-<li><a class="" href="chapter-modeling.html"><span class="header-section-number">6</span> Preparing Data for Modeling</a></li>
+<li><a class="" href="chapter-modeling.html"><span class="header-section-number">6</span> Preparing Data to Model</a></li>
 <li><a class="" href="chapter-knn.html"><span class="header-section-number">7</span> Classification using k-Nearest Neighbors</a></li>
 <li><a class="" href="chapter-evaluation.html"><span class="header-section-number">8</span> Model Evaluation</a></li>
 <li><a class="" href="chapter-bayes.html"><span class="header-section-number">9</span> Naive Bayes Classifier</a></li>
@@ -471,7 +471,7 @@ If the <em>p</em>-value were smaller than 0.05, we would reject the null hypothe
 </h2>
 <p>The <em>two-sample t-test</em>, also known as Student’s t-test, is a statistical method used to compare the means of a numerical variable between two independent groups. It assesses whether the observed difference between the group means is statistically significant or simply due to random variation. The test is named after <a href="https://en.wikipedia.org/wiki/William_Sealy_Gosset">William Sealy Gosset</a>, who worked at Guinness Brewery in Dublin and published under the pseudonym “Student” to maintain confidentiality regarding statistical quality control methods.</p>
 <p>In Section <a href="chapter-EDA.html#EDA-sec-numeric">4.5</a> of the previous chapter, we explored the relationship between <em>International Calls</em> (<code>intl.calls</code>) and churn status using visualizations like box plots and density plots. While visualizations help identify potential differences, statistical testing quantifies the likelihood that these differences are due to chance.</p>
-<p><img src="statistics_files/figure-html/unnamed-chunk-8-1.png" width="50%"><img src="statistics_files/figure-html/unnamed-chunk-8-2.png" width="50%"></p>
+<p><img src="5_Statistics_files/figure-html/unnamed-chunk-8-1.png" width="50%"><img src="5_Statistics_files/figure-html/unnamed-chunk-8-2.png" width="50%"></p>
 <p>The boxplot (left) and density plot (right) illustrate the distributions of <code>intl.calls</code> for churners and non-churners. While the visualizations suggest only minor differences, we perform a two-sample t-test to assess whether these differences are statistically significant.</p>
 <p>To conduct the test, we first establish the hypotheses:</p>
 <ul>
@@ -517,7 +517,7 @@ If the <em>p</em>-value were smaller than 0.05, we would reject the null hypothe
 </h2>
 <p>In the previous section, we applied the <em>two-sample t-test</em> to compare the mean number of international calls between churners and non-churners. While the t-test is useful for assessing differences in numerical variables, many business and scientific questions involve categorical variables, where proportions rather than means are of interest. The <em>two-sample Z-test</em> is designed to compare the proportions of two independent groups, determining whether the observed difference in proportions is statistically significant. This test is particularly valuable when analyzing binary categorical variables, such as customer churn or subscription status.</p>
 <p>In Section <a href="chapter-EDA.html#chapter-EDA-categorical">4.4</a> of the previous chapter, we examined the relationship between the <em>Voice Mail Plan</em> (<code>voice.plan</code>) and churn status using bar plots. While visualizations suggest potential differences in churn rates between customers with and without a Voice Mail Plan, statistical testing quantifies whether these differences are statistically significant.</p>
-<p><img src="statistics_files/figure-html/unnamed-chunk-10-1.png" width="50%"><img src="statistics_files/figure-html/unnamed-chunk-10-2.png" width="50%"></p>
+<p><img src="5_Statistics_files/figure-html/unnamed-chunk-10-1.png" width="50%"><img src="5_Statistics_files/figure-html/unnamed-chunk-10-2.png" width="50%"></p>
 <p>The first bar plot (left) shows the raw counts of churners and non-churners across the two categories of <em>Voice Mail Plan</em> (Yes or No), while the second plot (right) displays proportions, allowing direct comparison of churn rates. These visualizations suggest that customers without a Voice Mail Plan may have a higher churn rate, but hypothesis testing is needed to confirm whether this difference is statistically meaningful.</p>
 <p>To formally test whether the proportion of churners with a Voice Mail Plan differs from the proportion of non-churners with the plan, we establish the following hypotheses:</p>
 <ul>
@@ -567,7 +567,7 @@ If the <em>p</em>-value were smaller than 0.05, we would reject the null hypothe
 <p>Unlike the Z-test, which focuses on comparing proportions between two groups, the Chi-square test evaluates whether distributions across multiple categories differ significantly from what would be expected under independence. It provides a formal way to test relationships between categorical variables and is widely used in marketing analysis, customer segmentation, and business decision-making.</p>
 <p>To illustrate, we examine whether marital status is associated with purchasing a deposit in the <em>bank</em> dataset (available in the <strong>liver</strong> package). This dataset will be revisited in Chapters <a href="chapter-knn.html#chapter-knn">7</a> and <a href="chapter-nn.html#chapter-nn">12</a> for classification modeling. The variable <code>marital</code> has three categories: “divorced,” “married,” and “single,” while the target variable <code>deposit</code> has two categories: “yes” (customers who purchased a deposit) and “no” (customers who did not). Our goal is to determine whether marital status influences deposit purchases.</p>
 <p>We begin by visualizing the relationship between <code>marital</code> and <code>deposit</code> using bar plots:</p>
-<p><img src="statistics_files/figure-html/unnamed-chunk-13-1.png" width="50%"><img src="statistics_files/figure-html/unnamed-chunk-13-2.png" width="50%"></p>
+<p><img src="5_Statistics_files/figure-html/unnamed-chunk-13-1.png" width="50%"><img src="5_Statistics_files/figure-html/unnamed-chunk-13-2.png" width="50%"></p>
 <p>The first bar plot (left) displays the raw counts of deposit purchases across marital categories, while the second plot (right) presents the relative proportions. Visual inspection suggests differences in deposit purchase rates by marital status, but a statistical test is needed to confirm whether these differences are significant.</p>
 <p>We summarize the observed counts in a contingency table:</p>
 <div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="chapter-statistics.html#cb112-1" tabindex="-1"></a>table_marital <span class="ot">&lt;-</span> <span class="fu">table</span>(bank<span class="sc">$</span>deposit, bank<span class="sc">$</span>marital, <span class="at">dnn =</span> <span class="fu">c</span>(<span class="st">"deposit"</span>, <span class="st">"marital"</span>))</span>
@@ -609,7 +609,7 @@ The Chi-square test is applied using the <code><a href="https://rdrr.io/r/stats/
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cut</span>, y <span class="op">=</span> <span class="va">price</span>, fill <span class="op">=</span> <span class="va">cut</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"palevioletred1"</span>, <span class="st">"darkseagreen1"</span>, <span class="st">"skyblue1"</span>, <span class="st">"gold1"</span>, <span class="st">"lightcoral"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="statistics_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="5_Statistics_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>The box plot displays the spread and median prices for diamonds in each cut category. While differences in medians and ranges suggest that cut quality might influence price, statistical testing is required to confirm whether these differences are significant. We apply an ANOVA test to formally assess this relationship.</p>
 <p>To test whether the mean prices differ by cut type, we set up the following hypotheses:</p>
 <p><span class="math display">\[
@@ -641,7 +641,7 @@ The Chi-square test is applied using the <code><a href="https://rdrr.io/r/stats/
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">carat</span>, y <span class="op">=</span> <span class="va">price</span><span class="op">)</span>, colour <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Carat"</span>, y <span class="op">=</span> <span class="st">"Price"</span><span class="op">)</span> </span></code></pre></div>
-<div class="inline-figure"><img src="statistics_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="5_Statistics_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>The scatter plot shows a clear upward trend, suggesting that as <em>carat</em> increases, so does <em>price</em>. However, visualizations alone do not confirm statistical significance. To formally test this relationship, we establish the following hypotheses:</p>
 <p><span class="math display">\[
 \begin{cases}
@@ -839,7 +839,7 @@ While statistical inference and hypothesis testing are essential tools in data s
 
   <div class="chapter-nav">
 <div class="prev"><a href="chapter-EDA.html"><span class="header-section-number">4</span> Exploratory Data Analysis</a></div>
-<div class="next"><a href="chapter-modeling.html"><span class="header-section-number">6</span> Preparing Data for Modeling</a></div>
+<div class="next"><a href="chapter-modeling.html"><span class="header-section-number">6</span> Preparing Data to Model</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -870,8 +870,8 @@ While statistical inference and hypothesis testing are essential tools in data s
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/RezaMoammadi/Book-Data-Science/blob/master/statistics.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/RezaMoammadi/Book-Data-Science/edit/master/statistics.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/RezaMoammadi/Book-Data-Science/blob/master/5_Statistics.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/RezaMoammadi/Book-Data-Science/edit/master/5_Statistics.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>

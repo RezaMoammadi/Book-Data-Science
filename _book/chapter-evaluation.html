@@ -77,7 +77,7 @@
 <li><a class="" href="chapter-data-prep.html"><span class="header-section-number">3</span> Data Preparation</a></li>
 <li><a class="" href="chapter-EDA.html"><span class="header-section-number">4</span> Exploratory Data Analysis</a></li>
 <li><a class="" href="chapter-statistics.html"><span class="header-section-number">5</span> Statistical Inference and Hypothesis Testing</a></li>
-<li><a class="" href="chapter-modeling.html"><span class="header-section-number">6</span> Preparing Data for Modeling</a></li>
+<li><a class="" href="chapter-modeling.html"><span class="header-section-number">6</span> Preparing Data to Model</a></li>
 <li><a class="" href="chapter-knn.html"><span class="header-section-number">7</span> Classification using k-Nearest Neighbors</a></li>
 <li><a class="active" href="chapter-evaluation.html"><span class="header-section-number">8</span> Model Evaluation</a></li>
 <li><a class="" href="chapter-bayes.html"><span class="header-section-number">9</span> Naive Bayes Classifier</a></li>
@@ -252,7 +252,7 @@ You develop a model to detect fraudulent credit card transactions, and it achiev
 <p>We can also visualize the confusion matrix using the <code><a href="https://rdrr.io/pkg/liver/man/conf.mat.plot.html">conf.mat.plot()</a></code> function:</p>
 <div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="chapter-evaluation.html#cb144-1" tabindex="-1"></a><span class="fu">conf.mat.plot</span>(kNN_predict, actual_test)</span>
 <span id="cb144-2"><a href="chapter-evaluation.html#cb144-2" tabindex="-1"></a>   Setting levels<span class="sc">:</span> reference <span class="ot">=</span> <span class="st">"yes"</span>, case <span class="ot">=</span> <span class="st">"no"</span></span></code></pre></div>
-<div class="inline-figure"><img src="evaluation_files/figure-html/unnamed-chunk-4-1.png" width="60%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="8_Model_Evaluation_files/figure-html/unnamed-chunk-4-1.png" width="60%" style="display: block; margin: auto;"></div>
 <p>From the confusion matrix, we compute accuracy and error rate:</p>
 <p><span class="math display">\[
 \text{Accuracy} = \frac{\text{TP} + \text{TN}}{\text{Total Predictions}} = \frac{54 + 856}{1000} = 0.91
@@ -476,7 +476,7 @@ Figure 8.1: The ROC curve illustrates the trade-off between sensitivity and spec
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"ROC curve for KNN with k = 5, based on churn data"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:roc-knn-churn"></span>
-<img src="evaluation_files/figure-html/roc-knn-churn-1.png" alt="ROC curve for KNN with k = 5, based on churn data." width="65%"><p class="caption">
+<img src="8_Model_Evaluation_files/figure-html/roc-knn-churn-1.png" alt="ROC curve for KNN with k = 5, based on churn data." width="65%"><p class="caption">
 Figure 8.2: ROC curve for KNN with k = 5, based on churn data.
 </p>
 </div>
@@ -769,8 +769,8 @@ For problems involving continuous target variables, we introduced evaluation met
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/RezaMoammadi/Book-Data-Science/blob/master/evaluation.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/RezaMoammadi/Book-Data-Science/edit/master/evaluation.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/RezaMoammadi/Book-Data-Science/blob/master/8_Model_Evaluation.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/RezaMoammadi/Book-Data-Science/edit/master/8_Model_Evaluation.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>

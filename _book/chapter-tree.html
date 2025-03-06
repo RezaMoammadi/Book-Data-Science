@@ -77,7 +77,7 @@
 <li><a class="" href="chapter-data-prep.html"><span class="header-section-number">3</span> Data Preparation</a></li>
 <li><a class="" href="chapter-EDA.html"><span class="header-section-number">4</span> Exploratory Data Analysis</a></li>
 <li><a class="" href="chapter-statistics.html"><span class="header-section-number">5</span> Statistical Inference and Hypothesis Testing</a></li>
-<li><a class="" href="chapter-modeling.html"><span class="header-section-number">6</span> Preparing Data for Modeling</a></li>
+<li><a class="" href="chapter-modeling.html"><span class="header-section-number">6</span> Preparing Data to Model</a></li>
 <li><a class="" href="chapter-knn.html"><span class="header-section-number">7</span> Classification using k-Nearest Neighbors</a></li>
 <li><a class="" href="chapter-evaluation.html"><span class="header-section-number">8</span> Model Evaluation</a></li>
 <li><a class="" href="chapter-bayes.html"><span class="header-section-number">9</span> Naive Bayes Classifier</a></li>
@@ -102,7 +102,7 @@
 <p>To see decision trees in action, consider the example in Figure <a href="chapter-tree.html#fig:tree-0">11.1</a>, which predicts whether a customer’s credit risk is classified as “good” or “bad” based on features such as <code>age</code> and <code>income</code>. This tree is trained on the <code>risk</code> dataset, introduced in Chapter <a href="chapter-bayes.html#chapter-bayes">9</a>, and consists of decision nodes representing yes/no questions, such as whether yearly income is below €36,000 (<code>income &lt; 36e+3</code>) or whether age is greater than 29. The final classification is determined at the terminal nodes, also known as leaves.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:tree-0"></span>
-<img src="tree_files/figure-html/tree-0-1.png" alt="Decision tree for predicting credit risk based on age and income." width="75%"><p class="caption">
+<img src="11_Decision_Tree_files/figure-html/tree-0-1.png" alt="Decision tree for predicting credit risk based on age and income." width="75%"><p class="caption">
 Figure 11.1: Decision tree for predicting credit risk based on age and income.
 </p>
 </div>
@@ -219,7 +219,7 @@ gain(S) = H(T) - H_S(T)
 <p>To illustrate how C5.0 constructs decision trees, consider its application to the <code>risk</code> dataset, which classifies a customer’s credit risk as good or bad based on features such as <code>age</code> and <code>income</code>. Figure <a href="chapter-tree.html#fig:tree-C50">11.6</a> shows a decision tree trained using the <code>C5.0</code> function from the <code>C50</code> package in R.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:tree-C50"></span>
-<img src="tree_files/figure-html/tree-C50-1.png" alt="C5.0 Decision Tree for predicting credit risk based on age and income." width="65%"><p class="caption">
+<img src="11_Decision_Tree_files/figure-html/tree-C50-1.png" alt="C5.0 Decision Tree for predicting credit risk based on age and income." width="65%"><p class="caption">
 Figure 11.6: C5.0 Decision Tree for predicting credit risk based on age and income.
 </p>
 </div>
@@ -509,7 +509,7 @@ Figure 11.6: C5.0 Decision Tree for predicting credit risk based on age and inco
 <p>The tree is displayed using:</p>
 <div class="sourceCode" id="cb208"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/rpart.plot/man/rpart.plot.html">rpart.plot</a></span><span class="op">(</span><span class="va">tree_cart</span>, type <span class="op">=</span> <span class="fl">4</span>, extra <span class="op">=</span> <span class="fl">104</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tree_files/figure-html/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;">
+<p><img src="11_Decision_Tree_files/figure-html/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;">
 - The <code>type = 4</code> argument specifies a split-labeling style where decision rules appear inside the nodes.
 - The <code>extra = 104</code> argument displays both the predicted class and the probability of the most probable class in each terminal node.</p>
 <p>If the tree is too large to fit within a single plot, the structure can also be examined using:</p>
@@ -582,13 +582,13 @@ Figure 11.6: C5.0 Decision Tree for predicting credit risk based on age and inco
 <p>We can evaluate the importance of predictors using the <code><a href="https://rdrr.io/pkg/randomForest/man/varImpPlot.html">varImpPlot()</a></code> function:</p>
 <div class="sourceCode" id="cb215"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/randomForest/man/varImpPlot.html">varImpPlot</a></span><span class="op">(</span><span class="va">random_forest</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tree_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;">
+<p><img src="11_Decision_Tree_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;">
 This plot ranks predictors based on their contribution to model accuracy. In this case, <code>marital.status</code> appears as the most important predictor, followed by <code>capital.gain</code> and <code>education.num</code>.</p>
 <p>To assess how the error rate changes as the number of trees increases, we use:</p>
 <div class="sourceCode" id="cb216"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">random_forest</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure">
-<img src="tree_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;">
+<img src="11_Decision_Tree_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;">
 This plot shows classification error as a function of the number of trees. The error rate stabilizes after approximately 40 trees, indicating that adding more trees beyond this point does not significantly improve accuracy.</div>
 <p>Random forests provide a robust alternative to single decision trees by reducing overfitting and improving predictive performance through aggregation. The next section compares the performance of the CART, C5.0, and Random Forest models using evaluation metrics.</p>
 </div>
@@ -610,7 +610,7 @@ This plot shows classification error as a function of the number of trees. The e
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/liver/man/conf.mat.plot.html">conf.mat.plot</a></span><span class="op">(</span><span class="va">prob_cart</span>, <span class="va">test_labels</span>, cutoff <span class="op">=</span> <span class="fl">0.5</span>, reference <span class="op">=</span> <span class="st">"&lt;=50K"</span>, main <span class="op">=</span> <span class="st">"CART Prediction"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/liver/man/conf.mat.plot.html">conf.mat.plot</a></span><span class="op">(</span><span class="va">prob_C50</span>, <span class="va">test_labels</span>, cutoff <span class="op">=</span> <span class="fl">0.5</span>, reference <span class="op">=</span> <span class="st">"&lt;=50K"</span>, main <span class="op">=</span> <span class="st">"C5.0 Prediction"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/liver/man/conf.mat.plot.html">conf.mat.plot</a></span><span class="op">(</span><span class="va">prob_random_forest</span>, <span class="va">test_labels</span>, cutoff <span class="op">=</span> <span class="fl">0.5</span>, reference <span class="op">=</span> <span class="st">"&lt;=50K"</span>, main <span class="op">=</span> <span class="st">"Random Forest Prediction"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tree_files/figure-html/unnamed-chunk-22-1.png" width="33%"><img src="tree_files/figure-html/unnamed-chunk-22-2.png" width="33%"><img src="tree_files/figure-html/unnamed-chunk-22-3.png" width="33%"></p>
+<p><img src="11_Decision_Tree_files/figure-html/unnamed-chunk-21-1.png" width="33%"><img src="11_Decision_Tree_files/figure-html/unnamed-chunk-21-2.png" width="33%"><img src="11_Decision_Tree_files/figure-html/unnamed-chunk-21-3.png" width="33%"></p>
 <p>The confusion matrices indicate the number of correctly classified instances for each model:</p>
 <ul>
 <li>CART: “7091 + 1111 = 8202” correct classifications.<br>
@@ -642,7 +642,7 @@ This plot shows classification error as a function of the number of trees. The e
 <span>                <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Random Forest; AUC="</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/pROC/man/auc.html">auc</a></span><span class="op">(</span><span class="va">roc_random_forest</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">.7</span>, <span class="fl">.3</span><span class="op">)</span>, text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">17</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tree_files/figure-html/unnamed-chunk-26-1.png" width="90%" style="display: block; margin: auto;">
+<p><img src="11_Decision_Tree_files/figure-html/unnamed-chunk-25-1.png" width="90%" style="display: block; margin: auto;">
 In the ROC plot, the <em>black</em> curve represents CART, the <span style="color:red"><em>red</em></span> curve represents C5.0, and the <span style="color:green"><em>green</em></span> curve represents Random Forest. The ROC curves suggest that both C5.0 and Random Forest outperform CART. However, distinguishing between C5.0 and Random Forest based on the ROC curve alone is challenging. Note that in the above ROC plots we also report the AUC values for each model, by using the <code><a href="https://rdrr.io/pkg/pROC/man/auc.html">auc()</a></code> function from the <strong>pROC</strong> package. The AUC values provide further insight:</p>
 <ul>
 <li>CART: AUC = 0.841,<br>
@@ -923,8 +923,8 @@ In the ROC plot, the <em>black</em> curve represents CART, the <span style="colo
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/RezaMoammadi/Book-Data-Science/blob/master/tree.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/RezaMoammadi/Book-Data-Science/edit/master/tree.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/RezaMoammadi/Book-Data-Science/blob/master/11_Decision_Tree.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/RezaMoammadi/Book-Data-Science/edit/master/11_Decision_Tree.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>

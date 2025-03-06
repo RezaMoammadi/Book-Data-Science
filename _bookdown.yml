@@ -8,18 +8,18 @@ language:
     chapter_name: "Chapter "
 rmd_files: [
     "index.Rmd", 
-    "Intro-R.Rmd", 
-    "Introduction.Rmd",
-    "data-preparation.Rmd",
-    "EDA.Rmd",
-    "statistics.Rmd",
-    "modeling.Rmd",
-    "knn.Rmd",
-    "evaluation.Rmd",
-    "bayes.Rmd",
-    "regression.Rmd",
-    "tree.Rmd",
-    "nn.Rmd",
-    "clustering.Rmd",
-    "references.Rmd"
+    "1_Intro_R.Rmd", 
+    "2_Introduction.Rmd",
+    "3_Data_Preparation.Rmd",
+    "4_Exploratory_Data_Analysis.Rmd",
+    "5_Statistics.Rmd",
+    "6_Preparing_Data_to_Model.Rmd",
+    "7_kNN.Rmd",
+    "8_Model_Evaluation.Rmd",
+    "9_Naive_Bayes.Rmd",
+    "10_Regression.Rmd",
+    "11_Decision_Tree.Rmd",
+    "12_Neural_Network.Rmd",
+    "13_Clustering.Rmd",
+    "14_References.Rmd"
 ]

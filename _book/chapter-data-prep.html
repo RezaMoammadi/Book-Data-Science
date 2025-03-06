@@ -77,7 +77,7 @@
 <li><a class="active" href="chapter-data-prep.html"><span class="header-section-number">3</span> Data Preparation</a></li>
 <li><a class="" href="chapter-EDA.html"><span class="header-section-number">4</span> Exploratory Data Analysis</a></li>
 <li><a class="" href="chapter-statistics.html"><span class="header-section-number">5</span> Statistical Inference and Hypothesis Testing</a></li>
-<li><a class="" href="chapter-modeling.html"><span class="header-section-number">6</span> Preparing Data for Modeling</a></li>
+<li><a class="" href="chapter-modeling.html"><span class="header-section-number">6</span> Preparing Data to Model</a></li>
 <li><a class="" href="chapter-knn.html"><span class="header-section-number">7</span> Classification using k-Nearest Neighbors</a></li>
 <li><a class="" href="chapter-evaluation.html"><span class="header-section-number">8</span> Model Evaluation</a></li>
 <li><a class="" href="chapter-bayes.html"><span class="header-section-number">9</span> Naive Bayes Classifier</a></li>
@@ -261,7 +261,7 @@
 <div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="data-preparation_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="3_Data_Preparation_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>Here, boxplots highlight values beyond the whiskers, which may indicate potential outliers. Since diamonds cannot have a width of 0 mm, values like 32 mm or 59 mm likely result from data entry errors.</p>
 </div>
 <div id="histograms-understanding-outlier-distribution" class="section level4 unnumbered">
@@ -271,13 +271,13 @@
 <div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">y</span><span class="op">)</span>, binwidth <span class="op">=</span> <span class="fl">0.5</span>, color <span class="op">=</span> <span class="st">'blue'</span>, fill <span class="op">=</span> <span class="st">"lightblue"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="data-preparation_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="3_Data_Preparation_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>To enhance visibility, we can zoom in on smaller frequencies by using the <em>coord_cartesian()</em> function from the <strong>ggplot2</strong> package:</p>
 <div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">y</span><span class="op">)</span>, binwidth <span class="op">=</span> <span class="fl">0.5</span>, color <span class="op">=</span> <span class="st">'blue'</span>, fill <span class="op">=</span> <span class="st">"lightblue"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">30</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="data-preparation_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="3_Data_Preparation_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>Other useful visualization techniques include:</p>
 <ul>
 <li>Violin plots – Show both outliers and density distributions.</li>
@@ -420,7 +420,7 @@ where <span class="math inline">\(x\)</span> is the original feature value, <spa
 <span>                 color <span class="op">=</span> <span class="st">'blue'</span>, fill <span class="op">=</span> <span class="st">"lightblue"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Histogram for `carat` with Min-Max Scaling"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"Values for variable `carat`"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="data-preparation_files/figure-html/unnamed-chunk-10-1.png" width="50%"><img src="data-preparation_files/figure-html/unnamed-chunk-10-2.png" width="50%"></p>
+<p><img src="3_Data_Preparation_files/figure-html/unnamed-chunk-10-1.png" width="50%"><img src="3_Data_Preparation_files/figure-html/unnamed-chunk-10-2.png" width="50%"></p>
 <p>The first histogram (left) shows the distribution of <code>carat</code> without scaling, while the second histogram (right) shows it after Min-Max Scaling. After scaling, the <code>carat</code> values are compressed to a range between 0 and 1, allowing it to be more comparable to other features that may have different original scales. This scaling method is particularly beneficial for distance-based algorithms, as it prevents features with wider ranges from having undue influence.</p>
 </div>
 </div>
@@ -449,7 +449,7 @@ x_{\text{scaled}} = \frac{x - \text{mean}(x)}{\text{sd}(x)}
 <span>                 color <span class="op">=</span> <span class="st">'blue'</span>, fill <span class="op">=</span> <span class="st">"lightblue"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Histogram for `carat` with Z-score Scaling"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"Values for variable `carat`"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="data-preparation_files/figure-html/unnamed-chunk-11-1.png" width="50%"><img src="data-preparation_files/figure-html/unnamed-chunk-11-2.png" width="50%"></p>
+<p><img src="3_Data_Preparation_files/figure-html/unnamed-chunk-11-1.png" width="50%"><img src="3_Data_Preparation_files/figure-html/unnamed-chunk-11-2.png" width="50%"></p>
 <p>The first histogram (left) displays the distribution of <code>carat</code> without scaling, while the second histogram (right) shows the distribution after Z-score Scaling. This transformation makes feature values comparable across different scales and ensures that each feature contributes equally to distance-based computations and model training.</p>
 </div>
 <blockquote>
@@ -716,7 +716,7 @@ x_{\text{scaled}} = \frac{x - \text{mean}(x)}{\text{sd}(x)}
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/njtierney/naniar">naniar</a></span><span class="op">)</span>  <span class="co"># Load package for visualizing missing values</span></span>
 <span></span>
 <span><span class="fu"><a href="https://naniar.njtierney.com/reference/gg_miss_var.html">gg_miss_var</a></span><span class="op">(</span><span class="va">adult</span>, show_pct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="data-preparation_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="3_Data_Preparation_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>The plot indicates that <code>workclass</code>, <code>occupation</code>, and <code>native.country</code> contain missing values. The percentage of missing values in these variables is relatively low, with <code>workclass</code> and <code>occupation</code> having less than 0.06 percent missing data, while <code>native.country</code> has about 0.02 percent.</p>
 <div id="imputing-missing-values" class="section level4 unnumbered">
 <h4>Imputing Missing Values<a class="anchor" aria-label="anchor" href="#imputing-missing-values"><i class="fas fa-link"></i></a>
@@ -733,7 +733,7 @@ x_{\text{scaled}} = \frac{x - \text{mean}(x)}{\text{sd}(x)}
 <p>To confirm that missing values have been successfully imputed, we generate another missing values plot:</p>
 <div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://naniar.njtierney.com/reference/gg_miss_var.html">gg_miss_var</a></span><span class="op">(</span><span class="va">adult</span>, show_pct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="data-preparation_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="3_Data_Preparation_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>The updated plot should show no missing values, indicating successful imputation.</p>
 </div>
 <div id="alternative-approaches" class="section level4 unnumbered">
@@ -840,11 +840,11 @@ We use the <code><a href="https://forcats.tidyverse.org/reference/fct_collapse.h
 <div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adult</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">capital.loss</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="data-preparation_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="3_Data_Preparation_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;"></div>
 <div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adult</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">capital.loss</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">30</span>, color <span class="op">=</span> <span class="st">"blue"</span>, fill <span class="op">=</span> <span class="st">"lightblue"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="data-preparation_files/figure-html/unnamed-chunk-27-1.png" width="70%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="3_Data_Preparation_files/figure-html/unnamed-chunk-27-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>From these plots, we observe:</p>
 <ul>
 <li>The boxplot shows a strong <em>positive skew</em>, with many extreme values above the upper whisker.<br>
@@ -861,11 +861,11 @@ We use the <code><a href="https://forcats.tidyverse.org/reference/fct_collapse.h
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adult</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">capital.loss</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">30</span>, color <span class="op">=</span> <span class="st">"blue"</span>, fill <span class="op">=</span> <span class="st">"lightblue"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">500</span>, <span class="fl">4000</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1000</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="data-preparation_files/figure-html/unnamed-chunk-28-1.png" width="70%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="3_Data_Preparation_files/figure-html/unnamed-chunk-28-1.png" width="70%" style="display: block; margin: auto;"></div>
 <div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">adult</span>, <span class="va">capital.loss</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">capital.loss</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
-<div class="inline-figure"><img src="data-preparation_files/figure-html/unnamed-chunk-29-1.png" width="70%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="3_Data_Preparation_files/figure-html/unnamed-chunk-29-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>Key takeaways from these refined plots:</p>
 <ul>
 <li>The majority of nonzero values are below 500, with a small number extending beyond 4,000.<br>
@@ -1045,8 +1045,8 @@ Use the <code><a href="https://rdrr.io/r/base/cut.html">cut()</a></code> functio
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/RezaMoammadi/Book-Data-Science/blob/master/data-preparation.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/RezaMoammadi/Book-Data-Science/edit/master/data-preparation.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/RezaMoammadi/Book-Data-Science/blob/master/3_Data_Preparation.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/RezaMoammadi/Book-Data-Science/edit/master/3_Data_Preparation.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>

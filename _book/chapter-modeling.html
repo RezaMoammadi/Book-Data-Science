@@ -4,17 +4,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 6 Preparing Data for Modeling | Data Science Foundations and Machine Learning Using R</title>
+<title>Chapter 6 Preparing Data to Model | Data Science Foundations and Machine Learning Using R</title>
 <meta name="author" content="Reza Mohammadi">
 <meta name="description" content="Before we can build reliable machine learning models, we must ensure our data is well-prepared. The previous chapters established a foundation by addressing key steps in the Data Science Workflow...">
 <meta name="generator" content="bookdown 0.42 with bs4_book()">
-<meta property="og:title" content="Chapter 6 Preparing Data for Modeling | Data Science Foundations and Machine Learning Using R">
+<meta property="og:title" content="Chapter 6 Preparing Data to Model | Data Science Foundations and Machine Learning Using R">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://uncovering-data-science.netlify.app/chapter-modeling.html">
 <meta property="og:image" content="https://uncovering-data-science.netlify.app/images/logo_black.png">
 <meta property="og:description" content="Before we can build reliable machine learning models, we must ensure our data is well-prepared. The previous chapters established a foundation by addressing key steps in the Data Science Workflow...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 6 Preparing Data for Modeling | Data Science Foundations and Machine Learning Using R">
+<meta name="twitter:title" content="Chapter 6 Preparing Data to Model | Data Science Foundations and Machine Learning Using R">
 <meta name="twitter:description" content="Before we can build reliable machine learning models, we must ensure our data is well-prepared. The previous chapters established a foundation by addressing key steps in the Data Science Workflow...">
 <meta name="twitter:image" content="https://uncovering-data-science.netlify.app/images/logo_black.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -77,7 +77,7 @@
 <li><a class="" href="chapter-data-prep.html"><span class="header-section-number">3</span> Data Preparation</a></li>
 <li><a class="" href="chapter-EDA.html"><span class="header-section-number">4</span> Exploratory Data Analysis</a></li>
 <li><a class="" href="chapter-statistics.html"><span class="header-section-number">5</span> Statistical Inference and Hypothesis Testing</a></li>
-<li><a class="active" href="chapter-modeling.html"><span class="header-section-number">6</span> Preparing Data for Modeling</a></li>
+<li><a class="active" href="chapter-modeling.html"><span class="header-section-number">6</span> Preparing Data to Model</a></li>
 <li><a class="" href="chapter-knn.html"><span class="header-section-number">7</span> Classification using k-Nearest Neighbors</a></li>
 <li><a class="" href="chapter-evaluation.html"><span class="header-section-number">8</span> Model Evaluation</a></li>
 <li><a class="" href="chapter-bayes.html"><span class="header-section-number">9</span> Naive Bayes Classifier</a></li>
@@ -95,10 +95,10 @@
 </div>
   </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="chapter-modeling" class="section level1" number="6">
 <h1>
-<span class="header-section-number">6</span> Preparing Data for Modeling<a class="anchor" aria-label="anchor" href="#chapter-modeling"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6</span> Preparing Data to Model<a class="anchor" aria-label="anchor" href="#chapter-modeling"><i class="fas fa-link"></i></a>
 </h1>
 <p>Before we can build reliable machine learning models, we must ensure our data is well-prepared. The previous chapters established a foundation by addressing key steps in the Data Science Workflow (Figure <a href="chapter-intro-DS.html#fig:CRISP-DM">2.3</a>). Now, we focus on transitioning from data exploration to model building.</p>
-<p>In Chapter <a href="chapter-intro-DS.html#problem-understanding">2.4</a>, we discussed defining the problem and aligning objectives with data-driven strategies. Chapter <a href="chapter-data-prep.html#chapter-data-prep">3</a> addressed handling missing values, outliers, and data transformations to create a clean dataset. In Chapter <a href="chapter-EDA.html#chapter-EDA">4</a>, we visualized data to uncover patterns, while Chapter <a href="chapter-statistics.html#chapter-statistics">5</a> introduced statistical inference, including hypothesis testing and feature selection—tools that will help us validate our data partitioning.</p>
+<p>In Section <a href="chapter-intro-DS.html#problem-understanding">2.4</a>, we discussed defining the problem and aligning objectives with data-driven strategies. Chapter <a href="chapter-data-prep.html#chapter-data-prep">3</a> addressed handling missing values, outliers, and data transformations to create a clean dataset. In Chapter <a href="chapter-EDA.html#chapter-EDA">4</a>, we visualized data to uncover patterns, while Chapter <a href="chapter-statistics.html#chapter-statistics">5</a> introduced statistical inference, including hypothesis testing and feature selection—tools that will help us validate our data partitioning.</p>
 <p>Before diving into machine learning, we must complete the <em>Setup Phase</em>, which ensures that our dataset is structured for robust model development. This phase involves three essential steps:</p>
 <ol style="list-style-type: decimal">
 <li>
@@ -174,11 +174,12 @@ Figure 6.2: A general predictive machine learning process for building and evalu
 <div id="example-train-test-split-in-r" class="section level3 unnumbered">
 <h3>Example: Train-Test Split in R<a class="anchor" aria-label="anchor" href="#example-train-test-split-in-r"><i class="fas fa-link"></i></a>
 </h3>
-<p>To illustrate, we revisit the <em>churn</em> dataset from Section <a href="chapter-EDA.html#EDA-sec-churn">4.3</a>, where the goal is to predict customer churn. We first load the dataset:</p>
+<p>To illustrate the process of data partitioning, we revisit the <em>churn</em> dataset from Section <a href="chapter-EDA.html#EDA-sec-churn">4.3</a>, where the goal is to predict customer churn. Since this dataset is included in the <strong>liver</strong> package, we begin by loading the package and dataset:</p>
 <div class="sourceCode" id="cb126"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.uva.nl/profile/a.mohammadi">liver</a></span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">churn</span><span class="op">)</span> </span></code></pre></div>
-<p>We then split the <em>churn</em> dataset into training and testing subsets by using the <code><a href="https://rdrr.io/pkg/liver/man/partition.html">partition()</a></code> function from the <strong>liver</strong> package. The following code demonstrates how to create these subsets in R:</p>
+<p>In R, there are multiple ways to split a dataset into training and test sets. A simple and efficient method is to use the <code><a href="https://rdrr.io/pkg/liver/man/partition.html">partition()</a></code> function from the <a href="https://CRAN.R-project.org/package=liver"><strong>liver</strong></a> package. This function allows for random partitioning of a dataset according to a specified ratio. The following example demonstrates how to split the <em>churn</em> dataset into training (80%) and test (20%) sets:</p>
 <div class="sourceCode" id="cb127"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">43</span><span class="op">)</span></span>
 <span></span>
@@ -187,13 +188,18 @@ Figure 6.2: A general predictive machine learning process for building and evalu
 <span><span class="va">train_set</span> <span class="op">=</span> <span class="va">data_sets</span><span class="op">$</span><span class="va">part1</span></span>
 <span><span class="va">test_set</span>  <span class="op">=</span> <span class="va">data_sets</span><span class="op">$</span><span class="va">part2</span></span>
 <span></span>
-<span><span class="va">actual_test</span> <span class="op">=</span> <span class="va">test_set</span><span class="op">$</span><span class="va">churn</span></span></code></pre></div>
-<p>The code begins by setting a seed using <code>set.seed(43)</code>, which ensures reproducibility by making the random split consistent across different runs. This is particularly important when sharing results or collaborating on a project. Next, the <code><a href="https://rdrr.io/pkg/liver/man/partition.html">partition()</a></code> function is used to divide the dataset into two subsets: 80% of the data is assigned to <code>train_set</code> for model training, while the remaining 20% is stored in <code>test_set</code> for evaluation. Finally, <code>actual_test</code> is created to store the true target values from the test set, which will be used later to assess the model’s predictive accuracy.</p>
-<p>Reproducibility is essential in machine learning. Setting a seed guarantees that results remain consistent, allowing others to replicate findings exactly. While the seed value itself is arbitrary, using one ensures that the partitioning process is stable across different runs.</p>
-</div>
-<div id="why-partitioning-matters" class="section level3 unnumbered">
-<h3>Why Partitioning Matters<a class="anchor" aria-label="anchor" href="#why-partitioning-matters"><i class="fas fa-link"></i></a>
-</h3>
+<span><span class="va">test_labels</span> <span class="op">=</span> <span class="va">test_set</span><span class="op">$</span><span class="va">churn</span></span></code></pre></div>
+<p>The process begins with <code>set.seed(43)</code>, ensuring <strong>reproducibility</strong> by generating the same random partition every time the code is run. This is crucial for consistency in model evaluation and collaborative work. The <code><a href="https://rdrr.io/pkg/liver/man/partition.html">partition()</a></code> function then divides the dataset into two subsets:</p>
+<ul>
+<li>
+<code>train_set</code> (80% of the data) – used for model training,<br>
+</li>
+<li>
+<code>test_set</code> (20% of the data) – reserved for evaluating model performance.</li>
+</ul>
+<p>Additionally, <code>test_labels</code> stores the <em>true labels</em> from the test set, which will later be used to assess the model’s predictive accuracy.</p>
+<p>Reproducibility is a fundamental principle in machine learning. By setting a seed, we ensure that the dataset split remains consistent across different runs, allowing for precise comparisons and validation of results. While the seed value itself is arbitrary, choosing one guarantees that the partitioning process remains stable.<br>
+### Why Partitioning Matters {-}</p>
 <p>The primary reason for partitioning is to prevent <em>data leakage</em>—a situation where information from the testing set influences training, leading to overly optimistic performance estimates. By strictly separating these sets, we ensure that performance metrics reflect the model’s ability to generalize to new data rather than just memorizing training patterns.</p>
 <p>Beyond a simple train-test split, <em>cross-validation</em> can further enhance robustness by training and testing the model on multiple subsets of the data. This method is particularly useful when working with small datasets or tuning hyperparameters.</p>
 <p>Partitioning lays the groundwork for reliable machine learning models. However, a well-executed split alone does not guarantee that the training and testing sets are representative of the original dataset. In the next section, we will validate the partition to confirm that both subsets retain key statistical properties, ensuring fair and unbiased model evaluation.</p>
@@ -420,14 +426,11 @@ H_a:  \pi_{\text{churn, train}} \neq \pi_{\text{churn, test}} \quad \text{(Propo
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#chapter-modeling"><span class="header-section-number">6</span> Preparing Data for Modeling</a></li>
+<li><a class="nav-link" href="#chapter-modeling"><span class="header-section-number">6</span> Preparing Data to Model</a></li>
 <li><a class="nav-link" href="#statistical-inference-in-the-context-of-data-science"><span class="header-section-number">6.1</span> Statistical Inference in the Context of Data Science</a></li>
 <li><a class="nav-link" href="#why-is-it-necessary-to-partition-the-data"><span class="header-section-number">6.2</span> Why Is It Necessary to Partition the Data?</a></li>
 <li>
-<a class="nav-link" href="#sec-partitioning"><span class="header-section-number">6.3</span> Partitioning the Data</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#example-train-test-split-in-r">Example: Train-Test Split in R</a></li>
-<li><a class="nav-link" href="#why-partitioning-matters">Why Partitioning Matters</a></li>
-</ul>
+<a class="nav-link" href="#sec-partitioning"><span class="header-section-number">6.3</span> Partitioning the Data</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#example-train-test-split-in-r">Example: Train-Test Split in R</a></li></ul>
 </li>
 <li>
 <a class="nav-link" href="#sec-validate-partition"><span class="header-section-number">6.4</span> Validating the Partition</a><ul class="nav navbar-nav">
@@ -452,8 +455,8 @@ H_a:  \pi_{\text{churn, train}} \neq \pi_{\text{churn, test}} \quad \text{(Propo
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/RezaMoammadi/Book-Data-Science/blob/master/modeling.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/RezaMoammadi/Book-Data-Science/edit/master/modeling.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/RezaMoammadi/Book-Data-Science/blob/master/6_Preparing_Data_to_Model.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/RezaMoammadi/Book-Data-Science/edit/master/6_Preparing_Data_to_Model.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>

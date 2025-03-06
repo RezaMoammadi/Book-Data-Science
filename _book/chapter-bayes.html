@@ -77,7 +77,7 @@
 <li><a class="" href="chapter-data-prep.html"><span class="header-section-number">3</span> Data Preparation</a></li>
 <li><a class="" href="chapter-EDA.html"><span class="header-section-number">4</span> Exploratory Data Analysis</a></li>
 <li><a class="" href="chapter-statistics.html"><span class="header-section-number">5</span> Statistical Inference and Hypothesis Testing</a></li>
-<li><a class="" href="chapter-modeling.html"><span class="header-section-number">6</span> Preparing Data for Modeling</a></li>
+<li><a class="" href="chapter-modeling.html"><span class="header-section-number">6</span> Preparing Data to Model</a></li>
 <li><a class="" href="chapter-knn.html"><span class="header-section-number">7</span> Classification using k-Nearest Neighbors</a></li>
 <li><a class="" href="chapter-evaluation.html"><span class="header-section-number">8</span> Model Evaluation</a></li>
 <li><a class="active" href="chapter-bayes.html"><span class="header-section-number">9</span> Naive Bayes Classifier</a></li>
@@ -575,11 +575,10 @@ Since the p-value exceeds <span class="math inline">\(\alpha = 0.05\)</span>, we
 <span id="cb164-13"><a href="chapter-bayes.html#cb164-13" tabindex="-1"></a>   [<span class="dv">10</span>,]     <span class="fl">0.283</span>    <span class="fl">0.717</span></span></code></pre></div>
 <p>The output contains two columns:</p>
 <ul>
-<li>The first column represents the probability that a customer is classified as “<code>good risk</code>.”<br>
-</li>
-<li>The second column represents the probability that a customer is classified as “<code>bad risk</code>.”</li>
+<li>The first column represents the probability that a customer is classified as “<code>good risk</code>.”</li>
+<li>The second column represents the probability that a customer is classified as “<code>bad risk</code>.”<br>
+For example, if the second row has a probability of 0.987 for “<code>bad risk</code>,” it indicates that the second customer in the test set is predicted to belong to the “<code>bad risk</code>” category with a probability of 0.987.</li>
 </ul>
-<p>For example, if the second row has a probability of 0.987 for “<code>bad risk</code>,” it indicates that the second customer in the test set is predicted to belong to the “<code>bad risk</code>” category with a probability of 0.987.</p>
 <p>This probability-based output provides flexibility in decision-making. Instead of using a fixed threshold of 0.5, financial institutions can adjust the cutoff based on business objectives. For instance, if minimizing loan defaults is the priority, a more conservative threshold may be set. In the next section, we convert these probabilities into class predictions and evaluate the model using a confusion matrix and other performance metrics.</p>
 <div id="confusion-matrix-1" class="section level4 unnumbered">
 <h4>Confusion Matrix<a class="anchor" aria-label="anchor" href="#confusion-matrix-1"><i class="fas fa-link"></i></a>
@@ -595,7 +594,7 @@ Since the p-value exceeds <span class="math inline">\(\alpha = 0.05\)</span>, we
 <span id="cb165-8"><a href="chapter-bayes.html#cb165-8" tabindex="-1"></a>     bad risk          <span class="dv">2</span>       <span class="dv">20</span></span>
 <span id="cb165-9"><a href="chapter-bayes.html#cb165-9" tabindex="-1"></a></span>
 <span id="cb165-10"><a href="chapter-bayes.html#cb165-10" tabindex="-1"></a><span class="fu">conf.mat.plot</span>(prob_naive_bayes, test_labels, <span class="at">cutoff =</span> <span class="fl">0.5</span>, <span class="at">reference =</span> <span class="st">"good risk"</span>)</span></code></pre></div>
-<div class="inline-figure"><img src="bayes_files/figure-html/unnamed-chunk-16-1.png" width="65%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="9_Naive_Bayes_files/figure-html/unnamed-chunk-16-1.png" width="65%" style="display: block; margin: auto;"></div>
 <p>In this evaluation, we apply a <strong>classification threshold of 0.5</strong>, meaning that if a customer’s predicted probability of being a “<code>good risk</code>” is at least 50%, the model classifies them as “<code>good risk</code>”; otherwise, they are classified as “<code>bad risk</code>.” Additionally, we specify <strong>“<code>good risk</code>” as the reference class</strong>, meaning that performance metrics such as sensitivity and precision will be calculated with respect to this category.</p>
 <p>The confusion matrix provides the following breakdown of model predictions:</p>
 <ul>
@@ -624,7 +623,7 @@ Since the p-value exceeds <span class="math inline">\(\alpha = 0.05\)</span>, we
 <span><span class="va">roc_naive_bayes</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">test_labels</span>, <span class="va">prob_naive_bayes</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/pROC/man/ggroc.html">ggroc</a></span><span class="op">(</span><span class="va">roc_naive_bayes</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="bayes_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="9_Naive_Bayes_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>The ROC curve plots the <strong>true positive rate (sensitivity)</strong> against the <strong>false positive rate (1 - specificity)</strong> at various threshold values. A curve that remains closer to the top-left corner indicates a well-performing model, while a curve near the diagonal suggests performance close to random guessing.</p>
 <p>Next, we compute the <em>AUC</em> value, which summarizes the ROC curve into a single number:</p>
 <div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="chapter-bayes.html#cb167-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">auc</span>(roc_naive_bayes), <span class="dv">3</span>)</span>
@@ -791,8 +790,8 @@ Since the p-value exceeds <span class="math inline">\(\alpha = 0.05\)</span>, we
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/RezaMoammadi/Book-Data-Science/blob/master/bayes.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/RezaMoammadi/Book-Data-Science/edit/master/bayes.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/RezaMoammadi/Book-Data-Science/blob/master/9_Naive_Bayes.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/RezaMoammadi/Book-Data-Science/edit/master/9_Naive_Bayes.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>
