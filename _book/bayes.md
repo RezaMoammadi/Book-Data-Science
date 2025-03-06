@@ -555,9 +555,7 @@ conf.mat(prob_naive_bayes, test_labels, cutoff = 0.5, reference = "good risk")
 conf.mat.plot(prob_naive_bayes, test_labels, cutoff = 0.5, reference = "good risk")
 ```
 
-
-
-\begin{center}\includegraphics[width=0.65\linewidth]{bayes_files/figure-latex/unnamed-chunk-16-1} \end{center}
+<img src="bayes_files/figure-html/unnamed-chunk-16-1.png" width="65%" style="display: block; margin: auto;" />
 
 In this evaluation, we apply a **classification threshold of 0.5**, meaning that if a customer’s predicted probability of being a "`good risk`" is at least 50%, the model classifies them as "`good risk`"; otherwise, they are classified as "`bad risk`." Additionally, we specify **"`good risk`" as the reference class**, meaning that performance metrics such as sensitivity and precision will be calculated with respect to this category.  
 
@@ -585,9 +583,7 @@ roc_naive_bayes = roc(test_labels, prob_naive_bayes)
 ggroc(roc_naive_bayes)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{bayes_files/figure-latex/unnamed-chunk-17-1} \end{center}
+<img src="bayes_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" />
 
 The ROC curve plots the **true positive rate (sensitivity)** against the **false positive rate (1 - specificity)** at various threshold values. A curve that remains closer to the top-left corner indicates a well-performing model, while a curve near the diagonal suggests performance close to random guessing.  
 

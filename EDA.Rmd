@@ -130,20 +130,38 @@ gapminder$group = fct_collapse(gapminder$group, "Latin America" = Latin_America)
 gapminder$group = fct_collapse(gapminder$group, "Africa"        = Africa)
 gapminder$group = fct_collapse(gapminder$group, "Others"        = Others)
 
+ggplot_1 = filter(gapminder, year %in% c(1962, 2015) & !is.na(group) & 
+                !is.na(fertility) & !is.na(life_expectancy)) |>
+    ggplot(aes(x = fertility, y = life_expectancy, col = group, size = population / 10 ^ 6)) +
+    geom_point(alpha = 0.8) +
+    guides(size = "none") +
+    coord_cartesian(ylim = c(30, 85)) + 
+    labs(x = 'Total Fertility Rate (Births per Woman)', 
+         y = 'Life Expectancy at Birth') 
+
 if(knitr::is_html_output()) {
     library(gganimate)
-    p = filter(gapminder, year %in% c(1960:2015) & !is.na(fertility) & !is.na(life_expectancy)) |>
-        ggplot(aes(x = fertility, y = life_expectancy, col = group, size = population / 10 ^ 6)) +
-        geom_point(alpha = 0.8) + 
-        guides(size = "none") +
-        coord_cartesian(ylim = c(30, 85)) + 
-        labs(x = 'Fertility rate, total (births per woman)', y = 'Life expectancy at birth') +
+  
+    ggplot_html = ggplot_1 +
         ggtitle('{frame_time}') +
-        transition_time(year) +   
+        gganimate::transition_time(year) +   
         ease_aes('linear') + 
-        theme_minimal()
+        theme(title = element_text(size = 14, face = "bold"),
+              legend.title = element_blank(), 
+              plot.margin = unit(c(-.19, 0, .03, .1), "null"),
+              plot.title = element_text(hjust = 1, vjust = -5, color = "#eddee4", size = 60, 
+                                        face = "bold.italic"))
     
-    animate(p, fps = 7, end_pause = 25)
+    animate(ggplot_html, fps = 7, end_pause = 25) #, rewind = TRUE)
+}else{
+    ggplot_1 + geom_text(aes(x = 6, y = 80, label = year), cex = 17, color = "#eddee4") +
+    facet_grid(. ~ year) + 
+    theme(plot.title = element_blank(), 
+              legend.title = element_blank(), 
+              strip.background = element_blank(),
+              strip.text.x = element_blank(),
+              strip.text.y = element_blank(),
+              legend.position = "top")
 }
 ```
 

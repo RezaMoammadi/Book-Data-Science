@@ -48,7 +48,7 @@ The *data science workflow* follows an *iterative* and *cyclical* approach, wher
 
 A *data science workflow* follows a phased, adaptive approach within a scientific framework, transforming raw data into actionable knowledge. This transformation is often conceptualized using the *DIKW Pyramid* (Data → Information → Knowledge → Wisdom), as illustrated in Figure \@ref(fig:DIKW-Pyramid).  
 
-```{r DIKW-Pyramid, fig.show='hold', echo = FALSE, out.width = "40%", fig.align = 'center', fig.cap = "The DIKW Pyramid illustrates the transformation of raw data into actionable insights, progressing from data to information, knowledge, and ultimately wisdom."}  
+```{r DIKW-Pyramid, fig.show='hold', echo = FALSE, out.width = "50%", fig.align = 'center', fig.cap = "The DIKW Pyramid illustrates the transformation of raw data into actionable insights, progressing from data to information, knowledge, and ultimately wisdom."}  
 knitr::include_graphics("images/ch2_DIKW-Pyramid.png")  
 ```  
 
