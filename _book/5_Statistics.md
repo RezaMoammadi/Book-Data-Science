@@ -86,14 +86,10 @@ For a population mean, the confidence interval is calculated as:
 
 where \( \bar{x} \) is the sample mean, \( z_{\frac{\alpha}{2}} \) is a critical value from the standard normal distribution (such as 1.96 for a 95% confidence level), \( s \) is the sample standard deviation, and \( n \) is the sample size. This concept is illustrated in Figure \@ref(fig:confidence-interval), where the interval is centered around the point estimate and its width depends on the margin of error.
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.8\linewidth]{images/ch5_confidence_interval} 
-
-}
-
-\caption{Confidence interval for the population mean. The interval is centered around the point estimate, with the width determined by the margin of error. The confidence level specifies the probability that the interval contains the true population parameter.}(\#fig:confidence-interval)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/ch5_confidence_interval.png" alt="Confidence interval for the population mean. The interval is centered around the point estimate, with the width determined by the margin of error. The confidence level specifies the probability that the interval contains the true population parameter." width="80%" />
+<p class="caption">(\#fig:confidence-interval)Confidence interval for the population mean. The interval is centered around the point estimate, with the width determined by the margin of error. The confidence level specifies the probability that the interval contains the true population parameter.</p>
+</div>
 
 Several factors influence the width of a confidence interval. Larger sample sizes generally yield narrower intervals, increasing precision, while higher variability in the data results in wider intervals. The choice of confidence level also affects the width; for example, a 99% confidence level produces a wider interval than a 90% confidence level because it must capture more possible values.
 
@@ -277,7 +273,7 @@ t_test
     2.254597
 ```
 
-The output includes the *p*-value, test statistic, degrees of freedom, and confidence interval for the population mean. Since the *p*-value = \ensuremath{2\times 10^{-4}} is less than the significance level (\(\alpha = 0.05\)), we reject the null hypothesis (\(H_0\)). This would indicate that there is sufficient evidence, at the 5% significance level, to conclude that the true average number of customer service calls differs from 2.
+The output includes the *p*-value, test statistic, degrees of freedom, and confidence interval for the population mean. Since the *p*-value = 2\times 10^{-4} is less than the significance level (\(\alpha = 0.05\)), we reject the null hypothesis (\(H_0\)). This would indicate that there is sufficient evidence, at the 5% significance level, to conclude that the true average number of customer service calls differs from 2.
 
 The test also provides a 95% confidence interval, [2.12, 2.39], which represents the range of plausible values for the true population mean. Since 2 is outside this interval, we have further evidence that the true average number of service calls is different from the assumed value. Additionally, the sample mean, 2.25, is reported as the best estimate of the population mean.
 
@@ -344,8 +340,7 @@ The *two-sample t-test*, also known as Student’s t-test, is a statistical meth
 
 In Section \@ref(EDA-sec-numeric) of the previous chapter, we explored the relationship between *International Calls* (`intl.calls`) and churn status using visualizations like box plots and density plots. While visualizations help identify potential differences, statistical testing quantifies the likelihood that these differences are due to chance.
 
-
-\includegraphics[width=0.5\linewidth]{5_Statistics_files/figure-latex/unnamed-chunk-8-1} \includegraphics[width=0.5\linewidth]{5_Statistics_files/figure-latex/unnamed-chunk-8-2} 
+<img src="5_Statistics_files/figure-html/unnamed-chunk-8-1.png" width="50%" /><img src="5_Statistics_files/figure-html/unnamed-chunk-8-2.png" width="50%" />
 
 The boxplot (left) and density plot (right) illustrate the distributions of `intl.calls` for churners and non-churners. While the visualizations suggest only minor differences, we perform a two-sample t-test to assess whether these differences are statistically significant.
 
@@ -403,8 +398,7 @@ In the previous section, we applied the *two-sample t-test* to compare the mean 
 
 In Section \@ref(chapter-EDA-categorical) of the previous chapter, we examined the relationship between the *Voice Mail Plan* (`voice.plan`) and churn status using bar plots. While visualizations suggest potential differences in churn rates between customers with and without a Voice Mail Plan, statistical testing quantifies whether these differences are statistically significant.
 
-
-\includegraphics[width=0.5\linewidth]{5_Statistics_files/figure-latex/unnamed-chunk-10-1} \includegraphics[width=0.5\linewidth]{5_Statistics_files/figure-latex/unnamed-chunk-10-2} 
+<img src="5_Statistics_files/figure-html/unnamed-chunk-10-1.png" width="50%" /><img src="5_Statistics_files/figure-html/unnamed-chunk-10-2.png" width="50%" />
 
 The first bar plot (left) shows the raw counts of churners and non-churners across the two categories of *Voice Mail Plan* (Yes or No), while the second plot (right) displays proportions, allowing direct comparison of churn rates. These visualizations suggest that customers without a Voice Mail Plan may have a higher churn rate, but hypothesis testing is needed to confirm whether this difference is statistically meaningful.
 
@@ -474,8 +468,7 @@ To illustrate, we examine whether marital status is associated with purchasing a
 
 We begin by visualizing the relationship between `marital` and `deposit` using bar plots:
 
-
-\includegraphics[width=0.5\linewidth]{5_Statistics_files/figure-latex/unnamed-chunk-13-1} \includegraphics[width=0.5\linewidth]{5_Statistics_files/figure-latex/unnamed-chunk-13-2} 
+<img src="5_Statistics_files/figure-html/unnamed-chunk-13-1.png" width="50%" /><img src="5_Statistics_files/figure-html/unnamed-chunk-13-2.png" width="50%" />
 
 The first bar plot (left) displays the raw counts of deposit purchases across marital categories, while the second plot (right) presents the relative proportions. Visual inspection suggests differences in deposit purchase rates by marital status, but a statistical test is needed to confirm whether these differences are significant.
 
@@ -511,7 +504,7 @@ chisq_test
    X-squared = 19.03, df = 2, p-value = 7.374e-05
 ```
 
-The output includes the *p*-value, Chi-square test statistic, degrees of freedom, and expected frequencies under \(H_0\). If the *p*-value = \ensuremath{7.3735354\times 10^{-5}} is smaller than \(\alpha = 0.05\), we reject the null hypothesis, concluding that marital status and deposit purchases are not independent. This means that at least one marital group differs significantly from the others in deposit purchase rates.
+The output includes the *p*-value, Chi-square test statistic, degrees of freedom, and expected frequencies under \(H_0\). If the *p*-value = 7.3735354\times 10^{-5} is smaller than \(\alpha = 0.05\), we reject the null hypothesis, concluding that marital status and deposit purchases are not independent. This means that at least one marital group differs significantly from the others in deposit purchase rates.
 
 Examining the expected frequencies can reveal which marital groups contribute most to the observed association. If a particular group has a much higher or lower deposit purchase rate than expected, marketing efforts can be tailored accordingly.
 
@@ -536,9 +529,7 @@ ggplot(data = diamonds) +
   scale_fill_manual(values = c("palevioletred1", "darkseagreen1", "skyblue1", "gold1", "lightcoral"))
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{5_Statistics_files/figure-latex/unnamed-chunk-16-1} \end{center}
+<img src="5_Statistics_files/figure-html/unnamed-chunk-16-1.png" width="\textwidth" style="display: block; margin: auto;" />
 
 The box plot displays the spread and median prices for diamonds in each cut category. While differences in medians and ranges suggest that cut quality might influence price, statistical testing is required to confirm whether these differences are significant. We apply an ANOVA test to formally assess this relationship.
 
@@ -585,9 +576,7 @@ ggplot(data = diamonds) +
     labs(x = "Carat", y = "Price") 
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{5_Statistics_files/figure-latex/unnamed-chunk-18-1} \end{center}
+<img src="5_Statistics_files/figure-html/unnamed-chunk-18-1.png" width="\textwidth" style="display: block; margin: auto;" />
 
 The scatter plot shows a clear upward trend, suggesting that as *carat* increases, so does *price*. However, visualizations alone do not confirm statistical significance. To formally test this relationship, we establish the following hypotheses:
 

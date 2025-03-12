@@ -57,9 +57,7 @@ library(psych)
 pairs.panels(marketing)
 ```
 
-
-
-\begin{center}\includegraphics[width=1\linewidth]{10_Regression_files/figure-latex/unnamed-chunk-2-1} \end{center}
+<img src="10_Regression_files/figure-html/unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto;" />
 
 This visualization includes:
 
@@ -77,14 +75,10 @@ A logical starting point in regression analysis is examining the relationship be
 
 Before fitting the model, it is essential to visualize the relationship between these variables to assess whether a linear assumption is reasonable. A scatter plot with a fitted least-squares regression line provides insight into the strength and direction of the relationship:
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.8\linewidth]{10_Regression_files/figure-latex/scoter-plot-simple-reg-1} 
-
-}
-
-\caption{Scatter plot of daily revenue (€) versus daily spend (€) for 40 observations, with the fitted least-squares regression line (blue) showing the linear relationship.}(\#fig:scoter-plot-simple-reg)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="10_Regression_files/figure-html/scoter-plot-simple-reg-1.png" alt="Scatter plot of daily revenue (€) versus daily spend (€) for 40 observations, with the fitted least-squares regression line (blue) showing the linear relationship." width="80%" />
+<p class="caption">(\#fig:scoter-plot-simple-reg)Scatter plot of daily revenue (€) versus daily spend (€) for 40 observations, with the fitted least-squares regression line (blue) showing the linear relationship.</p>
+</div>
 
 Figure \@ref(fig:scoter-plot-simple-reg) illustrates the relationship between `spend` and `revenue` in the *marketing* dataset. The scatter plot suggests a positive association, indicating that increased advertising expenditure is generally linked to higher revenue.
 
@@ -280,7 +274,7 @@ summary(simple_reg)
 From the output:
 
 - The **t-statistic** for the slope is 7.93.  
-- The **p-value** is \ensuremath{1.4150362\times 10^{-9}}, which is very close to zero.  
+- The **p-value** is 1.4150362\times 10^{-9}, which is very close to zero.  
 
 Since the p-value is significantly smaller than the commonly used significance level (\(\alpha = 0.05\)), we reject the null hypothesis \( H_0 \). This confirms that the predictor `spend` has a statistically significant effect on `revenue`. Specifically:
 
@@ -855,14 +849,10 @@ unit.price = b_0 + b_1 \cdot house.age + b_2 \cdot house.age^2
 
 This equation incorporates both `house.age` and its squared term (`house.age^2`), allowing for a curved relationship between the predictor and response variable. Although polynomial regression introduces non-linear predictors, the model remains a *linear regression model* because the coefficients (\(b_0, b_1, b_2\)) are estimated using standard least squares methods. The blue curve in Figure \@ref(fig:scoter-plot-non-reg) illustrates the improved fit of a quadratic regression model, which captures the pattern in the data more effectively than the simple linear model.
 
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{10_Regression_files/figure-latex/scoter-plot-non-reg-1} 
-
-}
-
-\caption{Scatter plot of house price ($) versus house age (years) for the house dataset, with the fitted simple linear regression line in orange and the quadratic regression curve in blue.}(\#fig:scoter-plot-non-reg)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="10_Regression_files/figure-html/scoter-plot-non-reg-1.png" alt="Scatter plot of house price ($) versus house age (years) for the house dataset, with the fitted simple linear regression line in orange and the quadratic regression curve in blue." width="100%" />
+<p class="caption">(\#fig:scoter-plot-non-reg)Scatter plot of house price ($) versus house age (years) for the house dataset, with the fitted simple linear regression line in orange and the quadratic regression curve in blue.</p>
+</div>
 
 This example highlights the need for non-linear regression techniques when the assumption of linearity does not hold. By incorporating polynomial terms, we can improve model accuracy while retaining interpretability, ensuring that predictions align more closely with real-world data patterns.
   
@@ -990,9 +980,10 @@ ml_stepwise = lm(revenue ~ clicks + display, data = marketing)
 plot(ml_stepwise)  
 ```
 
-\begin{figure}
-\includegraphics[width=0.5\linewidth]{10_Regression_files/figure-latex/model-diagnostics-1} \includegraphics[width=0.5\linewidth]{10_Regression_files/figure-latex/model-diagnostics-2} \includegraphics[width=0.5\linewidth]{10_Regression_files/figure-latex/model-diagnostics-3} \includegraphics[width=0.5\linewidth]{10_Regression_files/figure-latex/model-diagnostics-4} \caption{Diagnostic plots for assessing regression model assumptions.}(\#fig:model-diagnostics)
-\end{figure}
+<div class="figure">
+<img src="10_Regression_files/figure-html/model-diagnostics-1.png" alt="Diagnostic plots for assessing regression model assumptions." width="50%" /><img src="10_Regression_files/figure-html/model-diagnostics-2.png" alt="Diagnostic plots for assessing regression model assumptions." width="50%" /><img src="10_Regression_files/figure-html/model-diagnostics-3.png" alt="Diagnostic plots for assessing regression model assumptions." width="50%" /><img src="10_Regression_files/figure-html/model-diagnostics-4.png" alt="Diagnostic plots for assessing regression model assumptions." width="50%" />
+<p class="caption">(\#fig:model-diagnostics)Diagnostic plots for assessing regression model assumptions.</p>
+</div>
 
 These diagnostic plots provide insights into the validity of the model’s assumptions.
 

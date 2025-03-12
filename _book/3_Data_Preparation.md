@@ -52,7 +52,7 @@ To inspect the dataset structure, use:
 
 ``` r
 str(diamonds)   
-   tibble [53,940 x 10] (S3: tbl_df/tbl/data.frame)
+   tibble [53,940 × 10] (S3: tbl_df/tbl/data.frame)
     $ carat  : num [1:53940] 0.23 0.21 0.23 0.29 0.31 0.24 0.24 0.26 0.22 0.23 ...
     $ cut    : Ord.factor w/ 5 levels "Fair"<"Good"<..: 5 4 2 4 2 3 3 3 1 3 ...
     $ color  : Ord.factor w/ 7 levels "D"<"E"<"F"<"G"<..: 2 2 2 6 7 7 6 5 2 5 ...
@@ -129,9 +129,7 @@ ggplot(data = diamonds) +
     geom_boxplot(mapping = aes(y = y))
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{3_Data_Preparation_files/figure-latex/unnamed-chunk-4-1} \end{center}
+<img src="3_Data_Preparation_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" />
 
 Here, boxplots highlight values beyond the whiskers, which may indicate potential outliers. Since diamonds cannot have a width of 0 mm, values like 32 mm or 59 mm likely result from data entry errors.
 
@@ -145,9 +143,7 @@ ggplot(data = diamonds) +
     geom_histogram(aes(x = y), binwidth = 0.5, color = 'blue', fill = "lightblue")
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{3_Data_Preparation_files/figure-latex/unnamed-chunk-5-1} \end{center}
+<img src="3_Data_Preparation_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" />
 
 To enhance visibility, we can zoom in on smaller frequencies by using the *coord_cartesian()* function from the **ggplot2** package:
 
@@ -158,9 +154,7 @@ ggplot(data = diamonds) +
     coord_cartesian(ylim = c(0, 30))
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{3_Data_Preparation_files/figure-latex/unnamed-chunk-6-1} \end{center}
+<img src="3_Data_Preparation_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" />
 
 Other useful visualization techniques include:
 
@@ -288,8 +282,7 @@ ggplot(data = diamonds) +
   xlab("Values for variable `carat`")
 ```
 
-
-\includegraphics[width=0.5\linewidth]{3_Data_Preparation_files/figure-latex/unnamed-chunk-10-1} \includegraphics[width=0.5\linewidth]{3_Data_Preparation_files/figure-latex/unnamed-chunk-10-2} 
+<img src="3_Data_Preparation_files/figure-html/unnamed-chunk-10-1.png" width="50%" /><img src="3_Data_Preparation_files/figure-html/unnamed-chunk-10-2.png" width="50%" />
 
 The first histogram (left) shows the distribution of `carat` without scaling, while the second histogram (right) shows it after Min-Max Scaling. After scaling, the `carat` values are compressed to a range between 0 and 1, allowing it to be more comparable to other features that may have different original scales. This scaling method is particularly beneficial for distance-based algorithms, as it prevents features with wider ranges from having undue influence.
 :::
@@ -326,8 +319,7 @@ ggplot(data = diamonds) +
   xlab("Values for variable `carat`")
 ```
 
-
-\includegraphics[width=0.5\linewidth]{3_Data_Preparation_files/figure-latex/unnamed-chunk-11-1} \includegraphics[width=0.5\linewidth]{3_Data_Preparation_files/figure-latex/unnamed-chunk-11-2} 
+<img src="3_Data_Preparation_files/figure-html/unnamed-chunk-11-1.png" width="50%" /><img src="3_Data_Preparation_files/figure-html/unnamed-chunk-11-2.png" width="50%" />
 
 The first histogram (left) displays the distribution of `carat` without scaling, while the second histogram (right) shows the distribution after Z-score Scaling. This transformation makes feature values comparable across different scales and ensures that each feature contributes equally to distance-based computations and model training.
 :::
@@ -573,9 +565,7 @@ library(naniar)  # Load package for visualizing missing values
 gg_miss_var(adult, show_pct = TRUE)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{3_Data_Preparation_files/figure-latex/unnamed-chunk-18-1} \end{center}
+<img src="3_Data_Preparation_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" />
 
 The plot indicates that `workclass`, `occupation`, and `native.country` contain missing values. The percentage of missing values in these variables is relatively low, with `workclass` and `occupation` having less than 0.06 percent missing data, while `native.country` has about 0.02 percent.
 
@@ -602,9 +592,7 @@ To confirm that missing values have been successfully imputed, we generate anoth
 gg_miss_var(adult, show_pct = TRUE)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{3_Data_Preparation_files/figure-latex/unnamed-chunk-20-1} \end{center}
+<img src="3_Data_Preparation_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" />
 
 The updated plot should show no missing values, indicating successful imputation.
 
@@ -717,9 +705,7 @@ ggplot(data = adult, aes(y = capital.loss)) +
      geom_boxplot()
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{3_Data_Preparation_files/figure-latex/unnamed-chunk-26-1} \end{center}
+<img src="3_Data_Preparation_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ``` r
@@ -727,9 +713,7 @@ ggplot(data = adult, aes(x = capital.loss)) +
      geom_histogram(bins = 30, color = "blue", fill = "lightblue")
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{3_Data_Preparation_files/figure-latex/unnamed-chunk-27-1} \end{center}
+<img src="3_Data_Preparation_files/figure-html/unnamed-chunk-27-1.png" width="70%" style="display: block; margin: auto;" />
 
 From these plots, we observe:  
 
@@ -749,9 +733,7 @@ ggplot(data = adult, mapping = aes(x = capital.loss)) +
     coord_cartesian(xlim = c(500, 4000), ylim = c(0, 1000))
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{3_Data_Preparation_files/figure-latex/unnamed-chunk-28-1} \end{center}
+<img src="3_Data_Preparation_files/figure-html/unnamed-chunk-28-1.png" width="70%" style="display: block; margin: auto;" />
 
 
 ``` r
@@ -759,9 +741,7 @@ ggplot(data = subset(adult, capital.loss > 0)) +
      geom_boxplot(aes(y = capital.loss)) 
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{3_Data_Preparation_files/figure-latex/unnamed-chunk-29-1} \end{center}
+<img src="3_Data_Preparation_files/figure-html/unnamed-chunk-29-1.png" width="70%" style="display: block; margin: auto;" />
 
 Key takeaways from these refined plots:  
 

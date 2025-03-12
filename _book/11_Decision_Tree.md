@@ -6,14 +6,10 @@ Decision trees are widely used in various domains, from medical diagnosis and fr
 
 To see decision trees in action, consider the example in Figure \@ref(fig:tree-0), which predicts whether a customer’s credit risk is classified as "good" or "bad" based on features such as `age` and `income`. This tree is trained on the `risk` dataset, introduced in Chapter \@ref(chapter-bayes), and consists of decision nodes representing yes/no questions, such as whether yearly income is below €36,000 (`income < 36e+3`) or whether age is greater than 29. The final classification is determined at the terminal nodes, also known as leaves.
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.75\linewidth]{11_Decision_Tree_files/figure-latex/tree-0-1} 
-
-}
-
-\caption{Decision tree for predicting credit risk based on age and income.}(\#fig:tree-0)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="11_Decision_Tree_files/figure-html/tree-0-1.png" alt="Decision tree for predicting credit risk based on age and income." width="75%" />
+<p class="caption">(\#fig:tree-0)Decision tree for predicting credit risk based on age and income.</p>
+</div>
 
 Decision trees are highly interpretable, making them especially valuable in domains such as finance, healthcare, and marketing, where understanding model decisions is as important as accuracy. Their structured form allows for easy visualization of decision pathways, helping businesses with customer segmentation, risk assessment, and process optimization.
 
@@ -33,14 +29,10 @@ At each step, the algorithm selects the feature and threshold that best separate
 
 To see this process in action, consider a simple dataset with two features (\(x_1\) and \(x_2\)) and two classes (Class A and Class B), as shown in Figure \@ref(fig:tree-1). The dataset consists of 50 data points, and the goal is to classify them into their respective categories.
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.7\linewidth]{images/ch11_ex_tree_1} 
-
-}
-
-\caption{A two-dimensional toy dataset (50 observations) with two classes (Class A and Class B), used to illustrate how to build Decision Trees.}(\#fig:tree-1)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/ch11_ex_tree_1.png" alt="A two-dimensional toy dataset (50 observations) with two classes (Class A and Class B), used to illustrate how to build Decision Trees." width="70%" />
+<p class="caption">(\#fig:tree-1)A two-dimensional toy dataset (50 observations) with two classes (Class A and Class B), used to illustrate how to build Decision Trees.</p>
+</div>
 
 The process begins by identifying the feature and threshold that best separate the two classes. The algorithm evaluates all possible splits and selects the one that maximizes homogeneity in the resulting subsets. For this dataset, the optimal split occurs at \(x_1 = 10\), dividing the dataset into two regions:
 
@@ -49,38 +41,26 @@ The process begins by identifying the feature and threshold that best separate t
 
 This first split is illustrated in Figure \@ref(fig:tree-2), where the decision boundary is drawn at \(x_1 = 10\).
 
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{images/ch11_ex_tree_2} 
-
-}
-
-\caption{Left: Decision boundary for a tree with depth 1. Right: The corresponding Decision Tree.}(\#fig:tree-2)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/ch11_ex_tree_2.png" alt="Left: Decision boundary for a tree with depth 1. Right: The corresponding Decision Tree." width="100%" />
+<p class="caption">(\#fig:tree-2)Left: Decision boundary for a tree with depth 1. Right: The corresponding Decision Tree.</p>
+</div>
 
 Although this split improves class separation, some overlap remains, suggesting that further refinement is needed. The tree-building process continues by introducing additional splits based on \(x_2\), creating smaller, more homogeneous groups.
 
 In Figure \@ref(fig:tree-3), the algorithm identifies new thresholds: \(x_2 = 6\) for the left region and \(x_2 = 8\) for the right region. These additional splits refine the classification process, improving the model’s ability to distinguish between the two classes.
 
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{images/ch11_ex_tree_3} 
-
-}
-
-\caption{Left: Decision boundary for a tree with depth 2. Right: The corresponding Decision Tree.}(\#fig:tree-3)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/ch11_ex_tree_3.png" alt="Left: Decision boundary for a tree with depth 2. Right: The corresponding Decision Tree." width="100%" />
+<p class="caption">(\#fig:tree-3)Left: Decision boundary for a tree with depth 2. Right: The corresponding Decision Tree.</p>
+</div>
 
 This recursive process continues until the tree reaches a stopping criterion. Figure \@ref(fig:tree-4) shows a fully grown tree with a depth of 5, demonstrating how decision trees create increasingly refined decision boundaries.
 
-\begin{figure}
-
-{\centering \includegraphics[width=1\linewidth]{images/ch11_ex_tree_4} 
-
-}
-
-\caption{Left: Decision boundary for a tree with depth 5. Right: The corresponding Decision Tree.}(\#fig:tree-4)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/ch11_ex_tree_4.png" alt="Left: Decision boundary for a tree with depth 5. Right: The corresponding Decision Tree." width="100%" />
+<p class="caption">(\#fig:tree-4)Left: Decision boundary for a tree with depth 5. Right: The corresponding Decision Tree.</p>
+</div>
 
 At this depth, the tree has created highly specific decision boundaries that closely match the training data. While this deep tree perfectly classifies the training data, it may not generalize well to new observations. The model has likely captured not just meaningful patterns but also noise, a problem known as *overfitting*. Overfitted trees perform well on training data but struggle to make accurate predictions on unseen data.
 
@@ -158,14 +138,10 @@ where \(H(T)\) represents the entropy before the split. The algorithm evaluates 
 
 To illustrate how C5.0 constructs decision trees, consider its application to the `risk` dataset, which classifies a customer's credit risk as good or bad based on features such as `age` and `income`. Figure \@ref(fig:tree-C50) shows a decision tree trained using the `C5.0` function from the `C50` package in R.
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.65\linewidth]{11_Decision_Tree_files/figure-latex/tree-C50-1} 
-
-}
-
-\caption{C5.0 Decision Tree for predicting credit risk based on age and income.}(\#fig:tree-C50)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="11_Decision_Tree_files/figure-html/tree-C50-1.png" alt="C5.0 Decision Tree for predicting credit risk based on age and income." width="65%" />
+<p class="caption">(\#fig:tree-C50)C5.0 Decision Tree for predicting credit risk based on age and income.</p>
+</div>
 
 The tree demonstrates how C5.0 selects splits to separate classes. Unlike CART, which only allows binary splits, C5.0 enables multi-way splits when dealing with categorical features. This flexibility can lead to trees that are more concise and easier to interpret, particularly in datasets where categorical variables play a significant role.
 
@@ -443,9 +419,7 @@ The tree is displayed using:
 rpart.plot(tree_cart, type = 4, extra = 104)
 ```
 
-
-
-\begin{center}\includegraphics[width=1\linewidth]{11_Decision_Tree_files/figure-latex/unnamed-chunk-11-1} \end{center}
+<img src="11_Decision_Tree_files/figure-html/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" />
 - The `type = 4` argument specifies a split-labeling style where decision rules appear inside the nodes.
 - The `extra = 104` argument displays both the predicted class and the probability of the most probable class in each terminal node.
 
@@ -536,9 +510,7 @@ We can evaluate the importance of predictors using the `varImpPlot()` function:
 varImpPlot(random_forest)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{11_Decision_Tree_files/figure-latex/unnamed-chunk-18-1} \end{center}
+<img src="11_Decision_Tree_files/figure-html/unnamed-chunk-18-1.png" width="\textwidth" style="display: block; margin: auto;" />
 This plot ranks predictors based on their contribution to model accuracy. In this case, `marital.status` appears as the most important predictor, followed by `capital.gain` and `education.num`.
 
 To assess how the error rate changes as the number of trees increases, we use:
@@ -547,9 +519,7 @@ To assess how the error rate changes as the number of trees increases, we use:
 plot(random_forest)
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{11_Decision_Tree_files/figure-latex/unnamed-chunk-19-1} \end{center}
+<img src="11_Decision_Tree_files/figure-html/unnamed-chunk-19-1.png" width="\textwidth" style="display: block; margin: auto;" />
 This plot shows classification error as a function of the number of trees. The error rate stabilizes after approximately 40 trees, indicating that adding more trees beyond this point does not significantly improve accuracy.
 
 Random forests provide a robust alternative to single decision trees by reducing overfitting and improving predictive performance through aggregation. The next section compares the performance of the CART, C5.0, and Random Forest models using evaluation metrics.
@@ -580,8 +550,7 @@ conf.mat.plot(prob_C50, test_labels, cutoff = 0.5, reference = "<=50K", main = "
 conf.mat.plot(prob_random_forest, test_labels, cutoff = 0.5, reference = "<=50K", main = "Random Forest Prediction")
 ```
 
-
-\includegraphics[width=0.33\linewidth]{11_Decision_Tree_files/figure-latex/unnamed-chunk-21-1} \includegraphics[width=0.33\linewidth]{11_Decision_Tree_files/figure-latex/unnamed-chunk-21-2} \includegraphics[width=0.33\linewidth]{11_Decision_Tree_files/figure-latex/unnamed-chunk-21-3} 
+<img src="11_Decision_Tree_files/figure-html/unnamed-chunk-21-1.png" width="33%" /><img src="11_Decision_Tree_files/figure-html/unnamed-chunk-21-2.png" width="33%" /><img src="11_Decision_Tree_files/figure-html/unnamed-chunk-21-3.png" width="33%" />
 
 
 
@@ -624,9 +593,7 @@ ggroc(list(roc_cart, roc_C50, roc_random_forest), size = 0.8) +
   theme(legend.position = c(.7, .3), text = element_text(size = 17))
 ```
 
-
-
-\begin{center}\includegraphics[width=0.9\linewidth]{11_Decision_Tree_files/figure-latex/unnamed-chunk-25-1} \end{center}
+<img src="11_Decision_Tree_files/figure-html/unnamed-chunk-25-1.png" width="90%" style="display: block; margin: auto;" />
 In the ROC plot, the *black* curve represents CART, the <span style="color:red">*red*</span> curve represents C5.0, and the <span style="color:green">*green*</span> curve represents Random Forest. The ROC curves suggest that both C5.0 and Random Forest outperform CART. However, distinguishing between C5.0 and Random Forest based on the ROC curve alone is challenging. Note that in the above ROC plots we also report the AUC values for each model, by using the `auc()` function from the **pROC** package. The AUC values provide further insight:
 
 - CART: AUC = 0.841,  

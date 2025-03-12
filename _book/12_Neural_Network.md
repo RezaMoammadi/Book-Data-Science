@@ -43,23 +43,15 @@ As shown in Figure \@ref(fig:net-brain), a biological neuron is designed to proc
 
 Similarly, an artificial neuron (illustrated in Figure \@ref(fig:net-1)) emulates this process using a mathematical model. It receives inputs (\(x_i\)) from either other artificial neurons or directly from a dataset. These inputs are combined using a weighted summation (\(\sum w_i x_i\)), where the weights (\(w_i\)) represent the strength of each input’s influence. The combined signal is then passed through an activation function (\(f(.)\)) to introduce non-linearity, determining the final output (\(\hat{y}\)). This output is either transmitted to other artificial neurons or used as the final result of the model. The activation function is crucial, as it enables neural networks to learn and model complex, nonlinear relationships in data.
 
-\begin{figure}
+<div class="figure" style="text-align: center">
+<img src="images/ch12_net_brain.png" alt="Visualization of a biological neuron, which processes input signals through dendrites and sends outputs through the axon." width="75%" />
+<p class="caption">(\#fig:net-brain)Visualization of a biological neuron, which processes input signals through dendrites and sends outputs through the axon.</p>
+</div>
 
-{\centering \includegraphics[width=0.75\linewidth]{images/ch12_net_brain} 
-
-}
-
-\caption{Visualization of a biological neuron, which processes input signals through dendrites and sends outputs through the axon.}(\#fig:net-brain)
-\end{figure}
-
-\begin{figure}
-
-{\centering \includegraphics[width=0.9\linewidth]{images/ch12_net_1} 
-
-}
-
-\caption{Illustration of an artificial neuron, designed to emulate the structure and function of a biological neuron in a simplified way.}(\#fig:net-1)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/ch12_net_1.png" alt="Illustration of an artificial neuron, designed to emulate the structure and function of a biological neuron in a simplified way." width="90%" />
+<p class="caption">(\#fig:net-1)Illustration of an artificial neuron, designed to emulate the structure and function of a biological neuron in a simplified way.</p>
+</div>
 
 One of the key advantages of artificial neural networks is their ability to generalize from data, even when faced with noise or incomplete information. Unlike traditional algorithms that rely on explicit rule-based decision-making, neural networks distribute learning across many interconnected neurons and weighted connections, allowing them to adapt and identify patterns even when individual data points are imperfect. This distributed learning process enables them to handle complex, high-dimensional data more effectively than many conventional models.
 
@@ -77,14 +69,10 @@ Neural networks extend traditional linear models by incorporating multiple layer
 
 where \(p\) represents the number of predictors, \(b_0\) is the intercept, and \(b_1\) to \(b_p\) are the learned coefficients. In this setup, \(\hat{y}\) is a weighted sum of the input features (\(x_1\) to \(x_p\)), where the weights (\(b_1\) to \(b_p\)) determine the relative influence of each feature on the prediction. This simple linear relationship can be visualized in Figure \@ref(fig:net-reg), where input features and the prediction are represented as nodes, with the coefficients acting as connecting weights.  
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.4\linewidth]{images/ch12_net_reg} 
-
-}
-
-\caption{A graphical representation of a regression model: input features and predictions are shown as nodes, with the coefficients represented as connections between the nodes.}(\#fig:net-reg)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/ch12_net_reg.png" alt="A graphical representation of a regression model: input features and predictions are shown as nodes, with the coefficients represented as connections between the nodes." width="40%" />
+<p class="caption">(\#fig:net-reg)A graphical representation of a regression model: input features and predictions are shown as nodes, with the coefficients represented as connections between the nodes.</p>
+</div>
 
 While linear models are effective for capturing direct relationships between inputs and outputs, they struggle to represent more complex patterns, such as interactions between variables or hierarchical structures in data. Neural networks address this limitation by introducing multiple layers of artificial neurons between the input and output, allowing them to model intricate, nonlinear relationships. This structure is illustrated in Figure \@ref(fig:net-large).  
 
@@ -96,14 +84,10 @@ The architecture of a neural network consists of the following key components:
 
 - The **output layer** produces the final prediction. In classification tasks, it typically represents the probability of a given class, while in regression tasks, it outputs a continuous numerical value.  
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.8\linewidth]{images/ch12_net_large} 
-
-}
-
-\caption{Visualization of a multilayer neural network model with two hidden layers.}(\#fig:net-large)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="images/ch12_net_large.png" alt="Visualization of a multilayer neural network model with two hidden layers." width="80%" />
+<p class="caption">(\#fig:net-large)Visualization of a multilayer neural network model with two hidden layers.</p>
+</div>
 
 In Figure \@ref(fig:net-large), the input layer passes the features into the network, where each hidden layer applies transformations before passing the processed information forward. The output layer aggregates this information to generate the final prediction. Each connection in the network is assigned a weight (\(w_i\)), which determines the strength of influence one neuron has on another. These weights are adjusted during training to optimize the model’s accuracy.
 
@@ -161,14 +145,10 @@ f(x) =
 
 This step-like behavior is visualized in Figure \@ref(fig:active-fun-unit). The function outputs 1 when the input is at least zero and 0 otherwise, making it useful for basic classification tasks.
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.5\linewidth]{12_Neural_Network_files/figure-latex/active-fun-unit-1} 
-
-}
-
-\caption{Visualization of the threshold activation function (unit step).}(\#fig:active-fun-unit)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="12_Neural_Network_files/figure-html/active-fun-unit-1.png" alt="Visualization of the threshold activation function (unit step)." width="50%" />
+<p class="caption">(\#fig:active-fun-unit)Visualization of the threshold activation function (unit step).</p>
+</div>
 
 While biologically intuitive, the threshold function has major drawbacks. It cannot model nuanced relationships between inputs and outputs, as it only provides binary decisions. More importantly, it is not differentiable, preventing its use in gradient-based optimization methods such as backpropagation. For these reasons, it has been largely replaced by continuous activation functions.
 
@@ -182,14 +162,10 @@ f(x) = \frac{1}{1 + e^{-x}}
 
 where \( e \) is the base of the natural logarithm (approximately 2.72). The sigmoid function has an S-shaped curve, as shown in Figure \@ref(fig:active-fun-sigmoid), and provides a differentiable alternative to the threshold function.
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.5\linewidth]{12_Neural_Network_files/figure-latex/active-fun-sigmoid-1} 
-
-}
-
-\caption{Visualization of the sigmoid activation function.}(\#fig:active-fun-sigmoid)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="12_Neural_Network_files/figure-html/active-fun-sigmoid-1.png" alt="Visualization of the sigmoid activation function." width="50%" />
+<p class="caption">(\#fig:active-fun-sigmoid)Visualization of the sigmoid activation function.</p>
+</div>
 
 Although sigmoid activation is useful, it suffers from the **vanishing gradient problem**. When inputs are very large or very small, the function saturates, producing values close to 0 or 1. In these regions, the derivative is near zero, slowing down the learning process in deep networks. As a result, alternative activation functions are often preferred for hidden layers.
 
@@ -201,14 +177,10 @@ Several activation functions have been developed to address the limitations of t
 2. **ReLU (Rectified Linear Unit):** Defined as \( f(x) = \max(0, x) \), ReLU is the most widely used activation function in deep neural networks due to its computational efficiency and ability to mitigate the vanishing gradient problem.  
 3. **Leaky ReLU:** A variation of ReLU that allows small negative values instead of zero for negative inputs, reducing the problem of inactive neurons.  
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.8\linewidth]{12_Neural_Network_files/figure-latex/active-fun-comparison-1} 
-
-}
-
-\caption{Comparison of common activation functions: sigmoid, tanh, and ReLU.}(\#fig:active-fun-comparison)
-\end{figure}
+<div class="figure" style="text-align: center">
+<img src="12_Neural_Network_files/figure-html/active-fun-comparison-1.png" alt="Comparison of common activation functions: sigmoid, tanh, and ReLU." width="80%" />
+<p class="caption">(\#fig:active-fun-comparison)Comparison of common activation functions: sigmoid, tanh, and ReLU.</p>
+</div>
 
 ### Choosing the right activation function {-}
 
@@ -488,8 +460,7 @@ ggplot(data = train_scaled) +
   ggtitle("Variable 'age' after scaling")
 ```
 
-
-\includegraphics[width=0.5\linewidth]{12_Neural_Network_files/figure-latex/unnamed-chunk-7-1} \includegraphics[width=0.5\linewidth]{12_Neural_Network_files/figure-latex/unnamed-chunk-7-2} 
+<img src="12_Neural_Network_files/figure-html/unnamed-chunk-7-1.png" width="50%" /><img src="12_Neural_Network_files/figure-html/unnamed-chunk-7-2.png" width="50%" />
 
 The first histogram (left) displays the distribution of `age` in the training set before scaling, while the second histogram (right) shows the distribution after applying min-max scaling. The values are mapped to a range between 0 and 1 while preserving the original distribution.  
 
@@ -531,9 +502,7 @@ After training, we visualize the network to examine its topology:
 plot(neuralnet_bank, rep = "best")
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{12_Neural_Network_files/figure-latex/unnamed-chunk-10-1} \end{center}
+<img src="12_Neural_Network_files/figure-html/unnamed-chunk-10-1.png" width="\textwidth" style="display: block; margin: auto;" />
 
 This visualization shows that the network consists of:  
 
@@ -602,9 +571,7 @@ ggroc(roc_nn, size = 0.8) +
   theme(legend.title = element_blank(), legend.position = c(.7, .3), text = element_text(size = 17))
 ```
 
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{12_Neural_Network_files/figure-latex/unnamed-chunk-14-1} \end{center}
+<img src="12_Neural_Network_files/figure-html/unnamed-chunk-14-1.png" width="\textwidth" style="display: block; margin: auto;" />
 
 The ROC curve evaluates how well the model differentiates between customers who subscribe (`deposit = "yes"`) and those who do not (`deposit = "no"`) at varying classification thresholds. A high AUC score indicates strong predictive performance, meaning the model is effective at distinguishing between the two classes.  
 

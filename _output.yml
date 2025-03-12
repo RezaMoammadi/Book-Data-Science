@@ -3,11 +3,21 @@ bookdown::bs4_book:
   theme:
     primary: "#880D1E"
   repo: https://github.com/RezaMoammadi/Book-Data-Science
+
 bookdown::pdf_book:
-  pandoc_args: --listings
   includes:
     in_header: preamble.tex
+  keep_tex: true
+  dev: "cairo_pdf"
   latex_engine: xelatex
   citation_package: natbib
-  keep_tex: yes
+  template: null
+  pandoc_args: --listings
+  toc_depth: 3
+  toc_unnumbered: false
+  toc_appendix: true
+  quote_footer: ["\\VA{", "}{}"]
+  highlight_bw: true
+  number_sections: true
+
 bookdown::epub_book: default

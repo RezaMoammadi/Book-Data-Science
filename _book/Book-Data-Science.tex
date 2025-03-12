@@ -1,8 +1,10 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
 \documentclass[
+  11pt,
 ]{book}
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
@@ -36,6 +38,7 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
+\usepackage[a4paper]{geometry}
 \usepackage{listings}
 \newcommand{\passthrough}[1]{#1}
 \lstset{defaultdialect=[5.3]Lua}
@@ -71,6 +74,25 @@
 \setcounter{secnumdepth}{5}
 \usepackage{booktabs}
 
+\usepackage{mathptmx}
+\usepackage{helvet}
+\usepackage{courier}
+%
+\usepackage{type1cm}         
+
+\usepackage{makeidx}         % allows index generation
+\usepackage{graphicx}        % standard LaTeX graphics tool
+                             % when including figure files
+\usepackage{multicol}        % used for the two-column index
+\usepackage[bottom]{footmisc}% places footnotes at page bottom
+
+% see the list of further useful packages
+% in the Reference Guide
+
+\makeindex             % used for the subject index
+                       % please use the style svind.ist with
+                       % your makeindex program
+
 \lstset{
   breaklines=true
   basicstyle=\ttfamily
@@ -97,12 +119,16 @@
 \hypersetup{
   pdftitle={Data Science Foundations and Machine Learning Using R},
   pdfauthor={Reza Mohammadi},
-  hidelinks,
+  colorlinks=true,
+  linkcolor={Maroon},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
   pdfcreator={LaTeX via pandoc}}
 
 \title{Data Science Foundations and Machine Learning Using R}
 \author{\href{https://www.uva.nl/profile/a.mohammadi}{{Reza Mohammadi}}}
-\date{2025-03-06}
+\date{March 12, 2025}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -125,11 +151,12 @@
 \maketitle
 
 {
-\setcounter{tocdepth}{1}
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{2}
 \tableofcontents
 }
 \chapter*{Preface}\label{preface}
-\addcontentsline{toc}{chapter}{Preface}
+
 
 Data science is transforming the way we solve problems, make decisions, and uncover insights from data. From generative AI chatbots---such as ChatGPT, DeepSeek, and Gemini---to personalized recommendations on Netflix and fraud detection in banking, data-driven techniques are revolutionizing industries. Whether you are new to data science or an experienced professional, \emph{Data Science Foundations and Machine Learning Using R} provides an accessible, hands-on introduction to this exciting field---no prior analytics or programming experience required.
 
@@ -140,7 +167,7 @@ Unlike many theoretical texts, this book emphasizes a \emph{learning-by-doing} a
 The remainder of this preface outlines the book's structure, how it can be used in different learning environments, and the foundational knowledge needed to get the most out of it.
 
 \section*{Why This Book?}\label{why-this-book}
-\addcontentsline{toc}{section}{Why This Book?}
+
 
 Data science is a rapidly evolving field that integrates machine learning, statistical techniques, and computational tools to extract meaningful insights from data. This book provides a structured introduction to data analysis and machine learning using \textbf{R}, a powerful open-source programming language widely adopted for statistical computing, visualization, and predictive modeling.
 
@@ -149,7 +176,7 @@ Unlike many textbooks that assume prior programming experience, this book is des
 Compared to proprietary software like SAS or SPSS, \textbf{R} offers a free, flexible, and highly extensible environment for data science. With its vast ecosystem of packages, \textbf{R} is a preferred choice for data mining, machine learning, and exploratory analysis across academia, industry, and research.
 
 \section*{Who Should Read This Book?}\label{who-should-read-this-book}
-\addcontentsline{toc}{section}{Who Should Read This Book?}
+
 
 This book is designed for anyone interested in learning data science and machine learning, particularly those new to the field. It is suitable for:
 
@@ -168,7 +195,7 @@ This book is designed for anyone interested in learning data science and machine
 Whether used for self-study, in a classroom setting, or as a reference for professionals, this book provides a practical and structured approach to applying data science techniques in real-world scenarios.
 
 \section*{What You Will Learn}\label{what-you-will-learn}
-\addcontentsline{toc}{section}{What You Will Learn}
+
 
 This book provides a structured, hands-on introduction to data science and machine learning using \textbf{R}. Through practical examples and real-world datasets, you will:
 
@@ -191,7 +218,7 @@ This book provides a structured, hands-on introduction to data science and machi
 By the end of this book, you will have a strong foundation in data science and machine learning, equipped with the skills to analyze complex datasets and develop effective data-driven solutions.
 
 \section*{How This Book Is Structured}\label{how-this-book-is-structured}
-\addcontentsline{toc}{section}{How This Book Is Structured}
+
 
 This book is designed as a \emph{hands-on guide}, progressing from foundational concepts to more advanced machine learning techniques. Each chapter builds upon previous topics, ensuring a logical learning experience and reinforcing practical skills.
 
@@ -230,7 +257,7 @@ To illustrate concepts effectively, we use \emph{real-world datasets} (see Table
 Each chapter concludes with \emph{practical exercises} that reinforce key concepts and provide hands-on experience with real-world datasets. These exercises are designed to help readers apply what they've learned, deepening their understanding of data science and machine learning.
 
 \section*{How to Use This Book}\label{how-to-use-this-book}
-\addcontentsline{toc}{section}{How to Use This Book}
+
 
 This book is designed for \emph{self-study, classroom instruction, and professional learning}. Readers can follow the chapters sequentially for a structured learning experience or refer to specific topics as needed.
 
@@ -251,7 +278,7 @@ To maximize learning and practical engagement:
 This book has been successfully used in \emph{data science courses at the University of Amsterdam} and is well-suited for similar academic programs and professional training initiatives.
 
 \section*{Datasets Used in This Book}\label{datasets-used-in-this-book}
-\addcontentsline{toc}{section}{Datasets Used in This Book}
+
 
 This book incorporates real-world datasets to illustrate key data science and machine learning concepts. Table \ref{tab:data-table} provides an overview of the datasets used throughout the book, all of which are included in the \textbf{liver} package.
 
@@ -281,7 +308,7 @@ These datasets were selected to provide hands-on exposure to real-world problems
 The datasets listed in Table \ref{tab:data-table} are primarily used in case studies throughout the book. Additionally, the \textbf{liver} package contains over 15 datasets, providing readers with further opportunities for exploration and hands-on practice. While the main text focuses on a subset of these datasets, additional datasets are integrated into the exercises at the end of each chapter, allowing readers to extend their learning beyond the core examples presented in the book.
 
 \section*{Using This Book for Teaching}\label{using-this-book-for-teaching}
-\addcontentsline{toc}{section}{Using This Book for Teaching}
+
 
 This book is well-suited for \emph{introductory data science and machine learning courses} or as a \emph{supplementary resource} for analytics training. Its structured approach, hands-on exercises, and real-world case studies make it an effective learning tool for students at various levels.
 
@@ -304,7 +331,7 @@ Instructors using this book will have access to supplementary teaching materials
 Before you can analyze data, you need a way to communicate with your computer. That's where programming languages like R and Python come in. Many data science teams use a mix of languages, but R is a great starting point because it is designed specifically for data analysis and statistical computing.
 
 \subsection*{Why Choose R for Data Science?}\label{why-choose-r-for-data-science}
-\addcontentsline{toc}{subsection}{Why Choose R for Data Science?}
+
 
 R is widely used in statistics, data analysis, and visualization due to its rich ecosystem of libraries and tools tailored for data science. Unlike general-purpose programming languages, R was built for statistical analysis, allowing data scientists to perform everything from basic calculations to advanced machine learning with just a few lines of code.
 
@@ -356,7 +383,7 @@ To get started with R, you first need to install it on your computer. Follow the
 \end{enumerate}
 
 \subsection*{Keeping R Up to Date}\label{keeping-r-up-to-date}
-\addcontentsline{toc}{subsection}{Keeping R Up to Date}
+
 
 R receives a major update once a year, along with 2-3 minor updates annually. While updating R---especially major versions---requires reinstalling your packages, staying up to date ensures you:
 
@@ -371,7 +398,7 @@ Keeping R updated might feel like a hassle, but postponing updates can make the 
 RStudio is an open-source integrated development environment (IDE) that makes working with R easier, more interactive, and more efficient. It provides a user-friendly interface, an advanced script editor, and various tools for plotting, debugging, and workspace management---all of which significantly enhance the R programming experience.
 
 \subsection*{Installing RStudio}\label{installing-rstudio}
-\addcontentsline{toc}{subsection}{Installing RStudio}
+
 
 Follow these steps to install RStudio:
 
@@ -391,11 +418,11 @@ Follow these steps to install RStudio:
 RStudio is updated several times a year, and it will notify you when a new version is available. Keeping RStudio up to date is recommended to take advantage of new features and performance improvements.
 
 \subsection*{Exploring the RStudio Interface}\label{exploring-the-rstudio-interface}
-\addcontentsline{toc}{subsection}{Exploring the RStudio Interface}
+
 
 When you open RStudio, you will see a window similar to Figure \ref{fig:RStudio-window-1}.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.7\linewidth]{images/ch1_RStudio-window-1} 
 
@@ -421,7 +448,7 @@ If you see only three panels, add a fourth by selecting \emph{File \textgreater{
 For now, just know that you can type R code into the console and press Enter to run it. As you progress through the book, you'll become more familiar with RStudio's features and learn how to efficiently write, run, and debug R code.
 
 \subsection*{Customizing RStudio}\label{customizing-rstudio}
-\addcontentsline{toc}{subsection}{Customizing RStudio}
+
 
 RStudio is highly customizable, allowing you to tailor it to your workflow. To adjust settings, go to:
 
@@ -441,7 +468,7 @@ RStudio is highly customizable, allowing you to tailor it to your workflow. To a
 Learning R is an exciting and rewarding journey that opens doors to data science, statistics, and machine learning. Fortunately, there are numerous resources---books, online courses, tutorials, and forums---that can help you get started and advance your skills.
 
 \subsection*{1. Video Tutorials}\label{video-tutorials}
-\addcontentsline{toc}{subsection}{1. Video Tutorials}
+
 
 If you prefer learning by watching, YouTube offers a wealth of R tutorials, ranging from beginner to advanced levels:
 
@@ -454,7 +481,7 @@ If you prefer learning by watching, YouTube offers a wealth of R tutorials, rang
 \end{itemize}
 
 \subsection*{2. Books}\label{books}
-\addcontentsline{toc}{subsection}{2. Books}
+
 
 Books are a great way to build a deep understanding of R. Here are some top recommendations:
 
@@ -469,7 +496,7 @@ Books are a great way to build a deep understanding of R. Here are some top reco
 \end{itemize}
 
 \subsection*{3. Online Courses}\label{online-courses}
-\addcontentsline{toc}{subsection}{3. Online Courses}
+
 
 If you prefer structured learning with hands-on exercises, online courses offer interactive experiences:
 
@@ -482,7 +509,7 @@ If you prefer structured learning with hands-on exercises, online courses offer 
 \end{itemize}
 
 \subsection*{4. R Communities \& Forums}\label{r-communities-forums}
-\addcontentsline{toc}{subsection}{4. R Communities \& Forums}
+
 
 Engaging with online communities is a great way to learn from others, ask questions, and get support:
 
@@ -495,7 +522,7 @@ Engaging with online communities is a great way to learn from others, ask questi
 \end{itemize}
 
 \subsection*{5. Practice Regularly}\label{practice-regularly}
-\addcontentsline{toc}{subsection}{5. Practice Regularly}
+
 
 The best way to learn R is through consistent practice. Start with simple exercises, explore real-world datasets, and experiment with R code. By combining structured learning with hands-on experience, you'll quickly develop confidence and proficiency in R.
 
@@ -525,7 +552,7 @@ For those interested in exploring further, the Comprehensive R Archive Network (
 
 There are two ways to install R packages. The first method is through RStudio's graphical interface. Click on the ``Tools'' tab and select ``Install Packages\ldots{}''. In the dialog box that appears, enter the name of the package(s) you wish to install in the ``Packages'' field and click the ``Install'' button. Make sure to check the ``Install dependencies'' option to ensure that all necessary supporting packages are installed as well. See Figure \ref{fig:install-packages} for a visual guide.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.7\linewidth]{images/ch1_RStudio-window-install} 
 
@@ -598,7 +625,7 @@ result * 4
 R will retrieve the stored value of \passthrough{\lstinline!result!} and compute the multiplication.
 
 \subsection*{Using Comments in R}\label{using-comments-in-r}
-\addcontentsline{toc}{subsection}{Using Comments in R}
+
 
 Comments are used to explain your code and make it easier to understand. In R, a comment starts with \passthrough{\lstinline!\#!}, and everything following it on that line is ignored by the interpreter.
 
@@ -645,7 +672,7 @@ Functions are essential in R programming, helping to simplify complex operations
 Before performing any analysis, you first need to load data into R. R can read data from multiple sources, including text files, Excel files, and online datasets. Depending on the file format and data source, you can choose from several methods for importing data into R.
 
 \subsection*{Using RStudio's Graphical Interface}\label{using-rstudios-graphical-interface}
-\addcontentsline{toc}{subsection}{Using RStudio's Graphical Interface}
+
 
 The easiest way to import data into R is through RStudio's graphical interface. Click on the \emph{Import Dataset} button in the top-right panel of RStudio (see Figure \ref{fig:load-data} for a visual guide). This will open a dialog box where you can choose the file type:\\
 - \textbf{From Text (base)} -- for CSV or tab-delimited files.\\
@@ -654,7 +681,7 @@ The easiest way to import data into R is through RStudio's graphical interface. 
 
 After selecting your file, RStudio will display an import settings window (see Figure \ref{fig:load-data-2}). Here, you can adjust column names, data types, and other options. If the first row contains column names, select \emph{Yes} under the \emph{Heading} option. Click \emph{Import}, and the dataset will appear in RStudio's Environment panel, ready for analysis.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.7\linewidth]{images/ch1_RStudio-window-data-1} 
 
@@ -663,7 +690,7 @@ After selecting your file, RStudio will display an import settings window (see F
 \caption{A visual guide to loading a dataset into R using the 'Import Dataset' tab in RStudio.}\label{fig:load-data}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.7\linewidth]{images/ch1_RStudio-window-data} 
 
@@ -673,7 +700,7 @@ After selecting your file, RStudio will display an import settings window (see F
 \end{figure}
 
 \subsection*{\texorpdfstring{Using \texttt{read.csv()}}{Using read.csv()}}\label{using-read.csv}
-\addcontentsline{toc}{subsection}{Using \texttt{read.csv()}}
+
 
 You can also import data directly using the \passthrough{\lstinline!read.csv()!} function, which reads tabular data (such as CSV files) into R as a data frame. If your data file is stored locally, you can load it as follows:
 
@@ -688,7 +715,7 @@ data <- read.csv("path/to/your/file.csv", header = FALSE)
 \end{lstlisting}
 
 \subsection*{Setting the Working Directory}\label{setting-the-working-directory}
-\addcontentsline{toc}{subsection}{Setting the Working Directory}
+
 
 By default, R looks for files in the current working directory. If your data is located elsewhere, you can specify the full path in \passthrough{\lstinline!read.csv()!} or set the working directory.
 
@@ -707,7 +734,7 @@ setwd("~/Documents")  # Adjust the path based on your system
 Alternatively, in RStudio, go to \emph{Session \textgreater{} Set Working Directory \textgreater{} Choose Directory\ldots{}} and select the desired folder.
 
 \subsection*{\texorpdfstring{Using \texttt{file.choose()} with \texttt{read.csv()}}{Using file.choose() with read.csv()}}\label{using-file.choose-with-read.csv}
-\addcontentsline{toc}{subsection}{Using \texttt{file.choose()} with \texttt{read.csv()}}
+
 
 To interactively select a file instead of typing its path manually, use \passthrough{\lstinline!file.choose()!}:
 
@@ -718,7 +745,7 @@ data <- read.csv(file.choose())
 This will open a file selection dialog, making it a convenient option when working with multiple datasets.
 
 \subsection*{Loading Data from Online Sources}\label{loading-data-from-online-sources}
-\addcontentsline{toc}{subsection}{Loading Data from Online Sources}
+
 
 R also allows direct import of datasets from web sources. For example, to load a publicly available COVID-19 dataset:
 
@@ -729,7 +756,7 @@ corona_data <- read.csv("https://opendata.ecdc.europa.eu/covid19/casedistributio
 This approach is useful for accessing open datasets from research institutions or government agencies.
 
 \subsection*{\texorpdfstring{Using \texttt{read\_excel()} for Excel Files}{Using read\_excel() for Excel Files}}\label{using-read_excel-for-excel-files}
-\addcontentsline{toc}{subsection}{Using \texttt{read\_excel()} for Excel Files}
+
 
 To import Excel files, use the \passthrough{\lstinline!read\_excel()!} function from the \textbf{readxl} package. First, install and load the package:
 
@@ -794,7 +821,7 @@ Recognizing different data types is essential for choosing the right analytical 
 
 Data structures are fundamental to working with data in R. They define how data is stored and manipulated, which directly impacts the efficiency and accuracy of data analysis. The most commonly used data structures in R are vectors, matrices, data frames, and lists, as illustrated in Figure \ref{fig:load-data-2}.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.6\linewidth]{images/ch1_R-objects} 
 
@@ -804,7 +831,7 @@ Data structures are fundamental to working with data in R. They define how data 
 \end{figure}
 
 \subsection*{Vectors in R}\label{vectors-in-r}
-\addcontentsline{toc}{subsection}{Vectors in R}
+
 
 A vector is the simplest data structure in R. It is a one-dimensional array that holds elements of the same type (numeric, character, or logical). Vectors are the building blocks of other data structures. You can create a vector using the \passthrough{\lstinline!c()!} function:
 
@@ -828,7 +855,7 @@ length(x)
 Here, \passthrough{\lstinline!x!} is a numeric vector containing five elements. The \passthrough{\lstinline!is.vector()!} function confirms that \passthrough{\lstinline!x!} is indeed a vector, while \passthrough{\lstinline!length(x)!} returns the number of elements in the vector.
 
 \subsection*{Matrices in R}\label{matrices-in-r}
-\addcontentsline{toc}{subsection}{Matrices in R}
+
 
 A matrix is a two-dimensional array where all elements must be of the same type. Matrices are useful for mathematical operations and structured numerical data. You can create a matrix using the \passthrough{\lstinline!matrix()!} function:
 
@@ -854,7 +881,7 @@ dim(m)
 This matrix \passthrough{\lstinline!m!} consists of two rows and three columns, filled row-wise. The \passthrough{\lstinline!dim()!} function returns the dimensions of the matrix. To fill the matrix column-wise, set \passthrough{\lstinline!byrow = FALSE!}.
 
 \subsection*{Data Frames in R}\label{data-frames-in-r}
-\addcontentsline{toc}{subsection}{Data Frames in R}
+
 
 A data frame is a two-dimensional table where each column can contain a different data type (numeric, character, or logical). This makes data frames ideal for storing tabular data, similar to spreadsheets. You can create a data frame using the \passthrough{\lstinline!data.frame()!} function:
 
@@ -937,7 +964,7 @@ head(churn)
 This code loads the \textbf{liver} package, retrieves the \emph{churn} dataset, and provides an overview of its structure. The \passthrough{\lstinline!str()!} function is particularly useful for summarizing data frames, as it displays data types and column values.
 
 \subsection*{Lists in R}\label{lists-in-r}
-\addcontentsline{toc}{subsection}{Lists in R}
+
 
 A list is a flexible data structure that can contain elements of different types, including vectors, matrices, data frames, or even other lists. Lists are useful for storing complex objects in a structured way. You can create a list using the \passthrough{\lstinline!list()!} function:
 
@@ -1071,7 +1098,7 @@ ggplot(data = <DATA>) +
 Using this template, a variety of visualizations can be created.
 
 \subsection*{Geom Functions in ggplot2}\label{geom-functions-in-ggplot2}
-\addcontentsline{toc}{subsection}{Geom Functions in ggplot2}
+
 
 Geom functions determine the type of plot created in \textbf{ggplot2}. Some commonly used geom functions include:
 
@@ -1123,7 +1150,7 @@ ggplot(data = mtcars, mapping = aes(x = mpg, y = hp)) +
 Additional visualization examples can be found in Chapter \ref{chapter-EDA}. For a complete list of geom functions, refer to the \href{https://ggplot2.tidyverse.org}{\textbf{ggplot2} documentation}.
 
 \subsection*{Aesthetics in ggplot2}\label{aesthetics-in-ggplot2}
-\addcontentsline{toc}{subsection}{Aesthetics in ggplot2}
+
 
 Aesthetics control the visual properties of data points, such as color, size, and shape. These properties are specified within the \passthrough{\lstinline!aes()!} function. For example:
 
@@ -1216,7 +1243,7 @@ To get started, the following resources provide useful references:
 \end{itemize}
 
 \subsection*{R Markdown Basics}\label{r-markdown-basics}
-\addcontentsline{toc}{subsection}{R Markdown Basics}
+
 
 R Markdown follows a literate programming approach, combining text and executable code in a single document. Unlike word processors where formatting is visible during writing, R Markdown requires compilation to generate the final report. This approach ensures automation, as plots and figures are generated dynamically and inserted into the document. Since the code is embedded, analyses are fully reproducible.
 
@@ -1229,7 +1256,7 @@ A dialog box will appear, allowing the selection of a document type. For a stand
 R Markdown files use the \passthrough{\lstinline!.Rmd!} extension, distinguishing them from \passthrough{\lstinline!.R!} script files. A newly created file contains a template that can be modified with custom text, code, and formatting.
 
 \subsection*{The Header}\label{the-header}
-\addcontentsline{toc}{subsection}{The Header}
+
 
 The header defines metadata such as the document's title, author, date, and output format. It is enclosed within three dashes (\passthrough{\lstinline!---!}).
 
@@ -1257,7 +1284,7 @@ output: html_document
 Additional metadata can be included for customization, such as table of contents options and formatting preferences.
 
 \subsection*{Code Chunks and Inline Code}\label{code-chunks-and-inline-code}
-\addcontentsline{toc}{subsection}{Code Chunks and Inline Code}
+
 
 R Markdown integrates R code within documents using code chunks, which are enclosed in triple backticks (\passthrough{\lstinline!```\{r\}!}) followed by the code. For example:
 
@@ -1271,7 +1298,7 @@ R Markdown integrates R code within documents using code chunks, which are enclo
 
 When compiled, R executes the code and displays the output within the document. Code chunks are used for analysis, visualizations, and modeling. The ``Run'' button in RStudio allows individual execution of chunks. See Figure \ref{fig:run-chunk} for a visual guide.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{images/ch1_run-chunk} 
 
@@ -1311,7 +1338,7 @@ The factorial of 5 is 120.
 \end{lstlisting}
 
 \subsection*{Styling Text}\label{styling-text}
-\addcontentsline{toc}{subsection}{Styling Text}
+
 
 R Markdown supports various text formatting options:
 
@@ -1339,7 +1366,7 @@ Block: $$ y = \beta_0 + \beta_1 x $$
 \end{lstlisting}
 
 \subsection*{Mastering R Markdown}\label{mastering-r-markdown}
-\addcontentsline{toc}{subsection}{Mastering R Markdown}
+
 
 For further learning:
 
@@ -1362,7 +1389,7 @@ By leveraging R Markdown, data scientists can produce high-quality, reproducible
 This section provides hands-on exercises to reinforce your understanding of the fundamental concepts covered in this chapter.
 
 \subsection*{Basic Exercises}\label{basic-exercises}
-\addcontentsline{toc}{subsection}{Basic Exercises}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1421,7 +1448,7 @@ This section provides hands-on exercises to reinforce your understanding of the 
 \end{enumerate}
 
 \subsection*{More Challenges Exercise}\label{more-challenges-exercise}
-\addcontentsline{toc}{subsection}{More Challenges Exercise}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1547,7 +1574,7 @@ This section is well-structured and provides a clear introduction to data scienc
 
 Data science is an interdisciplinary field that integrates computer science, statistics, and domain expertise to extract insights from data. It involves using analytical and computational techniques to process vast amounts of raw data, transforming them into meaningful information that supports decision-making and strategic planning.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.5\linewidth]{images/ch2_data_science} 
 
@@ -1561,7 +1588,7 @@ Although the term ``data science'' is relatively new, its foundations lie in wel
 At its core, data science is concerned with extracting knowledge from data using a combination of statistical techniques, machine learning algorithms, and domain-specific methodologies. It helps organizations manage and understand the vast amounts of information generated in the digital age.
 
 \subsection*{Key Components of Data Science}\label{key-components-of-data-science}
-\addcontentsline{toc}{subsection}{Key Components of Data Science}
+
 
 The field of data science encompasses three main components:
 
@@ -1602,7 +1629,7 @@ The \emph{data science workflow} follows an \emph{iterative} and \emph{cyclical}
 
 A \emph{data science workflow} follows a phased, adaptive approach within a scientific framework, transforming raw data into actionable knowledge. This transformation is often conceptualized using the \emph{DIKW Pyramid} (Data → Information → Knowledge → Wisdom), as illustrated in Figure \ref{fig:DIKW-Pyramid}.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.5\linewidth]{images/ch2_DIKW-Pyramid} 
 
@@ -1632,7 +1659,7 @@ While the specifics may vary across projects, most data science workflows follow
   \textbf{Deployment} -- Integrating the model into a production environment and monitoring its performance over time.
 \end{enumerate}
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.7\linewidth]{images/ch2_DSW} 
 
@@ -1787,7 +1814,7 @@ Machine learning is a branch of artificial intelligence that focuses on developi
 For instance, rather than defining a fixed set of rules to detect spam emails, a machine learning model can be trained on a labeled dataset of emails classified as ``spam'' or ``not spam.'' The model learns distinguishing patterns and can classify new emails with high accuracy. This ability to generalize from data makes machine learning invaluable in fields such as finance, healthcare, and marketing.
 
 \subsection*{Machine Learning Tasks: Supervised vs.~Unsupervised Learning}\label{machine-learning-tasks-supervised-vs.-unsupervised-learning}
-\addcontentsline{toc}{subsection}{Machine Learning Tasks: Supervised vs.~Unsupervised Learning}
+
 
 Machine learning tasks can be broadly categorized into \emph{supervised learning} and \emph{unsupervised learning}, which differ in terms of how models learn from data and the objectives of the analysis.
 
@@ -1887,7 +1914,7 @@ To illustrate these concepts, we will use the \emph{diamonds} dataset from the \
 Before preparing data for analysis, it is essential to define the problem and establish clear objectives. In this case, we aim to analyze the \emph{diamonds} dataset to gain insights into \emph{diamond pricing}, a critical factor in industries such as \emph{jewelry retail, gemology, and e-commerce}. The dataset includes attributes that influence diamond value, allowing us to explore the key factors affecting pricing.
 
 \subsection*{Objectives and Key Questions}\label{objectives-and-key-questions}
-\addcontentsline{toc}{subsection}{Objectives and Key Questions}
+
 
 Our primary objectives with the \emph{diamonds} dataset are to:
 
@@ -1915,7 +1942,7 @@ To achieve these objectives, we will address key questions such as:
 \end{itemize}
 
 \subsection*{Framing the Problem as a Data Science Task}\label{framing-the-problem-as-a-data-science-task}
-\addcontentsline{toc}{subsection}{Framing the Problem as a Data Science Task}
+
 
 From a business perspective, understanding diamond pricing can provide valuable insights for \emph{jewelers, e-commerce platforms, and gemologists}. From a \emph{data science} perspective, this problem can be approached in two ways:
 
@@ -1991,7 +2018,7 @@ This function reveals that the dataset has 53940 observations and 10 variables. 
 \end{itemize}
 
 \subsection*{\texorpdfstring{Types of Features in the \texttt{diamonds} Dataset}{Types of Features in the diamonds Dataset}}\label{types-of-features-in-the-diamonds-dataset}
-\addcontentsline{toc}{subsection}{Types of Features in the \texttt{diamonds} Dataset}
+
 
 Understanding the types of features in the dataset is essential for determining the appropriate data preparation steps:
 
@@ -2030,7 +2057,7 @@ Knowing the type of each feature guides decisions about data preparation. For in
 By understanding the types of variables in the \emph{diamonds} dataset, we can select appropriate transformations and encoding methods to prepare the data effectively for analysis and modeling.
 
 \subsection*{Key Considerations for Data Preparation}\label{key-considerations-for-data-preparation}
-\addcontentsline{toc}{subsection}{Key Considerations for Data Preparation}
+
 
 With our objectives in mind, here are the main priorities for preparing this dataset:
 
@@ -2063,10 +2090,10 @@ Outliers play a critical role in multiple industries:
 In many cases, outliers are not errors but signals of important events. Understanding their role in data analysis ensures that we don't remove valuable insights unintentionally.
 
 \subsection*{Identifying Outliers Using Visualization Techniques}\label{identifying-outliers-using-visualization-techniques}
-\addcontentsline{toc}{subsection}{Identifying Outliers Using Visualization Techniques}
+
 
 \subsubsection*{Boxplots: Detecting Extreme Values}\label{boxplots-detecting-extreme-values}
-\addcontentsline{toc}{subsubsection}{Boxplots: Detecting Extreme Values}
+
 
 Boxplots are a visual tool for detecting extreme values. Below is a boxplot of the \passthrough{\lstinline!y!} variable (diamond width) by using the \textbf{ggplot()} and \passthrough{\lstinline!geom\_boxplot()!} functions from the \textbf{ggplot2} package:
 
@@ -2080,7 +2107,7 @@ ggplot(data = diamonds) +
 Here, boxplots highlight values beyond the whiskers, which may indicate potential outliers. Since diamonds cannot have a width of 0 mm, values like 32 mm or 59 mm likely result from data entry errors.
 
 \subsubsection*{Histograms: Understanding Outlier Distribution}\label{histograms-understanding-outlier-distribution}
-\addcontentsline{toc}{subsubsection}{Histograms: Understanding Outlier Distribution}
+
 
 Histograms provide another visual approach to detecting outliers by displaying the frequency distribution of values. Below is a histogram of the \passthrough{\lstinline!y!} variable by using the \emph{ggplot()} and \emph{geom\_histogram()} functions:
 
@@ -2112,7 +2139,7 @@ Other useful visualization techniques include:
 \end{itemize}
 
 \subsection*{Handling Outliers: Best Practices}\label{handling-outliers-best-practices}
-\addcontentsline{toc}{subsection}{Handling Outliers: Best Practices}
+
 
 Once outliers are identified, there are several strategies for handling them:
 
@@ -2134,7 +2161,7 @@ Once outliers are identified, there are several strategies for handling them:
 Choosing the right strategy depends on the context of the analysis and the potential impact of the outlier.
 
 \subsection*{Expanded Code Example: Handling Outliers in R}\label{expanded-code-example-handling-outliers-in-r}
-\addcontentsline{toc}{subsection}{Expanded Code Example: Handling Outliers in R}
+
 
 After detecting outliers, we can choose to either replace them with \passthrough{\lstinline!NA!} values or remove them. For this, we could consider using the \passthrough{\lstinline!mutate()!} function from the \textbf{dplyr} package. Here's an example of treating outliers as missing values using \passthrough{\lstinline!mutate()!} and \passthrough{\lstinline!ifelse()!}:
 
@@ -2166,7 +2193,7 @@ Missing values pose significant challenges in data analysis, as they can lead to
 \end{enumerate}
 
 \subsection*{Imputation Techniques}\label{imputation-techniques}
-\addcontentsline{toc}{subsection}{Imputation Techniques}
+
 
 There are several strategies for imputing missing values, each with different use cases:
 
@@ -2192,7 +2219,7 @@ diamonds_2$y <- impute(diamonds_2$y, "random")
 The \passthrough{\lstinline!impute()!} function replaces missing values with randomly sampled values from the existing distribution of \passthrough{\lstinline!y!}, maintaining the overall statistical properties of the dataset.
 
 \subsection*{Best Practices}\label{best-practices}
-\addcontentsline{toc}{subsection}{Best Practices}
+
 
 \begin{itemize}
 \tightlist
@@ -2355,7 +2382,7 @@ These fields are essential for understanding and predicting diamond pricing, but
 There are several approaches to converting categorical variables into numeric representations. The method we choose depends on the type of categorical variable and the nature of the data.
 
 \subsubsection*{Ordinal Encoding}\label{ordinal-encoding}
-\addcontentsline{toc}{subsubsection}{Ordinal Encoding}
+
 
 Ordinal encoding is suitable when the categorical variable has a meaningful order. For example, the \passthrough{\lstinline!cut!} feature in the \emph{diamonds} dataset is ordinal, as there is a natural hierarchy from ``Fair'' to ``Ideal.'' In ordinal encoding, each category is assigned a unique integer based on its rank or level of importance.
 
@@ -2378,7 +2405,7 @@ In this example, we might assign values as follows:
 This approach preserves the order of the categories, which can be useful in models that interpret numeric values in a relative way, such as linear regression. However, it is important to apply ordinal encoding only when the order is meaningful. For non-ordinal variables, other methods like one-hot encoding are more appropriate.
 
 \subsubsection*{One-Hot Encoding}\label{one-hot-encoding}
-\addcontentsline{toc}{subsubsection}{One-Hot Encoding}
+
 
 One-hot encoding is the preferred technique for nominal variables---categorical fields without an intrinsic order. In this approach, each unique category in a field is transformed into a new binary (0 or 1) feature. This method is particularly useful for variables like \passthrough{\lstinline!color!} and \passthrough{\lstinline!clarity!} in the \emph{diamonds} dataset, where the categories do not follow a clear sequence.
 
@@ -2401,7 +2428,7 @@ Note: Many machine learning libraries automatically drop one of the binary colum
 \end{quote}
 
 \subsubsection*{Frequency Encoding}\label{frequency-encoding}
-\addcontentsline{toc}{subsubsection}{Frequency Encoding}
+
 
 Another useful approach, especially for high-cardinality categorical variables (those with many unique values), is frequency encoding. This technique replaces each category with its frequency in the dataset, allowing the model to capture information about how common each category is. Frequency encoding can be particularly helpful for fields like \passthrough{\lstinline!clarity!} if you want to give the model an indication of how prevalent each level is.
 
@@ -2477,7 +2504,7 @@ In this case study, we will explore the \emph{Adult} dataset, sourced from the \
 The goal of this study is to predict whether an individual earns more than \$50,000 per year based on their attributes. In Section \ref{tree-case-study} of Chapter \ref{chapter-tree}, we will apply decision tree and random forest algorithms to build a predictive model. Before applying these techniques, we need to preprocess the dataset by handling missing values, encoding categorical variables, and scaling numerical features. Let's begin by loading the dataset and examining its structure.
 
 \subsection*{Overview of the Dataset}\label{overview-of-the-dataset}
-\addcontentsline{toc}{subsection}{Overview of the Dataset}
+
 
 To use the \emph{Adult} dataset, first ensure that the \textbf{liver} package is installed. If not, install it using:
 
@@ -2637,7 +2664,7 @@ gg_miss_var(adult, show_pct = TRUE)
 The plot indicates that \passthrough{\lstinline!workclass!}, \passthrough{\lstinline!occupation!}, and \passthrough{\lstinline!native.country!} contain missing values. The percentage of missing values in these variables is relatively low, with \passthrough{\lstinline!workclass!} and \passthrough{\lstinline!occupation!} having less than 0.06 percent missing data, while \passthrough{\lstinline!native.country!} has about 0.02 percent.
 
 \subsubsection*{Imputing Missing Values}\label{imputing-missing-values}
-\addcontentsline{toc}{subsubsection}{Imputing Missing Values}
+
 
 Instead of removing records with missing values, which can lead to information loss, we apply \emph{random imputation}, where missing values are filled with randomly selected values from the existing distribution of each variable. This maintains the natural proportions of each category.
 
@@ -2663,7 +2690,7 @@ gg_miss_var(adult, show_pct = TRUE)
 The updated plot should show no missing values, indicating successful imputation.
 
 \subsubsection*{Alternative Approaches}\label{alternative-approaches}
-\addcontentsline{toc}{subsubsection}{Alternative Approaches}
+
 
 The \passthrough{\lstinline!impute()!} function allows for different statistical methods such as mean, median, or mode imputation. Its default behavior is \emph{median} imputation. For more advanced techniques, the \passthrough{\lstinline!aregImpute()!} function from the \textbf{Hmisc} package offers predictive imputation using additive regression, bootstrapping, and predictive mean matching.
 
@@ -2676,7 +2703,7 @@ By properly handling missing values, we ensure data completeness and maintain th
 Categorical variables often contain a large number of unique values, making them challenging to use in predictive models. In the \emph{Adult} dataset, \passthrough{\lstinline!native.country!} and \passthrough{\lstinline!workclass!} have multiple categories, which can introduce complexity and redundancy. To simplify these variables, we group similar categories together while preserving their interpretability.
 
 \subsubsection*{\texorpdfstring{Grouping \texttt{native.country} by Continent}{Grouping native.country by Continent}}\label{grouping-native.country-by-continent}
-\addcontentsline{toc}{subsubsection}{Grouping \texttt{native.country} by Continent}
+
 
 The \passthrough{\lstinline!native.country!} variable contains 41 distinct countries. To make it more manageable, we categorize countries into broader geographical regions:
 
@@ -2728,7 +2755,7 @@ table(adult$native.country)
 By grouping the original 42 countries into 5 broader regions, we simplify the variable while maintaining its relevance for analysis.
 
 \subsubsection*{\texorpdfstring{Simplifying \texttt{workclass}}{Simplifying workclass}}\label{simplifying-workclass}
-\addcontentsline{toc}{subsubsection}{Simplifying \texttt{workclass}}
+
 
 The \passthrough{\lstinline!workclass!} variable originally contains several employment categories. Since ``Never-worked'' and ``Without-pay'' represent similar employment statuses, we merge them into a single category labeled ``Unemployed'':
 
@@ -2752,7 +2779,7 @@ By reducing the number of unique categories in \passthrough{\lstinline!workclass
 Detecting and handling outliers is an essential step in data preprocessing, as extreme values can significantly impact statistical analysis and model performance. Here, we examine potential outliers in the \passthrough{\lstinline!capital.loss!} variable to determine whether adjustments are necessary.
 
 \subsubsection*{Summary Statistics}\label{summary-statistics}
-\addcontentsline{toc}{subsubsection}{Summary Statistics}
+
 
 To gain an initial understanding of \passthrough{\lstinline!capital.loss!}, we compute its summary statistics:
 
@@ -2777,7 +2804,7 @@ The summary output reveals the following insights:
 \end{itemize}
 
 \subsubsection*{Visualizing Outliers}\label{visualizing-outliers}
-\addcontentsline{toc}{subsubsection}{Visualizing Outliers}
+
 
 To further investigate the distribution of \passthrough{\lstinline!capital.loss!}, we use a boxplot and histogram:
 
@@ -2808,7 +2835,7 @@ From these plots, we observe:
 Since a large proportion of observations report no capital loss, we further examine the nonzero cases.
 
 \subsubsection*{Zooming into the Nonzero Distribution}\label{zooming-into-the-nonzero-distribution}
-\addcontentsline{toc}{subsubsection}{Zooming into the Nonzero Distribution}
+
 
 To better visualize the spread of nonzero values, we focus on observations with \passthrough{\lstinline!capital.loss > 0!}:
 
@@ -2838,7 +2865,7 @@ Key takeaways from these refined plots:
 \end{itemize}
 
 \subsubsection*{Handling Outliers}\label{handling-outliers}
-\addcontentsline{toc}{subsubsection}{Handling Outliers}
+
 
 Although \passthrough{\lstinline!capital.loss!} contains many high values, these do not appear to be erroneous. Instead, they reflect genuine cases within the dataset. Since these values provide meaningful information about particular individuals, we retain them rather than applying transformations or removals.
 
@@ -2862,7 +2889,7 @@ Next, we perform a similar outlier analysis for the \passthrough{\lstinline!capi
 This section provides hands-on exercises to reinforce the key concepts covered in this chapter. These questions include theoretical, exploratory, and practical challenges related to data types, outliers, encoding techniques, and feature engineering.
 
 \subsection*{Understanding Data Types}\label{understanding-data-types}
-\addcontentsline{toc}{subsection}{Understanding Data Types}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -2874,7 +2901,7 @@ This section provides hands-on exercises to reinforce the key concepts covered i
 \end{enumerate}
 
 \subsection*{Exploring the diamonds Dataset}\label{exploring-the-diamonds-dataset}
-\addcontentsline{toc}{subsection}{Exploring the diamonds Dataset}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -2887,7 +2914,7 @@ This section provides hands-on exercises to reinforce the key concepts covered i
 \end{enumerate}
 
 \subsection*{Detecting and Handling Outliers}\label{detecting-and-handling-outliers}
-\addcontentsline{toc}{subsection}{Detecting and Handling Outliers}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -2902,7 +2929,7 @@ This section provides hands-on exercises to reinforce the key concepts covered i
 \end{enumerate}
 
 \subsection*{Encoding Categorical Variables}\label{encoding-categorical-variables-1}
-\addcontentsline{toc}{subsection}{Encoding Categorical Variables}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -2915,7 +2942,7 @@ This section provides hands-on exercises to reinforce the key concepts covered i
 \end{enumerate}
 
 \subsection*{Analyzing the Adult Dataset}\label{analyzing-the-adult-dataset}
-\addcontentsline{toc}{subsection}{Analyzing the Adult Dataset}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -2932,7 +2959,7 @@ This section provides hands-on exercises to reinforce the key concepts covered i
 \end{enumerate}
 
 \subsection*{Feature Engineering Challenge}\label{feature-engineering-challenge}
-\addcontentsline{toc}{subsection}{Feature Engineering Challenge}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -2962,7 +2989,7 @@ This section provides hands-on exercises to reinforce the key concepts covered i
 \end{enumerate}
 
 \subsection*{Advanced Data Preparation Challenges}\label{advanced-data-preparation-challenges}
-\addcontentsline{toc}{subsection}{Advanced Data Preparation Challenges}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -3084,7 +3111,7 @@ Data storytelling is widely used in business, scientific research, and journalis
 
 One example comes from climate science. Figure \ref{fig:EDA-fig-1} presents global mean surface temperature changes over the Common Era, highlighting long-term warming trends. Adapted from \citet{neukom2019no}, this visualization provides a historical perspective on climate change, illustrating temperature anomalies over time.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=1\linewidth]{images/ch4_EDA_fig_1} 
 
@@ -3095,7 +3122,7 @@ One example comes from climate science. Figure \ref{fig:EDA-fig-1} presents glob
 
 Another example focuses on global health and demographics. Figure \ref{fig:EDA-fig-2} illustrates the relationship between fertility rate and life expectancy across world regions from 1960 to 2015. Adapted from Hans Rosling's TED Talk \href{https://www.ted.com/talks/hans_rosling_new_insights_on_poverty}{``New insights on poverty''}, this visualization effectively conveys trends in population health and economic development over time.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=1\linewidth]{4_Exploratory_Data_Analysis_files/figure-latex/EDA-fig-2-1} 
 
@@ -3115,7 +3142,7 @@ To illustrate the exploratory data analysis process, we will use the \emph{churn
 EDA will help us understand this dataset by identifying patterns related to customer churn, determining which features influence retention, and establishing a structured approach for predictive modeling. By examining summary statistics and visualizations, we can extract meaningful insights before moving on to machine learning techniques in later chapters.
 
 \subsection*{Problem Understanding}\label{problem-understanding-1}
-\addcontentsline{toc}{subsection}{Problem Understanding}
+
 
 Companies seek to minimize customer churn by identifying factors that influence customer decisions. Key business questions include:
 
@@ -3132,7 +3159,7 @@ Companies seek to minimize customer churn by identifying factors that influence 
 EDA helps answer these questions by uncovering trends and patterns in customer behavior. In Chapter \ref{chapter-knn}, we will build a predictive model to identify customers likely to churn. Before doing so, it is essential to explore the data and understand its structure.
 
 \subsection*{Data Understanding}\label{data-understanding}
-\addcontentsline{toc}{subsection}{Data Understanding}
+
 
 The \emph{churn} dataset comes from IBM Sample Data Sets and contains 5000 customer records across 20 variables. This dataset is available in the \textbf{liver} package. The target variable, \passthrough{\lstinline!churn!}, indicates whether a customer has left the company. The dataset includes a mix of categorical and numerical variables:
 
@@ -3278,12 +3305,12 @@ ggplot(data = churn, aes(x = churn, label = scales::percent(prop.table(stat(coun
   geom_text(stat = 'count', vjust = 0.2, size = 6)
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{4_Exploratory_Data_Analysis_files/figure-latex/unnamed-chunk-4-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{4_Exploratory_Data_Analysis_files/figure-latex/unnamed-chunk-4-1} \end{center}
 
 The bar plot reveals that the dataset is imbalanced, with more customers staying (\passthrough{\lstinline!churn = "no"!}) than leaving (\passthrough{\lstinline!churn = "yes"!}). The proportion of churners is approximately 1.4 percent, while the proportion of non-churners is 8.6 percent. Since imbalanced data can impact predictive modeling, understanding churn patterns is essential for improving retention strategies.
 
 \subsection*{Relationship Between Churn and Subscription Plans}\label{relationship-between-churn-and-subscription-plans}
-\addcontentsline{toc}{subsection}{Relationship Between Churn and Subscription Plans}
+
 
 We first analyze \passthrough{\lstinline!intl.plan!}, which indicates whether a customer has an international calling plan. As a binary variable, it allows for a straightforward comparison of churn rates between subscribed and non-subscribed customers.
 
@@ -3316,7 +3343,7 @@ addmargins(table(churn$churn, churn$intl.plan,
 The results confirm that churn is more prevalent among customers subscribed to an international plan. This suggests that international service offerings may not be meeting customer expectations, leading to higher attrition. Companies may need to investigate whether pricing, service quality, or competition is influencing this trend.
 
 \subsection*{Relationship Between Churn and Voice Mail Plan}\label{relationship-between-churn-and-voice-mail-plan}
-\addcontentsline{toc}{subsection}{Relationship Between Churn and Voice Mail Plan}
+
 
 Next, we examine \passthrough{\lstinline!voice.plan!}, which indicates whether a customer has subscribed to a voice mail plan.
 
@@ -3346,7 +3373,7 @@ addmargins(table(churn$churn, churn$voice.plan, dnn = c("Churn", "Voice Mail Pla
 While the difference is less pronounced than for \passthrough{\lstinline!intl.plan!}, it suggests that customers who actively use voice mail services may be more engaged and therefore less likely to leave.
 
 \subsubsection*{Key Insights}\label{key-insights}
-\addcontentsline{toc}{subsubsection}{Key Insights}
+
 
 \begin{itemize}
 \tightlist
@@ -3365,7 +3392,7 @@ By exploring categorical variables in this way, we uncover actionable insights t
 We now turn to numerical variables in the churn dataset, examining their distributions and relationships with the target variable. Summary statistics provide an initial understanding, but visualizations such as histograms, box plots, and density plots help reveal patterns and potential predictors of churn.
 
 \subsection*{Customer Service Calls and Churn}\label{customer-service-calls-and-churn}
-\addcontentsline{toc}{subsection}{Customer Service Calls and Churn}
+
 
 The variable \passthrough{\lstinline!customer.calls!} represents the number of calls a customer makes to customer service. Since this is a discrete numerical variable, we use a histogram to examine its distribution:
 
@@ -3408,7 +3435,7 @@ Key Insights and Business Implications:
 \end{itemize}
 
 \subsection*{Daytime Minutes and Churn}\label{daytime-minutes-and-churn}
-\addcontentsline{toc}{subsection}{Daytime Minutes and Churn}
+
 
 Next, we examine \passthrough{\lstinline!day.mins!}, which represents the number of minutes a customer spends on daytime calls. We use box plots and density plots to compare distributions between churners and non-churners.
 
@@ -3438,7 +3465,7 @@ Key Insights and Business Implications:
 \end{itemize}
 
 \subsection*{Evening and Nighttime Minutes}\label{evening-and-nighttime-minutes}
-\addcontentsline{toc}{subsection}{Evening and Nighttime Minutes}
+
 
 To investigate whether evening and nighttime call patterns also relate to churn, we plot \passthrough{\lstinline!eve.mins!} and \passthrough{\lstinline!night.mins!}.
 
@@ -3481,7 +3508,7 @@ Key Insights and Business Implications:
 Your subsection is \textbf{well-structured} and provides a \textbf{clear} overview of the analysis. However, there are a few \textbf{areas for improvement} in terms of \textbf{clarity, conciseness, and flow}. Below is an improved version that maintains the \textbf{same structure and meaning} while enhancing \textbf{readability and coherence}.
 
 \subsection*{International Calls and Churn}\label{international-calls-and-churn}
-\addcontentsline{toc}{subsection}{International Calls and Churn}
+
 
 We now examine \passthrough{\lstinline!intl.calls!}, which represents the total number of international calls made by customers. To explore its relationship with churn, we visualize the distribution using box plots and density plots.
 
@@ -3501,7 +3528,7 @@ The box plot (left) indicates that churners (\passthrough{\lstinline!churn=yes!}
 Although there is a slight trend suggesting that churners make fewer international calls on average, the difference does not appear substantial. This suggests that \passthrough{\lstinline!intl.calls!} is not a strong predictor of churn. To confirm whether this relationship is statistically significant, further testing---such as a two-sample t-test or logistic regression---would be required. In Section \ref{two-sample-t-test} of the next chapter, we demonstrate how to formally test this relationship using statistical methods.
 
 \subsubsection*{Final Takeaways}\label{final-takeaways}
-\addcontentsline{toc}{subsubsection}{Final Takeaways}
+
 
 \begin{itemize}
 \tightlist
@@ -3530,7 +3557,7 @@ ggplot(data = churn) +
     geom_abline(intercept = 400, slope = -0.6, color = "blue", size = 1)
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{4_Exploratory_Data_Analysis_files/figure-latex/unnamed-chunk-15-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{4_Exploratory_Data_Analysis_files/figure-latex/unnamed-chunk-15-1} \end{center}
 
 The diagonal line, represented by the equation:
 
@@ -3550,7 +3577,7 @@ ggplot(data = sub_churn, aes(x = churn, label = scales::percent(prop.table(stat(
     geom_text(stat = 'count', vjust = 0.2, size = 6)
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{4_Exploratory_Data_Analysis_files/figure-latex/unnamed-chunk-16-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{4_Exploratory_Data_Analysis_files/figure-latex/unnamed-chunk-16-1} \end{center}
 
 Within this subset, the churn rate is significantly higher than in the overall dataset, reinforcing the importance of considering variable interactions. The combination of high day and evening usage may indicate a specific customer behavior pattern that correlates with dissatisfaction.
 
@@ -3562,12 +3589,12 @@ ggplot(data = churn) +
   scale_color_manual(values = c("palevioletred1", "darkseagreen1"))
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{4_Exploratory_Data_Analysis_files/figure-latex/unnamed-chunk-17-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{4_Exploratory_Data_Analysis_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 This scatter plot reveals an interesting high-churn region in the upper left, where customers make frequent customer service calls but have low day-minute usage. This group may represent dissatisfied customers who are not heavy users but are still experiencing service-related frustrations. By contrast, high-minute users who also make frequent service calls show a lower churn rate, possibly indicating that engaged customers are more tolerant of service issues.
 
 \subsubsection*{Key Takeaways}\label{key-takeaways}
-\addcontentsline{toc}{subsubsection}{Key Takeaways}
+
 
 \begin{itemize}
 \tightlist
@@ -3593,7 +3620,7 @@ The strength and direction of a correlation are measured by the correlation coef
 
 Below, Figure \ref{fig:correlation} shows examples of different correlation coefficients.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=1\linewidth]{images/ch4_correlation} 
 
@@ -3639,7 +3666,7 @@ Several variables, while not directly linked to churn in univariate analysis, co
 From a modeling perspective, some variables introduce redundancy. The charge variables (day, evening, night, and international) are perfectly correlated with their corresponding minute variables, as they are derived directly from them. Retaining only the minute variables will avoid multicollinearity while preserving all relevant information. Similarly, the area code and state fields may not contribute much to predictive power, as they do not show strong relationships with churn in this dataset.
 
 \subsection*{Strategic Recommendations}\label{strategic-recommendations}
-\addcontentsline{toc}{subsection}{Strategic Recommendations}
+
 
 These findings present opportunities for targeted interventions to improve customer retention. Given that frequent customer service calls are a strong indicator of churn, companies should implement proactive escalation strategies. Customers making their third service call should receive priority attention, potentially with issue resolution specialists or targeted retention offers.
 
@@ -3652,7 +3679,7 @@ By identifying these churn-related patterns early, businesses can take proactive
 \section{Exercises}\label{exercises-2}
 
 \subsection*{Conceptual Questions}\label{conceptual-questions}
-\addcontentsline{toc}{subsection}{Conceptual Questions}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -3711,7 +3738,7 @@ By identifying these churn-related patterns early, businesses can take proactive
 \end{enumerate}
 
 \subsection*{Hands-On Practice: Exploring the Bank Dataset}\label{hands-on-practice-exploring-the-bank-dataset}
-\addcontentsline{toc}{subsection}{Hands-On Practice: Exploring the Bank Dataset}
+
 
 For hands-on practice, we will explore the \emph{bank} dataset available in the \textbf{R} package \textbf{liver}. The \emph{bank} dataset is related to direct marketing campaigns of a Portuguese banking institution. The campaigns were conducted via phone calls, with multiple contacts sometimes needed to determine whether a client would subscribe to a term deposit. The goal of this dataset is to predict whether a client will subscribe to a term deposit, which will be explored using classification techniques in Chapters \ref{chapter-knn} and \ref{chapter-nn}.
 
@@ -3894,7 +3921,7 @@ For a population mean, the confidence interval is calculated as:
 
 where \(\bar{x}\) is the sample mean, \(z_{\frac{\alpha}{2}}\) is a critical value from the standard normal distribution (such as 1.96 for a 95\% confidence level), \(s\) is the sample standard deviation, and \(n\) is the sample size. This concept is illustrated in Figure \ref{fig:confidence-interval}, where the interval is centered around the point estimate and its width depends on the margin of error.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.8\linewidth]{images/ch5_confidence_interval} 
 
@@ -4032,7 +4059,7 @@ Reject \(H_0\) & {\emph{Type I Error (\(\alpha\))}: Convict an innocent person.}
 A \emph{Type I Error} (\(\alpha\)) occurs when \(H_0\) is rejected even though it is true---similar to convicting an innocent person. A \emph{Type II Error} (\(\beta\)) happens when \(H_0\) is not rejected even though it is false---similar to acquitting a guilty person. The probability of a Type I error is controlled by the chosen significance level (\(\alpha\)), while the probability of a Type II error depends on factors like sample size and test sensitivity.
 
 \subsection*{Common Hypothesis Tests}\label{common-hypothesis-tests}
-\addcontentsline{toc}{subsection}{Common Hypothesis Tests}
+
 
 There are several widely used hypothesis tests, as listed in Table \ref{tab:hypothesis-errors}, each suited to different types of data.
 
@@ -4418,7 +4445,7 @@ ggplot(data = diamonds) +
   scale_fill_manual(values = c("palevioletred1", "darkseagreen1", "skyblue1", "gold1", "lightcoral"))
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{5_Statistics_files/figure-latex/unnamed-chunk-16-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{5_Statistics_files/figure-latex/unnamed-chunk-16-1} \end{center}
 
 The box plot displays the spread and median prices for diamonds in each cut category. While differences in medians and ranges suggest that cut quality might influence price, statistical testing is required to confirm whether these differences are significant. We apply an ANOVA test to formally assess this relationship.
 
@@ -4463,7 +4490,7 @@ ggplot(data = diamonds) +
     labs(x = "Carat", y = "Price") 
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{5_Statistics_files/figure-latex/unnamed-chunk-18-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{5_Statistics_files/figure-latex/unnamed-chunk-18-1} \end{center}
 
 The scatter plot shows a clear upward trend, suggesting that as \emph{carat} increases, so does \emph{price}. However, visualizations alone do not confirm statistical significance. To formally test this relationship, we establish the following hypotheses:
 
@@ -4522,7 +4549,7 @@ In the next chapter, we transition from statistical inference to predictive mode
 \section{Exercises}\label{exercises-3}
 
 \subsection*{Conceptual Questions}\label{conceptual-questions-1}
-\addcontentsline{toc}{subsection}{Conceptual Questions}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -4547,7 +4574,7 @@ In the next chapter, we transition from statistical inference to predictive mode
 \end{enumerate}
 
 \subsection*{Hands-On Practice: Hypothesis Testing in R}\label{hands-on-practice-hypothesis-testing-in-r}
-\addcontentsline{toc}{subsection}{Hands-On Practice: Hypothesis Testing in R}
+
 
 For the following exercises, use the \emph{churn}, \emph{bank}, \emph{marketing}, and \emph{diamonds} datasets available in the \textbf{liver} and \textbf{ggplot2} packages. We have previously used the \emph{churn}, \emph{bank}, and \emph{diamonds} datasets in this and earlier chapters. In Chapter \ref{chapter-regression}, we will introduce the \emph{marketing} dataset for regression analysis.
 
@@ -4808,7 +4835,7 @@ Partitioning the dataset is a crucial step in preparing data for modeling. A com
 
 Partitioning involves dividing the dataset into two subsets: the \emph{training set}, used to build the model, and the \emph{testing set}, used to evaluate performance. This separation simulates real-world conditions, where the model must make predictions on new data. It helps detect and address two common pitfalls in machine learning: \emph{overfitting} and \emph{underfitting}. These trade-offs are illustrated in Figure \ref{fig:model-complexity}, which highlights the balance between model complexity and performance on training and testing datasets.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.65\linewidth]{images/ch6_model_complexity} 
 
@@ -4842,7 +4869,7 @@ To summarize, the general strategy for supervised machine learning consists of t
   \textbf{Evaluating} the performance of models on the testing data to select the most effective approach.
 \end{enumerate}
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.8\linewidth]{images/ch6_partitioning} 
 
@@ -4860,7 +4887,7 @@ Partitioning the dataset is a fundamental step in preparing data for machine lea
 A typical train-test split ratio is 70-30, 80-20, or 90-10, depending on the dataset size and modeling needs. The training set contains all available features, including the target variable, which is used to teach the model patterns in the data. The testing set, however, has the target variable temporarily hidden to simulate real-world conditions. The trained model is then applied to the testing set to predict these hidden values, and its predictions are compared to the actual target values to assess performance.
 
 \subsection*{Example: Train-Test Split in R}\label{example-train-test-split-in-r}
-\addcontentsline{toc}{subsection}{Example: Train-Test Split in R}
+
 
 To illustrate the process of data partitioning, we revisit the \emph{churn} dataset from Section \ref{EDA-sec-churn}, where the goal is to predict customer churn. Since this dataset is included in the \textbf{liver} package, we begin by loading the package and dataset:
 
@@ -4940,7 +4967,7 @@ Categorical variable (with \textgreater{} 2 categories) & Chi-square test \\
 Validating the partition is more than a procedural step---it is a safeguard against biased modeling. If the training and testing sets differ significantly, the model's performance could be compromised. If the training set is not representative of the original dataset, the model may fail to generalize effectively. Conversely, if the testing set does not reflect the population, model evaluation could be misleading. Ensuring that the split retains the characteristics of the original dataset allows for fair and reliable model assessment.
 
 \subsection*{\texorpdfstring{Example: Validating the Target Variable \emph{churn}}{Example: Validating the Target Variable churn}}\label{example-validating-the-target-variable-churn}
-\addcontentsline{toc}{subsection}{Example: Validating the Target Variable \emph{churn}}
+
 
 Let's consider the \emph{churn} dataset introduced in the previous section. The target variable, \emph{churn} (whether a customer has churned or not), is binary. According to Table \ref{tab:partition-test}, the appropriate statistical test to validate the partition for this variable is a \emph{Two-Sample Z-Test}, which compares the proportion of churned customers in the training and testing sets. Thus, the hypotheses for the test are:\\
 \[
@@ -4981,7 +5008,7 @@ The test result provides a \emph{p}-value = 0.69. Since the \emph{p}-value is gr
 While validating the target variable is crucial, extending this process to key predictors such as \passthrough{\lstinline!customer.calls!} or \passthrough{\lstinline!day.mins!} ensures that both subsets remain representative across all important features. For example, numerical features can be validated using a two-sample t-test, while categorical features with multiple levels can be assessed using a Chi-square test. This broader validation ensures that important variables retain their statistical properties across training and testing sets.
 
 \subsection*{What If the Partition Is Invalid?}\label{what-if-the-partition-is-invalid}
-\addcontentsline{toc}{subsection}{What If the Partition Is Invalid?}
+
 
 If statistical tests reveal significant differences between the training and testing sets, adjustments are necessary to ensure the partition remains representative. Several strategies can be applied:
 
@@ -5006,7 +5033,7 @@ In many real-world classification problems, one class of the target variable is 
 Imbalanced datasets pose a challenge because most machine learning algorithms optimize for overall accuracy, which can favor the majority class. A churn prediction model trained on an imbalanced dataset, for example, might classify nearly all customers as non-churners, leading to high accuracy but failing to detect actual churners. This is problematic when the minority class (e.g., fraud cases, churners, or patients with a rare disease) is the key focus of the analysis.
 
 \subsection*{Techniques for Addressing Class Imbalance}\label{techniques-for-addressing-class-imbalance}
-\addcontentsline{toc}{subsection}{Techniques for Addressing Class Imbalance}
+
 
 Balancing the training dataset ensures that both classes are adequately represented during model training, improving the model's ability to generalize. Several techniques can be used to address class imbalance:
 
@@ -5025,7 +5052,7 @@ Balancing the training dataset ensures that both classes are adequately represen
 The choice of technique depends on factors such as dataset size, the severity of imbalance, and the specific machine learning algorithm used.
 
 \subsection*{\texorpdfstring{Example: Balancing the \emph{Churn} Dataset}{Example: Balancing the Churn Dataset}}\label{example-balancing-the-churn-dataset}
-\addcontentsline{toc}{subsection}{Example: Balancing the \emph{Churn} Dataset}
+
 
 First, we examine the distribution of the target variable (\emph{churn}) in the training dataset:
 
@@ -5066,7 +5093,7 @@ prop.table(table(balanced_train_set$churn))
 In this example, the \passthrough{\lstinline!ovun.sample()!} function increases the proportion of churners to 30\% of the training dataset. The formula notation \passthrough{\lstinline!churn \~ .!} specifies that the balancing is applied based on the target variable (\emph{churn}). After oversampling, the new class distribution is checked to ensure the desired balance.
 
 \subsection*{Key Considerations for Balancing}\label{key-considerations-for-balancing}
-\addcontentsline{toc}{subsection}{Key Considerations for Balancing}
+
 
 Balancing should be performed \emph{only on the training dataset}, not the test dataset. The test dataset should remain representative of the original class distribution to provide an unbiased evaluation of model performance. Modifying the test set would introduce bias and make the model's performance appear artificially better than it would be in real-world scenarios.
 
@@ -5079,7 +5106,7 @@ In summary, balancing the training dataset can improve model performance, especi
 \section{Exercises}\label{exercises-4}
 
 \subsection*{Conceptual Questions}\label{conceptual-questions-2}
-\addcontentsline{toc}{subsection}{Conceptual Questions}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -5114,7 +5141,7 @@ In summary, balancing the training dataset can improve model performance, especi
 \end{enumerate}
 
 \subsection*{Hands-On Practice}\label{hands-on-practice}
-\addcontentsline{toc}{subsection}{Hands-On Practice}
+
 
 For the following exercises, use the \emph{churn}, \emph{bank}, and \emph{risk} datasets available in the \textbf{liver} package. We have previously used the \emph{churn} and \emph{bank} datasets in this and earlier chapters. In Chapter \ref{chapter-bayes}, we will introduce the \emph{risk} dataset. Load the datasets using:
 
@@ -5128,7 +5155,7 @@ data(risk)
 \end{lstlisting}
 
 \subsubsection*{Partitioning the Data}\label{partitioning-the-data}
-\addcontentsline{toc}{subsubsection}{Partitioning the Data}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -5146,7 +5173,7 @@ data(risk)
 \end{enumerate}
 
 \subsubsection*{Validating the Partition}\label{validating-the-partition}
-\addcontentsline{toc}{subsubsection}{Validating the Partition}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -5164,7 +5191,7 @@ data(risk)
 \end{enumerate}
 
 \subsubsection*{Balancing the Training Dataset}\label{balancing-the-training-dataset-1}
-\addcontentsline{toc}{subsubsection}{Balancing the Training Dataset}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -5204,7 +5231,7 @@ At its core, classification involves assigning a label or category to an observa
 From diagnosing diseases to identifying fraudulent activities, classification is a versatile tool used across countless domains to solve practical problems.
 
 \subsection*{Where Is Classification Used?}\label{where-is-classification-used}
-\addcontentsline{toc}{subsection}{Where Is Classification Used?}
+
 
 Classification algorithms power many everyday applications and cutting-edge technologies. Here are some examples:\\
 - \emph{Email filtering}: Sorting spam from non-spam messages.\\
@@ -5217,7 +5244,7 @@ Classification algorithms power many everyday applications and cutting-edge tech
 Every time you interact with technology that ``predicts'' something for you, chances are, a classification model is working behind the scenes.
 
 \subsection*{How Does Classification Work?}\label{how-does-classification-work}
-\addcontentsline{toc}{subsection}{How Does Classification Work?}
+
 
 Classification involves two critical phases:
 
@@ -5233,7 +5260,7 @@ Classification involves two critical phases:
 A good classification model does more than just memorize the training data---it \emph{generalizes} well, meaning it performs accurately on new, unseen data. For instance, a model trained on historical medical records should be able to diagnose a patient it has never encountered before, rather than simply repeating past diagnoses.
 
 \subsection*{Which Classification Algorithm Should You Use?}\label{which-classification-algorithm-should-you-use}
-\addcontentsline{toc}{subsection}{Which Classification Algorithm Should You Use?}
+
 
 Different classification algorithms are designed for different kinds of problems and datasets. Some commonly used algorithms include:\\
 - \emph{k-Nearest Neighbors (kNN)}: A simple, distance-based algorithm (introduced in this chapter).\\
@@ -5247,7 +5274,7 @@ The choice of algorithm depends on factors such as dataset size, feature relatio
 To illustrate classification in action, consider a \emph{bank} dataset where the goal is to predict whether a customer will make a deposit (\passthrough{\lstinline!deposit = yes!}) or not (\passthrough{\lstinline!deposit = no!}). The features might include customer details like \passthrough{\lstinline!age!}, \passthrough{\lstinline!education!}, \passthrough{\lstinline!job!}, and \passthrough{\lstinline!marital status!}. By training a classification model on this data, the bank can identify and target potential customers who are likely to invest, improving their marketing strategy.
 
 \subsection*{Why Is Classification Important?}\label{why-is-classification-important}
-\addcontentsline{toc}{subsection}{Why Is Classification Important?}
+
 
 Classification forms the backbone of countless machine learning applications that drive smarter decisions and actionable insights in industries like finance, healthcare, retail, and technology. Understanding how it works is a critical step in mastering machine learning and applying it to solve real-world problems.
 
@@ -5260,7 +5287,7 @@ Have you ever sought advice from a few trusted friends before making a decision?
 Unlike many machine learning algorithms that require an explicit training phase, kNN is a \emph{lazy learning} or \emph{instance-based} method. Instead of constructing a complex model, it stores the entire training dataset and makes predictions on demand. When given a new observation, kNN identifies the \emph{k} closest data points using a predefined distance metric. The class label is then assigned based on a \emph{majority vote} among these nearest neighbors. The choice of \(k\), the number of neighbors considered, plays a crucial role in balancing sensitivity to local patterns and generalization to broader trends.
 
 \subsection*{How Does kNN Classify a New Observation?}\label{how-does-knn-classify-a-new-observation}
-\addcontentsline{toc}{subsection}{How Does kNN Classify a New Observation?}
+
 
 To classify a new observation, kNN calculates its \emph{distance} from every data point in the training set using a specified metric, such as \emph{Euclidean distance}, for instance. After identifying the \(k\)-nearest neighbors, the algorithm assigns the most frequent class among them as the predicted category.
 
@@ -5274,7 +5301,7 @@ Figure \ref{fig:knn-image} illustrates this concept with two classes: {Class A (
   \emph{When \(k = 6\)}: The algorithm expands the neighborhood to include the 6 nearest neighbors. This larger set consists of four red circles and two blue squares, shifting the majority class to \emph{Class A (red circles)}. As a result, the new point is classified as Class A.
 \end{itemize}
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.75\linewidth]{images/ch7_knn} 
 
@@ -5286,14 +5313,14 @@ Figure \ref{fig:knn-image} illustrates this concept with two classes: {Class A (
 These examples illustrate how the choice of \(k\) affects classification. A smaller \(k\) (e.g., 3) makes predictions highly sensitive to local patterns, capturing finer details but also increasing the risk of misclassification due to noise. In contrast, a larger \(k\) (e.g., 6) smooths predictions by incorporating more neighbors, reducing sensitivity to individual data points but potentially overlooking localized structures in the data. Selecting an appropriate \(k\) ensures that kNN generalizes well without becoming overly complex or overly simplistic.
 
 \subsection*{Strengths and Limitations of kNN}\label{strengths-and-limitations-of-knn}
-\addcontentsline{toc}{subsection}{Strengths and Limitations of kNN}
+
 
 The kNN algorithm is widely used due to its simplicity and intuitive nature, making it an excellent starting point for classification problems. By relying only on distance metrics and majority voting, it avoids the complexity of training explicit models. However, this simplicity comes with trade-offs, particularly in handling large datasets and noisy features.
 
 One of kNN's key strengths is its ease of implementation and interpretability. Since it does not require model training, it can be applied directly to datasets with minimal preprocessing. It performs well on small datasets where patterns are well-defined and feature relationships are strong. However, kNN is highly sensitive to irrelevant or noisy features, as distance calculations may become less meaningful when unnecessary attributes are included. Additionally, it can be computationally expensive for large datasets, since it must calculate distances for every training point during prediction. The choice of \(k\) also plays a crucial role---too small a \(k\) makes the algorithm overly sensitive to noise, while too large a \(k\) may oversimplify patterns, leading to reduced accuracy.
 
 \section*{kNN in Action: A Toy Example for Drug Classification}\label{knn-in-action-a-toy-example-for-drug-classification}
-\addcontentsline{toc}{section}{kNN in Action: A Toy Example for Drug Classification}
+
 
 To further illustrate kNN, consider a real-world scenario involving drug prescription classification. A dataset of 200 patients includes their \emph{age}, \emph{sodium-to-potassium (Na/K) ratio}, and the drug type they were prescribed. This dataset is synthetically generated to reflect a real-world scenario. For details on how this dataset was generated, refer to Section \ref{intro-R-exercises}. Figure \ref{fig:scatter-plot-ex-drug} visualizes this dataset, where different drug types are represented by:
 
@@ -5307,7 +5334,7 @@ To further illustrate kNN, consider a real-world scenario involving drug prescri
   \emph{Blue squares} for Drug C.
 \end{itemize}
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.95\linewidth]{7_kNN_files/figure-latex/scatter-plot-ex-drug-1} 
 
@@ -5331,7 +5358,7 @@ Suppose three new patients arrive at the clinic, and we need to determine which 
 
 These patients are represented as \emph{orange circles} in Figure \ref{fig:scatter-plot-ex-drug-2}. Using kNN, we will classify the drug type for each patient.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.95\linewidth]{7_kNN_files/figure-latex/scatter-plot-ex-drug-2-1} 
 
@@ -5346,7 +5373,7 @@ For \emph{Patient 2}, the situation is more nuanced. If \(k = 1\), the nearest n
 
 For \emph{Patient 3}, classification becomes even more ambiguous. With \(k = 1\), the closest neighbor is a blue square, classifying the patient as \emph{Drug C}. However, for \(k = 2\) or \(k = 3\), the nearest neighbors belong to multiple classes, creating uncertainty in classification.
 
-\begin{figure}
+\begin{figure}[H]
 \includegraphics[width=0.33\linewidth]{7_kNN_files/figure-latex/scatter-plot-ex-drug-3-1} \includegraphics[width=0.33\linewidth]{7_kNN_files/figure-latex/scatter-plot-ex-drug-3-2} \includegraphics[width=0.33\linewidth]{7_kNN_files/figure-latex/scatter-plot-ex-drug-3-3} \caption{Zoom-in plots for the three new patients and their nearest neighbors. The left plot is for Patient 1, the middle plot is for Patient 2, and the right plot is for Patient 3.}\label{fig:scatter-plot-ex-drug-3}
 \end{figure}
 
@@ -5361,7 +5388,7 @@ In the kNN algorithm, the classification of a new data point is determined by id
 Imagine you're shopping online and looking for recommendations. You're a 50-year-old married female---who's more similar to you: a 40-year-old single female or a 30-year-old married male? The answer depends on how we measure the distance between you and each person. In kNN, this distance is computed using numerical features such as age and categorical features such as marital status. The smaller the distance, the more ``similar'' two individuals are, and the more influence they have in determining predictions. Since kNN assumes that closer points (lower distance) belong to the same class, choosing the right distance metric is crucial for accurate classification.
 
 \subsection*{Euclidean Distance}\label{euclidean-distance}
-\addcontentsline{toc}{subsection}{Euclidean Distance}
+
 
 The most widely used distance metric in kNN is \emph{Euclidean distance}, which measures the straight-line distance between two points. Think of it as the ``as-the-crow-flies'' distance, similar to the shortest path between two locations on a map. This metric is intuitive and aligns with how we often perceive distance in the real world.
 
@@ -5393,7 +5420,7 @@ This result quantifies the dissimilarity between the two patients. In kNN, this 
 \end{example}
 
 \subsection*{Choosing the Right Distance Metric}\label{choosing-the-right-distance-metric}
-\addcontentsline{toc}{subsection}{Choosing the Right Distance Metric}
+
 
 While Euclidean distance is widely used in kNN, it is not always the best choice. Other distance metrics can be more suitable depending on the dataset's characteristics:
 
@@ -5416,7 +5443,7 @@ How many opinions do you seek before making an important decision? Too few might
 There is no universally ``correct'' value for \(k\). The optimal choice depends on the specific dataset and classification problem, requiring careful consideration of the trade-offs involved.
 
 \subsection*{Balancing Overfitting and Underfitting}\label{balancing-overfitting-and-underfitting}
-\addcontentsline{toc}{subsection}{Balancing Overfitting and Underfitting}
+
 
 When \(k\) is too small, such as \(k = 1\), the algorithm becomes highly sensitive to individual training points. Each new observation is classified based on its single closest neighbor, making the model highly reactive to noise and outliers. This can lead to \emph{overfitting}, where the model memorizes the training data but fails to generalize to unseen data. For example, a small cluster of mislabeled data points could disproportionately influence predictions, reducing the model's reliability.
 
@@ -5425,13 +5452,13 @@ Conversely, as \(k\) increases, the algorithm incorporates more neighbors into t
 Choosing an appropriate \(k\) requires balancing these extremes. Smaller values of \(k\) capture fine-grained local structures but risk overfitting, while larger values provide more stability at the expense of detail.
 
 \subsection*{\texorpdfstring{Choosing \(k\) Through Validation}{Choosing k Through Validation}}\label{choosing-k-through-validation}
-\addcontentsline{toc}{subsection}{Choosing \(k\) Through Validation}
+
 
 Since the optimal \(k\) depends on the dataset, a common approach is to evaluate multiple values of \(k\) using a \emph{validation set} or \emph{cross-validation}. Performance metrics such as accuracy, precision, recall, and F1-score help identify the best \(k\) for a given problem.
 
 To illustrate, we use the \emph{churn} dataset and evaluate the accuracy of the kNN algorithm across different \(k\) values (ranging from 1 to 30). Figure \ref{fig:kNN-plot} shows how accuracy fluctuates as \(k\) increases. The plot is generated using the \passthrough{\lstinline!kNN.plot()!} function from the \textbf{liver} package in R.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.85\linewidth]{7_kNN_files/figure-latex/kNN-plot-1} 
 
@@ -5496,7 +5523,7 @@ test_scaled_wrongly  = minmax(test_data , col = c("Age", "Ratio"))
 
 The difference is illustrated in Figure \ref{fig:ex-proper-scaling}. The middle panel shows the results of proper scaling, where the test set is scaled using the same parameters derived from the training set. This ensures consistency in distance calculations across both datasets. In contrast, the right panel shows improper scaling, where the test set is scaled independently. This leads to distorted relationships between the training and test data, which can cause unreliable predictions.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.5\linewidth]{7_kNN_files/figure-latex/ex-proper-scaling-1} \includegraphics[width=0.5\linewidth]{7_kNN_files/figure-latex/ex-proper-scaling-2} \includegraphics[width=0.5\linewidth]{7_kNN_files/figure-latex/ex-proper-scaling-3} 
 
@@ -5620,7 +5647,7 @@ test_labels = test_set$churn
 The \passthrough{\lstinline!partition()!} function randomly splits the dataset while maintaining the class distribution of the target variable, ensuring a representative training and test set. As we validated the partition in Section \ref{sec-validate-partition}, we can now proceed with feature scaling and one-hot encoding to ensure compatibility with the kNN algorithm.
 
 \subsubsection*{One-Hot Encoding}\label{one-hot-encoding-2}
-\addcontentsline{toc}{subsubsection}{One-Hot Encoding}
+
 
 Since kNN relies on distance calculations, categorical variables like \passthrough{\lstinline!voice.plan!} and \passthrough{\lstinline!intl.plan!} must be converted into numerical representations. One-hot encoding achieves this by creating binary (dummy) variables for each category. We apply the \passthrough{\lstinline!one.hot()!} function from the \textbf{liver} package to transform categorical features into a numerical format suitable for kNN:
 
@@ -5659,7 +5686,7 @@ str(test_onehot)
 For binary categorical variables, one-hot encoding produces two columns (e.g., \passthrough{\lstinline!voice.plan\_yes!} and \passthrough{\lstinline!voice.plan\_no!}). Since one variable is always the complement of the other, we retain only one (e.g., \passthrough{\lstinline!voice.plan\_yes!}) to avoid redundancy.
 
 \subsubsection*{Feature Scaling}\label{feature-scaling-2}
-\addcontentsline{toc}{subsubsection}{Feature Scaling}
+
 
 Since kNN calculates distances between data points, features with larger numerical ranges can disproportionately influence the results. Scaling ensures that all features contribute equally to distance calculations, preventing dominance by high-magnitude features.
 
@@ -5697,7 +5724,7 @@ kNN.plot(formula = formula, train = train_scaled, test = test_scaled,
    Setting levels: reference = "yes", case = "no"
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{7_kNN_files/figure-latex/unnamed-chunk-7-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{7_kNN_files/figure-latex/unnamed-chunk-7-1} \end{center}
 
 The resulting plot helps identify the optimal \(k\), balancing \emph{model complexity} and \emph{generalization}. From the visualization, we observe that the highest accuracy is achieved when \(k = 5\), suggesting that this value effectively captures meaningful patterns while minimizing sensitivity to outliers.
 
@@ -5744,7 +5771,7 @@ conf.mat(kNN_predict, test_labels, reference = "yes")
 From the confusion matrix, we see that the model correctly classified 910 instances, while 90 instances were misclassified. This summary helps assess model performance and identify areas for improvement.
 
 \subsection*{Final Remarks}\label{final-remarks}
-\addcontentsline{toc}{subsection}{Final Remarks}
+
 
 This step-by-step implementation of kNN highlighted the crucial role of data preprocessing, parameter tuning, and model evaluation in achieving reliable predictions. Key factors such as the choice of \(k\), feature scaling, and encoding categorical data significantly influence the accuracy and generalization of kNN models.
 
@@ -5761,7 +5788,7 @@ While kNN is intuitive and easy to implement, its prediction speed and scalabili
 \section{Exercises}\label{exercises-5}
 
 \subsection*{Conceptual Questions}\label{conceptual-questions-3}
-\addcontentsline{toc}{subsection}{Conceptual Questions}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -5789,7 +5816,7 @@ While kNN is intuitive and easy to implement, its prediction speed and scalabili
 \end{enumerate}
 
 \subsection*{Hands-On Practice: Applying kNN to the Bank Dataset}\label{hands-on-practice-applying-knn-to-the-bank-dataset}
-\addcontentsline{toc}{subsection}{Hands-On Practice: Applying kNN to the Bank Dataset}
+
 
 Here, we want to apply the concepts covered in this chapter using the \emph{bank} dataset from the \textbf{liver} package. The \emph{bank} dataset contains customer information, including demographics and financial details, and the target variable \emph{deposit} indicates whether a customer subscribed to a term deposit. This dataset is well-suited for classification problems and provides an opportunity to practice kNN in real-world scenarios.
 
@@ -5824,7 +5851,7 @@ str(bank)
 \end{lstlisting}
 
 \subsubsection*{Data Exploration and Preparation}\label{data-exploration-and-preparation}
-\addcontentsline{toc}{subsubsection}{Data Exploration and Preparation}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -5845,7 +5872,7 @@ str(bank)
 \end{enumerate}
 
 \subsubsection*{\texorpdfstring{Choosing the Optimal \(k\)}{Choosing the Optimal k}}\label{choosing-the-optimal-k}
-\addcontentsline{toc}{subsubsection}{Choosing the Optimal \(k\)}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -5860,7 +5887,7 @@ str(bank)
 \end{enumerate}
 
 \subsubsection*{Building and Evaluating the kNN Model}\label{building-and-evaluating-the-knn-model}
-\addcontentsline{toc}{subsubsection}{Building and Evaluating the kNN Model}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -5883,7 +5910,7 @@ str(bank)
 \end{enumerate}
 
 \subsection*{Critical Thinking and Real-World Applications}\label{critical-thinking-and-real-world-applications}
-\addcontentsline{toc}{subsection}{Critical Thinking and Real-World Applications}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -5933,7 +5960,7 @@ Building a model is just the beginning. Without evaluation, we have no way of kn
 This chapter will introduce key evaluation techniques and metrics to assess the performance of classification and regression models, helping us make informed decisions about model selection and improvement.
 
 \subsection*{Why Is Model Evaluation Important?}\label{why-is-model-evaluation-important}
-\addcontentsline{toc}{subsection}{Why Is Model Evaluation Important?}
+
 
 Building a model is just the beginning. The real test of its effectiveness lies in its ability to generalize to \emph{new, unseen data}. Without proper evaluation, a model may seem successful during development but fail when applied in real-world scenarios.
 
@@ -6024,7 +6051,7 @@ Each element in the confusion matrix corresponds to one of four possible predict
 If this structure feels familiar, it mirrors the concept of \emph{Type I and Type II errors} introduced in Chapter \ref{chapter-statistics} on hypothesis testing. The diagonal elements (TP and TN) represent correct predictions, while the off-diagonal elements (FP and FN) represent incorrect ones.
 
 \subsection*{Calculating Key Metrics}\label{calculating-key-metrics}
-\addcontentsline{toc}{subsection}{Calculating Key Metrics}
+
 
 Using the values from the confusion matrix, we can derive key performance metrics for the model, such as \emph{accuracy} (also known as \emph{success rate}) and \emph{error rate}:
 \[
@@ -6123,7 +6150,7 @@ In classification, it's important to evaluate not just how many predictions are 
 These metrics are particularly valuable in cases where class distribution is imbalanced. For example, in fraud detection or rare disease diagnosis, the majority of cases belong to the negative class, which can lead to misleadingly high accuracy. Sensitivity and specificity allow us to separately assess how well the model detects each class.
 
 \subsection*{Sensitivity}\label{sensitivity}
-\addcontentsline{toc}{subsection}{Sensitivity}
+
 
 \emph{Sensitivity} (also called \emph{Recall} in some fields, like information retrieval) measures the model's ability to correctly identify positive cases. It answers the question:
 
@@ -6146,7 +6173,7 @@ This means that our model has correctly identified 88.5\% of actual churners.
 A \emph{perfect model} would achieve a sensitivity of \emph{1.0 (100\%)}, meaning it correctly identifies all positive cases. However, it's important to note that even a naïve model that classifies \emph{all} customers as churners would also achieve 100\% sensitivity. This illustrates that sensitivity alone isn't enough to evaluate a model's performance---it must be paired with other metrics to capture the full picture.
 
 \subsection*{Specificity}\label{specificity}
-\addcontentsline{toc}{subsection}{Specificity}
+
 
 While sensitivity focuses on the positive class, \emph{Specificity} measures the model's ability to correctly identify negative cases. It answers the question:
 
@@ -6171,7 +6198,7 @@ A good classification model should ideally achieve \emph{high sensitivity and hi
 For the kNN model in Example \ref{exm:ex-confusion-matrix-kNN}, sensitivity is 0.885, while specificity is 0.912. This trade-off may be acceptable in this instance, as identifying churners (sensitivity) might be more critical than avoiding false positives (specificity).
 
 \subsection*{Sensitivity vs.~Specificity: A Balancing Act}\label{sensitivity-vs.-specificity-a-balancing-act}
-\addcontentsline{toc}{subsection}{Sensitivity vs.~Specificity: A Balancing Act}
+
 
 The trade-off between sensitivity and specificity is often an essential consideration in model evaluation. In many cases, improving one comes at the cost of the other:
 
@@ -6215,7 +6242,7 @@ Recall is particularly useful when missing positive cases (false negatives) has 
 \end{quote}
 
 \subsection*{Precision vs.~Recall: A Trade-Off}\label{precision-vs.-recall-a-trade-off}
-\addcontentsline{toc}{subsection}{Precision vs.~Recall: A Trade-Off}
+
 
 There is an inherent trade-off between precision and recall:
 
@@ -6230,7 +6257,7 @@ There is an inherent trade-off between precision and recall:
 For example, a medical test for cancer screening should prioritize high recall to ensure that no patient with cancer is missed. However, in email spam detection, precision might be more important to avoid mistakenly classifying important emails as spam.
 
 \subsection*{The F1-Score: Balancing Precision and Recall}\label{the-f1-score-balancing-precision-and-recall}
-\addcontentsline{toc}{subsection}{The F1-Score: Balancing Precision and Recall}
+
 
 To balance this trade-off, the F1-score combines precision and recall into a single metric. It is the harmonic mean of precision and recall, emphasizing their balance:
 \[
@@ -6260,7 +6287,7 @@ F1 = \frac{2 \cdot 54}{2 \cdot 54 + 83 + 7} = 0.545
 The F1-score provides a summary measure of a model's ability to correctly identify churners while minimizing false predictions.
 
 \subsection*{Choosing the Right Metric}\label{choosing-the-right-metric}
-\addcontentsline{toc}{subsection}{Choosing the Right Metric}
+
 
 While the F1-score is a valuable metric, it assumes that precision and recall are equally important, which may not always align with the priorities of a particular problem. In medical diagnostics, recall (ensuring no cases are missed) might be more critical than precision. In spam filtering, precision (avoiding false positives) might take precedence to prevent misclassifying important emails.
 
@@ -6324,7 +6351,7 @@ Adjusting the threshold is particularly useful in cases where the cost of false 
 \end{example}
 
 \subsection*{Choosing an Optimal Threshold}\label{choosing-an-optimal-threshold}
-\addcontentsline{toc}{subsection}{Choosing an Optimal Threshold}
+
 
 Fine-tuning the threshold allows us to align model behavior with business or domain-specific requirements. Suppose we need a sensitivity of at least 90\% to ensure that most churners are detected. By iteratively adjusting the threshold and recalculating sensitivity, we can determine the cutoff that achieves this goal. This process is known as setting an \emph{operating point} for the model.
 
@@ -6350,7 +6377,7 @@ Figure \ref{fig:roc-curve} illustrates key ROC curve characteristics. The vertic
   \emph{Random Classifier (Diagonal Line)}: The gray dashed diagonal represents a model with no predictive power, classifying randomly. A model close to this line provides little practical utility.
 \end{itemize}
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.6\linewidth]{images/ch8_roc-curve} 
 
@@ -6389,7 +6416,7 @@ ggroc(roc_knn, colour = "blue") +
     ggtitle("ROC curve for KNN with k = 5, based on churn data")
 \end{lstlisting}
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.65\linewidth]{8_Model_Evaluation_files/figure-latex/roc-knn-churn-1} 
 
@@ -6402,7 +6429,7 @@ The ROC curve visually demonstrates the model's performance across different thr
 \end{example}
 
 \subsection*{Area Under the Curve (AUC)}\label{area-under-the-curve-auc}
-\addcontentsline{toc}{subsection}{Area Under the Curve (AUC)}
+
 
 Another critical metric derived from the ROC curve is the \emph{Area Under the Curve (AUC)}, which quantifies the overall performance of the model. AUC represents the probability that a randomly chosen positive instance will have a higher predicted score than a randomly chosen negative instance. Mathematically, AUC is computed as:
 
@@ -6412,7 +6439,7 @@ Another critical metric derived from the ROC curve is the \emph{Area Under the C
 
 where \(t\) represents the threshold, reinforcing that AUC measures the model's ability to rank positive cases above negative ones across all possible thresholds.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.45\linewidth]{images/ch8_auc} 
 
@@ -6489,7 +6516,7 @@ These metrics provide different perspectives on model performance. MSE is useful
 In this chapter, we explored the critical step of model evaluation, which determines how well a model performs and whether it meets the requirements of the problem at hand. Starting with foundational concepts, we examined metrics for evaluating classification models, including binary, multi-class, and regression models.
 
 \subsection*{Key Takeaways}\label{key-takeaways-1}
-\addcontentsline{toc}{subsection}{Key Takeaways}
+
 
 \begin{itemize}
 \item
@@ -6510,7 +6537,7 @@ In this chapter, we explored the critical step of model evaluation, which determ
 \end{itemize}
 
 \subsection*{Closing Thoughts}\label{closing-thoughts}
-\addcontentsline{toc}{subsection}{Closing Thoughts}
+
 
 This chapter emphasized that no single metric can fully capture a model's performance. Instead, evaluation should be guided by the specific goals and constraints of the problem, balancing trade-offs such as accuracy versus interpretability and false positives versus false negatives. Proper evaluation ensures that a model is not only accurate but also actionable and reliable in real-world applications.
 
@@ -6519,7 +6546,7 @@ By mastering these evaluation techniques, you are now equipped to critically ass
 \section{Exercises}\label{exercises-6}
 
 \subsection*{Conceptual Questions}\label{conceptual-questions-4}
-\addcontentsline{toc}{subsection}{Conceptual Questions}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6567,7 +6594,7 @@ By mastering these evaluation techniques, you are now equipped to critically ass
 \end{enumerate}
 
 \subsection*{\texorpdfstring{Hands-On Practice: Evaluating Models with the \emph{Bank} Dataset}{Hands-On Practice: Evaluating Models with the Bank Dataset}}\label{hands-on-practice-evaluating-models-with-the-bank-dataset}
-\addcontentsline{toc}{subsection}{Hands-On Practice: Evaluating Models with the \emph{Bank} Dataset}
+
 
 For these exercises, we will use the \emph{bank} dataset from the \textbf{liver} package. The dataset contains information on customer demographics and financial details, with the target variable \emph{deposit} indicating whether a customer subscribed to a term deposit.
 
@@ -6602,7 +6629,7 @@ str(bank)
 \end{lstlisting}
 
 \subsubsection*{Data Preparation}\label{data-preparation-1}
-\addcontentsline{toc}{subsubsection}{Data Preparation}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6623,7 +6650,7 @@ str(bank)
 \end{enumerate}
 
 \subsection*{Model Training and Evaluation}\label{model-training-and-evaluation}
-\addcontentsline{toc}{subsection}{Model Training and Evaluation}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6650,7 +6677,7 @@ str(bank)
 \end{enumerate}
 
 \subsection*{Critical Thinking and Real-World Applications}\label{critical-thinking-and-real-world-applications-1}
-\addcontentsline{toc}{subsection}{Critical Thinking and Real-World Applications}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6685,7 +6712,7 @@ Beyond its theoretical foundations, Naive Bayes is computationally efficient, ma
 The power of Naive Bayes comes from its foundation in Bayesian probability theory, specifically \emph{Bayes' Theorem}, introduced by the 18th-century mathematician Thomas Bayes \citep{bayes1958essay}. This theorem provides a mathematical framework for updating probability estimates as new data becomes available. By combining prior knowledge with new evidence, Bayes' theorem serves as the basis for many \emph{Bayesian methods} in statistics and machine learning.
 
 \subsection*{Strengths and Limitations}\label{strengths-and-limitations}
-\addcontentsline{toc}{subsection}{Strengths and Limitations}
+
 
 The Naive Bayes classifier is widely valued for its simplicity and efficiency. It offers several advantages:
 
@@ -6714,7 +6741,7 @@ However, Naive Bayes also has limitations:
 Despite these limitations, Naive Bayes remains an essential tool in machine learning. Its ease of implementation, interpretability, and strong baseline performance make it a valuable first-choice model for many classification tasks.
 
 \subsection*{What This Chapter Covers}\label{what-this-chapter-covers}
-\addcontentsline{toc}{subsection}{What This Chapter Covers}
+
 
 This chapter provides a comprehensive exploration of the Naive Bayes classifier. Specifically, we will:
 
@@ -6744,7 +6771,7 @@ This theorem forms the foundation of probabilistic learning, helping us make dat
 The foundation for this method was laid by \emph{Thomas Bayes}, an 18th-century Presbyterian minister and self-taught mathematician. His pioneering work introduced a systematic approach to updating probabilities as new data emerges, forming the basis of what is now known as \emph{Bayesian inference}. Those interested in exploring this concept further may find the book \href{https://www.goodreads.com/book/show/199798096-everything-is-predictable}{``Everything Is Predictable: How Bayesian Statistics Explain Our World''} insightful. The author argues that Bayesian statistics not only help predict the future but also shape rational decision-making in everyday life.
 
 \subsection*{The Essence of Bayes' Theorem}\label{the-essence-of-bayes-theorem}
-\addcontentsline{toc}{subsection}{The Essence of Bayes' Theorem}
+
 
 Bayes' Theorem provides a systematic way to update probabilities in light of new evidence. It answers the question: \emph{Given what we already know, how should our belief in a hypothesis change when we observe new data?}
 
@@ -6831,7 +6858,7 @@ This result indicates that among customers with mortgages, the probability of ha
 \end{example}
 
 \subsection*{How Does Bayes' Theorem Work?}\label{how-does-bayes-theorem-work}
-\addcontentsline{toc}{subsection}{How Does Bayes' Theorem Work?}
+
 
 Bayes' Theorem provides a structured way to update our understanding of uncertainty based on new information. In many real-world scenarios, we start with an initial belief about an event's likelihood, and as we gather more data, we refine this belief to make better-informed decisions.
 
@@ -6850,7 +6877,7 @@ Beyond finance, Bayes' Theorem is widely applied in other domains:
 Probability theory provides a rigorous mathematical structure for reasoning under uncertainty. Bayes' Theorem extends this by enabling a systematic approach to \textbf{learning from data} and improving decision-making in fields ranging from healthcare to finance and beyond.
 
 \subsection*{A Gateway to Naive Bayes}\label{a-gateway-to-naive-bayes}
-\addcontentsline{toc}{subsection}{A Gateway to Naive Bayes}
+
 
 Bayes' Theorem provides a mathematical foundation for updating probabilities as new evidence emerges. However, in practical classification tasks, computing these probabilities directly can be computationally expensive, particularly for datasets with many features. This is where the \emph{Naive Bayes Classifier} comes in.
 
@@ -6982,7 +7009,7 @@ Financial institutions must assess loan applicants carefully to balance profitab
 In this case study, we apply the Naive Bayes classifier to predict whether a customer is a \emph{good risk} or \emph{bad risk} based on financial and demographic attributes. Using the \passthrough{\lstinline!risk!} dataset from the \href{https://CRAN.R-project.org/package=liver}{\textbf{liver}} package in R, we train and evaluate a probabilistic classification model. This case study demonstrates how Naive Bayes can be leveraged in financial decision-making, providing insights into customer risk profiles and supporting more effective credit evaluation.
 
 \subsection*{Problem Understanding}\label{problem-understanding-2}
-\addcontentsline{toc}{subsection}{Problem Understanding}
+
 
 A key challenge in financial risk assessment is distinguishing between customers who are likely to repay loans and those at higher risk of default. Predictive modeling enables financial institutions to anticipate risk, optimize credit policies, and reduce non-performing loans. Key business questions include:
 
@@ -6999,7 +7026,7 @@ A key challenge in financial risk assessment is distinguishing between customers
 By analyzing the \passthrough{\lstinline!risk!} dataset, we aim to develop a model that classifies customers based on risk level. This will allow lenders to make \emph{data-driven} decisions, improve credit scoring, and enhance loan approval strategies.
 
 \subsection*{Data Understanding}\label{data-understanding-1}
-\addcontentsline{toc}{subsection}{Data Understanding}
+
 
 The \passthrough{\lstinline!risk!} dataset contains financial and demographic attributes that help assess a customer's likelihood of being classified as either a \emph{good risk} or \emph{bad risk}. This dataset, included in the \textbf{liver} package, consists of 246 observations and 6 variables. It provides a structured way to analyze customer characteristics and predict financial risk levels.
 
@@ -7061,7 +7088,7 @@ summary(risk)
 This summary provides an overview of variable distributions and identifies any missing values or potential anomalies. Since the dataset appears clean and well-structured, we can proceed to data preparation before training the Naive Bayes classifier.
 
 \subsection*{Preparing Data for Modeling}\label{preparing-data-for-modeling-1}
-\addcontentsline{toc}{subsection}{Preparing Data for Modeling}
+
 
 Before training the Naive Bayes classifier, we need to split the dataset into training and testing sets. This step ensures that we can evaluate how well the model generalizes to unseen data. We use an 80/20 split, allocating 80\% of the data for training and 20\% for testing. To maintain consistency with previous chapters, we apply the \passthrough{\lstinline!partition()!} function from the \textbf{liver} package:
 
@@ -7101,7 +7128,7 @@ Since the p-value exceeds \(\alpha = 0.05\), we fail to reject \(H_0\), meaning 
 With a well-structured dataset and a validated partitioning process, we are now ready to train the Naive Bayes classifier and assess its predictive capabilities.
 
 \subsection*{Applying the Naive Bayes Classifier}\label{applying-the-naive-bayes-classifier}
-\addcontentsline{toc}{subsection}{Applying the Naive Bayes Classifier}
+
 
 With the dataset partitioned and validated, we now proceed to train and evaluate the Naive Bayes classifier. The objective is to build a model using the training set and assess its ability to classify customers as \emph{good risk} or \emph{bad risk} in the test set.
 
@@ -7247,7 +7274,7 @@ summary(naive_bayes)
 The summary output provides useful insights into how the classifier models each feature's probability distribution. This forms the basis for making predictions on new data points, which we explore in the next section.
 
 \subsection*{Prediction and Model Evaluation}\label{prediction-and-model-evaluation}
-\addcontentsline{toc}{subsection}{Prediction and Model Evaluation}
+
 
 After training the Naive Bayes classifier, we evaluate its performance by applying it to the test set, which contains customers unseen during training. The goal is to compare the predicted probabilities with the actual class labels stored in \passthrough{\lstinline!test\_labels!}.
 
@@ -7291,7 +7318,7 @@ The output contains two columns:
 This probability-based output provides flexibility in decision-making. Instead of using a fixed threshold of 0.5, financial institutions can adjust the cutoff based on business objectives. For instance, if minimizing loan defaults is the priority, a more conservative threshold may be set. In the next section, we convert these probabilities into class predictions and evaluate the model using a confusion matrix and other performance metrics.
 
 \subsubsection*{Confusion Matrix}\label{confusion-matrix-1}
-\addcontentsline{toc}{subsubsection}{Confusion Matrix}
+
 
 To assess the classification performance of our Naive Bayes model, we compute the confusion matrix using the \passthrough{\lstinline!conf.mat()!} and \passthrough{\lstinline!conf.mat.plot()!} functions from the \textbf{liver} package. The confusion matrix compares the predicted class probabilities with the actual class labels, allowing us to measure the model's accuracy and analyze different types of errors.
 
@@ -7331,7 +7358,7 @@ The values in the confusion matrix quantify the model's classification accuracy 
 This matrix offers a structured way to assess classification performance, helping us understand how well the model differentiates between high- and low-risk customers. In the next section, we further analyze performance using additional evaluation metrics.
 
 \subsubsection*{ROC Curve and AUC}\label{roc-curve-and-auc-1}
-\addcontentsline{toc}{subsubsection}{ROC Curve and AUC}
+
 
 To further evaluate the model, we compute the \emph{Receiver Operating Characteristic (ROC) curve} and the \emph{Area Under the Curve (AUC)} value. These metrics provide a comprehensive assessment of the model's ability to distinguish between ``\passthrough{\lstinline!good risk!}'' and ``\passthrough{\lstinline!bad risk!}'' customers across different classification thresholds. The \textbf{pROC} package in R facilitates both calculations.
 
@@ -7343,7 +7370,7 @@ roc_naive_bayes = roc(test_labels, prob_naive_bayes)
 ggroc(roc_naive_bayes)
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{9_Naive_Bayes_files/figure-latex/unnamed-chunk-17-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{9_Naive_Bayes_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 The ROC curve plots the \textbf{true positive rate (sensitivity)} against the \textbf{false positive rate (1 - specificity)} at various threshold values. A curve that remains closer to the top-left corner indicates a well-performing model, while a curve near the diagonal suggests performance close to random guessing.
 
@@ -7361,7 +7388,7 @@ By analyzing the ROC curve and AUC, financial institutions can adjust the decisi
 Through this case study, we have demonstrated how Naive Bayes can be applied to financial risk assessment. By evaluating model performance using the confusion matrix, ROC curve, and AUC, we identified its strengths and limitations. This highlights the efficiency and interpretability of Naive Bayes, making it a valuable tool for probabilistic classification in financial decision-making.
 
 \subsection*{Takeaways from the Case Study}\label{takeaways-from-the-case-study}
-\addcontentsline{toc}{subsection}{Takeaways from the Case Study}
+
 
 This case study demonstrated how Naive Bayes can be applied to financial risk assessment by classifying customers as either \emph{good risk} or \emph{bad risk} based on demographic and financial attributes. Through key evaluation metrics such as the confusion matrix, ROC curve, and AUC, we analyzed the model's predictive power and identified its strengths and limitations.
 
@@ -7374,7 +7401,7 @@ By applying Naive Bayes to financial risk assessment, we demonstrated how probab
 \section{Exercises}\label{exercises-7}
 
 \subsection*{Conceptual questions}\label{conceptual-questions-5}
-\addcontentsline{toc}{subsection}{Conceptual questions}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7414,12 +7441,12 @@ By applying Naive Bayes to financial risk assessment, we demonstrated how probab
 \end{enumerate}
 
 \subsection*{Hands-on implementation with the churn dataset}\label{hands-on-implementation-with-the-churn-dataset}
-\addcontentsline{toc}{subsection}{Hands-on implementation with the churn dataset}
+
 
 For the following exercises, we will use the \emph{churn} dataset from the \textbf{liver} package. This dataset contains information about customer subscriptions, and our goal is to predict whether a customer will churn (\passthrough{\lstinline!churn = yes/no!}) using the Naive Bayes classifier. In Section \ref{EDA-sec-churn}, we performed exploratory data analysis on this dataset to understand its structure and key features.
 
 \subsubsection*{Data preparation}\label{data-preparation-2}
-\addcontentsline{toc}{subsubsection}{Data preparation}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7446,7 +7473,7 @@ data(churn)
 \end{enumerate}
 
 \subsection*{Training and evaluating the Naive Bayes classifier}\label{training-and-evaluating-the-naive-bayes-classifier}
-\addcontentsline{toc}{subsection}{Training and evaluating the Naive Bayes classifier}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7494,7 +7521,7 @@ formula = churn ~ account.length + voice.plan + voice.messages +
 \end{enumerate}
 
 \subsection*{Real-world application and critical thinking}\label{real-world-application-and-critical-thinking}
-\addcontentsline{toc}{subsection}{Real-world application and critical thinking}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7576,7 +7603,7 @@ str(marketing)
 The dataset contains 8 variables and 40 observations. The response variable, \passthrough{\lstinline!revenue!}, is continuous, while the remaining 7 variables serve as potential predictors.
 
 \subsection*{Exploring Relationships in the Data}\label{exploring-relationships-in-the-data}
-\addcontentsline{toc}{subsection}{Exploring Relationships in the Data}
+
 
 Before constructing a regression model, we first explore the relationships between variables to ensure that our assumptions hold and to identify strong predictors. A useful tool for this is the \passthrough{\lstinline!pairs.panels()!} function from the \textbf{psych} package, which provides a comprehensive overview of pairwise relationships:
 
@@ -7605,13 +7632,13 @@ From the correlation matrix, we observe that \passthrough{\lstinline!spend!} and
 In the next section, we formalize this relationship using a \emph{simple linear regression model}.
 
 \subsection*{Fitting a Simple Linear Regression Model}\label{fitting-a-simple-linear-regression-model}
-\addcontentsline{toc}{subsection}{Fitting a Simple Linear Regression Model}
+
 
 A logical starting point in regression analysis is examining the relationship between a single predictor and the response variable. This allows for a clearer understanding of how one variable influences another before incorporating additional predictors into more complex models. Here, we investigate how advertising expenditure (\passthrough{\lstinline!spend!}) affects daily revenue (\passthrough{\lstinline!revenue!}) using a simple linear regression model.
 
 Before fitting the model, it is essential to visualize the relationship between these variables to assess whether a linear assumption is reasonable. A scatter plot with a fitted least-squares regression line provides insight into the strength and direction of the relationship:
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.8\linewidth]{10_Regression_files/figure-latex/scoter-plot-simple-reg-1} 
 
@@ -7645,7 +7672,7 @@ where:
 This formulation provides a framework for estimating the relationship between advertising expenditure and revenue, which we will now proceed to quantify.
 
 \subsection*{Estimating the Model in R}\label{estimating-the-model-in-r}
-\addcontentsline{toc}{subsection}{Estimating the Model in R}
+
 
 To estimate the regression coefficients, we use the \passthrough{\lstinline!lm()!} function in R, which fits a linear model using the least squares method. The syntax follows the format:
 
@@ -7718,7 +7745,7 @@ Beyond the estimated coefficients, the \passthrough{\lstinline!summary()!} outpu
 The results confirm a statistically significant relationship between advertising spend and revenue, supporting the use of regression analysis for business decision-making. In the next section, we explore how this model can be applied for prediction and how residual analysis helps validate model assumptions.
 
 \subsection*{Interpreting the Regression Line}\label{interpreting-the-regression-line}
-\addcontentsline{toc}{subsection}{Interpreting the Regression Line}
+
 
 The regression line provides a mathematical approximation of the relationship between advertising spend and revenue. Once the model is estimated, it can be used for prediction. Suppose a company wants to estimate the expected revenue for a day when €25 is spent on pay-per-click (PPC) advertising. Using the regression equation:
 
@@ -7733,7 +7760,7 @@ Thus, the predicted daily revenue is approximately €147.
 This predictive capability is particularly valuable for marketing teams planning advertising budgets. For example, if the goal is to maximize returns while controlling costs, the model provides an evidence-based estimate of how revenue responds to different levels of spending. Decision-makers can use this information to determine optimal advertising expenditures, set performance targets, and allocate marketing resources efficiently.
 
 \subsection*{Residuals and Model Fit}\label{residuals-and-model-fit}
-\addcontentsline{toc}{subsection}{Residuals and Model Fit}
+
 
 Residuals measure the difference between observed and predicted values, providing insight into how well the regression model fits the data. The residual for an observation is calculated as:
 
@@ -7766,7 +7793,7 @@ Monitoring residuals is an essential step in regression analysis. If residuals e
 In summary, simple linear regression provides an effective way to model and interpret the relationship between two variables. By analyzing the \emph{marketing} dataset, we demonstrated how to estimate, interpret, and apply a regression model to make predictions. This foundational understanding of simple linear regression sets the stage for evaluating model quality and extending the framework to multiple predictors in the following sections.
 
 \section*{Hypothesis Testing in Simple Linear Regression}\label{hypothesis-testing-in-simple-linear-regression}
-\addcontentsline{toc}{section}{Hypothesis Testing in Simple Linear Regression}
+
 
 Hypothesis testing in regression analysis helps determine whether a predictor variable has a statistically significant relationship with the response variable. Specifically, we test whether the estimated slope \(b_1\) from the sample regression model provides evidence of a true linear relationship in the population, where the unknown slope is denoted as \(\beta_1\).
 
@@ -7874,12 +7901,12 @@ While statistical significance establishes the presence of a relationship, it do
 In the next sections, we will explore further techniques for evaluating regression model quality, including measures of goodness-of-fit and model diagnostics. We will also extend these concepts to multiple predictors, enabling more comprehensive analyses and better predictions.
 
 \section*{Measuring the Quality of a Regression Model}\label{measuring-the-quality-of-a-regression-model}
-\addcontentsline{toc}{section}{Measuring the Quality of a Regression Model}
+
 
 Evaluating the effectiveness of a regression model goes beyond determining whether a predictor is statistically significant. While hypothesis testing confirms whether a predictor has a meaningful relationship with the response variable, it does not assess how well the model fits the data. To measure model quality, we rely on additional metrics that quantify predictive accuracy and explanatory power. Two key statistics for this purpose are the \textbf{Residual Standard Error (RSE)} and the \textbf{\(R^2\) (R-squared) statistic}.
 
 \subsection*{Residual Standard Error (RSE)}\label{residual-standard-error-rse}
-\addcontentsline{toc}{subsection}{Residual Standard Error (RSE)}
+
 
 Residual Standard Error (RSE) provides an estimate of the typical prediction error in the model. It measures how much the observed values deviate from the predicted values on average. The formula for RSE is:
 
@@ -7899,7 +7926,7 @@ round(rse_value, 2)
 This value represents the average deviation of predicted revenue from actual revenue. A lower RSE suggests a better-fitting model, though it should always be interpreted in the context of the response variable's scale.
 
 \subsection*{\texorpdfstring{R-squared (\(R^2\))}{R-squared (R\^{}2)}}\label{r-squared-r2}
-\addcontentsline{toc}{subsection}{R-squared (\(R^2\))}
+
 
 The \(R^2\) statistic measures how well the regression model explains the variability in the response variable. It is defined as:
 
@@ -7927,7 +7954,7 @@ round(summary(simple_reg)$r.squared, 3)
 This means that 62.3\% of the variation in \passthrough{\lstinline!revenue!} is explained by \passthrough{\lstinline!spend!}. While higher \(R^2\) values suggest a better fit, they do not guarantee that the model generalizes well to new data. It is important to supplement \(R^2\) with additional model diagnostics.
 
 \subsection*{\texorpdfstring{Relationship Between \(R^2\) and the Correlation Coefficient}{Relationship Between R\^{}2 and the Correlation Coefficient}}\label{relationship-between-r2-and-the-correlation-coefficient}
-\addcontentsline{toc}{subsection}{Relationship Between \(R^2\) and the Correlation Coefficient}
+
 
 In simple linear regression, \(R^2\) is directly related to the correlation coefficient \(r\) between the predictor and response variable:
 
@@ -7952,7 +7979,7 @@ round(cor(marketing$spend, marketing$revenue)^2, 2)
 which matches the \(R^2\) value, reinforcing how \(R^2\) quantifies the strength of the linear relationship.
 
 \subsection*{Adjusted R-squared}\label{adjusted-r-squared}
-\addcontentsline{toc}{subsection}{Adjusted R-squared}
+
 
 While \(R^2\) measures the proportion of variance explained by the model, \textbf{Adjusted \(R^2\)} accounts for the number of predictors, ensuring that adding unnecessary variables does not artificially inflate the statistic. It is calculated as:
 
@@ -7964,7 +7991,7 @@ where \(n\) is the number of observations and \(p\) is the number of predictors.
 Adjusted \(R^2\) penalizes the inclusion of irrelevant predictors, making it particularly useful in multiple regression settings. In simple linear regression (where \(p = 1\)), \(R^2\) and Adjusted \(R^2\) are equal, but in multiple regression, Adjusted \(R^2\) is often lower and provides a better measure of model performance.
 
 \subsection*{Interpreting Model Quality}\label{interpreting-model-quality}
-\addcontentsline{toc}{subsection}{Interpreting Model Quality}
+
 
 A good regression model should have:
 
@@ -8003,7 +8030,7 @@ For our case, the equation with two predictors, \passthrough{\lstinline!spend!} 
 where \passthrough{\lstinline!spend!} represents daily advertising expenditure and \passthrough{\lstinline!display!} is a categorical variable (\passthrough{\lstinline!yes/no!}), which R automatically converts into a binary indicator. Here, \passthrough{\lstinline!display = 1!} indicates an active display campaign, while \passthrough{\lstinline!display = 0!} means no display campaign.
 
 \subsection*{Fitting the Multiple Regression Model}\label{fitting-the-multiple-regression-model}
-\addcontentsline{toc}{subsection}{Fitting the Multiple Regression Model}
+
 
 We fit the multiple regression model using the \passthrough{\lstinline!lm()!} function in R:
 
@@ -8044,7 +8071,7 @@ where:
 - The \textbf{coefficient for \passthrough{\lstinline!display!}} (\(\beta_2\)) is 104.29, meaning that when a display campaign is active (\passthrough{\lstinline!display = 1!}), revenue increases by approximately 104.29, holding \passthrough{\lstinline!spend!} constant.
 
 \subsection*{Making Predictions}\label{making-predictions}
-\addcontentsline{toc}{subsection}{Making Predictions}
+
 
 Consider a scenario where the company spends €25 on advertising while running a display campaign (\passthrough{\lstinline!display = 1!}). Using the regression equation, the predicted revenue is:
 
@@ -8063,7 +8090,7 @@ The residual (prediction error) for a specific observation is calculated as the 
 The prediction error is smaller than that of the simple regression model, confirming that including \passthrough{\lstinline!display!} improves predictive accuracy.
 
 \subsection*{Evaluating Model Performance}\label{evaluating-model-performance}
-\addcontentsline{toc}{subsection}{Evaluating Model Performance}
+
 
 Adding \passthrough{\lstinline!display!} enhances the regression model by reducing prediction errors and improving model fit. We compare key performance metrics between the simple and multiple regression models:
 
@@ -8077,7 +8104,7 @@ Adding \passthrough{\lstinline!display!} enhances the regression model by reduci
 \end{itemize}
 
 \subsection*{Key Takeaways}\label{key-takeaways-2}
-\addcontentsline{toc}{subsection}{Key Takeaways}
+
 
 The multiple regression model improves upon simple regression by providing a better fit, reducing prediction errors, and enabling more accurate estimation of revenue drivers. Including \passthrough{\lstinline!display!} alongside \passthrough{\lstinline!spend!} strengthens the model's ability to explain revenue variation. However, as models grow more complex, careful evaluation is necessary to prevent issues such as \textbf{multicollinearity} (high correlation between predictors) and \textbf{overfitting} (adding unnecessary predictors that reduce generalizability).
 
@@ -8115,7 +8142,7 @@ Logistic regression is a generalized linear model designed for binary classifica
 Here, \(p\) represents the probability that the outcome is 1, and the logit transformation ensures a linear relationship between the predictors and the log-odds of the response variable.
 
 \subsection*{Logistic Regression in R}\label{logistic-regression-in-r}
-\addcontentsline{toc}{subsection}{Logistic Regression in R}
+
 
 To illustrate logistic regression, we use the \emph{churn} dataset, which contains information on customer behavior. The objective is to predict whether a customer will \emph{churn} (leave the service) based on customer characteristics and service usage patterns. The selected predictors include variables such as \passthrough{\lstinline!account.length!}, \passthrough{\lstinline!voice.plan!}, \passthrough{\lstinline!voice.messages!}, \passthrough{\lstinline!intl.plan!}, \passthrough{\lstinline!intl.mins!}, \passthrough{\lstinline!day.mins!}, \passthrough{\lstinline!eve.mins!}, \passthrough{\lstinline!night.mins!}, and \passthrough{\lstinline!customer.calls!}, which capture aspects of user engagement and service utilization.
 
@@ -8186,7 +8213,7 @@ The model is formulated as:
 where \(\lambda\) represents the expected count (mean) of the response variable, and the predictors \(x_1, x_2, \dots, x_p\) influence the log of \(\lambda\). The logarithmic transformation ensures that predicted values remain positive, preventing the model from producing negative counts.
 
 \subsection*{Poisson Regression in R}\label{poisson-regression-in-r}
-\addcontentsline{toc}{subsection}{Poisson Regression in R}
+
 
 To illustrate Poisson regression, we analyze customer service call frequency using the \emph{churn} dataset. The objective is to model the number of customer service calls (\passthrough{\lstinline!customer.calls!}) based on customer attributes and service usage. Since \passthrough{\lstinline!customer.calls!} is an integer-valued response variable, Poisson regression is more appropriate than linear regression.
 
@@ -8255,7 +8282,7 @@ In practice, datasets---especially in business and data science applications---o
 Due to its structured approach, stepwise regression is particularly useful for small to medium-sized datasets where automated predictor selection improves model interpretability without excessive computational burden.
 
 \subsection*{The Role of AIC in Model Selection}\label{the-role-of-aic-in-model-selection}
-\addcontentsline{toc}{subsection}{The Role of AIC in Model Selection}
+
 
 To evaluate model quality during the selection process, we use criteria such as the \emph{Akaike Information Criterion (AIC)}. AIC provides a trade-off between model complexity and goodness of fit, where lower values indicate a more optimal balance between explanatory power and parsimony. It is defined as:\\
 \[
@@ -8266,7 +8293,7 @@ where \(p\) represents the number of estimated parameters in the model, \(n\) is
 Unlike \(R^2\), which always increases when additional predictors are included, AIC accounts for overfitting by introducing a penalty for model complexity. This prevents overly complex models that fit the training data well but fail to generalize to new observations. By prioritizing models with a lower AIC, we select those that achieve the best balance between simplicity and predictive accuracy.
 
 \subsection*{Implementing Stepwise Regression in R}\label{implementing-stepwise-regression-in-r}
-\addcontentsline{toc}{subsection}{Implementing Stepwise Regression in R}
+
 
 Stepwise regression is implemented in R using the \passthrough{\lstinline!step()!} function, which automates the selection of predictors to find an optimal model. The function iteratively evaluates variables and makes inclusion or exclusion decisions based on statistical criteria. Three approaches can be specified using the \passthrough{\lstinline!direction!} argument: \passthrough{\lstinline!"forward"!}, which starts with no predictors and adds them incrementally; \passthrough{\lstinline!"backward"!}, which begins with all predictors and removes the least significant ones; and \passthrough{\lstinline!"both"!}, which combines forward selection and backward elimination to refine the model in an iterative process.
 
@@ -8429,7 +8456,7 @@ The final model demonstrates an improved fit compared to the initial full model.
 \end{example}
 
 \subsection*{Strengths, Limitations, and Considerations for Stepwise Regression}\label{strengths-limitations-and-considerations-for-stepwise-regression}
-\addcontentsline{toc}{subsection}{Strengths, Limitations, and Considerations for Stepwise Regression}
+
 
 Stepwise regression offers a systematic approach to model selection, balancing interpretability and efficiency. By iteratively refining the set of predictors, it helps identify an optimal model without manually testing every possible combination. However, stepwise regression also has important limitations that should be considered.
 
@@ -8446,7 +8473,7 @@ Thus far, we have focused on linear regression models, which are simple, interpr
 Earlier, we explored techniques such as stepwise regression (Section \ref{sec-stepwise-regression}) to refine model selection by reducing complexity and addressing multicollinearity. However, these methods do not account for non-linearity in relationships between predictors and the response variable. To address this limitation while maintaining model interpretability, we turn to \emph{polynomial regression}, an extension of linear regression that introduces non-linear terms.
 
 \subsection*{The Need for Non-Linear Regression}\label{the-need-for-non-linear-regression}
-\addcontentsline{toc}{subsection}{The Need for Non-Linear Regression}
+
 
 Linear regression assumes a constant rate of change between predictors and the response variable, resulting in a straight-line relationship. However, many real-world datasets exhibit more complex patterns. Consider the scatter plot in Figure \ref{fig:scoter-plot-non-reg}, which depicts the relationship between \passthrough{\lstinline!unit.price!} (house price per unit area) and \passthrough{\lstinline!house.age!} (age of the house) from the \emph{house} dataset. The orange line represents a simple linear regression fit, which does not adequately capture the curvature in the data.
 
@@ -8458,7 +8485,7 @@ unit.price = b_0 + b_1 \cdot house.age + b_2 \cdot house.age^2
 
 This equation incorporates both \passthrough{\lstinline!house.age!} and its squared term (\passthrough{\lstinline!house.age\^2!}), allowing for a curved relationship between the predictor and response variable. Although polynomial regression introduces non-linear predictors, the model remains a \emph{linear regression model} because the coefficients (\(b_0, b_1, b_2\)) are estimated using standard least squares methods. The blue curve in Figure \ref{fig:scoter-plot-non-reg} illustrates the improved fit of a quadratic regression model, which captures the pattern in the data more effectively than the simple linear model.
 
-\textbackslash begin\{figure\}
+\textbackslash begin\{figure\}{[}H{]}
 
 \{\centering \includegraphics[width=1\linewidth]{10_Regression_files/figure-latex/scoter-plot-non-reg-1}
 
@@ -8597,7 +8624,7 @@ ml_stepwise = lm(revenue ~ clicks + display, data = marketing)
 plot(ml_stepwise)  
 \end{lstlisting}
 
-\begin{figure}
+\begin{figure}[H]
 \includegraphics[width=0.5\linewidth]{10_Regression_files/figure-latex/model-diagnostics-1} \includegraphics[width=0.5\linewidth]{10_Regression_files/figure-latex/model-diagnostics-2} \includegraphics[width=0.5\linewidth]{10_Regression_files/figure-latex/model-diagnostics-3} \includegraphics[width=0.5\linewidth]{10_Regression_files/figure-latex/model-diagnostics-4} \caption{Diagnostic plots for assessing regression model assumptions.}\label{fig:model-diagnostics}
 \end{figure}
 
@@ -8627,10 +8654,10 @@ Validating regression models is fundamental to producing reliable, interpretable
 The exercises are structured to test theoretical understanding, interpretation of regression outputs, and practical implementation in \textbf{R} using datasets from the \textbf{liver} package.
 
 \subsection*{Simple and Multiple Linear Regression (House, Insurance, and Cereal Datasets)}\label{simple-and-multiple-linear-regression-house-insurance-and-cereal-datasets}
-\addcontentsline{toc}{subsection}{Simple and Multiple Linear Regression (House, Insurance, and Cereal Datasets)}
+
 
 \subsubsection*{Conceptual Questions}\label{conceptual-questions-6}
-\addcontentsline{toc}{subsubsection}{Conceptual Questions}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -8652,7 +8679,7 @@ The exercises are structured to test theoretical understanding, interpretation o
 \end{enumerate}
 
 \subsubsection*{Practical Exercises Using the House Dataset}\label{practical-exercises-using-the-house-dataset}
-\addcontentsline{toc}{subsubsection}{Practical Exercises Using the House Dataset}
+
 
 Load the \emph{house} dataset:
 
@@ -8681,7 +8708,7 @@ data(house, package = "liver")
 \end{enumerate}
 
 \subsubsection*{Practical Exercises Using the Insurance Dataset}\label{practical-exercises-using-the-insurance-dataset}
-\addcontentsline{toc}{subsubsection}{Practical Exercises Using the Insurance Dataset}
+
 
 Load the \emph{insurance} dataset:
 
@@ -8706,7 +8733,7 @@ data(insurance, package = "liver")
 \end{enumerate}
 
 \subsubsection*{Practical Exercises Using the Cereal Dataset}\label{practical-exercises-using-the-cereal-dataset}
-\addcontentsline{toc}{subsubsection}{Practical Exercises Using the Cereal Dataset}
+
 
 Load the \emph{cereal} dataset:
 
@@ -8731,10 +8758,10 @@ data(cereal, package = "liver")
 \end{enumerate}
 
 \subsection*{Polynomial Regression (House Dataset)}\label{polynomial-regression-house-dataset}
-\addcontentsline{toc}{subsection}{Polynomial Regression (House Dataset)}
+
 
 \subsubsection*{Conceptual Questions}\label{conceptual-questions-7}
-\addcontentsline{toc}{subsubsection}{Conceptual Questions}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -8753,7 +8780,7 @@ data(cereal, package = "liver")
 \end{enumerate}
 
 \subsubsection*{Practical Exercises Using the House Dataset}\label{practical-exercises-using-the-house-dataset-1}
-\addcontentsline{toc}{subsubsection}{Practical Exercises Using the House Dataset}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -8772,10 +8799,10 @@ data(cereal, package = "liver")
 \end{enumerate}
 
 \subsection*{Logistic Regression (Bank Dataset)}\label{logistic-regression-bank-dataset}
-\addcontentsline{toc}{subsection}{Logistic Regression (Bank Dataset)}
+
 
 \subsubsection*{Conceptual Questions}\label{conceptual-questions-8}
-\addcontentsline{toc}{subsubsection}{Conceptual Questions}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -8794,7 +8821,7 @@ data(cereal, package = "liver")
 \end{enumerate}
 
 \subsubsection*{Practical Exercises Using the Bank Dataset}\label{practical-exercises-using-the-bank-dataset}
-\addcontentsline{toc}{subsubsection}{Practical Exercises Using the Bank Dataset}
+
 
 Load the \emph{bank} dataset:
 
@@ -8823,7 +8850,7 @@ data(bank, package = "liver")
 \end{enumerate}
 
 \subsection*{Stepwise Regression (House Dataset)}\label{stepwise-regression-house-dataset}
-\addcontentsline{toc}{subsection}{Stepwise Regression (House Dataset)}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -8838,7 +8865,7 @@ data(bank, package = "liver")
 \end{enumerate}
 
 \subsection*{Model Diagnostics and Validation}\label{model-diagnostics-and-validation}
-\addcontentsline{toc}{subsection}{Model Diagnostics and Validation}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -8864,7 +8891,7 @@ Decision trees are widely used in various domains, from medical diagnosis and fr
 
 To see decision trees in action, consider the example in Figure \ref{fig:tree-0}, which predicts whether a customer's credit risk is classified as ``good'' or ``bad'' based on features such as \passthrough{\lstinline!age!} and \passthrough{\lstinline!income!}. This tree is trained on the \passthrough{\lstinline!risk!} dataset, introduced in Chapter \ref{chapter-bayes}, and consists of decision nodes representing yes/no questions, such as whether yearly income is below €36,000 (\passthrough{\lstinline!income < 36e+3!}) or whether age is greater than 29. The final classification is determined at the terminal nodes, also known as leaves.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.75\linewidth]{11_Decision_Tree_files/figure-latex/tree-0-1} 
 
@@ -8897,7 +8924,7 @@ At each step, the algorithm selects the feature and threshold that best separate
 
 To see this process in action, consider a simple dataset with two features (\(x_1\) and \(x_2\)) and two classes (Class A and Class B), as shown in Figure \ref{fig:tree-1}. The dataset consists of 50 data points, and the goal is to classify them into their respective categories.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.7\linewidth]{images/ch11_ex_tree_1} 
 
@@ -8918,7 +8945,7 @@ The process begins by identifying the feature and threshold that best separate t
 
 This first split is illustrated in Figure \ref{fig:tree-2}, where the decision boundary is drawn at \(x_1 = 10\).
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=1\linewidth]{images/ch11_ex_tree_2} 
 
@@ -8931,7 +8958,7 @@ Although this split improves class separation, some overlap remains, suggesting 
 
 In Figure \ref{fig:tree-3}, the algorithm identifies new thresholds: \(x_2 = 6\) for the left region and \(x_2 = 8\) for the right region. These additional splits refine the classification process, improving the model's ability to distinguish between the two classes.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=1\linewidth]{images/ch11_ex_tree_3} 
 
@@ -8942,7 +8969,7 @@ In Figure \ref{fig:tree-3}, the algorithm identifies new thresholds: \(x_2 = 6\)
 
 This recursive process continues until the tree reaches a stopping criterion. Figure \ref{fig:tree-4} shows a fully grown tree with a depth of 5, demonstrating how decision trees create increasingly refined decision boundaries.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=1\linewidth]{images/ch11_ex_tree_4} 
 
@@ -8954,7 +8981,7 @@ This recursive process continues until the tree reaches a stopping criterion. Fi
 At this depth, the tree has created highly specific decision boundaries that closely match the training data. While this deep tree perfectly classifies the training data, it may not generalize well to new observations. The model has likely captured not just meaningful patterns but also noise, a problem known as \emph{overfitting}. Overfitted trees perform well on training data but struggle to make accurate predictions on unseen data.
 
 \subsection*{Making Predictions with a Decision Tree}\label{making-predictions-with-a-decision-tree}
-\addcontentsline{toc}{subsection}{Making Predictions with a Decision Tree}
+
 
 After a decision tree is built, making predictions involves following the decision rules from the root node down to a leaf. Each split refines the prediction until a final classification or numerical estimate is reached.
 
@@ -8976,7 +9003,7 @@ To illustrate, consider a new data point with \(x_1 = 8\) and \(x_2 = 4\) in Fig
 This step-by-step traversal of the tree ensures that predictions remain interpretable, making decision trees particularly useful in applications where understanding how a prediction was made is as important as accuracy.
 
 \subsection*{Controlling Tree Complexity}\label{controlling-tree-complexity}
-\addcontentsline{toc}{subsection}{Controlling Tree Complexity}
+
 
 While decision trees are powerful, they can easily grow too complex, capturing noise rather than meaningful patterns. To improve generalization, various techniques help regulate tree complexity and prevent overfitting.
 
@@ -9036,7 +9063,7 @@ where \(H(T)\) represents the entropy before the split. The algorithm evaluates 
 
 To illustrate how C5.0 constructs decision trees, consider its application to the \passthrough{\lstinline!risk!} dataset, which classifies a customer's credit risk as good or bad based on features such as \passthrough{\lstinline!age!} and \passthrough{\lstinline!income!}. Figure \ref{fig:tree-C50} shows a decision tree trained using the \passthrough{\lstinline!C5.0!} function from the \passthrough{\lstinline!C50!} package in R.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.65\linewidth]{11_Decision_Tree_files/figure-latex/tree-C50-1} 
 
@@ -9082,7 +9109,7 @@ The strength of random forests lies in their ability to leverage diversity. Indi
 Additionally, the randomness introduced through feature selection ensures that no single feature dominates the model, making random forests particularly effective for datasets with correlated or redundant features. This feature-level decorrelation enhances their ability to generalize to unseen data.
 
 \subsection*{Advantages and limitations of random forests}\label{advantages-and-limitations-of-random-forests}
-\addcontentsline{toc}{subsection}{Advantages and limitations of random forests}
+
 
 \textbf{Advantages}
 
@@ -9123,7 +9150,7 @@ Predicting income levels is an important task in fields such as finance, marketi
 For this analysis, we use the \emph{adult} dataset, a well-known benchmark dataset sourced from the \href{https://www.census.gov}{US Census Bureau} and available in the \textbf{liver} package. This dataset was previously introduced in Section \ref{Data-pre-adult} as part of the data preparation chapter (\ref{chapter-data-prep}). It contains demographic and employment-related attributes, such as education, working hours, marital status, and occupation, all of which influence earning potential. The goal is to build a classification model that predicts whether an individual belongs to one of two income groups: \passthrough{\lstinline!<=50K!} or \passthrough{\lstinline!>50K!}, treating \passthrough{\lstinline!income!} as the target variable.
 
 \subsection*{Overview of the Dataset}\label{overview-of-the-dataset-1}
-\addcontentsline{toc}{subsection}{Overview of the Dataset}
+
 
 The \emph{adult} dataset, available in the \textbf{liver} package, provides demographic and employment-related attributes to predict income levels. We can load it directly into R and examine its summary using the following commands:
 
@@ -9236,14 +9263,14 @@ The predictors can be categorized as follows:
 This dataset provides a diverse set of features that influence income levels, making it suitable for building predictive models. For further details, refer to the \href{https://www.rdocumentation.org/packages/liver/versions/1.3/topics/adult}{dataset documentation}.
 
 \subsection*{Data Preparation}\label{data-preparation-3}
-\addcontentsline{toc}{subsection}{Data Preparation}
+
 
 Before building models, we must clean and preprocess the dataset to handle missing values and transform categorical variables. The \emph{adult} dataset includes missing values represented by \passthrough{\lstinline!"?"!}, which need to be addressed. Additionally, categorical variables such as \passthrough{\lstinline!native.country!}, \passthrough{\lstinline!workclass!}, and \passthrough{\lstinline!race!} have multiple levels that can be grouped to improve interpretability.
 
 Since data preparation is covered in detail in Section \ref{Data-pre-adult} as part of the data preparation chapter (\ref{chapter-data-prep}), we summarize the necessary preprocessing steps here.
 
 \subsubsection*{Handling Missing Values}\label{handling-missing-values}
-\addcontentsline{toc}{subsubsection}{Handling Missing Values}
+
 
 The dataset encodes missing values as \passthrough{\lstinline!"?"!}. We first replace them with \passthrough{\lstinline!NA!}, remove unused factor levels, and apply imputation for categorical variables using random sampling from existing categories.
 
@@ -9263,7 +9290,7 @@ adult$occupation     = impute(factor(adult$occupation), 'random')
 \end{lstlisting}
 
 \subsubsection*{Transforming Categorical Variables}\label{transforming-categorical-variables}
-\addcontentsline{toc}{subsubsection}{Transforming Categorical Variables}
+
 
 Some categorical variables contain too many levels, making them difficult to interpret and model efficiently. To simplify these variables, we group related categories.
 
@@ -9309,7 +9336,7 @@ adult$race = fct_recode(adult$race, "Amer-Indian" = "Amer-Indian-Eskimo",
 These preprocessing steps ensure that the dataset is clean and ready for modeling. In the next section, we partition the dataset into training and testing sets for model evaluation.
 
 \subsection*{Preparing Data for Modeling}\label{preparing-data-for-modeling-2}
-\addcontentsline{toc}{subsection}{Preparing Data for Modeling}
+
 
 Before training tree-based models, we need to split the dataset into training and testing sets. This step ensures that we can evaluate how well the models generalize to unseen data. We use an 80/20 split, allocating 80\% of the data for training and 20\% for testing. To maintain consistency with previous chapters, we apply the \passthrough{\lstinline!partition()!} function from the \textbf{liver} package:
 
@@ -9353,7 +9380,7 @@ formula = income ~ age + workclass + education.num + marital.status + occupation
 This formula will be used to train decision tree models using the CART and C5.0 algorithms, as well as the Random Forest algorithm. In the next section, we demonstrate how to build, evaluate, and compare these models using the \emph{adult} dataset.
 
 \subsection*{Decision Tree with CART}\label{decision-tree-with-cart}
-\addcontentsline{toc}{subsection}{Decision Tree with CART}
+
 
 To fit a decision tree using the CART algorithm in \textbf{R}, we use the \href{https://CRAN.R-project.org/package=rpart}{\textbf{rpart}} package (Recursive Partitioning and Regression Trees), which provides a widely used implementation of CART. This package includes functions for building, visualizing, and evaluating decision trees.
 
@@ -9380,7 +9407,7 @@ tree_cart = rpart(formula = formula, data = train_set, method = "class")
 \end{itemize}
 
 \subsubsection*{Visualizing the Decision Tree}\label{visualizing-the-decision-tree}
-\addcontentsline{toc}{subsubsection}{Visualizing the Decision Tree}
+
 
 To visualize the tree, we use the \href{https://CRAN.R-project.org/package=rpart.plot}{\textbf{rpart.plot}} package, which provides tools for graphical representation of \textbf{rpart} models. If not installed, it can be added with the \passthrough{\lstinline!install.packages("rpart.plot")!} command. Then, it is loaded as follows:
 
@@ -9427,7 +9454,7 @@ print(tree_cart)
 This prints a text-based version of the tree, showing nodes, splits, and predictions in a scrollable format.
 
 \subsubsection*{Interpreting the Decision Tree}\label{interpreting-the-decision-tree}
-\addcontentsline{toc}{subsubsection}{Interpreting the Decision Tree}
+
 
 The CART model produces a binary tree with four decision nodes and five leaves. Among the 12 predictors, the algorithm selects three---\passthrough{\lstinline!marital.status!}, \passthrough{\lstinline!capital.gain!}, and \passthrough{\lstinline!education.num!}---as the most relevant for predicting income. The most influential predictor, \passthrough{\lstinline!marital.status!}, appears at the root node, meaning that marital status is the first split in the tree.
 
@@ -9436,7 +9463,7 @@ The model categorizes individuals into five distinct groups, each represented by
 As an example, the rightmost leaf corresponds to individuals who are married and have at least 13 years of education (\passthrough{\lstinline!education.num >= 13!}). This group represents 14\% of the dataset, with 70\% of them earning more than \$50,000 annually. The error rate for this leaf is 0.30, calculated as \(1 - 0.70\).
 
 \subsection*{Decision Tree with C5.0}\label{decision-tree-with-c5.0}
-\addcontentsline{toc}{subsection}{Decision Tree with C5.0}
+
 
 To fit a decision tree using the C5.0 algorithm in \textbf{R}, we use the \href{https://CRAN.R-project.org/package=C50}{\textbf{C50}} package. If the \textbf{C50} package is not installed, you can install it using the \passthrough{\lstinline!install.packages("C50")!} command. Then, you can load it into your R session:
 
@@ -9470,7 +9497,7 @@ print(tree_C50)
 The output includes key information about the model, such as the function call used to generate the tree, the number of predictors, and the number of observations used for training. It also reports a tree size of 74, indicating that the tree consists of 74 decision nodes---substantially larger than the tree produced by CART in this case.
 
 \subsection*{Random Forest}\label{random-forest}
-\addcontentsline{toc}{subsection}{Random Forest}
+
 
 Random forests are implemented in \textbf{R} using the \href{https://CRAN.R-project.org/package=randomForest}{\textbf{randomForest}} package, which builds classification and regression models based on an ensemble of decision trees with randomly selected inputs. While multiple packages in R support random forest modeling, \textbf{randomForest} is one of the most widely used implementations due to its reliability and compatibility with the \textbf{caret} package for automated tuning.
 
@@ -9502,7 +9529,7 @@ We can evaluate the importance of predictors using the \passthrough{\lstinline!v
 varImpPlot(random_forest)
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{11_Decision_Tree_files/figure-latex/unnamed-chunk-18-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{11_Decision_Tree_files/figure-latex/unnamed-chunk-18-1} \end{center}
 
 This plot ranks predictors based on their contribution to model accuracy. In this case, \passthrough{\lstinline!marital.status!} appears as the most important predictor, followed by \passthrough{\lstinline!capital.gain!} and \passthrough{\lstinline!education.num!}.
 
@@ -9512,14 +9539,14 @@ To assess how the error rate changes as the number of trees increases, we use:
 plot(random_forest)
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{11_Decision_Tree_files/figure-latex/unnamed-chunk-19-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{11_Decision_Tree_files/figure-latex/unnamed-chunk-19-1} \end{center}
 
 This plot shows classification error as a function of the number of trees. The error rate stabilizes after approximately 40 trees, indicating that adding more trees beyond this point does not significantly improve accuracy.
 
 Random forests provide a robust alternative to single decision trees by reducing overfitting and improving predictive performance through aggregation. The next section compares the performance of the CART, C5.0, and Random Forest models using evaluation metrics.
 
 \subsection*{Prediction and Model Evaluation}\label{prediction-and-model-evaluation-1}
-\addcontentsline{toc}{subsection}{Prediction and Model Evaluation}
+
 
 After training the models (CART, C5.0, and Random Forest), we evaluate their performance on the test set, which contains individuals unseen during training. The objective is to compare the predicted probabilities with the actual class labels stored in \passthrough{\lstinline!test\_labels!}.
 
@@ -9534,7 +9561,7 @@ prob_random_forest = predict(random_forest, test_set, type = "prob")[, 1]
 The \passthrough{\lstinline![ , 1 ]!} index extracts the probability of the ``\passthrough{\lstinline!<=50K!}'' class, as class labels are stored in alphabetical order.
 
 \subsubsection*{Confusion Matrix and Classification Errors}\label{confusion-matrix-and-classification-errors}
-\addcontentsline{toc}{subsubsection}{Confusion Matrix and Classification Errors}
+
 
 A confusion matrix summarizes model performance by displaying the number of true positives, true negatives, false positives, and false negatives. We generate confusion matrices for each model using the \passthrough{\lstinline!conf.mat.plot()!} function from the \textbf{liver} package, which provides a graphical representation. The \passthrough{\lstinline!conf.mat()!} function can also be used to display numeric values:
 
@@ -9561,7 +9588,7 @@ The confusion matrices indicate the number of correctly classified instances for
 Among the three models, C5.0 has the highest accuracy, making the fewest misclassifications.
 
 \subsubsection*{ROC Curve and AUC}\label{roc-curve-and-auc-2}
-\addcontentsline{toc}{subsubsection}{ROC Curve and AUC}
+
 
 The Receiver Operating Characteristic (ROC) curve and the Area Under the Curve (AUC) value provide a comprehensive assessment of the model's ability to distinguish between income classes across different classification thresholds. These metrics are computed using the \textbf{pROC} package. If the \textbf{pROC} package is not installed, it can be added using \passthrough{\lstinline!install.packages("pROC")!}. Then, it can be loaded into the R session:
 
@@ -9611,7 +9638,7 @@ Based on AUC values, C5.0 performs slightly better than the other two models, bu
 These exercises test theoretical understanding, interpretation of Decision Trees and Random Forests outputs, and practical implementation in \textbf{R} using datasets from the \textbf{liver} package.
 
 \subsection*{Decision Trees: Conceptual Questions}\label{decision-trees-conceptual-questions}
-\addcontentsline{toc}{subsection}{Decision Trees: Conceptual Questions}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -9639,7 +9666,7 @@ These exercises test theoretical understanding, interpretation of Decision Trees
 \end{enumerate}
 
 \subsection*{Practical Exercises Using the Churn Dataset (Classification Tasks)}\label{practical-exercises-using-the-churn-dataset-classification-tasks}
-\addcontentsline{toc}{subsection}{Practical Exercises Using the Churn Dataset (Classification Tasks)}
+
 
 The \emph{churn} dataset contains information about customer churn behavior in a telecommunications company. The goal is to predict whether a customer will churn based on various attributes.
 
@@ -9700,7 +9727,7 @@ test_labels = test_set$churn
 \end{enumerate}
 
 \subsection*{Random Forests: Conceptual Questions}\label{random-forests-conceptual-questions}
-\addcontentsline{toc}{subsection}{Random Forests: Conceptual Questions}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -9723,10 +9750,10 @@ test_labels = test_set$churn
 \end{enumerate}
 
 \subsection*{Practical Exercises Using the Churn Dataset (Random Forests for Classification Tasks)}\label{practical-exercises-using-the-churn-dataset-random-forests-for-classification-tasks}
-\addcontentsline{toc}{subsection}{Practical Exercises Using the Churn Dataset (Random Forests for Classification Tasks)}
+
 
 \subsubsection*{Fitting and Evaluating a Random Forest Model}\label{fitting-and-evaluating-a-random-forest-model}
-\addcontentsline{toc}{subsubsection}{Fitting and Evaluating a Random Forest Model}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -9755,12 +9782,12 @@ test_labels = test_set$churn
 \end{enumerate}
 
 \subsection*{Regression Trees and Random Forests (redWines Dataset)}\label{regression-trees-and-random-forests-redwines-dataset}
-\addcontentsline{toc}{subsection}{Regression Trees and Random Forests (redWines Dataset)}
+
 
 The \emph{redWines} dataset contains wine quality scores (\passthrough{\lstinline!quantity!}, a score between 0 and 10) and 11 chemical attributes. The goal is to predict \passthrough{\lstinline!quantity!} using regression trees and Random Forests.
 
 \subsubsection*{Data Preparation and Partitioning}\label{data-preparation-and-partitioning-1}
-\addcontentsline{toc}{subsubsection}{Data Preparation and Partitioning}
+
 
 Load the dataset and partition it into a \emph{training set} (80\%) and a \emph{test set} (20\%) using the \passthrough{\lstinline!partition()!} function from the \textbf{liver} package.
 
@@ -9777,7 +9804,7 @@ test_labels = test_set$quantity
 \end{lstlisting}
 
 \subsubsection*{Conceptual Questions}\label{conceptual-questions-9}
-\addcontentsline{toc}{subsubsection}{Conceptual Questions}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -9792,7 +9819,7 @@ test_labels = test_set$quantity
 \end{enumerate}
 
 \subsubsection*{Practical Exercises Using the redWines Dataset}\label{practical-exercises-using-the-redwines-dataset}
-\addcontentsline{toc}{subsubsection}{Practical Exercises Using the redWines Dataset}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -9854,7 +9881,7 @@ Neural networks are computational models inspired by the structure and function 
 While deep learning---powered by advanced neural architectures---has made groundbreaking strides in areas like computer vision and language modeling, its foundation rests on simpler architectures. In this chapter, we focus on \emph{feed-forward neural networks}, also known as \emph{multilayer perceptrons (MLPs)}. These fundamental models serve as the building blocks for more sophisticated deep learning systems.
 
 \subsection*{Why neural networks are powerful}\label{why-neural-networks-are-powerful}
-\addcontentsline{toc}{subsection}{Why neural networks are powerful}
+
 
 Neural networks excel in tackling \emph{complex and nonlinear problems}, making them indispensable in modern AI applications. Their strengths stem from three key capabilities:
 
@@ -9873,7 +9900,7 @@ Despite these advantages, neural networks come with challenges. Unlike interpret
 The power of neural networks lies in their ability to emulate biological learning. Just as neurons in the brain collaborate to recognize patterns, artificial neurons in a network combine their outputs to solve problems that traditional algorithms struggle with. This ability to adaptively model nonlinear relationships has placed neural networks at the forefront of both research and real-world applications.
 
 \subsection*{What's ahead}\label{whats-ahead}
-\addcontentsline{toc}{subsection}{What's ahead}
+
 
 In this chapter, we will explore the key principles of neural networks and their transformative applications through the following topics:
 
@@ -9903,7 +9930,7 @@ As shown in Figure \ref{fig:net-brain}, a biological neuron is designed to proce
 
 Similarly, an artificial neuron (illustrated in Figure \ref{fig:net-1}) emulates this process using a mathematical model. It receives inputs (\(x_i\)) from either other artificial neurons or directly from a dataset. These inputs are combined using a weighted summation (\(\sum w_i x_i\)), where the weights (\(w_i\)) represent the strength of each input's influence. The combined signal is then passed through an activation function (\(f(.)\)) to introduce non-linearity, determining the final output (\(\hat{y}\)). This output is either transmitted to other artificial neurons or used as the final result of the model. The activation function is crucial, as it enables neural networks to learn and model complex, nonlinear relationships in data.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.75\linewidth]{images/ch12_net_brain} 
 
@@ -9912,7 +9939,7 @@ Similarly, an artificial neuron (illustrated in Figure \ref{fig:net-1}) emulates
 \caption{Visualization of a biological neuron, which processes input signals through dendrites and sends outputs through the axon.}\label{fig:net-brain}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.9\linewidth]{images/ch12_net_1} 
 
@@ -9937,7 +9964,7 @@ Neural networks extend traditional linear models by incorporating multiple layer
 
 where \(p\) represents the number of predictors, \(b_0\) is the intercept, and \(b_1\) to \(b_p\) are the learned coefficients. In this setup, \(\hat{y}\) is a weighted sum of the input features (\(x_1\) to \(x_p\)), where the weights (\(b_1\) to \(b_p\)) determine the relative influence of each feature on the prediction. This simple linear relationship can be visualized in Figure \ref{fig:net-reg}, where input features and the prediction are represented as nodes, with the coefficients acting as connecting weights.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.4\linewidth]{images/ch12_net_reg} 
 
@@ -9959,7 +9986,7 @@ The architecture of a neural network consists of the following key components:
   The \textbf{output layer} produces the final prediction. In classification tasks, it typically represents the probability of a given class, while in regression tasks, it outputs a continuous numerical value.
 \end{itemize}
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.8\linewidth]{images/ch12_net_large} 
 
@@ -9987,7 +10014,7 @@ where:\\
 A crucial component of this process is the activation function, which introduces non-linearity into the model. Without it, the neural network would be equivalent to a linear model, regardless of the number of layers. By applying a non-linear transformation to the combined input signals, activation functions allow neural networks to approximate complex relationships in data.
 
 \subsection*{Key characteristics of neural networks}\label{key-characteristics-of-neural-networks}
-\addcontentsline{toc}{subsection}{Key characteristics of neural networks}
+
 
 Despite the diversity of neural network architectures, all neural networks share three fundamental characteristics that define their functionality:
 
@@ -10016,7 +10043,7 @@ In mathematical terms, an artificial neuron computes a weighted sum of its input
 where \(x_i\) represents the input features, \(w_i\) are the corresponding weights, \(b\) is a bias term, and \(f(x)\) is the activation function. The choice of activation function significantly impacts a network's ability to learn and generalize.
 
 \subsection*{The threshold activation function}\label{the-threshold-activation-function}
-\addcontentsline{toc}{subsection}{The threshold activation function}
+
 
 Early neural network models used a simple threshold activation function, mimicking the binary nature of biological neurons. The threshold function activates only when the input exceeds a certain value, producing an output of either 0 or 1. It is defined as:
 
@@ -10030,7 +10057,7 @@ f(x) =
 
 This step-like behavior is visualized in Figure \ref{fig:active-fun-unit}. The function outputs 1 when the input is at least zero and 0 otherwise, making it useful for basic classification tasks.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.5\linewidth]{12_Neural_Network_files/figure-latex/active-fun-unit-1} 
 
@@ -10042,7 +10069,7 @@ This step-like behavior is visualized in Figure \ref{fig:active-fun-unit}. The f
 While biologically intuitive, the threshold function has major drawbacks. It cannot model nuanced relationships between inputs and outputs, as it only provides binary decisions. More importantly, it is not differentiable, preventing its use in gradient-based optimization methods such as backpropagation. For these reasons, it has been largely replaced by continuous activation functions.
 
 \subsection*{The sigmoid activation function}\label{the-sigmoid-activation-function}
-\addcontentsline{toc}{subsection}{The sigmoid activation function}
+
 
 A widely used alternative is the sigmoid activation function, also known as the logistic function. The sigmoid function maps any real-valued input to a smooth output between 0 and 1, making it suitable for probability-based interpretations. It is defined as:
 
@@ -10052,7 +10079,7 @@ f(x) = \frac{1}{1 + e^{-x}}
 
 where \(e\) is the base of the natural logarithm (approximately 2.72). The sigmoid function has an S-shaped curve, as shown in Figure \ref{fig:active-fun-sigmoid}, and provides a differentiable alternative to the threshold function.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.5\linewidth]{12_Neural_Network_files/figure-latex/active-fun-sigmoid-1} 
 
@@ -10064,7 +10091,7 @@ where \(e\) is the base of the natural logarithm (approximately 2.72). The sigmo
 Although sigmoid activation is useful, it suffers from the \textbf{vanishing gradient problem}. When inputs are very large or very small, the function saturates, producing values close to 0 or 1. In these regions, the derivative is near zero, slowing down the learning process in deep networks. As a result, alternative activation functions are often preferred for hidden layers.
 
 \subsection*{Other common activation functions}\label{other-common-activation-functions}
-\addcontentsline{toc}{subsection}{Other common activation functions}
+
 
 Several activation functions have been developed to address the limitations of the sigmoid function. Figure \ref{fig:active-fun-comparison} compares some of the most commonly used activation functions.
 
@@ -10079,7 +10106,7 @@ Several activation functions have been developed to address the limitations of t
   \textbf{Leaky ReLU:} A variation of ReLU that allows small negative values instead of zero for negative inputs, reducing the problem of inactive neurons.
 \end{enumerate}
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.8\linewidth]{12_Neural_Network_files/figure-latex/active-fun-comparison-1} 
 
@@ -10089,7 +10116,7 @@ Several activation functions have been developed to address the limitations of t
 \end{figure}
 
 \subsection*{Choosing the right activation function}\label{choosing-the-right-activation-function}
-\addcontentsline{toc}{subsection}{Choosing the right activation function}
+
 
 The choice of activation function depends on the network architecture and the specific learning task:
 
@@ -10197,7 +10224,7 @@ How can a financial institution improve the effectiveness of its future marketin
 For this analysis, we use the \emph{bank} dataset, a well-known benchmark dataset sourced from the \href{https://archive.ics.uci.edu/dataset/222/bank+marketing}{UC Irvine Machine Learning Repository} and available in the \textbf{liver} package. This dataset was used by \citet{moro2014data} for a data-driven approach to predicting the success of bank telemarketing campaigns. The goal is to build a classification model that predicts which customers are likely to subscribe to a term deposit.
 
 \subsection*{Problem understanding}\label{problem-understanding-3}
-\addcontentsline{toc}{subsection}{Problem understanding}
+
 
 Banks typically use two main strategies to market their financial products:
 
@@ -10214,7 +10241,7 @@ In this case study, we aim to enhance the effectiveness of directed marketing by
 A term deposit is a fixed-term savings product that offers customers higher interest rates than standard savings accounts. Banks use term deposits to secure long-term funds and strengthen their financial reserves. More details on term deposits can be found \href{https://www.investopedia.com/terms/t/termdeposit.asp}{here}.
 
 \subsection*{Overview of the dataset}\label{overview-of-the-dataset-2}
-\addcontentsline{toc}{subsection}{Overview of the dataset}
+
 
 The \emph{bank} dataset includes information on direct phone-based marketing campaigns conducted by a financial institution. Customers were contacted multiple times within the same campaign. The objective of this dataset is to predict whether a customer will subscribe to a term deposit (\passthrough{\lstinline!deposit = "yes"!} or \passthrough{\lstinline!"no"!}).
 
@@ -10278,7 +10305,7 @@ This dataset contains a diverse set of features related to customer demographics
 With the dataset ready, we now proceed to data preparation and model training using a neural network to predict customer subscription behavior.
 
 \subsection*{Preparing data for modeling}\label{preparing-data-for-modeling-3}
-\addcontentsline{toc}{subsection}{Preparing data for modeling}
+
 
 Before training the neural network model, we need to prepare the dataset by splitting it into training and test sets. This ensures that we can assess how well the model generalizes to new, unseen data. We use an 80/20 split, allocating 80\% of the data for training and 20\% for testing. To maintain consistency with previous chapters, we apply the \passthrough{\lstinline!partition()!} function from the \textbf{liver} package:
 
@@ -10325,7 +10352,7 @@ Our objective is to classify customers as either likely (\passthrough{\lstinline
 \passthrough{\lstinline!age!}, \passthrough{\lstinline!default!}, \passthrough{\lstinline!balance!}, \passthrough{\lstinline!housing!}, \passthrough{\lstinline!loan!}, \passthrough{\lstinline!duration!}, \passthrough{\lstinline!campaign!}, \passthrough{\lstinline!pdays!}, and \passthrough{\lstinline!previous!}.
 
 \subsubsection*{One-hot encoding}\label{one-hot-encoding-3}
-\addcontentsline{toc}{subsubsection}{One-hot encoding}
+
 
 Since neural networks require numerical inputs, categorical variables must be converted into numeric representations. One-hot encoding achieves this by creating separate binary variables for each category. We apply the \passthrough{\lstinline!one.hot()!} function from the \textbf{liver} package to transform categorical features into a numerical format suitable for a neural network:
 
@@ -10366,7 +10393,7 @@ formula = deposit ~ default_yes + housing_yes + loan_yes + age + balance + durat
 \end{lstlisting}
 
 \subsubsection*{Feature scaling}\label{feature-scaling-3}
-\addcontentsline{toc}{subsubsection}{Feature scaling}
+
 
 Neural networks perform best when input features are on a similar scale. To achieve this, we normalize numerical variables using min-max scaling, transforming all inputs into a standardized range between 0 and 1. This prevents features with larger numerical ranges from dominating the learning process and helps improve model convergence.
 
@@ -10399,7 +10426,7 @@ ggplot(data = train_scaled) +
 The first histogram (left) displays the distribution of \passthrough{\lstinline!age!} in the training set before scaling, while the second histogram (right) shows the distribution after applying min-max scaling. The values are mapped to a range between 0 and 1 while preserving the original distribution.
 
 \subsection*{Applying the neural network algorithm}\label{applying-the-neural-network-algorithm}
-\addcontentsline{toc}{subsection}{Applying the neural network algorithm}
+
 
 To implement a neural network, we use the \href{https://CRAN.R-project.org/package=neuralnet}{\textbf{neuralnet}} package in R. This package offers a straightforward and flexible way to build neural networks and provides functionality for visualizing the network topology. While \textbf{neuralnet} is a useful learning tool, it is also powerful enough for practical applications.
 
@@ -10443,7 +10470,7 @@ After training, we visualize the network to examine its topology:
 plot(neuralnet_bank, rep = "best")
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{12_Neural_Network_files/figure-latex/unnamed-chunk-10-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{12_Neural_Network_files/figure-latex/unnamed-chunk-10-1} \end{center}
 
 This visualization shows that the network consists of:
 
@@ -10462,7 +10489,7 @@ The training process converged after 1998 steps, with a final error rate of 284.
 This simple neural network model demonstrates how input features are processed through multiple layers to extract patterns and make predictions. In the next section, we will evaluate the model's performance and interpret its results.
 
 \subsection*{Prediction and model evaluation}\label{prediction-and-model-evaluation-2}
-\addcontentsline{toc}{subsection}{Prediction and model evaluation}
+
 
 After training the neural network, we evaluate its performance by applying it to the test set, which contains customers unseen during training. The goal is to compare the model's predictions with the actual class labels stored in \passthrough{\lstinline!test\_labels!}.
 
@@ -10515,17 +10542,17 @@ ggroc(roc_nn, size = 0.8) +
   theme(legend.title = element_blank(), legend.position = c(.7, .3), text = element_text(size = 17))
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{12_Neural_Network_files/figure-latex/unnamed-chunk-14-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{12_Neural_Network_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
 The ROC curve evaluates how well the model differentiates between customers who subscribe (\passthrough{\lstinline!deposit = "yes"!}) and those who do not (\passthrough{\lstinline!deposit = "no"!}) at varying classification thresholds. A high AUC score indicates strong predictive performance, meaning the model is effective at distinguishing between the two classes.
 
 \section*{Exercises}\label{exercises-8}
-\addcontentsline{toc}{section}{Exercises}
+
 
 These exercises reinforce the concepts introduced in this chapter, focusing on understanding neural networks, tuning hyperparameters, and comparing their performance with tree-based models. They are divided into conceptual questions, practical tasks using the \emph{bank} dataset, and comparative exercises using the \emph{adult} dataset.
 
 \subsubsection*{Conceptual questions}\label{conceptual-questions-10}
-\addcontentsline{toc}{subsubsection}{Conceptual questions}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -10561,7 +10588,7 @@ These exercises reinforce the concepts introduced in this chapter, focusing on u
 \end{enumerate}
 
 \subsubsection*{\texorpdfstring{Practical exercises using the \emph{bank} dataset}{Practical exercises using the bank dataset}}\label{practical-exercises-using-the-bank-dataset-1}
-\addcontentsline{toc}{subsubsection}{Practical exercises using the \emph{bank} dataset}
+
 
 \paragraph*{Data preparation and model training}\label{data-preparation-and-model-training}
 \addcontentsline{toc}{paragraph}{Data preparation and model training}
@@ -10700,7 +10727,7 @@ Clustering is often compared to classification, but they serve different purpose
 
 All clustering algorithms aim to achieve \emph{high intra-cluster similarity} (data points within a cluster are close together) and \emph{low inter-cluster similarity} (clusters are well separated). This concept is visually illustrated in Figure \ref{fig:cluster-1}, where effective clusters minimize internal variation while maximizing separation between groups.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.75\linewidth]{images/ch13_cluster_1} 
 
@@ -10746,7 +10773,7 @@ Although K-means is simple and efficient, it has some limitations. The final clu
 
 To illustrate how K-means works, consider a dataset with 50 records and two features, \emph{\(x_1\)} and \emph{\(x_2\)}, as shown in Figure \ref{fig:cluster-ex-1}. Our goal is to partition the data into \emph{three} clusters.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.7\linewidth]{images/ch13_cluster_ex_1} 
 
@@ -10757,7 +10784,7 @@ To illustrate how K-means works, consider a dataset with 50 records and two feat
 
 The first step is to randomly select three initial cluster centers (red stars), as shown in the left panel of Figure \ref{fig:cluster-ex-2}. Each data point is then assigned to the nearest cluster, forming three groups labeled in \emph{blue (Cluster A), green (Cluster B), and orange (Cluster C)}. The right panel of Figure \ref{fig:cluster-ex-2} displays these initial assignments. The dashed lines represent the \emph{Voronoi diagram}, which divides space into regions associated with each cluster center.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.45\linewidth]{images/ch13_cluster_ex_2} \includegraphics[width=0.45\linewidth]{images/ch13_cluster_ex_3} 
 
@@ -10770,7 +10797,7 @@ Since K-means is sensitive to \emph{initialization}, poor placement of initial c
 
 Once the initial cluster assignments are made, K-means enters the \emph{update phase}. The first step is to recompute the centroid of each cluster, which is the \emph{mean position of all points assigned to that cluster}. The cluster centers are then moved to these new centroid locations, as shown in the left panel of Figure \ref{fig:cluster-ex-3}. The right panel illustrates how the \emph{Voronoi boundaries shift}, causing some data points to be reassigned to a different cluster.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.45\linewidth]{images/ch13_cluster_ex_4} \includegraphics[width=0.45\linewidth]{images/ch13_cluster_ex_5} 
 
@@ -10781,7 +10808,7 @@ Once the initial cluster assignments are made, K-means enters the \emph{update p
 
 This process---\emph{reassigning points and updating centroids}---continues iteratively. After another update, some points switch clusters again, leading to a refined Voronoi partition, as shown in Figure \ref{fig:cluster-ex-6}.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.45\linewidth]{images/ch13_cluster_ex_6} \includegraphics[width=0.45\linewidth]{images/ch13_cluster_ex_7} 
 
@@ -10792,7 +10819,7 @@ This process---\emph{reassigning points and updating centroids}---continues iter
 
 The algorithm continues iterating until the cluster assignments stabilize---when \emph{no more points switch clusters}, as shown in Figure \ref{fig:cluster-ex-8}. At this point, the algorithm \emph{converges}, and the final clusters are established.
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.45\linewidth]{images/ch13_cluster_ex_8} 
 
@@ -10823,7 +10850,7 @@ One widely used technique for choosing \(k\) is the \emph{elbow method}, which e
 
 This critical point, known as the \emph{elbow point}, represents the most natural number of clusters. The concept is illustrated in Figure \ref{fig:cluster-elbow}, where the curve shows the total within-cluster sum of squares (WCSS) as a function of \(k\). The ``elbow'' in the curve---where the rate of improvement slows---is a strong candidate for \(k\).
 
-\begin{figure}
+\begin{figure}[H]
 
 {\centering \includegraphics[width=0.6\linewidth]{images/ch13_cluster_elbow} 
 
@@ -11037,7 +11064,7 @@ After scaling, all values fall within the \emph{0--1 range}, making distance-bas
 \subsection{Applying K-means Clustering}\label{applying-k-means-clustering}
 
 \subsubsection*{Choosing the Optimal Number of Clusters}\label{choosing-the-optimal-number-of-clusters}
-\addcontentsline{toc}{subsubsection}{Choosing the Optimal Number of Clusters}
+
 
 Before clustering, we need to determine the \emph{optimal number of clusters}. We use the \emph{elbow method}, which plots the within-cluster sum of squares (WCSS) for different values of \(k\). The elbow point---where the improvement in WCSS slows---suggests an ideal \(k\):
 
@@ -11048,12 +11075,12 @@ fviz_nbclust(cereal_mm, kmeans, method = "wss", k.max = 15) +
   geom_vline(xintercept = 4, linetype = 2, color = "gray")
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{13_Clustering_files/figure-latex/unnamed-chunk-9-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{13_Clustering_files/figure-latex/unnamed-chunk-9-1} \end{center}
 
 From the plot, we observe that \emph{\(k = 4\) clusters} is a reasonable choice, as adding more clusters beyond this point yields diminishing improvements in WCSS.
 
 \subsubsection*{Performing K-means Clustering}\label{performing-k-means-clustering}
-\addcontentsline{toc}{subsubsection}{Performing K-means Clustering}
+
 
 We now apply the \emph{K-means algorithm} with \(k = 4\) clusters:
 
@@ -11070,7 +11097,7 @@ cereal_kmeans$size
 \end{lstlisting}
 
 \subsubsection*{Visualizing the Clusters}\label{visualizing-the-clusters}
-\addcontentsline{toc}{subsubsection}{Visualizing the Clusters}
+
 
 To better understand the clustering results, we visualize the clusters using the \passthrough{\lstinline!fviz\_cluster()!} function from the \textbf{factoextra} package:
 
@@ -11078,12 +11105,12 @@ To better understand the clustering results, we visualize the clusters using the
 fviz_cluster(cereal_kmeans, cereal_mm, geom = "point", ellipse.type = "norm", palette = "custom_palette")
 \end{lstlisting}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{13_Clustering_files/figure-latex/unnamed-chunk-12-1} \end{center}
+\begin{center}\includegraphics[width=\textwidth]{13_Clustering_files/figure-latex/unnamed-chunk-12-1} \end{center}
 
 The scatter plot displays the \emph{four clusters}, with each point representing a cereal brand. Different colors indicate distinct clusters, and the ellipses represent the \emph{spread of each cluster} based on its standard deviation.
 
 \subsubsection*{Interpreting the Results}\label{interpreting-the-results}
-\addcontentsline{toc}{subsubsection}{Interpreting the Results}
+
 
 The clusters reveal natural groupings among cereals based on \emph{nutritional content}. For example:\\
 - Some clusters may contain \emph{low-sugar, high-fiber cereals}, appealing to health-conscious consumers.\\
@@ -11103,7 +11130,7 @@ This case study demonstrated how \emph{K-means clustering} can segment cereals i
 In this chapter, we explored the fundamentals of clustering, the mechanics of the K-means algorithm, and methods for choosing the optimal number of clusters. We then applied these concepts to a real-world dataset, demonstrating how K-means can extract meaningful insights. Clustering remains a powerful tool across various domains, from marketing to bioinformatics, making it an essential technique in the modern data science toolkit.
 
 \section*{Exercises}\label{exercises-9}
-\addcontentsline{toc}{section}{Exercises}
+
 
 These exercises reinforce the concepts introduced in this chapter, focusing on clustering fundamentals, hyperparameter tuning, and practical applications using the \emph{redWines} dataset. The exercises are divided into two categories:
 
@@ -11117,7 +11144,7 @@ These exercises reinforce the concepts introduced in this chapter, focusing on c
 \end{enumerate}
 
 \subsection*{Conceptual questions}\label{conceptual-questions-11}
-\addcontentsline{toc}{subsection}{Conceptual questions}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -11165,12 +11192,12 @@ These exercises reinforce the concepts introduced in this chapter, focusing on c
 \end{enumerate}
 
 \subsection*{\texorpdfstring{Practical exercises using the \emph{redWines} dataset}{Practical exercises using the redWines dataset}}\label{practical-exercises-using-the-redwines-dataset-1}
-\addcontentsline{toc}{subsection}{Practical exercises using the \emph{redWines} dataset}
+
 
 The \emph{redWines} dataset contains chemical properties of red wines and their quality scores. These exercises guide you through clustering analysis, from data preprocessing to model evaluation.
 
 \subsubsection*{Data preparation and exploratory analysis}\label{data-preparation-and-exploratory-analysis}
-\addcontentsline{toc}{subsubsection}{Data preparation and exploratory analysis}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -11201,7 +11228,7 @@ str(redWines)
 \end{enumerate}
 
 \subsubsection*{Applying K-means clustering}\label{applying-k-means-clustering-1}
-\addcontentsline{toc}{subsubsection}{Applying K-means clustering}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -11231,7 +11258,7 @@ fviz_nbclust(redWines, kmeans, method = "wss")
 \end{enumerate}
 
 \subsubsection*{Interpreting the clusters}\label{interpreting-the-clusters}
-\addcontentsline{toc}{subsubsection}{Interpreting the clusters}
+
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}

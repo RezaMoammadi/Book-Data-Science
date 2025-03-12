@@ -15,6 +15,7 @@
 <meta property="og:description" content="How can we make highly accurate predictions with minimal data and computation? Imagine a bank deciding whether to approve a loan based on some factors—such as a customer’s income, age, and...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 9 Naive Bayes Classifier | Data Science Foundations and Machine Learning Using R">
+<meta name="twitter:site" content="@LiveR">
 <meta name="twitter:description" content="How can we make highly accurate predictions with minimal data and computation? Imagine a bank deciding whether to approve a loan based on some factors—such as a customer’s income, age, and...">
 <meta name="twitter:image" content="https://uncovering-data-science.netlify.app/images/logo_black.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -101,7 +102,7 @@
 <p>Naive Bayes is a probabilistic classification algorithm that balances simplicity with effectiveness, making it a widely used approach in machine learning. It belongs to a family of classifiers based on Bayes’ theorem and operates under a key simplifying assumption: all features are conditionally independent given the target class. While this assumption is rarely true in real-world data, it allows for fast computation and efficient probability estimation, making the algorithm highly scalable and practical.</p>
 <p>Despite its simplicity, Naive Bayes delivers strong performance in a variety of applications, particularly in text classification, spam detection, sentiment analysis, and financial risk assessment. In these domains, feature dependencies are often weak enough that the independence assumption does not significantly impact accuracy.</p>
 <p>Beyond its theoretical foundations, Naive Bayes is computationally efficient, making it well-suited for large-scale datasets with high-dimensional feature spaces. For instance, in risk prediction, where multiple financial indicators must be analyzed, Naive Bayes can assess a customer’s likelihood of default in milliseconds. Its intuitive probabilistic reasoning and ease of implementation make it a valuable tool for both beginners and experienced practitioners.</p>
-<p>The power of Naive Bayes comes from its foundation in Bayesian probability theory, specifically <em>Bayes’ Theorem</em>, introduced by the 18th-century mathematician Thomas Bayes.<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Thomas Bayes, &lt;em&gt;Essay Toward Solving a Problem in the Doctrine of Chances&lt;/em&gt; (Biometrika Office, 1958).&lt;/p&gt;"><sup>6</sup></a></span> This theorem provides a mathematical framework for updating probability estimates as new data becomes available. By combining prior knowledge with new evidence, Bayes’ theorem serves as the basis for many <em>Bayesian methods</em> in statistics and machine learning.</p>
+<p>The power of Naive Bayes comes from its foundation in Bayesian probability theory, specifically <em>Bayes’ Theorem</em>, introduced by the 18th-century mathematician Thomas Bayes.<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references.html#ref-bayes1958essay"&gt;Thomas Bayes, &lt;em&gt;Essay Toward Solving a Problem in the Doctrine of Chances&lt;/em&gt; (Biometrika Office, 1958)&lt;/a&gt;.&lt;/p&gt;'><sup>6</sup></a></span> This theorem provides a mathematical framework for updating probability estimates as new data becomes available. By combining prior knowledge with new evidence, Bayes’ theorem serves as the basis for many <em>Bayesian methods</em> in statistics and machine learning.</p>
 <div id="strengths-and-limitations" class="section level3 unnumbered">
 <h3>Strengths and Limitations<a class="anchor" aria-label="anchor" href="#strengths-and-limitations"><i class="fas fa-link"></i></a>
 </h3>
@@ -623,7 +624,7 @@ For example, if the second row has a probability of 0.987 for “<code>bad risk<
 <span><span class="va">roc_naive_bayes</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/pROC/man/roc.html">roc</a></span><span class="op">(</span><span class="va">test_labels</span>, <span class="va">prob_naive_bayes</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/pROC/man/ggroc.html">ggroc</a></span><span class="op">(</span><span class="va">roc_naive_bayes</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="9_Naive_Bayes_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="9_Naive_Bayes_files/figure-html/unnamed-chunk-17-1.png" width="\textwidth" style="display: block; margin: auto;"></div>
 <p>The ROC curve plots the <strong>true positive rate (sensitivity)</strong> against the <strong>false positive rate (1 - specificity)</strong> at various threshold values. A curve that remains closer to the top-left corner indicates a well-performing model, while a curve near the diagonal suggests performance close to random guessing.</p>
 <p>Next, we compute the <em>AUC</em> value, which summarizes the ROC curve into a single number:</p>
 <div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="chapter-bayes.html#cb167-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">auc</span>(roc_naive_bayes), <span class="dv">3</span>)</span>
@@ -803,7 +804,7 @@ For example, if the second row has a probability of 0.987 for “<code>bad risk<
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Data Science Foundations and Machine Learning Using R</strong>" was written by <a href="https://www.uva.nl/profile/a.mohammadi"><span style="color:white">Reza Mohammadi</span></a>. It was last built on 2025-03-06.</p>
+    <p>"<strong>Data Science Foundations and Machine Learning Using R</strong>" was written by <a href="https://www.uva.nl/profile/a.mohammadi"><span style="color:white">Reza Mohammadi</span></a>. It was last built on March 12, 2025.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

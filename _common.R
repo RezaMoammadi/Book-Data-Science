@@ -4,31 +4,41 @@ set.seed(42)
 # options(width = 60)
 
 # Any package that is required by the script below is given here:
-inst_pkgs = load_pkgs =  c( "kableExtra", 
-                            "DMwR2", 
-                           "liver", 
-                           "ggplot2", 
-                           "plyr",    # for mutate function
-                           "dplyr",   # for filter and between functions
-                           "forcats", # for fct_collapse function
-                           "Hmisc",   # for handling missing values
-                           "naniar",  # for visualizing missing values
-                           
-                           "pROC", 
-                           "neuralnet",
-                           "psych", 
-                           "rpart", 
-                           "rpart.plot", 
-                           "C50", 
-                           "randomForest",
-                           "naivebayes",
-                           "factoextra")
+inst_pkgs = load_pkgs = c("knitr",
+                          "kableExtra", 
+                          "DMwR2", 
+                          "liver", 
+                          "ggplot2", 
+                          "plyr",    # for mutate function
+                          "dplyr",   # for filter and between functions
+                          "forcats", # for fct_collapse function
+                          "Hmisc",   # for handling missing values
+                          "naniar",  # for visualizing missing values
+                          
+                          "pROC", 
+                          "neuralnet",
+                          "psych", 
+                          "rpart", 
+                          "rpart.plot", 
+                          "C50", 
+                          "randomForest",
+                          "naivebayes",
+                          "factoextra",
+                          "here")
 inst_pkgs = inst_pkgs[!(inst_pkgs %in% installed.packages()[,"Package"])]
 if (length(inst_pkgs)) install.packages(inst_pkgs)
 
 # Dynamically load packages
 pkgs_loaded = lapply(load_pkgs, require, character.only = TRUE)
 
+# Set output options
+if (is_html_output()) {
+  options(width = 120)
+}
+if (is_latex_output()) {
+  options(width = 80)
+}
+options(digits = 7, bookdown.clean_book = TRUE, knitr.kable.NA = "NA")
 
 # Activate crayon output
 options(
@@ -39,17 +49,21 @@ options(
 
 # example chunk options set globally
 knitr::opts_chunk$set(
-    comment    = "  ",
-    collapse   = TRUE,
-    echo       = TRUE, 
-    message    = FALSE, 
-    warning    = FALSE, 
-    error      = FALSE,
-    fig.show   = 'hold',
-    fig.align  = 'center',
-    fig.retina = 2,
-    out.width  = '70%', #fig.width  = 6,
-    fig.asp    = 2/3
+  tidy = FALSE,
+  out.width = "\\textwidth",
+  comment = NA,
+  fig.pos = 'H',
+  fig.retina = 1,
+  comment    = "  ",
+  collapse   = TRUE,
+  echo       = TRUE, 
+  message    = FALSE, 
+  warning    = FALSE, 
+  error      = FALSE,
+  fig.show   = 'hold',
+  fig.align  = 'center',
+  #out.width  = '70%', #fig.width  = 6,
+  fig.asp    = 2/3
   )
 
 options(dplyr.print_min = 6, dplyr.print_max = 6)
@@ -69,3 +83,37 @@ ggplot2::theme_set(ggplot2::theme(
 
 # For LaTeX output
 options(tinytex.verbose = TRUE)
+
+# To get kable tables to print nicely in .tex file
+if (is_latex_output()) {
+  options(kableExtra.auto_format = FALSE, knitr.table.format = "latex")
+}
+
+# Automatically create a bib database for R packages
+write_bib(
+  c(
+    .packages(), 
+    "bookdown", "knitr", "rmarkdown",
+    "kableExtra", 
+    "DMwR2", 
+    "liver", 
+    "ggplot2", 
+    "plyr",    # for mutate function
+    "dplyr",   # for filter and between functions
+    "forcats", # for fct_collapse function
+    "Hmisc",   # for handling missing values
+    "naniar",  # for visualizing missing values
+    
+    "pROC", 
+    "neuralnet",
+    "psych", 
+    "rpart", 
+    "rpart.plot", 
+    "C50", 
+    "randomForest",
+    "naivebayes",
+    "factoextra",
+    "here"
+  ),
+  here::here("packages.bib")
+)
